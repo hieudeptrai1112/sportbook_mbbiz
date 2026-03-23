@@ -30,9 +30,9 @@ const extractTitle = (content) => {
 
 const isComponentDoc = (content) => {
   const title = extractTitle(content);
+  if (title === COMPONENT_TITLE_OVERVIEW) return false;
   if (!title) return false;
   if (!title.startsWith(COMPONENT_TITLE_PREFIX)) return false;
-  if (title === COMPONENT_TITLE_OVERVIEW) return false;
   return true;
 };
 
@@ -44,6 +44,9 @@ const main = async () => {
   const issues = [];
 
   for (const file of files) {
+    if (path.basename(file) === 'Components.mdx') {
+      continue;
+    }
     const content = await fs.readFile(file, 'utf8');
     if (!isComponentDoc(content)) continue;
 
