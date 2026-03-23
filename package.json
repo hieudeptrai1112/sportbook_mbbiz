@@ -9,6 +9,9 @@
     "test": "ng test",
     "storybook": "ng run mbbiz-ds:storybook",
     "build-storybook": "ng run mbbiz-ds:build-storybook"
+    ,
+    "check-docs": "node scripts/check-doc-structure.mjs",
+    "build-storybook:strict": "npm run check-docs && npm run build-storybook"
   },
   "private": true,
   "packageManager": "npm@10.8.2",
