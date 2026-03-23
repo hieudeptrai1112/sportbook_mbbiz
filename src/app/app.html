@@ -1,8 +1,10 @@
-<div class="app">
+<div class="app" [attr.data-theme]="isDark() ? 'dark' : 'light'">
   <header class="app-header">
     <div class="brand">
-      <span class="brand-mark">M</span>
-      <span class="brand-text">MBBiz DS</span>
+      <span class="brand-mark">
+        <img class="logo-img" src="/assets/hui-design-logo.png" alt="HUI Design logo" />
+      </span>
+      <span class="brand-text">HUI Design</span>
     </div>
     <div class="search">
       <input
@@ -13,6 +15,9 @@
       <button type="button">Search</button>
     </div>
     <div class="header-actions">
+      <button class="ghost" type="button" (click)="toggleTheme()">
+        {{ isDark() ? 'Light' : 'Dark' }} Mode
+      </button>
       <button class="ghost" type="button">Figma</button>
       <button class="ghost" type="button">GitHub</button>
       <span class="header-meta">UI Library</span>
