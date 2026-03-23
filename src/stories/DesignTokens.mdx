@@ -1,4 +1,55 @@
+import globalTokens from './tokens-global.json';
+import aliasTokens from './tokens-alias.json';
+
 export const meta = { title: 'Design Tokens/Overview' };
+
+export const collections = [
+  { id: 'global', title: 'Global Tokens', list: globalTokens },
+  { id: 'alias', title: 'Alias Tokens', list: aliasTokens }
+];
+
+export const isColor = (t) => t.t === 'COLOR' && typeof t.v === 'string';
+
+export const renderTable = (list) => (
+  <table className="token-table">
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th>Value</th>
+        <th>Type</th>
+        <th>Collection</th>
+      </tr>
+    </thead>
+    <tbody>
+      {list.map((t) => (
+        <tr key={t.n}>
+          <td>
+            {isColor(t) && <span className="token-swatch" style={{ background: t.v }} />}
+            {t.n}
+          </td>
+          <td>{String(t.v)}</td>
+          <td>{t.t}</td>
+          <td>{t.c}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
+
+export const renderByCollection = (filter) => (
+  <div className="token-section">
+    {collections.map((collection) => {
+      const list = collection.list.filter(filter);
+      if (!list.length) return null;
+      return (
+        <div key={collection.id} className="token-section">
+          <h4>{collection.title}</h4>
+          {renderTable(list)}
+        </div>
+      );
+    })}
+  </div>
+);
 
 # Design Tokens
 
@@ -23,6 +74,9 @@ Figma and code with consistent naming and values.
         Tokens are grouped into primitive values (raw palette) and semantic
         values (contextual usage such as text, background, or border).
       </p>
+      <div className="token-section">
+        <strong>Total tokens:</strong> {globalTokens.length + aliasTokens.length}
+      </div>
       <div className="token-grid">
         <div className="token-card">
           <h3>Primitive</h3>
@@ -46,135 +100,27 @@ Figma and code with consistent naming and values.
 
     <section id="colors" className="token-section">
       <h2>Color Tokens</h2>
-      <table className="token-table">
-        <thead>
-          <tr>
-            <th>Token</th>
-            <th>Value</th>
-            <th>Usage</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <span className="token-swatch" style={{ background: '#141ed2' }} />
-              color/primitive/blue/500
-            </td>
-            <td>#141ed2</td>
-            <td>Brand primary base</td>
-          </tr>
-          <tr>
-            <td>
-              <span className="token-swatch" style={{ background: '#0075ff' }} />
-              color/primitive/lightblue/500
-            </td>
-            <td>#0075ff</td>
-            <td>Accent / link</td>
-          </tr>
-          <tr>
-            <td>
-              <span className="token-swatch" style={{ background: '#192d39' }} />
-              color/semantic/text/primary
-            </td>
-            <td>#192d39</td>
-            <td>Primary text</td>
-          </tr>
-          <tr>
-            <td>
-              <span className="token-swatch" style={{ background: '#ffffff' }} />
-              color/semantic/background/primary
-            </td>
-            <td>#ffffff</td>
-            <td>Main background</td>
-          </tr>
-          <tr>
-            <td>
-              <span className="token-swatch" style={{ background: '#f34343' }} />
-              color/semantic/text/error
-            </td>
-            <td>#f34343</td>
-            <td>Error text</td>
-          </tr>
-        </tbody>
-      </table>
+      <h3>Primitive</h3>
+      {renderByCollection((t) => t.n.startsWith('color/primitive/'))}
+      <h3>Semantic</h3>
+      {renderByCollection((t) => t.n.startsWith('color/semantic/'))}
     </section>
 
     <section id="typography" className="token-section">
       <h2>Typography</h2>
-      <table className="token-table">
-        <thead>
-          <tr>
-            <th>Token</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>typography/font-family-display</td>
-            <td>Averta Std CY</td>
-          </tr>
-          <tr>
-            <td>font/size/m</td>
-            <td>14</td>
-          </tr>
-          <tr>
-            <td>font/lineheight/m</td>
-            <td>20</td>
-          </tr>
-        </tbody>
-      </table>
+      {renderByCollection((t) => t.n.startsWith('font/') || t.n.startsWith('typography/'))}
     </section>
 
     <section id="spacing" className="token-section">
       <h2>Spacing & Radius</h2>
-      <table className="token-table">
-        <thead>
-          <tr>
-            <th>Token</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>spacing/4</td>
-            <td>4</td>
-          </tr>
-          <tr>
-            <td>spacing/8</td>
-            <td>8</td>
-          </tr>
-          <tr>
-            <td>radius/m</td>
-            <td>12</td>
-          </tr>
-          <tr>
-            <td>radius/round</td>
-            <td>999</td>
-          </tr>
-        </tbody>
-      </table>
+      {renderByCollection(
+        (t) => t.n.startsWith('spacing/') || t.n.startsWith('radius/') || t.n.startsWith('padding/')
+      )}
     </section>
 
     <section id="effects" className="token-section">
       <h2>Effects</h2>
-      <table className="token-table">
-        <thead>
-          <tr>
-            <th>Token</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>effect/1</td>
-            <td>4</td>
-          </tr>
-          <tr>
-            <td>effect/2</td>
-            <td>8</td>
-          </tr>
-        </tbody>
-      </table>
+      {renderByCollection((t) => t.n.startsWith('effect/'))}
     </section>
   </div>
 </div>
