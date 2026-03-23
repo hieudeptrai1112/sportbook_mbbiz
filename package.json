@@ -38,6 +38,8 @@
     "@storybook/addon-a11y": "^10.3.0",
     "@storybook/addon-docs": "^10.3.0",
     "@storybook/addon-onboarding": "^10.3.0",
+    "@storybook/manager-api": "^10.3.0",
+    "@storybook/theming": "^10.3.0",
     "@angular-devkit/build-angular": "^21.2.0",
     "@angular-devkit/architect": "^0.2102.0",
     "@angular-devkit/core": "^21.2.0",
