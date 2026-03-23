@@ -12,16 +12,7 @@ const preview: Preview = {
       },
     },
     options: {
-      storySort: {
-        order: [
-          'Introduction',
-          'Design Tokens',
-          'Design Guidelines',
-          'Components',
-          'Component Usage',
-          'Development Guide',
-        ],
-      },
+      storySort: (a, b) => a[1].title.localeCompare(b[1].title),
     },
   },
 };
