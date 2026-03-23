@@ -10,12 +10,7 @@ export class App {
   protected readonly title = signal('mbbiz-ds');
   protected readonly isDark = signal(false);
   protected readonly openGroups = signal<Record<string, boolean>>({
-    development: true,
-    components: false,
-    language: false,
-    usage: false,
-    lab: false,
-    pro: false
+    components: true
   });
 
   toggleTheme(): void {
