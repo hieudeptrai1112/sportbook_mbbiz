@@ -12,7 +12,8 @@ const preview: Preview = {
       },
     },
     options: {
-      storySort: (a, b) => a[1].title.localeCompare(b[1].title),
+      storySort: (a: { title: string }, b: { title: string }) =>
+        a.title.localeCompare(b.title),
     },
   },
 };
