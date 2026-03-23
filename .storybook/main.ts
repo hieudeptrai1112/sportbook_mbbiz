@@ -2,8 +2,9 @@ import type { StorybookConfig } from '@storybook/angular';
 
 const config: StorybookConfig = {
   "stories": [
-    "../src/**/*.mdx",
-    "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
+    "../src/stories/Introduction.mdx",
+    "../src/stories/DesignTokens.mdx",
+    "../src/stories/ButtonDocs.mdx"
   ],
   "addons": [
     "@storybook/addon-a11y",
