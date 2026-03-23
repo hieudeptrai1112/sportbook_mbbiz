@@ -13,7 +13,8 @@ const REQUIRED_HEADINGS = [
   'Copyable Code'
 ];
 
-const COMPONENT_TITLE_PREFIX = "export const meta = { title: 'Components/";
+const COMPONENT_TITLE_PREFIX = 'Components/';
+const COMPONENT_TITLE_OVERVIEW = 'Components/Overview';
 
 const listMdxFiles = async () => {
   const entries = await fs.readdir(STORIES_DIR, { withFileTypes: true });
@@ -22,7 +23,18 @@ const listMdxFiles = async () => {
     .map((entry) => path.join(STORIES_DIR, entry.name));
 };
 
-const isComponentDoc = (content) => content.includes(COMPONENT_TITLE_PREFIX);
+const extractTitle = (content) => {
+  const match = content.match(/title:\s*'([^']+)'/);
+  return match ? match[1] : null;
+};
+
+const isComponentDoc = (content) => {
+  const title = extractTitle(content);
+  if (!title) return false;
+  if (!title.startsWith(COMPONENT_TITLE_PREFIX)) return false;
+  if (title === COMPONENT_TITLE_OVERVIEW) return false;
+  return true;
+};
 
 const findMissingHeadings = (content) =>
   REQUIRED_HEADINGS.filter((heading) => !content.includes(`## ${heading}`));
