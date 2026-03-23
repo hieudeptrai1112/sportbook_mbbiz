@@ -12,8 +12,9 @@ const preview: Preview = {
       },
     },
     options: {
-      storySort: (a: { title: string }, b: { title: string }) =>
-        a.title.localeCompare(b.title),
+      storySort: {
+        method: 'alphabetical',
+      },
     },
   },
 };
