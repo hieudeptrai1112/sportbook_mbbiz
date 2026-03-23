@@ -26,62 +26,87 @@
 
   <div class="app-body">
     <aside class="sidebar">
-      <div class="sidebar-switch">
-        <button class="switch-item active" type="button">React</button>
-        <button class="switch-item" type="button">Vue</button>
-      </div>
-
       <div class="nav-group">
-        <button class="nav-group__title" type="button">
+        <button
+          class="nav-group__title"
+          type="button"
+          (click)="toggleGroup('development')"
+        >
           Development Guide
-          <span class="chevron">▴</span>
+          <span class="chevron" [class.open]="openGroups().development">▾</span>
         </button>
-        <a class="nav-item" href="#">Quick Start</a>
-        <a class="nav-item active" href="#">Dark Mode</a>
-        <a class="nav-item" href="#">Palette</a>
-        <a class="nav-item" href="#">Design Tokens</a>
-        <a class="nav-item" href="#">Internationalization</a>
-        <a class="nav-item" href="#">Custom Theme</a>
-        <a class="nav-item" href="#">Question</a>
-        <a class="nav-item" href="#">Changelog</a>
-        <a class="nav-item" href="#">Migrate To V2</a>
-        <a class="nav-item" href="#">VChart</a>
-        <a class="nav-item" href="#">Overview</a>
+        <div class="nav-group__items" [class.open]="openGroups().development">
+          <a class="nav-item" href="#">Quick Start</a>
+          <a class="nav-item active" href="#">Dark Mode</a>
+          <a class="nav-item" href="#">Palette</a>
+          <a class="nav-item" href="#">Design Tokens</a>
+          <a class="nav-item" href="#">Internationalization</a>
+          <a class="nav-item" href="#">Custom Theme</a>
+          <a class="nav-item" href="#">Question</a>
+          <a class="nav-item" href="#">Changelog</a>
+          <a class="nav-item" href="#">Migrate To V2</a>
+          <a class="nav-item" href="#">VChart</a>
+          <a class="nav-item" href="#">Overview</a>
+        </div>
       </div>
 
       <div class="nav-group">
-        <button class="nav-group__title" type="button">
+        <button class="nav-group__title" type="button" (click)="toggleGroup('components')">
           Components
-          <span class="chevron">▾</span>
+          <span class="chevron" [class.open]="openGroups().components">▾</span>
         </button>
+        <div class="nav-group__items" [class.open]="openGroups().components">
+          <a class="nav-item" href="#">Button</a>
+          <a class="nav-item" href="#">Input</a>
+          <a class="nav-item" href="#">Select</a>
+          <a class="nav-item" href="#">Table</a>
+        </div>
       </div>
 
       <div class="nav-group">
-        <button class="nav-group__title" type="button">
+        <button class="nav-group__title" type="button" (click)="toggleGroup('language')">
           Design Language
-          <span class="chevron">▾</span>
+          <span class="chevron" [class.open]="openGroups().language">▾</span>
         </button>
+        <div class="nav-group__items" [class.open]="openGroups().language">
+          <a class="nav-item" href="#">Layout</a>
+          <a class="nav-item" href="#">Motion</a>
+          <a class="nav-item" href="#">Accessibility</a>
+        </div>
       </div>
 
       <div class="nav-group">
-        <button class="nav-group__title" type="button">
+        <button class="nav-group__title" type="button" (click)="toggleGroup('usage')">
           Component Usage
-          <span class="chevron">▾</span>
+          <span class="chevron" [class.open]="openGroups().usage">▾</span>
         </button>
+        <div class="nav-group__items" [class.open]="openGroups().usage">
+          <a class="nav-item" href="#">Forms</a>
+          <a class="nav-item" href="#">Data Display</a>
+          <a class="nav-item" href="#">Feedback</a>
+        </div>
       </div>
 
       <div class="nav-group">
-        <button class="nav-group__title" type="button">
+        <button class="nav-group__title" type="button" (click)="toggleGroup('lab')">
           Design Lab
-          <span class="chevron">▾</span>
+          <span class="chevron" [class.open]="openGroups().lab">▾</span>
         </button>
+        <div class="nav-group__items" [class.open]="openGroups().lab">
+          <a class="nav-item" href="#">Experiments</a>
+          <a class="nav-item" href="#">Prototypes</a>
+        </div>
       </div>
 
       <div class="nav-group">
-        <button class="nav-group__title" type="button">
+        <button class="nav-group__title" type="button" (click)="toggleGroup('pro')">
           Arco Pro
-          <span class="chevron">▾</span>
+          <span class="chevron" [class.open]="openGroups().pro">▾</span>
         </button>
+        <div class="nav-group__items" [class.open]="openGroups().pro">
+          <a class="nav-item" href="#">Overview</a>
+          <a class="nav-item" href="#">Pricing</a>
+        </div>
       </div>
     </aside>
 
