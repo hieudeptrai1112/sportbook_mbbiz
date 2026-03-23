@@ -2,14 +2,18 @@ import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 
-const meta: Meta = {
+type SelectArgs = {
+  value: string;
+};
+
+const meta: Meta<SelectArgs> = {
   title: 'Components/Select',
   decorators: [
     moduleMetadata({
       imports: [FormsModule, NzSelectModule],
     }),
   ],
-  render: (args: { value: string }) => ({
+  render: (args) => ({
     props: args,
     template: `
       <nz-select [(ngModel)]="value" style="width: 220px">
@@ -25,6 +29,6 @@ const meta: Meta = {
 };
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {};

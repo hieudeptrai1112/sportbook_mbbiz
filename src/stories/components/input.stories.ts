@@ -2,14 +2,19 @@ import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
 
-const meta: Meta = {
+type InputArgs = {
+  placeholder: string;
+  value: string;
+};
+
+const meta: Meta<InputArgs> = {
   title: 'Components/Input',
   decorators: [
     moduleMetadata({
       imports: [FormsModule, NzInputModule],
     }),
   ],
-  render: (args: { placeholder: string; value: string }) => ({
+  render: (args) => ({
     props: args,
     template: `<input nz-input [(ngModel)]="value" [placeholder]="placeholder" />`,
   }),
@@ -20,6 +25,6 @@ const meta: Meta = {
 };
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {};
