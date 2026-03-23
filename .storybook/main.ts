@@ -4,7 +4,7 @@ const config: StorybookConfig = {
   "stories": [
     "../src/stories/Introduction.mdx",
     "../src/stories/DesignTokens.mdx",
-    "../src/stories/ButtonDocs.mdx"
+    "../src/stories/components/*.stories.ts"
   ],
   "addons": [
     "@storybook/addon-a11y",
