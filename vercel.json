@@ -1,4 +1,0 @@
-{
-  "buildCommand": "npm run build-storybook:strict",
-  "outputDirectory": "storybook-static"
-}
