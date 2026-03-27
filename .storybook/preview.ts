@@ -5,6 +5,10 @@ setCompodocJson(docJson);
 
 const preview: Preview = {
   parameters: {
+    viewMode: 'docs',
+    docs: {
+      defaultName: 'Docs',
+    },
     controls: {
       matchers: {
        color: /(background|color)$/i,
@@ -13,7 +17,12 @@ const preview: Preview = {
     },
     options: {
       storySort: {
-        method: 'alphabetical',
+        order: [
+          'Giới thiệu',
+          'Tokens',
+          'Components',
+          ['Cơ bản', 'Dữ liệu', 'Nhập liệu', 'Phản hồi'],
+        ],
       },
     },
   },

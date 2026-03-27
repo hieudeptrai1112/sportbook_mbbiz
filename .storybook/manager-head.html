@@ -1,12 +1,12 @@
 <style>
   :root {
-    --sb-bg: #ffffff;
-    --sb-panel: #ffffff;
-    --sb-border: #2b2d31;
-    --sb-text: #1d2129;
-    --sb-muted: #86909c;
+    --sb-bg: #17171a;
+    --sb-panel: #232324;
+    --sb-border: #232324;
+    --sb-text: rgba(255, 255, 255, 0.9);
+    --sb-muted: rgba(255, 255, 255, 0.6);
     --sb-accent: #1677ff;
-    --sb-accent-soft: #e8f3ff;
+    --sb-accent-soft: #1f2a44;
   }
 
   .sidebar-container {
@@ -52,6 +52,12 @@
   .sidebar-item[data-selected="true"] {
     background: var(--sb-accent) !important;
     color: #ffffff !important;
+  }
+
+  .sidebar-container *,
+  .sidebar-header *,
+  .sidebar-item * {
+    border-color: transparent !important;
   }
 
   .sidebar-subheading {

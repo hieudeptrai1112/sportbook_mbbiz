@@ -7,12 +7,13 @@ type ButtonArgs = {
 };
 
 const meta: Meta<ButtonArgs> = {
-  title: 'Components/Button',
+  title: 'Components/Cơ bản/Button',
   decorators: [
     moduleMetadata({
       imports: [NzButtonModule],
     }),
   ],
+  tags: ['autodocs'],
   render: (args) => ({
     props: args,
     template: `<button nz-button [nzType]="type">{{ label }}</button>`,
@@ -26,4 +27,13 @@ const meta: Meta<ButtonArgs> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {};
+export const Primary: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: '<button nz-button nzType="primary">Primary Button</button>',
+        language: 'html',
+      },
+    },
+  },
+};

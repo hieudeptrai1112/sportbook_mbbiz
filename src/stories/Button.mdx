@@ -1,0 +1,29 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/blocks';
+import * as ButtonStories from './components/button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+Primary action component for forms and dialogs.
+
+## Header
+
+**Button** provides a clear, prominent action with consistent spacing and
+states.
+
+## Demo
+
+<Canvas of={ButtonStories.Primary} />
+
+## Khi nào nên dùng
+
+| Tình huống | Mô tả |
+| --- | --- |
+| Hành động chính | Sử dụng khi người dùng cần xác nhận thao tác chính. |
+| Form quan trọng | Đặt ở cuối form để submit dữ liệu. |
+| CTA ngắn gọn | Nhãn rõ ràng, 1–3 từ. |
+
+## API Reference
+
+<ArgTypes of={ButtonStories.Primary} />
