@@ -4,6 +4,7 @@ import docJson from "../documentation.json";
 setCompodocJson(docJson);
 
 const preview: Preview = {
+  tags: ['autodocs'],
   parameters: {
     viewMode: 'docs',
     docs: {
@@ -23,6 +24,7 @@ const preview: Preview = {
           'Components',
           ['Cơ bản', 'Dữ liệu', 'Nhập liệu', 'Phản hồi'],
         ],
+        method: 'alphabetical',
       },
     },
   },

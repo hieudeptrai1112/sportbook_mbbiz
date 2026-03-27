@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap");
+@import "./styles/variables";
 @import "./stories/token-docs.css";
 
 * {
@@ -13,12 +14,20 @@ body {
 body {
   margin: 0;
   font-family: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
-  background: #f5f7fb;
-  color: #1f2937;
+  background: var(--color-bg-1);
+  color: var(--color-text-1);
 }
 
 app-root {
   display: block;
   height: 100%;
 }
-@import './styles/variables';
+
+.ant-btn {
+  border-radius: 8px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.ant-btn:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}

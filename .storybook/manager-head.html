@@ -15,7 +15,7 @@
 
   .sidebar-header {
     background: var(--sb-bg) !important;
-    border-bottom: 1px solid var(--sb-border) !important;
+    border-bottom: none !important;
   }
 
   .sidebar-header a {
@@ -33,7 +33,8 @@
 
   .search-field {
     background: var(--sb-panel) !important;
-    border: 1px solid var(--sb-border) !important;
+    border: 1px solid transparent !important;
+    border-radius: 10px !important;
     color: var(--sb-text) !important;
   }
 
@@ -43,14 +44,16 @@
 
   .sidebar-item {
     color: var(--sb-text) !important;
+    border-radius: 10px !important;
   }
 
   .sidebar-item:hover {
     background: var(--sb-panel) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
   }
 
   .sidebar-item[data-selected="true"] {
-    background: var(--sb-accent) !important;
+    background: var(--sb-accent-soft) !important;
     color: #ffffff !important;
   }
 
