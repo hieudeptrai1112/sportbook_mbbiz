@@ -283,6 +283,15 @@
   border-radius: 8px;
 }
 
+.sidebar-item.collapsible.expanded {
+  font-weight: 700;
+  color: #212121;
+}
+
+.sidebar-item.collapsible.expanded span {
+  font-weight: 700;
+}
+
 .sidebar-item .strong {
   color: #212121;
   font-weight: 700;

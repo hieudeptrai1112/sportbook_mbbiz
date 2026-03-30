@@ -88,7 +88,11 @@
         <span class="sidebar-label">Navigation</span>
       </div>
       <div class="sidebar-nav">
-        <div class="sidebar-item collapsible" (click)="toggleSection('gettingStarted')">
+        <div
+          class="sidebar-item collapsible"
+          [class.expanded]="isGettingStartedOpen()"
+          (click)="toggleSection('gettingStarted')"
+        >
           <span>Getting Started</span>
           <img
             class="chevron"
@@ -108,7 +112,11 @@
           </div>
         </div>
 
-        <div class="sidebar-item collapsible" (click)="toggleSection('designTokens')">
+        <div
+          class="sidebar-item collapsible"
+          [class.expanded]="isDesignTokensOpen()"
+          (click)="toggleSection('designTokens')"
+        >
           <span>Design Tokens</span>
           <img
             class="chevron"
@@ -129,7 +137,11 @@
         </div>
 
         <div class="sidebar-group">
-          <div class="sidebar-item collapsible" (click)="toggleSection('components')">
+          <div
+            class="sidebar-item collapsible"
+            [class.expanded]="isComponentsOpen()"
+            (click)="toggleSection('components')"
+          >
             <span class="strong">Components</span>
             <img
               class="chevron rotate"
