@@ -274,6 +274,15 @@
   color: #475569;
 }
 
+.sidebar-item.collapsible {
+  cursor: pointer;
+}
+
+.sidebar-item.collapsible:hover {
+  background: #eef2ff;
+  border-radius: 8px;
+}
+
 .sidebar-item .strong {
   color: #212121;
   font-weight: 700;
@@ -282,6 +291,14 @@
 .sidebar-item img {
   width: 3.7px;
   height: 6px;
+}
+
+.sidebar-item img.chevron {
+  transition: transform 120ms ease;
+}
+
+.sidebar-item img.chevron.open {
+  transform: rotate(90deg);
 }
 
 .sidebar-item img.rotate {
@@ -294,6 +311,16 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.sidebar-subgroup {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-subgroup.open {
+  display: flex;
 }
 
 .sidebar-sublabel {

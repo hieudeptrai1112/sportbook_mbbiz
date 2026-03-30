@@ -12,6 +12,9 @@ export class App {
   protected readonly isLangOpen = signal(false);
   protected readonly activeTheme = signal<'light' | 'dark'>('light');
   protected readonly isThemeOpen = signal(false);
+  protected readonly isGettingStartedOpen = signal(false);
+  protected readonly isDesignTokensOpen = signal(false);
+  protected readonly isComponentsOpen = signal(true);
 
   protected toggleLangMenu() {
     this.isLangOpen.update((v) => !v);
@@ -29,5 +32,15 @@ export class App {
   protected setTheme(theme: 'light' | 'dark') {
     this.activeTheme.set(theme);
     this.isThemeOpen.set(false);
+  }
+
+  protected toggleSection(section: 'gettingStarted' | 'designTokens' | 'components') {
+    if (section === 'gettingStarted') {
+      this.isGettingStartedOpen.update((v) => !v);
+    } else if (section === 'designTokens') {
+      this.isDesignTokensOpen.update((v) => !v);
+    } else {
+      this.isComponentsOpen.update((v) => !v);
+    }
   }
 }

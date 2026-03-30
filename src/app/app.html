@@ -88,53 +88,88 @@
         <span class="sidebar-label">Navigation</span>
       </div>
       <div class="sidebar-nav">
-        <div class="sidebar-item">
+        <div class="sidebar-item collapsible" (click)="toggleSection('gettingStarted')">
           <span>Getting Started</span>
-          <img src="/assets/figma/1a5154b0-3ea3-4b82-9785-a45369668f72.svg" alt="" />
+          <img
+            class="chevron"
+            [class.open]="isGettingStartedOpen()"
+            src="/assets/figma/1a5154b0-3ea3-4b82-9785-a45369668f72.svg"
+            alt=""
+          />
         </div>
-        <div class="sidebar-item">
+        <div class="sidebar-subgroup" [class.open]="isGettingStartedOpen()">
+          <div class="sidebar-link">
+            <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+            <span>Introduction</span>
+          </div>
+          <div class="sidebar-link">
+            <img src="/assets/figma/b9238733-6594-4666-b6ab-b199a6aca7e8.svg" alt="" />
+            <span>Installation</span>
+          </div>
+        </div>
+
+        <div class="sidebar-item collapsible" (click)="toggleSection('designTokens')">
           <span>Design Tokens</span>
-          <img src="/assets/figma/1a5154b0-3ea3-4b82-9785-a45369668f72.svg" alt="" />
+          <img
+            class="chevron"
+            [class.open]="isDesignTokensOpen()"
+            src="/assets/figma/1a5154b0-3ea3-4b82-9785-a45369668f72.svg"
+            alt=""
+          />
         </div>
+        <div class="sidebar-subgroup" [class.open]="isDesignTokensOpen()">
+          <div class="sidebar-link">
+            <img src="/assets/figma/e1ce05d5-09c7-4fa2-a06f-d20037d6ae64.svg" alt="" />
+            <span>Color</span>
+          </div>
+          <div class="sidebar-link">
+            <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
+            <span>Spacing</span>
+          </div>
+        </div>
+
         <div class="sidebar-group">
-          <div class="sidebar-item">
+          <div class="sidebar-item collapsible" (click)="toggleSection('components')">
             <span class="strong">Components</span>
             <img
-              class="rotate"
+              class="chevron rotate"
+              [class.open]="isComponentsOpen()"
               src="/assets/figma/fab4cb2e-0af8-4c49-85e6-6082bfd79000.svg"
               alt=""
             />
           </div>
-          <span class="sidebar-sublabel">General</span>
-          <div class="sidebar-link active">
-            <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
-            <span>Buttons</span>
-          </div>
-          <div class="sidebar-link">
-            <img src="/assets/figma/b9238733-6594-4666-b6ab-b199a6aca7e8.svg" alt="" />
-            <span>Typography</span>
-          </div>
-          <div class="sidebar-link">
-            <img src="/assets/figma/e1ce05d5-09c7-4fa2-a06f-d20037d6ae64.svg" alt="" />
-            <span>Iconography</span>
-          </div>
-          <span class="sidebar-sublabel">Navigation</span>
-          <div class="sidebar-link">
-            <img src="/assets/figma/c91fd4e6-3715-400c-afc3-e607a5774d04.svg" alt="" />
-            <span>Breadcrumb</span>
-          </div>
-          <div class="sidebar-link">
-            <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
-            <span>Dropdown</span>
-          </div>
-          <span class="sidebar-sublabel">Data Entry</span>
-          <div class="sidebar-link">
-            <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
-            <span>Input Field</span>
-          </div>
-          <div class="sidebar-link">
-            <img src="/assets/figma/3e20b364-afaa-44e7-9d9d-1a4bbf8611cc.svg" alt="" />
-            <span>Checkbox</span>
+          <div class="sidebar-subgroup" [class.open]="isComponentsOpen()">
+            <span class="sidebar-sublabel">General</span>
+            <div class="sidebar-link active">
+              <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+              <span>Buttons</span>
+            </div>
+            <div class="sidebar-link">
+              <img src="/assets/figma/b9238733-6594-4666-b6ab-b199a6aca7e8.svg" alt="" />
+              <span>Typography</span>
+            </div>
+            <div class="sidebar-link">
+              <img src="/assets/figma/e1ce05d5-09c7-4fa2-a06f-d20037d6ae64.svg" alt="" />
+              <span>Iconography</span>
+            </div>
+            <span class="sidebar-sublabel">Navigation</span>
+            <div class="sidebar-link">
+              <img src="/assets/figma/c91fd4e6-3715-400c-afc3-e607a5774d04.svg" alt="" />
+              <span>Breadcrumb</span>
+            </div>
+            <div class="sidebar-link">
+              <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
+              <span>Dropdown</span>
+            </div>
+            <span class="sidebar-sublabel">Data Entry</span>
+            <div class="sidebar-link">
+              <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
+              <span>Input Field</span>
+            </div>
+            <div class="sidebar-link">
+              <img src="/assets/figma/3e20b364-afaa-44e7-9d9d-1a4bbf8611cc.svg" alt="" />
+              <span>Checkbox</span>
+            </div>
           </div>
         </div>
       </div>
