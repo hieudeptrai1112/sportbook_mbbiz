@@ -142,7 +142,7 @@
             [class.expanded]="isComponentsOpen()"
             (click)="toggleSection('components')"
           >
-            <span class="strong">Components</span>
+            <span [class.strong]="isComponentsOpen()">Components</span>
             <img
               class="chevron rotate"
               [class.open]="isComponentsOpen()"
