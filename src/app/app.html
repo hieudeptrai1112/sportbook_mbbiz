@@ -214,76 +214,9 @@
             </p>
           </div>
 
-          <div class="tabs">
-            <button class="tab active" type="button">Usage</button>
-            <button class="tab" type="button">Design</button>
-            <button class="tab" type="button">Changelog</button>
-          </div>
-
-          <section class="section">
-            <h2>Live Demo</h2>
-            <div class="demo-card">
-              <div class="demo-stage">
-                <button class="demo-btn primary" type="button">Primary Action</button>
-                <button class="demo-btn secondary" type="button">Secondary</button>
-                <button class="demo-btn ghost" type="button">
-                  <span class="plus">+</span>
-                  Ghost
-                </button>
-                <button class="demo-btn danger" type="button">Danger</button>
-              </div>
-              <div class="demo-controls">
-                <div class="demo-icons">
-                  <button type="button" class="icon-btn subtle">
-                    <img src="/assets/figma/deeb4d2b-ad83-4742-b00e-bfd41c90b6ff.svg" alt="" />
-                  </button>
-                  <button type="button" class="icon-btn subtle">
-                    <img src="/assets/figma/8c32da6a-86bf-47b2-ba08-34fe681c45c2.svg" alt="" />
-                  </button>
-                </div>
-                <div class="playground">
-                  <span>Interactive Playground</span>
-                  <img src="/assets/figma/a6101e76-8bdf-4913-91df-2af5ddc9cc06.svg" alt="" />
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="section">
-            <div class="code-card">
-              <div class="code-header">
-                <div class="dots">
-                  <span></span><span></span><span></span>
-                </div>
-                <span class="code-label">React / Tailwind</span>
-              </div>
-              <pre class="code-block" ngNonBindable><code><span class="kw">import</span> <span class="dim">&#123; Button &#125;</span> <span class="kw">from</span> <span class="str">'@architect/ui'</span>;
-
-<span class="comment">// Example implementation</span>
-<span class="kw">const</span> App = () =&gt; (
-  &lt;<span class="tag">div</span> <span class="attr">className</span>=<span class="str">"flex gap-4"</span>&gt;
-    &lt;<span class="tag">Button</span> <span class="attr">variant</span>=<span class="str">"primary"</span>&gt;Get Started&lt;/<span class="tag">Button</span>&gt;
-    &lt;<span class="tag">Button</span> <span class="attr">variant</span>=<span class="str">"ghost"</span> <span class="attr">icon</span>=&#123;<span class="tag">&lt;Plus /&gt;</span>&#125;&gt;Add New&lt;/<span class="tag">Button</span>&gt;
-  &lt;/<span class="tag">div</span>&gt;
-);</code></pre>
-            </div>
-          </section>
-
-          <section class="section">
-            <h2>Anatomy</h2>
-            <div class="anatomy-card">
-              <img
-                class="anatomy-img"
-                src="/assets/figma/5982432e-b3b2-44d3-a458-760cb224c51d.png"
-                alt="Technical Blueprint"
-              />
-              <div class="anatomy-overlay">Technical Blueprint Overview</div>
-            </div>
-          </section>
-
           <section class="section palette-section">
             <div class="palette-header">
-              <h2>Primitive Palette</h2>
+              <h2>Design Tokens · Color</h2>
               <span>Hover a swatch to see its value</span>
             </div>
             <div class="palette-grid">
@@ -656,6 +589,74 @@
               </div>
             </div>
           </section>
+
+          <div class="tabs">
+            <button class="tab active" type="button">Usage</button>
+            <button class="tab" type="button">Design</button>
+            <button class="tab" type="button">Changelog</button>
+          </div>
+
+          <section class="section">
+            <h2>Live Demo</h2>
+            <div class="demo-card">
+              <div class="demo-stage">
+                <button class="demo-btn primary" type="button">Primary Action</button>
+                <button class="demo-btn secondary" type="button">Secondary</button>
+                <button class="demo-btn ghost" type="button">
+                  <span class="plus">+</span>
+                  Ghost
+                </button>
+                <button class="demo-btn danger" type="button">Danger</button>
+              </div>
+              <div class="demo-controls">
+                <div class="demo-icons">
+                  <button type="button" class="icon-btn subtle">
+                    <img src="/assets/figma/deeb4d2b-ad83-4742-b00e-bfd41c90b6ff.svg" alt="" />
+                  </button>
+                  <button type="button" class="icon-btn subtle">
+                    <img src="/assets/figma/8c32da6a-86bf-47b2-ba08-34fe681c45c2.svg" alt="" />
+                  </button>
+                </div>
+                <div class="playground">
+                  <span>Interactive Playground</span>
+                  <img src="/assets/figma/a6101e76-8bdf-4913-91df-2af5ddc9cc06.svg" alt="" />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="code-card">
+              <div class="code-header">
+                <div class="dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span class="code-label">React / Tailwind</span>
+              </div>
+              <pre class="code-block" ngNonBindable><code><span class="kw">import</span> <span class="dim">&#123; Button &#125;</span> <span class="kw">from</span> <span class="str">'@architect/ui'</span>;
+
+<span class="comment">// Example implementation</span>
+<span class="kw">const</span> App = () =&gt; (
+  &lt;<span class="tag">div</span> <span class="attr">className</span>=<span class="str">"flex gap-4"</span>&gt;
+    &lt;<span class="tag">Button</span> <span class="attr">variant</span>=<span class="str">"primary"</span>&gt;Get Started&lt;/<span class="tag">Button</span>&gt;
+    &lt;<span class="tag">Button</span> <span class="attr">variant</span>=<span class="str">"ghost"</span> <span class="attr">icon</span>=&#123;<span class="tag">&lt;Plus /&gt;</span>&#125;&gt;Add New&lt;/<span class="tag">Button</span>&gt;
+  &lt;/<span class="tag">div</span>&gt;
+);</code></pre>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Anatomy</h2>
+            <div class="anatomy-card">
+              <img
+                class="anatomy-img"
+                src="/assets/figma/5982432e-b3b2-44d3-a458-760cb224c51d.png"
+                alt="Technical Blueprint"
+              />
+              <div class="anatomy-overlay">Technical Blueprint Overview</div>
+            </div>
+          </section>
+
         </div>
 
         <aside class="toc">
