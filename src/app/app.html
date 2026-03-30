@@ -1,4 +1,4 @@
-<div class="page">
+<div class="page" [class.theme-dark]="activeTheme() === 'dark'">
   <header class="top-nav">
     <div class="top-nav-inner">
       <div class="top-left">
@@ -25,19 +25,52 @@
           />
         </div>
         <div class="top-divider"></div>
-        <button
-          class="icon-btn lang-toggle"
-          type="button"
-          [class.active]="language() === 'ENG'"
-          (click)="toggleLanguage()"
-          aria-label="Toggle language"
-        >
-          <img src="/assets/figma/ac1143f4-1b39-4829-b86c-d3790203f643.svg" alt="" />
-          <span class="lang-text">{{ language() }}</span>
-        </button>
-        <button class="icon-btn" type="button">
-          <img src="/assets/figma/e6b501f2-bdca-4ab2-8df3-fffe8e840cee.svg" alt="Theme" />
-        </button>
+        <div class="lang-menu" [class.open]="isLangOpen()">
+          <button class="icon-btn lang-btn" type="button" (click)="toggleLangMenu()">
+            <img src="/assets/figma/ac1143f4-1b39-4829-b86c-d3790203f643.svg" alt="Language" />
+          </button>
+          <div class="lang-dropdown">
+            <button
+              class="lang-option"
+              [class.active]="activeLang() === 'VIE'"
+              type="button"
+              (click)="setLang('VIE')"
+            >
+              VIE <span>Tiếng Việt</span>
+            </button>
+            <button
+              class="lang-option"
+              [class.active]="activeLang() === 'ENG'"
+              type="button"
+              (click)="setLang('ENG')"
+            >
+              ENG <span>English</span>
+            </button>
+          </div>
+        </div>
+        <div class="theme-menu" [class.open]="isThemeOpen()">
+          <button class="icon-btn theme-btn" type="button" (click)="toggleThemeMenu()">
+            <img src="/assets/figma/e6b501f2-bdca-4ab2-8df3-fffe8e840cee.svg" alt="Theme" />
+          </button>
+          <div class="theme-dropdown">
+            <button
+              class="theme-option"
+              [class.active]="activeTheme() === 'light'"
+              type="button"
+              (click)="setTheme('light')"
+            >
+              Light <span>Default</span>
+            </button>
+            <button
+              class="theme-option"
+              [class.active]="activeTheme() === 'dark'"
+              type="button"
+              (click)="setTheme('dark')"
+            >
+              Dark <span>High Contrast</span>
+            </button>
+          </div>
+        </div>
         <button class="icon-btn" type="button">
           <img src="/assets/figma/bcdda10d-5d94-429d-aeb4-1664cf474adc.svg" alt="Settings" />
         </button>
