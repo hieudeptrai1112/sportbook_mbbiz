@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build-storybook": "ng build && rm -rf storybook-static && cp -R dist/sportbook_mbbiz storybook-static",
+    "build-storybook": "ng build && rm -rf storybook-static && mkdir -p storybook-static && cp -R dist/sportbook_mbbiz/browser/. storybook-static",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
