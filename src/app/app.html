@@ -25,8 +25,15 @@
           />
         </div>
         <div class="top-divider"></div>
-        <button class="icon-btn" type="button">
-          <img src="/assets/figma/ac1143f4-1b39-4829-b86c-d3790203f643.svg" alt="Language" />
+        <button
+          class="icon-btn lang-toggle"
+          type="button"
+          [class.active]="language() === 'ENG'"
+          (click)="toggleLanguage()"
+          aria-label="Toggle language"
+        >
+          <img src="/assets/figma/ac1143f4-1b39-4829-b86c-d3790203f643.svg" alt="" />
+          <span class="lang-text">{{ language() }}</span>
         </button>
         <button class="icon-btn" type="button">
           <img src="/assets/figma/e6b501f2-bdca-4ab2-8df3-fffe8e840cee.svg" alt="Theme" />
