@@ -381,6 +381,7 @@
   gap: 64px;
   padding: 48px;
   width: 100%;
+  align-items: flex-start;
 }
 
 .content {
@@ -535,6 +536,7 @@
 
 .token-architecture {
   gap: 24px;
+  scroll-margin-top: 88px;
 }
 
 .token-layer-grid {
@@ -632,10 +634,12 @@
 
 .token-map-section {
   gap: 16px;
+  scroll-margin-top: 88px;
 }
 
 .token-categories {
   gap: 16px;
+  scroll-margin-top: 88px;
 }
 
 .token-category-grid {
@@ -925,6 +929,12 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  position: sticky;
+  top: 88px;
+  align-self: flex-start;
+  max-height: calc(100vh - 104px);
+  overflow-y: auto;
+  padding-right: 4px;
 }
 
 @media (max-width: 1200px) {

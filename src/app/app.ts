@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, HostListener, signal } from '@angular/core';
 import { SEMANTIC_COLOR_TOKEN_MAPPINGS, type SemanticColorTokenMapping } from './semantic-tokens.data';
 
 interface SemanticTokenGroup {
@@ -35,6 +35,7 @@ export class App {
   protected readonly semanticCategorySummary = this.buildSemanticCategorySummary();
   protected readonly semanticTokenCount = this.semanticTokenMappings.length;
   protected readonly primitiveTokenCount = this.getUniquePrimitiveCount();
+  protected readonly activeTokenSection = signal('token-architecture');
 
   protected toggleLangMenu() {
     this.isLangOpen.update((v) => !v);
@@ -56,6 +57,9 @@ export class App {
 
   protected setPage(page: 'buttons' | 'color' | 'tokens') {
     this.activePage.set(page);
+    if (page === 'tokens') {
+      setTimeout(() => this.updateActiveTokenSection(), 0);
+    }
   }
 
   protected toggleSection(section: 'gettingStarted' | 'designTokens' | 'components') {
@@ -66,6 +70,45 @@ export class App {
     } else {
       this.isComponentsOpen.update((v) => !v);
     }
+  }
+
+  protected getTokenSectionId(category: string): string {
+    return `semantic-${category}`;
+  }
+
+  protected setActiveTokenSection(sectionId: string) {
+    this.activeTokenSection.set(sectionId);
+  }
+
+  @HostListener('window:scroll')
+  @HostListener('window:resize')
+  protected onViewportChange() {
+    this.updateActiveTokenSection();
+  }
+
+  private updateActiveTokenSection() {
+    if (this.activePage() !== 'tokens' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getTokenSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeTokenSection.set(currentSection);
   }
 
   private buildSemanticTokenGroups(): SemanticTokenGroup[] {
@@ -95,6 +138,14 @@ export class App {
 
   private getUniquePrimitiveCount(): number {
     return new Set(this.semanticTokenMappings.map((token) => token.primitive)).size;
+  }
+
+  private getTokenSectionIds(): string[] {
+    return [
+      'token-architecture',
+      'semantic-categories',
+      ...this.semanticTokenGroups.map((group) => this.getTokenSectionId(group.category)),
+    ];
   }
 
   private formatCategoryLabel(category: string): string {

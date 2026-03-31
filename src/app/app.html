@@ -830,12 +830,28 @@
           <aside class="toc">
             <span class="toc-label">On This Page</span>
             <div class="toc-list">
-              <a class="toc-item active" href="#token-architecture">Token Architecture</a>
-              <a class="toc-item" href="#semantic-categories">Semantic Categories</a>
+              <a
+                class="toc-item"
+                [class.active]="activeTokenSection() === 'token-architecture'"
+                href="#token-architecture"
+                (click)="setActiveTokenSection('token-architecture')"
+              >
+                Token Architecture
+              </a>
+              <a
+                class="toc-item"
+                [class.active]="activeTokenSection() === 'semantic-categories'"
+                href="#semantic-categories"
+                (click)="setActiveTokenSection('semantic-categories')"
+              >
+                Semantic Categories
+              </a>
               <a
                 class="toc-item"
                 *ngFor="let group of semanticTokenGroups"
-                [href]="'#semantic-' + group.category"
+                [class.active]="activeTokenSection() === getTokenSectionId(group.category)"
+                [href]="'#' + getTokenSectionId(group.category)"
+                (click)="setActiveTokenSection(getTokenSectionId(group.category))"
               >
                 {{ group.label }}
               </a>
