@@ -99,12 +99,7 @@
           (click)="toggleSection('gettingStarted')"
         >
           <span>Getting Started</span>
-          <img
-            class="chevron"
-            [class.open]="isGettingStartedOpen()"
-            src="/assets/figma/1a5154b0-3ea3-4b82-9785-a45369668f72.svg"
-            alt=""
-          />
+          <span class="section-arrow" [class.open]="isGettingStartedOpen()">›</span>
         </div>
         <div class="sidebar-subgroup" [class.open]="isGettingStartedOpen()">
           <div class="sidebar-link">
@@ -123,12 +118,7 @@
           (click)="toggleSection('designTokens')"
         >
           <span>Design Tokens</span>
-          <img
-            class="chevron"
-            [class.open]="isDesignTokensOpen()"
-            src="/assets/figma/1a5154b0-3ea3-4b82-9785-a45369668f72.svg"
-            alt=""
-          />
+          <span class="section-arrow" [class.open]="isDesignTokensOpen()">›</span>
         </div>
         <div class="sidebar-subgroup" [class.open]="isDesignTokensOpen()">
           <div
@@ -160,12 +150,7 @@
             (click)="toggleSection('components')"
           >
             <span [class.strong]="isComponentsOpen()">Components</span>
-            <img
-              class="chevron rotate"
-              [class.open]="isComponentsOpen()"
-              src="/assets/figma/fab4cb2e-0af8-4c49-85e6-6082bfd79000.svg"
-              alt=""
-            />
+            <span class="section-arrow" [class.open]="isComponentsOpen()">›</span>
           </div>
           <div class="sidebar-subgroup" [class.open]="isComponentsOpen()">
             <span class="sidebar-sublabel">General</span>

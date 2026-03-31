@@ -297,23 +297,19 @@
   font-weight: 700;
 }
 
-.sidebar-item img {
-  width: 3.7px;
-  height: 6px;
+.section-arrow {
+  font-size: 18px;
+  line-height: 1;
+  color: #64748b;
+  transition: transform 120ms ease, color 120ms ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.sidebar-item img.chevron {
-  transition: transform 120ms ease;
-}
-
-.sidebar-item img.chevron.open {
+.section-arrow.open {
   transform: rotate(90deg);
-}
-
-.sidebar-item img.rotate {
-  width: 6px;
-  height: 3.7px;
-  transform: rotate(-90deg);
+  color: #334155;
 }
 
 .sidebar-group {
