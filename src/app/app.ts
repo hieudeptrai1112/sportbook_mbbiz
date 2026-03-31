@@ -1,6 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
 import { SEMANTIC_COLOR_TOKEN_MAPPINGS, type SemanticColorTokenMapping } from './semantic-tokens.data';
+import {
+  RADIUS_SCALE_ROWS,
+  SPACING_SCALE_ROWS,
+  TYPOGRAPHY_SCALE_GROUPS,
+  type TypographyScaleGroup,
+  type NumericScaleRow,
+} from './scale-tokens.data';
 
 interface SemanticTokenGroup {
   category: string;
@@ -36,6 +43,9 @@ export class App {
   protected readonly semanticTokenCount = this.semanticTokenMappings.length;
   protected readonly primitiveTokenCount = this.getUniquePrimitiveCount();
   protected readonly activeTokenSection = signal('token-architecture');
+  protected readonly spacingScaleRows: NumericScaleRow[] = SPACING_SCALE_ROWS;
+  protected readonly radiusScaleRows: NumericScaleRow[] = RADIUS_SCALE_ROWS;
+  protected readonly typographyScaleGroups: TypographyScaleGroup[] = TYPOGRAPHY_SCALE_GROUPS;
 
   protected toggleLangMenu() {
     this.isLangOpen.update((v) => !v);
@@ -144,6 +154,7 @@ export class App {
     return [
       'token-architecture',
       'semantic-categories',
+      'scale-tables',
       ...this.semanticTokenGroups.map((group) => this.getTokenSectionId(group.category)),
     ];
   }
