@@ -763,6 +763,32 @@
               </div>
             </section>
 
+            <section
+              class="section token-map-section"
+              *ngFor="let group of semanticTokenGroups"
+              [attr.id]="'semantic-' + group.category"
+            >
+              <h2>{{ group.label }}</h2>
+              <div class="token-table">
+                <div class="token-row token-head">
+                  <span>Semantic Alias</span>
+                  <span>Primitive</span>
+                  <span>Value</span>
+                </div>
+                <div class="token-row" *ngFor="let token of group.items">
+                  <code class="token-code">{{ token.alias }}</code>
+                  <code class="token-code">{{ token.primitive }}</code>
+                  <div class="token-value-cell" [class.na]="token.value === 'N/A'">
+                    <span
+                      class="token-swatch"
+                      [style.background]="token.value === 'N/A' ? '#E2E8F0' : token.value"
+                    ></span>
+                    <code class="token-code">{{ token.value }}</code>
+                  </div>
+                </div>
+              </div>
+            </section>
+
             <section class="section scale-section" id="scale-tables">
               <h2>Scale Tables (Group 3)</h2>
               <p class="scale-note">
@@ -820,32 +846,6 @@
                     <code class="token-code">{{ row.proposed }}</code>
                     <code class="token-code">{{ row.primitive }}</code>
                     <code class="token-code">{{ row.value }}</code>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section
-              class="section token-map-section"
-              *ngFor="let group of semanticTokenGroups"
-              [attr.id]="'semantic-' + group.category"
-            >
-              <h2>{{ group.label }}</h2>
-              <div class="token-table">
-                <div class="token-row token-head">
-                  <span>Semantic Alias</span>
-                  <span>Primitive</span>
-                  <span>Value</span>
-                </div>
-                <div class="token-row" *ngFor="let token of group.items">
-                  <code class="token-code">{{ token.alias }}</code>
-                  <code class="token-code">{{ token.primitive }}</code>
-                  <div class="token-value-cell" [class.na]="token.value === 'N/A'">
-                    <span
-                      class="token-swatch"
-                      [style.background]="token.value === 'N/A' ? '#E2E8F0' : token.value"
-                    ></span>
-                    <code class="token-code">{{ token.value }}</code>
                   </div>
                 </div>
               </div>
@@ -910,20 +910,20 @@
               </a>
               <a
                 class="toc-item"
-                [class.active]="activeTokenSection() === 'scale-tables'"
-                href="#scale-tables"
-                (click)="setActiveTokenSection('scale-tables')"
-              >
-                Scale Tables
-              </a>
-              <a
-                class="toc-item"
                 *ngFor="let group of semanticTokenGroups"
                 [class.active]="activeTokenSection() === getTokenSectionId(group.category)"
                 [href]="'#' + getTokenSectionId(group.category)"
                 (click)="setActiveTokenSection(getTokenSectionId(group.category))"
               >
                 {{ group.label }}
+              </a>
+              <a
+                class="toc-item"
+                [class.active]="activeTokenSection() === 'scale-tables'"
+                href="#scale-tables"
+                (click)="setActiveTokenSection('scale-tables')"
+              >
+                Scale Tables
               </a>
             </div>
           </aside>

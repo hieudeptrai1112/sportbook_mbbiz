@@ -154,8 +154,8 @@ export class App {
     return [
       'token-architecture',
       'semantic-categories',
-      'scale-tables',
       ...this.semanticTokenGroups.map((group) => this.getTokenSectionId(group.category)),
+      'scale-tables',
     ];
   }
 
