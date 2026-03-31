@@ -1,0 +1,11 @@
+<button class="{{ classes() }}" [attr.type]="buttonType()" [disabled]="isDisabled()">
+  @if (showLeftIcon()) {
+    <span class="ds-button__icon" aria-hidden="true">+</span>
+  }
+
+  <span class="ds-button__label">{{ label() }}</span>
+
+  @if (showRightIcon()) {
+    <span class="ds-button__icon" aria-hidden="true">+</span>
+  }
+</button>

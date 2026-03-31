@@ -1,22 +1,18 @@
 export type ButtonCodeType = 'js' | 'ts';
 
-export type ButtonDemoVariant =
-  | 'primary'
-  | 'secondary'
-  | 'dashed'
-  | 'outline'
-  | 'text'
-  | 'danger'
-  | 'success'
-  | 'warning'
-  | 'disabled'
-  | 'loading';
+export type DsButtonShape = 'rectangle' | 'pill';
+export type DsButtonTone = 'primary' | 'secondary';
+export type DsButtonState = 'default' | 'hover' | 'pressed' | 'disabled';
+export type DsButtonSize = 'large' | 'medium' | 'small';
 
 export interface ButtonDemoAction {
   label: string;
-  variant: ButtonDemoVariant;
-  icon?: string;
-  iconOnly?: boolean;
+  shape?: DsButtonShape;
+  tone?: DsButtonTone;
+  state?: DsButtonState;
+  size?: DsButtonSize;
+  showLeftIcon?: boolean;
+  showRightIcon?: boolean;
 }
 
 export interface ButtonDemoSection {
@@ -38,227 +34,168 @@ export interface ButtonApiRow {
 
 export const BUTTON_DEMO_SECTIONS: ButtonDemoSection[] = [
   {
-    id: 'basic',
-    title: 'Basic',
-    description: 'There are primary, secondary, dashed, outline and text button types.',
-    tags: ['primary', 'secondary', 'dashed', 'outline', 'text'],
-    actions: [
-      { label: 'Primary', variant: 'primary' },
-      { label: 'Secondary', variant: 'secondary' },
-      { label: 'Dashed', variant: 'dashed' },
-      { label: 'Outline', variant: 'outline' },
-      { label: 'Text', variant: 'text' },
-    ],
-    codeJs: `import { Button, Space } from '@arco-design/web-react';
-
-const App = () => {
-  return (
-    <Space size="large">
-      <Button type="primary">Primary</Button>
-      <Button type="secondary">Secondary</Button>
-      <Button type="dashed">Dashed</Button>
-      <Button type="outline">Outline</Button>
-      <Button type="text">Text</Button>
-    </Space>
-  );
-};
-
-export default App;`,
-    codeTs: `import { Button, Space } from '@arco-design/web-react';
-
-const App = () => {
-  return (
-    <Space size="large">
-      <Button type="primary">Primary</Button>
-      <Button type="secondary">Secondary</Button>
-      <Button type="dashed">Dashed</Button>
-      <Button type="outline">Outline</Button>
-      <Button type="text">Text</Button>
-    </Space>
-  );
-};
-
-export default App;`,
-  },
-  {
-    id: 'icon',
-    title: 'Icon',
+    id: 'rectangle-primary',
+    title: 'Rectangle · Primary',
     description:
-      'Icons can be used in buttons. When icon is set and there are no children, width equals height.',
-    tags: ['icon', 'iconOnly'],
+      'Primary rectangle button from Figma includes gradient background and four semantic states.',
+    tags: ['shape=rectangle', 'tone=primary', 'states=default/hover/pressed/disabled'],
     actions: [
-      { label: 'Add', variant: 'primary', icon: '+', iconOnly: true },
-      { label: 'Delete', variant: 'primary', icon: 'x' },
-      { label: 'Share', variant: 'outline', icon: '+' },
+      { label: 'Text', shape: 'rectangle', tone: 'primary', state: 'default', size: 'large' },
+      { label: 'Text', shape: 'rectangle', tone: 'primary', state: 'hover', size: 'large' },
+      { label: 'Text', shape: 'rectangle', tone: 'primary', state: 'pressed', size: 'large' },
+      { label: 'Text', shape: 'rectangle', tone: 'primary', state: 'disabled', size: 'large' },
     ],
-    codeJs: `import { Button, Space } from '@arco-design/web-react';
-import { IconPlus, IconDelete } from '@arco-design/web-react/icon';
-
-const App = () => {
-  return (
-    <Space size="large">
-      <Button type="primary" icon={<IconPlus />} />
-      <Button type="primary" icon={<IconDelete />}>
-        Delete
-      </Button>
-      <Button type="outline" icon={<IconPlus />}>
-        Share
-      </Button>
-    </Space>
-  );
-};
-
-export default App;`,
-    codeTs: `import { Button, Space } from '@arco-design/web-react';
-import { IconPlus, IconDelete } from '@arco-design/web-react/icon';
-
-const App = () => {
-  return (
-    <Space size="large">
-      <Button type="primary" icon={<IconPlus />} />
-      <Button type="primary" icon={<IconDelete />}>
-        Delete
-      </Button>
-      <Button type="outline" icon={<IconPlus />}>
-        Share
-      </Button>
-    </Space>
-  );
-};
-
-export default App;`,
+    codeJs: `<app-ds-button label="Text" shape="rectangle" tone="primary" state="default" size="large" />
+<app-ds-button label="Text" shape="rectangle" tone="primary" state="hover" size="large" />
+<app-ds-button label="Text" shape="rectangle" tone="primary" state="pressed" size="large" />
+<app-ds-button label="Text" shape="rectangle" tone="primary" state="disabled" size="large" />`,
+    codeTs: `import { DsButtonComponent } from './components/ds-button/ds-button.component';`,
   },
   {
-    id: 'status',
-    title: 'Status',
-    description: 'Status buttons reflect semantic intent like warning, danger and success.',
-    tags: ['warning', 'danger', 'success'],
+    id: 'rectangle-secondary',
+    title: 'Rectangle · Secondary',
+    description:
+      'Secondary rectangle button is border-only and uses role colors for each interaction state.',
+    tags: ['shape=rectangle', 'tone=secondary', 'outlined'],
     actions: [
-      { label: 'Warning', variant: 'warning' },
-      { label: 'Danger', variant: 'danger' },
-      { label: 'Success', variant: 'success' },
+      { label: 'Text', shape: 'rectangle', tone: 'secondary', state: 'default', size: 'large' },
+      { label: 'Text', shape: 'rectangle', tone: 'secondary', state: 'hover', size: 'large' },
+      { label: 'Text', shape: 'rectangle', tone: 'secondary', state: 'pressed', size: 'large' },
+      { label: 'Text', shape: 'rectangle', tone: 'secondary', state: 'disabled', size: 'large' },
     ],
-    codeJs: `import { Button, Space } from '@arco-design/web-react';
-
-const App = () => {
-  return (
-    <Space size="large">
-      <Button status="warning">Warning</Button>
-      <Button status="danger">Danger</Button>
-      <Button status="success">Success</Button>
-    </Space>
-  );
-};
-
-export default App;`,
-    codeTs: `import { Button, Space } from '@arco-design/web-react';
-
-const App = () => {
-  return (
-    <Space size="large">
-      <Button status="warning">Warning</Button>
-      <Button status="danger">Danger</Button>
-      <Button status="success">Success</Button>
-    </Space>
-  );
-};
-
-export default App;`,
+    codeJs: `<app-ds-button label="Text" shape="rectangle" tone="secondary" state="default" size="large" />
+<app-ds-button label="Text" shape="rectangle" tone="secondary" state="hover" size="large" />
+<app-ds-button label="Text" shape="rectangle" tone="secondary" state="pressed" size="large" />
+<app-ds-button label="Text" shape="rectangle" tone="secondary" state="disabled" size="large" />`,
+    codeTs: `import { DsButtonComponent } from './components/ds-button/ds-button.component';`,
   },
   {
-    id: 'disabled-loading',
-    title: 'Disabled And Loading',
-    description: 'Use disabled and loading states to prevent duplicate actions and improve feedback.',
-    tags: ['disabled', 'loading'],
+    id: 'size-scale',
+    title: 'Size Scale',
+    description:
+      'The component supports large, medium and small sizes for both rectangle and pill shapes.',
+    tags: ['size=large/medium/small', 'shape=rectangle/pill'],
     actions: [
-      { label: 'Disabled', variant: 'disabled' },
-      { label: 'Loading', variant: 'loading' },
-      { label: 'Loading', variant: 'loading', iconOnly: true },
+      { label: 'Text', shape: 'rectangle', tone: 'primary', state: 'default', size: 'large' },
+      { label: 'Text', shape: 'rectangle', tone: 'primary', state: 'default', size: 'medium' },
+      { label: 'Text', shape: 'rectangle', tone: 'primary', state: 'default', size: 'small' },
+      { label: 'Text', shape: 'pill', tone: 'primary', state: 'default', size: 'large' },
+      { label: 'Text', shape: 'pill', tone: 'primary', state: 'default', size: 'medium' },
+      { label: 'Text', shape: 'pill', tone: 'primary', state: 'default', size: 'small' },
     ],
-    codeJs: `import { Button, Space } from '@arco-design/web-react';
-
-const App = () => {
-  return (
-    <Space size="large">
-      <Button disabled type="primary">
-        Disabled
-      </Button>
-      <Button loading type="primary">
-        Loading
-      </Button>
-      <Button loading type="primary" iconOnly />
-    </Space>
-  );
-};
-
-export default App;`,
-    codeTs: `import { Button, Space } from '@arco-design/web-react';
-
-const App = () => {
-  return (
-    <Space size="large">
-      <Button disabled type="primary">
-        Disabled
-      </Button>
-      <Button loading type="primary">
-        Loading
-      </Button>
-      <Button loading type="primary" iconOnly />
-    </Space>
-  );
-};
-
-export default App;`,
+    codeJs: `<app-ds-button label="Text" shape="rectangle" tone="primary" size="large" />
+<app-ds-button label="Text" shape="rectangle" tone="primary" size="medium" />
+<app-ds-button label="Text" shape="rectangle" tone="primary" size="small" />
+<app-ds-button label="Text" shape="pill" tone="primary" size="large" />
+<app-ds-button label="Text" shape="pill" tone="primary" size="medium" />
+<app-ds-button label="Text" shape="pill" tone="primary" size="small" />`,
+    codeTs: `import { DsButtonComponent } from './components/ds-button/ds-button.component';`,
+  },
+  {
+    id: 'pill-secondary',
+    title: 'Pill · Secondary',
+    description:
+      'Pill secondary variant keeps transparent background and rounded radius (20px) across states.',
+    tags: ['shape=pill', 'tone=secondary', 'radius=20px'],
+    actions: [
+      { label: 'Text', shape: 'pill', tone: 'secondary', state: 'default', size: 'medium' },
+      { label: 'Text', shape: 'pill', tone: 'secondary', state: 'hover', size: 'medium' },
+      { label: 'Text', shape: 'pill', tone: 'secondary', state: 'pressed', size: 'medium' },
+      { label: 'Text', shape: 'pill', tone: 'secondary', state: 'disabled', size: 'medium' },
+    ],
+    codeJs: `<app-ds-button label="Text" shape="pill" tone="secondary" state="default" size="medium" />
+<app-ds-button label="Text" shape="pill" tone="secondary" state="hover" size="medium" />
+<app-ds-button label="Text" shape="pill" tone="secondary" state="pressed" size="medium" />
+<app-ds-button label="Text" shape="pill" tone="secondary" state="disabled" size="medium" />`,
+    codeTs: `import { DsButtonComponent } from './components/ds-button/ds-button.component';`,
+  },
+  {
+    id: 'with-icons',
+    title: 'With Icons',
+    description:
+      'Toggle left and right icon slots to match Figma properties Show Icon Left and Show Icon Right.',
+    tags: ['showLeftIcon', 'showRightIcon'],
+    actions: [
+      {
+        label: 'Text',
+        shape: 'rectangle',
+        tone: 'primary',
+        state: 'default',
+        size: 'medium',
+        showLeftIcon: true,
+      },
+      {
+        label: 'Text',
+        shape: 'rectangle',
+        tone: 'primary',
+        state: 'default',
+        size: 'medium',
+        showRightIcon: true,
+      },
+      {
+        label: 'Text',
+        shape: 'pill',
+        tone: 'secondary',
+        state: 'hover',
+        size: 'medium',
+        showLeftIcon: true,
+        showRightIcon: true,
+      },
+    ],
+    codeJs: `<app-ds-button label="Text" shape="rectangle" tone="primary" size="medium" [showLeftIcon]="true" />
+<app-ds-button label="Text" shape="rectangle" tone="primary" size="medium" [showRightIcon]="true" />
+<app-ds-button label="Text" shape="pill" tone="secondary" state="hover" size="medium" [showLeftIcon]="true" [showRightIcon]="true" />`,
+    codeTs: `import { DsButtonComponent } from './components/ds-button/ds-button.component';`,
   },
 ];
 
 export const BUTTON_API_ROWS: ButtonApiRow[] = [
   {
-    property: 'type',
-    description: 'Defines visual style of button.',
-    type: "'primary' | 'secondary' | 'dashed' | 'outline' | 'text'",
-    defaultValue: "'secondary'",
+    property: 'shape',
+    description: 'Visual silhouette based on Figma variant axis.',
+    type: "'rectangle' | 'pill'",
+    defaultValue: "'rectangle'",
   },
   {
-    property: 'status',
-    description: 'Semantic status variant for contextual emphasis.',
-    type: "'default' | 'warning' | 'danger' | 'success'",
+    property: 'tone',
+    description: 'Color style axis mapped from Primary / Secondary.',
+    type: "'primary' | 'secondary'",
+    defaultValue: "'primary'",
+  },
+  {
+    property: 'state',
+    description: 'Displays explicit visual state for documentation and QA.',
+    type: "'default' | 'hover' | 'pressed' | 'disabled'",
     defaultValue: "'default'",
   },
   {
     property: 'size',
-    description: 'Controls button size.',
-    type: "'mini' | 'small' | 'default' | 'large'",
-    defaultValue: "'default'",
+    description: 'Maps to Large, Medium and Small size variants from Figma.',
+    type: "'large' | 'medium' | 'small'",
+    defaultValue: "'large'",
   },
   {
-    property: 'shape',
-    description: 'Adjusts corner and silhouette style.',
-    type: "'square' | 'round' | 'circle'",
-    defaultValue: "'square'",
+    property: 'label',
+    description: 'Text content rendered in the button.',
+    type: 'string',
+    defaultValue: "'Text'",
   },
   {
-    property: 'icon',
-    description: 'Adds icon before label or as icon-only button.',
-    type: 'ReactNode',
-    defaultValue: '-',
-  },
-  {
-    property: 'loading',
-    description: 'Shows loading spinner and disables interaction.',
+    property: 'showLeftIcon',
+    description: 'Shows the left icon slot (+) when true.',
     type: 'boolean',
     defaultValue: 'false',
   },
   {
-    property: 'disabled',
-    description: 'Disables user interaction.',
+    property: 'showRightIcon',
+    description: 'Shows the right icon slot (+) when true.',
     type: 'boolean',
     defaultValue: 'false',
   },
   {
-    property: 'onClick',
-    description: 'Click event callback.',
-    type: '(event) => void',
-    defaultValue: '-',
+    property: 'buttonType',
+    description: 'Native button type attribute.',
+    type: "'button' | 'submit' | 'reset'",
+    defaultValue: "'button'",
   },
 ];

@@ -1,0 +1,166 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.ds-button {
+  --btn-height: 48px;
+  --btn-min-width: 128px;
+  --btn-font-size: 16px;
+  --btn-line-height: 24px;
+  --btn-radius: 4px;
+
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: var(--btn-radius);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "Averta Std CY", "Inter", "Segoe UI", sans-serif;
+  font-size: var(--btn-font-size);
+  font-style: normal;
+  font-weight: 600;
+  gap: 4px;
+  height: var(--btn-height);
+  justify-content: center;
+  letter-spacing: 0.25px;
+  line-height: var(--btn-line-height);
+  min-width: var(--btn-min-width);
+  padding: 0 20px;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.ds-button__label {
+  line-height: inherit;
+}
+
+.ds-button__icon {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1;
+  width: 16px;
+}
+
+.ds-button--shape-rectangle {
+  --btn-radius: 4px;
+}
+
+.ds-button--shape-pill {
+  --btn-radius: 20px;
+}
+
+.ds-button--shape-rectangle.ds-button--size-large {
+  --btn-height: 48px;
+  --btn-min-width: 128px;
+  --btn-font-size: 16px;
+  --btn-line-height: 24px;
+}
+
+.ds-button--shape-rectangle.ds-button--size-medium {
+  --btn-height: 44px;
+  --btn-min-width: 103px;
+  --btn-font-size: 14px;
+  --btn-line-height: 20px;
+}
+
+.ds-button--shape-rectangle.ds-button--size-small {
+  --btn-height: 40px;
+  --btn-min-width: 80px;
+  --btn-font-size: 12px;
+  --btn-line-height: 16px;
+}
+
+.ds-button--shape-pill.ds-button--size-large {
+  --btn-height: 40px;
+  --btn-min-width: 128px;
+  --btn-font-size: 16px;
+  --btn-line-height: 24px;
+}
+
+.ds-button--shape-pill.ds-button--size-medium {
+  --btn-height: 36px;
+  --btn-min-width: 103px;
+  --btn-font-size: 14px;
+  --btn-line-height: 20px;
+}
+
+.ds-button--shape-pill.ds-button--size-small {
+  --btn-height: 28px;
+  --btn-min-width: 80px;
+  --btn-font-size: 12px;
+  --btn-line-height: 16px;
+  padding: 0 18px;
+}
+
+.ds-button--tone-primary.ds-button--state-default {
+  background: linear-gradient(90deg, #141ed2 0%, #0075ff 100%);
+  color: #ffffff;
+}
+
+.ds-button--tone-primary.ds-button--state-hover {
+  background: linear-gradient(90deg, #3949d6 0%, #2c87f6 100%);
+  color: #ffffff;
+}
+
+.ds-button--tone-primary.ds-button--state-pressed {
+  background: linear-gradient(90deg, #606ad5 0%, #569aed 100%);
+  color: #ffffff;
+}
+
+.ds-button--tone-primary.ds-button--state-disabled {
+  background: #d8d8d8;
+  color: #f3f3f3;
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.ds-button--tone-secondary {
+  background: transparent;
+}
+
+.ds-button--tone-secondary.ds-button--state-default {
+  border-color: #141ed2;
+  color: #141ed2;
+}
+
+.ds-button--tone-secondary.ds-button--state-hover {
+  border-color: #5f7eeb;
+  color: #5f7eeb;
+}
+
+.ds-button--tone-secondary.ds-button--state-pressed {
+  border-color: #a3b7fd;
+  color: #a3b7fd;
+}
+
+.ds-button--tone-secondary.ds-button--state-disabled {
+  border-color: #dae4ff;
+  color: #dae4ff;
+  cursor: not-allowed;
+}
+
+.ds-button--state-disabled {
+  pointer-events: none;
+}
+
+.ds-button--state-default.ds-button--tone-primary:not(:disabled):hover {
+  background: linear-gradient(90deg, #3949d6 0%, #2c87f6 100%);
+}
+
+.ds-button--state-default.ds-button--tone-primary:not(:disabled):active {
+  background: linear-gradient(90deg, #606ad5 0%, #569aed 100%);
+}
+
+.ds-button--state-default.ds-button--tone-secondary:not(:disabled):hover {
+  border-color: #5f7eeb;
+  color: #5f7eeb;
+}
+
+.ds-button--state-default.ds-button--tone-secondary:not(:disabled):active {
+  border-color: #a3b7fd;
+  color: #a3b7fd;
+}
+
+:host-context(.theme-dark) .ds-button--tone-secondary {
+  background: rgba(10, 15, 34, 0.4);
+}

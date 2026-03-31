@@ -242,16 +242,16 @@
 
             <div class="button-demo-card">
               <div class="button-demo-preview">
-                <button
-                  class="demo-btn"
-                  type="button"
+                <app-ds-button
                   *ngFor="let action of demo.actions"
-                  [ngClass]="action.variant"
-                  [class.icon-only]="action.iconOnly"
-                >
-                  <span class="demo-btn-icon" *ngIf="action.icon">{{ action.icon }}</span>
-                  <span *ngIf="!action.iconOnly">{{ action.label }}</span>
-                </button>
+                  [label]="action.label"
+                  [shape]="action.shape ?? 'rectangle'"
+                  [tone]="action.tone ?? 'primary'"
+                  [state]="action.state ?? 'default'"
+                  [size]="action.size ?? 'large'"
+                  [showLeftIcon]="action.showLeftIcon ?? false"
+                  [showRightIcon]="action.showRightIcon ?? false"
+                />
               </div>
 
               <div class="button-demo-controls">

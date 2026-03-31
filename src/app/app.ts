@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
+import { DsButtonComponent } from './components/ds-button/ds-button.component';
 import { SEMANTIC_COLOR_TOKEN_MAPPINGS, type SemanticColorTokenMapping } from './semantic-tokens.data';
 import {
   RADIUS_SCALE_ROWS,
@@ -30,7 +31,7 @@ interface SemanticCategorySummary {
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule],
+  imports: [CommonModule, DsButtonComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
