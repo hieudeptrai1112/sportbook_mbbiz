@@ -349,6 +349,7 @@
   border-radius: 6px;
   font-size: 13px;
   color: #475569;
+  cursor: pointer;
 }
 
 .sidebar-link img {
@@ -477,6 +478,10 @@
   color: #94a3b8;
 }
 
+.lead .mono {
+  font-family: "IBM Plex Mono", "Liberation Mono", monospace;
+}
+
 .palette-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -526,6 +531,93 @@
 
 .swatch:hover .value {
   opacity: 1;
+}
+
+.token-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.token-stat-card {
+  background: #ffffff;
+  border: 1px solid rgba(195, 197, 217, 0.2);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.token-stat-card strong {
+  font-size: 30px;
+  line-height: 1;
+  color: #0f172a;
+}
+
+.token-stat-label {
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  font-weight: 700;
+}
+
+.token-map-section {
+  gap: 16px;
+}
+
+.token-table {
+  border: 1px solid rgba(195, 197, 217, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.token-row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px 14px;
+  align-items: center;
+  border-top: 1px solid rgba(195, 197, 217, 0.2);
+}
+
+.token-head {
+  border-top: none;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.token-code {
+  font-family: "IBM Plex Mono", "Liberation Mono", monospace;
+  font-size: 12px;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.token-value-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.token-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  flex: 0 0 auto;
+}
+
+.token-value-cell.na .token-swatch {
+  opacity: 0.5;
 }
 
 .demo-card {
@@ -760,6 +852,14 @@
   .layout {
     flex-direction: column;
   }
+
+  .token-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .token-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 .toc-label {
@@ -897,4 +997,20 @@
 
 .page.theme-dark .page-header h1 {
   color: #f8fafc;
+}
+
+.page.theme-dark .token-stat-card,
+.page.theme-dark .token-table {
+  background: #0f172a;
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+.page.theme-dark .token-head {
+  background: #111827;
+  color: #94a3b8;
+}
+
+.page.theme-dark .token-code,
+.page.theme-dark .token-stat-card strong {
+  color: #e2e8f0;
 }

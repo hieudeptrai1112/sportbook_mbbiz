@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
+import { SEMANTIC_COLOR_TOKEN_MAPPINGS, type SemanticColorTokenMapping } from './semantic-tokens.data';
+
+interface SemanticTokenGroup {
+  category: string;
+  label: string;
+  items: SemanticColorTokenMapping[];
+}
 
 @Component({
   selector: 'app-root',
@@ -16,7 +23,10 @@ export class App {
   protected readonly isGettingStartedOpen = signal(false);
   protected readonly isDesignTokensOpen = signal(false);
   protected readonly isComponentsOpen = signal(true);
-  protected readonly activePage = signal<'buttons' | 'color'>('buttons');
+  protected readonly activePage = signal<'buttons' | 'color' | 'tokens'>('buttons');
+  protected readonly semanticTokenMappings = SEMANTIC_COLOR_TOKEN_MAPPINGS;
+  protected readonly semanticTokenGroups = this.buildSemanticTokenGroups();
+  protected readonly semanticTokenCount = this.semanticTokenMappings.length;
 
   protected toggleLangMenu() {
     this.isLangOpen.update((v) => !v);
@@ -36,7 +46,7 @@ export class App {
     this.isThemeOpen.set(false);
   }
 
-  protected setPage(page: 'buttons' | 'color') {
+  protected setPage(page: 'buttons' | 'color' | 'tokens') {
     this.activePage.set(page);
   }
 
@@ -48,5 +58,29 @@ export class App {
     } else {
       this.isComponentsOpen.update((v) => !v);
     }
+  }
+
+  private buildSemanticTokenGroups(): SemanticTokenGroup[] {
+    const grouped = new Map<string, SemanticColorTokenMapping[]>();
+    for (const token of this.semanticTokenMappings) {
+      const bucket = grouped.get(token.category) ?? [];
+      bucket.push(token);
+      grouped.set(token.category, bucket);
+    }
+
+    return [...grouped.entries()]
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([category, items]) => ({
+        category,
+        label: this.formatCategoryLabel(category),
+        items: items.sort((left, right) => left.alias.localeCompare(right.alias)),
+      }));
+  }
+
+  private formatCategoryLabel(category: string): string {
+    return category
+      .split('-')
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ');
   }
 }

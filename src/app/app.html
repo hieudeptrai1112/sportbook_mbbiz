@@ -139,7 +139,11 @@
             <img src="/assets/figma/e1ce05d5-09c7-4fa2-a06f-d20037d6ae64.svg" alt="" />
             <span>Palette</span>
           </div>
-          <div class="sidebar-link">
+          <div
+            class="sidebar-link"
+            [class.active]="activePage() === 'tokens'"
+            (click)="setPage('tokens')"
+          >
             <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
             <span>Tokens</span>
           </div>
@@ -681,6 +685,58 @@
               </div>
             </section>
           </ng-container>
+
+          <ng-container *ngIf="activePage() === 'tokens'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Design Tokens</span>
+                <span class="slash">/</span>
+                <span class="meta-version">Tokens</span>
+              </div>
+              <h1>Tokens</h1>
+              <p class="lead">
+                Mapping đầy đủ của nhóm <span class="mono">color/semantic/*</span> sang primitive
+                tokens trong hệ thống.
+              </p>
+            </div>
+
+            <section class="section token-summary">
+              <div class="token-stat-card">
+                <span class="token-stat-label">Semantic Color Tokens</span>
+                <strong>{{ semanticTokenCount }}</strong>
+              </div>
+              <div class="token-stat-card">
+                <span class="token-stat-label">Semantic Groups</span>
+                <strong>{{ semanticTokenGroups.length }}</strong>
+              </div>
+            </section>
+
+            <section
+              class="section token-map-section"
+              *ngFor="let group of semanticTokenGroups"
+              [attr.id]="'semantic-' + group.category"
+            >
+              <h2>{{ group.label }}</h2>
+              <div class="token-table">
+                <div class="token-row token-head">
+                  <span>Semantic Alias</span>
+                  <span>Primitive</span>
+                  <span>Value</span>
+                </div>
+                <div class="token-row" *ngFor="let token of group.items">
+                  <code class="token-code">{{ token.alias }}</code>
+                  <code class="token-code">{{ token.primitive }}</code>
+                  <div class="token-value-cell" [class.na]="token.value === 'N/A'">
+                    <span
+                      class="token-swatch"
+                      [style.background]="token.value === 'N/A' ? '#E2E8F0' : token.value"
+                    ></span>
+                    <code class="token-code">{{ token.value }}</code>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </ng-container>
         </div>
 
         <ng-container *ngIf="activePage() === 'buttons'">
@@ -714,6 +770,22 @@
               <a class="toc-item active" href="#">Primitive Palette</a>
               <a class="toc-item" href="#">Gradients</a>
               <a class="toc-item" href="#">Neutrals</a>
+            </div>
+          </aside>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'tokens'">
+          <aside class="toc">
+            <span class="toc-label">On This Page</span>
+            <div class="toc-list">
+              <a
+                class="toc-item"
+                [class.active]="i === 0"
+                *ngFor="let group of semanticTokenGroups; let i = index"
+                [href]="'#semantic-' + group.category"
+              >
+                {{ group.label }}
+              </a>
             </div>
           </aside>
         </ng-container>
