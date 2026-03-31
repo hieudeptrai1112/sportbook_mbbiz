@@ -196,7 +196,7 @@
     </aside>
 
     <main class="main">
-      <div class="main-inner">
+      <div class="main-inner" [class.toc-collapsed]="isTocCollapsed()">
         <div
           class="content"
           [class.content-color]="activePage() === 'color'"

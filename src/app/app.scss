@@ -385,12 +385,27 @@
 
 .main-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 224px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 224px);
   column-gap: 64px;
   padding: 48px;
   width: min(1440px, 100%);
   margin: 0 auto;
   align-items: flex-start;
+  transition: grid-template-columns 160ms ease, column-gap 160ms ease;
+}
+
+.main-inner.toc-collapsed {
+  grid-template-columns: minmax(0, 1fr) 0;
+  column-gap: 24px;
+}
+
+.main-inner.toc-collapsed .content {
+  max-width: 920px;
+}
+
+.main-inner.toc-collapsed .content.content-color,
+.main-inner.toc-collapsed .content.content-tokens {
+  max-width: 1200px;
 }
 
 .content {
@@ -978,11 +993,12 @@
   top: 88px;
   display: flex;
   align-items: flex-start;
+  overflow: visible;
   transition: width 160ms ease;
 }
 
 .anchor-layout-holder.collapsed {
-  width: 40px;
+  width: 0;
 }
 
 .toc {
@@ -1000,13 +1016,13 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateX(8px);
+  transform: translateX(16px);
 }
 
 .anchor-collapse-btn {
   position: absolute;
-  left: -14px;
-  top: 44px;
+  left: -18px;
+  top: 40px;
   width: 28px;
   height: 28px;
   border-radius: 999px;
@@ -1027,7 +1043,7 @@
 }
 
 .anchor-layout-holder.collapsed .anchor-collapse-btn {
-  left: 4px;
+  left: -10px;
 }
 
 .anchor-collapse-icon {
