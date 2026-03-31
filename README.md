@@ -96,3 +96,16 @@ Every component page MUST include all of the following sections, in order:
 ## 5) Enforcement
 - All new component docs MUST follow this template.
 - PR checks SHOULD fail if any required section is missing.
+
+# Token Naming Proposal v1
+
+This repository includes a non-breaking token migration proposal for:
+
+- Alias Token - Typo
+- Alias Token - Spacing
+- Alias Token - Effect
+
+Artifacts:
+
+- `docs/tokens/schema-v1.md`
+- `docs/tokens/naming-map-v1.json`

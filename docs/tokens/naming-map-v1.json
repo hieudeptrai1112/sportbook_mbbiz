@@ -1,0 +1,541 @@
+{
+  "version": "v1",
+  "scope": [
+    "alias-token-typo",
+    "alias-token-spacing",
+    "alias-token-effect"
+  ],
+  "totalMappings": 65,
+  "counts": {
+    "typo": 14,
+    "spacing": 46,
+    "effect": 5
+  },
+  "compatibility": {
+    "strategy": "keep old names as aliases during migration",
+    "buildSafe": true,
+    "breakingChanges": false
+  },
+  "mappings": [
+    {
+      "group": "typo",
+      "oldToken": "font/lineheight/2xl",
+      "newToken": "semantic/typography/line-height/2xl",
+      "currentTarget": "spacing/32px",
+      "newCssVar": "--sb-typography-line-height-2xl",
+      "status": "proposed"
+    },
+    {
+      "group": "typo",
+      "oldToken": "font/lineheight/l",
+      "newToken": "semantic/typography/line-height/l",
+      "currentTarget": "spacing/24px",
+      "newCssVar": "--sb-typography-line-height-l",
+      "status": "proposed"
+    },
+    {
+      "group": "typo",
+      "oldToken": "font/lineheight/m",
+      "newToken": "semantic/typography/line-height/m",
+      "currentTarget": "spacing/20px",
+      "newCssVar": "--sb-typography-line-height-m",
+      "status": "proposed"
+    },
+    {
+      "group": "typo",
+      "oldToken": "font/lineheight/s",
+      "newToken": "semantic/typography/line-height/s",
+      "currentTarget": "spacing/16px",
+      "newCssVar": "--sb-typography-line-height-s",
+      "status": "proposed"
+    },
+    {
+      "group": "typo",
+      "oldToken": "font/lineheight/xl",
+      "newToken": "semantic/typography/line-height/xl",
+      "currentTarget": "spacing/28px",
+      "newCssVar": "--sb-typography-line-height-xl",
+      "status": "proposed"
+    },
+    {
+      "group": "typo",
+      "oldToken": "font/lineheight/xs",
+      "newToken": "semantic/typography/line-height/xs",
+      "currentTarget": "spacing/12px",
+      "newCssVar": "--sb-typography-line-height-xs",
+      "status": "proposed"
+    },
+    {
+      "group": "typo",
+      "oldToken": "font/size/2xl",
+      "newToken": "semantic/typography/font-size/2xl",
+      "currentTarget": "spacing/24px",
+      "newCssVar": "--sb-typography-font-size-2xl",
+      "status": "proposed"
+    },
+    {
+      "group": "typo",
+      "oldToken": "font/size/l",
+      "newToken": "semantic/typography/font-size/l",
+      "currentTarget": "spacing/16px",
+      "newCssVar": "--sb-typography-font-size-l",
+      "status": "proposed"
+    },
+    {
+      "group": "typo",
+      "oldToken": "font/size/m",
+      "newToken": "semantic/typography/font-size/m",
+      "currentTarget": "spacing/14px",
+      "newCssVar": "--sb-typography-font-size-m",
+      "status": "proposed"
+    },
+    {
+      "group": "typo",
+      "oldToken": "font/size/s",
+      "newToken": "semantic/typography/font-size/s",
+      "currentTarget": "spacing/12px",
+      "newCssVar": "--sb-typography-font-size-s",
+      "status": "proposed"
+    },
+    {
+      "group": "typo",
+      "oldToken": "font/size/xl",
+      "newToken": "semantic/typography/font-size/xl",
+      "currentTarget": "spacing/20px",
+      "newCssVar": "--sb-typography-font-size-xl",
+      "status": "proposed"
+    },
+    {
+      "group": "typo",
+      "oldToken": "font/size/xs",
+      "newToken": "semantic/typography/font-size/xs",
+      "currentTarget": "spacing/10px",
+      "newCssVar": "--sb-typography-font-size-xs",
+      "status": "proposed"
+    },
+    {
+      "group": "typo",
+      "oldToken": "font/weight/m",
+      "newToken": "semantic/typography/font-weight/semibold",
+      "currentTarget": "typography/font-weight-semibold",
+      "newCssVar": "--sb-typography-font-weight-semibold",
+      "status": "proposed"
+    },
+    {
+      "group": "typo",
+      "oldToken": "font/weight/s",
+      "newToken": "semantic/typography/font-weight/regular",
+      "currentTarget": "typography/font-weight-regular",
+      "newCssVar": "--sb-typography-font-weight-regular",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "iconsize/2xl",
+      "newToken": "semantic/icon-size/2xl",
+      "currentTarget": "spacing/40px",
+      "newCssVar": "--sb-icon-size-2xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "iconsize/l",
+      "newToken": "semantic/icon-size/l",
+      "currentTarget": "spacing/28px",
+      "newCssVar": "--sb-icon-size-l",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "iconsize/m",
+      "newToken": "semantic/icon-size/m",
+      "currentTarget": "spacing/24px",
+      "newCssVar": "--sb-icon-size-m",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "iconsize/s",
+      "newToken": "semantic/icon-size/s",
+      "currentTarget": "spacing/20px",
+      "newCssVar": "--sb-icon-size-s",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "iconsize/xl",
+      "newToken": "semantic/icon-size/xl",
+      "currentTarget": "spacing/32px",
+      "newCssVar": "--sb-icon-size-xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "iconsize/xs",
+      "newToken": "semantic/icon-size/xs",
+      "currentTarget": "spacing/16px",
+      "newCssVar": "--sb-icon-size-xs",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "padding/2xl",
+      "newToken": "semantic/padding/2xl",
+      "currentTarget": "spacing/28px",
+      "newCssVar": "--sb-padding-2xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "padding/l",
+      "newToken": "semantic/padding/l",
+      "currentTarget": "spacing/16px",
+      "newCssVar": "--sb-padding-l",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "padding/m",
+      "newToken": "semantic/padding/m",
+      "currentTarget": "spacing/12px",
+      "newCssVar": "--sb-padding-m",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "padding/none",
+      "newToken": "semantic/padding/none",
+      "currentTarget": "spacing/0px",
+      "newCssVar": "--sb-padding-none",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "padding/s",
+      "newToken": "semantic/padding/s",
+      "currentTarget": "spacing/8px",
+      "newCssVar": "--sb-padding-s",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "padding/size-3xl",
+      "newToken": "semantic/padding/3xl",
+      "currentTarget": "spacing/40px",
+      "newCssVar": "--sb-padding-3xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "padding/xl",
+      "newToken": "semantic/padding/xl",
+      "currentTarget": "spacing/20px",
+      "newCssVar": "--sb-padding-xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "padding/xs",
+      "newToken": "semantic/padding/xs",
+      "currentTarget": "spacing/4px",
+      "newCssVar": "--sb-padding-xs",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "padding/xxs",
+      "newToken": "semantic/padding/xxs",
+      "currentTarget": "spacing/2px",
+      "newCssVar": "--sb-padding-xxs",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "radius/2xl",
+      "newToken": "semantic/radius/2xl",
+      "currentTarget": "spacing/28px",
+      "newCssVar": "--sb-radius-2xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "radius/3xl",
+      "newToken": "semantic/radius/3xl",
+      "currentTarget": "spacing/32px",
+      "newCssVar": "--sb-radius-3xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "radius/4xl",
+      "newToken": "semantic/radius/4xl",
+      "currentTarget": "spacing/40px",
+      "newCssVar": "--sb-radius-4xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "radius/l",
+      "newToken": "semantic/radius/l",
+      "currentTarget": "spacing/16px",
+      "newCssVar": "--sb-radius-l",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "radius/m",
+      "newToken": "semantic/radius/m",
+      "currentTarget": "spacing/12px",
+      "newCssVar": "--sb-radius-m",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "radius/round",
+      "newToken": "semantic/radius/full",
+      "currentTarget": "spacing/999px",
+      "newCssVar": "--sb-radius-full",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "radius/s",
+      "newToken": "semantic/radius/s",
+      "currentTarget": "spacing/8px",
+      "newCssVar": "--sb-radius-s",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "radius/xl",
+      "newToken": "semantic/radius/xl",
+      "currentTarget": "spacing/20px",
+      "newCssVar": "--sb-radius-xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "radius/xs",
+      "newToken": "semantic/radius/xs",
+      "currentTarget": "spacing/4px",
+      "newCssVar": "--sb-radius-xs",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "radius/xxs",
+      "newToken": "semantic/radius/xxs",
+      "currentTarget": "spacing/2px",
+      "newCssVar": "--sb-radius-xxs",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "spacing/2xl",
+      "newToken": "semantic/spacing/2xl",
+      "currentTarget": "spacing/24px",
+      "newCssVar": "--sb-spacing-2xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "spacing/3xl",
+      "newToken": "semantic/spacing/3xl",
+      "currentTarget": "spacing/28px",
+      "newCssVar": "--sb-spacing-3xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "spacing/4xl",
+      "newToken": "semantic/spacing/4xl",
+      "currentTarget": "spacing/32px",
+      "newCssVar": "--sb-spacing-4xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "spacing/5xl",
+      "newToken": "semantic/spacing/5xl",
+      "currentTarget": "spacing/40px",
+      "newCssVar": "--sb-spacing-5xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "spacing/l",
+      "newToken": "semantic/spacing/l",
+      "currentTarget": "spacing/16px",
+      "newCssVar": "--sb-spacing-l",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "spacing/m",
+      "newToken": "semantic/spacing/m",
+      "currentTarget": "spacing/12px",
+      "newCssVar": "--sb-spacing-m",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "spacing/n",
+      "newToken": "semantic/spacing/none",
+      "currentTarget": "spacing/0px",
+      "newCssVar": "--sb-spacing-none",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "spacing/s",
+      "newToken": "semantic/spacing/s",
+      "currentTarget": "spacing/8px",
+      "newCssVar": "--sb-spacing-s",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "spacing/xl",
+      "newToken": "semantic/spacing/xl",
+      "currentTarget": "spacing/20px",
+      "newCssVar": "--sb-spacing-xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "spacing/xs",
+      "newToken": "semantic/spacing/xs",
+      "currentTarget": "spacing/4px",
+      "newCssVar": "--sb-spacing-xs",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "spacing/xxs",
+      "newToken": "semantic/spacing/xxs",
+      "currentTarget": "spacing/2px",
+      "newCssVar": "--sb-spacing-xxs",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "stroke/l",
+      "newToken": "semantic/stroke/l",
+      "currentTarget": "spacing/2px",
+      "newCssVar": "--sb-stroke-l",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "stroke/m",
+      "newToken": "semantic/stroke/m",
+      "currentTarget": "spacing/1,5px",
+      "newCssVar": "--sb-stroke-m",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "stroke/s",
+      "newToken": "semantic/stroke/s",
+      "currentTarget": "spacing/1px",
+      "newCssVar": "--sb-stroke-s",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "width/2xl",
+      "newToken": "semantic/layout/width/2xl",
+      "currentTarget": "spacing/375px",
+      "newCssVar": "--sb-layout-width-2xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "width/3xl",
+      "newToken": "semantic/layout/width/3xl",
+      "currentTarget": "spacing/1280px",
+      "newCssVar": "--sb-layout-width-3xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "width/4xl",
+      "newToken": "semantic/layout/width/4xl",
+      "currentTarget": "spacing/1440px",
+      "newCssVar": "--sb-layout-width-4xl",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "width/l",
+      "newToken": "semantic/layout/width/l",
+      "currentTarget": "spacing/128px",
+      "newCssVar": "--sb-layout-width-l",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "width/m",
+      "newToken": "semantic/layout/width/m",
+      "currentTarget": "spacing/100px",
+      "newCssVar": "--sb-layout-width-m",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "width/s",
+      "newToken": "semantic/layout/width/s",
+      "currentTarget": "spacing/80px",
+      "newCssVar": "--sb-layout-width-s",
+      "status": "proposed"
+    },
+    {
+      "group": "spacing",
+      "oldToken": "width/xl",
+      "newToken": "semantic/layout/width/xl",
+      "currentTarget": "spacing/319px",
+      "newCssVar": "--sb-layout-width-xl",
+      "status": "proposed"
+    },
+    {
+      "group": "effect",
+      "oldToken": "effect/1",
+      "newToken": "semantic/effect/elevation/1",
+      "currentTarget": "spacing/4px",
+      "newCssVar": "--sb-effect-elevation-1",
+      "status": "proposed"
+    },
+    {
+      "group": "effect",
+      "oldToken": "effect/2",
+      "newToken": "semantic/effect/elevation/2",
+      "currentTarget": "spacing/8px",
+      "newCssVar": "--sb-effect-elevation-2",
+      "status": "proposed"
+    },
+    {
+      "group": "effect",
+      "oldToken": "effect/3",
+      "newToken": "semantic/effect/elevation/3",
+      "currentTarget": "spacing/12px",
+      "newCssVar": "--sb-effect-elevation-3",
+      "status": "proposed"
+    },
+    {
+      "group": "effect",
+      "oldToken": "effect/4",
+      "newToken": "semantic/effect/elevation/4",
+      "currentTarget": "spacing/16px",
+      "newCssVar": "--sb-effect-elevation-4",
+      "status": "proposed"
+    },
+    {
+      "group": "effect",
+      "oldToken": "effect/5",
+      "newToken": "semantic/effect/elevation/5",
+      "currentTarget": "spacing/28px",
+      "newCssVar": "--sb-effect-elevation-5",
+      "status": "proposed"
+    }
+  ]
+}
