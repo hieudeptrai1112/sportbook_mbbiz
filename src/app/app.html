@@ -212,7 +212,11 @@
 
     <main class="main">
       <div class="main-inner">
-        <div class="content">
+        <div
+          class="content"
+          [class.content-color]="activePage() === 'color'"
+          [class.content-tokens]="activePage() === 'tokens'"
+        >
           <ng-container *ngIf="activePage() === 'buttons'">
           <div class="page-header">
             <div class="header-meta">
