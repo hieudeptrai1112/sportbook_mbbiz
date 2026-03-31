@@ -43,6 +43,7 @@ export class App {
   protected readonly semanticTokenCount = this.semanticTokenMappings.length;
   protected readonly primitiveTokenCount = this.getUniquePrimitiveCount();
   protected readonly activeTokenSection = signal('token-architecture');
+  protected readonly isTocCollapsed = signal(false);
   protected readonly spacingScaleRows: NumericScaleRow[] = SPACING_SCALE_ROWS;
   protected readonly radiusScaleRows: NumericScaleRow[] = RADIUS_SCALE_ROWS;
   protected readonly typographyScaleGroups: TypographyScaleGroup[] = TYPOGRAPHY_SCALE_GROUPS;
@@ -88,6 +89,10 @@ export class App {
 
   protected setActiveTokenSection(sectionId: string) {
     this.activeTokenSection.set(sectionId);
+  }
+
+  protected toggleTocCollapsed() {
+    this.isTocCollapsed.update((value) => !value);
   }
 
   @HostListener('window:scroll')
