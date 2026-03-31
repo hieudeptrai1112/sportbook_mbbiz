@@ -8,6 +8,12 @@ interface SemanticTokenGroup {
   items: SemanticColorTokenMapping[];
 }
 
+interface SemanticCategorySummary {
+  category: string;
+  label: string;
+  count: number;
+}
+
 @Component({
   selector: 'app-root',
   imports: [CommonModule],
@@ -26,7 +32,9 @@ export class App {
   protected readonly activePage = signal<'buttons' | 'color' | 'tokens'>('buttons');
   protected readonly semanticTokenMappings = SEMANTIC_COLOR_TOKEN_MAPPINGS;
   protected readonly semanticTokenGroups = this.buildSemanticTokenGroups();
+  protected readonly semanticCategorySummary = this.buildSemanticCategorySummary();
   protected readonly semanticTokenCount = this.semanticTokenMappings.length;
+  protected readonly primitiveTokenCount = this.getUniquePrimitiveCount();
 
   protected toggleLangMenu() {
     this.isLangOpen.update((v) => !v);
@@ -75,6 +83,18 @@ export class App {
         label: this.formatCategoryLabel(category),
         items: items.sort((left, right) => left.alias.localeCompare(right.alias)),
       }));
+  }
+
+  private buildSemanticCategorySummary(): SemanticCategorySummary[] {
+    return this.semanticTokenGroups.map((group) => ({
+      category: group.category,
+      label: group.label,
+      count: group.items.length,
+    }));
+  }
+
+  private getUniquePrimitiveCount(): number {
+    return new Set(this.semanticTokenMappings.map((token) => token.primitive)).size;
   }
 
   private formatCategoryLabel(category: string): string {

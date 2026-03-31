@@ -695,10 +695,44 @@
               </div>
               <h1>Tokens</h1>
               <p class="lead">
-                Mapping đầy đủ của nhóm <span class="mono">color/semantic/*</span> sang primitive
-                tokens trong hệ thống.
+                Cấu trúc token theo mô hình <span class="mono">Primitive → Semantic → Component</span>.
+                Dữ liệu hiện tại áp dụng đầy đủ cho nhóm
+                <span class="mono">color/semantic/*</span>.
               </p>
             </div>
+
+            <section class="section token-architecture" id="token-architecture">
+              <h2>Token Architecture</h2>
+              <div class="token-layer-grid">
+                <article class="token-layer-card">
+                  <span class="token-layer-step">Layer 1</span>
+                  <h3>Primitive</h3>
+                  <p>Raw value source để tạo semantic alias.</p>
+                  <div class="token-layer-meta">
+                    <strong>{{ primitiveTokenCount }}</strong>
+                    <span>Primitive references</span>
+                  </div>
+                </article>
+                <article class="token-layer-card">
+                  <span class="token-layer-step">Layer 2</span>
+                  <h3>Semantic</h3>
+                  <p>Role-based tokens dùng trong UI và component docs.</p>
+                  <div class="token-layer-meta">
+                    <strong>{{ semanticTokenCount }}</strong>
+                    <span>Semantic aliases</span>
+                  </div>
+                </article>
+                <article class="token-layer-card token-layer-card-muted">
+                  <span class="token-layer-step">Layer 3</span>
+                  <h3>Component</h3>
+                  <p>Biến thể theo component chưa được định nghĩa trong nguồn hiện tại.</p>
+                  <div class="token-layer-meta">
+                    <strong>0</strong>
+                    <span>Component token sets</span>
+                  </div>
+                </article>
+              </div>
+            </section>
 
             <section class="section token-summary">
               <div class="token-stat-card">
@@ -708,6 +742,24 @@
               <div class="token-stat-card">
                 <span class="token-stat-label">Semantic Groups</span>
                 <strong>{{ semanticTokenGroups.length }}</strong>
+              </div>
+              <div class="token-stat-card">
+                <span class="token-stat-label">Primitive References</span>
+                <strong>{{ primitiveTokenCount }}</strong>
+              </div>
+            </section>
+
+            <section class="section token-categories" id="semantic-categories">
+              <h2>Semantic Categories</h2>
+              <div class="token-category-grid">
+                <a
+                  class="token-category-card"
+                  *ngFor="let category of semanticCategorySummary"
+                  [href]="'#semantic-' + category.category"
+                >
+                  <span>{{ category.label }}</span>
+                  <strong>{{ category.count }}</strong>
+                </a>
               </div>
             </section>
 
@@ -778,10 +830,11 @@
           <aside class="toc">
             <span class="toc-label">On This Page</span>
             <div class="toc-list">
+              <a class="toc-item active" href="#token-architecture">Token Architecture</a>
+              <a class="toc-item" href="#semantic-categories">Semantic Categories</a>
               <a
                 class="toc-item"
-                [class.active]="i === 0"
-                *ngFor="let group of semanticTokenGroups; let i = index"
+                *ngFor="let group of semanticTokenGroups"
                 [href]="'#semantic-' + group.category"
               >
                 {{ group.label }}
