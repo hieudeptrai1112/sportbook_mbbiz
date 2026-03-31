@@ -357,6 +357,14 @@
   height: 11.67px;
 }
 
+.sidebar img {
+  display: none !important;
+}
+
+.sidebar-link {
+  gap: 0;
+}
+
 .sidebar-link.active {
   background: #eff6ff;
   border-left: 4px solid #0047cf;
