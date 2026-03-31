@@ -8,6 +8,13 @@ import {
   type TypographyScaleGroup,
   type NumericScaleRow,
 } from './scale-tokens.data';
+import {
+  BUTTON_API_ROWS,
+  BUTTON_DEMO_SECTIONS,
+  type ButtonApiRow,
+  type ButtonCodeType,
+  type ButtonDemoSection,
+} from './button-demos.data';
 
 interface SemanticTokenGroup {
   category: string;
@@ -47,6 +54,12 @@ export class App {
   protected readonly spacingScaleRows: NumericScaleRow[] = SPACING_SCALE_ROWS;
   protected readonly radiusScaleRows: NumericScaleRow[] = RADIUS_SCALE_ROWS;
   protected readonly typographyScaleGroups: TypographyScaleGroup[] = TYPOGRAPHY_SCALE_GROUPS;
+  protected readonly buttonDemoSections: ButtonDemoSection[] = BUTTON_DEMO_SECTIONS;
+  protected readonly buttonApiRows: ButtonApiRow[] = BUTTON_API_ROWS;
+  protected readonly activeButtonSection = signal(this.getButtonSectionId(this.buttonDemoSections[0].id));
+  protected readonly buttonCodeType = signal<ButtonCodeType>('js');
+  protected readonly expandedButtonDemoIds = signal<string[]>([]);
+  protected readonly copiedButtonDemoId = signal<string | null>(null);
 
   protected toggleLangMenu() {
     this.isLangOpen.update((v) => !v);
@@ -70,6 +83,8 @@ export class App {
     this.activePage.set(page);
     if (page === 'tokens') {
       setTimeout(() => this.updateActiveTokenSection(), 0);
+    } else if (page === 'buttons') {
+      setTimeout(() => this.updateActiveButtonSection(), 0);
     }
   }
 
@@ -91,14 +106,70 @@ export class App {
     this.activeTokenSection.set(sectionId);
   }
 
+  protected setActiveButtonSection(sectionId: string) {
+    this.activeButtonSection.set(sectionId);
+  }
+
   protected toggleTocCollapsed() {
     this.isTocCollapsed.update((value) => !value);
+  }
+
+  protected isButtonDemoExpanded(sectionId: string): boolean {
+    return this.expandedButtonDemoIds().includes(sectionId);
+  }
+
+  protected toggleButtonDemoCode(sectionId: string) {
+    const next = new Set(this.expandedButtonDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedButtonDemoIds.set([...next]);
+  }
+
+  protected toggleAllButtonDemoCode() {
+    const expanded = this.expandedButtonDemoIds();
+    const allIds = this.buttonDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedButtonDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllButtonDemoCodeExpanded(): boolean {
+    return this.expandedButtonDemoIds().length === this.buttonDemoSections.length;
+  }
+
+  protected setButtonCodeType(type: ButtonCodeType) {
+    this.buttonCodeType.set(type);
+  }
+
+  protected getButtonDemoCode(section: ButtonDemoSection): string {
+    if (this.buttonCodeType() === 'ts' && section.codeTs) {
+      return section.codeTs;
+    }
+    return section.codeJs;
+  }
+
+  protected async copyButtonDemoCode(section: ButtonDemoSection) {
+    const code = this.getButtonDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedButtonDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedButtonDemoId() === section.id) {
+        this.copiedButtonDemoId.set(null);
+      }
+    }, 1200);
+  }
+
+  protected getButtonSectionId(sectionId: string): string {
+    return `button-${sectionId}`;
   }
 
   @HostListener('window:scroll')
   @HostListener('window:resize')
   protected onViewportChange() {
     this.updateActiveTokenSection();
+    this.updateActiveButtonSection();
   }
 
   private updateActiveTokenSection() {
@@ -124,6 +195,31 @@ export class App {
     }
 
     this.activeTokenSection.set(currentSection);
+  }
+
+  private updateActiveButtonSection() {
+    if (this.activePage() !== 'buttons' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getButtonSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeButtonSection.set(currentSection);
   }
 
   private buildSemanticTokenGroups(): SemanticTokenGroup[] {
@@ -162,6 +258,29 @@ export class App {
       ...this.semanticTokenGroups.map((group) => this.getTokenSectionId(group.category)),
       'scale-tables',
     ];
+  }
+
+  private getButtonSectionIds(): string[] {
+    return [...this.buttonDemoSections.map((section) => this.getButtonSectionId(section.id)), 'button-api'];
+  }
+
+  private async writeTextToClipboard(text: string): Promise<void> {
+    if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+
+    if (typeof document !== 'undefined') {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.setAttribute('readonly', '');
+      textArea.style.position = 'absolute';
+      textArea.style.left = '-9999px';
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+    }
   }
 
   private formatCategoryLabel(category: string): string {
