@@ -131,7 +131,11 @@
           />
         </div>
         <div class="sidebar-subgroup" [class.open]="isDesignTokensOpen()">
-          <div class="sidebar-link">
+          <div
+            class="sidebar-link"
+            [class.active]="activePage() === 'color'"
+            (click)="setPage('color')"
+          >
             <img src="/assets/figma/e1ce05d5-09c7-4fa2-a06f-d20037d6ae64.svg" alt="" />
             <span>Color</span>
           </div>
@@ -157,7 +161,7 @@
           </div>
           <div class="sidebar-subgroup" [class.open]="isComponentsOpen()">
             <span class="sidebar-sublabel">General</span>
-            <div class="sidebar-link active">
+            <div class="sidebar-link" [class.active]="activePage() === 'buttons'" (click)="setPage('buttons')">
               <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
               <span>Buttons</span>
             </div>
@@ -201,6 +205,7 @@
     <main class="main">
       <div class="main-inner">
         <div class="content">
+          <ng-container *ngIf="activePage() === 'buttons'">
           <div class="page-header">
             <div class="header-meta">
               <span class="badge">General</span>
@@ -214,381 +219,6 @@
             </p>
           </div>
 
-          <section class="section palette-section">
-            <div class="palette-header">
-              <h2>Design Tokens · Color</h2>
-              <span>Hover a swatch to see its value</span>
-            </div>
-            <div class="palette-grid">
-              <div class="palette-column">
-                <h3>Blue</h3>
-                <div class="swatch" style="--swatch:#E9EFFF;">
-                  <span>blue-1</span><span class="value">#E9EFFF</span>
-                </div>
-                <div class="swatch" style="--swatch:#DAE4FF;">
-                  <span>blue-2</span><span class="value">#DAE4FF</span>
-                </div>
-                <div class="swatch" style="--swatch:#A3B7FD;">
-                  <span>blue-3</span><span class="value">#A3B7FD</span>
-                </div>
-                <div class="swatch" style="--swatch:#5F7EEB;">
-                  <span>blue-4</span><span class="value">#5F7EEB</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#141ED2;">
-                  <span>blue-5</span><span class="value">#141ED2</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#121BBB;">
-                  <span>blue-6</span><span class="value">#121BBB</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#0E16AB;">
-                  <span>blue-7</span><span class="value">#0E16AB</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#09129B;">
-                  <span>blue-8</span><span class="value">#09129B</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#050D8C;">
-                  <span>blue-9</span><span class="value">#050D8C</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#00087C;">
-                  <span>blue-10</span><span class="value">#00087C</span>
-                </div>
-              </div>
-
-              <div class="palette-column">
-                <h3>Purple</h3>
-                <div class="swatch" style="--swatch:#F2EBFF;">
-                  <span>purple-1</span><span class="value">#F2EBFF</span>
-                </div>
-                <div class="swatch" style="--swatch:#DBD3FF;">
-                  <span>purple-2</span><span class="value">#DBD3FF</span>
-                </div>
-                <div class="swatch" style="--swatch:#BBADFF;">
-                  <span>purple-3</span><span class="value">#BBADFF</span>
-                </div>
-                <div class="swatch" style="--swatch:#9781FF;">
-                  <span>purple-4</span><span class="value">#9781FF</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#7B5FFF;">
-                  <span>purple-5</span><span class="value">#7B5FFF</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#6150E1;">
-                  <span>purple-6</span><span class="value">#6150E1</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#5348D3;">
-                  <span>purple-7</span><span class="value">#5348D3</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#4641C4;">
-                  <span>purple-8</span><span class="value">#4641C4</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#3939B5;">
-                  <span>purple-9</span><span class="value">#3939B5</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#393999;">
-                  <span>purple-10</span><span class="value">#393999</span>
-                </div>
-              </div>
-
-              <div class="palette-column">
-                <h3>Light Blue</h3>
-                <div class="swatch" style="--swatch:#DEF5FF;">
-                  <span>lightblue-1</span><span class="value">#DEF5FF</span>
-                </div>
-                <div class="swatch" style="--swatch:#BDE8FF;">
-                  <span>lightblue-2</span><span class="value">#BDE8FF</span>
-                </div>
-                <div class="swatch" style="--swatch:#75CEFF;">
-                  <span>lightblue-3</span><span class="value">#75CEFF</span>
-                </div>
-                <div class="swatch" style="--swatch:#00A5FF;">
-                  <span>lightblue-4</span><span class="value">#00A5FF</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#0075FF;">
-                  <span>lightblue-5</span><span class="value">#0075FF</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#006AE5;">
-                  <span>lightblue-6</span><span class="value">#006AE5</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#005FCB;">
-                  <span>lightblue-7</span><span class="value">#005FCB</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#0054B0;">
-                  <span>lightblue-8</span><span class="value">#0054B0</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#004996;">
-                  <span>lightblue-9</span><span class="value">#004996</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#003E7C;">
-                  <span>lightblue-10</span><span class="value">#003E7C</span>
-                </div>
-              </div>
-
-              <div class="palette-column">
-                <h3>Dark Blue</h3>
-                <div class="swatch" style="--swatch:#FAFDFF;">
-                  <span>darkblue-1</span><span class="value">#FAFDFF</span>
-                </div>
-                <div class="swatch" style="--swatch:#ECF5FA;">
-                  <span>darkblue-2</span><span class="value">#ECF5FA</span>
-                </div>
-                <div class="swatch" style="--swatch:#CADBE8;">
-                  <span>darkblue-3</span><span class="value">#CADBE8</span>
-                </div>
-                <div class="swatch" style="--swatch:#9BAFC8;">
-                  <span>darkblue-4</span><span class="value">#9BAFC8</span>
-                </div>
-                <div class="swatch" style="--swatch:#6D83A7;">
-                  <span>darkblue-5</span><span class="value">#6D83A7</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#516682;">
-                  <span>darkblue-6</span><span class="value">#516682</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#435870;">
-                  <span>darkblue-7</span><span class="value">#435870</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#354A5E;">
-                  <span>darkblue-8</span><span class="value">#354A5E</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#273B4B;">
-                  <span>darkblue-9</span><span class="value">#273B4B</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#192D39;">
-                  <span>darkblue-10</span><span class="value">#192D39</span>
-                </div>
-              </div>
-
-              <div class="palette-column">
-                <h3>Turquoise</h3>
-                <div class="swatch" style="--swatch:#E7FEFE;">
-                  <span>turquoise-1</span><span class="value">#E7FEFE</span>
-                </div>
-                <div class="swatch" style="--swatch:#D4FBFB;">
-                  <span>turquoise-2</span><span class="value">#D4FBFB</span>
-                </div>
-                <div class="swatch" style="--swatch:#A2F5F5;">
-                  <span>turquoise-3</span><span class="value">#A2F5F5</span>
-                </div>
-                <div class="swatch" style="--swatch:#52DDDD;">
-                  <span>turquoise-4</span><span class="value">#52DDDD</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#12B7B7;">
-                  <span>turquoise-5</span><span class="value">#12B7B7</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#0FA4A3;">
-                  <span>turquoise-6</span><span class="value">#0FA4A3</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#0C908F;">
-                  <span>turquoise-7</span><span class="value">#0C908F</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#0A7D7C;">
-                  <span>turquoise-8</span><span class="value">#0A7D7C</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#076968;">
-                  <span>turquoise-9</span><span class="value">#076968</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#045654;">
-                  <span>turquoise-10</span><span class="value">#045654</span>
-                </div>
-              </div>
-
-              <div class="palette-column">
-                <h3>Green</h3>
-                <div class="swatch" style="--swatch:#E6F6EC;">
-                  <span>green-1</span><span class="value">#E6F6EC</span>
-                </div>
-                <div class="swatch" style="--swatch:#CDFCE9;">
-                  <span>green-2</span><span class="value">#CDFCE9</span>
-                </div>
-                <div class="swatch" style="--swatch:#85F1C6;">
-                  <span>green-3</span><span class="value">#85F1C6</span>
-                </div>
-                <div class="swatch" style="--swatch:#3DD196;">
-                  <span>green-4</span><span class="value">#3DD196</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#00AD68;">
-                  <span>green-5</span><span class="value">#00AD68</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#009E5F;">
-                  <span>green-6</span><span class="value">#009E5F</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#008F56;">
-                  <span>green-7</span><span class="value">#008F56</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#01814E;">
-                  <span>green-8</span><span class="value">#01814E</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#017245;">
-                  <span>green-9</span><span class="value">#017245</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#01633C;">
-                  <span>green-10</span><span class="value">#01633C</span>
-                </div>
-              </div>
-
-              <div class="palette-column">
-                <h3>Orange</h3>
-                <div class="swatch" style="--swatch:#FFF4D0;">
-                  <span>orange-1</span><span class="value">#FFF4D0</span>
-                </div>
-                <div class="swatch" style="--swatch:#FBDE97;">
-                  <span>orange-2</span><span class="value">#FBDE97</span>
-                </div>
-                <div class="swatch" style="--swatch:#FDC64E;">
-                  <span>orange-3</span><span class="value">#FDC64E</span>
-                </div>
-                <div class="swatch" style="--swatch:#F9A500;">
-                  <span>orange-4</span><span class="value">#F9A500</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#FA8A00;">
-                  <span>orange-5</span><span class="value">#FA8A00</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#DE7A00;">
-                  <span>orange-6</span><span class="value">#DE7A00</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#C36A00;">
-                  <span>orange-7</span><span class="value">#C36A00</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#A75A00;">
-                  <span>orange-8</span><span class="value">#A75A00</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#8C4A00;">
-                  <span>orange-9</span><span class="value">#8C4A00</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#703A00;">
-                  <span>orange-10</span><span class="value">#703A00</span>
-                </div>
-              </div>
-
-              <div class="palette-column">
-                <h3>Red</h3>
-                <div class="swatch" style="--swatch:#FFE3E3;">
-                  <span>red-1</span><span class="value">#FFE3E3</span>
-                </div>
-                <div class="swatch" style="--swatch:#FFB1B1;">
-                  <span>red-2</span><span class="value">#FFB1B1</span>
-                </div>
-                <div class="swatch" style="--swatch:#FB7070;">
-                  <span>red-3</span><span class="value">#FB7070</span>
-                </div>
-                <div class="swatch" style="--swatch:#F34343;">
-                  <span>red-4</span><span class="value">#F34343</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#F00000;">
-                  <span>red-5</span><span class="value">#F00000</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#D50202;">
-                  <span>red-6</span><span class="value">#D50202</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#BB0403;">
-                  <span>red-7</span><span class="value">#BB0403</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#A00705;">
-                  <span>red-8</span><span class="value">#A00705</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#860906;">
-                  <span>red-9</span><span class="value">#860906</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#6B0B08;">
-                  <span>red-10</span><span class="value">#6B0B08</span>
-                </div>
-              </div>
-
-              <div class="palette-column">
-                <h3>Grayscale</h3>
-                <div class="swatch" style="--swatch:#F3F3F3;">
-                  <span>gray-1</span><span class="value">#F3F3F3</span>
-                </div>
-                <div class="swatch" style="--swatch:#D8D8D8;">
-                  <span>gray-2</span><span class="value">#D8D8D8</span>
-                </div>
-                <div class="swatch" style="--swatch:#CCCCCC;">
-                  <span>gray-3</span><span class="value">#CCCCCC</span>
-                </div>
-                <div class="swatch" style="--swatch:#9B9B9B;">
-                  <span>gray-4</span><span class="value">#9B9B9B</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#808080;">
-                  <span>gray-5</span><span class="value">#808080</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#646464;">
-                  <span>gray-6</span><span class="value">#646464</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#4D4D4D;">
-                  <span>gray-7</span><span class="value">#4D4D4D</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#2E2E2E;">
-                  <span>gray-8</span><span class="value">#2E2E2E</span>
-                </div>
-              </div>
-
-              <div class="palette-column">
-                <h3>Black / White</h3>
-                <div class="swatch dark" style="--swatch:#000000;">
-                  <span>black-100</span><span class="value">#000000</span>
-                </div>
-                <div class="swatch dark" style="--swatch:#00000080;">
-                  <span>black-50</span><span class="value">#00000080</span>
-                </div>
-                <div class="swatch" style="--swatch:#FFFFFF;">
-                  <span>white-100</span><span class="value">#FFFFFF</span>
-                </div>
-                <div class="swatch" style="--swatch:#FFFFFF99;">
-                  <span>white-60</span><span class="value">#FFFFFF99</span>
-                </div>
-                <div class="swatch" style="--swatch:#FFFFFF80;">
-                  <span>white-50</span><span class="value">#FFFFFF80</span>
-                </div>
-                <div class="swatch" style="--swatch:#FFFFFF66;">
-                  <span>white-40</span><span class="value">#FFFFFF66</span>
-                </div>
-                <div class="swatch" style="--swatch:#FFFFFF4D;">
-                  <span>white-30</span><span class="value">#FFFFFF4D</span>
-                </div>
-                <div class="swatch" style="--swatch:#FFFFFF33;">
-                  <span>white-20</span><span class="value">#FFFFFF33</span>
-                </div>
-                <div class="swatch" style="--swatch:#FFFFFF1A;">
-                  <span>white-10</span><span class="value">#FFFFFF1A</span>
-                </div>
-                <div class="swatch" style="--swatch:#FFFFFF0D;">
-                  <span>white-5</span><span class="value">#FFFFFF0D</span>
-                </div>
-              </div>
-
-              <div class="palette-column">
-                <h3>Gradients</h3>
-                <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#141ED2,#0075FF);">
-                  <span>gradient-700</span><span class="value">#141ED2 → #0075FF</span>
-                </div>
-                <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#3949D6,#2C87F6);">
-                  <span>gradient-600</span><span class="value">#3949D6 → #2C87F6</span>
-                </div>
-                <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#606AD5,#569AED);">
-                  <span>gradient-500</span><span class="value">#606AD5 → #569AED</span>
-                </div>
-                <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#888CD4,#80AEE5);">
-                  <span>gradient-400</span><span class="value">#888CD4 → #80AEE5</span>
-                </div>
-                <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#AEB1D4,#AAC1DD);">
-                  <span>gradient-300</span><span class="value">#AEB1D4 → #AAC1DD</span>
-                </div>
-                <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#D6EAF000,#BDD5E4B2);">
-                  <span>gradient-200</span><span class="value">#D6EAF000 → #BDD5E4B2</span>
-                </div>
-                <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#141ED2,#0075FF);">
-                  <span>gradient-100</span><span class="value">#141ED2 → #0075FF</span>
-                </div>
-                <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#FFFFFF,#F5FFFD,#DDE7FF,#DFE3FF);">
-                  <span>gradient-800</span><span class="value">#FFFFFF → #F5FFFD → #DDE7FF → #DFE3FF</span>
-                </div>
-                <div class="swatch" style="--swatch:#1D5CFB29;">
-                  <span>skyblue-100</span><span class="value">#1D5CFB29</span>
-                </div>
-                <div class="swatch" style="--swatch:#ECF5FAB2;">
-                  <span>darkblue-50</span><span class="value">#ECF5FAB2</span>
-                </div>
-              </div>
-            </div>
-          </section>
 
           <div class="tabs">
             <button class="tab active" type="button">Usage</button>
@@ -656,30 +286,433 @@
               <div class="anatomy-overlay">Technical Blueprint Overview</div>
             </div>
           </section>
+          </ng-container>
 
+          <ng-container *ngIf="activePage() === 'color'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Design Tokens</span>
+                <span class="slash">/</span>
+                <span class="meta-version">Color</span>
+              </div>
+              <h1>Color</h1>
+              <p class="lead">
+                Core color primitives and brand ramps used across the Sportbook design system.
+              </p>
+            </div>
+
+            <section class="section palette-section">
+              <div class="palette-header">
+                <h2>Primitive Palette</h2>
+                <span>Hover a swatch to see its value</span>
+              </div>
+              <div class="palette-grid">
+                <div class="palette-column">
+                  <h3>Blue</h3>
+                  <div class="swatch" style="--swatch:#E9EFFF;">
+                    <span>blue-1</span><span class="value">#E9EFFF</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#DAE4FF;">
+                    <span>blue-2</span><span class="value">#DAE4FF</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#A3B7FD;">
+                    <span>blue-3</span><span class="value">#A3B7FD</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#5F7EEB;">
+                    <span>blue-4</span><span class="value">#5F7EEB</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#141ED2;">
+                    <span>blue-5</span><span class="value">#141ED2</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#121BBB;">
+                    <span>blue-6</span><span class="value">#121BBB</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#0E16AB;">
+                    <span>blue-7</span><span class="value">#0E16AB</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#09129B;">
+                    <span>blue-8</span><span class="value">#09129B</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#050D8C;">
+                    <span>blue-9</span><span class="value">#050D8C</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#00087C;">
+                    <span>blue-10</span><span class="value">#00087C</span>
+                  </div>
+                </div>
+
+                <div class="palette-column">
+                  <h3>Purple</h3>
+                  <div class="swatch" style="--swatch:#F2EBFF;">
+                    <span>purple-1</span><span class="value">#F2EBFF</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#DBD3FF;">
+                    <span>purple-2</span><span class="value">#DBD3FF</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#BBADFF;">
+                    <span>purple-3</span><span class="value">#BBADFF</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#9781FF;">
+                    <span>purple-4</span><span class="value">#9781FF</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#7B5FFF;">
+                    <span>purple-5</span><span class="value">#7B5FFF</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#6150E1;">
+                    <span>purple-6</span><span class="value">#6150E1</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#5348D3;">
+                    <span>purple-7</span><span class="value">#5348D3</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#4641C4;">
+                    <span>purple-8</span><span class="value">#4641C4</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#3939B5;">
+                    <span>purple-9</span><span class="value">#3939B5</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#393999;">
+                    <span>purple-10</span><span class="value">#393999</span>
+                  </div>
+                </div>
+
+                <div class="palette-column">
+                  <h3>Light Blue</h3>
+                  <div class="swatch" style="--swatch:#DEF5FF;">
+                    <span>lightblue-1</span><span class="value">#DEF5FF</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#BDE8FF;">
+                    <span>lightblue-2</span><span class="value">#BDE8FF</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#75CEFF;">
+                    <span>lightblue-3</span><span class="value">#75CEFF</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#00A5FF;">
+                    <span>lightblue-4</span><span class="value">#00A5FF</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#0075FF;">
+                    <span>lightblue-5</span><span class="value">#0075FF</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#006AE5;">
+                    <span>lightblue-6</span><span class="value">#006AE5</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#005FCB;">
+                    <span>lightblue-7</span><span class="value">#005FCB</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#0054B0;">
+                    <span>lightblue-8</span><span class="value">#0054B0</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#004996;">
+                    <span>lightblue-9</span><span class="value">#004996</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#003E7C;">
+                    <span>lightblue-10</span><span class="value">#003E7C</span>
+                  </div>
+                </div>
+
+                <div class="palette-column">
+                  <h3>Dark Blue</h3>
+                  <div class="swatch" style="--swatch:#FAFDFF;">
+                    <span>darkblue-1</span><span class="value">#FAFDFF</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#ECF5FA;">
+                    <span>darkblue-2</span><span class="value">#ECF5FA</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#CADBE8;">
+                    <span>darkblue-3</span><span class="value">#CADBE8</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#9BAFC8;">
+                    <span>darkblue-4</span><span class="value">#9BAFC8</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#6D83A7;">
+                    <span>darkblue-5</span><span class="value">#6D83A7</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#516682;">
+                    <span>darkblue-6</span><span class="value">#516682</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#435870;">
+                    <span>darkblue-7</span><span class="value">#435870</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#354A5E;">
+                    <span>darkblue-8</span><span class="value">#354A5E</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#273B4B;">
+                    <span>darkblue-9</span><span class="value">#273B4B</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#192D39;">
+                    <span>darkblue-10</span><span class="value">#192D39</span>
+                  </div>
+                </div>
+
+                <div class="palette-column">
+                  <h3>Turquoise</h3>
+                  <div class="swatch" style="--swatch:#E7FEFE;">
+                    <span>turquoise-1</span><span class="value">#E7FEFE</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#D4FBFB;">
+                    <span>turquoise-2</span><span class="value">#D4FBFB</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#A2F5F5;">
+                    <span>turquoise-3</span><span class="value">#A2F5F5</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#52DDDD;">
+                    <span>turquoise-4</span><span class="value">#52DDDD</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#12B7B7;">
+                    <span>turquoise-5</span><span class="value">#12B7B7</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#0FA4A3;">
+                    <span>turquoise-6</span><span class="value">#0FA4A3</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#0C908F;">
+                    <span>turquoise-7</span><span class="value">#0C908F</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#0A7D7C;">
+                    <span>turquoise-8</span><span class="value">#0A7D7C</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#076968;">
+                    <span>turquoise-9</span><span class="value">#076968</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#045654;">
+                    <span>turquoise-10</span><span class="value">#045654</span>
+                  </div>
+                </div>
+
+                <div class="palette-column">
+                  <h3>Green</h3>
+                  <div class="swatch" style="--swatch:#E6F6EC;">
+                    <span>green-1</span><span class="value">#E6F6EC</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#CDFCE9;">
+                    <span>green-2</span><span class="value">#CDFCE9</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#85F1C6;">
+                    <span>green-3</span><span class="value">#85F1C6</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#3DD196;">
+                    <span>green-4</span><span class="value">#3DD196</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#00AD68;">
+                    <span>green-5</span><span class="value">#00AD68</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#009E5F;">
+                    <span>green-6</span><span class="value">#009E5F</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#008F56;">
+                    <span>green-7</span><span class="value">#008F56</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#01814E;">
+                    <span>green-8</span><span class="value">#01814E</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#017245;">
+                    <span>green-9</span><span class="value">#017245</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#01633C;">
+                    <span>green-10</span><span class="value">#01633C</span>
+                  </div>
+                </div>
+
+                <div class="palette-column">
+                  <h3>Orange</h3>
+                  <div class="swatch" style="--swatch:#FFF4D0;">
+                    <span>orange-1</span><span class="value">#FFF4D0</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#FBDE97;">
+                    <span>orange-2</span><span class="value">#FBDE97</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#FDC64E;">
+                    <span>orange-3</span><span class="value">#FDC64E</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#F9A500;">
+                    <span>orange-4</span><span class="value">#F9A500</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#FA8A00;">
+                    <span>orange-5</span><span class="value">#FA8A00</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#DE7A00;">
+                    <span>orange-6</span><span class="value">#DE7A00</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#C36A00;">
+                    <span>orange-7</span><span class="value">#C36A00</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#A75A00;">
+                    <span>orange-8</span><span class="value">#A75A00</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#8C4A00;">
+                    <span>orange-9</span><span class="value">#8C4A00</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#703A00;">
+                    <span>orange-10</span><span class="value">#703A00</span>
+                  </div>
+                </div>
+
+                <div class="palette-column">
+                  <h3>Red</h3>
+                  <div class="swatch" style="--swatch:#FFE3E3;">
+                    <span>red-1</span><span class="value">#FFE3E3</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#FFB1B1;">
+                    <span>red-2</span><span class="value">#FFB1B1</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#FB7070;">
+                    <span>red-3</span><span class="value">#FB7070</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#F34343;">
+                    <span>red-4</span><span class="value">#F34343</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#F00000;">
+                    <span>red-5</span><span class="value">#F00000</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#D50202;">
+                    <span>red-6</span><span class="value">#D50202</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#BB0403;">
+                    <span>red-7</span><span class="value">#BB0403</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#A00705;">
+                    <span>red-8</span><span class="value">#A00705</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#860906;">
+                    <span>red-9</span><span class="value">#860906</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#6B0B08;">
+                    <span>red-10</span><span class="value">#6B0B08</span>
+                  </div>
+                </div>
+
+                <div class="palette-column">
+                  <h3>Grayscale</h3>
+                  <div class="swatch" style="--swatch:#F3F3F3;">
+                    <span>gray-1</span><span class="value">#F3F3F3</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#D8D8D8;">
+                    <span>gray-2</span><span class="value">#D8D8D8</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#CCCCCC;">
+                    <span>gray-3</span><span class="value">#CCCCCC</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#9B9B9B;">
+                    <span>gray-4</span><span class="value">#9B9B9B</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#808080;">
+                    <span>gray-5</span><span class="value">#808080</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#646464;">
+                    <span>gray-6</span><span class="value">#646464</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#4D4D4D;">
+                    <span>gray-7</span><span class="value">#4D4D4D</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#2E2E2E;">
+                    <span>gray-8</span><span class="value">#2E2E2E</span>
+                  </div>
+                </div>
+
+                <div class="palette-column">
+                  <h3>Black / White</h3>
+                  <div class="swatch dark" style="--swatch:#000000;">
+                    <span>black-100</span><span class="value">#000000</span>
+                  </div>
+                  <div class="swatch dark" style="--swatch:#00000080;">
+                    <span>black-50</span><span class="value">#00000080</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#FFFFFF;">
+                    <span>white-100</span><span class="value">#FFFFFF</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#FFFFFF99;">
+                    <span>white-60</span><span class="value">#FFFFFF99</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#FFFFFF80;">
+                    <span>white-50</span><span class="value">#FFFFFF80</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#FFFFFF66;">
+                    <span>white-40</span><span class="value">#FFFFFF66</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#FFFFFF4D;">
+                    <span>white-30</span><span class="value">#FFFFFF4D</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#FFFFFF33;">
+                    <span>white-20</span><span class="value">#FFFFFF33</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#FFFFFF1A;">
+                    <span>white-10</span><span class="value">#FFFFFF1A</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#FFFFFF0D;">
+                    <span>white-5</span><span class="value">#FFFFFF0D</span>
+                  </div>
+                </div>
+
+                <div class="palette-column">
+                  <h3>Gradients</h3>
+                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#141ED2,#0075FF);">
+                    <span>gradient-700</span><span class="value">#141ED2 → #0075FF</span>
+                  </div>
+                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#3949D6,#2C87F6);">
+                    <span>gradient-600</span><span class="value">#3949D6 → #2C87F6</span>
+                  </div>
+                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#606AD5,#569AED);">
+                    <span>gradient-500</span><span class="value">#606AD5 → #569AED</span>
+                  </div>
+                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#888CD4,#80AEE5);">
+                    <span>gradient-400</span><span class="value">#888CD4 → #80AEE5</span>
+                  </div>
+                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#AEB1D4,#AAC1DD);">
+                    <span>gradient-300</span><span class="value">#AEB1D4 → #AAC1DD</span>
+                  </div>
+                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#D6EAF000,#BDD5E4B2);">
+                    <span>gradient-200</span><span class="value">#D6EAF000 → #BDD5E4B2</span>
+                  </div>
+                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#141ED2,#0075FF);">
+                    <span>gradient-100</span><span class="value">#141ED2 → #0075FF</span>
+                  </div>
+                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#FFFFFF,#F5FFFD,#DDE7FF,#DFE3FF);">
+                    <span>gradient-800</span><span class="value">#FFFFFF → #F5FFFD → #DDE7FF → #DFE3FF</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#1D5CFB29;">
+                    <span>skyblue-100</span><span class="value">#1D5CFB29</span>
+                  </div>
+                  <div class="swatch" style="--swatch:#ECF5FAB2;">
+                    <span>darkblue-50</span><span class="value">#ECF5FAB2</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </ng-container>
         </div>
 
-        <aside class="toc">
-          <span class="toc-label">On This Page</span>
-          <div class="toc-list">
-            <a class="toc-item active" href="#">Live Demo</a>
-            <a class="toc-item" href="#">Anatomy</a>
-            <a class="toc-item" href="#">Visual Styles</a>
-            <a class="toc-item" href="#">API Reference</a>
-            <a class="toc-item" href="#">Accessibility</a>
-          </div>
-
-          <div class="pro-tip">
-            <div class="pro-tip-title">
-              <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
-              <span>Pro Tip</span>
+        <ng-container *ngIf="activePage() === 'buttons'">
+          <aside class="toc">
+            <span class="toc-label">On This Page</span>
+            <div class="toc-list">
+              <a class="toc-item active" href="#">Live Demo</a>
+              <a class="toc-item" href="#">Anatomy</a>
+              <a class="toc-item" href="#">Visual Styles</a>
+              <a class="toc-item" href="#">API Reference</a>
+              <a class="toc-item" href="#">Accessibility</a>
             </div>
-            <p>
-              Use the <span class="mono">isFullWidth</span> prop for mobile-first responsive layouts
-              or modal actions.
-            </p>
-          </div>
-        </aside>
+
+            <div class="pro-tip">
+              <div class="pro-tip-title">
+                <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                <span>Pro Tip</span>
+              </div>
+              <p>
+                Use the <span class="mono">isFullWidth</span> prop for mobile-first responsive layouts
+                or modal actions.
+              </p>
+            </div>
+          </aside>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'color'">
+          <aside class="toc">
+            <span class="toc-label">On This Page</span>
+            <div class="toc-list">
+              <a class="toc-item active" href="#">Primitive Palette</a>
+              <a class="toc-item" href="#">Gradients</a>
+              <a class="toc-item" href="#">Neutrals</a>
+            </div>
+          </aside>
+        </ng-container>
       </div>
     </main>
   </div>

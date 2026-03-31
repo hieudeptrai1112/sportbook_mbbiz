@@ -1,8 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -15,6 +16,7 @@ export class App {
   protected readonly isGettingStartedOpen = signal(false);
   protected readonly isDesignTokensOpen = signal(false);
   protected readonly isComponentsOpen = signal(true);
+  protected readonly activePage = signal<'buttons' | 'color'>('buttons');
 
   protected toggleLangMenu() {
     this.isLangOpen.update((v) => !v);
@@ -32,6 +34,10 @@ export class App {
   protected setTheme(theme: 'light' | 'dark') {
     this.activeTheme.set(theme);
     this.isThemeOpen.set(false);
+  }
+
+  protected setPage(page: 'buttons' | 'color') {
+    this.activePage.set(page);
   }
 
   protected toggleSection(section: 'gettingStarted' | 'designTokens' | 'components') {
