@@ -677,6 +677,50 @@
   scroll-margin-top: 88px;
 }
 
+.token-mode-toolbar {
+  gap: 10px;
+}
+
+.token-mode-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid rgba(195, 197, 217, 0.24);
+  border-radius: 8px;
+  background: #f7f8fa;
+}
+
+.token-mode-btn {
+  border: 1px solid transparent;
+  background: transparent;
+  color: #4e5969;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.token-mode-btn:hover {
+  color: #1d2129;
+}
+
+.token-mode-btn.active {
+  background: #ffffff;
+  color: #165dff;
+  border-color: rgba(22, 93, 255, 0.45);
+}
+
+.token-mode-hint {
+  margin: 0;
+  font-size: 12px;
+  line-height: 18px;
+  color: #86909c;
+}
+
 .token-categories {
   gap: 16px;
   scroll-margin-top: 88px;
@@ -748,6 +792,16 @@
   background: #ffffff;
 }
 
+.token-table-semantic .token-row {
+  grid-template-columns:
+    minmax(0, 2fr)
+    minmax(0, 1.4fr)
+    minmax(0, 1.1fr)
+    minmax(0, 1.7fr)
+    minmax(0, 1.9fr)
+    82px;
+}
+
 .scale-table .token-row {
   grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.7fr) minmax(0, 1.4fr) 100px;
 }
@@ -784,6 +838,49 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.token-value-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+}
+
+.token-value-mode {
+  font-size: 11px;
+  line-height: 16px;
+  color: #165dff;
+  font-weight: 600;
+}
+
+.token-value-mode.shared {
+  color: #86909c;
+}
+
+.token-description {
+  font-size: 13px;
+  line-height: 20px;
+  color: #4e5969;
+}
+
+.token-copy-btn {
+  height: 28px;
+  border: 1px solid rgba(195, 197, 217, 0.35);
+  border-radius: 999px;
+  background: #ffffff;
+  color: #4e5969;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 0 12px;
+  cursor: pointer;
+  transition: border-color 120ms ease, color 120ms ease, background 120ms ease;
+}
+
+.token-copy-btn:hover {
+  border-color: rgba(22, 93, 255, 0.45);
+  color: #165dff;
 }
 
 .token-swatch {

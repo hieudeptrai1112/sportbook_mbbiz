@@ -817,6 +817,30 @@
               </p>
             </div>
 
+            <section class="section token-mode-toolbar">
+              <div class="token-mode-switch" role="group" aria-label="Color token mode">
+                <button
+                  type="button"
+                  class="token-mode-btn"
+                  [class.active]="colorTokenMode() === 'light'"
+                  (click)="setColorTokenMode('light')"
+                >
+                  Light
+                </button>
+                <button
+                  type="button"
+                  class="token-mode-btn"
+                  [class.active]="colorTokenMode() === 'dark'"
+                  (click)="setColorTokenMode('dark')"
+                >
+                  Dark
+                </button>
+              </div>
+              <p class="token-mode-hint" *ngIf="colorTokenMode() === 'dark'">
+                Dark mode đang dùng cùng giá trị với Light cho các token chưa có override.
+              </p>
+            </section>
+
             <section class="section token-architecture" id="token-architecture">
               <h2>Token Architecture</h2>
               <div class="token-layer-grid">
@@ -885,22 +909,43 @@
               [attr.id]="'semantic-' + group.category"
             >
               <h2>{{ group.label }}</h2>
-              <div class="token-table">
+              <div class="token-table token-table-semantic">
                 <div class="token-row token-head">
                   <span>Semantic Alias</span>
-                  <span>Primitive</span>
+                  <span>Primitive Ref</span>
                   <span>Value</span>
+                  <span>CSS Var</span>
+                  <span>Description</span>
+                  <span>Copy</span>
                 </div>
                 <div class="token-row" *ngFor="let token of group.items">
                   <code class="token-code">{{ token.alias }}</code>
                   <code class="token-code">{{ token.primitive }}</code>
-                  <div class="token-value-cell" [class.na]="token.value === 'N/A'">
+                  <div class="token-value-cell" [class.na]="getTokenDisplayValue(token) === 'N/A'">
                     <span
                       class="token-swatch"
-                      [style.background]="token.value === 'N/A' ? '#E2E8F0' : token.value"
+                      [style.background]="getTokenDisplayValue(token) === 'N/A' ? '#E2E8F0' : getTokenDisplayValue(token)"
                     ></span>
-                    <code class="token-code">{{ token.value }}</code>
+                    <div class="token-value-meta">
+                      <code class="token-code">{{ getTokenDisplayValue(token) }}</code>
+                      <span
+                        class="token-value-mode"
+                        *ngIf="colorTokenMode() === 'dark'"
+                        [class.shared]="!hasTokenDarkOverride(token)"
+                      >
+                        {{ hasTokenDarkOverride(token) ? 'Dark override' : 'Shared with light' }}
+                      </span>
+                    </div>
                   </div>
+                  <code class="token-code">{{ getTokenCssVar(token) }}</code>
+                  <span class="token-description">{{ getTokenDescription(token) }}</span>
+                  <button
+                    class="token-copy-btn"
+                    type="button"
+                    (click)="copySemanticTokenRow(token)"
+                  >
+                    {{ copiedSemanticAlias() === token.alias ? 'Copied' : 'Copy' }}
+                  </button>
                 </div>
               </div>
             </section>

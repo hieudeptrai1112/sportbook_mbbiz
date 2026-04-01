@@ -74,6 +74,8 @@ export class App {
   protected readonly semanticTokenCount = this.semanticTokenMappings.length;
   protected readonly primitiveTokenCount = this.getUniquePrimitiveCount();
   protected readonly activeTokenSection = signal('token-architecture');
+  protected readonly colorTokenMode = signal<'light' | 'dark'>('light');
+  protected readonly copiedSemanticAlias = signal<string | null>(null);
   protected readonly isTocCollapsed = signal(false);
   protected readonly spacingScaleRows: NumericScaleRow[] = SPACING_SCALE_ROWS;
   protected readonly radiusScaleRows: NumericScaleRow[] = RADIUS_SCALE_ROWS;
@@ -144,6 +146,43 @@ export class App {
 
   protected toggleTocCollapsed() {
     this.isTocCollapsed.update((value) => !value);
+  }
+
+  protected setColorTokenMode(mode: 'light' | 'dark') {
+    this.colorTokenMode.set(mode);
+  }
+
+  protected getTokenCssVar(token: SemanticColorTokenMapping): string {
+    return `--${token.alias.replace(/\//g, '-')}`;
+  }
+
+  protected getTokenDescription(token: SemanticColorTokenMapping): string {
+    const parts = token.alias.split('/');
+    const rolePath = parts.slice(3).join(' / ');
+    const role = this.humanizeTokenPath(rolePath);
+    return `${this.formatCategoryLabel(token.category)} role: ${role}`;
+  }
+
+  protected hasTokenDarkOverride(token: SemanticColorTokenMapping): boolean {
+    return this.semanticDarkValueOverrides.has(token.alias);
+  }
+
+  protected getTokenDisplayValue(token: SemanticColorTokenMapping): string {
+    if (this.colorTokenMode() === 'dark') {
+      return this.semanticDarkValueOverrides.get(token.alias) ?? token.value;
+    }
+    return token.value;
+  }
+
+  protected async copySemanticTokenRow(token: SemanticColorTokenMapping) {
+    const payload = `${this.getTokenCssVar(token)}: ${this.getTokenDisplayValue(token)};`;
+    await this.writeTextToClipboard(payload);
+    this.copiedSemanticAlias.set(token.alias);
+    setTimeout(() => {
+      if (this.copiedSemanticAlias() === token.alias) {
+        this.copiedSemanticAlias.set(null);
+      }
+    }, 1200);
   }
 
   protected isButtonDemoExpanded(sectionId: string): boolean {
@@ -290,6 +329,8 @@ export class App {
       }));
   }
 
+  private readonly semanticDarkValueOverrides = new Map<string, string>([]);
+
   private buildSemanticCategorySummary(): SemanticCategorySummary[] {
     return this.semanticTokenGroups.map((group) => ({
       category: group.category,
@@ -374,6 +415,14 @@ export class App {
       .split('-')
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
       .join(' ');
+  }
+
+  private humanizeTokenPath(value: string): string {
+    return value
+      .split('/')
+      .map((segment) => segment.replace(/-/g, ' '))
+      .join(' / ')
+      .replace(/\b\w/g, (char) => char.toUpperCase());
   }
 
   private buildHtmlSnippet(section: ButtonDemoSection): string {
