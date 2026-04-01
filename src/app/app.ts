@@ -12,10 +12,13 @@ import {
 import {
   BUTTON_API_ROWS,
   BUTTON_DEMO_SECTIONS,
+  BUTTON_VARIABLE_GROUPS,
+  BUTTON_VARIABLE_NOTES,
   type ButtonDemoAction,
   type ButtonApiRow,
   type ButtonCodeType,
   type ButtonDemoSection,
+  type ButtonVariableGroup,
 } from './button-demos.data';
 
 interface SemanticTokenGroup {
@@ -58,6 +61,8 @@ export class App {
   protected readonly typographyScaleGroups: TypographyScaleGroup[] = TYPOGRAPHY_SCALE_GROUPS;
   protected readonly buttonDemoSections: ButtonDemoSection[] = BUTTON_DEMO_SECTIONS;
   protected readonly buttonApiRows: ButtonApiRow[] = BUTTON_API_ROWS;
+  protected readonly buttonVariableGroups: ButtonVariableGroup[] = BUTTON_VARIABLE_GROUPS;
+  protected readonly buttonVariableNotes = BUTTON_VARIABLE_NOTES;
   protected readonly activeButtonSection = signal(this.getButtonSectionId(this.buttonDemoSections[0].id));
   protected readonly buttonCodeType = signal<ButtonCodeType>('js');
   protected readonly expandedButtonDemoIds = signal<string[]>([]);
@@ -277,7 +282,11 @@ export class App {
   }
 
   private getButtonSectionIds(): string[] {
-    return [...this.buttonDemoSections.map((section) => this.getButtonSectionId(section.id)), 'button-api'];
+    return [
+      ...this.buttonDemoSections.map((section) => this.getButtonSectionId(section.id)),
+      'button-api',
+      'button-variables',
+    ];
   }
 
   private async writeTextToClipboard(text: string): Promise<void> {

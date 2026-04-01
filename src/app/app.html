@@ -323,6 +323,40 @@
               </div>
             </div>
           </section>
+
+          <section class="section button-variables-section" id="button-variables">
+            <h2>Variable Bindings</h2>
+            <p class="button-demo-description">
+              Token bindings extracted from the source Figma component to keep implementation aligned
+              across shape, type, state, and size axes.
+            </p>
+
+            <div class="scale-block" *ngFor="let group of buttonVariableGroups">
+              <h3>{{ group.title }}</h3>
+              <p class="scale-note">{{ group.description }}</p>
+              <div class="token-table button-variable-table">
+                <div class="token-row token-head">
+                  <span>Token</span>
+                  <span>Value</span>
+                  <span>Applied To</span>
+                  <span>Notes</span>
+                </div>
+                <div class="token-row" *ngFor="let row of group.rows">
+                  <code class="token-code">{{ row.token }}</code>
+                  <code class="token-code">{{ row.value }}</code>
+                  <span>{{ row.appliesTo }}</span>
+                  <span>{{ row.notes }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="button-variable-notes">
+              <h3>Normalization Notes</h3>
+              <ul>
+                <li *ngFor="let note of buttonVariableNotes">{{ note }}</li>
+              </ul>
+            </div>
+          </section>
           </ng-container>
 
           <ng-container *ngIf="activePage() === 'color'">
@@ -903,6 +937,14 @@
                   (click)="setActiveButtonSection('button-api')"
                 >
                   API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeButtonSection() === 'button-variables'"
+                  href="#button-variables"
+                  (click)="setActiveButtonSection('button-variables')"
+                >
+                  Variable Bindings
                 </a>
               </div>
 
