@@ -798,9 +798,15 @@
   opacity: 0.5;
 }
 
-.button-doc-toolbar {
+.button-demo-head {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.button-demo-head .button-doc-toggle {
+  flex: 0 0 auto;
 }
 
 .button-doc-toggle {

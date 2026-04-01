@@ -237,18 +237,22 @@
             <button class="tab" type="button">Changelog</button>
           </div>
 
-          <div class="button-doc-toolbar">
-            <button class="button-doc-toggle" type="button" (click)="toggleAllButtonDemoCode()">
-              {{ areAllButtonDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
-            </button>
-          </div>
-
           <section
             class="section button-demo-section"
-            *ngFor="let demo of buttonDemoSections"
+            *ngFor="let demo of buttonDemoSections; let i = index"
             [attr.id]="getButtonSectionId(demo.id)"
           >
-            <h2>{{ demo.title }}</h2>
+            <div class="button-demo-head">
+              <h2>{{ demo.title }}</h2>
+              <button
+                *ngIf="i === 0"
+                class="button-doc-toggle"
+                type="button"
+                (click)="toggleAllButtonDemoCode()"
+              >
+                {{ areAllButtonDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+              </button>
+            </div>
             <p class="button-demo-description">{{ demo.description }}</p>
             <div class="button-demo-tags">
               <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
