@@ -22,6 +22,12 @@ import {
   type ButtonSemanticBindingGroup,
   type ButtonVariableGroup,
 } from './button-demos.data';
+import {
+  DEFAULT_THEME_MODE,
+  SEMANTIC_THEME_ALIAS_OVERRIDES,
+  buildSemanticThemeAliasValueMaps,
+  type ThemeMode,
+} from './semantic-theme-modes.data';
 
 interface SemanticTokenGroup {
   category: string;
@@ -60,7 +66,7 @@ export class App {
   protected readonly title = signal('sportbook_mbbiz');
   protected readonly activeLang = signal<'VIE' | 'ENG'>('VIE');
   protected readonly isLangOpen = signal(false);
-  protected readonly activeTheme = signal<'light' | 'dark'>('light');
+  protected readonly activeTheme = signal<ThemeMode>(DEFAULT_THEME_MODE);
   protected readonly isThemeOpen = signal(false);
   protected readonly isGettingStartedOpen = signal(false);
   protected readonly isDesignTokensOpen = signal(false);
@@ -74,8 +80,9 @@ export class App {
   protected readonly semanticTokenCount = this.semanticTokenMappings.length;
   protected readonly primitiveTokenCount = this.getUniquePrimitiveCount();
   protected readonly activeTokenSection = signal('token-architecture');
-  protected readonly colorTokenMode = signal<'light' | 'dark'>('light');
+  protected readonly colorTokenMode = signal<ThemeMode>(DEFAULT_THEME_MODE);
   protected readonly copiedSemanticAlias = signal<string | null>(null);
+  protected readonly darkTokenOverrideCount = Object.keys(SEMANTIC_THEME_ALIAS_OVERRIDES.dark).length;
   protected readonly isTocCollapsed = signal(false);
   protected readonly spacingScaleRows: NumericScaleRow[] = SPACING_SCALE_ROWS;
   protected readonly radiusScaleRows: NumericScaleRow[] = RADIUS_SCALE_ROWS;
@@ -90,6 +97,20 @@ export class App {
   protected readonly buttonCodeType = signal<ButtonCodeType>('js');
   protected readonly expandedButtonDemoIds = signal<string[]>([]);
   protected readonly copiedButtonDemoId = signal<string | null>(null);
+  private readonly themeStorageKey = 'sportbook.theme-mode';
+  private readonly semanticThemeAliasValueMaps = buildSemanticThemeAliasValueMaps(
+    this.semanticTokenMappings,
+  );
+  private readonly semanticDarkValueOverrides = new Map<string, string>(
+    Object.entries(SEMANTIC_THEME_ALIAS_OVERRIDES.dark),
+  );
+
+  constructor() {
+    const initialTheme = this.resolveInitialTheme();
+    this.activeTheme.set(initialTheme);
+    this.colorTokenMode.set(initialTheme);
+    this.applyThemeMode(initialTheme);
+  }
 
   protected toggleLangMenu() {
     this.isLangOpen.update((v) => !v);
@@ -104,8 +125,11 @@ export class App {
     this.isThemeOpen.update((v) => !v);
   }
 
-  protected setTheme(theme: 'light' | 'dark') {
+  protected setTheme(theme: ThemeMode) {
     this.activeTheme.set(theme);
+    this.colorTokenMode.set(theme);
+    this.applyThemeMode(theme);
+    this.persistThemeMode(theme);
     this.isThemeOpen.set(false);
   }
 
@@ -148,12 +172,12 @@ export class App {
     this.isTocCollapsed.update((value) => !value);
   }
 
-  protected setColorTokenMode(mode: 'light' | 'dark') {
+  protected setColorTokenMode(mode: ThemeMode) {
     this.colorTokenMode.set(mode);
   }
 
   protected getTokenCssVar(token: SemanticColorTokenMapping): string {
-    return `--${token.alias.replace(/\//g, '-')}`;
+    return this.getTokenCssVarFromAlias(token.alias);
   }
 
   protected getTokenDescription(token: SemanticColorTokenMapping): string {
@@ -168,10 +192,7 @@ export class App {
   }
 
   protected getTokenDisplayValue(token: SemanticColorTokenMapping): string {
-    if (this.colorTokenMode() === 'dark') {
-      return this.semanticDarkValueOverrides.get(token.alias) ?? token.value;
-    }
-    return token.value;
+    return this.semanticThemeAliasValueMaps[this.colorTokenMode()][token.alias] ?? token.value;
   }
 
   protected async copySemanticTokenRow(token: SemanticColorTokenMapping) {
@@ -329,8 +350,6 @@ export class App {
       }));
   }
 
-  private readonly semanticDarkValueOverrides = new Map<string, string>([]);
-
   private buildSemanticCategorySummary(): SemanticCategorySummary[] {
     return this.semanticTokenGroups.map((group) => ({
       category: group.category,
@@ -408,6 +427,54 @@ export class App {
       document.execCommand('copy');
       document.body.removeChild(textArea);
     }
+  }
+
+  private resolveInitialTheme(): ThemeMode {
+    if (typeof window === 'undefined') {
+      return DEFAULT_THEME_MODE;
+    }
+
+    const storedTheme = window.localStorage.getItem(this.themeStorageKey);
+    if (this.isThemeMode(storedTheme)) {
+      return storedTheme;
+    }
+
+    if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+
+    return DEFAULT_THEME_MODE;
+  }
+
+  private persistThemeMode(theme: ThemeMode): void {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    window.localStorage.setItem(this.themeStorageKey, theme);
+  }
+
+  private applyThemeMode(theme: ThemeMode): void {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    const root = document.documentElement;
+    const modeValues = this.semanticThemeAliasValueMaps[theme];
+
+    for (const [alias, value] of Object.entries(modeValues)) {
+      root.style.setProperty(this.getTokenCssVarFromAlias(alias), value);
+    }
+
+    root.dataset['themeMode'] = theme;
+  }
+
+  private isThemeMode(value: string | null): value is ThemeMode {
+    return value === 'light' || value === 'dark';
+  }
+
+  private getTokenCssVarFromAlias(alias: string): string {
+    return `--${alias.replace(/\//g, '-')}`;
   }
 
   private formatCategoryLabel(category: string): string {

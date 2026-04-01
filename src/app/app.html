@@ -837,7 +837,8 @@
                 </button>
               </div>
               <p class="token-mode-hint" *ngIf="colorTokenMode() === 'dark'">
-                Dark mode đang dùng cùng giá trị với Light cho các token chưa có override.
+                Dark mode đang có {{ darkTokenOverrideCount }} alias override. Token chưa có override
+                sẽ dùng giá trị Light.
               </p>
             </section>
 
