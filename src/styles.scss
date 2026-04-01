@@ -333,6 +333,19 @@ button {
   border-color: rgba(148, 163, 184, 0.2);
 }
 
+.page.theme-dark .button-api-group-title {
+  color: #f8fafc;
+}
+
+.page.theme-dark .button-api-col-description {
+  color: #e2e8f0;
+}
+
+.page.theme-dark .button-api-col-type,
+.page.theme-dark .button-api-col-default {
+  color: #f472b6;
+}
+
 .page.theme-dark .toc-item,
 .page.theme-dark .sidebar-link,
 .page.theme-dark .sidebar-item,

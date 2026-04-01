@@ -326,18 +326,19 @@
 
           <section class="section button-api-section" id="button-api">
             <h2>API</h2>
+            <h3 class="button-api-group-title">Button</h3>
             <div class="button-api-table">
               <div class="button-api-row button-api-head">
-                <span>Property</span>
-                <span>Description</span>
-                <span>Type</span>
-                <span>Default</span>
+                <span class="button-api-col button-api-col-property">Property</span>
+                <span class="button-api-col button-api-col-description">Description</span>
+                <span class="button-api-col button-api-col-type">Type</span>
+                <span class="button-api-col button-api-col-default">Default</span>
               </div>
               <div class="button-api-row" *ngFor="let row of buttonApiRows">
-                <code class="token-code">{{ row.property }}</code>
-                <span>{{ row.description }}</span>
-                <code class="token-code">{{ row.type }}</code>
-                <code class="token-code">{{ row.defaultValue }}</code>
+                <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
+                <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
+                <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
               </div>
             </div>
           </section>
