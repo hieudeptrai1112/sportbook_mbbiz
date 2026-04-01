@@ -415,7 +415,7 @@
   max-width: 980px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 32px;
   justify-self: start;
   margin: 0;
 }
@@ -490,10 +490,16 @@
   border-bottom: 2px solid #0047cf;
 }
 
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 .section h2 {
   font-size: 20px;
   line-height: 28px;
-  margin: 0 0 24px 0;
+  margin: 0;
   color: #0f172a;
 }
 
@@ -808,6 +814,8 @@
 }
 
 .button-demo-section {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
   scroll-margin-top: 88px;
 }
