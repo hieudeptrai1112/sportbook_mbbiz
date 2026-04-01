@@ -58,6 +58,85 @@ button {
   color: #4e5969;
 }
 
+.button-code-wrapper {
+  border-top: 1px solid rgba(195, 197, 217, 0.2);
+  background: #f2f3f5;
+}
+
+.button-code-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 18px;
+  border-bottom: 1px solid rgba(195, 197, 217, 0.25);
+  background: rgba(248, 249, 251, 0.8);
+}
+
+.button-code-file {
+  font-family: "IBM Plex Mono", "Liberation Mono", monospace;
+  font-size: 11px;
+  line-height: 16px;
+  color: #4e5969;
+}
+
+.button-code-hint {
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #86909c;
+  font-weight: 600;
+}
+
+.button-code-block {
+  margin: 0;
+  padding: 22px 24px 24px;
+  overflow-x: auto;
+}
+
+.button-code-block code {
+  display: block;
+  min-width: max-content;
+  white-space: pre;
+  font-family: "IBM Plex Mono", "Liberation Mono", monospace;
+  font-size: 13px;
+  line-height: 24px;
+  color: #344154;
+}
+
+.code-token.keyword {
+  color: #7c4dff;
+}
+
+.code-token.tag {
+  color: #165dff;
+}
+
+.code-token.type {
+  color: #1f6feb;
+}
+
+.code-token.attr {
+  color: #dd5f00;
+}
+
+.code-token.string {
+  color: #00a854;
+}
+
+.code-token.comment {
+  color: #8c919a;
+}
+
+.code-token.number {
+  color: #0ea5e9;
+}
+
+.code-token.punctuation {
+  color: #5b6472;
+}
+
 .page.theme-dark {
   background: #0b1220;
   color: #e2e8f0;
@@ -108,8 +187,50 @@ button {
   background: #111827;
 }
 
+.page.theme-dark .button-code-head {
+  background: rgba(17, 24, 39, 0.9);
+  border-bottom-color: rgba(148, 163, 184, 0.2);
+}
+
+.page.theme-dark .button-code-file {
+  color: #cbd5e1;
+}
+
+.page.theme-dark .button-code-hint {
+  color: #94a3b8;
+}
+
 .page.theme-dark .button-code-block code {
   color: #e2e8f0;
+}
+
+.page.theme-dark .code-token.keyword {
+  color: #c084fc;
+}
+
+.page.theme-dark .code-token.tag,
+.page.theme-dark .code-token.type {
+  color: #7aa2f7;
+}
+
+.page.theme-dark .code-token.attr {
+  color: #f7b267;
+}
+
+.page.theme-dark .code-token.string {
+  color: #7bd88f;
+}
+
+.page.theme-dark .code-token.comment {
+  color: #94a3b8;
+}
+
+.page.theme-dark .code-token.number {
+  color: #38bdf8;
+}
+
+.page.theme-dark .code-token.punctuation {
+  color: #a6adc8;
 }
 
 .page.theme-dark .button-icon-btn,

@@ -12,6 +12,7 @@ import {
 import {
   BUTTON_API_ROWS,
   BUTTON_DEMO_SECTIONS,
+  type ButtonDemoAction,
   type ButtonApiRow,
   type ButtonCodeType,
   type ButtonDemoSection,
@@ -145,10 +146,24 @@ export class App {
   }
 
   protected getButtonDemoCode(section: ButtonDemoSection): string {
-    if (this.buttonCodeType() === 'ts' && section.codeTs) {
-      return section.codeTs;
+    if (this.buttonCodeType() === 'ts') {
+      return this.buildTypeScriptSnippet(section);
     }
-    return section.codeJs;
+    return this.buildHtmlSnippet(section);
+  }
+
+  protected getButtonDemoHighlightedCode(section: ButtonDemoSection): string {
+    const code = this.getButtonDemoCode(section);
+    if (this.buttonCodeType() === 'ts') {
+      return this.highlightTypeScriptSnippet(code);
+    }
+    return this.highlightHtmlSnippet(code);
+  }
+
+  protected getButtonCodeLanguageLabel(): string {
+    return this.buttonCodeType() === 'js'
+      ? 'app-button-demo.component.html'
+      : 'button-demo.component.ts';
   }
 
   protected async copyButtonDemoCode(section: ButtonDemoSection) {
@@ -289,5 +304,130 @@ export class App {
       .split('-')
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
       .join(' ');
+  }
+
+  private buildHtmlSnippet(section: ButtonDemoSection): string {
+    const indentedRows = section.codeJs
+      .split('\n')
+      .map((line) => `  ${line}`)
+      .join('\n');
+    return `<section class="button-demo-preview">\n${indentedRows}\n</section>`;
+  }
+
+  private buildTypeScriptSnippet(section: ButtonDemoSection): string {
+    const actionRows = section.actions
+      .map((action) => `    ${this.formatActionForSnippet(action)},`)
+      .join('\n');
+
+    return `import { Component } from '@angular/core';
+import { DsButtonComponent } from './components/ds-button/ds-button.component';
+
+@Component({
+  selector: 'app-button-demo',
+  standalone: true,
+  imports: [DsButtonComponent],
+  template: \`
+    <div class="button-demo-preview">
+      <app-ds-button
+        *ngFor="let action of actions"
+        [label]="action.label"
+        [shape]="action.shape"
+        [tone]="action.tone"
+        [state]="action.state"
+        [size]="action.size"
+        [showLeftIcon]="action.showLeftIcon ?? false"
+        [showRightIcon]="action.showRightIcon ?? false"
+      />
+    </div>
+  \`,
+})
+export class ButtonDemoComponent {
+  readonly actions = [
+${actionRows}
+  ];
+}`;
+  }
+
+  private formatActionForSnippet(action: ButtonDemoAction): string {
+    const parts = [
+      `label: '${action.label}'`,
+      `shape: '${action.shape ?? 'rectangle'}'`,
+      `tone: '${action.tone ?? 'primary'}'`,
+      `state: '${action.state ?? 'default'}'`,
+      `size: '${action.size ?? 'large'}'`,
+    ];
+
+    if (action.showLeftIcon) {
+      parts.push('showLeftIcon: true');
+    }
+
+    if (action.showRightIcon) {
+      parts.push('showRightIcon: true');
+    }
+
+    return `{ ${parts.join(', ')} }`;
+  }
+
+  private highlightHtmlSnippet(code: string): string {
+    return code
+      .split('\n')
+      .map((line) => {
+        const escapedLine = this.escapeHtml(line);
+        return escapedLine.replace(
+          /(&lt;\/?)([A-Za-z][\w-]*)(.*?)(\/?&gt;)/g,
+          (_match, open, tagName, attributes, close) => {
+            const highlightedAttrs = attributes.replace(
+              /([:@*.\[\]\(\)\w-]+)(=)("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g,
+              '<span class="code-token attr">$1</span><span class="code-token punctuation">$2</span><span class="code-token string">$3</span>',
+            );
+
+            return `<span class="code-token punctuation">${open}</span><span class="code-token tag">${tagName}</span>${highlightedAttrs}<span class="code-token punctuation">${close}</span>`;
+          },
+        );
+      })
+      .join('\n')
+      .replace(/(\{\{|\}\}|\?\?|=>)/g, '<span class="code-token keyword">$1</span>');
+  }
+
+  private highlightTypeScriptSnippet(code: string): string {
+    const stash: string[] = [];
+    let escaped = this.escapeHtml(code);
+
+    escaped = this.captureToken(escaped, /(\/\*[\s\S]*?\*\/|\/\/.*$)/gm, 'comment', stash);
+    escaped = this.captureToken(
+      escaped,
+      /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`)/g,
+      'string',
+      stash,
+    );
+
+    escaped = escaped.replace(
+      /\b(import|from|const|readonly|interface|type|export|class|return|true|false)\b/g,
+      '<span class="code-token keyword">$1</span>',
+    );
+    escaped = escaped.replace(/\b(Component|DsButtonComponent)\b/g, '<span class="code-token type">$1</span>');
+    escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');
+    escaped = escaped.replace(
+      /(\{|\}|\(|\)|\[|\]|:|,|;|=>)/g,
+      '<span class="code-token punctuation">$1</span>',
+    );
+
+    return this.restoreCapturedTokens(escaped, stash);
+  }
+
+  private captureToken(source: string, pattern: RegExp, className: string, stash: string[]): string {
+    return source.replace(pattern, (match) => {
+      const key = `__code_token_${stash.length}__`;
+      stash.push(`<span class="code-token ${className}">${match}</span>`);
+      return key;
+    });
+  }
+
+  private restoreCapturedTokens(source: string, stash: string[]): string {
+    return source.replace(/__code_token_(\d+)__/g, (_match, index) => stash[Number(index)] ?? '');
+  }
+
+  private escapeHtml(value: string): string {
+    return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 }

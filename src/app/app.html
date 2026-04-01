@@ -282,7 +282,7 @@
                     [class.active]="buttonCodeType() === 'js'"
                     (click)="setButtonCodeType('js')"
                   >
-                    JS
+                    HTML
                   </button>
                   <button
                     type="button"
@@ -297,7 +297,11 @@
               </div>
 
               <div class="button-code-wrapper" *ngIf="isButtonDemoExpanded(demo.id)">
-                <pre class="button-code-block"><code [textContent]="getButtonDemoCode(demo)"></code></pre>
+                <div class="button-code-head">
+                  <span class="button-code-file">{{ getButtonCodeLanguageLabel() }}</span>
+                  <span class="button-code-hint">Copy-ready snippet</span>
+                </div>
+                <pre class="button-code-block"><code [innerHTML]="getButtonDemoHighlightedCode(demo)"></code></pre>
               </div>
             </div>
           </section>

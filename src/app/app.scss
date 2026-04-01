@@ -901,25 +901,6 @@
   cursor: not-allowed;
 }
 
-.button-code-wrapper {
-  border-top: 1px solid rgba(195, 197, 217, 0.2);
-  background: #f2f3f5;
-}
-
-.button-code-block {
-  margin: 0;
-  padding: 24px 28px;
-  overflow-x: auto;
-}
-
-.button-code-block code {
-  white-space: pre;
-  font-family: "IBM Plex Mono", "Liberation Mono", monospace;
-  font-size: 13px;
-  line-height: 24px;
-  color: #1d2129;
-}
-
 .button-api-section {
   scroll-margin-top: 88px;
 }
