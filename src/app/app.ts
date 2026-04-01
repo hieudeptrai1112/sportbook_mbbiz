@@ -65,7 +65,9 @@ export class App {
   protected readonly isGettingStartedOpen = signal(false);
   protected readonly isDesignTokensOpen = signal(false);
   protected readonly isComponentsOpen = signal(true);
-  protected readonly activePage = signal<'buttons' | 'color' | 'tokens'>('buttons');
+  protected readonly activePage = signal<'buttons' | 'color' | 'tokens' | 'spacing' | 'typography'>(
+    'buttons',
+  );
   protected readonly semanticTokenMappings = SEMANTIC_COLOR_TOKEN_MAPPINGS;
   protected readonly semanticTokenGroups = this.buildSemanticTokenGroups();
   protected readonly semanticCategorySummary = this.buildSemanticCategorySummary();
@@ -105,9 +107,9 @@ export class App {
     this.isThemeOpen.set(false);
   }
 
-  protected setPage(page: 'buttons' | 'color' | 'tokens') {
+  protected setPage(page: 'buttons' | 'color' | 'tokens' | 'spacing' | 'typography') {
     this.activePage.set(page);
-    if (page === 'tokens') {
+    if (page === 'tokens' || page === 'spacing' || page === 'typography') {
       setTimeout(() => this.updateActiveTokenSection(), 0);
     } else if (page === 'buttons') {
       setTimeout(() => this.updateActiveButtonSection(), 0);
@@ -126,6 +128,10 @@ export class App {
 
   protected getTokenSectionId(category: string): string {
     return `semantic-${category}`;
+  }
+
+  protected getTypographySectionId(title: string): string {
+    return `typography-${title.toLowerCase().replace(/\s+/g, '-')}`;
   }
 
   protected setActiveTokenSection(sectionId: string) {
@@ -213,7 +219,12 @@ export class App {
   }
 
   private updateActiveTokenSection() {
-    if (this.activePage() !== 'tokens' || typeof document === 'undefined') {
+    if (
+      (this.activePage() !== 'tokens' &&
+        this.activePage() !== 'spacing' &&
+        this.activePage() !== 'typography') ||
+      typeof document === 'undefined'
+    ) {
       return;
     }
 
@@ -316,11 +327,18 @@ export class App {
   }
 
   private getTokenSectionIds(): string[] {
+    if (this.activePage() === 'spacing') {
+      return ['spacing-scale', 'radius-scale'];
+    }
+
+    if (this.activePage() === 'typography') {
+      return this.typographyScaleGroups.map((group) => this.getTypographySectionId(group.title));
+    }
+
     return [
       'token-architecture',
       'semantic-categories',
       ...this.semanticTokenGroups.map((group) => this.getTokenSectionId(group.category)),
-      'scale-tables',
     ];
   }
 

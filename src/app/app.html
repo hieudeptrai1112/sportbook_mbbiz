@@ -137,9 +137,21 @@
             <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
             <span>Colors</span>
           </div>
-          <div class="sidebar-link">
+          <div
+            class="sidebar-link"
+            [class.active]="activePage() === 'spacing'"
+            (click)="setPage('spacing')"
+          >
             <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
             <span>Spacing</span>
+          </div>
+          <div
+            class="sidebar-link"
+            [class.active]="activePage() === 'typography'"
+            (click)="setPage('typography')"
+          >
+            <img src="/assets/figma/b9238733-6594-4666-b6ab-b199a6aca7e8.svg" alt="" />
+            <span>Typography</span>
           </div>
         </div>
 
@@ -200,7 +212,9 @@
         <div
           class="content"
           [class.content-color]="activePage() === 'color'"
-          [class.content-tokens]="activePage() === 'tokens'"
+          [class.content-tokens]="
+            activePage() === 'tokens' || activePage() === 'spacing' || activePage() === 'typography'
+          "
         >
           <ng-container *ngIf="activePage() === 'buttons'">
           <div class="page-header">
@@ -886,64 +900,89 @@
               </div>
             </section>
 
-            <section class="section scale-section" id="scale-tables">
-              <h2>Scale Tables (Group 3)</h2>
-              <p class="scale-note">
-                Bảng scale cụ thể cho <span class="mono">spacing</span>, <span class="mono">radius</span> và
-                <span class="mono">typography</span>, lấy từ Alias token và resolve về primitive.
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'spacing'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Design Tokens</span>
+                <span class="slash">/</span>
+                <span class="meta-version">Spacing</span>
+              </div>
+              <h1>Spacing</h1>
+              <p class="lead">
+                Scale tables cho spacing và radius, tách riêng khỏi Colors để tra cứu nhanh khi xây dựng layout.
               </p>
+            </div>
 
-              <div class="scale-block">
-                <h3>Spacing</h3>
-                <div class="token-table scale-table">
-                  <div class="token-row token-head">
-                    <span>Alias</span>
-                    <span>Proposed</span>
-                    <span>Primitive</span>
-                    <span>Value</span>
-                  </div>
-                  <div class="token-row" *ngFor="let row of spacingScaleRows">
-                    <code class="token-code">{{ row.alias }}</code>
-                    <code class="token-code">{{ row.proposed }}</code>
-                    <code class="token-code">{{ row.primitive }}</code>
-                    <code class="token-code">{{ row.value }}</code>
-                  </div>
+            <section class="section scale-section" id="spacing-scale">
+              <h2>Spacing Scale</h2>
+              <div class="token-table scale-table">
+                <div class="token-row token-head">
+                  <span>Alias</span>
+                  <span>Proposed</span>
+                  <span>Primitive</span>
+                  <span>Value</span>
+                </div>
+                <div class="token-row" *ngFor="let row of spacingScaleRows">
+                  <code class="token-code">{{ row.alias }}</code>
+                  <code class="token-code">{{ row.proposed }}</code>
+                  <code class="token-code">{{ row.primitive }}</code>
+                  <code class="token-code">{{ row.value }}</code>
                 </div>
               </div>
+            </section>
 
-              <div class="scale-block">
-                <h3>Radius</h3>
-                <div class="token-table scale-table">
-                  <div class="token-row token-head">
-                    <span>Alias</span>
-                    <span>Proposed</span>
-                    <span>Primitive</span>
-                    <span>Value</span>
-                  </div>
-                  <div class="token-row" *ngFor="let row of radiusScaleRows">
-                    <code class="token-code">{{ row.alias }}</code>
-                    <code class="token-code">{{ row.proposed }}</code>
-                    <code class="token-code">{{ row.primitive }}</code>
-                    <code class="token-code">{{ row.value }}</code>
-                  </div>
+            <section class="section scale-section" id="radius-scale">
+              <h2>Radius Scale</h2>
+              <div class="token-table scale-table">
+                <div class="token-row token-head">
+                  <span>Alias</span>
+                  <span>Proposed</span>
+                  <span>Primitive</span>
+                  <span>Value</span>
+                </div>
+                <div class="token-row" *ngFor="let row of radiusScaleRows">
+                  <code class="token-code">{{ row.alias }}</code>
+                  <code class="token-code">{{ row.proposed }}</code>
+                  <code class="token-code">{{ row.primitive }}</code>
+                  <code class="token-code">{{ row.value }}</code>
                 </div>
               </div>
+            </section>
+          </ng-container>
 
-              <div class="scale-block" *ngFor="let group of typographyScaleGroups">
-                <h3>Typography · {{ group.title }}</h3>
-                <div class="token-table scale-table">
-                  <div class="token-row token-head">
-                    <span>Alias</span>
-                    <span>Proposed</span>
-                    <span>Primitive</span>
-                    <span>Value</span>
-                  </div>
-                  <div class="token-row" *ngFor="let row of group.rows">
-                    <code class="token-code">{{ row.alias }}</code>
-                    <code class="token-code">{{ row.proposed }}</code>
-                    <code class="token-code">{{ row.primitive }}</code>
-                    <code class="token-code">{{ row.value }}</code>
-                  </div>
+          <ng-container *ngIf="activePage() === 'typography'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Design Tokens</span>
+                <span class="slash">/</span>
+                <span class="meta-version">Typography</span>
+              </div>
+              <h1>Typography</h1>
+              <p class="lead">
+                Scale tables cho font size, line height và font weight để đồng bộ kiểu chữ trong component docs.
+              </p>
+            </div>
+
+            <section
+              class="section scale-section"
+              *ngFor="let group of typographyScaleGroups"
+              [attr.id]="getTypographySectionId(group.title)"
+            >
+              <h2>{{ group.title }}</h2>
+              <div class="token-table scale-table">
+                <div class="token-row token-head">
+                  <span>Alias</span>
+                  <span>Proposed</span>
+                  <span>Primitive</span>
+                  <span>Value</span>
+                </div>
+                <div class="token-row" *ngFor="let row of group.rows">
+                  <code class="token-code">{{ row.alias }}</code>
+                  <code class="token-code">{{ row.proposed }}</code>
+                  <code class="token-code">{{ row.primitive }}</code>
+                  <code class="token-code">{{ row.value }}</code>
                 </div>
               </div>
             </section>
@@ -1055,13 +1094,66 @@
                 >
                   {{ group.label }}
                 </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'spacing'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
                 <a
                   class="toc-item"
-                  [class.active]="activeTokenSection() === 'scale-tables'"
-                  href="#scale-tables"
-                  (click)="setActiveTokenSection('scale-tables')"
+                  [class.active]="activeTokenSection() === 'spacing-scale'"
+                  href="#spacing-scale"
+                  (click)="setActiveTokenSection('spacing-scale')"
                 >
-                  Scale Tables
+                  Spacing Scale
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeTokenSection() === 'radius-scale'"
+                  href="#radius-scale"
+                  (click)="setActiveTokenSection('radius-scale')"
+                >
+                  Radius Scale
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'typography'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let group of typographyScaleGroups"
+                  [class.active]="activeTokenSection() === getTypographySectionId(group.title)"
+                  [href]="'#' + getTypographySectionId(group.title)"
+                  (click)="setActiveTokenSection(getTypographySectionId(group.title))"
+                >
+                  {{ group.title }}
                 </a>
               </div>
             </aside>
