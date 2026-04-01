@@ -12,12 +12,14 @@ import {
 import {
   BUTTON_API_ROWS,
   BUTTON_DEMO_SECTIONS,
+  BUTTON_SEMANTIC_BINDING_GROUPS,
   BUTTON_VARIABLE_GROUPS,
   BUTTON_VARIABLE_NOTES,
   type ButtonDemoAction,
   type ButtonApiRow,
   type ButtonCodeType,
   type ButtonDemoSection,
+  type ButtonSemanticBindingGroup,
   type ButtonVariableGroup,
 } from './button-demos.data';
 
@@ -31,6 +33,21 @@ interface SemanticCategorySummary {
   category: string;
   label: string;
   count: number;
+}
+
+interface ResolvedButtonSemanticBindingRow {
+  componentToken: string;
+  semanticAlias: string;
+  semanticPrimitive: string;
+  semanticValue: string;
+  appliesTo: string;
+  notes: string;
+}
+
+interface ResolvedButtonSemanticBindingGroup {
+  title: string;
+  description: string;
+  rows: ResolvedButtonSemanticBindingRow[];
 }
 
 @Component({
@@ -61,6 +78,8 @@ export class App {
   protected readonly typographyScaleGroups: TypographyScaleGroup[] = TYPOGRAPHY_SCALE_GROUPS;
   protected readonly buttonDemoSections: ButtonDemoSection[] = BUTTON_DEMO_SECTIONS;
   protected readonly buttonApiRows: ButtonApiRow[] = BUTTON_API_ROWS;
+  protected readonly buttonSemanticBindingGroups: ResolvedButtonSemanticBindingGroup[] =
+    this.buildButtonSemanticBindingGroups(BUTTON_SEMANTIC_BINDING_GROUPS);
   protected readonly buttonVariableGroups: ButtonVariableGroup[] = BUTTON_VARIABLE_GROUPS;
   protected readonly buttonVariableNotes = BUTTON_VARIABLE_NOTES;
   protected readonly activeButtonSection = signal(this.getButtonSectionId(this.buttonDemoSections[0].id));
@@ -270,6 +289,30 @@ export class App {
 
   private getUniquePrimitiveCount(): number {
     return new Set(this.semanticTokenMappings.map((token) => token.primitive)).size;
+  }
+
+  private buildButtonSemanticBindingGroups(
+    groups: ButtonSemanticBindingGroup[],
+  ): ResolvedButtonSemanticBindingGroup[] {
+    const semanticByAlias = new Map(
+      this.semanticTokenMappings.map((token) => [token.alias, token] as const),
+    );
+
+    return groups.map((group) => ({
+      title: group.title,
+      description: group.description,
+      rows: group.rows.map((row) => {
+        const mapped = semanticByAlias.get(row.semanticAlias);
+        return {
+          componentToken: row.componentToken,
+          semanticAlias: row.semanticAlias,
+          semanticPrimitive: mapped?.primitive ?? 'N/A',
+          semanticValue: mapped?.value ?? 'N/A',
+          appliesTo: row.appliesTo,
+          notes: row.notes,
+        };
+      }),
+    }));
   }
 
   private getTokenSectionIds(): string[] {

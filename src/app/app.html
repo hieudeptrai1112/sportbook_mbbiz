@@ -327,25 +327,59 @@
           <section class="section button-variables-section" id="button-variables">
             <h2>Variable Bindings</h2>
             <p class="button-demo-description">
-              Token bindings extracted from the source Figma component to keep implementation aligned
-              across shape, type, state, and size axes.
+              Button color variables are mapped to existing semantic aliases so implementation
+              stays consistent with the Design Tokens source of truth.
             </p>
 
-            <div class="scale-block" *ngFor="let group of buttonVariableGroups">
+            <div class="scale-block" *ngFor="let group of buttonSemanticBindingGroups">
               <h3>{{ group.title }}</h3>
               <p class="scale-note">{{ group.description }}</p>
-              <div class="token-table button-variable-table">
+              <div class="token-table button-semantic-table">
                 <div class="token-row token-head">
-                  <span>Token</span>
+                  <span>Button Variable</span>
+                  <span>Semantic Alias</span>
+                  <span>Primitive</span>
                   <span>Value</span>
                   <span>Applied To</span>
                   <span>Notes</span>
                 </div>
                 <div class="token-row" *ngFor="let row of group.rows">
-                  <code class="token-code">{{ row.token }}</code>
-                  <code class="token-code">{{ row.value }}</code>
+                  <code class="token-code">{{ row.componentToken }}</code>
+                  <code class="token-code">{{ row.semanticAlias }}</code>
+                  <code class="token-code">{{ row.semanticPrimitive }}</code>
+                  <div class="token-value-cell" [class.na]="row.semanticValue === 'N/A'">
+                    <span
+                      class="token-swatch"
+                      [style.background]="row.semanticValue === 'N/A' ? '#E2E8F0' : row.semanticValue"
+                    ></span>
+                    <code class="token-code">{{ row.semanticValue }}</code>
+                  </div>
                   <span>{{ row.appliesTo }}</span>
                   <span>{{ row.notes }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="button-variable-subsection">
+              <h3>Layout & Typography Specs</h3>
+              <p class="scale-note">
+                Non-color variables used by Button sizing, spacing, radius, and text styles.
+              </p>
+              <div class="scale-block" *ngFor="let group of buttonVariableGroups">
+                <h4>{{ group.title }}</h4>
+                <div class="token-table button-variable-table">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Applied To</span>
+                    <span>Notes</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.rows">
+                    <code class="token-code">{{ row.token }}</code>
+                    <code class="token-code">{{ row.value }}</code>
+                    <span>{{ row.appliesTo }}</span>
+                    <span>{{ row.notes }}</span>
+                  </div>
                 </div>
               </div>
             </div>

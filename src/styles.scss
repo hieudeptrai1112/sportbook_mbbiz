@@ -92,6 +92,34 @@ button {
   grid-template-columns: minmax(0, 1.8fr) minmax(0, 0.9fr) minmax(0, 1.2fr) minmax(0, 1.8fr);
 }
 
+.button-semantic-table .token-row {
+  grid-template-columns:
+    minmax(0, 1.8fr)
+    minmax(0, 1.9fr)
+    minmax(0, 1.6fr)
+    minmax(0, 1fr)
+    minmax(0, 1.2fr)
+    minmax(0, 1.8fr);
+}
+
+.button-variable-subsection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.button-variable-subsection h3 {
+  margin: 4px 0 0;
+  font-size: 18px;
+  color: #0f172a;
+}
+
+.button-variable-subsection h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #0f172a;
+}
+
 .button-code-wrapper {
   border-top: 1px solid rgba(195, 197, 217, 0.2);
   background: #f2f3f5;
@@ -218,6 +246,11 @@ button {
 }
 
 .page.theme-dark .button-variable-notes h3 {
+  color: #e2e8f0;
+}
+
+.page.theme-dark .button-variable-subsection h3,
+.page.theme-dark .button-variable-subsection h4 {
   color: #e2e8f0;
 }
 
