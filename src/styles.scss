@@ -66,7 +66,7 @@ button {
   border: 1px solid rgba(195, 197, 217, 0.2);
   background: #ffffff;
   border-radius: 10px;
-  padding: 14px 16px;
+  padding: 16px;
 }
 
 .button-variable-notes h3 {
@@ -76,7 +76,7 @@ button {
 }
 
 .button-variable-notes ul {
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   padding-left: 18px;
   color: #4e5969;
   display: flex;
@@ -85,7 +85,7 @@ button {
 }
 
 .button-variable-notes li {
-  line-height: 22px;
+  line-height: 24px;
 }
 
 .button-variable-table .token-row {
@@ -109,8 +109,8 @@ button {
 }
 
 .button-variable-subsection h3 {
-  margin: 4px 0 0;
-  font-size: 18px;
+  margin: 0;
+  font-size: 20px;
   color: #0f172a;
 }
 
@@ -130,20 +130,20 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 10px 18px;
+  padding: 12px 16px;
   border-bottom: 1px solid rgba(195, 197, 217, 0.25);
   background: rgba(248, 249, 251, 0.8);
 }
 
 .button-code-file {
   font-family: "IBM Plex Mono", "Liberation Mono", monospace;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 16px;
   color: #4e5969;
 }
 
 .button-code-hint {
-  font-size: 11px;
+  font-size: 12px;
   line-height: 16px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -153,7 +153,7 @@ button {
 
 .button-code-block {
   margin: 0;
-  padding: 22px 24px 24px;
+  padding: 24px;
   overflow-x: auto;
 }
 
