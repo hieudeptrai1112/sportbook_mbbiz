@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
 import { DsButtonComponent } from './components/ds-button/ds-button.component';
-import { SEMANTIC_COLOR_TOKEN_MAPPINGS, type SemanticColorTokenMapping } from './semantic-tokens.data';
+import {
+  SEMANTIC_BACKGROUND_FIGMA_ORDER,
+  SEMANTIC_COLOR_TOKEN_MAPPINGS,
+  type SemanticColorTokenMapping,
+} from './semantic-tokens.data';
 import {
   RADIUS_SCALE_ROWS,
   SPACING_SCALE_ROWS,
@@ -367,6 +371,10 @@ export class App {
   }
 
   private buildSemanticTokenGroups(): SemanticTokenGroup[] {
+    const backgroundOrder = new Map(
+      SEMANTIC_BACKGROUND_FIGMA_ORDER.map((alias, index) => [alias, index] as const),
+    );
+
     const grouped = new Map<string, SemanticColorTokenMapping[]>();
     for (const token of this.semanticTokenMappings) {
       const bucket = grouped.get(token.category) ?? [];
@@ -379,7 +387,22 @@ export class App {
       .map(([category, items]) => ({
         category,
         label: this.formatCategoryLabel(category),
-        items: items.sort((left, right) => left.alias.localeCompare(right.alias)),
+        items: items.sort((left, right) => {
+          if (category === 'background') {
+            const leftIndex = backgroundOrder.get(left.alias);
+            const rightIndex = backgroundOrder.get(right.alias);
+            if (leftIndex !== undefined && rightIndex !== undefined) {
+              return leftIndex - rightIndex;
+            }
+            if (leftIndex !== undefined) {
+              return -1;
+            }
+            if (rightIndex !== undefined) {
+              return 1;
+            }
+          }
+          return left.alias.localeCompare(right.alias);
+        }),
       }));
   }
 
