@@ -921,7 +921,7 @@
                 </div>
                 <div class="token-row" *ngFor="let token of group.items">
                   <code class="token-code">{{ token.alias }}</code>
-                  <code class="token-code">{{ token.primitive }}</code>
+                  <code class="token-code">{{ getTokenPrimitiveRef(token) }}</code>
                   <div class="token-value-cell" [class.na]="getTokenDisplayValue(token) === 'N/A'">
                     <span
                       class="token-swatch"

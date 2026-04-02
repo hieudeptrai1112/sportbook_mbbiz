@@ -26,7 +26,9 @@ import {
   DEFAULT_THEME_BRAND,
   DEFAULT_THEME_ID,
   DEFAULT_THEME_MODE,
+  SEMANTIC_THEME_ALIAS_PRIMITIVE_OVERRIDES,
   SEMANTIC_THEME_ALIAS_OVERRIDES,
+  buildSemanticThemeAliasPrimitiveMaps,
   buildSemanticThemeAliasValueMaps,
   getThemeBrandFromId,
   getThemeId,
@@ -110,6 +112,9 @@ export class App {
   private readonly semanticThemeAliasValueMaps = buildSemanticThemeAliasValueMaps(
     this.semanticTokenMappings,
   );
+  private readonly semanticThemeAliasPrimitiveMaps = buildSemanticThemeAliasPrimitiveMaps(
+    this.semanticTokenMappings,
+  );
 
   constructor() {
     const initialThemeId = this.resolveInitialThemeId();
@@ -122,7 +127,11 @@ export class App {
   }
 
   protected get darkTokenOverrideCount(): number {
-    return Object.keys(SEMANTIC_THEME_ALIAS_OVERRIDES[this.activeThemeBrand()].dark).length;
+    const valueOverrides = Object.keys(SEMANTIC_THEME_ALIAS_OVERRIDES[this.activeThemeBrand()].dark);
+    const primitiveOverrides = Object.keys(
+      SEMANTIC_THEME_ALIAS_PRIMITIVE_OVERRIDES[this.activeThemeBrand()].dark,
+    );
+    return new Set([...valueOverrides, ...primitiveOverrides]).size;
   }
 
   protected toggleLangMenu() {
@@ -201,7 +210,16 @@ export class App {
   }
 
   protected hasTokenDarkOverride(token: SemanticColorTokenMapping): boolean {
-    return Boolean(SEMANTIC_THEME_ALIAS_OVERRIDES[this.activeThemeBrand()].dark[token.alias]);
+    const brand = this.activeThemeBrand();
+    return Boolean(
+      SEMANTIC_THEME_ALIAS_OVERRIDES[brand].dark[token.alias] ||
+        SEMANTIC_THEME_ALIAS_PRIMITIVE_OVERRIDES[brand].dark[token.alias],
+    );
+  }
+
+  protected getTokenPrimitiveRef(token: SemanticColorTokenMapping): string {
+    const themeId = getThemeId(this.activeThemeBrand(), this.colorTokenMode());
+    return this.semanticThemeAliasPrimitiveMaps[themeId][token.alias] ?? token.primitive;
   }
 
   protected getTokenDisplayValue(token: SemanticColorTokenMapping): string {

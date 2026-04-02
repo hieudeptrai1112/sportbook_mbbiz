@@ -7,6 +7,7 @@ export type ThemeId = `${ThemeBrand}-${ThemeMode}`;
 type ThemeAliasMap = Record<string, string>;
 type ThemeAliasOverrides = Record<ThemeBrand, Record<ThemeMode, ThemeAliasMap>>;
 type ThemeAliasValueMaps = Record<ThemeId, ThemeAliasMap>;
+type ThemeAliasPrimitiveMaps = Record<ThemeId, ThemeAliasMap>;
 
 export const DEFAULT_THEME_BRAND: ThemeBrand = 'core';
 export const DEFAULT_THEME_MODE: ThemeMode = 'light';
@@ -196,6 +197,154 @@ export const SEMANTIC_THEME_ALIAS_OVERRIDES: ThemeAliasOverrides = {
   },
 };
 
+/**
+ * Primitive refs per mode (source-truth from Figma Alias collection mode mappings).
+ * This is used by docs tables to show correct Primitive Ref in both Light and Dark.
+ */
+export const SEMANTIC_THEME_ALIAS_PRIMITIVE_OVERRIDES: ThemeAliasOverrides = {
+  core: {
+    light: {},
+    dark: {
+      'color/semantic/background/brand-primary1': 'color/primitive/blue/700',
+      'color/semantic/background/brand-primary2': 'color/primitive/blue/600',
+      'color/semantic/background/brand-primary3': 'color/primitive/blue/500',
+      'color/semantic/background/brand-primary4': 'color/primitive/blue/400',
+      'color/semantic/background/brand-primary5': 'color/primitive/blue/300',
+      'color/semantic/background/brand-quaternary1': 'color/primitive/darkblue/700',
+      'color/semantic/background/brand-quaternary2': 'color/primitive/darkblue/500',
+      'color/semantic/background/brand-quaternary3': 'color/primitive/darkblue/400',
+      'color/semantic/background/brand-quaternary4': 'color/primitive/darkblue/300',
+      'color/semantic/background/brand-quaternary5': 'color/primitive/darkblue/600',
+      'color/semantic/background/brand-secondary1': 'color/primitive/purple/700',
+      'color/semantic/background/brand-secondary2': 'color/primitive/purple/600',
+      'color/semantic/background/brand-secondary3': 'color/primitive/purple/500',
+      'color/semantic/background/brand-secondary4': 'color/primitive/purple/400',
+      'color/semantic/background/brand-secondary5': 'color/primitive/purple/300',
+      'color/semantic/background/brand-tertiary1': 'color/primitive/turquoise/700',
+      'color/semantic/background/brand-tertiary2': 'color/primitive/turquoise/600',
+      'color/semantic/background/brand-tertiary3': 'color/primitive/turquoise/500',
+      'color/semantic/background/brand-tertiary4': 'color/primitive/turquoise/400',
+      'color/semantic/background/dark': 'color/primitive/blue/900',
+      'color/semantic/background/disable1': 'color/primitive/grayscale/700',
+      'color/semantic/background/disable2': 'color/primitive/grayscale/700',
+      'color/semantic/background/disable3': 'color/primitive/grayscale/800',
+      'color/semantic/background/error-primary': 'color/primitive/red/700',
+      'color/semantic/background/error-secondary': 'color/primitive/red/600',
+      'color/semantic/background/error-tertiary': 'color/primitive/red/500',
+      'color/semantic/background/primary': 'color/primitive/darkblue/1000',
+      'color/semantic/background/secondary': 'color/primitive/darkblue/800',
+      'color/semantic/background/success-primary': 'color/primitive/green/700',
+      'color/semantic/background/success-quaternary': 'color/primitive/green/300',
+      'color/semantic/background/success-secondary': 'color/primitive/green/600',
+      'color/semantic/background/success-tertiary': 'color/primitive/green/500',
+      'color/semantic/background/tertiary': 'color/primitive/lightblue/800',
+      'color/semantic/background/warning-primary': 'color/primitive/orange/700',
+      'color/semantic/background/warning-secondary': 'color/primitive/orange/500',
+      'color/semantic/background/warning-tertiary': 'color/primitive/orange/300',
+      'color/semantic/blur/1': 'color/primitive/darkblue/700',
+      'color/semantic/border/brand-primary1': 'color/primitive/blue/300',
+      'color/semantic/border/brand-primary2': 'color/primitive/blue/200',
+      'color/semantic/border/brand-primary3': 'color/primitive/blue/100',
+      'color/semantic/border/brand-primary4': 'color/primitive/darkblue/400',
+      'color/semantic/border/brand-secondary1': 'color/primitive/purple/300',
+      'color/semantic/border/brand-secondary2': 'color/primitive/purple/200',
+      'color/semantic/border/brand-secondary3': 'color/primitive/purple/100',
+      'color/semantic/border/brand-secondary4': 'color/primitive/darkblue/300',
+      'color/semantic/border/brand-tertiary': 'color/primitive/turquoise/300',
+      'color/semantic/border/disable1': 'color/primitive/grayscale/700',
+      'color/semantic/border/disable2': 'color/primitive/grayscale/600',
+      'color/semantic/border/error1': 'color/primitive/red/400',
+      'color/semantic/border/error2': 'color/primitive/red/300',
+      'color/semantic/border/error3': 'color/primitive/red/200',
+      'color/semantic/border/primary': 'color/primitive/darkblue/700',
+      'color/semantic/border/quaternary': 'color/primitive/darkblue/800',
+      'color/semantic/border/quaternary2': 'color/primitive/darkblue/900',
+      'color/semantic/border/secondary': 'color/primitive/darkblue/600',
+      'color/semantic/border/success': 'color/primitive/green/200',
+      'color/semantic/border/tertiary': 'color/primitive/darkblue/700',
+      'color/semantic/border/warning': 'color/primitive/orange/200',
+      'color/semantic/chart/1': 'color/primitive/blue/400',
+      'color/semantic/chart/10': 'color/primitive/purple/200',
+      'color/semantic/chart/11': 'color/primitive/turquoise/400',
+      'color/semantic/chart/12': 'color/primitive/orange/200',
+      'color/semantic/chart/13': 'color/primitive/green/200',
+      'color/semantic/chart/14': 'color/primitive/darkblue/200',
+      'color/semantic/chart/15': 'color/primitive/blue/200',
+      'color/semantic/chart/16': 'color/primitive/purple/100',
+      'color/semantic/chart/17': 'color/primitive/lightblue/100',
+      'color/semantic/chart/18': 'color/primitive/turquoise/100',
+      'color/semantic/chart/19': 'color/primitive/orange/100',
+      'color/semantic/chart/2': 'color/primitive/purple/400',
+      'color/semantic/chart/20': 'color/primitive/grayscale/500',
+      'color/semantic/chart/3': 'color/primitive/turquoise/300',
+      'color/semantic/chart/4': 'color/primitive/orange/400',
+      'color/semantic/chart/5': 'color/primitive/lightblue/400',
+      'color/semantic/chart/6': 'color/primitive/green/400',
+      'color/semantic/chart/7': 'color/primitive/darkblue/200',
+      'color/semantic/chart/8': 'color/primitive/darkblue/300',
+      'color/semantic/chart/9': 'color/primitive/lightblue/200',
+      'color/semantic/divider/primary': 'color/primitive/darkblue/700',
+      'color/semantic/hyperlink/disable': 'color/primitive/grayscale/600',
+      'color/semantic/hyperlink/primary': 'color/primitive/blue/300',
+      'color/semantic/icon/brand-primary1': 'color/primitive/blue/300',
+      'color/semantic/icon/brand-primary2': 'color/primitive/blue/200',
+      'color/semantic/icon/brand-primary3': 'color/primitive/blue/100',
+      'color/semantic/icon/brand-primary4': 'color/primitive/blue/100',
+      'color/semantic/icon/brand-secondary1': 'color/primitive/purple/300',
+      'color/semantic/icon/brand-secondary2': 'color/primitive/purple/200',
+      'color/semantic/icon/brand-secondary3': 'color/primitive/purple/100',
+      'color/semantic/icon/brand-secondary4': 'color/primitive/purple/100',
+      'color/semantic/icon/disable1': 'color/primitive/grayscale/500',
+      'color/semantic/icon/disable2': 'color/primitive/grayscale/400',
+      'color/semantic/icon/disable3': 'color/primitive/grayscale/500',
+      'color/semantic/icon/disable4': 'color/primitive/grayscale/600',
+      'color/semantic/icon/error': 'color/primitive/red/300',
+      'color/semantic/icon/neutral1': 'color/primitive/white/100%',
+      'color/semantic/icon/neutral2': 'color/primitive/darkblue/200',
+      'color/semantic/icon/neutral3': 'color/primitive/darkblue/300',
+      'color/semantic/icon/neutral4': 'color/primitive/darkblue/400',
+      'color/semantic/icon/neutral5': 'color/primitive/darkblue/500',
+      'color/semantic/icon/neutral6': 'color/primitive/darkblue/600',
+      'color/semantic/icon/success': 'color/primitive/green/300',
+      'color/semantic/icon/warning': 'color/primitive/orange/300',
+      'color/semantic/overlay/primary': 'color/primitive/black/100%',
+      'color/semantic/shadow/1': 'color/primitive/white/10%',
+      'color/semantic/shadow/2': 'color/primitive/white/10%',
+      'color/semantic/shadow/3': 'color/primitive/white/20%',
+      'color/semantic/shadow/4': 'color/primitive/white/20%',
+      'color/semantic/shadow/5': 'color/primitive/white/30%',
+      'color/semantic/skeleton/primary': 'color/primitive/grayscale/700',
+      'color/semantic/skeleton/secondary': 'color/primitive/grayscale/800',
+      'color/semantic/text/brand-primary1': 'color/primitive/blue/300',
+      'color/semantic/text/brand-primary2': 'color/primitive/blue/200',
+      'color/semantic/text/brand-primary3': 'color/primitive/blue/100',
+      'color/semantic/text/brand-primary4': 'color/primitive/blue/100',
+      'color/semantic/text/brand-secondary1': 'color/primitive/purple/300',
+      'color/semantic/text/brand-secondary2': 'color/primitive/purple/200',
+      'color/semantic/text/brand-secondary3': 'color/primitive/purple/100',
+      'color/semantic/text/brand-secondary4': 'color/primitive/purple/100',
+      'color/semantic/text/brand-tertiary1': 'color/primitive/turquoise/300',
+      'color/semantic/text/brand-tertiary2': 'color/primitive/turquoise/200',
+      'color/semantic/text/disable1': 'color/primitive/grayscale/500',
+      'color/semantic/text/disable2': 'color/primitive/grayscale/400',
+      'color/semantic/text/disable3': 'color/primitive/grayscale/400',
+      'color/semantic/text/disable4': 'color/primitive/grayscale/500',
+      'color/semantic/text/error': 'color/primitive/red/300',
+      'color/semantic/text/on-brand-tertiary': 'color/primitive/white/100%',
+      'color/semantic/text/on-warning': 'color/primitive/white/100%',
+      'color/semantic/text/primary': 'color/primitive/white/100%',
+      'color/semantic/text/primary2': 'color/primitive/darkblue/200',
+      'color/semantic/text/primary3': 'color/primitive/darkblue/300',
+      'color/semantic/text/primary4': 'color/primitive/darkblue/500',
+      'color/semantic/text/quaternary': 'color/primitive/darkblue/600',
+      'color/semantic/text/quaternary2': 'color/primitive/darkblue/700',
+      'color/semantic/text/secondary': 'color/primitive/darkblue/400',
+      'color/semantic/text/success': 'color/primitive/green/300',
+      'color/semantic/text/tertiary': 'color/primitive/darkblue/500',
+    },
+  },
+};
+
 export function buildSemanticThemeAliasValueMaps(
   tokens: SemanticColorTokenMapping[],
 ): ThemeAliasValueMaps {
@@ -215,6 +364,30 @@ export function buildSemanticThemeAliasValueMaps(
 
     maps[getThemeId(brand, 'light')] = lightValues;
     maps[getThemeId(brand, 'dark')] = darkValues;
+  }
+
+  return maps;
+}
+
+export function buildSemanticThemeAliasPrimitiveMaps(
+  tokens: SemanticColorTokenMapping[],
+): ThemeAliasPrimitiveMaps {
+  const baseLight = Object.fromEntries(tokens.map((token) => [token.alias, token.primitive]));
+
+  const maps = {} as ThemeAliasPrimitiveMaps;
+  for (const brand of SUPPORTED_THEME_BRANDS) {
+    const lightRefs: ThemeAliasMap = {
+      ...baseLight,
+      ...SEMANTIC_THEME_ALIAS_PRIMITIVE_OVERRIDES[brand].light,
+    };
+
+    const darkRefs: ThemeAliasMap = {
+      ...lightRefs,
+      ...SEMANTIC_THEME_ALIAS_PRIMITIVE_OVERRIDES[brand].dark,
+    };
+
+    maps[getThemeId(brand, 'light')] = lightRefs;
+    maps[getThemeId(brand, 'dark')] = darkRefs;
   }
 
   return maps;
