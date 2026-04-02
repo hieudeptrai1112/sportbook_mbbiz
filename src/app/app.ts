@@ -215,6 +215,14 @@ export class App {
     return this.semanticThemeAliasPrimitiveMaps[themeId][token.alias] ?? token.primitive;
   }
 
+  protected getTokenFigmaAlias(token: SemanticColorTokenMapping): string {
+    return token.alias.replace(/^color\/semantic\//, '');
+  }
+
+  protected getTokenFigmaPrimitiveRef(token: SemanticColorTokenMapping): string {
+    return this.getTokenPrimitiveRef(token).replace(/^color\/primitive\//, '');
+  }
+
   protected getTokenDisplayValue(token: SemanticColorTokenMapping): string {
     const themeId = getThemeId(this.activeThemeBrand(), this.colorTokenMode());
     return this.semanticThemeAliasValueMaps[themeId][token.alias] ?? token.value;
