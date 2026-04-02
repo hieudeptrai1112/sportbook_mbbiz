@@ -371,8 +371,9 @@ export class App {
   }
 
   private buildSemanticTokenGroups(): SemanticTokenGroup[] {
+    const normalizeAlias = (alias: string) => alias.replace(/^color\/semantic\//, '');
     const backgroundOrder = new Map(
-      SEMANTIC_BACKGROUND_FIGMA_ORDER.map((alias, index) => [alias, index] as const),
+      SEMANTIC_BACKGROUND_FIGMA_ORDER.map((alias, index) => [normalizeAlias(alias), index] as const),
     );
 
     const grouped = new Map<string, SemanticColorTokenMapping[]>();
@@ -389,8 +390,8 @@ export class App {
         label: this.formatCategoryLabel(category),
         items: items.sort((left, right) => {
           if (category === 'background') {
-            const leftIndex = backgroundOrder.get(left.alias);
-            const rightIndex = backgroundOrder.get(right.alias);
+            const leftIndex = backgroundOrder.get(normalizeAlias(left.alias));
+            const rightIndex = backgroundOrder.get(normalizeAlias(right.alias));
             if (leftIndex !== undefined && rightIndex !== undefined) {
               return leftIndex - rightIndex;
             }
