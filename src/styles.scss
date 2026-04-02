@@ -757,15 +757,15 @@ button {
 .page.theme-dark .token-mode-switch {
   background: var(--sb-bg-surface-2);
   border-color: rgba(255, 255, 255, 0.1);
-  padding: 2px;
-  border-radius: 6px;
+  padding: 4px;
+  border-radius: 8px;
 }
 
 .page.theme-dark .token-mode-btn {
-  font-size: 12px;
-  line-height: 18px;
-  padding: 4px 10px;
-  border-radius: 5px;
+  font-size: 13px;
+  line-height: 20px;
+  padding: 6px 12px;
+  border-radius: 6px;
   color: var(--sb-text-3);
 }
 
