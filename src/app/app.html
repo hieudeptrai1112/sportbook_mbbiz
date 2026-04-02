@@ -850,31 +850,20 @@
               <h2>{{ group.label }}</h2>
               <div class="token-table token-table-semantic">
                 <div class="token-row token-head">
-                  <span>Semantic Alias</span>
-                  <span>Primitive Ref</span>
-                  <span>Value</span>
+                  <span>Alias</span>
+                  <span>Global</span>
                   <span>CSS Var</span>
                   <span>Description</span>
                 </div>
                 <div class="token-row" *ngFor="let token of group.items">
-                  <code class="token-code">{{ getTokenFigmaAlias(token) }}</code>
-                  <code class="token-code">{{ getTokenFigmaPrimitiveRef(token) }}</code>
-                  <div class="token-value-cell" [class.na]="getTokenDisplayValue(token) === 'N/A'">
+                  <div class="token-alias-cell" [class.na]="getTokenDisplayValue(token) === 'N/A'">
                     <span
                       class="token-swatch"
                       [style.background]="getTokenDisplayValue(token) === 'N/A' ? '#E2E8F0' : getTokenDisplayValue(token)"
                     ></span>
-                    <div class="token-value-meta">
-                      <code class="token-code">{{ getTokenDisplayValue(token) }}</code>
-                      <span
-                        class="token-value-mode"
-                        *ngIf="colorTokenMode() === 'dark'"
-                        [class.shared]="!hasTokenDarkOverride(token)"
-                      >
-                        {{ hasTokenDarkOverride(token) ? 'Dark override' : 'Shared with light' }}
-                      </span>
-                    </div>
+                    <code class="token-code">{{ getTokenFigmaAlias(token) }}</code>
                   </div>
+                  <code class="token-code">{{ getTokenFigmaPrimitiveRef(token) }}</code>
                   <code class="token-code">{{ getTokenCssVar(token) }}</code>
                   <span class="token-description">{{ getTokenDescription(token) }}</span>
                 </div>

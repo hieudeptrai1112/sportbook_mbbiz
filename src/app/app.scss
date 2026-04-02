@@ -794,11 +794,18 @@
 
 .token-table-semantic .token-row {
   grid-template-columns:
-    minmax(0, 2fr)
-    minmax(0, 1.4fr)
-    minmax(0, 1.1fr)
-    minmax(0, 1.7fr)
+    minmax(0, 2.1fr)
+    minmax(0, 1.35fr)
+    minmax(0, 1.6fr)
     minmax(0, 2fr);
+}
+
+.token-table-semantic .token-row:not(.token-head) {
+  transition: background-color 140ms ease;
+}
+
+.token-table-semantic .token-row:not(.token-head):hover {
+  background: #f4f6fb;
 }
 
 .scale-table .token-row {
@@ -831,6 +838,17 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.token-alias-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.token-alias-cell.na .token-swatch {
+  opacity: 0.5;
 }
 
 .token-value-cell {
