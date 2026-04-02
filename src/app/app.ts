@@ -195,7 +195,10 @@ export class App {
   }
 
   protected setColorTokenMode(mode: ThemeMode) {
+    this.activeTheme.set(mode);
     this.colorTokenMode.set(mode);
+    this.applyThemeMode(mode);
+    this.persistThemeMode(mode);
   }
 
   protected getTokenCssVar(token: SemanticColorTokenMapping): string {

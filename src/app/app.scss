@@ -679,11 +679,13 @@
 
 .token-mode-toolbar {
   gap: 10px;
+  align-items: flex-end;
 }
 
 .token-mode-switch {
   display: inline-flex;
   align-items: center;
+  width: fit-content;
   gap: 4px;
   padding: 4px;
   border: 1px solid rgba(195, 197, 217, 0.24);

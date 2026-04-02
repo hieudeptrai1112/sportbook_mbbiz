@@ -822,7 +822,7 @@
                 <button
                   type="button"
                   class="token-mode-btn"
-                  [class.active]="colorTokenMode() === 'light'"
+                  [class.active]="activeTheme() === 'light'"
                   (click)="setColorTokenMode('light')"
                 >
                   Light
@@ -830,7 +830,7 @@
                 <button
                   type="button"
                   class="token-mode-btn"
-                  [class.active]="colorTokenMode() === 'dark'"
+                  [class.active]="activeTheme() === 'dark'"
                   (click)="setColorTokenMode('dark')"
                 >
                   Dark
