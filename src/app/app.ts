@@ -46,12 +46,6 @@ interface SemanticTokenGroup {
   items: SemanticColorTokenMapping[];
 }
 
-interface SemanticCategorySummary {
-  category: string;
-  label: string;
-  count: number;
-}
-
 interface ResolvedButtonSemanticBindingRow {
   componentToken: string;
   semanticAlias: string;
@@ -88,10 +82,9 @@ export class App {
   );
   protected readonly semanticTokenMappings = SEMANTIC_COLOR_TOKEN_MAPPINGS;
   protected readonly semanticTokenGroups = this.buildSemanticTokenGroups();
-  protected readonly semanticCategorySummary = this.buildSemanticCategorySummary();
-  protected readonly semanticTokenCount = this.semanticTokenMappings.length;
-  protected readonly primitiveTokenCount = this.getUniquePrimitiveCount();
-  protected readonly activeTokenSection = signal('token-architecture');
+  protected readonly activeTokenSection = signal(
+    this.semanticTokenGroups.length > 0 ? this.getTokenSectionId(this.semanticTokenGroups[0].category) : '',
+  );
   protected readonly colorTokenMode = signal<ThemeMode>(DEFAULT_THEME_MODE);
   protected readonly copiedSemanticAlias = signal<string | null>(null);
   protected readonly isTocCollapsed = signal(false);
@@ -382,18 +375,6 @@ export class App {
       }));
   }
 
-  private buildSemanticCategorySummary(): SemanticCategorySummary[] {
-    return this.semanticTokenGroups.map((group) => ({
-      category: group.category,
-      label: group.label,
-      count: group.items.length,
-    }));
-  }
-
-  private getUniquePrimitiveCount(): number {
-    return new Set(this.semanticTokenMappings.map((token) => token.primitive)).size;
-  }
-
   private buildButtonSemanticBindingGroups(
     groups: ButtonSemanticBindingGroup[],
   ): ResolvedButtonSemanticBindingGroup[] {
@@ -427,11 +408,7 @@ export class App {
       return this.typographyScaleGroups.map((group) => this.getTypographySectionId(group.title));
     }
 
-    return [
-      'token-architecture',
-      'semantic-categories',
-      ...this.semanticTokenGroups.map((group) => this.getTokenSectionId(group.category)),
-    ];
+    return this.semanticTokenGroups.map((group) => this.getTokenSectionId(group.category));
   }
 
   private getButtonSectionIds(): string[] {
