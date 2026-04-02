@@ -1247,3 +1247,38 @@
     width: 100%;
   }
 }
+
+/* Ensure dark theme applies to the full page shell, not only cards/tables */
+.page.theme-dark {
+  background: #14161b;
+  color: #c7d0df;
+}
+
+.page.theme-dark .top-nav {
+  background: rgba(27, 31, 39, 0.96);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: none;
+}
+
+.page.theme-dark .layout,
+.page.theme-dark .main,
+.page.theme-dark .main-inner,
+.page.theme-dark .content,
+.page.theme-dark .toc {
+  background: transparent;
+}
+
+.page.theme-dark .sidebar {
+  background: #1b1f27;
+  border-right-color: rgba(255, 255, 255, 0.08);
+}
+
+.page.theme-dark .page-header h1 {
+  color: #e8edf6;
+}
+
+.page.theme-dark .lead,
+.page.theme-dark .toc-label,
+.page.theme-dark .header-meta {
+  color: #9ba7bb;
+}
