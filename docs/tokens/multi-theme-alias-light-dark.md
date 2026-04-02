@@ -15,15 +15,17 @@
 - File: `Master-Token` (`VtfMVehVniPRQ9BTYzQzdD`)
 - Collection: `Alias`
 - Modes: `Light`, `Dark`
-- Dark overrides currently applied:
-  - `color/semantic/background/primary` -> `color/primitive/darkblue/1000`
-  - `color/semantic/background/secondary` -> `color/primitive/darkblue/800`
-  - `color/semantic/border/primary` -> `color/primitive/darkblue/700`
-  - `color/semantic/divider/primary` -> `color/primitive/darkblue/700`
-  - `color/semantic/text/primary` -> `color/primitive/white/100%`
-  - `color/semantic/text/primary2` -> `color/primitive/darkblue/200`
-  - `color/semantic/text/primary3` -> `color/primitive/darkblue/300`
-  - `color/semantic/text/secondary` -> `color/primitive/darkblue/400`
+- Dark overrides currently applied: `61` alias tokens
+  - Background: `5`
+  - Border: `16`
+  - Divider: `1`
+  - Hyperlink: `1`
+  - Icon: `16`
+  - Skeleton: `2`
+  - Text: `20`
+- Mapping source:
+  - All overrides are set in Figma Dark mode at alias level (mostly alias-to-primitive).
+  - Code map in `SEMANTIC_THEME_ALIAS_OVERRIDES.core.dark` is synced from those Dark resolved values.
 
 ## How to add or update dark values
 1. Open `src/app/semantic-theme-modes.data.ts`.
