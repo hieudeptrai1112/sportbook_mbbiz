@@ -200,18 +200,18 @@ button {
 }
 
 .page.theme-dark {
-  background: #0b1220;
-  color: #e2e8f0;
+  background: #17171c;
+  color: #d8dee9;
 }
 
 .page.theme-dark .top-nav {
-  background: rgba(15, 23, 42, 0.9);
-  border-bottom-color: rgba(148, 163, 184, 0.2);
+  background: rgba(28, 31, 39, 0.94);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 .page.theme-dark .search {
-  background: #111827;
-  color: #cbd5e1;
+  background: #22262f;
+  color: #c9d0dc;
 }
 
 .page.theme-dark .version-pill,
@@ -219,21 +219,21 @@ button {
 .page.theme-dark .button-demo-card,
 .page.theme-dark .button-api-table,
 .page.theme-dark .pro-tip {
-  background: #0f172a;
+  background: #1b1f27;
 }
 
 .page.theme-dark .sidebar {
-  border-right-color: rgba(148, 163, 184, 0.2);
+  border-right-color: rgba(255, 255, 255, 0.08);
 }
 
 .page.theme-dark .tabs,
 .page.theme-dark .button-demo-controls,
 .page.theme-dark .toc-list {
-  border-color: rgba(148, 163, 184, 0.2);
+  border-color: rgba(255, 255, 255, 0.09);
 }
 
 .page.theme-dark .button-demo-preview {
-  background: #0f172a;
+  background: #1d222b;
 }
 
 .page.theme-dark .button-demo-description {
@@ -259,27 +259,37 @@ button {
 }
 
 .page.theme-dark .button-inline-code {
-  background: #1f2937;
-  color: #cbd5e1;
+  background: #2a303b;
+  color: #cdd4e0;
+}
+
+.page.theme-dark .token-mode-toolbar {
+  align-items: flex-end;
 }
 
 .page.theme-dark .token-mode-switch {
-  background: #111827;
-  border-color: rgba(148, 163, 184, 0.28);
+  width: fit-content;
+  background: #242932;
+  border-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 2px;
 }
 
 .page.theme-dark .token-mode-btn {
-  color: #94a3b8;
+  color: #98a2b3;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 5px;
 }
 
 .page.theme-dark .token-mode-btn:hover {
-  color: #e2e8f0;
+  color: #e5e7eb;
 }
 
 .page.theme-dark .token-mode-btn.active {
-  background: #0f172a;
-  color: #60a5fa;
-  border-color: rgba(96, 165, 250, 0.35);
+  background: #1b2028;
+  color: #8fb0ff;
+  border-color: rgba(143, 176, 255, 0.36);
 }
 
 .page.theme-dark .token-mode-hint {
@@ -287,7 +297,7 @@ button {
 }
 
 .page.theme-dark .token-description {
-  color: #cbd5e1;
+  color: #c6cfde;
 }
 
 .page.theme-dark .token-copy-btn {
@@ -302,12 +312,12 @@ button {
 }
 
 .page.theme-dark .button-code-wrapper {
-  background: #111827;
+  background: #1d232d;
 }
 
 .page.theme-dark .button-code-head {
-  background: rgba(17, 24, 39, 0.9);
-  border-bottom-color: rgba(148, 163, 184, 0.2);
+  background: rgba(33, 38, 46, 0.95);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 .page.theme-dark .button-code-file {
@@ -354,9 +364,9 @@ button {
 .page.theme-dark .button-icon-btn,
 .page.theme-dark .button-code-type-btn,
 .page.theme-dark .button-doc-toggle {
-  background: #111827;
-  border-color: rgba(148, 163, 184, 0.35);
-  color: #cbd5e1;
+  background: #222833;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #c9d0dc;
 }
 
 .page.theme-dark .button-icon-btn.active {
@@ -368,7 +378,7 @@ button {
 .page.theme-dark .button-demo-controls,
 .page.theme-dark .button-code-wrapper,
 .page.theme-dark .button-api-row {
-  border-color: rgba(148, 163, 184, 0.2);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .page.theme-dark .button-api-group-title {
@@ -388,24 +398,24 @@ button {
 .page.theme-dark .sidebar-link,
 .page.theme-dark .sidebar-item,
 .page.theme-dark .lead {
-  color: #cbd5e1;
+  color: #c7d0df;
 }
 
 .page.theme-dark .toc-list::before {
-  background: rgba(148, 163, 184, 0.35);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .page.theme-dark .toc-item:hover {
-  color: #e2e8f0;
-  background: rgba(148, 163, 184, 0.12);
+  color: #e6ebf5;
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .page.theme-dark .toc-item.active {
-  color: #9ab6ff;
+  color: #8fb0ff;
 }
 
 .page.theme-dark .toc-item.active::before {
-  background: #9ab6ff;
+  background: #8fb0ff;
 }
 
 .page.theme-dark .anchor-collapse-btn {
@@ -432,29 +442,29 @@ button {
 
 .page.theme-dark .sidebar-item.collapsible:hover,
 .page.theme-dark .sidebar-link:hover {
-  background: rgba(148, 163, 184, 0.12);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .page.theme-dark .sidebar-link.active {
-  background: rgba(22, 93, 255, 0.2);
-  color: #9ab6ff;
+  background: rgba(110, 150, 255, 0.17);
+  color: #a8c2ff;
 }
 
 .page.theme-dark .page-header h1 {
-  color: #f8fafc;
+  color: #f3f5fa;
 }
 
 .page.theme-dark .token-stat-card,
 .page.theme-dark .token-table,
 .page.theme-dark .token-layer-card,
 .page.theme-dark .token-category-card {
-  background: #0f172a;
-  border-color: rgba(148, 163, 184, 0.2);
+  background: #1b1f27;
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .page.theme-dark .token-head {
-  background: #111827;
-  color: #94a3b8;
+  background: #222731;
+  color: #97a1b2;
 }
 
 .page.theme-dark .token-layer-card-muted {
@@ -466,18 +476,26 @@ button {
 .page.theme-dark .token-layer-card h3,
 .page.theme-dark .token-layer-meta strong,
 .page.theme-dark .token-category-card strong {
-  color: #e2e8f0;
+  color: #e7ecf5;
 }
 
 .page.theme-dark .token-layer-card p,
 .page.theme-dark .token-category-card span {
-  color: #cbd5e1;
+  color: #c7d0df;
 }
 
 .page.theme-dark .scale-note {
-  color: #94a3b8;
+  color: #9aa5b8;
 }
 
 .page.theme-dark .scale-block h3 {
-  color: #e2e8f0;
+  color: #e7ecf5;
+}
+
+.page.theme-dark .token-row {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.page.theme-dark .token-table-semantic .token-row:not(.token-head):hover {
+  background: #252b36;
 }
