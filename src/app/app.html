@@ -50,7 +50,27 @@
         </div>
         <div class="theme-menu" [class.open]="isThemeOpen()">
           <button class="icon-btn theme-btn" type="button" (click)="toggleThemeMenu()">
-            <img src="/assets/figma/e6b501f2-bdca-4ab2-8df3-fffe8e840cee.svg" alt="Theme" />
+            <svg
+              *ngIf="activeTheme() === 'light'; else sunThemeIcon"
+              class="theme-glyph moon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
+            </svg>
+            <ng-template #sunThemeIcon>
+              <svg class="theme-glyph sun" viewBox="0 0 24 24" aria-hidden="true">
+                <circle class="sun-core" cx="12" cy="12" r="3.2" />
+                <path d="M12 2.8V5.1" />
+                <path d="M12 18.9V21.2" />
+                <path d="M2.8 12H5.1" />
+                <path d="M18.9 12H21.2" />
+                <path d="M5.5 5.5L7.1 7.1" />
+                <path d="M16.9 16.9L18.5 18.5" />
+                <path d="M16.9 7.1L18.5 5.5" />
+                <path d="M5.5 18.5L7.1 16.9" />
+              </svg>
+            </ng-template>
           </button>
           <div class="theme-dropdown">
             <button

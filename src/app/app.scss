@@ -145,6 +145,7 @@
 .lang-btn,
 .theme-btn {
   border-radius: 8px;
+  color: #64748b;
   transition: background 120ms ease, box-shadow 120ms ease;
 }
 
@@ -158,6 +159,21 @@
 .theme-menu.open .theme-btn {
   background: #e0e7ff;
   box-shadow: inset 0 0 0 1px rgba(29, 78, 216, 0.22);
+}
+
+.theme-glyph {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-glyph.sun .sun-core {
+  fill: currentColor;
+  stroke: none;
 }
 
 .lang-dropdown,
@@ -1279,8 +1295,44 @@
   color: #e8edf6;
 }
 
+.page.theme-dark .section h2,
+.page.theme-dark .palette-column h3,
+.page.theme-dark .scale-block h3,
+.page.theme-dark .button-api-group-title {
+  color: #e8edf6;
+}
+
 .page.theme-dark .lead,
 .page.theme-dark .toc-label,
-.page.theme-dark .header-meta {
+.page.theme-dark .header-meta,
+.page.theme-dark .meta-version,
+.page.theme-dark .slash,
+.page.theme-dark .palette-header span,
+.page.theme-dark .scale-note,
+.page.theme-dark .token-mode-hint {
   color: #9ba7bb;
+}
+
+.page.theme-dark .token-head {
+  background: #222731;
+  color: #9ba7bb;
+}
+
+.page.theme-dark .token-code,
+.page.theme-dark .token-description,
+.page.theme-dark .button-api-col-description {
+  color: #c7d0df;
+}
+
+.page.theme-dark .token-value-mode.shared {
+  color: #9ba7bb;
+}
+
+.page.theme-dark .token-row,
+.page.theme-dark .button-api-row {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.page.theme-dark .token-table-semantic .token-row:not(.token-head):hover {
+  background: #252b36;
 }
