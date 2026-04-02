@@ -855,7 +855,6 @@
                   <span>Value</span>
                   <span>CSS Var</span>
                   <span>Description</span>
-                  <span>Copy</span>
                 </div>
                 <div class="token-row" *ngFor="let token of group.items">
                   <code class="token-code">{{ getTokenFigmaAlias(token) }}</code>
@@ -878,13 +877,6 @@
                   </div>
                   <code class="token-code">{{ getTokenCssVar(token) }}</code>
                   <span class="token-description">{{ getTokenDescription(token) }}</span>
-                  <button
-                    class="token-copy-btn"
-                    type="button"
-                    (click)="copySemanticTokenRow(token)"
-                  >
-                    {{ copiedSemanticAlias() === token.alias ? 'Copied' : 'Copy' }}
-                  </button>
                 </div>
               </div>
             </section>

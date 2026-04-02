@@ -3,7 +3,10 @@ import { Component, HostListener, signal } from '@angular/core';
 import { DsButtonComponent } from './components/ds-button/ds-button.component';
 import {
   SEMANTIC_BACKGROUND_FIGMA_ORDER,
+  SEMANTIC_BORDER_FIGMA_ORDER,
   SEMANTIC_COLOR_TOKEN_MAPPINGS,
+  SEMANTIC_ICON_FIGMA_ORDER,
+  SEMANTIC_TEXT_FIGMA_ORDER,
   type SemanticColorTokenMapping,
 } from './semantic-tokens.data';
 import {
@@ -372,8 +375,17 @@ export class App {
 
   private buildSemanticTokenGroups(): SemanticTokenGroup[] {
     const normalizeAlias = (alias: string) => alias.replace(/^color\/semantic\//, '');
-    const backgroundOrder = new Map(
-      SEMANTIC_BACKGROUND_FIGMA_ORDER.map((alias, index) => [normalizeAlias(alias), index] as const),
+    const orderPairs: Array<[string, readonly string[]]> = [
+      ['background', SEMANTIC_BACKGROUND_FIGMA_ORDER],
+      ['text', SEMANTIC_TEXT_FIGMA_ORDER],
+      ['border', SEMANTIC_BORDER_FIGMA_ORDER],
+      ['icon', SEMANTIC_ICON_FIGMA_ORDER],
+    ];
+    const categoryOrders = new Map<string, Map<string, number>>(
+      orderPairs.map(([category, order]) => [
+        category,
+        new Map(order.map((alias, index) => [normalizeAlias(alias), index] as const)),
+      ]),
     );
 
     const grouped = new Map<string, SemanticColorTokenMapping[]>();
@@ -389,9 +401,10 @@ export class App {
         category,
         label: this.formatCategoryLabel(category),
         items: items.sort((left, right) => {
-          if (category === 'background') {
-            const leftIndex = backgroundOrder.get(normalizeAlias(left.alias));
-            const rightIndex = backgroundOrder.get(normalizeAlias(right.alias));
+          const categoryOrder = categoryOrders.get(category);
+          if (categoryOrder) {
+            const leftIndex = categoryOrder.get(normalizeAlias(left.alias));
+            const rightIndex = categoryOrder.get(normalizeAlias(right.alias));
             if (leftIndex !== undefined && rightIndex !== undefined) {
               return leftIndex - rightIndex;
             }
