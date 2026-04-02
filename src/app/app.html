@@ -51,7 +51,7 @@
         <div class="theme-menu" [class.open]="isThemeOpen()">
           <button class="icon-btn theme-btn" type="button" (click)="toggleThemeMenu()">
             <svg
-              *ngIf="activeTheme() === 'light'; else sunThemeIcon"
+              *ngIf="activeTheme() === 'dark'; else sunThemeIcon"
               class="theme-glyph moon"
               viewBox="0 0 24 24"
               aria-hidden="true"

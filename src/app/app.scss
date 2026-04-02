@@ -1302,6 +1302,16 @@
   color: #e8edf6;
 }
 
+.page.theme-dark .sidebar-item,
+.page.theme-dark .sidebar-link {
+  color: #c7d0df;
+}
+
+.page.theme-dark .sidebar-item.collapsible.expanded,
+.page.theme-dark .sidebar-item .strong {
+  color: #e8edf6;
+}
+
 .page.theme-dark .lead,
 .page.theme-dark .toc-label,
 .page.theme-dark .header-meta,
