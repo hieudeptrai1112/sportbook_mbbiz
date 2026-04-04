@@ -375,26 +375,22 @@
               <p class="scale-note">{{ group.description }}</p>
               <div class="token-table button-semantic-table">
                 <div class="token-row token-head">
-                  <span>Button Variable</span>
-                  <span>Semantic Alias</span>
-                  <span>Primitive</span>
+                  <span>Component Token</span>
+                  <span>Alias Token</span>
                   <span>Value</span>
-                  <span>Applied To</span>
-                  <span>Notes</span>
+                  <span>Description</span>
                 </div>
                 <div class="token-row" *ngFor="let row of group.rows">
-                  <code class="token-code">{{ row.componentToken }}</code>
-                  <code class="token-code">{{ row.semanticAlias }}</code>
-                  <code class="token-code">{{ row.semanticPrimitive }}</code>
-                  <div class="token-value-cell" [class.na]="row.semanticValue === 'N/A'">
+                  <div class="token-alias-cell" [class.na]="row.semanticValue === 'N/A'">
                     <span
                       class="token-swatch"
                       [style.background]="row.semanticValue === 'N/A' ? '#E2E8F0' : row.semanticValue"
                     ></span>
-                    <code class="token-code">{{ row.semanticValue }}</code>
+                    <code class="token-code">{{ row.componentToken }}</code>
                   </div>
-                  <span>{{ row.appliesTo }}</span>
-                  <span>{{ row.notes }}</span>
+                  <code class="token-code">{{ row.semanticAlias }}</code>
+                  <code class="token-code">{{ row.semanticValue }}</code>
+                  <span class="token-description">{{ row.description }}</span>
                 </div>
               </div>
             </div>

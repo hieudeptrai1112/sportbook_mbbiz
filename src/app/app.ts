@@ -56,10 +56,8 @@ interface SemanticTokenGroup {
 interface ResolvedButtonSemanticBindingRow {
   componentToken: string;
   semanticAlias: string;
-  semanticPrimitive: string;
   semanticValue: string;
-  appliesTo: string;
-  notes: string;
+  description: string;
 }
 
 interface ResolvedButtonSemanticBindingGroup {
@@ -445,10 +443,8 @@ export class App {
         return {
           componentToken: row.componentToken,
           semanticAlias: row.semanticAlias,
-          semanticPrimitive: mapped?.primitive ?? 'N/A',
           semanticValue: mapped?.value ?? 'N/A',
-          appliesTo: row.appliesTo,
-          notes: row.notes,
+          description: `${row.appliesTo} · ${row.notes}`,
         };
       }),
     }));

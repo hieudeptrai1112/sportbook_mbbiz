@@ -826,6 +826,22 @@
   background: #f4f6fb;
 }
 
+.button-semantic-table .token-row {
+  grid-template-columns:
+    minmax(0, 2.1fr)
+    minmax(0, 1.5fr)
+    minmax(0, 1fr)
+    minmax(0, 2fr);
+}
+
+.button-semantic-table .token-row:not(.token-head) {
+  transition: background-color 140ms ease;
+}
+
+.button-semantic-table .token-row:not(.token-head):hover {
+  background: #f4f6fb;
+}
+
 .scale-table .token-row {
   grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.7fr) minmax(0, 1.4fr) 100px;
 }
@@ -1343,6 +1359,7 @@
   border-top-color: rgba(255, 255, 255, 0.08);
 }
 
-.page.theme-dark .token-table-semantic .token-row:not(.token-head):hover {
+.page.theme-dark .token-table-semantic .token-row:not(.token-head):hover,
+.page.theme-dark .button-semantic-table .token-row:not(.token-head):hover {
   background: #252b36;
 }
