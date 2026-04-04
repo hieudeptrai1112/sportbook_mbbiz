@@ -1,0 +1,221 @@
+{
+  "component": "Dropdown",
+  "slug": "dropdown",
+  "implementationStatus": "planned",
+  "version": "1.0.0",
+  "owner": "Design System",
+  "overview": {
+    "purpose": "Dropdown displays an anchored list of actions or selectable options.",
+    "useCases": [
+      "Context actions from compact trigger",
+      "Single-choice option lists",
+      "Overflow menu in toolbar"
+    ],
+    "whenNotToUse": [
+      "High-density data table filtering with many options",
+      "Critical confirmation flows requiring explicit modal context"
+    ]
+  },
+  "states": [
+    {
+      "name": "closed",
+      "description": "Menu is hidden.",
+      "visual": "Trigger only"
+    },
+    {
+      "name": "open",
+      "description": "Menu panel is visible.",
+      "visual": "Surface + item list"
+    },
+    {
+      "name": "item-hover",
+      "description": "Pointer hover on an option.",
+      "visual": "Hovered row token"
+    },
+    {
+      "name": "disabled-item",
+      "description": "Non-selectable option.",
+      "visual": "Muted text and no hover style"
+    }
+  ],
+  "interactions": [
+    {
+      "event": "click trigger",
+      "from": "closed",
+      "to": "open",
+      "notes": "Toggles menu open state."
+    },
+    {
+      "event": "click outside",
+      "from": "open",
+      "to": "closed",
+      "notes": "Dismisses panel and returns focus to trigger."
+    },
+    {
+      "event": "key Escape",
+      "from": "open",
+      "to": "closed",
+      "notes": "Keyboard close action."
+    },
+    {
+      "event": "key Enter on active option",
+      "from": "open",
+      "to": "closed",
+      "notes": "Selects option and emits selection event."
+    }
+  ],
+  "api": [
+    {
+      "name": "items",
+      "type": "Array<{ id: string; label: string; disabled?: boolean }>",
+      "required": true,
+      "default": "[]",
+      "description": "Data source for menu options."
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": false,
+      "default": "false",
+      "description": "Controlled open state."
+    },
+    {
+      "name": "placement",
+      "type": "'bottom-start' | 'bottom-end' | 'top-start' | 'top-end'",
+      "required": false,
+      "default": "'bottom-start'",
+      "description": "Menu placement relative to trigger."
+    },
+    {
+      "name": "onOpenChange",
+      "type": "(open: boolean) => void",
+      "required": false,
+      "default": "undefined",
+      "description": "Open/close callback."
+    },
+    {
+      "name": "onSelect",
+      "type": "(id: string) => void",
+      "required": false,
+      "default": "undefined",
+      "description": "Selection callback for enabled options."
+    }
+  ],
+  "accessibility": {
+    "roles": [
+      "Trigger uses aria-haspopup='menu' and aria-expanded.",
+      "Panel uses role='menu', items use role='menuitem'."
+    ],
+    "keyboard": [
+      "Enter/Space opens menu from trigger.",
+      "Arrow keys move active option.",
+      "Enter selects active option.",
+      "Escape closes menu and restores trigger focus."
+    ],
+    "focus": [
+      "Roving tabindex for menu items.",
+      "Focus returns to trigger after close."
+    ],
+    "aria": [
+      "aria-controls links trigger to menu id.",
+      "aria-disabled is set for disabled options."
+    ],
+    "contrast": [
+      "Active and hover rows stay distinguishable in dark mode.",
+      "Disabled item text remains readable from background."
+    ]
+  },
+  "tokens": {
+    "color": [
+      {
+        "componentToken": "ds/dropdown/color/panel/background",
+        "semanticAlias": "background/primary",
+        "notes": "Panel fill"
+      },
+      {
+        "componentToken": "ds/dropdown/color/item/hover",
+        "semanticAlias": "background/secondary",
+        "notes": "Item hover"
+      }
+    ],
+    "spacing": [
+      {
+        "componentToken": "ds/dropdown/spacing/item-padding",
+        "semanticAlias": "spacing/4",
+        "notes": "Vertical list rhythm"
+      }
+    ],
+    "typography": [
+      {
+        "componentToken": "ds/dropdown/text/item",
+        "semanticAlias": "font/size/body-3",
+        "notes": "Item text"
+      }
+    ],
+    "radius": [
+      {
+        "componentToken": "ds/dropdown/radius/panel",
+        "semanticAlias": "radius/small",
+        "notes": "Panel corner"
+      }
+    ],
+    "motion": [
+      {
+        "componentToken": "ds/dropdown/motion/open",
+        "semanticAlias": "effect/transition/fast",
+        "notes": "Open/close transition"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "id": "dropdown-controlled",
+      "title": "Controlled menu",
+      "description": "Parent controls open state and selected item.",
+      "scenario": "Toolbar action menu"
+    },
+    {
+      "id": "dropdown-keyboard",
+      "title": "Keyboard navigation",
+      "description": "Arrow/Escape/Enter handling without pointer input.",
+      "scenario": "Accessibility regression test"
+    }
+  ],
+  "copySnippets": [
+    {
+      "label": "Dropdown controlled menu",
+      "language": "typescript",
+      "path": "docs/component-contracts/snippets/dropdown/dropdown-controlled.component.ts",
+      "purpose": "Controlled state and outside click"
+    },
+    {
+      "label": "Dropdown keyboard interaction",
+      "language": "typescript",
+      "path": "docs/component-contracts/snippets/dropdown/dropdown-keyboard.component.ts",
+      "purpose": "Keyboard interaction model"
+    }
+  ],
+  "testMatrix": [
+    {
+      "id": "dropdown-open-close-callback",
+      "type": "interaction",
+      "assertion": "Trigger click updates open state and emits onOpenChange."
+    },
+    {
+      "id": "dropdown-escape-close",
+      "type": "accessibility",
+      "assertion": "Escape closes menu and restores focus to trigger."
+    },
+    {
+      "id": "dropdown-select-enabled-only",
+      "type": "interaction",
+      "assertion": "Disabled option cannot be selected."
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-04",
+      "change": "Planned contract scaffold for upcoming Dropdown component implementation."
+    }
+  ]
+}

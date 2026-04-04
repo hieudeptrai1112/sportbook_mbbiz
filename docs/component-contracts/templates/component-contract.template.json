@@ -1,0 +1,109 @@
+{
+  "component": "ComponentName",
+  "slug": "component-name",
+  "implementationStatus": "planned",
+  "version": "1.0.0",
+  "owner": "Design System",
+  "overview": {
+    "purpose": "",
+    "useCases": [""],
+    "whenNotToUse": [""]
+  },
+  "states": [
+    {
+      "name": "default",
+      "description": "",
+      "visual": ""
+    }
+  ],
+  "interactions": [
+    {
+      "event": "",
+      "from": "",
+      "to": "",
+      "notes": ""
+    }
+  ],
+  "api": [
+    {
+      "name": "",
+      "type": "",
+      "required": false,
+      "default": "",
+      "description": ""
+    }
+  ],
+  "accessibility": {
+    "roles": [""],
+    "keyboard": [""],
+    "focus": [""],
+    "aria": [""],
+    "contrast": [""]
+  },
+  "tokens": {
+    "color": [
+      {
+        "componentToken": "",
+        "semanticAlias": "",
+        "notes": ""
+      }
+    ],
+    "spacing": [
+      {
+        "componentToken": "",
+        "semanticAlias": "",
+        "notes": ""
+      }
+    ],
+    "typography": [
+      {
+        "componentToken": "",
+        "semanticAlias": "",
+        "notes": ""
+      }
+    ],
+    "radius": [
+      {
+        "componentToken": "",
+        "semanticAlias": "",
+        "notes": ""
+      }
+    ],
+    "motion": [
+      {
+        "componentToken": "",
+        "semanticAlias": "",
+        "notes": ""
+      }
+    ]
+  },
+  "examples": [
+    {
+      "id": "",
+      "title": "",
+      "description": "",
+      "scenario": ""
+    }
+  ],
+  "copySnippets": [
+    {
+      "label": "",
+      "language": "typescript",
+      "path": "docs/component-contracts/snippets/component-name/example.ts",
+      "purpose": ""
+    }
+  ],
+  "testMatrix": [
+    {
+      "id": "",
+      "type": "interaction",
+      "assertion": ""
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-04",
+      "change": "Initial contract scaffold"
+    }
+  ]
+}

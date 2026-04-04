@@ -1,0 +1,219 @@
+{
+  "component": "Input Field",
+  "slug": "input-field",
+  "implementationStatus": "planned",
+  "version": "1.0.0",
+  "owner": "Design System",
+  "overview": {
+    "purpose": "Input Field collects short text values with validation feedback.",
+    "useCases": [
+      "Form data entry",
+      "Filter and search criteria",
+      "Inline editable fields"
+    ],
+    "whenNotToUse": [
+      "Long-form rich text input",
+      "Single-choice selection (use Select/Radio)"
+    ]
+  },
+  "states": [
+    {
+      "name": "default",
+      "description": "Neutral field with placeholder or value.",
+      "visual": "Base border and background"
+    },
+    {
+      "name": "focus",
+      "description": "Active input cursor state.",
+      "visual": "Focus ring and border emphasis"
+    },
+    {
+      "name": "error",
+      "description": "Validation failed.",
+      "visual": "Error border and helper text"
+    },
+    {
+      "name": "disabled",
+      "description": "Read-only interaction disabled.",
+      "visual": "Muted field tokens"
+    }
+  ],
+  "interactions": [
+    {
+      "event": "focus",
+      "from": "default",
+      "to": "focus",
+      "notes": "Shows active ring and keeps label readable."
+    },
+    {
+      "event": "blur with invalid value",
+      "from": "focus",
+      "to": "error",
+      "notes": "Displays validation message."
+    },
+    {
+      "event": "input with valid value",
+      "from": "error",
+      "to": "focus",
+      "notes": "Clears error once constraints are satisfied."
+    },
+    {
+      "event": "set disabled=true",
+      "from": "default",
+      "to": "disabled",
+      "notes": "Suppresses value edits and pointer focus."
+    }
+  ],
+  "api": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "default": "''",
+      "description": "Controlled value model."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "default": "''",
+      "description": "Hint text when value is empty."
+    },
+    {
+      "name": "status",
+      "type": "'default' | 'error'",
+      "required": false,
+      "default": "'default'",
+      "description": "Validation display state."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": "false",
+      "description": "Disables typing and focus interactions."
+    },
+    {
+      "name": "maxLength",
+      "type": "number",
+      "required": false,
+      "default": "undefined",
+      "description": "Max allowed character count."
+    }
+  ],
+  "accessibility": {
+    "roles": [
+      "Use native <input> for built-in textbox semantics."
+    ],
+    "keyboard": [
+      "Tab enters and leaves field in logical order.",
+      "Enter behavior delegated to enclosing form submit handling."
+    ],
+    "focus": [
+      "Focus indicator visible in both themes.",
+      "Error state does not hide focus ring."
+    ],
+    "aria": [
+      "Associate label with input id.",
+      "Set aria-invalid=true when status is error.",
+      "Wire helper text via aria-describedby."
+    ],
+    "contrast": [
+      "Placeholder text meets minimum contrast for non-essential text.",
+      "Error text and border remain distinguishable in dark mode."
+    ]
+  },
+  "tokens": {
+    "color": [
+      {
+        "componentToken": "ds/input/color/background/default",
+        "semanticAlias": "background/primary",
+        "notes": "Base fill"
+      },
+      {
+        "componentToken": "ds/input/color/border/focus",
+        "semanticAlias": "border/brand-primary",
+        "notes": "Focus border"
+      }
+    ],
+    "spacing": [
+      {
+        "componentToken": "ds/input/padding/x",
+        "semanticAlias": "padding/horizontal/medium",
+        "notes": "Horizontal text padding"
+      }
+    ],
+    "typography": [
+      {
+        "componentToken": "ds/input/text/default",
+        "semanticAlias": "font/size/body-3",
+        "notes": "Default input text"
+      }
+    ],
+    "radius": [
+      {
+        "componentToken": "ds/input/radius",
+        "semanticAlias": "radius/small",
+        "notes": "Corner radius"
+      }
+    ],
+    "motion": [
+      {
+        "componentToken": "ds/input/motion/focus",
+        "semanticAlias": "effect/transition/fast",
+        "notes": "Focus transition"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "id": "input-reactive-form",
+      "title": "Reactive form with validation",
+      "description": "Shows dirty/touched validation transitions.",
+      "scenario": "Profile form"
+    },
+    {
+      "id": "input-debounced-search",
+      "title": "Debounced search input",
+      "description": "Avoids firing a request on every keystroke.",
+      "scenario": "Filter panel"
+    }
+  ],
+  "copySnippets": [
+    {
+      "label": "Input reactive validation",
+      "language": "typescript",
+      "path": "docs/component-contracts/snippets/input/input-reactive-validation.component.ts",
+      "purpose": "State + validation interaction"
+    },
+    {
+      "label": "Input debounce stream",
+      "language": "typescript",
+      "path": "docs/component-contracts/snippets/input/input-debounce.component.ts",
+      "purpose": "Interaction + performance"
+    }
+  ],
+  "testMatrix": [
+    {
+      "id": "input-focus-ring-visible",
+      "type": "accessibility",
+      "assertion": "Focus ring is visible for keyboard users in both modes."
+    },
+    {
+      "id": "input-error-aria-invalid",
+      "type": "accessibility",
+      "assertion": "Error state sets aria-invalid and helper id linkage."
+    },
+    {
+      "id": "input-debounce-calls",
+      "type": "interaction",
+      "assertion": "Debounce emits only final value after configured delay."
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-04",
+      "change": "Planned contract scaffold for upcoming Input component implementation."
+    }
+  ]
+}

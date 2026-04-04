@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build-storybook": "ng build && rm -rf storybook-static && mkdir -p storybook-static && cp -R dist/sportbook_mbbiz/browser/. storybook-static",
+    "contracts:validate": "node scripts/contracts/validate.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

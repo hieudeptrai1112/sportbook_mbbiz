@@ -1,0 +1,245 @@
+{
+  "component": "Button",
+  "slug": "button",
+  "implementationStatus": "shipped",
+  "version": "1.0.0",
+  "owner": "Design System",
+  "overview": {
+    "purpose": "Button triggers immediate actions in a page, form, or overlay context.",
+    "useCases": [
+      "Submit or confirm user intent",
+      "Open drawers, dialogs, and menus",
+      "Trigger lightweight in-page actions"
+    ],
+    "whenNotToUse": [
+      "Navigation between routes (use Link)",
+      "Long-running background task without progress feedback"
+    ]
+  },
+  "states": [
+    {
+      "name": "default",
+      "description": "Idle and clickable state.",
+      "visual": "Base tone tokens"
+    },
+    {
+      "name": "hover",
+      "description": "Pointer hover feedback.",
+      "visual": "Hover tone tokens"
+    },
+    {
+      "name": "pressed",
+      "description": "Pressed/active state while interaction is in progress.",
+      "visual": "Pressed tone tokens"
+    },
+    {
+      "name": "disabled",
+      "description": "Non-interactive state.",
+      "visual": "Disabled background, border, and text tokens"
+    }
+  ],
+  "interactions": [
+    {
+      "event": "click",
+      "from": "default",
+      "to": "pressed",
+      "notes": "The component emits action callback once per pointer click."
+    },
+    {
+      "event": "key Enter",
+      "from": "focused",
+      "to": "pressed",
+      "notes": "Keyboard activation path for accessibility."
+    },
+    {
+      "event": "set disabled=true",
+      "from": "default",
+      "to": "disabled",
+      "notes": "Suppresses pointer and keyboard activation."
+    },
+    {
+      "event": "async pending",
+      "from": "pressed",
+      "to": "loading",
+      "notes": "Optional extension to prevent duplicate submissions."
+    }
+  ],
+  "api": [
+    {
+      "name": "shape",
+      "type": "'rectangle' | 'pill'",
+      "required": false,
+      "default": "'rectangle'",
+      "description": "Visual silhouette variant."
+    },
+    {
+      "name": "tone",
+      "type": "'primary' | 'secondary'",
+      "required": false,
+      "default": "'primary'",
+      "description": "Color hierarchy for action priority."
+    },
+    {
+      "name": "state",
+      "type": "'default' | 'hover' | 'pressed' | 'disabled'",
+      "required": false,
+      "default": "'default'",
+      "description": "Explicit state for docs and visual QA."
+    },
+    {
+      "name": "size",
+      "type": "'large' | 'medium' | 'small'",
+      "required": false,
+      "default": "'large'",
+      "description": "Size scale from tokenized dimensions."
+    },
+    {
+      "name": "showLeftIcon",
+      "type": "boolean",
+      "required": false,
+      "default": "false",
+      "description": "Shows leading icon slot."
+    },
+    {
+      "name": "showRightIcon",
+      "type": "boolean",
+      "required": false,
+      "default": "false",
+      "description": "Shows trailing icon slot."
+    }
+  ],
+  "accessibility": {
+    "roles": [
+      "Use native <button> element to preserve role=button semantics."
+    ],
+    "keyboard": [
+      "Enter and Space activate when enabled.",
+      "Disabled button is skipped by interaction handlers."
+    ],
+    "focus": [
+      "Visible focus ring for keyboard navigation.",
+      "Focus ring must satisfy contrast against both light and dark surfaces."
+    ],
+    "aria": [
+      "Icon-only usage requires aria-label.",
+      "Avoid redundant aria-role when native button is used."
+    ],
+    "contrast": [
+      "Text/background contrast >= 4.5:1 for normal text.",
+      "Disabled state remains legible without mimicking enabled contrast."
+    ]
+  },
+  "tokens": {
+    "color": [
+      {
+        "componentToken": "ds/button/color/background/rectangle/primary/default-1",
+        "semanticAlias": "background/brand-primary1",
+        "notes": "Gradient start"
+      },
+      {
+        "componentToken": "ds/button/color/background/rectangle/primary/default-2",
+        "semanticAlias": "background/tertiary",
+        "notes": "Gradient end"
+      },
+      {
+        "componentToken": "ds/button/color/text/rectangle/primary/default",
+        "semanticAlias": "text/white",
+        "notes": "Primary label color"
+      }
+    ],
+    "spacing": [
+      {
+        "componentToken": "ds/button/padding/x/large",
+        "semanticAlias": "padding/horizontal/large",
+        "notes": "Large horizontal padding"
+      },
+      {
+        "componentToken": "ds/button/padding/y/large",
+        "semanticAlias": "padding/vertical/large",
+        "notes": "Large vertical padding"
+      }
+    ],
+    "typography": [
+      {
+        "componentToken": "ds/button/text/style/large",
+        "semanticAlias": "font/size/body-3",
+        "notes": "Large size text"
+      }
+    ],
+    "radius": [
+      {
+        "componentToken": "ds/button/radius/rectangle",
+        "semanticAlias": "radius/small",
+        "notes": "Rectangle radius"
+      },
+      {
+        "componentToken": "ds/button/radius/pill",
+        "semanticAlias": "radius/full",
+        "notes": "Pill radius"
+      }
+    ],
+    "motion": [
+      {
+        "componentToken": "ds/button/motion/hover/fade",
+        "semanticAlias": "effect/transition/fast",
+        "notes": "Hover transition"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "id": "button-basic-state-grid",
+      "title": "State grid",
+      "description": "Primary and secondary variants in default/hover/pressed/disabled states.",
+      "scenario": "Visual QA and design review"
+    },
+    {
+      "id": "button-controlled-action",
+      "title": "Controlled async action",
+      "description": "Prevent duplicate submit while request is pending.",
+      "scenario": "Form submit"
+    }
+  ],
+  "copySnippets": [
+    {
+      "label": "Button controlled action",
+      "language": "typescript",
+      "path": "docs/component-contracts/snippets/button/button-controlled-action.component.ts",
+      "purpose": "State + interaction"
+    },
+    {
+      "label": "Button with keyboard and a11y",
+      "language": "typescript",
+      "path": "docs/component-contracts/snippets/button/button-a11y.component.ts",
+      "purpose": "Accessibility and keyboard flow"
+    }
+  ],
+  "testMatrix": [
+    {
+      "id": "button-click-emits-once",
+      "type": "interaction",
+      "assertion": "Click emits action once and enters pending when configured."
+    },
+    {
+      "id": "button-disabled-blocks-action",
+      "type": "interaction",
+      "assertion": "Disabled state blocks click and keyboard activation."
+    },
+    {
+      "id": "button-focus-visible",
+      "type": "accessibility",
+      "assertion": "Keyboard navigation shows visible focus ring."
+    },
+    {
+      "id": "button-token-bindings",
+      "type": "visual",
+      "assertion": "Primary/secondary states resolve to mapped semantic aliases."
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-04",
+      "change": "Contract scaffold aligned with current shipped Button implementation."
+    }
+  ]
+}

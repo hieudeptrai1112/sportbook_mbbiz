@@ -1,0 +1,218 @@
+{
+  "component": "Checkbox",
+  "slug": "checkbox",
+  "implementationStatus": "planned",
+  "version": "1.0.0",
+  "owner": "Design System",
+  "overview": {
+    "purpose": "Checkbox captures boolean or multi-select state.",
+    "useCases": [
+      "Enable or disable optional settings",
+      "Select multiple items in a list",
+      "Bulk selection in tables"
+    ],
+    "whenNotToUse": [
+      "Mutually exclusive choices (use Radio)",
+      "Immediate destructive actions without confirmation"
+    ]
+  },
+  "states": [
+    {
+      "name": "unchecked",
+      "description": "Default off state.",
+      "visual": "Empty box"
+    },
+    {
+      "name": "checked",
+      "description": "Selected state.",
+      "visual": "Checkmark visible"
+    },
+    {
+      "name": "indeterminate",
+      "description": "Partial selection in parent node.",
+      "visual": "Dash marker"
+    },
+    {
+      "name": "disabled",
+      "description": "Read-only non-interactive state.",
+      "visual": "Muted box and label"
+    }
+  ],
+  "interactions": [
+    {
+      "event": "click label",
+      "from": "unchecked",
+      "to": "checked",
+      "notes": "Toggles state through label hit area."
+    },
+    {
+      "event": "click label",
+      "from": "checked",
+      "to": "unchecked",
+      "notes": "Second click toggles back."
+    },
+    {
+      "event": "set parent partial",
+      "from": "unchecked",
+      "to": "indeterminate",
+      "notes": "Group state indicates partial selection."
+    },
+    {
+      "event": "set disabled=true",
+      "from": "checked",
+      "to": "disabled",
+      "notes": "Locks state and suppresses toggle."
+    }
+  ],
+  "api": [
+    {
+      "name": "checked",
+      "type": "boolean",
+      "required": false,
+      "default": "false",
+      "description": "Controlled checked state."
+    },
+    {
+      "name": "indeterminate",
+      "type": "boolean",
+      "required": false,
+      "default": "false",
+      "description": "Partial state for grouped selections."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": "false",
+      "description": "Disables toggle interaction."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "default": "''",
+      "description": "Visible label associated with input."
+    },
+    {
+      "name": "onChange",
+      "type": "(checked: boolean) => void",
+      "required": false,
+      "default": "undefined",
+      "description": "Emits updated checked state."
+    }
+  ],
+  "accessibility": {
+    "roles": [
+      "Use native checkbox input for role and state announcements."
+    ],
+    "keyboard": [
+      "Space toggles checked state when focused.",
+      "Tab enters checkbox in document order."
+    ],
+    "focus": [
+      "Focus indicator appears on checkbox root and label remains readable.",
+      "Indeterminate state does not remove focus indicator."
+    ],
+    "aria": [
+      "Use aria-checked='mixed' for indeterminate state.",
+      "Associate label via for/id or implicit label wrapping."
+    ],
+    "contrast": [
+      "Checkmark remains visible at all states and themes.",
+      "Disabled label and box meet non-text contrast guidance."
+    ]
+  },
+  "tokens": {
+    "color": [
+      {
+        "componentToken": "ds/checkbox/color/background/checked",
+        "semanticAlias": "background/brand-primary1",
+        "notes": "Checked fill"
+      },
+      {
+        "componentToken": "ds/checkbox/color/border/default",
+        "semanticAlias": "border/primary",
+        "notes": "Unchecked border"
+      }
+    ],
+    "spacing": [
+      {
+        "componentToken": "ds/checkbox/spacing/label-gap",
+        "semanticAlias": "spacing/2",
+        "notes": "Indicator to label gap"
+      }
+    ],
+    "typography": [
+      {
+        "componentToken": "ds/checkbox/text/label",
+        "semanticAlias": "font/size/body-3",
+        "notes": "Label text style"
+      }
+    ],
+    "radius": [
+      {
+        "componentToken": "ds/checkbox/radius",
+        "semanticAlias": "radius/none",
+        "notes": "Square checkbox corner"
+      }
+    ],
+    "motion": [
+      {
+        "componentToken": "ds/checkbox/motion/check",
+        "semanticAlias": "effect/transition/fast",
+        "notes": "Checkmark transition"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "id": "checkbox-basic-toggle",
+      "title": "Boolean setting",
+      "description": "Single checkbox bound to one settings flag.",
+      "scenario": "Settings panel"
+    },
+    {
+      "id": "checkbox-parent-child",
+      "title": "Parent-child group",
+      "description": "Indeterminate state based on child selections.",
+      "scenario": "Bulk select"
+    }
+  ],
+  "copySnippets": [
+    {
+      "label": "Checkbox parent child sync",
+      "language": "typescript",
+      "path": "docs/component-contracts/snippets/checkbox/checkbox-parent-child.component.ts",
+      "purpose": "Indeterminate interaction"
+    },
+    {
+      "label": "Checkbox reactive form",
+      "language": "typescript",
+      "path": "docs/component-contracts/snippets/checkbox/checkbox-reactive-form.component.ts",
+      "purpose": "Form state and validation"
+    }
+  ],
+  "testMatrix": [
+    {
+      "id": "checkbox-space-toggle",
+      "type": "accessibility",
+      "assertion": "Space key toggles checked state."
+    },
+    {
+      "id": "checkbox-indeterminate-sync",
+      "type": "interaction",
+      "assertion": "Parent state updates correctly for none/partial/all children."
+    },
+    {
+      "id": "checkbox-disabled-locked",
+      "type": "interaction",
+      "assertion": "Disabled checkbox ignores click and keyboard toggle."
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-04",
+      "change": "Planned contract scaffold for upcoming Checkbox component implementation."
+    }
+  ]
+}
