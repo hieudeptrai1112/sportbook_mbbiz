@@ -828,9 +828,8 @@
 
 .button-semantic-table .token-row {
   grid-template-columns:
-    minmax(0, 2.1fr)
-    minmax(0, 1.5fr)
-    minmax(0, 1fr)
+    minmax(0, 2.3fr)
+    minmax(0, 1.8fr)
     minmax(0, 2fr);
 }
 
@@ -840,6 +839,29 @@
 
 .button-semantic-table .token-row:not(.token-head):hover {
   background: #f4f6fb;
+}
+
+.button-variable-table .token-row {
+  grid-template-columns:
+    minmax(0, 2.4fr)
+    minmax(0, 1fr)
+    minmax(0, 1.25fr);
+}
+
+.button-variable-table .token-head span {
+  white-space: nowrap;
+}
+
+.token-note-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.token-note-cell .token-description {
+  font-size: 14px;
+  line-height: 24px;
 }
 
 .scale-table .token-row {

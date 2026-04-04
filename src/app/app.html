@@ -377,7 +377,6 @@
                 <div class="token-row token-head">
                   <span>Component Token</span>
                   <span>Alias Token</span>
-                  <span>Value</span>
                   <span>Description</span>
                 </div>
                 <div class="token-row" *ngFor="let row of group.rows">
@@ -389,7 +388,6 @@
                     <code class="token-code">{{ row.componentToken }}</code>
                   </div>
                   <code class="token-code">{{ row.semanticAlias }}</code>
-                  <code class="token-code">{{ row.semanticValue }}</code>
                   <span class="token-description">{{ row.description }}</span>
                 </div>
               </div>
@@ -404,16 +402,17 @@
                 <h4>{{ group.title }}</h4>
                 <div class="token-table button-variable-table">
                   <div class="token-row token-head">
-                    <span>Token</span>
+                    <span>Token note</span>
                     <span>Value</span>
                     <span>Applied To</span>
-                    <span>Notes</span>
                   </div>
                   <div class="token-row" *ngFor="let row of group.rows">
-                    <code class="token-code">{{ row.token }}</code>
+                    <div class="token-note-cell">
+                      <code class="token-code">{{ row.token }}</code>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </div>
                     <code class="token-code">{{ row.value }}</code>
                     <span>{{ row.appliesTo }}</span>
-                    <span>{{ row.notes }}</span>
                   </div>
                 </div>
               </div>
