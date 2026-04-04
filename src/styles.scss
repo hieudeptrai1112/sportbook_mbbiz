@@ -26,6 +26,7 @@ button {
 }
 
 .toc-label {
+  display: none;
   font-size: 12px;
   letter-spacing: 1.2px;
   text-transform: uppercase;
@@ -38,7 +39,7 @@ button {
   padding-left: 10px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 6px;
 }
 
 .toc-list::before {
@@ -55,15 +56,15 @@ button {
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 32px;
+  min-height: 28px;
   width: 100%;
   max-width: 100%;
   padding: 0 8px 0 14px;
   border-radius: 4px;
   text-decoration: none;
   color: #4e5969;
-  font-size: 14px;
-  line-height: 22px;
+  font-size: 12px;
+  line-height: 20px;
   font-weight: 400;
   white-space: nowrap;
   overflow: hidden;
@@ -513,13 +514,14 @@ button {
 }
 
 .page.theme-dark .anchor-collapse-btn {
-  background: #111827;
-  border-color: rgba(148, 163, 184, 0.35);
-  color: #cbd5e1;
+  background: #232832;
+  border-color: rgba(148, 163, 184, 0.26);
+  color: #b8c2d9;
 }
 
 .page.theme-dark .anchor-collapse-btn:hover {
-  background: #1f2937;
+  background: #2b3240;
+  border-color: rgba(148, 163, 184, 0.4);
 }
 
 .page.theme-dark .sidebar-sublabel {
@@ -752,13 +754,14 @@ button {
 }
 
 .page.theme-dark .anchor-collapse-btn {
-  background: var(--sb-bg-surface-2);
-  border-color: rgba(255, 255, 255, 0.14);
-  color: var(--sb-text-2);
+  background: #232832;
+  border-color: rgba(148, 163, 184, 0.26);
+  color: #b8c2d9;
 }
 
 .page.theme-dark .anchor-collapse-btn:hover {
-  background: var(--sb-bg-surface-3);
+  background: #2b3240;
+  border-color: rgba(148, 163, 184, 0.4);
 }
 
 .page.theme-dark .token-mode-switch {
