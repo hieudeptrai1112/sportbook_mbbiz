@@ -426,15 +426,22 @@ export class App {
   private buildButtonSemanticBindingGroups(
     groups: ButtonSemanticBindingGroup[],
   ): ResolvedButtonSemanticBindingGroup[] {
-    const semanticByAlias = new Map(
-      this.semanticTokenMappings.map((token) => [token.alias, token] as const),
-    );
+    const normalizeSemanticAlias = (alias: string): string =>
+      alias.startsWith('color/semantic/') ? alias : `color/semantic/${alias}`;
+
+    const semanticByAlias = new Map<string, SemanticColorTokenMapping>();
+    for (const token of this.semanticTokenMappings) {
+      semanticByAlias.set(token.alias, token);
+      semanticByAlias.set(token.alias.replace(/^color\/semantic\//, ''), token);
+    }
 
     return groups.map((group) => ({
       title: group.title,
       description: group.description,
       rows: group.rows.map((row) => {
-        const mapped = semanticByAlias.get(row.semanticAlias);
+        const mapped =
+          semanticByAlias.get(row.semanticAlias) ??
+          semanticByAlias.get(normalizeSemanticAlias(row.semanticAlias));
         return {
           componentToken: row.componentToken,
           semanticAlias: row.semanticAlias,
