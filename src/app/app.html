@@ -250,13 +250,6 @@
             </p>
           </div>
 
-
-          <div class="tabs">
-            <button class="tab active" type="button">Usage</button>
-            <button class="tab" type="button">Design</button>
-            <button class="tab" type="button">Changelog</button>
-          </div>
-
           <section
             class="section button-demo-section"
             *ngFor="let demo of buttonDemoSections; let i = index"
@@ -364,7 +357,7 @@
           </section>
 
           <section class="section button-variables-section" id="button-variables">
-            <h2>Variable Bindings</h2>
+            <h2>Component Token</h2>
             <p class="button-demo-description">
               Button color variables are mapped to existing semantic aliases so implementation
               stays consistent with the Design Tokens source of truth.
@@ -998,7 +991,7 @@
                   href="#button-variables"
                   (click)="setActiveButtonSection('button-variables')"
                 >
-                  Variable Bindings
+                  Component Token
                 </a>
               </div>
 
