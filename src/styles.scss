@@ -35,10 +35,10 @@ button {
 
 .toc-list {
   position: relative;
-  padding-left: 12px;
+  padding-left: 10px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
 .toc-list::before {
@@ -53,16 +53,21 @@ button {
 
 .toc-item {
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   min-height: 32px;
-  padding: 0 8px 0 12px;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 8px 0 14px;
   border-radius: 4px;
   text-decoration: none;
   color: #4e5969;
   font-size: 14px;
   line-height: 22px;
   font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   transition: color 120ms ease, background 120ms ease, font-weight 120ms ease;
 }
 
@@ -75,12 +80,13 @@ button {
 .toc-item.active {
   color: #165dff;
   font-weight: 500;
+  background: rgba(229, 230, 235, 0.6);
 }
 
 .toc-item.active::before {
   content: "";
   position: absolute;
-  left: -12px;
+  left: -10px;
   top: 50%;
   transform: translateY(-50%);
   width: 2px;
@@ -738,6 +744,7 @@ button {
 
 .page.theme-dark .toc-item.active {
   color: var(--sb-accent);
+  background: rgba(143, 176, 255, 0.14);
 }
 
 .page.theme-dark .toc-item.active::before {
