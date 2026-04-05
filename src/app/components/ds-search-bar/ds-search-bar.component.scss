@@ -1,0 +1,144 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.ds-search-bar {
+  --search-width: 315px;
+  --search-height: 60px;
+
+  align-items: center;
+  background: var(--ds-search-bar-color-background-default, #ffffff);
+  border: 1px solid var(--ds-search-bar-color-border-default, #a3b7fd);
+  border-radius: var(--ds-search-bar-radius-default, 4px);
+  box-sizing: border-box;
+  color: var(--ds-search-bar-color-text-placeholder-default, #9bafc8);
+  display: inline-flex;
+  font-family: "Averta Std CY", "Inter", "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  gap: var(--ds-search-bar-spacing-xs, 4px);
+  height: var(--search-height);
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  min-width: var(--search-width);
+  padding: var(--ds-search-bar-padding-default, 12px);
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.ds-search-bar__content {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  gap: var(--ds-search-bar-spacing-xs, 4px);
+  min-width: 0;
+}
+
+.ds-search-bar__text,
+.ds-search-bar__typed,
+.ds-search-bar__cursor {
+  font-size: 14px;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+}
+
+.ds-search-bar__text,
+.ds-search-bar__typed {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ds-search-bar__text {
+  color: inherit;
+}
+
+.ds-search-bar__typed {
+  color: var(--ds-search-bar-color-text-placeholder-typing, #192d39);
+}
+
+.ds-search-bar__cursor {
+  color: var(--ds-search-bar-color-text-cursor, #52dddd);
+  font-weight: 500;
+}
+
+.ds-search-bar__icon {
+  align-items: center;
+  color: var(--ds-search-bar-color-icon-default, #141ed2);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  height: 24px;
+  justify-content: center;
+  line-height: 1;
+  width: 24px;
+}
+
+.ds-search-bar__icon--clear {
+  border-radius: 999px;
+  font-size: 18px;
+  height: var(--ds-search-bar-iconsize-clear, 20px);
+  width: var(--ds-search-bar-iconsize-clear, 20px);
+}
+
+.ds-search-bar__icon--search {
+  font-size: 18px;
+  height: var(--ds-search-bar-iconsize-search, 24px);
+  width: var(--ds-search-bar-iconsize-search, 24px);
+}
+
+.ds-search-bar--state-default {
+  background: var(--ds-search-bar-color-background-default, #ffffff);
+  border-color: var(--ds-search-bar-color-border-default, #a3b7fd);
+  color: var(--ds-search-bar-color-text-placeholder-default, #9bafc8);
+}
+
+.ds-search-bar--state-hover {
+  background: var(--ds-search-bar-color-background-hover, #ffffff);
+  border-color: var(--ds-search-bar-color-border-hover, #52dddd);
+  color: var(--ds-search-bar-color-text-placeholder-hover, #9bafc8);
+}
+
+.ds-search-bar--state-focus {
+  background: var(--ds-search-bar-color-background-focus, #ffffff);
+  border-color: var(--ds-search-bar-color-border-focus, #52dddd);
+  color: var(--ds-search-bar-color-text-cursor, #52dddd);
+}
+
+.ds-search-bar--state-typing {
+  background: var(--ds-text-field-color-background-typing, #ffffff);
+  border-color: var(--ds-search-bar-color-border-typing, #52dddd);
+  color: var(--ds-search-bar-color-text-placeholder-typing, #192d39);
+}
+
+.ds-search-bar--state-filled-default {
+  background: var(--ds-search-bar-color-background-filled-default, #ffffff);
+  border-color: var(--ds-search-bar-color-border-filled-default, #a3b7fd);
+  color: var(--ds-search-bar-color-text-placeholder-filled-default, #192d39);
+}
+
+.ds-search-bar--state-filled-active {
+  background: var(--ds-search-bar-color-background-filled-active, #ffffff);
+  border-color: var(--ds-search-bar-color-border-filled-active, #52dddd);
+  color: var(--ds-search-bar-color-text-placeholder-filled-active, #192d39);
+}
+
+.ds-search-bar--state-filled-default .ds-search-bar__text,
+.ds-search-bar--state-filled-active .ds-search-bar__text {
+  color: inherit;
+}
+
+:host-context(.theme-dark) .ds-search-bar {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+}
+
+@media (max-width: 760px) {
+  .ds-search-bar {
+    min-width: 100%;
+    width: 100%;
+  }
+}

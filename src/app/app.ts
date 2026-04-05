@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
 import { DsButtonComponent } from './components/ds-button/ds-button.component';
+import { DsSearchBarComponent } from './components/ds-search-bar/ds-search-bar.component';
 import {
   SEMANTIC_BACKGROUND_FIGMA_ORDER,
   SEMANTIC_BORDER_FIGMA_ORDER,
@@ -29,6 +30,21 @@ import {
   type ButtonSemanticBindingGroup,
   type ButtonVariableGroup,
 } from './button-demos.data';
+import {
+  INPUT_ACCESSIBILITY,
+  INPUT_API_ROWS,
+  INPUT_DEMO_SECTIONS,
+  INPUT_GUIDELINES,
+  INPUT_SEMANTIC_BINDING_GROUPS,
+  INPUT_SPACING_RULES,
+  INPUT_VARIABLE_GROUPS,
+  INPUT_VARIABLE_NOTES,
+  type InputApiRow,
+  type InputCodeType,
+  type InputDemoSection,
+  type InputSemanticBindingGroup,
+  type InputVariableGroup,
+} from './input-field-demos.data';
 import {
   DEFAULT_THEME_BRAND,
   DEFAULT_THEME_ID,
@@ -66,9 +82,22 @@ interface ResolvedButtonSemanticBindingGroup {
   rows: ResolvedButtonSemanticBindingRow[];
 }
 
+interface ResolvedInputSemanticBindingRow {
+  componentToken: string;
+  semanticAlias: string;
+  semanticValue: string;
+  description: string;
+}
+
+interface ResolvedInputSemanticBindingGroup {
+  title: string;
+  description: string;
+  rows: ResolvedInputSemanticBindingRow[];
+}
+
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, DsButtonComponent],
+  imports: [CommonModule, DsButtonComponent, DsSearchBarComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -82,9 +111,9 @@ export class App {
   protected readonly isGettingStartedOpen = signal(false);
   protected readonly isDesignTokensOpen = signal(false);
   protected readonly isComponentsOpen = signal(true);
-  protected readonly activePage = signal<'buttons' | 'color' | 'tokens' | 'spacing' | 'typography'>(
-    'buttons',
-  );
+  protected readonly activePage = signal<
+    'buttons' | 'input' | 'color' | 'tokens' | 'spacing' | 'typography'
+  >('buttons');
   protected readonly semanticTokenMappings = SEMANTIC_COLOR_TOKEN_MAPPINGS;
   protected readonly semanticTokenGroups = this.buildSemanticTokenGroups();
   protected readonly activeTokenSection = signal(
@@ -106,6 +135,19 @@ export class App {
   protected readonly buttonCodeType = signal<ButtonCodeType>('js');
   protected readonly expandedButtonDemoIds = signal<string[]>([]);
   protected readonly copiedButtonDemoId = signal<string | null>(null);
+  protected readonly inputDemoSections: InputDemoSection[] = INPUT_DEMO_SECTIONS;
+  protected readonly inputApiRows: InputApiRow[] = INPUT_API_ROWS;
+  protected readonly inputSemanticBindingGroups: ResolvedInputSemanticBindingGroup[] =
+    this.buildInputSemanticBindingGroups(INPUT_SEMANTIC_BINDING_GROUPS);
+  protected readonly inputVariableGroups: InputVariableGroup[] = INPUT_VARIABLE_GROUPS;
+  protected readonly inputVariableNotes = INPUT_VARIABLE_NOTES;
+  protected readonly inputGuidelines = INPUT_GUIDELINES;
+  protected readonly inputAccessibility = INPUT_ACCESSIBILITY;
+  protected readonly inputSpacingRules = INPUT_SPACING_RULES;
+  protected readonly activeInputSection = signal(this.getInputSectionId(this.inputDemoSections[0].id));
+  protected readonly inputCodeType = signal<InputCodeType>('js');
+  protected readonly expandedInputDemoIds = signal<string[]>([]);
+  protected readonly copiedInputDemoId = signal<string | null>(null);
   private readonly themeStorageKey = 'sportbook.theme-id';
   private readonly semanticThemeAliasValueMaps = buildSemanticThemeAliasValueMaps(
     this.semanticTokenMappings,
@@ -153,12 +195,14 @@ export class App {
     this.isThemeOpen.set(false);
   }
 
-  protected setPage(page: 'buttons' | 'color' | 'tokens' | 'spacing' | 'typography') {
+  protected setPage(page: 'buttons' | 'input' | 'color' | 'tokens' | 'spacing' | 'typography') {
     this.activePage.set(page);
     if (page === 'tokens' || page === 'spacing' || page === 'typography') {
       setTimeout(() => this.updateActiveTokenSection(), 0);
     } else if (page === 'buttons') {
       setTimeout(() => this.updateActiveButtonSection(), 0);
+    } else if (page === 'input') {
+      setTimeout(() => this.updateActiveInputSection(), 0);
     }
   }
 
@@ -186,6 +230,10 @@ export class App {
 
   protected setActiveButtonSection(sectionId: string) {
     this.activeButtonSection.set(sectionId);
+  }
+
+  protected setActiveInputSection(sectionId: string) {
+    this.activeInputSection.set(sectionId);
   }
 
   protected toggleTocCollapsed() {
@@ -312,11 +360,77 @@ export class App {
     return `button-${sectionId}`;
   }
 
+  protected getInputSectionId(sectionId: string): string {
+    return `input-${sectionId}`;
+  }
+
+  protected isInputDemoExpanded(sectionId: string): boolean {
+    return this.expandedInputDemoIds().includes(sectionId);
+  }
+
+  protected toggleInputDemoCode(sectionId: string) {
+    const next = new Set(this.expandedInputDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedInputDemoIds.set([...next]);
+  }
+
+  protected toggleAllInputDemoCode() {
+    const expanded = this.expandedInputDemoIds();
+    const allIds = this.inputDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedInputDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllInputDemoCodeExpanded(): boolean {
+    return this.expandedInputDemoIds().length === this.inputDemoSections.length;
+  }
+
+  protected setInputCodeType(type: InputCodeType) {
+    this.inputCodeType.set(type);
+  }
+
+  protected getInputDemoCode(section: InputDemoSection): string {
+    if (this.inputCodeType() === 'ts') {
+      return section.snippetTs ?? this.buildInputTypeScriptSnippet(section);
+    }
+    return section.snippetHtml ?? this.buildInputHtmlSnippet(section);
+  }
+
+  protected getInputDemoHighlightedCode(section: InputDemoSection): string {
+    const code = this.getInputDemoCode(section);
+    if (this.inputCodeType() === 'ts') {
+      return this.highlightTypeScriptSnippet(code);
+    }
+    return this.highlightHtmlSnippet(code);
+  }
+
+  protected getInputCodeLanguageLabel(): string {
+    return this.inputCodeType() === 'js'
+      ? 'app-input-demo.component.html'
+      : 'input-demo.component.ts';
+  }
+
+  protected async copyInputDemoCode(section: InputDemoSection) {
+    const code = this.getInputDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedInputDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedInputDemoId() === section.id) {
+        this.copiedInputDemoId.set(null);
+      }
+    }, 1200);
+  }
+
   @HostListener('window:scroll')
   @HostListener('window:resize')
   protected onViewportChange() {
     this.updateActiveTokenSection();
     this.updateActiveButtonSection();
+    this.updateActiveInputSection();
   }
 
   private updateActiveTokenSection() {
@@ -372,6 +486,31 @@ export class App {
     }
 
     this.activeButtonSection.set(currentSection);
+  }
+
+  private updateActiveInputSection() {
+    if (this.activePage() !== 'input' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getInputSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeInputSection.set(currentSection);
   }
 
   private buildSemanticTokenGroups(): SemanticTokenGroup[] {
@@ -450,6 +589,35 @@ export class App {
     }));
   }
 
+  private buildInputSemanticBindingGroups(
+    groups: InputSemanticBindingGroup[],
+  ): ResolvedInputSemanticBindingGroup[] {
+    const normalizeSemanticAlias = (alias: string): string =>
+      alias.startsWith('color/semantic/') ? alias : `color/semantic/${alias}`;
+
+    const semanticByAlias = new Map<string, SemanticColorTokenMapping>();
+    for (const token of this.semanticTokenMappings) {
+      semanticByAlias.set(token.alias, token);
+      semanticByAlias.set(token.alias.replace(/^color\/semantic\//, ''), token);
+    }
+
+    return groups.map((group) => ({
+      title: group.title,
+      description: group.description,
+      rows: group.rows.map((row) => {
+        const mapped =
+          semanticByAlias.get(row.semanticAlias) ??
+          semanticByAlias.get(normalizeSemanticAlias(row.semanticAlias));
+        return {
+          componentToken: row.componentToken,
+          semanticAlias: row.semanticAlias,
+          semanticValue: mapped?.value ?? 'N/A',
+          description: `${row.appliesTo} · ${row.notes}`,
+        };
+      }),
+    }));
+  }
+
   private getTokenSectionIds(): string[] {
     if (this.activePage() === 'spacing') {
       return ['spacing-scale', 'radius-scale'];
@@ -467,6 +635,17 @@ export class App {
       ...this.buttonDemoSections.map((section) => this.getButtonSectionId(section.id)),
       'button-api',
       'button-variables',
+    ];
+  }
+
+  private getInputSectionIds(): string[] {
+    return [
+      ...this.inputDemoSections.map((section) => this.getInputSectionId(section.id)),
+      'input-api',
+      'input-guidelines',
+      'input-accessibility',
+      'input-spacing',
+      'input-variables',
     ];
   }
 
@@ -600,6 +779,51 @@ ${actionRows}
 }`;
   }
 
+  private buildInputHtmlSnippet(section: InputDemoSection): string {
+    const indentedRows = section.codeJs
+      .split('\n')
+      .map((line) => `  ${line}`)
+      .join('\n');
+    return `<section class="button-demo-preview">\n${indentedRows}\n</section>`;
+  }
+
+  private buildInputTypeScriptSnippet(section: InputDemoSection): string {
+    const actionRows = section.actions
+      .map((action) => {
+        const parts = [`text: '${action.text}'`, `state: '${action.state}'`];
+        if (action.showDelete !== undefined) {
+          parts.push(`showDelete: ${action.showDelete ? 'true' : 'false'}`);
+        }
+        return `    { ${parts.join(', ')} },`;
+      })
+      .join('\n');
+
+    return `import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { DsSearchBarComponent } from './components/ds-search-bar/ds-search-bar.component';
+
+@Component({
+  selector: 'app-input-demo',
+  standalone: true,
+  imports: [CommonModule, DsSearchBarComponent],
+  template: \`
+    <section class="button-demo-preview">
+      <app-ds-search-bar
+        *ngFor="let action of actions"
+        [text]="action.text"
+        [state]="action.state"
+        [showDelete]="action.showDelete ?? true"
+      />
+    </section>
+  \`,
+})
+export class InputDemoComponent {
+  readonly actions = [
+${actionRows}
+  ];
+}`;
+  }
+
   private formatActionForSnippet(action: ButtonDemoAction): string {
     const parts = [
       `label: '${action.label}'`,
@@ -663,7 +887,10 @@ ${actionRows}
       /\b(import|from|const|readonly|interface|type|export|class|return|true|false)\b/g,
       '<span class="code-token keyword">$1</span>',
     );
-    escaped = escaped.replace(/\b(Component|DsButtonComponent)\b/g, '<span class="code-token type">$1</span>');
+    escaped = escaped.replace(
+      /\b(Component|DsButtonComponent|DsSearchBarComponent|DsSearchBarState)\b/g,
+      '<span class="code-token type">$1</span>',
+    );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');
     escaped = escaped.replace(
       /(\{|\}|\(|\)|\[|\]|:|,|;|=>)/g,

@@ -208,7 +208,7 @@
               <span>Dropdown</span>
             </div>
             <span class="sidebar-sublabel">Data Entry</span>
-            <div class="sidebar-link">
+            <div class="sidebar-link" [class.active]="activePage() === 'input'" (click)="setPage('input')">
               <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
               <span>Input Field</span>
             </div>
@@ -418,6 +418,224 @@
               </ul>
             </div>
           </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'input'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Entry</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Input Field</h1>
+              <p class="lead">
+                Search input variant set from Figma with full interactive states: default, hover,
+                focus, typing, filled default, and filled active.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of inputDemoSections; let i = index"
+              [attr.id]="getInputSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+                <button
+                  *ngIf="i === 0"
+                  class="button-doc-toggle"
+                  type="button"
+                  (click)="toggleAllInputDemoCode()"
+                >
+                  {{ areAllInputDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                </button>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card">
+                <div class="button-demo-preview input-demo-preview">
+                  <app-ds-search-bar
+                    *ngFor="let action of demo.actions"
+                    [text]="action.text"
+                    [state]="action.state"
+                    [showDelete]="action.showDelete ?? true"
+                    [showSearchIcon]="true"
+                  />
+                </div>
+
+                <div class="button-demo-controls">
+                  <div class="button-demo-icons">
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      [class.active]="isInputDemoExpanded(demo.id)"
+                      (click)="toggleInputDemoCode(demo.id)"
+                      aria-label="Toggle code"
+                    >
+                      &lt;/&gt;
+                    </button>
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      (click)="copyInputDemoCode(demo)"
+                      aria-label="Copy code"
+                    >
+                      {{ copiedInputDemoId() === demo.id ? 'Copied' : 'Copy' }}
+                    </button>
+                  </div>
+
+                  <div class="button-code-type">
+                    <button
+                      type="button"
+                      class="button-code-type-btn"
+                      [class.active]="inputCodeType() === 'js'"
+                      (click)="setInputCodeType('js')"
+                    >
+                      HTML
+                    </button>
+                    <button
+                      type="button"
+                      class="button-code-type-btn"
+                      [class.active]="inputCodeType() === 'ts'"
+                      [disabled]="!demo.codeTs"
+                      (click)="setInputCodeType('ts')"
+                    >
+                      TS
+                    </button>
+                  </div>
+                </div>
+
+                <div class="button-code-wrapper" *ngIf="isInputDemoExpanded(demo.id)">
+                  <div class="button-code-head">
+                    <span class="button-code-file">{{ getInputCodeLanguageLabel() }}</span>
+                    <span class="button-code-hint">Copy-ready snippet</span>
+                  </div>
+                  <pre class="button-code-block"><code [innerHTML]="getInputDemoHighlightedCode(demo)"></code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-api-section" id="input-api">
+              <h2>API</h2>
+              <h3 class="button-api-group-title">Input Field</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of inputApiRows">
+                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                </div>
+              </div>
+            </section>
+
+            <section class="section doc-guidelines-section" id="input-guidelines">
+              <h2>Usage Guidelines</h2>
+              <div class="doc-guidelines-grid">
+                <div class="doc-guidelines-card">
+                  <h3>For Designers</h3>
+                  <ul>
+                    <li *ngFor="let note of inputGuidelines.designers">{{ note }}</li>
+                  </ul>
+                </div>
+                <div class="doc-guidelines-card">
+                  <h3>For Developers</h3>
+                  <ul>
+                    <li *ngFor="let note of inputGuidelines.developers">{{ note }}</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <section class="section doc-list-section" id="input-accessibility">
+              <h2>Accessibility</h2>
+              <div class="doc-list-card">
+                <ul>
+                  <li *ngFor="let note of inputAccessibility">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="section doc-list-section" id="input-spacing">
+              <h2>Spacing</h2>
+              <div class="doc-list-card">
+                <ul>
+                  <li *ngFor="let note of inputSpacingRules">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="input-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Input Field color variables are mapped to semantic aliases from Design Tokens to
+                keep implementation and documentation consistent.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of inputSemanticBindingGroups">
+                <h3>{{ group.title }}</h3>
+                <p class="scale-note">{{ group.description }}</p>
+                <div class="token-table button-semantic-table">
+                  <div class="token-row token-head">
+                    <span>Component Token</span>
+                    <span>Alias Token</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.rows">
+                    <div class="token-alias-cell" [class.na]="row.semanticValue === 'N/A'">
+                      <span
+                        class="token-swatch"
+                        [style.background]="row.semanticValue === 'N/A' ? '#E2E8F0' : row.semanticValue"
+                      ></span>
+                      <code class="token-code">{{ row.componentToken }}</code>
+                    </div>
+                    <code class="token-code">{{ row.semanticAlias }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-subsection">
+                <h3>Layout & Typography Specs</h3>
+                <p class="scale-note">
+                  Non-color variables used by Input Field sizing, spacing, icon sizing, and text
+                  style.
+                </p>
+                <div class="scale-block" *ngFor="let group of inputVariableGroups">
+                  <h4>{{ group.title }}</h4>
+                  <div class="token-table button-variable-table">
+                    <div class="token-row token-head">
+                      <span>Token note</span>
+                      <span>Value</span>
+                      <span>Applied To</span>
+                    </div>
+                    <div class="token-row" *ngFor="let row of group.rows">
+                      <div class="token-note-cell">
+                        <code class="token-code">{{ row.token }}</code>
+                        <span class="token-description">{{ row.notes }}</span>
+                      </div>
+                      <code class="token-code">{{ row.value }}</code>
+                      <span>{{ row.appliesTo }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of inputVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
           </ng-container>
 
           <ng-container *ngIf="activePage() === 'color'">
@@ -1025,6 +1243,86 @@
                 <a class="toc-item active" href="#">Primitive Palette</a>
                 <a class="toc-item" href="#">Gradients</a>
                 <a class="toc-item" href="#">Neutrals</a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'input'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of inputDemoSections"
+                  [class.active]="activeInputSection() === getInputSectionId(demo.id)"
+                  [href]="'#' + getInputSectionId(demo.id)"
+                  (click)="setActiveInputSection(getInputSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeInputSection() === 'input-api'"
+                  href="#input-api"
+                  (click)="setActiveInputSection('input-api')"
+                >
+                  API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeInputSection() === 'input-guidelines'"
+                  href="#input-guidelines"
+                  (click)="setActiveInputSection('input-guidelines')"
+                >
+                  Usage Guidelines
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeInputSection() === 'input-accessibility'"
+                  href="#input-accessibility"
+                  (click)="setActiveInputSection('input-accessibility')"
+                >
+                  Accessibility
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeInputSection() === 'input-spacing'"
+                  href="#input-spacing"
+                  (click)="setActiveInputSection('input-spacing')"
+                >
+                  Spacing
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeInputSection() === 'input-variables'"
+                  href="#input-variables"
+                  (click)="setActiveInputSection('input-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Pro Tip</span>
+                </div>
+                <p>
+                  Use state-driven snippets to reproduce
+                  <span class="mono">focus</span>,
+                  <span class="mono">typing</span>, and
+                  <span class="mono">filled</span> behaviors.
+                </p>
               </div>
             </aside>
             <button

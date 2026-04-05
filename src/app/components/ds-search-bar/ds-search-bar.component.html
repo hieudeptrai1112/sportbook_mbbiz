@@ -1,0 +1,23 @@
+<div class="{{ classes() }}">
+  <div class="ds-search-bar__content">
+    @if (isTyping()) {
+      <span class="ds-search-bar__typed">{{ text() }}</span>
+      <span class="ds-search-bar__cursor" aria-hidden="true">l</span>
+    } @else {
+      @if (mainText()) {
+        <span class="ds-search-bar__text">{{ mainText() }}</span>
+      }
+      @if (showsCursor()) {
+        <span class="ds-search-bar__cursor" aria-hidden="true">l</span>
+      }
+    }
+  </div>
+
+  @if (showDeleteIcon()) {
+    <span class="ds-search-bar__icon ds-search-bar__icon--clear" aria-hidden="true">×</span>
+  }
+
+  @if (showSearchIcon()) {
+    <span class="ds-search-bar__icon ds-search-bar__icon--search" aria-hidden="true">⌕</span>
+  }
+</div>
