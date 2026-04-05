@@ -621,24 +621,30 @@ ${actionRows}
   }
 
   private highlightHtmlSnippet(code: string): string {
-    return code
-      .split('\n')
-      .map((line) => {
-        const escapedLine = this.escapeHtml(line);
-        return escapedLine.replace(
-          /(&lt;\/?)([A-Za-z][\w-]*)(.*?)(\/?&gt;)/g,
-          (_match, open, tagName, attributes, close) => {
-            const highlightedAttrs = attributes.replace(
-              /([:@*.\[\]\(\)\w-]+)(=)("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g,
-              '<span class="code-token attr">$1</span><span class="code-token punctuation">$2</span><span class="code-token string">$3</span>',
-            );
+    const stash: string[] = [];
+    let escaped = this.escapeHtml(code);
 
-            return `<span class="code-token punctuation">${open}</span><span class="code-token tag">${tagName}</span>${highlightedAttrs}<span class="code-token punctuation">${close}</span>`;
-          },
-        );
-      })
-      .join('\n')
-      .replace(/(\{\{|\}\}|\?\?|=>)/g, '<span class="code-token keyword">$1</span>');
+    escaped = this.captureToken(escaped, /(&lt;!--[\s\S]*?--&gt;)/g, 'comment', stash);
+    escaped = this.captureToken(
+      escaped,
+      /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g,
+      'string',
+      stash,
+    );
+
+    escaped = escaped.replace(
+      /(&lt;\/?)([A-Za-z][\w-]*)/g,
+      '<span class="code-token punctuation">$1</span><span class="code-token tag">$2</span>',
+    );
+    escaped = escaped.replace(
+      /([:@*.\[\]\(\)\w-]+)(\s*=\s*)/g,
+      '<span class="code-token attr">$1</span><span class="code-token punctuation">$2</span>',
+    );
+    escaped = escaped.replace(/(\/?&gt;)/g, '<span class="code-token punctuation">$1</span>');
+    escaped = escaped.replace(/(\{\{|\}\}|\?\?|=>)/g, '<span class="code-token keyword">$1</span>');
+    escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');
+
+    return this.restoreCapturedTokens(escaped, stash);
   }
 
   private highlightTypeScriptSnippet(code: string): string {

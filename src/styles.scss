@@ -259,11 +259,11 @@ button {
   font-family: "IBM Plex Mono", "Liberation Mono", monospace;
   font-size: 13px;
   line-height: 24px;
-  color: #344154;
+  color: #4e5969;
 }
 
 .code-token.keyword {
-  color: #7c4dff;
+  color: #00a83a;
 }
 
 .code-token.tag {
@@ -271,11 +271,11 @@ button {
 }
 
 .code-token.type {
-  color: #1f6feb;
+  color: #165dff;
 }
 
 .code-token.attr {
-  color: #dd5f00;
+  color: #8f5cf6;
 }
 
 .code-token.string {
@@ -287,11 +287,11 @@ button {
 }
 
 .code-token.number {
-  color: #0ea5e9;
+  color: #1d9bf0;
 }
 
 .code-token.punctuation {
-  color: #5b6472;
+  color: #165dff;
 }
 
 .page.theme-dark {
@@ -428,16 +428,16 @@ button {
 }
 
 .page.theme-dark .code-token.keyword {
-  color: #c084fc;
+  color: #7bd88f;
 }
 
 .page.theme-dark .code-token.tag,
 .page.theme-dark .code-token.type {
-  color: #7aa2f7;
+  color: #69a5ff;
 }
 
 .page.theme-dark .code-token.attr {
-  color: #f7b267;
+  color: #b79cff;
 }
 
 .page.theme-dark .code-token.string {
