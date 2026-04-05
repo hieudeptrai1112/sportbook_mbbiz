@@ -278,9 +278,9 @@ export class App {
 
   protected getButtonDemoCode(section: ButtonDemoSection): string {
     if (this.buttonCodeType() === 'ts') {
-      return this.buildTypeScriptSnippet(section);
+      return section.snippetTs ?? this.buildTypeScriptSnippet(section);
     }
-    return this.buildHtmlSnippet(section);
+    return section.snippetHtml ?? this.buildHtmlSnippet(section);
   }
 
   protected getButtonDemoHighlightedCode(section: ButtonDemoSection): string {

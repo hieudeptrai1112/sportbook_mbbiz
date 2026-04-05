@@ -23,6 +23,8 @@ export interface ButtonDemoSection {
   actions: ButtonDemoAction[];
   codeJs: string;
   codeTs?: string;
+  snippetHtml?: string;
+  snippetTs?: string;
 }
 
 export interface ButtonApiRow {
@@ -76,6 +78,88 @@ export const BUTTON_DEMO_SECTIONS: ButtonDemoSection[] = [
 <app-ds-button label="Text" shape="rectangle" tone="primary" state="pressed" size="large" />
 <app-ds-button label="Text" shape="rectangle" tone="primary" state="disabled" size="large" />`,
     codeTs: `import { DsButtonComponent } from './components/ds-button/ds-button.component';`,
+    snippetHtml: `<section class="button-demo-preview">
+  <app-ds-button
+    [label]="isSubmitting ? 'Submitting...' : 'Continue'"
+    shape="rectangle"
+    tone="primary"
+    size="large"
+    [state]="isSubmitting ? 'disabled' : primaryState"
+    [showLeftIcon]="showLeftIcon"
+    [showRightIcon]="showRightIcon"
+    (mouseenter)="onPrimaryEnter()"
+    (mouseleave)="onPrimaryLeave()"
+    (mousedown)="onPrimaryDown()"
+    (mouseup)="onPrimaryUp()"
+    (blur)="onPrimaryLeave()"
+    (click)="onPrimarySubmit()"
+  />
+</section>
+
+<section class="button-demo-preview">
+  <app-ds-button
+    label="Left icon"
+    shape="rectangle"
+    tone="primary"
+    size="medium"
+    state="default"
+    [showLeftIcon]="true"
+    (click)="showLeftIcon = !showLeftIcon"
+  />
+  <app-ds-button
+    label="Right icon"
+    shape="rectangle"
+    tone="primary"
+    size="medium"
+    state="default"
+    [showRightIcon]="true"
+    (click)="showRightIcon = !showRightIcon"
+  />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsButtonComponent } from './components/ds-button/ds-button.component';
+
+type ButtonState = 'default' | 'hover' | 'pressed' | 'disabled';
+
+@Component({
+  selector: 'app-button-primary-interaction-demo',
+  standalone: true,
+  imports: [DsButtonComponent],
+  templateUrl: './button-primary-interaction-demo.component.html',
+})
+export class ButtonPrimaryInteractionDemoComponent {
+  primaryState: ButtonState = 'default';
+  isSubmitting = false;
+  showLeftIcon = false;
+  showRightIcon = false;
+
+  onPrimaryEnter() {
+    if (!this.isSubmitting) this.primaryState = 'hover';
+  }
+
+  onPrimaryLeave() {
+    if (!this.isSubmitting) this.primaryState = 'default';
+  }
+
+  onPrimaryDown() {
+    if (!this.isSubmitting) this.primaryState = 'pressed';
+  }
+
+  onPrimaryUp() {
+    if (!this.isSubmitting) this.primaryState = 'hover';
+  }
+
+  async onPrimarySubmit() {
+    if (this.isSubmitting) return;
+    this.isSubmitting = true;
+    this.primaryState = 'disabled';
+
+    await new Promise((resolve) => setTimeout(resolve, 1200));
+
+    this.isSubmitting = false;
+    this.primaryState = 'default';
+  }
+}`,
   },
   {
     id: 'rectangle-secondary',
@@ -94,6 +178,52 @@ export const BUTTON_DEMO_SECTIONS: ButtonDemoSection[] = [
 <app-ds-button label="Text" shape="rectangle" tone="secondary" state="pressed" size="large" />
 <app-ds-button label="Text" shape="rectangle" tone="secondary" state="disabled" size="large" />`,
     codeTs: `import { DsButtonComponent } from './components/ds-button/ds-button.component';`,
+    snippetHtml: `<section class="button-demo-preview">
+  <app-ds-button
+    [label]="isDisabled ? 'Disabled' : 'Secondary action'"
+    shape="rectangle"
+    tone="secondary"
+    size="large"
+    [state]="isDisabled ? 'disabled' : selectedState"
+  />
+  <app-ds-button
+    label="Toggle disabled"
+    shape="rectangle"
+    tone="secondary"
+    size="small"
+    state="default"
+    (click)="isDisabled = !isDisabled"
+  />
+</section>
+
+<section class="button-demo-preview">
+  <app-ds-button
+    *ngFor="let state of states"
+    [label]="state"
+    shape="rectangle"
+    tone="secondary"
+    size="small"
+    [state]="state"
+    (click)="selectedState = state"
+  />
+</section>`,
+    snippetTs: `import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { DsButtonComponent } from './components/ds-button/ds-button.component';
+
+type ButtonState = 'default' | 'hover' | 'pressed' | 'disabled';
+
+@Component({
+  selector: 'app-button-secondary-state-demo',
+  standalone: true,
+  imports: [CommonModule, DsButtonComponent],
+  templateUrl: './button-secondary-state-demo.component.html',
+})
+export class ButtonSecondaryStateDemoComponent {
+  states: ButtonState[] = ['default', 'hover', 'pressed', 'disabled'];
+  selectedState: ButtonState = 'default';
+  isDisabled = false;
+}`,
   },
   {
     id: 'size-scale',
@@ -116,6 +246,56 @@ export const BUTTON_DEMO_SECTIONS: ButtonDemoSection[] = [
 <app-ds-button label="Text" shape="pill" tone="primary" size="medium" />
 <app-ds-button label="Text" shape="pill" tone="primary" size="small" />`,
     codeTs: `import { DsButtonComponent } from './components/ds-button/ds-button.component';`,
+    snippetHtml: `<section class="button-demo-preview">
+  <app-ds-button
+    [label]="'Size: ' + size + ' · Shape: ' + shape"
+    [shape]="shape"
+    tone="primary"
+    state="default"
+    [size]="size"
+  />
+</section>
+
+<section class="button-demo-preview">
+  <app-ds-button
+    *ngFor="let item of sizeOptions"
+    [label]="item"
+    shape="rectangle"
+    tone="secondary"
+    size="small"
+    state="default"
+    (click)="size = item"
+  />
+  <app-ds-button
+    *ngFor="let item of shapeOptions"
+    [label]="item"
+    shape="pill"
+    tone="secondary"
+    size="small"
+    state="default"
+    (click)="shape = item"
+  />
+</section>`,
+    snippetTs: `import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { DsButtonComponent } from './components/ds-button/ds-button.component';
+
+type ButtonShape = 'rectangle' | 'pill';
+type ButtonSize = 'large' | 'medium' | 'small';
+
+@Component({
+  selector: 'app-button-size-scale-demo',
+  standalone: true,
+  imports: [CommonModule, DsButtonComponent],
+  templateUrl: './button-size-scale-demo.component.html',
+})
+export class ButtonSizeScaleDemoComponent {
+  sizeOptions: ButtonSize[] = ['large', 'medium', 'small'];
+  shapeOptions: ButtonShape[] = ['rectangle', 'pill'];
+
+  size: ButtonSize = 'large';
+  shape: ButtonShape = 'rectangle';
+}`,
   },
   {
     id: 'pill-secondary',
@@ -134,6 +314,49 @@ export const BUTTON_DEMO_SECTIONS: ButtonDemoSection[] = [
 <app-ds-button label="Text" shape="pill" tone="secondary" state="pressed" size="medium" />
 <app-ds-button label="Text" shape="pill" tone="secondary" state="disabled" size="medium" />`,
     codeTs: `import { DsButtonComponent } from './components/ds-button/ds-button.component';`,
+    snippetHtml: `<section class="button-demo-preview">
+  <app-ds-button
+    [label]="stateLabel"
+    shape="pill"
+    tone="secondary"
+    size="medium"
+    [state]="pillState"
+    (mouseenter)="pillState = 'hover'"
+    (mouseleave)="pillState = 'default'"
+    (mousedown)="pillState = 'pressed'"
+    (mouseup)="pillState = 'hover'"
+  />
+  <app-ds-button
+    label="Disable"
+    shape="pill"
+    tone="secondary"
+    size="small"
+    state="default"
+    (click)="toggleDisabled()"
+  />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsButtonComponent } from './components/ds-button/ds-button.component';
+
+type ButtonState = 'default' | 'hover' | 'pressed' | 'disabled';
+
+@Component({
+  selector: 'app-button-pill-secondary-demo',
+  standalone: true,
+  imports: [DsButtonComponent],
+  templateUrl: './button-pill-secondary-demo.component.html',
+})
+export class ButtonPillSecondaryDemoComponent {
+  pillState: ButtonState = 'default';
+
+  get stateLabel() {
+    return this.pillState === 'disabled' ? 'Disabled' : 'Secondary';
+  }
+
+  toggleDisabled() {
+    this.pillState = this.pillState === 'disabled' ? 'default' : 'disabled';
+  }
+}`,
   },
   {
     id: 'with-icons',
@@ -172,6 +395,52 @@ export const BUTTON_DEMO_SECTIONS: ButtonDemoSection[] = [
 <app-ds-button label="Text" shape="rectangle" tone="primary" size="medium" [showRightIcon]="true" />
 <app-ds-button label="Text" shape="pill" tone="secondary" state="hover" size="medium" [showLeftIcon]="true" [showRightIcon]="true" />`,
     codeTs: `import { DsButtonComponent } from './components/ds-button/ds-button.component';`,
+    snippetHtml: `<section class="button-demo-preview">
+  <app-ds-button
+    label="Action"
+    shape="rectangle"
+    tone="primary"
+    size="medium"
+    state="default"
+    [showLeftIcon]="showLeftIcon"
+    [showRightIcon]="showRightIcon"
+    (click)="clickCount = clickCount + 1"
+  />
+</section>
+
+<section class="button-demo-preview">
+  <app-ds-button
+    [label]="showLeftIcon ? 'Left icon on' : 'Left icon off'"
+    shape="rectangle"
+    tone="secondary"
+    size="small"
+    state="default"
+    (click)="showLeftIcon = !showLeftIcon"
+  />
+  <app-ds-button
+    [label]="showRightIcon ? 'Right icon on' : 'Right icon off'"
+    shape="rectangle"
+    tone="secondary"
+    size="small"
+    state="default"
+    (click)="showRightIcon = !showRightIcon"
+  />
+  <p>Clicked: {{ clickCount }}</p>
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsButtonComponent } from './components/ds-button/ds-button.component';
+
+@Component({
+  selector: 'app-button-icon-demo',
+  standalone: true,
+  imports: [DsButtonComponent],
+  templateUrl: './button-icon-demo.component.html',
+})
+export class ButtonIconDemoComponent {
+  showLeftIcon = true;
+  showRightIcon = false;
+  clickCount = 0;
+}`,
   },
 ];
 
