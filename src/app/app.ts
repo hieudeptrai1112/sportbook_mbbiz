@@ -38,6 +38,9 @@ import {
   INPUT_API_ROWS,
   INPUT_DEMO_SECTIONS,
   INPUT_GUIDELINES,
+  INPUT_STATE_CONTRACT_ROWS,
+  INPUT_STATE_CONTRACT_SNIPPET,
+  INPUT_STATE_PRIORITY_RULES,
   INPUT_SEMANTIC_BINDING_GROUPS,
   INPUT_SPACING_RULES,
   INPUT_VARIABLE_GROUPS,
@@ -45,6 +48,7 @@ import {
   type InputApiRow,
   type InputCodeType,
   type InputDemoSection,
+  type InputStateContractRow,
   type InputSemanticBindingGroup,
   type InputVariableGroup,
 } from './input-field-demos.data';
@@ -140,6 +144,9 @@ export class App {
   protected readonly copiedButtonDemoId = signal<string | null>(null);
   protected readonly inputDemoSections: InputDemoSection[] = INPUT_DEMO_SECTIONS;
   protected readonly inputApiRows: InputApiRow[] = INPUT_API_ROWS;
+  protected readonly inputStateContractRows: InputStateContractRow[] = INPUT_STATE_CONTRACT_ROWS;
+  protected readonly inputStatePriorityRules: string[] = INPUT_STATE_PRIORITY_RULES;
+  protected readonly inputStateContractSnippet = INPUT_STATE_CONTRACT_SNIPPET;
   protected readonly inputSemanticBindingGroups: ResolvedInputSemanticBindingGroup[] =
     this.buildInputSemanticBindingGroups(INPUT_SEMANTIC_BINDING_GROUPS);
   protected readonly inputVariableGroups: InputVariableGroup[] = INPUT_VARIABLE_GROUPS;
@@ -672,11 +679,16 @@ export class App {
     return [
       ...this.inputDemoSections.map((section) => this.getInputSectionId(section.id)),
       'input-api',
+      'input-state-contract',
       'input-guidelines',
       'input-accessibility',
       'input-spacing',
       'input-variables',
     ];
+  }
+
+  protected getHighlightedTypeScriptSnippet(code: string): string {
+    return this.highlightTypeScriptSnippet(code);
   }
 
   private async writeTextToClipboard(text: string): Promise<void> {

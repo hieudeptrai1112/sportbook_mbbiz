@@ -24,7 +24,10 @@ Every new component page must follow the same UX contract as the current Button 
    - Demo controls: toggle code, copy, language switch.
 3. `API`
    - Standard API table: Property, Description, Type, Default.
-4. `Component Token` (rename from Variable Bindings; keep this naming)
+4. `State / Status Contract` (for interactive form components)
+   - Clarify separation between interaction `state` and business `status`.
+   - Include deterministic priority mapping and reference code.
+5. `Component Token` (rename from Variable Bindings; keep this naming)
    - Color token binding tables.
    - Core Layout and Typography Styles tables.
 

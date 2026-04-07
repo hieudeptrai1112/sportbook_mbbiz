@@ -566,6 +566,39 @@
               </div>
             </section>
 
+            <section class="section doc-list-section" id="input-state-contract">
+              <h2>State / Status Contract</h2>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Key</span>
+                  <span class="button-api-col button-api-col-description">Role</span>
+                  <span class="button-api-col button-api-col-type">Values</span>
+                  <span class="button-api-col button-api-col-default">Notes</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of inputStateContractRows">
+                  <code class="token-code button-api-col button-api-col-property">{{ row.key }}</code>
+                  <span class="button-api-col button-api-col-description">{{ row.role }}</span>
+                  <code class="token-code button-api-col button-api-col-type">{{ row.values }}</code>
+                  <span class="button-api-col button-api-col-default">{{ row.notes }}</span>
+                </div>
+              </div>
+
+              <div class="doc-list-card input-state-contract-priority">
+                <h3>Priority Rules</h3>
+                <ul>
+                  <li *ngFor="let rule of inputStatePriorityRules">{{ rule }}</li>
+                </ul>
+              </div>
+
+              <div class="button-code-wrapper input-state-contract-code">
+                <div class="button-code-head">
+                  <span class="button-code-file">input-state-contract.ts</span>
+                  <span class="button-code-hint">Reference mapping</span>
+                </div>
+                <pre class="button-code-block"><code [innerHTML]="getHighlightedTypeScriptSnippet(inputStateContractSnippet)"></code></pre>
+              </div>
+            </section>
+
             <section class="section doc-guidelines-section" id="input-guidelines">
               <h2>Usage Guidelines</h2>
               <div class="doc-guidelines-grid">
@@ -1306,6 +1339,14 @@
                   (click)="setActiveInputSection('input-api')"
                 >
                   API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeInputSection() === 'input-state-contract'"
+                  href="#input-state-contract"
+                  (click)="setActiveInputSection('input-state-contract')"
+                >
+                  State / Status Contract
                 </a>
                 <a
                   class="toc-item"

@@ -34,6 +34,16 @@ If a variant has different interaction logic or API surface, it must be document
 
 Never use ambiguous keys like `type` for layout composition.
 
+## API Modeling Contract (Arco-compatible)
+- Public form API should prioritize:
+  - `status: 'default' | 'error' | 'warning'`
+  - `disabled: boolean`
+- Visual `state` remains required for docs/QA matrices but should be derived from runtime signals in implementation.
+- Recommended priority:
+  1. `disabled=true` -> visual `disabled`
+  2. `status='error'` -> visual `error / error-typing / error-filled`
+  3. interaction signals -> `default/hover/focus/typing/filled`
+
 ## Page Sections (In Order)
 1. `Overview`
    - Purpose, usage boundary, when not to use.

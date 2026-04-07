@@ -54,6 +54,13 @@ export interface InputVariableGroup {
   rows: InputVariableRow[];
 }
 
+export interface InputStateContractRow {
+  key: string;
+  role: string;
+  values: string;
+  notes: string;
+}
+
 export const INPUT_DEMO_SECTIONS: InputDemoSection[] = [
   {
     id: 'basic-interactive',
@@ -219,11 +226,78 @@ export const INPUT_API_ROWS: InputApiRow[] = [
   },
   {
     property: 'state',
-    description: 'Visual state axis mapped directly from Figma component set.',
+    description:
+      'Visual state axis mapped directly from Figma component set. Intended for docs/QA preview and deterministic rendering.',
     type: "'default' | 'hover' | 'focus' | 'typing' | 'filled' | 'error' | 'disabled' | 'error-typing' | 'error-filled'",
     defaultValue: "'default'",
   },
 ];
+
+export const INPUT_STATE_CONTRACT_ROWS: InputStateContractRow[] = [
+  {
+    key: 'status',
+    role: 'Business and validation state from app/form logic.',
+    values: "'default' | 'error' | 'warning'",
+    notes: 'Recommended external API surface for production forms.',
+  },
+  {
+    key: 'disabled',
+    role: 'Interaction lock from app logic.',
+    values: 'boolean',
+    notes: 'When true, must override status and interaction visual branches.',
+  },
+  {
+    key: 'state (visual)',
+    role: 'Deterministic visual rendering state used by docs and QA.',
+    values:
+      "'default' | 'hover' | 'focus' | 'typing' | 'filled' | 'error' | 'disabled' | 'error-typing' | 'error-filled'",
+    notes: 'Should be derived from runtime signals, not used as primary business API.',
+  },
+];
+
+export const INPUT_STATE_PRIORITY_RULES: string[] = [
+  '`disabled=true` always maps to visual `disabled`.',
+  'If not disabled and `status=error`: map to `error`, `error-typing`, or `error-filled` depending on typing/value state.',
+  'If not disabled and `status=warning`: keep interaction branch (`default/hover/focus/typing/filled`) but apply warning helper messaging.',
+  'If `status=default`: map by interaction signals (`focus`, `typing`, `filled`, fallback `default` or `hover`).',
+];
+
+export const INPUT_STATE_CONTRACT_SNIPPET = `type InputStatus = 'default' | 'error' | 'warning';
+type InputVisualState =
+  | 'default'
+  | 'hover'
+  | 'focus'
+  | 'typing'
+  | 'filled'
+  | 'error'
+  | 'error-typing'
+  | 'error-filled'
+  | 'disabled';
+
+interface InputRuntime {
+  disabled: boolean;
+  status: InputStatus;
+  isFocused: boolean;
+  isTyping: boolean;
+  hasValue: boolean;
+  isHover: boolean;
+}
+
+export function deriveInputVisualState(runtime: InputRuntime): InputVisualState {
+  if (runtime.disabled) return 'disabled';
+
+  if (runtime.status === 'error') {
+    if (runtime.isTyping) return 'error-typing';
+    if (runtime.hasValue) return 'error-filled';
+    return 'error';
+  }
+
+  if (runtime.isTyping) return 'typing';
+  if (runtime.isFocused) return 'focus';
+  if (runtime.hasValue) return 'filled';
+  if (runtime.isHover) return 'hover';
+  return 'default';
+}`;
 
 export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
   {
@@ -373,5 +447,6 @@ export const INPUT_SPACING_RULES = [
 export const INPUT_VARIABLE_NOTES: string[] = [
   'This page documents only `input/basic` from the Input family outline.',
   'State axis is normalized to machine-friendly values: default, hover, focus, typing, filled, error, disabled, error-typing, error-filled.',
+  'Production API is recommended to expose `status` + `disabled`, then derive visual `state` internally for consistency.',
   'Do not alter geometry, typography, or visual token mapping unless the Figma source component is updated.',
 ];
