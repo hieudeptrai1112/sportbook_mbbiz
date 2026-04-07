@@ -190,6 +190,14 @@
               <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
               <span>Buttons</span>
             </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'inputField'"
+              (click)="setPage('inputField')"
+            >
+              <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
+              <span>Input Field</span>
+            </div>
             <div class="sidebar-link">
               <img src="/assets/figma/b9238733-6594-4666-b6ab-b199a6aca7e8.svg" alt="" />
               <span>Typography</span>
@@ -208,10 +216,6 @@
               <span>Dropdown</span>
             </div>
             <span class="sidebar-sublabel">Data Entry</span>
-            <div class="sidebar-link" [class.active]="activePage() === 'input'" (click)="setPage('input')">
-              <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
-              <span>Input Field</span>
-            </div>
             <div class="sidebar-link">
               <img src="/assets/figma/3e20b364-afaa-44e7-9d9d-1a4bbf8611cc.svg" alt="" />
               <span>Checkbox</span>
@@ -420,17 +424,17 @@
           </section>
           </ng-container>
 
-          <ng-container *ngIf="activePage() === 'input'">
+          <ng-container *ngIf="activePage() === 'inputField'">
             <div class="page-header">
               <div class="header-meta">
-                <span class="badge">Data Entry</span>
+                <span class="badge">General</span>
                 <span class="slash">/</span>
                 <span class="meta-version">v2.4.0</span>
               </div>
               <h1>Input Field</h1>
               <p class="lead">
-                Search input variant set from Figma with full interactive states: default, hover,
-                focus, typing, filled default, and filled active.
+                Input/basic from Figma with complete state coverage: default, hover, focus, typing,
+                filled, error, disabled, error-typing, and error-filled.
               </p>
             </div>
 
@@ -457,13 +461,38 @@
 
               <div class="button-demo-card">
                 <div class="button-demo-preview input-demo-preview">
-                  <app-ds-search-bar
-                    *ngFor="let action of demo.actions"
-                    [text]="action.text"
-                    [state]="action.state"
-                    [showDelete]="action.showDelete ?? true"
-                    [showSearchIcon]="true"
-                  />
+                  <ng-container *ngIf="isInputInteractiveSection(demo); else inputStaticPreview">
+                    <div class="input-demo-playground">
+                      <app-ds-input-basic [value]="inputPlaygroundValue()" [state]="inputPlaygroundState()" />
+
+                      <div class="input-demo-playground-controls">
+                        <button
+                          *ngFor="let state of getInputInteractiveStates(demo)"
+                          type="button"
+                          class="input-state-chip"
+                          [class.active]="inputPlaygroundState() === state"
+                          (click)="setInputPlaygroundState(state)"
+                        >
+                          {{ getInputStateLabel(state) }}
+                        </button>
+                        <button
+                          type="button"
+                          class="input-state-chip input-state-chip--toggle"
+                          (click)="toggleInputPlaygroundValue()"
+                        >
+                          {{ inputPlaygroundValue() ? 'Set Empty Value' : 'Set Sample Value' }}
+                        </button>
+                      </div>
+                    </div>
+                  </ng-container>
+
+                  <ng-template #inputStaticPreview>
+                    <app-ds-input-basic
+                      *ngFor="let action of demo.actions"
+                      [value]="action.value"
+                      [state]="action.state"
+                    />
+                  </ng-template>
                 </div>
 
                 <div class="button-demo-controls">
@@ -520,7 +549,7 @@
 
             <section class="section button-api-section" id="input-api">
               <h2>API</h2>
-              <h3 class="button-api-group-title">Input Field</h3>
+              <h3 class="button-api-group-title">Input / Basic</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -1256,7 +1285,7 @@
           </div>
         </ng-container>
 
-        <ng-container *ngIf="activePage() === 'input'">
+        <ng-container *ngIf="activePage() === 'inputField'">
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
               <span class="toc-label">On This Page</span>

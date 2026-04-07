@@ -1,0 +1,112 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.ds-input-basic {
+  align-items: center;
+  background: var(--color-semantic-background-primary, #ffffff);
+  border: 1px solid var(--color-semantic-border-brand-primary3, #a3b7fd);
+  border-radius: var(--ds-input-basic-radius-default, 4px);
+  box-sizing: border-box;
+  color: var(--color-semantic-text-tertiary, #9bafc8);
+  display: inline-flex;
+  font-family: "Averta Std CY", "Inter", "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  height: var(--ds-input-basic-height-default, 52px);
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  min-width: var(--ds-input-basic-width-default, 250px);
+  padding: var(--ds-input-basic-padding-y-default, 16px)
+    var(--ds-input-basic-padding-x-default, 12px);
+  transition: border-color 140ms ease, color 140ms ease;
+}
+
+.ds-input-basic__content {
+  align-items: center;
+  display: inline-flex;
+  flex: 1 1 auto;
+  gap: var(--ds-input-basic-spacing-xs, 4px);
+  min-width: 0;
+}
+
+.ds-input-basic__text,
+.ds-input-basic__cursor {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+}
+
+.ds-input-basic__text {
+  color: inherit;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ds-input-basic__text--primary {
+  color: var(--color-semantic-text-primary, #192d39);
+}
+
+.ds-input-basic__text--disabled {
+  color: var(--color-semantic-text-disable1, #808080);
+}
+
+.ds-input-basic__cursor {
+  color: var(--color-semantic-text-brand-tertiary2, #52dddd);
+}
+
+.ds-input-basic--state-default {
+  border-color: var(--color-semantic-border-brand-primary3, #a3b7fd);
+  color: var(--color-semantic-text-tertiary, #9bafc8);
+}
+
+.ds-input-basic--state-hover,
+.ds-input-basic--state-focus,
+.ds-input-basic--state-typing,
+.ds-input-basic--state-filled-active {
+  border-color: var(--color-semantic-border-brand-tertiary, #52dddd);
+}
+
+.ds-input-basic--state-hover,
+.ds-input-basic--state-focus {
+  color: var(--color-semantic-text-tertiary, #9bafc8);
+}
+
+.ds-input-basic--state-typing,
+.ds-input-basic--state-filled,
+.ds-input-basic--state-error-typing,
+.ds-input-basic--state-error-filled {
+  color: var(--color-semantic-text-primary, #192d39);
+}
+
+.ds-input-basic--state-filled {
+  border-color: var(--color-semantic-border-brand-primary3, #a3b7fd);
+}
+
+.ds-input-basic--state-error,
+.ds-input-basic--state-error-typing,
+.ds-input-basic--state-error-filled {
+  border-color: var(--color-semantic-background-error-secondary, #f34343);
+}
+
+.ds-input-basic--state-error {
+  color: var(--color-semantic-text-tertiary, #9bafc8);
+}
+
+.ds-input-basic--state-disabled {
+  border-color: var(--color-semantic-border-disable2, #cccccc);
+  color: var(--color-semantic-text-disable1, #808080);
+}
+
+@media (max-width: 760px) {
+  .ds-input-basic {
+    min-width: 100%;
+    width: 100%;
+  }
+}

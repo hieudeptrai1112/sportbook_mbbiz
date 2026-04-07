@@ -2,6 +2,7 @@
 
 ## Goal
 Create Input documentation that matches the Button page UX contract, while scaling like Arco/Antd input families.
+Preserve component visuals from Figma source components exactly (no geometry or style reinterpretation in docs).
 
 ## Scope (Input Family Split)
 Use one parent family `Input` and document these child components:

@@ -1,11 +1,10 @@
-import type { DsSearchBarState } from './components/ds-search-bar/ds-search-bar.component';
+import type { DsInputBasicState } from './components/ds-input-basic/ds-input-basic.component';
 
 export type InputCodeType = 'js' | 'ts';
 
 export interface InputDemoAction {
-  text: string;
-  state: DsSearchBarState;
-  showDelete?: boolean;
+  value: string;
+  state: DsInputBasicState;
 }
 
 export interface InputDemoSection {
@@ -14,6 +13,8 @@ export interface InputDemoSection {
   description: string;
   tags: string[];
   actions: InputDemoAction[];
+  interactive?: boolean;
+  interactiveStates?: DsInputBasicState[];
   codeJs: string;
   codeTs?: string;
   snippetHtml?: string;
@@ -55,268 +56,239 @@ export interface InputVariableGroup {
 
 export const INPUT_DEMO_SECTIONS: InputDemoSection[] = [
   {
-    id: 'default-hover',
-    title: 'Default · Hover',
-    description: 'Base state uses placeholder text with search icon. Hover only changes border emphasis.',
-    tags: ['State=Default/Hover', 'Text variable', 'Search icon'],
-    actions: [
-      { text: 'Tìm kiếm', state: 'default' },
-      { text: 'Tìm kiếm', state: 'hover' },
+    id: 'basic-interactive',
+    title: 'Input / Basic · Interactive State',
+    description:
+      'One interactive playground for full basic state axis from Figma: default, hover, focus, typing, filled, error, disabled, error-typing, and error-filled.',
+    tags: ['variant=input/basic', 'state axis complete', 'fixed size=250 x 52'],
+    interactive: true,
+    interactiveStates: [
+      'default',
+      'hover',
+      'focus',
+      'typing',
+      'filled',
+      'error',
+      'error-typing',
+      'error-filled',
+      'disabled',
     ],
-    codeJs: `<app-ds-search-bar text="Tìm kiếm" state="default" />\n<app-ds-search-bar text="Tìm kiếm" state="hover" />`,
-    codeTs: `import { DsSearchBarComponent } from './components/ds-search-bar/ds-search-bar.component';`,
-    snippetHtml: `<section class="button-demo-preview">
-  <app-ds-search-bar
-    [text]="query || 'Tìm kiếm'"
-    [state]="isHovering ? 'hover' : 'default'"
-    (mouseenter)="isHovering = true"
-    (mouseleave)="isHovering = false"
-  />
-</section>`,
-    snippetTs: `import { Component } from '@angular/core';
-import { DsSearchBarComponent } from './components/ds-search-bar/ds-search-bar.component';
-
-@Component({
-  selector: 'app-input-default-hover-demo',
-  standalone: true,
-  imports: [DsSearchBarComponent],
-  templateUrl: './input-default-hover-demo.component.html',
-})
-export class InputDefaultHoverDemoComponent {
-  query = '';
-  isHovering = false;
-}`,
-  },
-  {
-    id: 'focus-typing',
-    title: 'Focus · Typing',
-    description: 'Focus shows cursor color. Typing state displays entered text and optional clear icon.',
-    tags: ['State=Focus/Typing', 'Show Delete', 'Cursor color'],
-    actions: [
-      { text: 'l', state: 'focus' },
-      { text: 'Tìm kiếm', state: 'typing', showDelete: true },
-      { text: 'Tìm kiếm', state: 'typing', showDelete: false },
-    ],
-    codeJs: `<app-ds-search-bar text="l" state="focus" />\n<app-ds-search-bar text="Tìm kiếm" state="typing" [showDelete]="true" />\n<app-ds-search-bar text="Tìm kiếm" state="typing" [showDelete]="false" />`,
-    codeTs: `import { DsSearchBarComponent } from './components/ds-search-bar/ds-search-bar.component';`,
-    snippetHtml: `<section class="button-demo-preview">
-  <app-ds-search-bar
-    [text]="query || 'Tìm kiếm'"
-    [state]="state"
-    [showDelete]="showDelete"
-  />
+    actions: [{ value: 'Input text', state: 'default' }],
+    codeJs: `<app-ds-input-basic [value]="playgroundValue" [state]="playgroundState" />`,
+    codeTs: `import { DsInputBasicState } from './components/ds-input-basic/ds-input-basic.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview input-demo-preview--playground">
+  <app-ds-input-basic [value]="playgroundValue" [state]="playgroundState" />
 </section>
 
-<section class="button-demo-preview">
-  <app-ds-button label="Focus" shape="rectangle" tone="secondary" size="small" state="default" (click)="state = 'focus'" />
-  <app-ds-button label="Typing" shape="rectangle" tone="secondary" size="small" state="default" (click)="state = 'typing'" />
-  <app-ds-button label="Toggle delete" shape="rectangle" tone="secondary" size="small" state="default" (click)="showDelete = !showDelete" />
+<section class="button-demo-preview input-demo-preview input-demo-preview--controls">
+  <app-ds-button
+    *ngFor="let state of playgroundStates"
+    [label]="state"
+    shape="rectangle"
+    tone="secondary"
+    size="small"
+    [state]="playgroundState === state ? 'pressed' : 'default'"
+    (click)="playgroundState = state"
+  />
+
+  <app-ds-button
+    [label]="playgroundValue ? 'Set empty value' : 'Set sample value'"
+    shape="rectangle"
+    tone="secondary"
+    size="small"
+    state="default"
+    (click)="playgroundValue = playgroundValue ? '' : 'Input text'"
+  />
 </section>`,
     snippetTs: `import { Component } from '@angular/core';
 import { DsButtonComponent } from './components/ds-button/ds-button.component';
-import { DsSearchBarComponent, DsSearchBarState } from './components/ds-search-bar/ds-search-bar.component';
+import {
+  DsInputBasicComponent,
+  DsInputBasicState,
+} from './components/ds-input-basic/ds-input-basic.component';
 
 @Component({
-  selector: 'app-input-focus-typing-demo',
+  selector: 'app-input-basic-playground-demo',
   standalone: true,
-  imports: [DsButtonComponent, DsSearchBarComponent],
-  templateUrl: './input-focus-typing-demo.component.html',
+  imports: [DsButtonComponent, DsInputBasicComponent],
+  templateUrl: './input-basic-playground-demo.component.html',
 })
-export class InputFocusTypingDemoComponent {
-  query = 'Tìm kiếm';
-  state: DsSearchBarState = 'focus';
-  showDelete = true;
+export class InputBasicPlaygroundDemoComponent {
+  playgroundValue = 'Input text';
+  playgroundState: DsInputBasicState = 'default';
+
+  readonly playgroundStates: DsInputBasicState[] = [
+    'default',
+    'hover',
+    'focus',
+    'typing',
+    'filled',
+    'error',
+    'error-typing',
+    'error-filled',
+    'disabled',
+  ];
 }`,
   },
   {
-    id: 'filled-states',
-    title: 'Filled · Default & Active',
-    description: 'Filled states keep white surface, while border and text tokens differentiate passive vs active.',
-    tags: ['State=Filled/Default', 'State=Filled/Active'],
+    id: 'state-matrix',
+    title: 'State Matrix · Core',
+    description:
+      'Core neutral progression: default to filled. This keeps the same geometry and typography while border/text color changes by state.',
+    tags: ['default', 'hover', 'focus', 'typing', 'filled'],
     actions: [
-      { text: 'Tìm kiếm', state: 'filled-default' },
-      { text: 'Tìm kiếm', state: 'filled-active' },
+      { value: 'Input text', state: 'default' },
+      { value: 'Input text', state: 'hover' },
+      { value: 'Input text', state: 'focus' },
+      { value: 'Input text', state: 'typing' },
+      { value: 'Input text', state: 'filled' },
     ],
-    codeJs: `<app-ds-search-bar text="Tìm kiếm" state="filled-default" />\n<app-ds-search-bar text="Tìm kiếm" state="filled-active" />`,
-    codeTs: `import { DsSearchBarComponent } from './components/ds-search-bar/ds-search-bar.component';`,
-    snippetHtml: `<section class="button-demo-preview">
-  <app-ds-search-bar
-    [text]="query"
-    [state]="isActive ? 'filled-active' : 'filled-default'"
-  />
-</section>
-
-<section class="button-demo-preview">
-  <app-ds-button label="Toggle active" shape="rectangle" tone="secondary" size="small" state="default" (click)="isActive = !isActive" />
+    codeJs: `<app-ds-input-basic value="Input text" state="default" />
+<app-ds-input-basic value="Input text" state="hover" />
+<app-ds-input-basic value="Input text" state="focus" />
+<app-ds-input-basic value="Input text" state="typing" />
+<app-ds-input-basic value="Input text" state="filled" />`,
+    codeTs: `import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-input-basic *ngFor="let item of states" [value]="item.value" [state]="item.state" />
 </section>`,
     snippetTs: `import { Component } from '@angular/core';
-import { DsButtonComponent } from './components/ds-button/ds-button.component';
-import { DsSearchBarComponent } from './components/ds-search-bar/ds-search-bar.component';
+import {
+  DsInputBasicComponent,
+  DsInputBasicState,
+} from './components/ds-input-basic/ds-input-basic.component';
 
 @Component({
-  selector: 'app-input-filled-demo',
+  selector: 'app-input-basic-state-matrix-demo',
   standalone: true,
-  imports: [DsButtonComponent, DsSearchBarComponent],
-  templateUrl: './input-filled-demo.component.html',
+  imports: [DsInputBasicComponent],
+  templateUrl: './input-basic-state-matrix-demo.component.html',
 })
-export class InputFilledDemoComponent {
-  query = 'Tìm kiếm';
-  isActive = false;
+export class InputBasicStateMatrixDemoComponent {
+  readonly states: Array<{ value: string; state: DsInputBasicState }> = [
+    { value: 'Input text', state: 'default' },
+    { value: 'Input text', state: 'hover' },
+    { value: 'Input text', state: 'focus' },
+    { value: 'Input text', state: 'typing' },
+    { value: 'Input text', state: 'filled' },
+  ];
 }`,
+  },
+  {
+    id: 'error-disabled',
+    title: 'Error · Disabled',
+    description:
+      'Validation and disabled branch from Figma. Error variants keep the same layout and only switch border/text state tokens.',
+    tags: ['error', 'error-typing', 'error-filled', 'disabled'],
+    actions: [
+      { value: 'Input text', state: 'error' },
+      { value: 'Input text', state: 'error-typing' },
+      { value: 'Input text', state: 'error-filled' },
+      { value: 'Input text', state: 'disabled' },
+    ],
+    codeJs: `<app-ds-input-basic value="Input text" state="error" />
+<app-ds-input-basic value="Input text" state="error-typing" />
+<app-ds-input-basic value="Input text" state="error-filled" />
+<app-ds-input-basic value="Input text" state="disabled" />`,
+    codeTs: `import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-input-basic value="Input text" state="error" />
+  <app-ds-input-basic value="Input text" state="error-typing" />
+  <app-ds-input-basic value="Input text" state="error-filled" />
+  <app-ds-input-basic value="Input text" state="disabled" />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';
+
+@Component({
+  selector: 'app-input-basic-error-demo',
+  standalone: true,
+  imports: [DsInputBasicComponent],
+  templateUrl: './input-basic-error-demo.component.html',
+})
+export class InputBasicErrorDemoComponent {}`,
   },
 ];
 
 export const INPUT_API_ROWS: InputApiRow[] = [
   {
-    property: 'text',
-    description: 'Displayed value/placeholder text inside the search bar.',
+    property: 'value',
+    description: 'Displayed input value or placeholder-like copy used in docs preview.',
     type: 'string',
-    defaultValue: "'Tìm kiếm'",
+    defaultValue: "'Input text'",
   },
   {
     property: 'state',
-    description: 'Visual state mapped from Figma variant axis.',
-    type: "'default' | 'hover' | 'focus' | 'typing' | 'filled-default' | 'filled-active'",
+    description: 'Visual state axis mapped directly from Figma component set.',
+    type: "'default' | 'hover' | 'focus' | 'typing' | 'filled' | 'error' | 'disabled' | 'error-typing' | 'error-filled'",
     defaultValue: "'default'",
-  },
-  {
-    property: 'showDelete',
-    description: 'Shows the clear icon in typing state.',
-    type: 'boolean',
-    defaultValue: 'true',
-  },
-  {
-    property: 'showSearchIcon',
-    description: 'Toggles the trailing search icon.',
-    type: 'boolean',
-    defaultValue: 'true',
   },
 ];
 
 export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
   {
     title: 'Surface + Border',
-    description: 'Background stays white in all states; border token changes by interaction state.',
+    description: 'Container uses one white surface token and swaps border aliases by interaction state.',
     rows: [
       {
-        componentToken: 'ds/search-bar/color/background/default',
+        componentToken: 'ds/input-basic/color/background/default',
         semanticAlias: 'background/primary',
-        appliesTo: 'State=Default',
-        notes: 'Base surface color.',
+        appliesTo: 'All states',
+        notes: 'Base surface for every variant state.',
       },
       {
-        componentToken: 'ds/search-bar/color/background/hover',
-        semanticAlias: 'background/primary',
-        appliesTo: 'State=Hover',
-        notes: 'Hover keeps the same surface token.',
-      },
-      {
-        componentToken: 'ds/search-bar/color/background/focus',
-        semanticAlias: 'background/primary',
-        appliesTo: 'State=Focus',
-        notes: 'Focus keeps the same surface token.',
-      },
-      {
-        componentToken: 'ds/search-bar/color/background/filled-default',
-        semanticAlias: 'background/primary',
-        appliesTo: 'State=Filled/Default',
-        notes: 'Filled default surface.',
-      },
-      {
-        componentToken: 'ds/search-bar/color/background/filled-active',
-        semanticAlias: 'background/primary',
-        appliesTo: 'State=Filled/Active',
-        notes: 'Filled active surface.',
-      },
-      {
-        componentToken: 'ds/search-bar/color/border/default',
+        componentToken: 'ds/input-basic/color/border/default',
         semanticAlias: 'border/brand-primary3',
-        appliesTo: 'State=Default',
-        notes: 'Default outline.',
+        appliesTo: 'State=Default, Filled',
+        notes: 'Base neutral border.',
       },
       {
-        componentToken: 'ds/search-bar/color/border/hover',
+        componentToken: 'ds/input-basic/color/border/interactive',
         semanticAlias: 'border/brand-tertiary',
-        appliesTo: 'State=Hover',
-        notes: 'Hover outline.',
+        appliesTo: 'State=Hover, Focus, Typing, Filled Active',
+        notes: 'Interactive emphasis border.',
       },
       {
-        componentToken: 'ds/search-bar/color/border/focus',
-        semanticAlias: 'border/brand-tertiary',
-        appliesTo: 'State=Focus',
-        notes: 'Focus outline.',
+        componentToken: 'ds/input-basic/color/border/error',
+        semanticAlias: 'background/error-secondary',
+        appliesTo: 'State=Error, Error Typing, Error Filled',
+        notes: 'Validation error border.',
       },
       {
-        componentToken: 'ds/search-bar/color/border/typing',
-        semanticAlias: 'border/brand-tertiary',
-        appliesTo: 'State=Typing',
-        notes: 'Typing outline.',
-      },
-      {
-        componentToken: 'ds/search-bar/color/border/filled-default',
-        semanticAlias: 'border/brand-primary3',
-        appliesTo: 'State=Filled/Default',
-        notes: 'Filled default outline.',
-      },
-      {
-        componentToken: 'ds/search-bar/color/border/filled-active',
-        semanticAlias: 'border/brand-tertiary',
-        appliesTo: 'State=Filled/Active',
-        notes: 'Filled active outline.',
+        componentToken: 'ds/input-basic/color/border/disabled',
+        semanticAlias: 'border/disable2',
+        appliesTo: 'State=Disabled',
+        notes: 'Disabled border.',
       },
     ],
   },
   {
-    title: 'Text',
-    description: 'Placeholder/content and cursor text map to semantic text aliases.',
+    title: 'Text + Cursor',
+    description: 'Text color changes based on value state, with cursor token shown in focus and typing.',
     rows: [
       {
-        componentToken: 'ds/search-bar/color/text/placeholder/default',
+        componentToken: 'ds/input-basic/color/text/placeholder',
         semanticAlias: 'text/tertiary',
-        appliesTo: 'State=Default',
-        notes: 'Placeholder text in resting state.',
+        appliesTo: 'State=Default, Hover, Error',
+        notes: 'Placeholder/content fallback text.',
       },
       {
-        componentToken: 'ds/search-bar/color/text/placeholder/hover',
-        semanticAlias: 'text/tertiary',
-        appliesTo: 'State=Hover',
-        notes: 'Placeholder text on hover.',
-      },
-      {
-        componentToken: 'ds/search-bar/color/text/placeholder/typing',
+        componentToken: 'ds/input-basic/color/text/content',
         semanticAlias: 'text/primary',
-        appliesTo: 'State=Typing',
-        notes: 'Typed text color.',
+        appliesTo: 'State=Typing, Filled, Error Typing, Error Filled',
+        notes: 'Content text when value is present.',
       },
       {
-        componentToken: 'ds/search-bar/color/text/placeholder/filled-default',
-        semanticAlias: 'text/primary',
-        appliesTo: 'State=Filled/Default',
-        notes: 'Filled default content text.',
-      },
-      {
-        componentToken: 'ds/search-bar/color/text/placeholder/filled-active',
-        semanticAlias: 'text/primary',
-        appliesTo: 'State=Filled/Active',
-        notes: 'Filled active content text.',
-      },
-      {
-        componentToken: 'ds/search-bar/color/text/cursor',
+        componentToken: 'ds/input-basic/color/text/cursor',
         semanticAlias: 'text/brand-tertiary2',
-        appliesTo: 'State=Focus/Typing',
-        notes: 'Cursor indicator color.',
+        appliesTo: 'State=Focus, Typing, Error Typing',
+        notes: 'Caret indicator color.',
       },
-    ],
-  },
-  {
-    title: 'Icons',
-    description: 'Search and clear icons use one shared semantic icon alias.',
-    rows: [
       {
-        componentToken: 'ds/search-bar/color/icon/default',
-        semanticAlias: 'icon/brand-primary1',
-        appliesTo: 'Search + Clear icon',
-        notes: 'Default icon color.',
+        componentToken: 'ds/input-basic/color/text/disabled',
+        semanticAlias: 'text/disable1',
+        appliesTo: 'State=Disabled',
+        notes: 'Disabled text contrast.',
       },
     ],
   },
@@ -325,49 +297,49 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
 export const INPUT_VARIABLE_GROUPS: InputVariableGroup[] = [
   {
     title: 'Core Layout',
-    description: 'Sizing, spacing, and radius tokens from Figma variable definitions.',
+    description: 'Non-color variables extracted from Input/basic Figma component set.',
     rows: [
       {
-        token: 'ds/search-bar/padding/default',
-        value: '12',
+        token: 'ds/input-basic/width/default',
+        value: '250',
         appliesTo: 'All states',
-        notes: 'Internal horizontal + vertical padding.',
+        notes: 'Fixed field width in component set.',
       },
       {
-        token: 'ds/search-bar/spacing/xs',
-        value: '4',
-        appliesTo: 'Content + icon gap',
-        notes: 'Space between text and icons.',
+        token: 'ds/input-basic/height/default',
+        value: '52',
+        appliesTo: 'All states',
+        notes: 'Fixed field height in component set.',
       },
       {
-        token: 'ds/search-bar/radius/default',
+        token: 'ds/input-basic/padding/default',
+        value: '12 x 16',
+        appliesTo: 'All states',
+        notes: 'Horizontal and vertical inner padding.',
+      },
+      {
+        token: 'ds/input-basic/radius/default',
         value: '4',
         appliesTo: 'Container',
-        notes: 'Input corner radius.',
+        notes: 'Corner radius for Input/basic.',
       },
       {
-        token: 'ds/search-bar/iconsize/search',
-        value: '24',
-        appliesTo: 'Search icon',
-        notes: 'Trailing search icon size.',
-      },
-      {
-        token: 'ds/search-bar/iconsize/clear',
-        value: '20',
-        appliesTo: 'Clear icon',
-        notes: 'Typing clear icon size.',
+        token: 'ds/input-basic/spacing/xs',
+        value: '4',
+        appliesTo: 'Text and cursor',
+        notes: 'Gap between text content and cursor marker.',
       },
     ],
   },
   {
     title: 'Typography Styles',
-    description: 'Text style token used by placeholder/content text.',
+    description: 'Text style token used by placeholder/content text in all states.',
     rows: [
       {
         token: 'Body Copy (Data & Nav)/Normal/14-Regular',
         value: 'Averta Std CY, 14 / 20, 400, letter-spacing 0.25',
-        appliesTo: 'Text content',
-        notes: 'Default text style for placeholder and typed content.',
+        appliesTo: 'Input text / placeholder',
+        notes: 'Shared typography style across full state axis.',
       },
     ],
   },
@@ -375,31 +347,31 @@ export const INPUT_VARIABLE_GROUPS: InputVariableGroup[] = [
 
 export const INPUT_GUIDELINES = {
   designers: [
-    'Use this component for quick filtering or lookup actions with a single-line query.',
-    'Use Focus or Typing states only when cursor/interaction context needs to be shown.',
-    'Keep helper or surrounding labels outside the field; this component only handles inline value/placeholder.',
+    'Input/basic is the baseline field and should keep fixed geometry (250x52) unless a responsive token update is approved.',
+    'Use `error` branch only for validation outcomes, not as a hover/focus replacement.',
+    'Only switch to typing/filled branches when content state really changes.',
   ],
   developers: [
-    'Drive visual state through the `state` input for deterministic docs and QA screenshots.',
-    'Use `showDelete` only in typing flows; keep it off when value clearing is not supported.',
-    'Prefer semantic color aliases in style bindings; avoid direct hardcoded hex in implementation code.',
+    'Drive UI from `state` input so QA can deterministically reproduce Figma states.',
+    'Avoid hardcoded colors; rely on semantic alias CSS variables already mapped in Component Token.',
+    'When wiring real form logic, map validation and disabled rules to this same state axis to keep docs and implementation aligned.',
   ],
 };
 
 export const INPUT_ACCESSIBILITY = [
-  'Provide an external `<label>` or `aria-label` when embedding this component in forms.',
-  'Expose focus state from keyboard navigation the same way as pointer focus.',
-  'Keep icon buttons reachable and descriptive if clear/search actions become interactive controls.',
+  'Bind a real `<label for>` or `aria-label` in production forms; docs preview intentionally focuses on visual state.',
+  'Ensure focus state is keyboard reachable and not pointer-only.',
+  'Error state should be paired with helper/error text and ARIA live messaging in form contexts.',
 ];
 
 export const INPUT_SPACING_RULES = [
-  'Container height is fixed at 60px in current Figma component.',
-  'Use 12px internal padding and 4px gap between text and icon slots.',
-  'Search icon is 24px and clear icon is 20px; do not scale independently from token values.',
+  'Container width is 250 and height is 52 in the base Figma component.',
+  'Use horizontal padding 12 and vertical padding 16 without additional internal wrappers.',
+  'Keep 4px gap between typed value and cursor indicator for typing states.',
 ];
 
 export const INPUT_VARIABLE_NOTES: string[] = [
-  'Figma variant axis includes six states: Default, Hover, Focus, Typing, Filled/Default, Filled/Active.',
-  'State `Typing` includes optional visibility for `Show Delete` boolean property.',
-  'All mappings in this page are derived from node 19067:37003 variable definitions.',
+  'This page documents only `input/basic` from the Input family outline.',
+  'State axis is normalized to machine-friendly values: default, hover, focus, typing, filled, error, disabled, error-typing, error-filled.',
+  'Do not alter geometry, typography, or visual token mapping unless the Figma source component is updated.',
 ];

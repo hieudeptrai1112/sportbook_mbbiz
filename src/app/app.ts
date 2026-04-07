@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
 import { DsButtonComponent } from './components/ds-button/ds-button.component';
-import { DsSearchBarComponent } from './components/ds-search-bar/ds-search-bar.component';
+import {
+  DsInputBasicComponent,
+  type DsInputBasicState,
+} from './components/ds-input-basic/ds-input-basic.component';
 import {
   SEMANTIC_BACKGROUND_FIGMA_ORDER,
   SEMANTIC_BORDER_FIGMA_ORDER,
@@ -97,7 +100,7 @@ interface ResolvedInputSemanticBindingGroup {
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, DsButtonComponent, DsSearchBarComponent],
+  imports: [CommonModule, DsButtonComponent, DsInputBasicComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -112,7 +115,7 @@ export class App {
   protected readonly isDesignTokensOpen = signal(false);
   protected readonly isComponentsOpen = signal(true);
   protected readonly activePage = signal<
-    'buttons' | 'input' | 'color' | 'tokens' | 'spacing' | 'typography'
+    'buttons' | 'inputField' | 'color' | 'tokens' | 'spacing' | 'typography'
   >('buttons');
   protected readonly semanticTokenMappings = SEMANTIC_COLOR_TOKEN_MAPPINGS;
   protected readonly semanticTokenGroups = this.buildSemanticTokenGroups();
@@ -148,6 +151,8 @@ export class App {
   protected readonly inputCodeType = signal<InputCodeType>('js');
   protected readonly expandedInputDemoIds = signal<string[]>([]);
   protected readonly copiedInputDemoId = signal<string | null>(null);
+  protected readonly inputPlaygroundState = signal<DsInputBasicState>('default');
+  protected readonly inputPlaygroundValue = signal('Input text');
   private readonly themeStorageKey = 'sportbook.theme-id';
   private readonly semanticThemeAliasValueMaps = buildSemanticThemeAliasValueMaps(
     this.semanticTokenMappings,
@@ -195,13 +200,15 @@ export class App {
     this.isThemeOpen.set(false);
   }
 
-  protected setPage(page: 'buttons' | 'input' | 'color' | 'tokens' | 'spacing' | 'typography') {
+  protected setPage(
+    page: 'buttons' | 'inputField' | 'color' | 'tokens' | 'spacing' | 'typography',
+  ) {
     this.activePage.set(page);
     if (page === 'tokens' || page === 'spacing' || page === 'typography') {
       setTimeout(() => this.updateActiveTokenSection(), 0);
     } else if (page === 'buttons') {
       setTimeout(() => this.updateActiveButtonSection(), 0);
-    } else if (page === 'input') {
+    } else if (page === 'inputField') {
       setTimeout(() => this.updateActiveInputSection(), 0);
     }
   }
@@ -234,6 +241,29 @@ export class App {
 
   protected setActiveInputSection(sectionId: string) {
     this.activeInputSection.set(sectionId);
+  }
+
+  protected isInputInteractiveSection(section: InputDemoSection): boolean {
+    return section.interactive === true;
+  }
+
+  protected setInputPlaygroundState(state: DsInputBasicState) {
+    this.inputPlaygroundState.set(state);
+  }
+
+  protected getInputInteractiveStates(section: InputDemoSection): DsInputBasicState[] {
+    return section.interactiveStates ?? [];
+  }
+
+  protected getInputStateLabel(state: DsInputBasicState): string {
+    return state
+      .split('-')
+      .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
+      .join(' ');
+  }
+
+  protected toggleInputPlaygroundValue() {
+    this.inputPlaygroundValue.update((value) => (value ? '' : 'Input text'));
   }
 
   protected toggleTocCollapsed() {
@@ -410,8 +440,8 @@ export class App {
 
   protected getInputCodeLanguageLabel(): string {
     return this.inputCodeType() === 'js'
-      ? 'app-input-demo.component.html'
-      : 'input-demo.component.ts';
+      ? 'app-input-basic-demo.component.html'
+      : 'input-basic-demo.component.ts';
   }
 
   protected async copyInputDemoCode(section: InputDemoSection) {
@@ -489,7 +519,7 @@ export class App {
   }
 
   private updateActiveInputSection() {
-    if (this.activePage() !== 'input' || typeof document === 'undefined') {
+    if (this.activePage() !== 'inputField' || typeof document === 'undefined') {
       return;
     }
 
@@ -790,34 +820,30 @@ ${actionRows}
   private buildInputTypeScriptSnippet(section: InputDemoSection): string {
     const actionRows = section.actions
       .map((action) => {
-        const parts = [`text: '${action.text}'`, `state: '${action.state}'`];
-        if (action.showDelete !== undefined) {
-          parts.push(`showDelete: ${action.showDelete ? 'true' : 'false'}`);
-        }
+        const parts = [`value: '${action.value}'`, `state: '${action.state}'`];
         return `    { ${parts.join(', ')} },`;
       })
       .join('\n');
 
     return `import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { DsSearchBarComponent } from './components/ds-search-bar/ds-search-bar.component';
+import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';
 
 @Component({
-  selector: 'app-input-demo',
+  selector: 'app-input-basic-demo',
   standalone: true,
-  imports: [CommonModule, DsSearchBarComponent],
+  imports: [CommonModule, DsInputBasicComponent],
   template: \`
     <section class="button-demo-preview">
-      <app-ds-search-bar
+      <app-ds-input-basic
         *ngFor="let action of actions"
-        [text]="action.text"
+        [value]="action.value"
         [state]="action.state"
-        [showDelete]="action.showDelete ?? true"
       />
     </section>
   \`,
 })
-export class InputDemoComponent {
+export class InputBasicDemoComponent {
   readonly actions = [
 ${actionRows}
   ];
@@ -888,7 +914,7 @@ ${actionRows}
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|DsButtonComponent|DsSearchBarComponent|DsSearchBarState)\b/g,
+      /\b(Component|DsButtonComponent|DsInputBasicComponent|DsInputBasicState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');

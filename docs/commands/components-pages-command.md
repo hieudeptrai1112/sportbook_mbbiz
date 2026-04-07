@@ -10,6 +10,7 @@ Every new component page must follow the same UX contract as the current Button 
 ## Non-Negotiable Guardrails
 - Do not redesign the global shell (top nav, left sidebar, right anchor column, layout widths, theme switch behavior).
 - Keep existing visual language consistent (spacing rhythm, typography hierarchy, table style, code card style).
+- Do not change component UI that comes from Figma source of truth. Doc demos must preserve Figma geometry, typography, and visual tokens.
 - Do not add fictional stories or misleading examples. All examples must be realistic and implementable.
 - New components must plug into the same page framework used by Button; do not create a one-off page pattern.
 
