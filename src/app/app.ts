@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
 import { DsButtonComponent } from './components/ds-button/ds-button.component';
-import { DsSearchBarComponent } from './components/ds-search-bar/ds-search-bar.component';
 import {
   SEMANTIC_BACKGROUND_FIGMA_ORDER,
   SEMANTIC_BORDER_FIGMA_ORDER,
@@ -97,7 +96,7 @@ interface ResolvedInputSemanticBindingGroup {
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, DsButtonComponent, DsSearchBarComponent],
+  imports: [CommonModule, DsButtonComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -789,33 +788,15 @@ ${actionRows}
 
   private buildInputTypeScriptSnippet(section: InputDemoSection): string {
     const actionRows = section.actions
-      .map((action) => {
-        const parts = [`text: '${action.text}'`, `state: '${action.state}'`];
-        if (action.showDelete !== undefined) {
-          parts.push(`showDelete: ${action.showDelete ? 'true' : 'false'}`);
-        }
-        return `    { ${parts.join(', ')} },`;
-      })
+      .map((action) => `    { label: '${action.label}'${action.meta ? `, meta: '${action.meta}'` : ''} },`)
       .join('\n');
 
-    return `import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { DsSearchBarComponent } from './components/ds-search-bar/ds-search-bar.component';
+    return `import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-input-demo',
   standalone: true,
-  imports: [CommonModule, DsSearchBarComponent],
-  template: \`
-    <section class="button-demo-preview">
-      <app-ds-search-bar
-        *ngFor="let action of actions"
-        [text]="action.text"
-        [state]="action.state"
-        [showDelete]="action.showDelete ?? true"
-      />
-    </section>
-  \`,
+  templateUrl: './input-demo.component.html',
 })
 export class InputDemoComponent {
   readonly actions = [
@@ -888,7 +869,7 @@ ${actionRows}
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|DsButtonComponent|DsSearchBarComponent|DsSearchBarState)\b/g,
+      /\b(Component|DsButtonComponent|DsInputComponent|InputVariantState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');
