@@ -98,6 +98,7 @@ export const INPUT_DEMO_SECTIONS: InputDemoSection[] = [
   />
 </section>`,
     snippetTs: `import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { DsButtonComponent } from './components/ds-button/ds-button.component';
 import {
   DsInputBasicComponent,
@@ -107,8 +108,33 @@ import {
 @Component({
   selector: 'app-input-basic-playground-demo',
   standalone: true,
-  imports: [DsButtonComponent, DsInputBasicComponent],
-  templateUrl: './input-basic-playground-demo.component.html',
+  imports: [CommonModule, DsButtonComponent, DsInputBasicComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview input-demo-preview--playground">
+      <app-ds-input-basic [value]="playgroundValue" [state]="playgroundState" />
+    </section>
+
+    <section class="button-demo-preview input-demo-preview input-demo-preview--controls">
+      <app-ds-button
+        *ngFor="let state of playgroundStates"
+        [label]="state"
+        shape="rectangle"
+        tone="secondary"
+        size="small"
+        [state]="playgroundState === state ? 'pressed' : 'default'"
+        (click)="playgroundState = state"
+      />
+
+      <app-ds-button
+        [label]="playgroundValue ? 'Set empty value' : 'Set sample value'"
+        shape="rectangle"
+        tone="secondary"
+        size="small"
+        state="default"
+        (click)="playgroundValue = playgroundValue ? '' : 'Input text'"
+      />
+    </section>
+  \`,
 })
 export class InputBasicPlaygroundDemoComponent {
   playgroundValue = 'Input text';
@@ -120,10 +146,6 @@ export class InputBasicPlaygroundDemoComponent {
     'focus',
     'typing',
     'filled',
-    'error',
-    'error-typing',
-    'error-filled',
-    'disabled',
   ];
 }`,
   },
@@ -157,7 +179,14 @@ import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basi
   selector: 'app-input-basic-status-demo',
   standalone: true,
   imports: [DsInputBasicComponent],
-  templateUrl: './input-basic-status-demo.component.html',
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-input-basic value="Input text" state="error" />
+      <app-ds-input-basic value="Input text" state="error-typing" />
+      <app-ds-input-basic value="Input text" state="error-filled" />
+      <app-ds-input-basic value="Input text" state="disabled" />
+    </section>
+  \`,
 })
 export class InputBasicStatusDemoComponent {}`,
   },
