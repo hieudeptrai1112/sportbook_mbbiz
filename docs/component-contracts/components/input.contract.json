@@ -1,11 +1,11 @@
 {
-  "component": "Input",
-  "slug": "input",
+  "component": "Input Field",
+  "slug": "input-field",
   "implementationStatus": "planned",
   "version": "1.0.0",
   "owner": "Design System",
   "overview": {
-    "purpose": "Input family collects short text values across basic, search, password, email, and verification flows.",
+    "purpose": "Input Field collects short text values with validation feedback.",
     "useCases": [
       "Form data entry",
       "Filter and search criteria",

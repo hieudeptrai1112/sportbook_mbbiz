@@ -210,7 +210,7 @@
             <span class="sidebar-sublabel">Data Entry</span>
             <div class="sidebar-link" [class.active]="activePage() === 'input'" (click)="setPage('input')">
               <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
-              <span>Input</span>
+              <span>Input Field</span>
             </div>
             <div class="sidebar-link">
               <img src="/assets/figma/3e20b364-afaa-44e7-9d9d-1a4bbf8611cc.svg" alt="" />
@@ -427,11 +427,10 @@
                 <span class="slash">/</span>
                 <span class="meta-version">v2.4.0</span>
               </div>
-              <h1>Input</h1>
+              <h1>Input Field</h1>
               <p class="lead">
-                Input family variant matrix from Figma node
-                <span class="mono">19467:7391</span>, covering basic, textarea, search, password,
-                email, verification, affix, and floating-label compositions.
+                Search input variant set from Figma with full interactive states: default, hover,
+                focus, typing, filled default, and filled active.
               </p>
             </div>
 
@@ -458,10 +457,13 @@
 
               <div class="button-demo-card">
                 <div class="button-demo-preview input-demo-preview">
-                  <div class="input-state-chip" *ngFor="let action of demo.actions">
-                    <code class="token-code">{{ action.label }}</code>
-                    <span class="input-state-chip-meta" *ngIf="action.meta">{{ action.meta }}</span>
-                  </div>
+                  <app-ds-search-bar
+                    *ngFor="let action of demo.actions"
+                    [text]="action.text"
+                    [state]="action.state"
+                    [showDelete]="action.showDelete ?? true"
+                    [showSearchIcon]="true"
+                  />
                 </div>
 
                 <div class="button-demo-controls">
@@ -518,7 +520,7 @@
 
             <section class="section button-api-section" id="input-api">
               <h2>API</h2>
-              <h3 class="button-api-group-title">Input</h3>
+              <h3 class="button-api-group-title">Input Field</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -574,7 +576,7 @@
             <section class="section button-variables-section" id="input-variables">
               <h2>Component Token</h2>
               <p class="button-demo-description">
-                Input family color variables are mapped to semantic aliases from Design Tokens to
+                Input Field color variables are mapped to semantic aliases from Design Tokens to
                 keep implementation and documentation consistent.
               </p>
 
@@ -604,7 +606,7 @@
               <div class="button-variable-subsection">
                 <h3>Layout & Typography Specs</h3>
                 <p class="scale-note">
-                  Non-color variables used by Input family sizing, spacing, icon sizing, and text
+                  Non-color variables used by Input Field sizing, spacing, icon sizing, and text
                   style.
                 </p>
                 <div class="scale-block" *ngFor="let group of inputVariableGroups">
