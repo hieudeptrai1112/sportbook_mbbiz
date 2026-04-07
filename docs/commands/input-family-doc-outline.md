@@ -51,6 +51,10 @@ Never use ambiguous keys like `type` for layout composition.
    - Input container, value text, placeholder, prefix slot, suffix slot, helper/error text.
 3. `State Matrix`
    - Visual states for each relevant axis.
+   - For `input/basic`, keep Arco-like order inside demos:
+     - `Basic` (neutral interaction states)
+     - `Status` (error/disabled branch)
+     - Optional extended matrix only if it adds non-duplicated behavior.
 4. `Variants`
    - Child component blocks (`basic`, `search`, `password`, etc).
 5. `Interactions`

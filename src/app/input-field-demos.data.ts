@@ -63,23 +63,13 @@ export interface InputStateContractRow {
 
 export const INPUT_DEMO_SECTIONS: InputDemoSection[] = [
   {
-    id: 'basic-interactive',
-    title: 'Input / Basic · Interactive State',
+    id: 'basic',
+    title: 'Basic',
     description:
-      'One interactive playground for full basic state axis from Figma: default, hover, focus, typing, filled, error, disabled, error-typing, and error-filled.',
-    tags: ['variant=input/basic', 'state axis complete', 'fixed size=250 x 52'],
+      'Interactive baseline for Input/basic. Switch between neutral interaction states and sample value to match Figma behavior.',
+    tags: ['variant=input/basic', 'states=default/hover/focus/typing/filled', 'size=250 x 52'],
     interactive: true,
-    interactiveStates: [
-      'default',
-      'hover',
-      'focus',
-      'typing',
-      'filled',
-      'error',
-      'error-typing',
-      'error-filled',
-      'disabled',
-    ],
+    interactiveStates: ['default', 'hover', 'focus', 'typing', 'filled'],
     actions: [{ value: 'Input text', state: 'default' }],
     codeJs: `<app-ds-input-basic [value]="playgroundValue" [state]="playgroundState" />`,
     codeTs: `import { DsInputBasicState } from './components/ds-input-basic/ds-input-basic.component';`,
@@ -138,55 +128,11 @@ export class InputBasicPlaygroundDemoComponent {
 }`,
   },
   {
-    id: 'state-matrix',
-    title: 'State Matrix · Core',
+    id: 'status',
+    title: 'Status',
     description:
-      'Core neutral progression: default to filled. This keeps the same geometry and typography while border/text color changes by state.',
-    tags: ['default', 'hover', 'focus', 'typing', 'filled'],
-    actions: [
-      { value: 'Input text', state: 'default' },
-      { value: 'Input text', state: 'hover' },
-      { value: 'Input text', state: 'focus' },
-      { value: 'Input text', state: 'typing' },
-      { value: 'Input text', state: 'filled' },
-    ],
-    codeJs: `<app-ds-input-basic value="Input text" state="default" />
-<app-ds-input-basic value="Input text" state="hover" />
-<app-ds-input-basic value="Input text" state="focus" />
-<app-ds-input-basic value="Input text" state="typing" />
-<app-ds-input-basic value="Input text" state="filled" />`,
-    codeTs: `import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';`,
-    snippetHtml: `<section class="button-demo-preview input-demo-preview">
-  <app-ds-input-basic *ngFor="let item of states" [value]="item.value" [state]="item.state" />
-</section>`,
-    snippetTs: `import { Component } from '@angular/core';
-import {
-  DsInputBasicComponent,
-  DsInputBasicState,
-} from './components/ds-input-basic/ds-input-basic.component';
-
-@Component({
-  selector: 'app-input-basic-state-matrix-demo',
-  standalone: true,
-  imports: [DsInputBasicComponent],
-  templateUrl: './input-basic-state-matrix-demo.component.html',
-})
-export class InputBasicStateMatrixDemoComponent {
-  readonly states: Array<{ value: string; state: DsInputBasicState }> = [
-    { value: 'Input text', state: 'default' },
-    { value: 'Input text', state: 'hover' },
-    { value: 'Input text', state: 'focus' },
-    { value: 'Input text', state: 'typing' },
-    { value: 'Input text', state: 'filled' },
-  ];
-}`,
-  },
-  {
-    id: 'error-disabled',
-    title: 'Error · Disabled',
-    description:
-      'Validation and disabled branch from Figma. Error variants keep the same layout and only switch border/text state tokens.',
-    tags: ['error', 'error-typing', 'error-filled', 'disabled'],
+      'Status-driven branch from Figma. Error and disabled variants keep geometry but switch semantic border/text aliases.',
+    tags: ['status=error/disabled', 'states=error/error-typing/error-filled/disabled'],
     actions: [
       { value: 'Input text', state: 'error' },
       { value: 'Input text', state: 'error-typing' },
@@ -208,12 +154,12 @@ export class InputBasicStateMatrixDemoComponent {
 import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';
 
 @Component({
-  selector: 'app-input-basic-error-demo',
+  selector: 'app-input-basic-status-demo',
   standalone: true,
   imports: [DsInputBasicComponent],
-  templateUrl: './input-basic-error-demo.component.html',
+  templateUrl: './input-basic-status-demo.component.html',
 })
-export class InputBasicErrorDemoComponent {}`,
+export class InputBasicStatusDemoComponent {}`,
   },
 ];
 
