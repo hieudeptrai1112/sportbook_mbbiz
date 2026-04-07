@@ -2,6 +2,7 @@
 
 ## Context
 We are building component documentation pages for the Sportbook design system site.
+Input-family specific structure is defined in `docs/commands/input-family-doc-outline.md`.
 
 ## Goal
 Every new component page must follow the same UX contract as the current Button page, while keeping the global site UI unchanged.
