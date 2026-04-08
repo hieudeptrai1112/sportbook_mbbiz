@@ -36,11 +36,9 @@ import {
   type ButtonVariableGroup,
 } from './button-demos.data';
 import {
-  INPUT_ACCESSIBILITY,
   INPUT_API_ROWS,
   type InputDemoComponent,
   INPUT_DEMO_SECTIONS,
-  INPUT_GUIDELINES,
   INPUT_STATE_CONTRACT_ROWS,
   INPUT_STATE_CONTRACT_SNIPPET,
   INPUT_STATE_PRIORITY_RULES,
@@ -161,8 +159,6 @@ export class App {
     this.buildInputSemanticBindingGroups(INPUT_SEMANTIC_BINDING_GROUPS);
   protected readonly inputVariableGroups: InputVariableGroup[] = INPUT_VARIABLE_GROUPS;
   protected readonly inputVariableNotes = INPUT_VARIABLE_NOTES;
-  protected readonly inputGuidelines = INPUT_GUIDELINES;
-  protected readonly inputAccessibility = INPUT_ACCESSIBILITY;
   protected readonly inputSpacingRules = INPUT_SPACING_RULES;
   protected readonly activeInputSection = signal(this.getInputSectionId(this.inputDemoSections[0].id));
   protected readonly inputCodeType = signal<InputCodeType>('js');
@@ -704,8 +700,6 @@ export class App {
       ...this.inputDemoSections.map((section) => this.getInputSectionId(section.id)),
       'input-api',
       'input-state-contract',
-      'input-guidelines',
-      'input-accessibility',
       'input-spacing',
       'input-variables',
     ];

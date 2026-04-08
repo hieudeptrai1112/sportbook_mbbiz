@@ -659,33 +659,6 @@
               </div>
             </section>
 
-            <section class="section doc-guidelines-section" id="input-guidelines">
-              <h2>Usage Guidelines</h2>
-              <div class="doc-guidelines-grid">
-                <div class="doc-guidelines-card">
-                  <h3>For Designers</h3>
-                  <ul>
-                    <li *ngFor="let note of inputGuidelines.designers">{{ note }}</li>
-                  </ul>
-                </div>
-                <div class="doc-guidelines-card">
-                  <h3>For Developers</h3>
-                  <ul>
-                    <li *ngFor="let note of inputGuidelines.developers">{{ note }}</li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            <section class="section doc-list-section" id="input-accessibility">
-              <h2>Accessibility</h2>
-              <div class="doc-list-card">
-                <ul>
-                  <li *ngFor="let note of inputAccessibility">{{ note }}</li>
-                </ul>
-              </div>
-            </section>
-
             <section class="section doc-list-section" id="input-spacing">
               <h2>Spacing</h2>
               <div class="doc-list-card">
@@ -1407,22 +1380,6 @@
                   (click)="setActiveInputSection('input-state-contract')"
                 >
                   State / Status Contract
-                </a>
-                <a
-                  class="toc-item"
-                  [class.active]="activeInputSection() === 'input-guidelines'"
-                  href="#input-guidelines"
-                  (click)="setActiveInputSection('input-guidelines')"
-                >
-                  Usage Guidelines
-                </a>
-                <a
-                  class="toc-item"
-                  [class.active]="activeInputSection() === 'input-accessibility'"
-                  href="#input-accessibility"
-                  (click)="setActiveInputSection('input-accessibility')"
-                >
-                  Accessibility
                 </a>
                 <a
                   class="toc-item"
