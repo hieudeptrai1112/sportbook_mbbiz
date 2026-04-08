@@ -3,6 +3,7 @@
 ## Context
 We are building component documentation pages for the Sportbook design system site.
 Input-family specific structure is defined in `docs/commands/input-family-doc-outline.md`.
+Demo codebox standard is defined in `docs/commands/component-demo-codebox-checklist.md`.
 
 ## Goal
 Every new component page must follow the same UX contract as the current Button page, while keeping the global site UI unchanged.
@@ -42,7 +43,7 @@ Every new component page must follow the same UX contract as the current Button 
 - Implementation examples with copyable snippets.
 
 ## Code Snippet Contract (Copy-Ready)
-- Keep current snippet UI pattern (same controls/card layout).
+- Keep current snippet UI pattern (same controls/card layout), following `component-demo-codebox-checklist.md`.
 - Provide both `HTML` and `TS` snippets for each important demo.
 - At least one snippet must include real interaction logic (state change, event handlers, toggles, async/loading if relevant) so devs can copy and run immediately.
 - Snippets must stay aligned with the shown preview state/behavior.
