@@ -20,8 +20,10 @@ export type DsInputBasicState =
   styleUrl: './ds-input-basic.component.scss',
 })
 export class DsInputBasicComponent {
-  readonly value = input('Input text');
+  readonly value = input('');
   readonly state = input<DsInputBasicState>('default');
+  readonly placeholder = input('Enter something');
+  readonly width = input<number | null>(null);
 
   protected readonly classes = computed(() => `ds-input-basic ds-input-basic--state-${this.state()}`);
 
@@ -35,7 +37,13 @@ export class DsInputBasicComponent {
 
   protected readonly displayValue = computed(() => (this.state() === 'focus' ? '' : this.value()));
 
+  protected readonly displayText = computed(() => this.displayValue() || this.placeholder());
+
   protected readonly textClass = computed(() => {
+    if (!this.displayValue()) {
+      return 'ds-input-basic__text ds-input-basic__text--placeholder';
+    }
+
     if (this.state() === 'disabled') {
       return 'ds-input-basic__text ds-input-basic__text--disabled';
     }

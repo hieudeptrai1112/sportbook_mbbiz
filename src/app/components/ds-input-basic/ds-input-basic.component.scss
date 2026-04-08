@@ -53,6 +53,10 @@
   color: var(--color-semantic-text-primary, #192d39);
 }
 
+.ds-input-basic__text--placeholder {
+  color: var(--color-semantic-text-tertiary, #9bafc8);
+}
+
 .ds-input-basic__text--disabled {
   color: var(--color-semantic-text-disable1, #808080);
 }

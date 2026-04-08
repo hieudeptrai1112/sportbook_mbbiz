@@ -463,26 +463,12 @@
                 <div class="button-demo-preview input-demo-preview">
                   <ng-container *ngIf="isInputInteractiveSection(demo); else inputStaticPreview">
                     <div class="input-demo-playground">
-                      <app-ds-input-basic [value]="inputPlaygroundValue()" [state]="inputPlaygroundState()" />
-
-                      <div class="input-demo-playground-controls">
-                        <button
-                          *ngFor="let state of getInputInteractiveStates(demo)"
-                          type="button"
-                          class="input-state-chip"
-                          [class.active]="inputPlaygroundState() === state"
-                          (click)="setInputPlaygroundState(state)"
-                        >
-                          {{ getInputStateLabel(state) }}
-                        </button>
-                        <button
-                          type="button"
-                          class="input-state-chip input-state-chip--toggle"
-                          (click)="toggleInputPlaygroundValue()"
-                        >
-                          {{ inputPlaygroundValue() ? 'Set Empty Value' : 'Set Sample Value' }}
-                        </button>
-                      </div>
+                      <app-ds-input-basic
+                        [value]="inputPlaygroundValue()"
+                        [state]="inputPlaygroundState()"
+                        placeholder="Enter something"
+                        [width]="350"
+                      />
                     </div>
                   </ng-container>
 
@@ -491,6 +477,8 @@
                       *ngFor="let action of demo.actions"
                       [value]="action.value"
                       [state]="action.state"
+                      [placeholder]="action.placeholder ?? 'Enter something'"
+                      [width]="action.width ?? null"
                     />
                   </ng-template>
                 </div>

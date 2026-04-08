@@ -1,12 +1,10 @@
-<div class="{{ classes() }}">
+<div class="{{ classes() }}" [style.width.px]="width()">
   <div class="ds-input-basic__content">
     @if (isTypingState()) {
       <span class="{{ textClass() }}">{{ value() }}</span>
       <span class="ds-input-basic__cursor" aria-hidden="true">|</span>
     } @else {
-      @if (displayValue()) {
-        <span class="{{ textClass() }}">{{ displayValue() }}</span>
-      }
+      <span class="{{ textClass() }}">{{ displayText() }}</span>
       @if (showCursor()) {
         <span class="ds-input-basic__cursor" aria-hidden="true">|</span>
       }

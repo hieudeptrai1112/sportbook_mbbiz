@@ -159,7 +159,7 @@ export class App {
   protected readonly expandedInputDemoIds = signal<string[]>([]);
   protected readonly copiedInputDemoId = signal<string | null>(null);
   protected readonly inputPlaygroundState = signal<DsInputBasicState>('default');
-  protected readonly inputPlaygroundValue = signal('Input text');
+  protected readonly inputPlaygroundValue = signal('');
   private readonly themeStorageKey = 'sportbook.theme-id';
   private readonly semanticThemeAliasValueMaps = buildSemanticThemeAliasValueMaps(
     this.semanticTokenMappings,
@@ -256,6 +256,11 @@ export class App {
 
   protected setInputPlaygroundState(state: DsInputBasicState) {
     this.inputPlaygroundState.set(state);
+
+    // Keep filled/typing states visually meaningful in the live playground.
+    if ((state === 'typing' || state === 'filled') && !this.inputPlaygroundValue()) {
+      this.inputPlaygroundValue.set('Input text');
+    }
   }
 
   protected getInputInteractiveStates(section: InputDemoSection): DsInputBasicState[] {
