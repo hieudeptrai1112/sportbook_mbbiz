@@ -68,58 +68,34 @@ export const INPUT_DEMO_SECTIONS: InputDemoSection[] = [
     id: 'basic',
     title: 'Basic',
     description:
-      'Interactive baseline for Input/basic. Switch between default, hover, focus, typing, and filled states in one live demo.',
+      'Interactive baseline for Input/basic. Hover, focus, typing, and filled states are rendered from real input behavior.',
     tags: ['variant=input/basic', 'states=default/hover/focus/typing/filled', 'size=350 x 52'],
     interactive: true,
     interactiveStates: ['default', 'hover', 'focus', 'typing', 'filled'],
     actions: [{ value: '', state: 'default', placeholder: 'Enter something', width: 350 }],
-    codeJs: `<app-ds-input-basic [value]="playgroundValue" [state]="playgroundState" placeholder="Enter something" [width]="350" />`,
-    codeTs: `import { DsInputBasicState } from './components/ds-input-basic/ds-input-basic.component';`,
+    codeJs: `<app-ds-input-basic [interactive]="true" placeholder="Enter something" [width]="350" />`,
+    codeTs: `import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';`,
     snippetHtml: `<section class="button-demo-preview input-demo-preview">
   <app-ds-input-basic
-    [value]="playgroundValue"
-    [state]="playgroundState"
+    [interactive]="true"
     placeholder="Enter something"
     [width]="350"
   />
-
-  <div class="input-demo-playground-controls">
-    <button
-      *ngFor="let state of playgroundStates"
-      type="button"
-      class="input-state-chip"
-      [class.active]="playgroundState === state"
-      (click)="playgroundState = state"
-    >
-      {{ state }}
-    </button>
-  </div>
 </section>`,
     snippetTs: `import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  DsInputBasicComponent,
-  DsInputBasicState,
-} from './components/ds-input-basic/ds-input-basic.component';
+import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';
 
 @Component({
   selector: 'app-input-basic-demo',
   standalone: true,
-  imports: [CommonModule, DsInputBasicComponent],
-  templateUrl: './input-basic-demo.component.html',
+  imports: [DsInputBasicComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-input-basic [interactive]="true" placeholder="Enter something" [width]="350" />
+    </section>
+  \`,
 })
-export class InputBasicDemoComponent {
-  playgroundValue = '';
-  playgroundState: DsInputBasicState = 'default';
-
-  readonly playgroundStates: DsInputBasicState[] = [
-    'default',
-    'hover',
-    'focus',
-    'typing',
-    'filled',
-  ];
-}`,
+export class InputBasicDemoComponent {}`,
   },
   {
     id: 'status',

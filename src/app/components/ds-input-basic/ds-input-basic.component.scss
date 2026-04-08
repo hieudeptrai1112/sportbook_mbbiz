@@ -32,6 +32,23 @@
   min-width: 0;
 }
 
+.ds-input-basic__native {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  padding: 0;
+}
+
+.ds-input-basic__native::placeholder {
+  color: var(--color-semantic-text-tertiary, #9bafc8);
+}
+
 .ds-input-basic__text,
 .ds-input-basic__cursor {
   font-size: 14px;

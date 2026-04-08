@@ -1,12 +1,29 @@
-<div class="{{ classes() }}" [style.width.px]="width()">
+<div
+  class="{{ classes() }}"
+  [style.width.px]="width()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
   <div class="ds-input-basic__content">
-    @if (isTypingState()) {
-      <span class="{{ textClass() }}">{{ value() }}</span>
-      <span class="ds-input-basic__cursor" aria-hidden="true">|</span>
+    @if (interactive()) {
+      <input
+        class="ds-input-basic__native"
+        type="text"
+        [value]="nativeValue()"
+        [attr.placeholder]="placeholder()"
+        (input)="onInput($event)"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+      />
     } @else {
-      <span class="{{ textClass() }}">{{ displayText() }}</span>
-      @if (showCursor()) {
+      @if (isTypingState()) {
+        <span class="{{ textClass() }}">{{ value() }}</span>
         <span class="ds-input-basic__cursor" aria-hidden="true">|</span>
+      } @else {
+        <span class="{{ textClass() }}">{{ displayText() }}</span>
+        @if (showCursor()) {
+          <span class="ds-input-basic__cursor" aria-hidden="true">|</span>
+        }
       }
     }
   </div>

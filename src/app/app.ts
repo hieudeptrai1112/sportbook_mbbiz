@@ -1,10 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
 import { DsButtonComponent } from './components/ds-button/ds-button.component';
-import {
-  DsInputBasicComponent,
-  type DsInputBasicState,
-} from './components/ds-input-basic/ds-input-basic.component';
+import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';
 import {
   SEMANTIC_BACKGROUND_FIGMA_ORDER,
   SEMANTIC_BORDER_FIGMA_ORDER,
@@ -158,8 +155,6 @@ export class App {
   protected readonly inputCodeType = signal<InputCodeType>('js');
   protected readonly expandedInputDemoIds = signal<string[]>([]);
   protected readonly copiedInputDemoId = signal<string | null>(null);
-  protected readonly inputPlaygroundState = signal<DsInputBasicState>('default');
-  protected readonly inputPlaygroundValue = signal('');
   private readonly themeStorageKey = 'sportbook.theme-id';
   private readonly semanticThemeAliasValueMaps = buildSemanticThemeAliasValueMaps(
     this.semanticTokenMappings,
@@ -252,30 +247,6 @@ export class App {
 
   protected isInputInteractiveSection(section: InputDemoSection): boolean {
     return section.interactive === true;
-  }
-
-  protected setInputPlaygroundState(state: DsInputBasicState) {
-    this.inputPlaygroundState.set(state);
-
-    // Keep filled/typing states visually meaningful in the live playground.
-    if ((state === 'typing' || state === 'filled') && !this.inputPlaygroundValue()) {
-      this.inputPlaygroundValue.set('Input text');
-    }
-  }
-
-  protected getInputInteractiveStates(section: InputDemoSection): DsInputBasicState[] {
-    return section.interactiveStates ?? [];
-  }
-
-  protected getInputStateLabel(state: DsInputBasicState): string {
-    return state
-      .split('-')
-      .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
-      .join(' ');
-  }
-
-  protected toggleInputPlaygroundValue() {
-    this.inputPlaygroundValue.update((value) => (value ? '' : 'Input text'));
   }
 
   protected toggleTocCollapsed() {
