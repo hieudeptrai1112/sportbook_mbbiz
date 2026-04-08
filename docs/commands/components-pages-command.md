@@ -14,6 +14,7 @@ Every new component page must follow the same UX contract as the current Button 
 - Do not change component UI that comes from Figma source of truth. Doc demos must preserve Figma geometry, typography, and visual tokens.
 - Do not add fictional stories or misleading examples. All examples must be realistic and implementable.
 - New components must plug into the same page framework used by Button; do not create a one-off page pattern.
+- `Preview` always means real interactive rendering: no static mockup-only previews for interactive components.
 
 ## Required Page Structure (In Order)
 1. `Page Header`

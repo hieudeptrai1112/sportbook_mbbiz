@@ -1,4 +1,7 @@
-import type { DsInputBasicState } from './components/ds-input-basic/ds-input-basic.component';
+import type {
+  DsInputBasicInteractiveMode,
+  DsInputBasicState,
+} from './components/ds-input-basic/ds-input-basic.component';
 
 export type InputCodeType = 'js' | 'ts';
 
@@ -17,6 +20,11 @@ export interface InputDemoSection {
   actions: InputDemoAction[];
   interactive?: boolean;
   interactiveStates?: DsInputBasicState[];
+  interactiveMode?: DsInputBasicInteractiveMode;
+  interactivePlaceholder?: string;
+  interactiveWidth?: number;
+  showDisabledCompanion?: boolean;
+  disabledCompanionValue?: string;
   codeJs: string;
   codeTs?: string;
   snippetHtml?: string;
@@ -72,6 +80,9 @@ export const INPUT_DEMO_SECTIONS: InputDemoSection[] = [
     tags: ['variant=input/basic', 'states=default/hover/focus/typing/filled', 'size=350 x 52'],
     interactive: true,
     interactiveStates: ['default', 'hover', 'focus', 'typing', 'filled'],
+    interactiveMode: 'default',
+    interactivePlaceholder: 'Enter something',
+    interactiveWidth: 350,
     actions: [{ value: '', state: 'default', placeholder: 'Enter something', width: 350 }],
     codeJs: `<app-ds-input-basic [interactive]="true" placeholder="Enter something" [width]="350" />`,
     codeTs: `import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';`,
@@ -101,24 +112,21 @@ export class InputBasicDemoComponent {}`,
     id: 'status',
     title: 'Status',
     description:
-      'Status-driven branch from Figma. Error and disabled variants keep geometry but switch semantic border/text aliases.',
-    tags: ['status=error/disabled', 'states=error/error-typing/error-filled/disabled'],
-    actions: [
-      { value: 'Input text', state: 'error' },
-      { value: 'Input text', state: 'error-typing' },
-      { value: 'Input text', state: 'error-filled' },
-      { value: 'Input text', state: 'disabled' },
-    ],
-    codeJs: `<app-ds-input-basic value="Input text" state="error" />
-<app-ds-input-basic value="Input text" state="error-typing" />
-<app-ds-input-basic value="Input text" state="error-filled" />
-<app-ds-input-basic value="Input text" state="disabled" />`,
+      'Status-driven branch from Figma. Error states are merged into one interactive preview; disabled remains a separate locked state.',
+    tags: ['status=error/disabled', 'states=error/error-typing/error-filled + disabled', 'size=350 x 52'],
+    interactive: true,
+    interactiveMode: 'error',
+    interactivePlaceholder: 'Input text',
+    interactiveWidth: 350,
+    showDisabledCompanion: true,
+    disabledCompanionValue: 'Input text',
+    actions: [{ value: 'Input text', state: 'disabled', width: 350 }],
+    codeJs: `<app-ds-input-basic [interactive]="true" interactiveMode="error" placeholder="Input text" [width]="350" />
+<app-ds-input-basic value="Input text" state="disabled" [width]="350" />`,
     codeTs: `import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';`,
     snippetHtml: `<section class="button-demo-preview input-demo-preview">
-  <app-ds-input-basic value="Input text" state="error" />
-  <app-ds-input-basic value="Input text" state="error-typing" />
-  <app-ds-input-basic value="Input text" state="error-filled" />
-  <app-ds-input-basic value="Input text" state="disabled" />
+  <app-ds-input-basic [interactive]="true" interactiveMode="error" placeholder="Input text" [width]="350" />
+  <app-ds-input-basic value="Input text" state="disabled" [width]="350" />
 </section>`,
     snippetTs: `import { Component } from '@angular/core';
 import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';
@@ -129,10 +137,8 @@ import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basi
   imports: [DsInputBasicComponent],
   template: \`
     <section class="button-demo-preview input-demo-preview">
-      <app-ds-input-basic value="Input text" state="error" />
-      <app-ds-input-basic value="Input text" state="error-typing" />
-      <app-ds-input-basic value="Input text" state="error-filled" />
-      <app-ds-input-basic value="Input text" state="disabled" />
+      <app-ds-input-basic [interactive]="true" interactiveMode="error" placeholder="Input text" [width]="350" />
+      <app-ds-input-basic value="Input text" state="disabled" [width]="350" />
     </section>
   \`,
 })

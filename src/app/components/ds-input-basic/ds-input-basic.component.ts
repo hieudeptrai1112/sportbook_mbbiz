@@ -12,6 +12,8 @@ export type DsInputBasicState =
   | 'error-typing'
   | 'error-filled';
 
+export type DsInputBasicInteractiveMode = 'default' | 'error';
+
 @Component({
   selector: 'app-ds-input-basic',
   standalone: true,
@@ -25,6 +27,7 @@ export class DsInputBasicComponent {
   readonly placeholder = input('Enter something');
   readonly width = input<number | null>(null);
   readonly interactive = input(false);
+  readonly interactiveMode = input<DsInputBasicInteractiveMode>('default');
 
   private readonly liveValue = signal('');
   private readonly liveHover = signal(false);
@@ -36,6 +39,13 @@ export class DsInputBasicComponent {
     }
 
     const hasValue = this.liveValue().trim().length > 0;
+
+    if (this.interactiveMode() === 'error') {
+      if (this.liveFocus()) {
+        return hasValue ? 'error-typing' : 'error';
+      }
+      return hasValue ? 'error-filled' : 'error';
+    }
 
     if (this.liveFocus()) {
       return hasValue ? 'typing' : 'focus';

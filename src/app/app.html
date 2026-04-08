@@ -465,8 +465,15 @@
                     <div class="input-demo-playground">
                       <app-ds-input-basic
                         [interactive]="true"
-                        placeholder="Enter something"
-                        [width]="350"
+                        [interactiveMode]="demo.interactiveMode ?? 'default'"
+                        [placeholder]="demo.interactivePlaceholder ?? 'Enter something'"
+                        [width]="demo.interactiveWidth ?? 350"
+                      />
+                      <app-ds-input-basic
+                        *ngIf="demo.showDisabledCompanion"
+                        [value]="demo.disabledCompanionValue ?? 'Input text'"
+                        state="disabled"
+                        [width]="demo.interactiveWidth ?? 350"
                       />
                     </div>
                   </ng-container>
