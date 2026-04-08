@@ -463,29 +463,59 @@
                 <div class="button-demo-preview input-demo-preview">
                   <ng-container *ngIf="isInputInteractiveSection(demo); else inputStaticPreview">
                     <div class="input-demo-playground">
-                      <app-ds-input-basic
-                        [interactive]="true"
-                        [interactiveMode]="demo.interactiveMode ?? 'default'"
-                        [placeholder]="demo.interactivePlaceholder ?? 'Enter something'"
-                        [width]="demo.interactiveWidth ?? 350"
-                      />
-                      <app-ds-input-basic
-                        *ngIf="demo.showDisabledCompanion"
-                        [value]="demo.disabledCompanionValue ?? 'Input text'"
-                        state="disabled"
-                        [width]="demo.interactiveWidth ?? 350"
-                      />
+                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else interactiveTextAreaPreview">
+                        <app-ds-input-basic
+                          [interactive]="true"
+                          [interactiveMode]="demo.interactiveMode ?? 'default'"
+                          [placeholder]="demo.interactivePlaceholder ?? 'Enter something'"
+                          [width]="demo.interactiveWidth ?? 350"
+                        />
+                        <app-ds-input-basic
+                          *ngIf="demo.showDisabledCompanion"
+                          [value]="demo.disabledCompanionValue ?? 'Input text'"
+                          state="disabled"
+                          [width]="demo.interactiveWidth ?? 350"
+                        />
+                      </ng-container>
+                      <ng-template #interactiveTextAreaPreview>
+                        <app-ds-text-area
+                          [interactive]="true"
+                          [interactiveMode]="demo.interactiveMode ?? 'default'"
+                          [placeholder]="demo.interactivePlaceholder ?? 'Input text'"
+                          [width]="demo.interactiveWidth ?? 250"
+                          [maxLength]="demo.interactiveMaxLength ?? 100"
+                        />
+                        <app-ds-text-area
+                          *ngIf="demo.showDisabledCompanion"
+                          [value]="demo.disabledCompanionValue ?? 'Input text'"
+                          state="disabled"
+                          [width]="demo.interactiveWidth ?? 250"
+                          [maxLength]="demo.interactiveMaxLength ?? 100"
+                        />
+                      </ng-template>
                     </div>
                   </ng-container>
 
                   <ng-template #inputStaticPreview>
-                    <app-ds-input-basic
-                      *ngFor="let action of demo.actions"
-                      [value]="action.value"
-                      [state]="action.state"
-                      [placeholder]="action.placeholder ?? 'Enter something'"
-                      [width]="action.width ?? null"
-                    />
+                    <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else staticTextAreaPreview">
+                      <app-ds-input-basic
+                        *ngFor="let action of demo.actions"
+                        [value]="action.value"
+                        [state]="action.state"
+                        [placeholder]="action.placeholder ?? 'Enter something'"
+                        [width]="action.width ?? null"
+                      />
+                    </ng-container>
+                    <ng-template #staticTextAreaPreview>
+                      <app-ds-text-area
+                        *ngFor="let action of demo.actions"
+                        [value]="action.value"
+                        [state]="action.state"
+                        [placeholder]="action.placeholder ?? 'Input text'"
+                        [width]="action.width ?? 250"
+                        [maxLength]="action.maxLength ?? demo.interactiveMaxLength ?? 100"
+                      />
+                    </ng-template>
                   </ng-template>
                 </div>
 
@@ -533,7 +563,7 @@
 
                 <div class="button-code-wrapper" *ngIf="isInputDemoExpanded(demo.id)">
                   <div class="button-code-head">
-                    <span class="button-code-file">{{ getInputCodeLanguageLabel() }}</span>
+                    <span class="button-code-file">{{ getInputCodeLanguageLabel(demo) }}</span>
                     <span class="button-code-hint">Copy-ready snippet</span>
                   </div>
                   <pre class="button-code-block"><code [innerHTML]="getInputDemoHighlightedCode(demo)"></code></pre>

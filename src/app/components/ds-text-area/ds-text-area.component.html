@@ -1,0 +1,32 @@
+<div
+  class="{{ classes() }}"
+  [style.width.px]="width()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
+  <div class="ds-text-area__surface">
+    <div class="ds-text-area__field">
+      @if (interactive()) {
+        <textarea
+          class="ds-text-area__native"
+          [value]="nativeValue()"
+          [attr.placeholder]="placeholder()"
+          (input)="onInput($event)"
+          (focus)="onFocus()"
+          (blur)="onBlur()"
+        ></textarea>
+      } @else {
+        @if (isTypingState()) {
+          <span class="{{ textClass() }}">{{ value() }}</span>
+          <span class="ds-text-area__cursor" aria-hidden="true">|</span>
+        } @else {
+          <span class="{{ textClass() }}">{{ displayText() }}</span>
+          @if (showCursor()) {
+            <span class="ds-text-area__cursor" aria-hidden="true">|</span>
+          }
+        }
+      }
+    </div>
+    <div class="ds-text-area__counter">{{ counterText() }}</div>
+  </div>
+</div>

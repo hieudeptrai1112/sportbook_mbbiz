@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
 import { DsButtonComponent } from './components/ds-button/ds-button.component';
 import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';
+import { DsTextAreaComponent } from './components/ds-text-area/ds-text-area.component';
 import {
   SEMANTIC_BACKGROUND_FIGMA_ORDER,
   SEMANTIC_BORDER_FIGMA_ORDER,
@@ -33,6 +34,7 @@ import {
 import {
   INPUT_ACCESSIBILITY,
   INPUT_API_ROWS,
+  type InputDemoComponent,
   INPUT_DEMO_SECTIONS,
   INPUT_GUIDELINES,
   INPUT_STATE_CONTRACT_ROWS,
@@ -101,7 +103,7 @@ interface ResolvedInputSemanticBindingGroup {
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, DsButtonComponent, DsInputBasicComponent],
+  imports: [CommonModule, DsButtonComponent, DsInputBasicComponent, DsTextAreaComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -247,6 +249,13 @@ export class App {
 
   protected isInputInteractiveSection(section: InputDemoSection): boolean {
     return section.interactive === true;
+  }
+
+  protected isInputDemoComponent(
+    section: InputDemoSection,
+    component: InputDemoComponent,
+  ): boolean {
+    return section.component === component;
   }
 
   protected toggleTocCollapsed() {
@@ -421,9 +430,15 @@ export class App {
     return this.highlightHtmlSnippet(code);
   }
 
-  protected getInputCodeLanguageLabel(): string {
-    return this.inputCodeType() === 'js'
-      ? 'app-input-basic-demo.component.html'
+  protected getInputCodeLanguageLabel(section: InputDemoSection): string {
+    if (this.inputCodeType() === 'js') {
+      return section.component === 'text-area'
+        ? 'app-textarea-demo.component.html'
+        : 'app-input-basic-demo.component.html';
+    }
+
+    return section.component === 'text-area'
+      ? 'textarea-demo.component.ts'
       : 'input-basic-demo.component.ts';
   }
 
@@ -806,32 +821,59 @@ ${actionRows}
   }
 
   private buildInputTypeScriptSnippet(section: InputDemoSection): string {
+    const isTextArea = section.component === 'text-area';
+    const componentClass = isTextArea ? 'DsTextAreaComponent' : 'DsInputBasicComponent';
+    const componentSelector = isTextArea ? 'app-ds-text-area' : 'app-ds-input-basic';
+    const componentImportPath = isTextArea
+      ? './components/ds-text-area/ds-text-area.component'
+      : './components/ds-input-basic/ds-input-basic.component';
+    const componentDemoName = isTextArea ? 'TextareaDemoComponent' : 'InputBasicDemoComponent';
+    const componentDemoSelector = isTextArea ? 'app-textarea-demo' : 'app-input-basic-demo';
+    const defaultPlaceholder = isTextArea ? 'Input text' : 'Enter something';
+    const defaultWidth = isTextArea ? 250 : 350;
+
     const actionRows = section.actions
       .map((action) => {
-        const parts = [`value: '${action.value}'`, `state: '${action.state}'`];
+        const parts = [
+          `value: '${this.escapeForSingleQuote(action.value)}'`,
+          `state: '${action.state}'`,
+        ];
+        if (action.placeholder) {
+          parts.push(`placeholder: '${this.escapeForSingleQuote(action.placeholder)}'`);
+        }
+        if (action.width !== undefined) {
+          parts.push(`width: ${action.width}`);
+        }
+        if (isTextArea && action.maxLength !== undefined) {
+          parts.push(`maxLength: ${action.maxLength}`);
+        }
         return `    { ${parts.join(', ')} },`;
       })
       .join('\n');
 
     return `import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';
+import { ${componentClass} } from '${componentImportPath}';
 
 @Component({
-  selector: 'app-input-basic-demo',
+  selector: '${componentDemoSelector}',
   standalone: true,
-  imports: [CommonModule, DsInputBasicComponent],
+  imports: [CommonModule, ${componentClass}],
   template: \`
     <section class="button-demo-preview">
-      <app-ds-input-basic
+      <${componentSelector}
         *ngFor="let action of actions"
         [value]="action.value"
         [state]="action.state"
+        [placeholder]="action.placeholder ?? '${defaultPlaceholder}'"
+        [width]="action.width ?? ${defaultWidth}"${
+          isTextArea ? '\n        [maxLength]="action.maxLength ?? 100"' : ''
+        }
       />
     </section>
   \`,
 })
-export class InputBasicDemoComponent {
+export class ${componentDemoName} {
   readonly actions = [
 ${actionRows}
   ];
@@ -902,7 +944,7 @@ ${actionRows}
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|DsButtonComponent|DsInputBasicComponent|DsInputBasicState)\b/g,
+      /\b(Component|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsTextAreaComponent|DsTextAreaState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');
@@ -928,5 +970,9 @@ ${actionRows}
 
   private escapeHtml(value: string): string {
     return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  private escapeForSingleQuote(value: string): string {
+    return value.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
   }
 }

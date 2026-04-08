@@ -2,27 +2,37 @@ import type {
   DsInputBasicInteractiveMode,
   DsInputBasicState,
 } from './components/ds-input-basic/ds-input-basic.component';
+import type {
+  DsTextAreaInteractiveMode,
+  DsTextAreaState,
+} from './components/ds-text-area/ds-text-area.component';
 
 export type InputCodeType = 'js' | 'ts';
+export type InputDemoComponent = 'input-basic' | 'text-area';
+export type InputDemoState = DsInputBasicState | DsTextAreaState;
+export type InputDemoInteractiveMode = DsInputBasicInteractiveMode | DsTextAreaInteractiveMode;
 
 export interface InputDemoAction {
   value: string;
-  state: DsInputBasicState;
+  state: InputDemoState;
   placeholder?: string;
   width?: number;
+  maxLength?: number;
 }
 
 export interface InputDemoSection {
   id: string;
+  component: InputDemoComponent;
   title: string;
   description: string;
   tags: string[];
   actions: InputDemoAction[];
   interactive?: boolean;
-  interactiveStates?: DsInputBasicState[];
-  interactiveMode?: DsInputBasicInteractiveMode;
+  interactiveStates?: InputDemoState[];
+  interactiveMode?: InputDemoInteractiveMode;
   interactivePlaceholder?: string;
   interactiveWidth?: number;
+  interactiveMaxLength?: number;
   showDisabledCompanion?: boolean;
   disabledCompanionValue?: string;
   codeJs: string;
@@ -74,6 +84,7 @@ export interface InputStateContractRow {
 export const INPUT_DEMO_SECTIONS: InputDemoSection[] = [
   {
     id: 'basic',
+    component: 'input-basic',
     title: 'Basic',
     description:
       'Interactive baseline for Input/basic. Hover, focus, typing, and filled states are rendered from real input behavior.',
@@ -110,6 +121,7 @@ export class InputBasicDemoComponent {}`,
   },
   {
     id: 'status',
+    component: 'input-basic',
     title: 'Status',
     description:
       'Status-driven branch from Figma. Error states are merged into one interactive preview; disabled remains a separate locked state.',
@@ -144,21 +156,132 @@ import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basi
 })
 export class InputBasicStatusDemoComponent {}`,
   },
+  {
+    id: 'textarea-basic',
+    component: 'text-area',
+    title: 'Textarea · Basic',
+    description:
+      'Interactive baseline for input/textarea from Figma. Hover, focus, typing, and filled states are rendered in one live preview.',
+    tags: ['variant=input/textarea', 'states=default/hover/focus/typing/filled', 'size=250 x 124'],
+    interactive: true,
+    interactiveStates: ['default', 'hover', 'focus', 'typing', 'filled'],
+    interactiveMode: 'default',
+    interactivePlaceholder: 'Input text',
+    interactiveWidth: 250,
+    interactiveMaxLength: 100,
+    actions: [{ value: '', state: 'default', placeholder: 'Input text', width: 250, maxLength: 100 }],
+    codeJs: `<app-ds-text-area [interactive]="true" placeholder="Input text" [width]="250" [maxLength]="100" />`,
+    codeTs: `import { DsTextAreaComponent } from './components/ds-text-area/ds-text-area.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-text-area
+    [interactive]="true"
+    placeholder="Input text"
+    [width]="250"
+    [maxLength]="100"
+  />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsTextAreaComponent } from './components/ds-text-area/ds-text-area.component';
+
+@Component({
+  selector: 'app-textarea-basic-demo',
+  standalone: true,
+  imports: [DsTextAreaComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-text-area [interactive]="true" placeholder="Input text" [width]="250" [maxLength]="100" />
+    </section>
+  \`,
+})
+export class TextareaBasicDemoComponent {}`,
+  },
+  {
+    id: 'textarea-status',
+    component: 'text-area',
+    title: 'Textarea · Status',
+    description:
+      'Status-driven branch from Figma. Error states are merged into one interactive preview while disabled remains as a separate locked sample.',
+    tags: [
+      'status=error/disabled',
+      'states=error/error-typing/error-filled + disabled',
+      'size=250 x 124',
+    ],
+    interactive: true,
+    interactiveMode: 'error',
+    interactivePlaceholder: 'Input text',
+    interactiveWidth: 250,
+    interactiveMaxLength: 100,
+    showDisabledCompanion: true,
+    disabledCompanionValue: 'Input text',
+    actions: [{ value: 'Input text', state: 'disabled', width: 250, maxLength: 100 }],
+    codeJs: `<app-ds-text-area [interactive]="true" interactiveMode="error" placeholder="Input text" [width]="250" [maxLength]="100" />
+<app-ds-text-area value="Input text" state="disabled" [width]="250" [maxLength]="100" />`,
+    codeTs: `import { DsTextAreaComponent } from './components/ds-text-area/ds-text-area.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-text-area [interactive]="true" interactiveMode="error" placeholder="Input text" [width]="250" [maxLength]="100" />
+  <app-ds-text-area value="Input text" state="disabled" [width]="250" [maxLength]="100" />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsTextAreaComponent } from './components/ds-text-area/ds-text-area.component';
+
+@Component({
+  selector: 'app-textarea-status-demo',
+  standalone: true,
+  imports: [DsTextAreaComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-text-area [interactive]="true" interactiveMode="error" placeholder="Input text" [width]="250" [maxLength]="100" />
+      <app-ds-text-area value="Input text" state="disabled" [width]="250" [maxLength]="100" />
+    </section>
+  \`,
+})
+export class TextareaStatusDemoComponent {}`,
+  },
 ];
 
 export const INPUT_API_ROWS: InputApiRow[] = [
   {
     property: 'value',
-    description: 'Displayed input value or placeholder-like copy used in docs preview.',
+    description: 'Displayed value in field area. Used by both Input/basic and Textarea.',
     type: 'string',
-    defaultValue: "'Input text'",
+    defaultValue: "''",
   },
   {
     property: 'state',
     description:
-      'Visual state axis mapped directly from Figma component set. Intended for docs/QA preview and deterministic rendering.',
+      'Visual state axis mapped directly from Figma component set. Intended for docs/QA preview and deterministic rendering for both components.',
     type: "'default' | 'hover' | 'focus' | 'typing' | 'filled' | 'error' | 'disabled' | 'error-typing' | 'error-filled'",
     defaultValue: "'default'",
+  },
+  {
+    property: 'placeholder',
+    description: 'Placeholder text shown when value is empty.',
+    type: 'string',
+    defaultValue: "'Enter something' (Input/basic), 'Input text' (Textarea)",
+  },
+  {
+    property: 'width',
+    description: 'Fixed width in docs preview.',
+    type: 'number',
+    defaultValue: '250 (Textarea), 350 in interactive Input/basic demos',
+  },
+  {
+    property: 'interactive',
+    description: 'Enable live interaction rendering in preview demos.',
+    type: 'boolean',
+    defaultValue: 'false',
+  },
+  {
+    property: 'interactiveMode',
+    description: 'Interactive state derivation strategy.',
+    type: "'default' | 'error'",
+    defaultValue: "'default'",
+  },
+  {
+    property: 'maxLength (Textarea)',
+    description: 'Maximum length used for character counter rendering.',
+    type: 'number',
+    defaultValue: '100',
   },
 ];
 
@@ -295,6 +418,86 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
       },
     ],
   },
+  {
+    title: 'Textarea · Surface + Border',
+    description:
+      'Textarea keeps white surface across normal/error branches and uses semantic border aliases for interaction, error, and disabled.',
+    rows: [
+      {
+        componentToken: 'ds/text-area/color/background/default',
+        semanticAlias: 'background/primary',
+        appliesTo: 'State=Default, Hover, Focus, Typing, Filled, Error*',
+        notes: 'Base surface for textarea.',
+      },
+      {
+        componentToken: 'ds/text-area/color/border/default',
+        semanticAlias: 'border/brand-primary3',
+        appliesTo: 'State=Default, Filled',
+        notes: 'Base border.',
+      },
+      {
+        componentToken: 'ds/text-area/color/border/interactive',
+        semanticAlias: 'border/brand-tertiary',
+        appliesTo: 'State=Hover, Focus, Typing',
+        notes: 'Interactive highlight border.',
+      },
+      {
+        componentToken: 'ds/text-area/color/border/error',
+        semanticAlias: 'border/error1',
+        appliesTo: 'State=Error, Error Typing, Error Filled',
+        notes: 'Validation border.',
+      },
+      {
+        componentToken: 'ds/text-area/color/background/disabled',
+        semanticAlias: 'background/disable3',
+        appliesTo: 'State=Disabled',
+        notes: 'Disabled surface.',
+      },
+      {
+        componentToken: 'ds/text-area/color/border/disabled',
+        semanticAlias: 'border/disable2',
+        appliesTo: 'State=Disabled',
+        notes: 'Disabled border.',
+      },
+    ],
+  },
+  {
+    title: 'Textarea · Text + Counter',
+    description:
+      'Textarea text/cursor/counter aliases stay consistent with Input/basic while adding disabled and counter-specific tokens.',
+    rows: [
+      {
+        componentToken: 'ds/text-area/color/text/placeholder',
+        semanticAlias: 'text/tertiary',
+        appliesTo: 'State=Default, Hover, Focus, Error',
+        notes: 'Placeholder text color.',
+      },
+      {
+        componentToken: 'ds/text-area/color/text/content',
+        semanticAlias: 'text/primary',
+        appliesTo: 'State=Typing, Filled, Error Typing, Error Filled',
+        notes: 'Typed content color.',
+      },
+      {
+        componentToken: 'ds/text-area/color/text/cursor',
+        semanticAlias: 'text/brand-tertiary2',
+        appliesTo: 'State=Focus, Typing, Error Typing',
+        notes: 'Caret color.',
+      },
+      {
+        componentToken: 'ds/text-area/color/text/placeholder/disabled',
+        semanticAlias: 'text/disable1',
+        appliesTo: 'State=Disabled',
+        notes: 'Disabled placeholder/content color.',
+      },
+      {
+        componentToken: 'ds/text-area/color/text/number',
+        semanticAlias: 'text/disable2',
+        appliesTo: 'Counter 0/100 or 10/100',
+        notes: 'Character counter color.',
+      },
+    ],
+  },
 ];
 
 export const INPUT_VARIABLE_GROUPS: InputVariableGroup[] = [
@@ -343,6 +546,60 @@ export const INPUT_VARIABLE_GROUPS: InputVariableGroup[] = [
         value: 'Averta Std CY, 14 / 20, 400, letter-spacing 0.25',
         appliesTo: 'Input text / placeholder',
         notes: 'Shared typography style across full state axis.',
+      },
+    ],
+  },
+  {
+    title: 'Textarea Core Layout',
+    description: 'Non-color variables extracted from input/textarea Figma component set.',
+    rows: [
+      {
+        token: 'ds/text-area/width/default',
+        value: '250',
+        appliesTo: 'All textarea states',
+        notes: 'Fixed width in component set.',
+      },
+      {
+        token: 'ds/text-area/height/content',
+        value: '80',
+        appliesTo: 'Text content area',
+        notes: 'Visible typing region height.',
+      },
+      {
+        token: 'ds/text-area/padding/default',
+        value: '12 (x) + 16 (y)',
+        appliesTo: 'Textarea container',
+        notes: 'Horizontal token from Figma variable and fixed vertical spacing.',
+      },
+      {
+        token: 'ds/text-area/radius/default',
+        value: '4',
+        appliesTo: 'Textarea container',
+        notes: 'Corner radius token.',
+      },
+      {
+        token: 'ds/text-area/spacing/xs',
+        value: '4',
+        appliesTo: 'Content to counter gap',
+        notes: 'Space between text area and counter.',
+      },
+    ],
+  },
+  {
+    title: 'Textarea Typography Styles',
+    description: 'Typography styles used by textarea text and counter.',
+    rows: [
+      {
+        token: 'Body Copy (Data & Nav)/Normal/14-Regular',
+        value: 'Averta Std CY, 14 / 20, 400, letter-spacing 0.25',
+        appliesTo: 'Textarea placeholder/content/caret row',
+        notes: 'Main textarea content style.',
+      },
+      {
+        token: 'Body Copy (Data & Nav)/Normal/12-Regular',
+        value: 'Averta Std CY, 12 / 16, 400, letter-spacing 0.25',
+        appliesTo: 'Counter (0/100, 10/100)',
+        notes: 'Character counter typography.',
       },
     ],
   },

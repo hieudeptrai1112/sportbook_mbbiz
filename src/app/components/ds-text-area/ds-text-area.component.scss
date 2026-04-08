@@ -1,0 +1,137 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.ds-text-area {
+  display: inline-flex;
+  max-width: 100%;
+  min-width: var(--ds-text-area-width-default, 250px);
+}
+
+.ds-text-area__surface {
+  background: var(--color-semantic-background-primary, #ffffff);
+  border: 1px solid var(--color-semantic-border-brand-primary3, #a3b7fd);
+  border-radius: var(--ds-text-area-radius-default, 4px);
+  box-sizing: border-box;
+  color: var(--color-semantic-text-tertiary, #9bafc8);
+  display: flex;
+  flex-direction: column;
+  min-height: 124px;
+  padding: 16px var(--ds-text-area-padding-default, 12px);
+  transition: border-color 140ms ease, color 140ms ease, background-color 140ms ease;
+  width: 100%;
+}
+
+.ds-text-area__field {
+  align-items: flex-start;
+  display: flex;
+  gap: 2px;
+  min-height: 80px;
+  width: 100%;
+}
+
+.ds-text-area__native {
+  background: transparent;
+  border: 0;
+  caret-color: var(--color-semantic-text-brand-tertiary2, #52dddd);
+  color: inherit;
+  flex: 1 1 auto;
+  font-family: "Averta Std CY", "Inter", "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  min-height: 80px;
+  outline: none;
+  padding: 0;
+  resize: none;
+}
+
+.ds-text-area__native::placeholder {
+  color: var(--color-semantic-text-tertiary, #9bafc8);
+}
+
+.ds-text-area__text,
+.ds-text-area__cursor {
+  font-family: "Averta Std CY", "Inter", "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+}
+
+.ds-text-area__text {
+  color: inherit;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ds-text-area__text--placeholder {
+  color: var(--color-semantic-text-tertiary, #9bafc8);
+}
+
+.ds-text-area__text--primary {
+  color: var(--color-semantic-text-primary, #192d39);
+}
+
+.ds-text-area__text--disabled,
+.ds-text-area__text--disabled-placeholder {
+  color: var(--color-semantic-text-disable1, #808080);
+}
+
+.ds-text-area__cursor {
+  color: var(--color-semantic-text-brand-tertiary2, #52dddd);
+}
+
+.ds-text-area__counter {
+  align-self: flex-end;
+  color: var(--color-semantic-text-disable2, #9b9b9b);
+  font-family: "Averta Std CY", "Inter", "Segoe UI", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 16px;
+  margin-top: var(--ds-text-area-spacing-xs, 4px);
+}
+
+.ds-text-area--state-default .ds-text-area__surface,
+.ds-text-area--state-filled .ds-text-area__surface {
+  border-color: var(--color-semantic-border-brand-primary3, #a3b7fd);
+}
+
+.ds-text-area--state-hover .ds-text-area__surface,
+.ds-text-area--state-focus .ds-text-area__surface,
+.ds-text-area--state-typing .ds-text-area__surface {
+  border-color: var(--color-semantic-border-brand-tertiary, #52dddd);
+}
+
+.ds-text-area--state-typing .ds-text-area__surface,
+.ds-text-area--state-filled .ds-text-area__surface,
+.ds-text-area--state-error-typing .ds-text-area__surface,
+.ds-text-area--state-error-filled .ds-text-area__surface {
+  color: var(--color-semantic-text-primary, #192d39);
+}
+
+.ds-text-area--state-error .ds-text-area__surface,
+.ds-text-area--state-error-typing .ds-text-area__surface,
+.ds-text-area--state-error-filled .ds-text-area__surface {
+  border-color: var(--color-semantic-border-error1, #f00000);
+}
+
+.ds-text-area--state-disabled .ds-text-area__surface {
+  background: var(--color-semantic-background-disable3, #f3f3f3);
+  border-color: var(--color-semantic-border-disable2, #cccccc);
+  color: var(--color-semantic-text-disable1, #808080);
+}
+
+@media (max-width: 760px) {
+  .ds-text-area {
+    min-width: 100%;
+    width: 100%;
+  }
+}
