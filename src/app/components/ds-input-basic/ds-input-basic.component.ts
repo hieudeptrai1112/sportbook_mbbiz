@@ -29,8 +29,6 @@ export class DsInputBasicComponent {
   private readonly liveValue = signal('');
   private readonly liveHover = signal(false);
   private readonly liveFocus = signal(false);
-  private readonly liveTyping = signal(false);
-  private typingResetTimer: ReturnType<typeof setTimeout> | null = null;
 
   protected readonly currentState = computed<DsInputBasicState>(() => {
     if (!this.interactive()) {
@@ -40,10 +38,7 @@ export class DsInputBasicComponent {
     const hasValue = this.liveValue().trim().length > 0;
 
     if (this.liveFocus()) {
-      if (this.liveTyping()) {
-        return hasValue ? 'typing' : 'focus';
-      }
-      return hasValue ? 'filled' : 'focus';
+      return hasValue ? 'typing' : 'focus';
     }
 
     if (this.liveHover() && !hasValue) {
@@ -110,15 +105,6 @@ export class DsInputBasicComponent {
 
     const target = event.target as HTMLInputElement;
     this.liveValue.set(target.value);
-    this.liveTyping.set(true);
-
-    if (this.typingResetTimer) {
-      clearTimeout(this.typingResetTimer);
-    }
-
-    this.typingResetTimer = setTimeout(() => {
-      this.liveTyping.set(false);
-    }, 220);
   }
 
   protected onFocus() {
@@ -133,7 +119,6 @@ export class DsInputBasicComponent {
       return;
     }
     this.liveFocus.set(false);
-    this.liveTyping.set(false);
   }
 
   protected onMouseEnter() {
@@ -148,11 +133,5 @@ export class DsInputBasicComponent {
       return;
     }
     this.liveHover.set(false);
-  }
-
-  ngOnDestroy() {
-    if (this.typingResetTimer) {
-      clearTimeout(this.typingResetTimer);
-    }
   }
 }
