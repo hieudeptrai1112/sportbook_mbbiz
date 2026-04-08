@@ -1,0 +1,33 @@
+<div
+  class="{{ classes() }}"
+  [style.width.px]="width()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
+  <div class="ds-input-floating-label__title">{{ title() }}</div>
+
+  <div class="ds-input-floating-label__content">
+    @if (interactive()) {
+      <input
+        class="ds-input-floating-label__native"
+        type="text"
+        [value]="nativeValue()"
+        [attr.placeholder]="placeholder()"
+        (input)="onInput($event)"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+      />
+    } @else {
+      @if (showCursor()) {
+        @if (hasDisplayValue()) {
+          <span class="{{ textClass() }}">{{ displayValue() }}</span>
+        }
+        <span class="ds-input-floating-label__cursor" aria-hidden="true">|</span>
+      } @else {
+        <span class="{{ textClass() }}">
+          {{ hasDisplayValue() ? displayValue() : placeholder() }}
+        </span>
+      }
+    }
+  </div>
+</div>

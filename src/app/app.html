@@ -433,8 +433,9 @@
               </div>
               <h1>Input Field</h1>
               <p class="lead">
-                Form text entry family from Figma including Input/basic, input/search,
-                input/password, and input/textarea with interactive preview, API, and token mapping.
+                Form text entry family from Figma including Input/basic, input/floating-label,
+                input/search, input/password, and input/textarea with interactive preview, API,
+                and token mapping.
               </p>
             </div>
 
@@ -463,7 +464,7 @@
                 <div class="button-demo-preview input-demo-preview">
                   <ng-container *ngIf="isInputInteractiveSection(demo); else inputStaticPreview">
                     <div class="input-demo-playground">
-                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else interactiveSearchOrPasswordOrTextAreaPreview">
+                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else interactiveSearchOrFloatingOrPasswordOrTextAreaPreview">
                         <app-ds-input-basic
                           [interactive]="true"
                           [interactiveMode]="demo.interactiveMode ?? 'default'"
@@ -477,8 +478,8 @@
                           [width]="demo.interactiveWidth ?? 350"
                         />
                       </ng-container>
-                      <ng-template #interactiveSearchOrPasswordOrTextAreaPreview>
-                        <ng-container *ngIf="isInputDemoComponent(demo, 'input-search'); else interactivePasswordOrTextAreaPreview">
+                      <ng-template #interactiveSearchOrFloatingOrPasswordOrTextAreaPreview>
+                        <ng-container *ngIf="isInputDemoComponent(demo, 'input-search'); else interactiveFloatingOrPasswordOrTextAreaPreview">
                           <app-ds-input-search
                             [interactive]="true"
                             [interactiveMode]="demo.interactiveMode ?? 'default'"
@@ -489,6 +490,25 @@
                             *ngIf="demo.showDisabledCompanion"
                             [value]="demo.disabledCompanionValue ?? 'Input text'"
                             state="disabled"
+                            [width]="demo.interactiveWidth ?? 250"
+                          />
+                        </ng-container>
+                      </ng-template>
+                      <ng-template #interactiveFloatingOrPasswordOrTextAreaPreview>
+                        <ng-container *ngIf="isInputDemoComponent(demo, 'input-floating-label'); else interactivePasswordOrTextAreaPreview">
+                          <app-ds-input-floating-label
+                            [interactive]="true"
+                            [interactiveMode]="demo.interactiveMode ?? 'default'"
+                            [title]="demo.interactiveTitle ?? 'Title'"
+                            [placeholder]="demo.interactivePlaceholder ?? 'Input text'"
+                            [width]="demo.interactiveWidth ?? 250"
+                          />
+                          <app-ds-input-floating-label
+                            *ngIf="demo.showDisabledCompanion"
+                            [value]="demo.disabledCompanionValue ?? 'Input text'"
+                            state="disabled"
+                            [title]="demo.interactiveTitle ?? 'Title'"
+                            [placeholder]="demo.interactivePlaceholder ?? 'Input text'"
                             [width]="demo.interactiveWidth ?? 250"
                           />
                         </ng-container>
@@ -532,7 +552,7 @@
                   </ng-container>
 
                   <ng-template #inputStaticPreview>
-                    <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else staticSearchOrPasswordOrTextAreaPreview">
+                    <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else staticSearchOrFloatingOrPasswordOrTextAreaPreview">
                       <app-ds-input-basic
                         *ngFor="let action of demo.actions"
                         [value]="action.value"
@@ -541,12 +561,24 @@
                         [width]="action.width ?? null"
                       />
                     </ng-container>
-                    <ng-template #staticSearchOrPasswordOrTextAreaPreview>
-                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-search'); else staticPasswordOrTextAreaPreview">
+                    <ng-template #staticSearchOrFloatingOrPasswordOrTextAreaPreview>
+                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-search'); else staticFloatingOrPasswordOrTextAreaPreview">
                         <app-ds-input-search
                           *ngFor="let action of demo.actions"
                           [value]="action.value"
                           [state]="action.state"
+                          [placeholder]="action.placeholder ?? 'Input text'"
+                          [width]="action.width ?? 250"
+                        />
+                      </ng-container>
+                    </ng-template>
+                    <ng-template #staticFloatingOrPasswordOrTextAreaPreview>
+                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-floating-label'); else staticPasswordOrTextAreaPreview">
+                        <app-ds-input-floating-label
+                          *ngFor="let action of demo.actions"
+                          [value]="action.value"
+                          [state]="action.state"
+                          [title]="action.title ?? 'Title'"
                           [placeholder]="action.placeholder ?? 'Input text'"
                           [width]="action.width ?? 250"
                         />

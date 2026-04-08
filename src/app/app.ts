@@ -7,6 +7,7 @@ import {
   DsInputPasswordComponent,
   type DsInputPasswordState,
 } from './components/ds-input-password/ds-input-password.component';
+import { DsInputFloatingLabelComponent } from './components/ds-input-floating-label/ds-input-floating-label.component';
 import { DsTextAreaComponent } from './components/ds-text-area/ds-text-area.component';
 import {
   SEMANTIC_BACKGROUND_FIGMA_ORDER,
@@ -113,6 +114,7 @@ interface ResolvedInputSemanticBindingGroup {
     DsInputBasicComponent,
     DsInputSearchComponent,
     DsInputPasswordComponent,
+    DsInputFloatingLabelComponent,
     DsTextAreaComponent,
   ],
   templateUrl: './app.html',
@@ -458,6 +460,9 @@ export class App {
       if (section.component === 'input-search') {
         return 'app-input-search-demo.component.html';
       }
+      if (section.component === 'input-floating-label') {
+        return 'app-input-floating-label-demo.component.html';
+      }
       if (section.component === 'text-area') {
         return 'app-textarea-demo.component.html';
       }
@@ -469,6 +474,9 @@ export class App {
 
     if (section.component === 'input-search') {
       return 'input-search-demo.component.ts';
+    }
+    if (section.component === 'input-floating-label') {
+      return 'input-floating-label-demo.component.ts';
     }
     if (section.component === 'text-area') {
       return 'textarea-demo.component.ts';
@@ -858,33 +866,44 @@ ${actionRows}
   private buildInputTypeScriptSnippet(section: InputDemoSection): string {
     const isPassword = section.component === 'input-password';
     const isTextArea = section.component === 'text-area';
+    const isFloatingLabel = section.component === 'input-floating-label';
     const componentClass = isTextArea
       ? 'DsTextAreaComponent'
       : isPassword
         ? 'DsInputPasswordComponent'
-        : 'DsInputBasicComponent';
+        : isFloatingLabel
+          ? 'DsInputFloatingLabelComponent'
+          : 'DsInputBasicComponent';
     const componentSelector = isTextArea
       ? 'app-ds-text-area'
       : isPassword
         ? 'app-ds-input-password'
-        : 'app-ds-input-basic';
+        : isFloatingLabel
+          ? 'app-ds-input-floating-label'
+          : 'app-ds-input-basic';
     const componentImportPath = isTextArea
       ? './components/ds-text-area/ds-text-area.component'
       : isPassword
         ? './components/ds-input-password/ds-input-password.component'
-        : './components/ds-input-basic/ds-input-basic.component';
+        : isFloatingLabel
+          ? './components/ds-input-floating-label/ds-input-floating-label.component'
+          : './components/ds-input-basic/ds-input-basic.component';
     const componentDemoName = isTextArea
       ? 'TextareaDemoComponent'
       : isPassword
         ? 'InputPasswordDemoComponent'
-        : 'InputBasicDemoComponent';
+        : isFloatingLabel
+          ? 'InputFloatingLabelDemoComponent'
+          : 'InputBasicDemoComponent';
     const componentDemoSelector = isTextArea
       ? 'app-textarea-demo'
       : isPassword
         ? 'app-input-password-demo'
-        : 'app-input-basic-demo';
-    const defaultPlaceholder = isTextArea ? 'Input text' : 'Enter something';
-    const defaultWidth = isTextArea ? 250 : isPassword ? 307 : 350;
+        : isFloatingLabel
+          ? 'app-input-floating-label-demo'
+          : 'app-input-basic-demo';
+    const defaultPlaceholder = isTextArea || isFloatingLabel ? 'Input text' : 'Enter something';
+    const defaultWidth = isTextArea || isFloatingLabel ? 250 : isPassword ? 307 : 350;
 
     const actionRows = section.actions
       .map((action) => {
@@ -892,7 +911,7 @@ ${actionRows}
           `value: '${this.escapeForSingleQuote(action.value)}'`,
           `state: '${action.state}'`,
         ];
-        if (isPassword && action.title) {
+        if ((isPassword || isFloatingLabel) && action.title) {
           parts.push(`title: '${this.escapeForSingleQuote(action.title)}'`);
         }
         if (isPassword && action.contentMode) {
@@ -925,7 +944,7 @@ import { ${componentClass} } from '${componentImportPath}';
         *ngFor="let action of actions"
         [value]="action.value"
         [state]="action.state"${
-          isPassword ? "\n        [title]=\"action.title ?? 'Title'\"" : ''
+          isPassword || isFloatingLabel ? "\n        [title]=\"action.title ?? 'Title'\"" : ''
         }${
           isPassword ? "\n        [contentMode]=\"action.contentMode ?? 'hide'\"" : ''
         }${
@@ -1009,7 +1028,7 @@ ${actionRows}
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsTextAreaComponent|DsTextAreaState)\b/g,
+      /\b(Component|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsTextAreaComponent|DsTextAreaState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');

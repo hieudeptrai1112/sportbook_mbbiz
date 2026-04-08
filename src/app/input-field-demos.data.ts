@@ -15,23 +15,30 @@ import type {
   DsInputPasswordInteractiveMode,
   DsInputPasswordState,
 } from './components/ds-input-password/ds-input-password.component';
+import type {
+  DsInputFloatingLabelInteractiveMode,
+  DsInputFloatingLabelState,
+} from './components/ds-input-floating-label/ds-input-floating-label.component';
 
 export type InputCodeType = 'js' | 'ts';
 export type InputDemoComponent =
   | 'input-basic'
   | 'input-search'
   | 'text-area'
-  | 'input-password';
+  | 'input-password'
+  | 'input-floating-label';
 export type InputDemoState =
   | DsInputBasicState
   | DsInputSearchState
   | DsTextAreaState
-  | DsInputPasswordState;
+  | DsInputPasswordState
+  | DsInputFloatingLabelState;
 export type InputDemoInteractiveMode =
   | DsInputBasicInteractiveMode
   | DsInputSearchInteractiveMode
   | DsTextAreaInteractiveMode
-  | DsInputPasswordInteractiveMode;
+  | DsInputPasswordInteractiveMode
+  | DsInputFloatingLabelInteractiveMode;
 
 export interface InputDemoAction {
   value: string;
@@ -181,6 +188,83 @@ import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basi
   \`,
 })
 export class InputBasicStatusDemoComponent {}`,
+  },
+  {
+    id: 'floating-label-basic',
+    component: 'input-floating-label',
+    title: 'Floating Label · Basic',
+    description:
+      'Interactive baseline for input/floating-label from Figma. Preview supports default, hover, focus, typing, and filled from real input behavior.',
+    tags: ['variant=input/floating-label', 'states=default/hover/focus/typing/filled', 'size=250 x 52'],
+    interactive: true,
+    interactiveStates: ['default', 'hover', 'focus', 'typing', 'filled'],
+    interactiveMode: 'default',
+    interactiveTitle: 'Title',
+    interactivePlaceholder: 'Input text',
+    interactiveWidth: 250,
+    actions: [{ value: '', state: 'default', title: 'Title', placeholder: 'Input text', width: 250 }],
+    codeJs: `<app-ds-input-floating-label [interactive]="true" title="Title" placeholder="Input text" [width]="250" />`,
+    codeTs: `import { DsInputFloatingLabelComponent } from './components/ds-input-floating-label/ds-input-floating-label.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-input-floating-label
+    [interactive]="true"
+    title="Title"
+    placeholder="Input text"
+    [width]="250"
+  />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsInputFloatingLabelComponent } from './components/ds-input-floating-label/ds-input-floating-label.component';
+
+@Component({
+  selector: 'app-input-floating-label-demo',
+  standalone: true,
+  imports: [DsInputFloatingLabelComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-input-floating-label [interactive]="true" title="Title" placeholder="Input text" [width]="250" />
+    </section>
+  \`,
+})
+export class InputFloatingLabelDemoComponent {}`,
+  },
+  {
+    id: 'floating-label-status',
+    component: 'input-floating-label',
+    title: 'Floating Label · Status',
+    description:
+      'Status branch from Figma. Error states are merged into one interactive preview while disabled remains a separate locked sample.',
+    tags: ['status=error/disabled', 'states=error/error-typing/error-filled + disabled', 'size=250 x 52'],
+    interactive: true,
+    interactiveMode: 'error',
+    interactiveTitle: 'Title',
+    interactivePlaceholder: 'Input text',
+    interactiveWidth: 250,
+    showDisabledCompanion: true,
+    disabledCompanionValue: 'Input text',
+    actions: [{ value: 'Input text', state: 'disabled', title: 'Title', placeholder: 'Input text', width: 250 }],
+    codeJs: `<app-ds-input-floating-label [interactive]="true" interactiveMode="error" title="Title" placeholder="Input text" [width]="250" />
+<app-ds-input-floating-label value="Input text" state="disabled" title="Title" placeholder="Input text" [width]="250" />`,
+    codeTs: `import { DsInputFloatingLabelComponent } from './components/ds-input-floating-label/ds-input-floating-label.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-input-floating-label [interactive]="true" interactiveMode="error" title="Title" placeholder="Input text" [width]="250" />
+  <app-ds-input-floating-label value="Input text" state="disabled" title="Title" placeholder="Input text" [width]="250" />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsInputFloatingLabelComponent } from './components/ds-input-floating-label/ds-input-floating-label.component';
+
+@Component({
+  selector: 'app-input-floating-label-status-demo',
+  standalone: true,
+  imports: [DsInputFloatingLabelComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-input-floating-label [interactive]="true" interactiveMode="error" title="Title" placeholder="Input text" [width]="250" />
+      <app-ds-input-floating-label value="Input text" state="disabled" title="Title" placeholder="Input text" [width]="250" />
+    </section>
+  \`,
+})
+export class InputFloatingLabelStatusDemoComponent {}`,
   },
   {
     id: 'search-basic',
@@ -411,26 +495,29 @@ export const INPUT_API_ROWS: InputApiRow[] = [
   {
     property: 'value',
     description:
-      'Displayed value in field area. Used by Input/basic, input/search, input/password, and input/textarea.',
+      'Displayed value in field area. Used by Input/basic, input/floating-label, input/search, input/password, and input/textarea.',
     type: 'string',
     defaultValue: "''",
   },
   {
     property: 'state',
     description:
-      'Visual state axis mapped directly from Figma component set. Intended for docs/QA preview and deterministic rendering for both components.',
+      'Visual state axis mapped directly from Figma component set. Intended for docs/QA preview and deterministic rendering across the full Input family.',
     type: "'default' | 'hover' | 'focus' | 'typing' | 'filled' | 'error' | 'disabled' | 'error-typing' | 'error-filled'",
     defaultValue: "'default'",
   },
   {
     property: 'placeholder',
-    description: 'Placeholder text shown when value is empty (Input/basic, input/search, and input/textarea).',
+    description:
+      'Placeholder text shown when value is empty (Input/basic, input/floating-label, input/search, and input/textarea).',
     type: 'string',
-    defaultValue: "'Enter something' (Input/basic), 'Input text' (input/search + Textarea)",
+    defaultValue:
+      "'Enter something' (Input/basic), 'Input text' (input/floating-label + input/search + Textarea)",
   },
   {
-    property: 'title (Password)',
-    description: 'Title/placeholder token used by input/password. It becomes top label when the field is not in default state.',
+    property: 'title (Password + Floating Label)',
+    description:
+      'Top title row token from Figma. Used by input/password and input/floating-label for label text above the value line.',
     type: 'string',
     defaultValue: "'Title'",
   },
@@ -444,7 +531,8 @@ export const INPUT_API_ROWS: InputApiRow[] = [
     property: 'width',
     description: 'Fixed width in docs preview.',
     type: 'number',
-    defaultValue: '250 (input/search + Textarea), 307 (Password), 350 in interactive Input/basic demos',
+    defaultValue:
+      '250 (input/floating-label + input/search + Textarea), 307 (Password), 350 in interactive Input/basic demos',
   },
   {
     property: 'interactive',
@@ -596,6 +684,86 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
         semanticAlias: 'text/disable1',
         appliesTo: 'State=Disabled',
         notes: 'Disabled text contrast.',
+      },
+    ],
+  },
+  {
+    title: 'Floating Label · Surface + Border',
+    description:
+      'Input/floating-label uses the same semantic border progression as Input/basic and adds disabled surface override.',
+    rows: [
+      {
+        componentToken: 'ds/input-floating-label/color/background/default',
+        semanticAlias: 'background/primary',
+        appliesTo: 'State=Default, Hover, Focus, Typing, Filled, Error*',
+        notes: 'Base surface for active states.',
+      },
+      {
+        componentToken: 'ds/input-floating-label/color/background/disabled',
+        semanticAlias: 'background/disable3',
+        appliesTo: 'State=Disabled',
+        notes: 'Disabled surface from Figma alias.',
+      },
+      {
+        componentToken: 'ds/input-floating-label/color/border/default',
+        semanticAlias: 'border/brand-primary3',
+        appliesTo: 'State=Default, Filled',
+        notes: 'Base border.',
+      },
+      {
+        componentToken: 'ds/input-floating-label/color/border/interactive',
+        semanticAlias: 'border/brand-tertiary',
+        appliesTo: 'State=Hover, Focus, Typing',
+        notes: 'Interactive border for hover/focus/typing.',
+      },
+      {
+        componentToken: 'ds/input-floating-label/color/border/error',
+        semanticAlias: 'border/error2',
+        appliesTo: 'State=Error, Error Typing, Error Filled',
+        notes: 'Validation border in error branch.',
+      },
+      {
+        componentToken: 'ds/input-floating-label/color/border/disabled',
+        semanticAlias: 'border/disable2',
+        appliesTo: 'State=Disabled',
+        notes: 'Disabled border.',
+      },
+    ],
+  },
+  {
+    title: 'Floating Label · Text + Cursor',
+    description:
+      'Input/floating-label title, value, and cursor follow semantic aliases with dedicated disabled text mapping.',
+    rows: [
+      {
+        componentToken: 'ds/input-floating-label/color/text/title',
+        semanticAlias: 'text/secondary',
+        appliesTo: 'All states',
+        notes: 'Top title row.',
+      },
+      {
+        componentToken: 'ds/input-floating-label/color/text/placeholder',
+        semanticAlias: 'text/tertiary',
+        appliesTo: 'State=Default, Hover, Error',
+        notes: 'Placeholder text.',
+      },
+      {
+        componentToken: 'ds/input-floating-label/color/text/content',
+        semanticAlias: 'text/primary',
+        appliesTo: 'State=Typing, Filled, Error Typing, Error Filled',
+        notes: 'Content text when value is present.',
+      },
+      {
+        componentToken: 'ds/input-floating-label/color/text/cursor',
+        semanticAlias: 'text/brand-tertiary2',
+        appliesTo: 'State=Focus, Typing, Error Typing',
+        notes: 'Caret indicator.',
+      },
+      {
+        componentToken: 'ds/input-floating-label/color/text/disabled',
+        semanticAlias: 'text/disable1',
+        appliesTo: 'State=Disabled',
+        notes: 'Disabled value contrast.',
       },
     ],
   },
@@ -873,6 +1041,54 @@ export const INPUT_VARIABLE_GROUPS: InputVariableGroup[] = [
     ],
   },
   {
+    title: 'Floating Label Core Layout',
+    description: 'Non-color variables extracted from input/floating-label Figma component set.',
+    rows: [
+      {
+        token: 'ds/input-floating-label/width/default',
+        value: '250',
+        appliesTo: 'All states',
+        notes: 'Fixed field width in component set.',
+      },
+      {
+        token: 'ds/input-floating-label/height/default',
+        value: '52',
+        appliesTo: 'All states',
+        notes: 'Fixed field height in component set.',
+      },
+      {
+        token: 'ds/input-floating-label/padding/default',
+        value: '12 x 10',
+        appliesTo: 'Container',
+        notes: 'Horizontal and vertical inner padding.',
+      },
+      {
+        token: 'ds/input-floating-label/radius/default',
+        value: '4',
+        appliesTo: 'Container',
+        notes: 'Corner radius.',
+      },
+      {
+        token: 'ds/input-floating-label/spacing/xs',
+        value: '2',
+        appliesTo: 'Text and cursor',
+        notes: 'Gap between content and cursor marker.',
+      },
+    ],
+  },
+  {
+    title: 'Floating Label Typography Styles',
+    description: 'Typography styles used by input/floating-label title and value rows.',
+    rows: [
+      {
+        token: 'Body Copy (Data & Nav)/Normal/14-Regular',
+        value: 'Averta Std CY, 14 / 20, 400, letter-spacing 0.25',
+        appliesTo: 'Title + Input text + placeholder',
+        notes: 'Shared style for both rows.',
+      },
+    ],
+  },
+  {
     title: 'Search Core Layout',
     description: 'Non-color variables extracted from input/search Figma component set.',
     rows: [
@@ -1008,13 +1224,13 @@ export const INPUT_ACCESSIBILITY = [
 ];
 
 export const INPUT_SPACING_RULES = [
-  'Container width is 250 and height is 52 in base Input/basic and input/search Figma components.',
-  'Use horizontal padding 12 and vertical padding 16 without additional internal wrappers.',
-  'Keep 4px gap between content and icon/cursor area in typing states.',
+  'Container width is 250 and height is 52 in Input/basic, input/floating-label, and input/search components (Password uses width 307).',
+  'Input/basic + input/search use padding 12 x 16. Input/floating-label uses padding 12 x 10 with two 20px text rows.',
+  'Keep 4px gap between content and icon/cursor area in Input/basic + input/search; use 2px gap in input/floating-label.',
 ];
 
 export const INPUT_VARIABLE_NOTES: string[] = [
-  'This page documents `input/basic`, `input/search`, `input/password`, and `input/textarea` from the Input family outline.',
+  'This page documents `input/basic`, `input/floating-label`, `input/search`, `input/password`, and `input/textarea` from the Input family outline.',
   'State axis is normalized to machine-friendly values: default, hover, focus, typing, filled, error, disabled, error-typing, error-filled.',
   'Production API is recommended to expose `status` + `disabled`, then derive visual `state` internally for consistency.',
   'Do not alter geometry, typography, or visual token mapping unless the Figma source component is updated.',
