@@ -6,15 +6,25 @@ import type {
   DsTextAreaInteractiveMode,
   DsTextAreaState,
 } from './components/ds-text-area/ds-text-area.component';
+import type {
+  DsInputPasswordContentMode,
+  DsInputPasswordInteractiveMode,
+  DsInputPasswordState,
+} from './components/ds-input-password/ds-input-password.component';
 
 export type InputCodeType = 'js' | 'ts';
-export type InputDemoComponent = 'input-basic' | 'text-area';
-export type InputDemoState = DsInputBasicState | DsTextAreaState;
-export type InputDemoInteractiveMode = DsInputBasicInteractiveMode | DsTextAreaInteractiveMode;
+export type InputDemoComponent = 'input-basic' | 'text-area' | 'input-password';
+export type InputDemoState = DsInputBasicState | DsTextAreaState | DsInputPasswordState;
+export type InputDemoInteractiveMode =
+  | DsInputBasicInteractiveMode
+  | DsTextAreaInteractiveMode
+  | DsInputPasswordInteractiveMode;
 
 export interface InputDemoAction {
   value: string;
   state: InputDemoState;
+  title?: string;
+  contentMode?: DsInputPasswordContentMode;
   placeholder?: string;
   width?: number;
   maxLength?: number;
@@ -30,11 +40,14 @@ export interface InputDemoSection {
   interactive?: boolean;
   interactiveStates?: InputDemoState[];
   interactiveMode?: InputDemoInteractiveMode;
+  interactiveTitle?: string;
+  interactiveContentMode?: DsInputPasswordContentMode;
   interactivePlaceholder?: string;
   interactiveWidth?: number;
   interactiveMaxLength?: number;
   showDisabledCompanion?: boolean;
   disabledCompanionValue?: string;
+  disabledCompanionContentMode?: DsInputPasswordContentMode;
   codeJs: string;
   codeTs?: string;
   snippetHtml?: string;
@@ -157,6 +170,78 @@ import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basi
 export class InputBasicStatusDemoComponent {}`,
   },
   {
+    id: 'password-basic',
+    component: 'input-password',
+    title: 'Password',
+    description:
+      'Interactive baseline for input/password from Figma. Toggle hide/unhide and type directly to move through default, focus, typing, and filled states.',
+    tags: ['variant=input/password', 'contentMode=hide/unhide', 'states=default/focus/typing/filled', 'size=307 x 52'],
+    interactive: true,
+    interactiveMode: 'default',
+    interactiveTitle: 'Title',
+    interactiveContentMode: 'hide',
+    interactiveWidth: 307,
+    actions: [{ value: '', state: 'default', title: 'Title', contentMode: 'hide', width: 307 }],
+    codeJs: `<app-ds-input-password [interactive]="true" title="Title" [width]="307" />`,
+    codeTs: `import { DsInputPasswordComponent } from './components/ds-input-password/ds-input-password.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-input-password [interactive]="true" title="Title" [width]="307" />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsInputPasswordComponent } from './components/ds-input-password/ds-input-password.component';
+
+@Component({
+  selector: 'app-input-password-demo',
+  standalone: true,
+  imports: [DsInputPasswordComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-input-password [interactive]="true" title="Title" [width]="307" />
+    </section>
+  \`,
+})
+export class InputPasswordDemoComponent {}`,
+  },
+  {
+    id: 'password-status',
+    component: 'input-password',
+    title: 'Password · Status',
+    description:
+      'Error branch stays interactive for typing and hide/unhide behavior. Disabled remains a separate fixed sample from the same Figma set.',
+    tags: ['status=error/disabled', 'contentMode=hide/unhide', 'size=307 x 52'],
+    interactive: true,
+    interactiveMode: 'error',
+    interactiveTitle: 'Title',
+    interactiveContentMode: 'hide',
+    interactiveWidth: 307,
+    showDisabledCompanion: true,
+    disabledCompanionValue: 'Input text',
+    disabledCompanionContentMode: 'hide',
+    actions: [{ value: 'Input text', state: 'disabled', title: 'Title', contentMode: 'hide', width: 307 }],
+    codeJs: `<app-ds-input-password [interactive]="true" interactiveMode="error" title="Title" [width]="307" />
+<app-ds-input-password value="Input text" state="disabled" title="Title" contentMode="hide" [width]="307" />`,
+    codeTs: `import { DsInputPasswordComponent } from './components/ds-input-password/ds-input-password.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-input-password [interactive]="true" interactiveMode="error" title="Title" [width]="307" />
+  <app-ds-input-password value="Input text" state="disabled" title="Title" contentMode="hide" [width]="307" />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsInputPasswordComponent } from './components/ds-input-password/ds-input-password.component';
+
+@Component({
+  selector: 'app-input-password-status-demo',
+  standalone: true,
+  imports: [DsInputPasswordComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-input-password [interactive]="true" interactiveMode="error" title="Title" [width]="307" />
+      <app-ds-input-password value="Input text" state="disabled" title="Title" contentMode="hide" [width]="307" />
+    </section>
+  \`,
+})
+export class InputPasswordStatusDemoComponent {}`,
+  },
+  {
     id: 'textarea-basic',
     component: 'text-area',
     title: 'Textarea · Basic',
@@ -255,15 +340,27 @@ export const INPUT_API_ROWS: InputApiRow[] = [
   },
   {
     property: 'placeholder',
-    description: 'Placeholder text shown when value is empty.',
+    description: 'Placeholder text shown when value is empty (Input/basic and Textarea).',
     type: 'string',
     defaultValue: "'Enter something' (Input/basic), 'Input text' (Textarea)",
+  },
+  {
+    property: 'title (Password)',
+    description: 'Title/placeholder token used by input/password. It becomes top label when the field is not in default state.',
+    type: 'string',
+    defaultValue: "'Title'",
+  },
+  {
+    property: 'contentMode (Password)',
+    description: 'Controls password visibility icon mode and text masking.',
+    type: "'hide' | 'unhide'",
+    defaultValue: "'hide'",
   },
   {
     property: 'width',
     description: 'Fixed width in docs preview.',
     type: 'number',
-    defaultValue: '250 (Textarea), 350 in interactive Input/basic demos',
+    defaultValue: '250 (Textarea), 307 (Password), 350 in interactive Input/basic demos',
   },
   {
     property: 'interactive',
@@ -273,7 +370,7 @@ export const INPUT_API_ROWS: InputApiRow[] = [
   },
   {
     property: 'interactiveMode',
-    description: 'Interactive state derivation strategy.',
+    description: 'Interactive state derivation strategy (used in status previews).',
     type: "'default' | 'error'",
     defaultValue: "'default'",
   },
@@ -415,6 +512,68 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
         semanticAlias: 'text/disable1',
         appliesTo: 'State=Disabled',
         notes: 'Disabled text contrast.',
+      },
+    ],
+  },
+  {
+    title: 'Password · Border + Surface',
+    description:
+      'Input/password keeps transparent surface and swaps semantic underline aliases by state from the Figma component set.',
+    rows: [
+      {
+        componentToken: 'ds/input-password/color/border/default',
+        semanticAlias: 'border/tertiary',
+        appliesTo: 'State=Default, Filled, Disabled',
+        notes: 'Underline baseline.',
+      },
+      {
+        componentToken: 'ds/input-password/color/border/interactive',
+        semanticAlias: 'border/brand-tertiary',
+        appliesTo: 'State=Focus, Typing',
+        notes: 'Underline active color.',
+      },
+      {
+        componentToken: 'ds/input-password/color/border/error',
+        semanticAlias: 'border/error2',
+        appliesTo: 'State=Error',
+        notes: 'Validation underline color.',
+      },
+    ],
+  },
+  {
+    title: 'Password · Text + Icon',
+    description:
+      'Password text, caret, and eye icon are all bound to semantic aliases to match hide/unhide variants without hardcoded component colors.',
+    rows: [
+      {
+        componentToken: 'ds/input-password/color/text/title',
+        semanticAlias: 'text/primary4',
+        appliesTo: 'Title row + default placeholder',
+        notes: '12px title and default placeholder color.',
+      },
+      {
+        componentToken: 'ds/input-password/color/text/content',
+        semanticAlias: 'text/primary',
+        appliesTo: 'State=Typing, Filled, Error',
+        notes: 'Main password text (masked or unmasked).',
+      },
+      {
+        componentToken: 'ds/input-password/color/text/cursor',
+        semanticAlias: 'text/brand-tertiary2',
+        appliesTo: 'State=Focus, Typing',
+        notes: 'Caret color.',
+      },
+      {
+        componentToken: 'ds/input-password/color/text/disabled',
+        semanticAlias: 'text/disable1',
+        appliesTo: 'State=Disabled',
+        notes: 'Disabled text contrast.',
+      },
+      {
+        componentToken: 'ds/input-password/color/icon/toggle',
+        semanticAlias: 'icon/brand-primary1',
+        appliesTo: 'Hide + Unhide icon',
+        notes: 'Eye icon color.',
       },
     ],
   },
@@ -631,7 +790,7 @@ export const INPUT_SPACING_RULES = [
 ];
 
 export const INPUT_VARIABLE_NOTES: string[] = [
-  'This page documents only `input/basic` from the Input family outline.',
+  'This page documents `input/basic`, `input/password`, and `input/textarea` from the Input family outline.',
   'State axis is normalized to machine-friendly values: default, hover, focus, typing, filled, error, disabled, error-typing, error-filled.',
   'Production API is recommended to expose `status` + `disabled`, then derive visual `state` internally for consistency.',
   'Do not alter geometry, typography, or visual token mapping unless the Figma source component is updated.',

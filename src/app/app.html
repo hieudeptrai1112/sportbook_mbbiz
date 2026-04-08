@@ -463,7 +463,7 @@
                 <div class="button-demo-preview input-demo-preview">
                   <ng-container *ngIf="isInputInteractiveSection(demo); else inputStaticPreview">
                     <div class="input-demo-playground">
-                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else interactiveTextAreaPreview">
+                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else interactivePasswordOrTextAreaPreview">
                         <app-ds-input-basic
                           [interactive]="true"
                           [interactiveMode]="demo.interactiveMode ?? 'default'"
@@ -477,6 +477,25 @@
                           [width]="demo.interactiveWidth ?? 350"
                         />
                       </ng-container>
+                      <ng-template #interactivePasswordOrTextAreaPreview>
+                        <ng-container *ngIf="isInputDemoComponent(demo, 'input-password'); else interactiveTextAreaPreview">
+                          <app-ds-input-password
+                            [interactive]="true"
+                            [interactiveMode]="demo.interactiveMode ?? 'default'"
+                            [title]="demo.interactiveTitle ?? 'Title'"
+                            [contentMode]="demo.interactiveContentMode ?? 'hide'"
+                            [width]="demo.interactiveWidth ?? 307"
+                          />
+                          <app-ds-input-password
+                            *ngIf="demo.showDisabledCompanion"
+                            [value]="demo.disabledCompanionValue ?? 'Input text'"
+                            state="disabled"
+                            [title]="demo.interactiveTitle ?? 'Title'"
+                            [contentMode]="demo.disabledCompanionContentMode ?? demo.interactiveContentMode ?? 'hide'"
+                            [width]="demo.interactiveWidth ?? 307"
+                          />
+                        </ng-container>
+                      </ng-template>
                       <ng-template #interactiveTextAreaPreview>
                         <app-ds-text-area
                           [interactive]="true"
@@ -497,7 +516,7 @@
                   </ng-container>
 
                   <ng-template #inputStaticPreview>
-                    <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else staticTextAreaPreview">
+                    <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else staticPasswordOrTextAreaPreview">
                       <app-ds-input-basic
                         *ngFor="let action of demo.actions"
                         [value]="action.value"
@@ -506,6 +525,18 @@
                         [width]="action.width ?? null"
                       />
                     </ng-container>
+                    <ng-template #staticPasswordOrTextAreaPreview>
+                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-password'); else staticTextAreaPreview">
+                        <app-ds-input-password
+                          *ngFor="let action of demo.actions"
+                          [value]="action.value"
+                          [state]="action.state"
+                          [title]="action.title ?? 'Title'"
+                          [contentMode]="action.contentMode ?? 'hide'"
+                          [width]="action.width ?? 307"
+                        />
+                      </ng-container>
+                    </ng-template>
                     <ng-template #staticTextAreaPreview>
                       <app-ds-text-area
                         *ngFor="let action of demo.actions"

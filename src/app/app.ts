@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
 import { DsButtonComponent } from './components/ds-button/ds-button.component';
 import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';
+import { DsInputPasswordComponent } from './components/ds-input-password/ds-input-password.component';
 import { DsTextAreaComponent } from './components/ds-text-area/ds-text-area.component';
 import {
   SEMANTIC_BACKGROUND_FIGMA_ORDER,
@@ -103,7 +104,13 @@ interface ResolvedInputSemanticBindingGroup {
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, DsButtonComponent, DsInputBasicComponent, DsTextAreaComponent],
+  imports: [
+    CommonModule,
+    DsButtonComponent,
+    DsInputBasicComponent,
+    DsInputPasswordComponent,
+    DsTextAreaComponent,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -432,14 +439,22 @@ export class App {
 
   protected getInputCodeLanguageLabel(section: InputDemoSection): string {
     if (this.inputCodeType() === 'js') {
-      return section.component === 'text-area'
-        ? 'app-textarea-demo.component.html'
-        : 'app-input-basic-demo.component.html';
+      if (section.component === 'text-area') {
+        return 'app-textarea-demo.component.html';
+      }
+      if (section.component === 'input-password') {
+        return 'app-input-password-demo.component.html';
+      }
+      return 'app-input-basic-demo.component.html';
     }
 
-    return section.component === 'text-area'
-      ? 'textarea-demo.component.ts'
-      : 'input-basic-demo.component.ts';
+    if (section.component === 'text-area') {
+      return 'textarea-demo.component.ts';
+    }
+    if (section.component === 'input-password') {
+      return 'input-password-demo.component.ts';
+    }
+    return 'input-basic-demo.component.ts';
   }
 
   protected async copyInputDemoCode(section: InputDemoSection) {
@@ -821,16 +836,35 @@ ${actionRows}
   }
 
   private buildInputTypeScriptSnippet(section: InputDemoSection): string {
+    const isPassword = section.component === 'input-password';
     const isTextArea = section.component === 'text-area';
-    const componentClass = isTextArea ? 'DsTextAreaComponent' : 'DsInputBasicComponent';
-    const componentSelector = isTextArea ? 'app-ds-text-area' : 'app-ds-input-basic';
+    const componentClass = isTextArea
+      ? 'DsTextAreaComponent'
+      : isPassword
+        ? 'DsInputPasswordComponent'
+        : 'DsInputBasicComponent';
+    const componentSelector = isTextArea
+      ? 'app-ds-text-area'
+      : isPassword
+        ? 'app-ds-input-password'
+        : 'app-ds-input-basic';
     const componentImportPath = isTextArea
       ? './components/ds-text-area/ds-text-area.component'
-      : './components/ds-input-basic/ds-input-basic.component';
-    const componentDemoName = isTextArea ? 'TextareaDemoComponent' : 'InputBasicDemoComponent';
-    const componentDemoSelector = isTextArea ? 'app-textarea-demo' : 'app-input-basic-demo';
+      : isPassword
+        ? './components/ds-input-password/ds-input-password.component'
+        : './components/ds-input-basic/ds-input-basic.component';
+    const componentDemoName = isTextArea
+      ? 'TextareaDemoComponent'
+      : isPassword
+        ? 'InputPasswordDemoComponent'
+        : 'InputBasicDemoComponent';
+    const componentDemoSelector = isTextArea
+      ? 'app-textarea-demo'
+      : isPassword
+        ? 'app-input-password-demo'
+        : 'app-input-basic-demo';
     const defaultPlaceholder = isTextArea ? 'Input text' : 'Enter something';
-    const defaultWidth = isTextArea ? 250 : 350;
+    const defaultWidth = isTextArea ? 250 : isPassword ? 307 : 350;
 
     const actionRows = section.actions
       .map((action) => {
@@ -838,6 +872,12 @@ ${actionRows}
           `value: '${this.escapeForSingleQuote(action.value)}'`,
           `state: '${action.state}'`,
         ];
+        if (isPassword && action.title) {
+          parts.push(`title: '${this.escapeForSingleQuote(action.title)}'`);
+        }
+        if (isPassword && action.contentMode) {
+          parts.push(`contentMode: '${action.contentMode}'`);
+        }
         if (action.placeholder) {
           parts.push(`placeholder: '${this.escapeForSingleQuote(action.placeholder)}'`);
         }
@@ -864,8 +904,13 @@ import { ${componentClass} } from '${componentImportPath}';
       <${componentSelector}
         *ngFor="let action of actions"
         [value]="action.value"
-        [state]="action.state"
-        [placeholder]="action.placeholder ?? '${defaultPlaceholder}'"
+        [state]="action.state"${
+          isPassword ? "\n        [title]=\"action.title ?? 'Title'\"" : ''
+        }${
+          isPassword ? "\n        [contentMode]=\"action.contentMode ?? 'hide'\"" : ''
+        }${
+          !isPassword ? `\n        [placeholder]="action.placeholder ?? '${defaultPlaceholder}'"` : ''
+        }
         [width]="action.width ?? ${defaultWidth}"${
           isTextArea ? '\n        [maxLength]="action.maxLength ?? 100"' : ''
         }
@@ -944,7 +989,7 @@ ${actionRows}
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsTextAreaComponent|DsTextAreaState)\b/g,
+      /\b(Component|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsTextAreaComponent|DsTextAreaState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');
