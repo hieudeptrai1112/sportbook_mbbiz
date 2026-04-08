@@ -2,7 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
 import { DsButtonComponent } from './components/ds-button/ds-button.component';
 import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';
-import { DsInputPasswordComponent } from './components/ds-input-password/ds-input-password.component';
+import {
+  DsInputPasswordComponent,
+  type DsInputPasswordState,
+} from './components/ds-input-password/ds-input-password.component';
 import { DsTextAreaComponent } from './components/ds-text-area/ds-text-area.component';
 import {
   SEMANTIC_BACKGROUND_FIGMA_ORDER,
@@ -48,6 +51,7 @@ import {
   type InputApiRow,
   type InputCodeType,
   type InputDemoSection,
+  type InputDemoState,
   type InputStateContractRow,
   type InputSemanticBindingGroup,
   type InputVariableGroup,
@@ -263,6 +267,20 @@ export class App {
     component: InputDemoComponent,
   ): boolean {
     return section.component === component;
+  }
+
+  protected asPasswordState(state: InputDemoState): DsInputPasswordState {
+    switch (state) {
+      case 'default':
+      case 'focus':
+      case 'typing':
+      case 'filled':
+      case 'error':
+      case 'disabled':
+        return state;
+      default:
+        return 'default';
+    }
   }
 
   protected toggleTocCollapsed() {

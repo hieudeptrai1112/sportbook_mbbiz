@@ -530,7 +530,7 @@
                         <app-ds-input-password
                           *ngFor="let action of demo.actions"
                           [value]="action.value"
-                          [state]="action.state"
+                          [state]="asPasswordState(action.state)"
                           [title]="action.title ?? 'Title'"
                           [contentMode]="action.contentMode ?? 'hide'"
                           [width]="action.width ?? 307"
