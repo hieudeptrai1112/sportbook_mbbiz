@@ -4,6 +4,7 @@
 Create Input documentation that matches the Button page UX contract, while scaling like Arco/Antd input families.
 Preserve component visuals from Figma source components exactly (no geometry or style reinterpretation in docs).
 Use `docs/commands/component-demo-codebox-checklist.md` for demo/snippet implementation details.
+Before publish, re-check alias token mapping on Figma target nodes and confirm color values in docs match current Figma variables.
 
 ## Scope (Input Family Split)
 Use one parent family `Input` and document these child components:
@@ -54,7 +55,7 @@ Never use ambiguous keys like `type` for layout composition.
    - Visual states for each relevant axis.
    - For `input/basic`, keep Arco-like order inside demos:
      - `Basic` (neutral interaction states)
-     - `Status` (error/disabled branch)
+     - `Status` (merged error interactive branch + disabled sample)
      - Optional extended matrix only if it adds non-duplicated behavior.
 4. `Variants`
    - Child component blocks (`basic`, `search`, `password`, etc).
@@ -88,6 +89,7 @@ For Input family pages, include at least:
 - Verification input with `timeout` and retry flow.
 
 Each snippet must match the visible demo state and run after paste with minimal edits.
+Do not output static-only snippets for interactive sections; include event handlers and state transitions used by preview.
 
 ## Slot Contract (Code)
 Treat prefix/suffix as dynamic projected content, not fixed icon/text.

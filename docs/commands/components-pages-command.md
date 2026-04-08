@@ -12,6 +12,7 @@ Every new component page must follow the same UX contract as the current Button 
 - Do not redesign the global shell (top nav, left sidebar, right anchor column, layout widths, theme switch behavior).
 - Keep existing visual language consistent (spacing rhythm, typography hierarchy, table style, code card style).
 - Do not change component UI that comes from Figma source of truth. Doc demos must preserve Figma geometry, typography, and visual tokens.
+- Before publishing, verify token alias names and values against Figma variables for the target node (including Light/Dark if the component supports both).
 - Do not add fictional stories or misleading examples. All examples must be realistic and implementable.
 - New components must plug into the same page framework used by Button; do not create a one-off page pattern.
 - `Preview` always means real interactive rendering: no static mockup-only previews for interactive components.
@@ -22,7 +23,8 @@ Every new component page must follow the same UX contract as the current Button 
    - Divider line between header and body (Arco-like separation).
 2. `Variant Demo Sections`
    - Section title, short intent text, token tags.
-   - Live preview card with required states/variants.
+   - Live preview card with required states/variants rendered by the real component.
+   - If state is interaction-driven (focus/typing/filled/error transitions), the preview must expose actual interaction controls or direct user interaction.
    - Demo controls: toggle code, copy, language switch.
 3. `API`
    - Standard API table: Property, Description, Type, Default.
@@ -48,6 +50,11 @@ Every new component page must follow the same UX contract as the current Button 
 - Provide both `HTML` and `TS` snippets for each important demo.
 - At least one snippet must include real interaction logic (state change, event handlers, toggles, async/loading if relevant) so devs can copy and run immediately.
 - Snippets must stay aligned with the shown preview state/behavior.
+- Snippets must be runnable, not pseudo code:
+  - include required imports,
+  - include required component/class definitions,
+  - include the minimum state/handler logic used by the preview.
+- If preview behavior is merged (for example one interactive error preview + one disabled sample), snippets must follow the same merged structure.
 - Syntax highlighting style can be improved, but snippet content must remain accurate.
 
 ## Table Contracts
@@ -82,8 +89,9 @@ Every new component page must follow the same UX contract as the current Button 
 - [ ] Global shell UI is unchanged.
 - [ ] Page structure matches Button baseline.
 - [ ] Required sections are complete and ordered.
-- [ ] Variant demos include required states and real behavior.
-- [ ] Copy-ready snippets include both HTML and TS where needed.
+- [ ] Variant demos include required states and real behavior (real component render, not static mockup).
+- [ ] Figma visual fidelity verified: geometry + typography + color tokens match target node variables.
+- [ ] Copy-ready snippets include both HTML and TS where needed and run immediately after paste with minimal setup.
 - [ ] API table is complete and consistent.
 - [ ] Component Token tables follow the defined column contracts.
 - [ ] Anchor behavior and truncation match the standard pattern.
