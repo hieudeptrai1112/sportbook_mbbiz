@@ -1,0 +1,60 @@
+<div
+  class="{{ classes() }}"
+  [style.width.px]="width()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
+  <div class="ds-input-search__content">
+    @if (interactive()) {
+      <input
+        class="ds-input-search__native"
+        type="text"
+        [value]="nativeValue()"
+        [attr.placeholder]="placeholder()"
+        (input)="onInput($event)"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+      />
+    } @else {
+      @if (showCursor() && displayValue()) {
+        <span class="{{ textClass() }}">{{ displayValue() }}</span>
+        <span class="ds-input-search__cursor" aria-hidden="true">|</span>
+      } @else if (showCursor()) {
+        <span class="ds-input-search__cursor" aria-hidden="true">|</span>
+      } @else {
+        <span class="{{ textClass() }}">{{ displayText() }}</span>
+      }
+    }
+  </div>
+
+  @if (showClearIcon()) {
+    @if (interactive()) {
+      <button
+        type="button"
+        class="ds-input-search__icon ds-input-search__icon--clear"
+        (mousedown)="$event.preventDefault()"
+        (click)="clearInput($event)"
+        aria-label="Clear search value"
+      >
+        <svg viewBox="0 0 20 20" aria-hidden="true">
+          <path d="M6 6L14 14" />
+          <path d="M14 6L6 14" />
+        </svg>
+      </button>
+    } @else {
+      <span class="ds-input-search__icon ds-input-search__icon--clear" aria-hidden="true">
+        <svg viewBox="0 0 20 20">
+          <path d="M6 6L14 14" />
+          <path d="M14 6L6 14" />
+        </svg>
+      </span>
+    }
+  }
+
+  <span class="ds-input-search__icon ds-input-search__icon--search" aria-hidden="true">
+    <svg viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="5.5" />
+      <path d="M16 16L20 20" />
+    </svg>
+  </span>
+</div>

@@ -1,0 +1,167 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.ds-input-search {
+  align-items: center;
+  background: var(--color-semantic-background-primary, #ffffff);
+  border: 1px solid var(--color-semantic-border-brand-primary3, #a3b7fd);
+  border-radius: var(--ds-input-search-radius-default, 4px);
+  box-sizing: border-box;
+  color: var(--color-semantic-text-tertiary, #9bafc8);
+  display: inline-flex;
+  font-family: "Averta Std CY", "Inter", "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  gap: var(--ds-input-search-spacing-xs, 4px);
+  height: var(--ds-input-search-height-default, 52px);
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  min-width: var(--ds-input-search-width-default, 250px);
+  padding: var(--ds-input-search-padding-y-default, 16px)
+    var(--ds-input-search-padding-x-default, 12px);
+  transition: border-color 140ms ease, color 140ms ease;
+}
+
+.ds-input-search__content {
+  align-items: center;
+  display: inline-flex;
+  flex: 1 1 auto;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ds-input-search__native {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  caret-color: var(--color-semantic-text-brand-tertiary2, #52dddd);
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  padding: 0;
+}
+
+.ds-input-search__native::placeholder {
+  color: var(--color-semantic-text-tertiary, #9bafc8);
+}
+
+.ds-input-search__text,
+.ds-input-search__cursor {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+}
+
+.ds-input-search__text {
+  color: inherit;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ds-input-search__text--placeholder {
+  color: var(--color-semantic-text-tertiary, #9bafc8);
+}
+
+.ds-input-search__text--primary {
+  color: var(--color-semantic-text-primary, #192d39);
+}
+
+.ds-input-search__text--disabled {
+  color: var(--color-semantic-text-disable1, #808080);
+}
+
+.ds-input-search__cursor {
+  color: var(--color-semantic-text-brand-tertiary2, #52dddd);
+}
+
+.ds-input-search__icon {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--color-semantic-icon-brand-primary1, #141ed2);
+  display: inline-flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+}
+
+.ds-input-search__icon svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-input-search__icon--clear {
+  height: var(--ds-input-search-iconsize-clear, 20px);
+  width: var(--ds-input-search-iconsize-clear, 20px);
+}
+
+.ds-input-search__icon--clear svg {
+  stroke-width: 1.8;
+}
+
+.ds-input-search__icon--search {
+  height: var(--ds-input-search-iconsize-search, 24px);
+  width: var(--ds-input-search-iconsize-search, 24px);
+}
+
+.ds-input-search__icon--search svg {
+  stroke-width: 1.9;
+}
+
+button.ds-input-search__icon {
+  cursor: pointer;
+}
+
+.ds-input-search--state-default {
+  border-color: var(--color-semantic-border-brand-primary3, #a3b7fd);
+  color: var(--color-semantic-text-tertiary, #9bafc8);
+}
+
+.ds-input-search--state-hover,
+.ds-input-search--state-focus,
+.ds-input-search--state-typing {
+  border-color: var(--color-semantic-border-brand-tertiary, #52dddd);
+}
+
+.ds-input-search--state-filled {
+  border-color: var(--color-semantic-border-brand-primary3, #a3b7fd);
+}
+
+.ds-input-search--state-typing,
+.ds-input-search--state-filled,
+.ds-input-search--state-error,
+.ds-input-search--state-error-typing,
+.ds-input-search--state-error-filled {
+  color: var(--color-semantic-text-primary, #192d39);
+}
+
+.ds-input-search--state-error,
+.ds-input-search--state-error-typing,
+.ds-input-search--state-error-filled {
+  border-color: var(--color-semantic-border-error2, #f34343);
+}
+
+.ds-input-search--state-disabled {
+  border-color: var(--color-semantic-background-disable1, #cccccc);
+  color: var(--color-semantic-text-disable1, #808080);
+}
+
+@media (max-width: 760px) {
+  .ds-input-search {
+    min-width: 100%;
+    width: 100%;
+  }
+}

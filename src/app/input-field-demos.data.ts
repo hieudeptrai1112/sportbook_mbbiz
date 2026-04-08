@@ -3,6 +3,10 @@ import type {
   DsInputBasicState,
 } from './components/ds-input-basic/ds-input-basic.component';
 import type {
+  DsInputSearchInteractiveMode,
+  DsInputSearchState,
+} from './components/ds-input-search/ds-input-search.component';
+import type {
   DsTextAreaInteractiveMode,
   DsTextAreaState,
 } from './components/ds-text-area/ds-text-area.component';
@@ -13,10 +17,19 @@ import type {
 } from './components/ds-input-password/ds-input-password.component';
 
 export type InputCodeType = 'js' | 'ts';
-export type InputDemoComponent = 'input-basic' | 'text-area' | 'input-password';
-export type InputDemoState = DsInputBasicState | DsTextAreaState | DsInputPasswordState;
+export type InputDemoComponent =
+  | 'input-basic'
+  | 'input-search'
+  | 'text-area'
+  | 'input-password';
+export type InputDemoState =
+  | DsInputBasicState
+  | DsInputSearchState
+  | DsTextAreaState
+  | DsInputPasswordState;
 export type InputDemoInteractiveMode =
   | DsInputBasicInteractiveMode
+  | DsInputSearchInteractiveMode
   | DsTextAreaInteractiveMode
   | DsInputPasswordInteractiveMode;
 
@@ -168,6 +181,76 @@ import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basi
   \`,
 })
 export class InputBasicStatusDemoComponent {}`,
+  },
+  {
+    id: 'search-basic',
+    component: 'input-search',
+    title: 'Search · Basic',
+    description:
+      'Interactive baseline for input/search from Figma. Preview supports default, hover, focus, typing, and filled with live input behavior.',
+    tags: ['variant=input/search', 'states=default/hover/focus/typing/filled', 'size=250 x 52'],
+    interactive: true,
+    interactiveStates: ['default', 'hover', 'focus', 'typing', 'filled'],
+    interactiveMode: 'default',
+    interactivePlaceholder: 'Input text',
+    interactiveWidth: 250,
+    actions: [{ value: '', state: 'default', placeholder: 'Input text', width: 250 }],
+    codeJs: `<app-ds-input-search [interactive]="true" placeholder="Input text" [width]="250" />`,
+    codeTs: `import { DsInputSearchComponent } from './components/ds-input-search/ds-input-search.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-input-search [interactive]="true" placeholder="Input text" [width]="250" />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsInputSearchComponent } from './components/ds-input-search/ds-input-search.component';
+
+@Component({
+  selector: 'app-input-search-demo',
+  standalone: true,
+  imports: [DsInputSearchComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-input-search [interactive]="true" placeholder="Input text" [width]="250" />
+    </section>
+  \`,
+})
+export class InputSearchDemoComponent {}`,
+  },
+  {
+    id: 'search-status',
+    component: 'input-search',
+    title: 'Search · Status',
+    description:
+      'Status-driven branch from Figma. Error states are merged into one interactive preview while disabled remains a separate locked sample.',
+    tags: ['status=error/disabled', 'states=error/error-typing/error-filled + disabled', 'size=250 x 52'],
+    interactive: true,
+    interactiveMode: 'error',
+    interactivePlaceholder: 'Input text',
+    interactiveWidth: 250,
+    showDisabledCompanion: true,
+    disabledCompanionValue: 'Input text',
+    actions: [{ value: 'Input text', state: 'disabled', width: 250 }],
+    codeJs: `<app-ds-input-search [interactive]="true" interactiveMode="error" placeholder="Input text" [width]="250" />
+<app-ds-input-search value="Input text" state="disabled" [width]="250" />`,
+    codeTs: `import { DsInputSearchComponent } from './components/ds-input-search/ds-input-search.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-input-search [interactive]="true" interactiveMode="error" placeholder="Input text" [width]="250" />
+  <app-ds-input-search value="Input text" state="disabled" [width]="250" />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsInputSearchComponent } from './components/ds-input-search/ds-input-search.component';
+
+@Component({
+  selector: 'app-input-search-status-demo',
+  standalone: true,
+  imports: [DsInputSearchComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-input-search [interactive]="true" interactiveMode="error" placeholder="Input text" [width]="250" />
+      <app-ds-input-search value="Input text" state="disabled" [width]="250" />
+    </section>
+  \`,
+})
+export class InputSearchStatusDemoComponent {}`,
   },
   {
     id: 'password-basic',
@@ -327,7 +410,8 @@ export class TextareaStatusDemoComponent {}`,
 export const INPUT_API_ROWS: InputApiRow[] = [
   {
     property: 'value',
-    description: 'Displayed value in field area. Used by both Input/basic and Textarea.',
+    description:
+      'Displayed value in field area. Used by Input/basic, input/search, input/password, and input/textarea.',
     type: 'string',
     defaultValue: "''",
   },
@@ -340,9 +424,9 @@ export const INPUT_API_ROWS: InputApiRow[] = [
   },
   {
     property: 'placeholder',
-    description: 'Placeholder text shown when value is empty (Input/basic and Textarea).',
+    description: 'Placeholder text shown when value is empty (Input/basic, input/search, and input/textarea).',
     type: 'string',
-    defaultValue: "'Enter something' (Input/basic), 'Input text' (Textarea)",
+    defaultValue: "'Enter something' (Input/basic), 'Input text' (input/search + Textarea)",
   },
   {
     property: 'title (Password)',
@@ -360,7 +444,7 @@ export const INPUT_API_ROWS: InputApiRow[] = [
     property: 'width',
     description: 'Fixed width in docs preview.',
     type: 'number',
-    defaultValue: '250 (Textarea), 307 (Password), 350 in interactive Input/basic demos',
+    defaultValue: '250 (input/search + Textarea), 307 (Password), 350 in interactive Input/basic demos',
   },
   {
     property: 'interactive',
@@ -512,6 +596,86 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
         semanticAlias: 'text/disable1',
         appliesTo: 'State=Disabled',
         notes: 'Disabled text contrast.',
+      },
+    ],
+  },
+  {
+    title: 'Search · Surface + Border',
+    description:
+      'Input/search keeps the same surface model as Input/basic and swaps border aliases by interaction, error, and disabled states.',
+    rows: [
+      {
+        componentToken: 'ds/input-search/color/background/default',
+        semanticAlias: 'background/primary',
+        appliesTo: 'All states',
+        notes: 'Base surface for search field.',
+      },
+      {
+        componentToken: 'ds/input-search/color/border/default',
+        semanticAlias: 'border/brand-primary3',
+        appliesTo: 'State=Default, Filled',
+        notes: 'Base border.',
+      },
+      {
+        componentToken: 'ds/input-search/color/border/interactive',
+        semanticAlias: 'border/brand-tertiary',
+        appliesTo: 'State=Hover, Focus, Typing',
+        notes: 'Interactive border for hover/focus/typing.',
+      },
+      {
+        componentToken: 'ds/input-search/color/border/error',
+        semanticAlias: 'border/error2',
+        appliesTo: 'State=Error, Error Typing, Error Filled',
+        notes: 'Validation border in error branch.',
+      },
+      {
+        componentToken: 'ds/input-search/color/border/disabled',
+        semanticAlias: 'background/disable1',
+        appliesTo: 'State=Disabled',
+        notes: 'Figma maps disabled border to disable background alias.',
+      },
+    ],
+  },
+  {
+    title: 'Search · Text + Icon',
+    description:
+      'Input/search text, cursor, search icon, and clear icon are bound to semantic aliases so preview and implementation stay in sync.',
+    rows: [
+      {
+        componentToken: 'ds/input-search/color/text/placeholder',
+        semanticAlias: 'text/tertiary',
+        appliesTo: 'State=Default, Hover, Focus',
+        notes: 'Placeholder text.',
+      },
+      {
+        componentToken: 'ds/input-search/color/text/content',
+        semanticAlias: 'text/primary',
+        appliesTo: 'State=Typing, Filled, Error, Error Typing, Error Filled',
+        notes: 'Content text color.',
+      },
+      {
+        componentToken: 'ds/input-search/color/text/cursor',
+        semanticAlias: 'text/brand-tertiary2',
+        appliesTo: 'State=Focus, Typing, Error Typing',
+        notes: 'Caret color.',
+      },
+      {
+        componentToken: 'ds/input-search/color/text/disabled',
+        semanticAlias: 'text/disable1',
+        appliesTo: 'State=Disabled',
+        notes: 'Disabled text color.',
+      },
+      {
+        componentToken: 'ds/input-search/color/icon/search',
+        semanticAlias: 'icon/brand-primary1',
+        appliesTo: 'All states',
+        notes: 'Suffix search icon color.',
+      },
+      {
+        componentToken: 'ds/input-search/color/icon/clear',
+        semanticAlias: 'icon/brand-primary1',
+        appliesTo: 'State=Typing',
+        notes: 'Clear icon appears only during typing state.',
       },
     ],
   },
@@ -709,6 +873,66 @@ export const INPUT_VARIABLE_GROUPS: InputVariableGroup[] = [
     ],
   },
   {
+    title: 'Search Core Layout',
+    description: 'Non-color variables extracted from input/search Figma component set.',
+    rows: [
+      {
+        token: 'ds/input-search/width/default',
+        value: '250',
+        appliesTo: 'All states',
+        notes: 'Fixed field width.',
+      },
+      {
+        token: 'ds/input-search/height/default',
+        value: '52',
+        appliesTo: 'All states',
+        notes: 'Fixed field height.',
+      },
+      {
+        token: 'ds/input-search/padding/default',
+        value: '12 x 16',
+        appliesTo: 'Input wrapper',
+        notes: 'Horizontal and vertical inner padding.',
+      },
+      {
+        token: 'ds/input-search/radius/default',
+        value: '4',
+        appliesTo: 'Container',
+        notes: 'Container corner radius.',
+      },
+      {
+        token: 'ds/input-search/spacing/xs',
+        value: '4',
+        appliesTo: 'Text and icon wrapper',
+        notes: 'Gap used inside input wrapper.',
+      },
+      {
+        token: 'ds/input-search/iconsize/search',
+        value: '24',
+        appliesTo: 'Suffix search icon',
+        notes: 'Search icon size token.',
+      },
+      {
+        token: 'ds/input-search/iconsize/clear',
+        value: '20',
+        appliesTo: 'Clear icon in typing state',
+        notes: 'Clear icon size token.',
+      },
+    ],
+  },
+  {
+    title: 'Search Typography Styles',
+    description: 'Typography style used by input/search text and placeholder states.',
+    rows: [
+      {
+        token: 'Body Copy (Data & Nav)/Normal/14-Regular',
+        value: 'Averta Std CY, 14 / 20, 400, letter-spacing 0.25',
+        appliesTo: 'Input text / placeholder / typing content',
+        notes: 'Shared text style for search input.',
+      },
+    ],
+  },
+  {
     title: 'Textarea Core Layout',
     description: 'Non-color variables extracted from input/textarea Figma component set.',
     rows: [
@@ -784,13 +1008,13 @@ export const INPUT_ACCESSIBILITY = [
 ];
 
 export const INPUT_SPACING_RULES = [
-  'Container width is 250 and height is 52 in the base Figma component.',
+  'Container width is 250 and height is 52 in base Input/basic and input/search Figma components.',
   'Use horizontal padding 12 and vertical padding 16 without additional internal wrappers.',
-  'Keep 4px gap between typed value and cursor indicator for typing states.',
+  'Keep 4px gap between content and icon/cursor area in typing states.',
 ];
 
 export const INPUT_VARIABLE_NOTES: string[] = [
-  'This page documents `input/basic`, `input/password`, and `input/textarea` from the Input family outline.',
+  'This page documents `input/basic`, `input/search`, `input/password`, and `input/textarea` from the Input family outline.',
   'State axis is normalized to machine-friendly values: default, hover, focus, typing, filled, error, disabled, error-typing, error-filled.',
   'Production API is recommended to expose `status` + `disabled`, then derive visual `state` internally for consistency.',
   'Do not alter geometry, typography, or visual token mapping unless the Figma source component is updated.',

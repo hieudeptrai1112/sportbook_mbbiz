@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
 import { DsButtonComponent } from './components/ds-button/ds-button.component';
 import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';
+import { DsInputSearchComponent } from './components/ds-input-search/ds-input-search.component';
 import {
   DsInputPasswordComponent,
   type DsInputPasswordState,
@@ -110,6 +111,7 @@ interface ResolvedInputSemanticBindingGroup {
     CommonModule,
     DsButtonComponent,
     DsInputBasicComponent,
+    DsInputSearchComponent,
     DsInputPasswordComponent,
     DsTextAreaComponent,
   ],
@@ -453,6 +455,9 @@ export class App {
 
   protected getInputCodeLanguageLabel(section: InputDemoSection): string {
     if (this.inputCodeType() === 'js') {
+      if (section.component === 'input-search') {
+        return 'app-input-search-demo.component.html';
+      }
       if (section.component === 'text-area') {
         return 'app-textarea-demo.component.html';
       }
@@ -462,6 +467,9 @@ export class App {
       return 'app-input-basic-demo.component.html';
     }
 
+    if (section.component === 'input-search') {
+      return 'input-search-demo.component.ts';
+    }
     if (section.component === 'text-area') {
       return 'textarea-demo.component.ts';
     }

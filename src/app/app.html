@@ -433,8 +433,8 @@
               </div>
               <h1>Input Field</h1>
               <p class="lead">
-                Form text entry component with Arco-like docs structure: Basic demo first, Status
-                branch second, then API and token mapping for implementation.
+                Form text entry family from Figma including Input/basic, input/search,
+                input/password, and input/textarea with interactive preview, API, and token mapping.
               </p>
             </div>
 
@@ -463,7 +463,7 @@
                 <div class="button-demo-preview input-demo-preview">
                   <ng-container *ngIf="isInputInteractiveSection(demo); else inputStaticPreview">
                     <div class="input-demo-playground">
-                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else interactivePasswordOrTextAreaPreview">
+                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else interactiveSearchOrPasswordOrTextAreaPreview">
                         <app-ds-input-basic
                           [interactive]="true"
                           [interactiveMode]="demo.interactiveMode ?? 'default'"
@@ -477,6 +477,22 @@
                           [width]="demo.interactiveWidth ?? 350"
                         />
                       </ng-container>
+                      <ng-template #interactiveSearchOrPasswordOrTextAreaPreview>
+                        <ng-container *ngIf="isInputDemoComponent(demo, 'input-search'); else interactivePasswordOrTextAreaPreview">
+                          <app-ds-input-search
+                            [interactive]="true"
+                            [interactiveMode]="demo.interactiveMode ?? 'default'"
+                            [placeholder]="demo.interactivePlaceholder ?? 'Input text'"
+                            [width]="demo.interactiveWidth ?? 250"
+                          />
+                          <app-ds-input-search
+                            *ngIf="demo.showDisabledCompanion"
+                            [value]="demo.disabledCompanionValue ?? 'Input text'"
+                            state="disabled"
+                            [width]="demo.interactiveWidth ?? 250"
+                          />
+                        </ng-container>
+                      </ng-template>
                       <ng-template #interactivePasswordOrTextAreaPreview>
                         <ng-container *ngIf="isInputDemoComponent(demo, 'input-password'); else interactiveTextAreaPreview">
                           <app-ds-input-password
@@ -516,7 +532,7 @@
                   </ng-container>
 
                   <ng-template #inputStaticPreview>
-                    <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else staticPasswordOrTextAreaPreview">
+                    <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else staticSearchOrPasswordOrTextAreaPreview">
                       <app-ds-input-basic
                         *ngFor="let action of demo.actions"
                         [value]="action.value"
@@ -525,6 +541,17 @@
                         [width]="action.width ?? null"
                       />
                     </ng-container>
+                    <ng-template #staticSearchOrPasswordOrTextAreaPreview>
+                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-search'); else staticPasswordOrTextAreaPreview">
+                        <app-ds-input-search
+                          *ngFor="let action of demo.actions"
+                          [value]="action.value"
+                          [state]="action.state"
+                          [placeholder]="action.placeholder ?? 'Input text'"
+                          [width]="action.width ?? 250"
+                        />
+                      </ng-container>
+                    </ng-template>
                     <ng-template #staticPasswordOrTextAreaPreview>
                       <ng-container *ngIf="isInputDemoComponent(demo, 'input-password'); else staticTextAreaPreview">
                         <app-ds-input-password
