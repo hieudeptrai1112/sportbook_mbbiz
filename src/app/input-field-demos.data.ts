@@ -19,22 +19,30 @@ import type {
   DsInputFloatingLabelInteractiveMode,
   DsInputFloatingLabelState,
 } from './components/ds-input-floating-label/ds-input-floating-label.component';
+import type {
+  DsInputAffixInteractiveMode,
+  DsInputAffixMode,
+  DsInputAffixState,
+} from './components/ds-input-affix/ds-input-affix.component';
 
 export type InputCodeType = 'js' | 'ts';
 export type InputDemoComponent =
   | 'input-basic'
+  | 'input-affix'
   | 'input-search'
   | 'text-area'
   | 'input-password'
   | 'input-floating-label';
 export type InputDemoState =
   | DsInputBasicState
+  | DsInputAffixState
   | DsInputSearchState
   | DsTextAreaState
   | DsInputPasswordState
   | DsInputFloatingLabelState;
 export type InputDemoInteractiveMode =
   | DsInputBasicInteractiveMode
+  | DsInputAffixInteractiveMode
   | DsInputSearchInteractiveMode
   | DsTextAreaInteractiveMode
   | DsInputPasswordInteractiveMode
@@ -43,6 +51,7 @@ export type InputDemoInteractiveMode =
 export interface InputDemoAction {
   value: string;
   state: InputDemoState;
+  affixMode?: DsInputAffixMode;
   title?: string;
   contentMode?: DsInputPasswordContentMode;
   placeholder?: string;
@@ -60,6 +69,7 @@ export interface InputDemoSection {
   interactive?: boolean;
   interactiveStates?: InputDemoState[];
   interactiveMode?: InputDemoInteractiveMode;
+  interactiveAffixMode?: DsInputAffixMode;
   interactiveTitle?: string;
   interactiveContentMode?: DsInputPasswordContentMode;
   interactivePlaceholder?: string;
@@ -265,6 +275,116 @@ import { DsInputFloatingLabelComponent } from './components/ds-input-floating-la
   \`,
 })
 export class InputFloatingLabelStatusDemoComponent {}`,
+  },
+  {
+    id: 'affix-basic',
+    component: 'input-affix',
+    title: 'Affix · Basic',
+    description:
+      'Interactive baseline for input/affix from Figma. Preview supports default, hover, focus, typing, and filled with real input behavior.',
+    tags: ['variant=input/affix', 'affixMode=prefix', 'states=default/hover/focus/typing/filled', 'size=250 x 52'],
+    interactive: true,
+    interactiveStates: ['default', 'hover', 'focus', 'typing', 'filled'],
+    interactiveMode: 'default',
+    interactiveAffixMode: 'prefix',
+    interactivePlaceholder: 'Input text',
+    interactiveWidth: 250,
+    actions: [{ value: '', state: 'default', affixMode: 'prefix', placeholder: 'Input text', width: 250 }],
+    codeJs: `<app-ds-input-affix [interactive]="true" affixMode="prefix" placeholder="Input text" [width]="250" />`,
+    codeTs: `import { DsInputAffixComponent } from './components/ds-input-affix/ds-input-affix.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-input-affix [interactive]="true" affixMode="prefix" placeholder="Input text" [width]="250" />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsInputAffixComponent } from './components/ds-input-affix/ds-input-affix.component';
+
+@Component({
+  selector: 'app-input-affix-demo',
+  standalone: true,
+  imports: [DsInputAffixComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-input-affix [interactive]="true" affixMode="prefix" placeholder="Input text" [width]="250" />
+    </section>
+  \`,
+})
+export class InputAffixDemoComponent {}`,
+  },
+  {
+    id: 'affix-modes',
+    component: 'input-affix',
+    title: 'Affix · Prefix / Suffix / Both',
+    description:
+      'Composition axis from Figma. Prefix and suffix can host text or icon content; this matrix shows the three default mode variants.',
+    tags: ['affixMode=prefix/suffix/both', 'state=default', 'size=250 x 52'],
+    actions: [
+      { value: '', state: 'default', affixMode: 'prefix', placeholder: 'Input text', width: 250 },
+      { value: '', state: 'default', affixMode: 'suffix', placeholder: 'Input text', width: 250 },
+      { value: '', state: 'default', affixMode: 'both', placeholder: 'Input text', width: 250 },
+    ],
+    codeJs: `<app-ds-input-affix affixMode="prefix" placeholder="Input text" [width]="250" />
+<app-ds-input-affix affixMode="suffix" placeholder="Input text" [width]="250" />
+<app-ds-input-affix affixMode="both" placeholder="Input text" [width]="250" />`,
+    codeTs: `import { DsInputAffixComponent } from './components/ds-input-affix/ds-input-affix.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-input-affix affixMode="prefix" placeholder="Input text" [width]="250" />
+  <app-ds-input-affix affixMode="suffix" placeholder="Input text" [width]="250" />
+  <app-ds-input-affix affixMode="both" placeholder="Input text" [width]="250" />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsInputAffixComponent } from './components/ds-input-affix/ds-input-affix.component';
+
+@Component({
+  selector: 'app-input-affix-modes-demo',
+  standalone: true,
+  imports: [DsInputAffixComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-input-affix affixMode="prefix" placeholder="Input text" [width]="250" />
+      <app-ds-input-affix affixMode="suffix" placeholder="Input text" [width]="250" />
+      <app-ds-input-affix affixMode="both" placeholder="Input text" [width]="250" />
+    </section>
+  \`,
+})
+export class InputAffixModesDemoComponent {}`,
+  },
+  {
+    id: 'affix-status',
+    component: 'input-affix',
+    title: 'Affix · Status',
+    description:
+      'Status branch from Figma. Error states are merged into one interactive preview while disabled remains a separate locked sample.',
+    tags: ['status=error/disabled', 'states=error/error-typing/error-filled + disabled', 'affixMode=prefix', 'size=250 x 52'],
+    interactive: true,
+    interactiveMode: 'error',
+    interactiveAffixMode: 'prefix',
+    interactivePlaceholder: 'Input text',
+    interactiveWidth: 250,
+    showDisabledCompanion: true,
+    disabledCompanionValue: 'Input text',
+    actions: [{ value: 'Input text', state: 'disabled', affixMode: 'prefix', placeholder: 'Input text', width: 250 }],
+    codeJs: `<app-ds-input-affix [interactive]="true" interactiveMode="error" affixMode="prefix" placeholder="Input text" [width]="250" />
+<app-ds-input-affix value="Input text" state="disabled" affixMode="prefix" placeholder="Input text" [width]="250" />`,
+    codeTs: `import { DsInputAffixComponent } from './components/ds-input-affix/ds-input-affix.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-input-affix [interactive]="true" interactiveMode="error" affixMode="prefix" placeholder="Input text" [width]="250" />
+  <app-ds-input-affix value="Input text" state="disabled" affixMode="prefix" placeholder="Input text" [width]="250" />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsInputAffixComponent } from './components/ds-input-affix/ds-input-affix.component';
+
+@Component({
+  selector: 'app-input-affix-status-demo',
+  standalone: true,
+  imports: [DsInputAffixComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-input-affix [interactive]="true" interactiveMode="error" affixMode="prefix" placeholder="Input text" [width]="250" />
+      <app-ds-input-affix value="Input text" state="disabled" affixMode="prefix" placeholder="Input text" [width]="250" />
+    </section>
+  \`,
+})
+export class InputAffixStatusDemoComponent {}`,
   },
   {
     id: 'search-basic',
@@ -513,6 +633,20 @@ export const INPUT_API_ROWS: InputApiRow[] = [
     type: 'string',
     defaultValue:
       "'Enter something' (Input/basic), 'Input text' (input/floating-label + input/search + Textarea)",
+  },
+  {
+    property: 'affixMode (Affix)',
+    description:
+      'Composition mode for input/affix. Chooses prefix-only, suffix-only, or both-side affix layout from Figma.',
+    type: "'prefix' | 'suffix' | 'both'",
+    defaultValue: "'prefix'",
+  },
+  {
+    property: 'prefixText / suffixText (Affix)',
+    description:
+      'Text content shown in prefix/suffix slots when affix mode uses text-based slots.',
+    type: 'string',
+    defaultValue: "'VND'",
   },
   {
     property: 'title (Password + Floating Label)',
@@ -764,6 +898,92 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
         semanticAlias: 'text/disable1',
         appliesTo: 'State=Disabled',
         notes: 'Disabled value contrast.',
+      },
+    ],
+  },
+  {
+    title: 'Affix · Surface + Border',
+    description:
+      'Input/affix keeps white surface and follows the same semantic border progression as Input/basic across default, interactive, error, and disabled states.',
+    rows: [
+      {
+        componentToken: 'ds/input-affix/color/background/default',
+        semanticAlias: 'background/primary',
+        appliesTo: 'All states',
+        notes: 'Base surface.',
+      },
+      {
+        componentToken: 'ds/input-affix/color/border/default',
+        semanticAlias: 'border/brand-primary3',
+        appliesTo: 'State=Default, Filled',
+        notes: 'Neutral border.',
+      },
+      {
+        componentToken: 'ds/input-affix/color/border/interactive',
+        semanticAlias: 'border/brand-tertiary',
+        appliesTo: 'State=Hover, Focus, Typing',
+        notes: 'Interactive emphasis border.',
+      },
+      {
+        componentToken: 'ds/input-affix/color/border/error',
+        semanticAlias: 'border/error2',
+        appliesTo: 'State=Error, Error Typing, Error Filled',
+        notes: 'Validation border.',
+      },
+      {
+        componentToken: 'ds/input-affix/color/border/disabled',
+        semanticAlias: 'border/disable2',
+        appliesTo: 'State=Disabled',
+        notes: 'Disabled border.',
+      },
+    ],
+  },
+  {
+    title: 'Affix · Text + Slot Content',
+    description:
+      'Input/affix text, cursor, prefix/suffix text slots, and both-mode icons map to semantic aliases to avoid hardcoded colors.',
+    rows: [
+      {
+        componentToken: 'ds/input-affix/color/text/placeholder',
+        semanticAlias: 'text/tertiary',
+        appliesTo: 'State=Default, Hover, Focus, Error',
+        notes: 'Placeholder text.',
+      },
+      {
+        componentToken: 'ds/input-affix/color/text/content',
+        semanticAlias: 'text/primary',
+        appliesTo: 'State=Typing, Filled, Error Typing, Error Filled',
+        notes: 'Main content text.',
+      },
+      {
+        componentToken: 'ds/input-affix/color/text/cursor',
+        semanticAlias: 'text/brand-tertiary2',
+        appliesTo: 'State=Focus, Typing, Error Typing',
+        notes: 'Caret color.',
+      },
+      {
+        componentToken: 'ds/input-affix/color/text/disabled',
+        semanticAlias: 'text/disable1',
+        appliesTo: 'State=Disabled',
+        notes: 'Disabled text contrast.',
+      },
+      {
+        componentToken: 'ds/input-affix/color/slot/text',
+        semanticAlias: 'text/primary',
+        appliesTo: 'Mode=Prefix or Suffix',
+        notes: 'Prefix/suffix currency text.',
+      },
+      {
+        componentToken: 'ds/input-affix/color/slot/icon',
+        semanticAlias: 'icon/brand-primary1',
+        appliesTo: 'Mode=Both',
+        notes: 'Book/info icon color.',
+      },
+      {
+        componentToken: 'ds/input-affix/color/slot/icon/disabled',
+        semanticAlias: 'icon/disable1',
+        appliesTo: 'Mode=Both + State=Disabled',
+        notes: 'Disabled icon color.',
       },
     ],
   },
@@ -1145,6 +1365,66 @@ export const INPUT_VARIABLE_GROUPS: InputVariableGroup[] = [
         value: 'Averta Std CY, 14 / 20, 400, letter-spacing 0.25',
         appliesTo: 'Input text / placeholder / typing content',
         notes: 'Shared text style for search input.',
+      },
+    ],
+  },
+  {
+    title: 'Affix Core Layout',
+    description: 'Non-color variables extracted from input/affix Figma component set.',
+    rows: [
+      {
+        token: 'ds/input-affix/width/default',
+        value: '250',
+        appliesTo: 'All states',
+        notes: 'Fixed field width in component set.',
+      },
+      {
+        token: 'ds/input-affix/height/default',
+        value: '52',
+        appliesTo: 'All states',
+        notes: 'Fixed field height in component set.',
+      },
+      {
+        token: 'ds/input-affix/padding/default',
+        value: '12 x 16',
+        appliesTo: 'Container',
+        notes: 'Horizontal and vertical inner padding.',
+      },
+      {
+        token: 'ds/input-affix/radius/default',
+        value: '4',
+        appliesTo: 'Container',
+        notes: 'Container corner radius.',
+      },
+      {
+        token: 'ds/input-affix/spacing/xs',
+        value: '4',
+        appliesTo: 'Prefix/content/suffix spacing',
+        notes: 'Gap between slot content and input content area.',
+      },
+      {
+        token: 'ds/input-affix/spacing/cursor',
+        value: '2',
+        appliesTo: 'Typing cursor',
+        notes: 'Gap between content text and cursor marker.',
+      },
+      {
+        token: 'ds/input-affix/iconsize/default',
+        value: '20',
+        appliesTo: 'Both-mode icon slots',
+        notes: 'Book/info icon size.',
+      },
+    ],
+  },
+  {
+    title: 'Affix Typography Styles',
+    description: 'Typography style shared by input content, placeholder, and prefix/suffix text slots.',
+    rows: [
+      {
+        token: 'Body Copy (Data & Nav)/Normal/14-Regular',
+        value: 'Averta Std CY, 14 / 20, 400, letter-spacing 0.25',
+        appliesTo: 'Input text / placeholder / prefix-suffix text',
+        notes: 'Shared text style across all affix modes.',
       },
     ],
   },

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
 import { DsButtonComponent } from './components/ds-button/ds-button.component';
 import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';
+import { DsInputAffixComponent } from './components/ds-input-affix/ds-input-affix.component';
 import { DsInputSearchComponent } from './components/ds-input-search/ds-input-search.component';
 import {
   DsInputPasswordComponent,
@@ -112,6 +113,7 @@ interface ResolvedInputSemanticBindingGroup {
     CommonModule,
     DsButtonComponent,
     DsInputBasicComponent,
+    DsInputAffixComponent,
     DsInputSearchComponent,
     DsInputPasswordComponent,
     DsInputFloatingLabelComponent,
@@ -460,6 +462,9 @@ export class App {
       if (section.component === 'input-search') {
         return 'app-input-search-demo.component.html';
       }
+      if (section.component === 'input-affix') {
+        return 'app-input-affix-demo.component.html';
+      }
       if (section.component === 'input-floating-label') {
         return 'app-input-floating-label-demo.component.html';
       }
@@ -474,6 +479,9 @@ export class App {
 
     if (section.component === 'input-search') {
       return 'input-search-demo.component.ts';
+    }
+    if (section.component === 'input-affix') {
+      return 'input-affix-demo.component.ts';
     }
     if (section.component === 'input-floating-label') {
       return 'input-floating-label-demo.component.ts';
@@ -864,11 +872,17 @@ ${actionRows}
   }
 
   private buildInputTypeScriptSnippet(section: InputDemoSection): string {
+    const isAffix = section.component === 'input-affix';
+    const isSearch = section.component === 'input-search';
     const isPassword = section.component === 'input-password';
     const isTextArea = section.component === 'text-area';
     const isFloatingLabel = section.component === 'input-floating-label';
     const componentClass = isTextArea
       ? 'DsTextAreaComponent'
+      : isAffix
+        ? 'DsInputAffixComponent'
+        : isSearch
+          ? 'DsInputSearchComponent'
       : isPassword
         ? 'DsInputPasswordComponent'
         : isFloatingLabel
@@ -876,6 +890,10 @@ ${actionRows}
           : 'DsInputBasicComponent';
     const componentSelector = isTextArea
       ? 'app-ds-text-area'
+      : isAffix
+        ? 'app-ds-input-affix'
+        : isSearch
+          ? 'app-ds-input-search'
       : isPassword
         ? 'app-ds-input-password'
         : isFloatingLabel
@@ -883,6 +901,10 @@ ${actionRows}
           : 'app-ds-input-basic';
     const componentImportPath = isTextArea
       ? './components/ds-text-area/ds-text-area.component'
+      : isAffix
+        ? './components/ds-input-affix/ds-input-affix.component'
+        : isSearch
+          ? './components/ds-input-search/ds-input-search.component'
       : isPassword
         ? './components/ds-input-password/ds-input-password.component'
         : isFloatingLabel
@@ -890,6 +912,10 @@ ${actionRows}
           : './components/ds-input-basic/ds-input-basic.component';
     const componentDemoName = isTextArea
       ? 'TextareaDemoComponent'
+      : isAffix
+        ? 'InputAffixDemoComponent'
+        : isSearch
+          ? 'InputSearchDemoComponent'
       : isPassword
         ? 'InputPasswordDemoComponent'
         : isFloatingLabel
@@ -897,13 +923,19 @@ ${actionRows}
           : 'InputBasicDemoComponent';
     const componentDemoSelector = isTextArea
       ? 'app-textarea-demo'
+      : isAffix
+        ? 'app-input-affix-demo'
+        : isSearch
+          ? 'app-input-search-demo'
       : isPassword
         ? 'app-input-password-demo'
         : isFloatingLabel
           ? 'app-input-floating-label-demo'
           : 'app-input-basic-demo';
-    const defaultPlaceholder = isTextArea || isFloatingLabel ? 'Input text' : 'Enter something';
-    const defaultWidth = isTextArea || isFloatingLabel ? 250 : isPassword ? 307 : 350;
+    const defaultPlaceholder =
+      isTextArea || isFloatingLabel || isSearch || isAffix ? 'Input text' : 'Enter something';
+    const defaultWidth =
+      isTextArea || isFloatingLabel || isSearch || isAffix ? 250 : isPassword ? 307 : 350;
 
     const actionRows = section.actions
       .map((action) => {
@@ -916,6 +948,9 @@ ${actionRows}
         }
         if (isPassword && action.contentMode) {
           parts.push(`contentMode: '${action.contentMode}'`);
+        }
+        if (isAffix && action.affixMode) {
+          parts.push(`affixMode: '${action.affixMode}'`);
         }
         if (action.placeholder) {
           parts.push(`placeholder: '${this.escapeForSingleQuote(action.placeholder)}'`);
@@ -947,6 +982,8 @@ import { ${componentClass} } from '${componentImportPath}';
           isPassword || isFloatingLabel ? "\n        [title]=\"action.title ?? 'Title'\"" : ''
         }${
           isPassword ? "\n        [contentMode]=\"action.contentMode ?? 'hide'\"" : ''
+        }${
+          isAffix ? "\n        [affixMode]=\"action.affixMode ?? 'prefix'\"" : ''
         }${
           !isPassword ? `\n        [placeholder]="action.placeholder ?? '${defaultPlaceholder}'"` : ''
         }
@@ -1028,7 +1065,7 @@ ${actionRows}
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsTextAreaComponent|DsTextAreaState)\b/g,
+      /\b(Component|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');
