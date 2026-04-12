@@ -1,0 +1,44 @@
+<div
+  [class]="classes()"
+  [style.width.px]="width()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
+  @if (showFront()) {
+    <span [class]="labelClass() + ' ds-input-affix-label__label--front'">
+      <span [class]="labelTextClass()">{{ frontLabel() }}</span>
+    </span>
+    <span [class]="labelDividerClass()" aria-hidden="true"></span>
+  }
+
+  <div class="ds-input-affix-label__content">
+    @if (interactive()) {
+      <input
+        class="ds-input-affix-label__native"
+        type="text"
+        [value]="nativeValue()"
+        [attr.placeholder]="placeholder()"
+        (input)="onInput($event)"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+      />
+    } @else {
+      @if (showTypingValue()) {
+        <span [class]="textClass()">{{ staticDisplayText() }}</span>
+      } @else if (staticDisplayText()) {
+        <span [class]="textClass()">{{ staticDisplayText() }}</span>
+      }
+
+      @if (showCursor()) {
+        <span class="ds-input-affix-label__cursor" aria-hidden="true">|</span>
+      }
+    }
+  </div>
+
+  @if (showPost()) {
+    <span [class]="labelDividerClass()" aria-hidden="true"></span>
+    <span [class]="labelClass() + ' ds-input-affix-label__label--post'">
+      <span [class]="labelTextClass()">{{ postLabel() }}</span>
+    </span>
+  }
+</div>

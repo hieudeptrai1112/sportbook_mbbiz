@@ -3,6 +3,7 @@ import { Component, HostListener, signal } from '@angular/core';
 import { DsButtonComponent } from './components/ds-button/ds-button.component';
 import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';
 import { DsInputAffixComponent } from './components/ds-input-affix/ds-input-affix.component';
+import { DsInputAffixLabelComponent } from './components/ds-input-affix-label/ds-input-affix-label.component';
 import { DsInputSearchComponent } from './components/ds-input-search/ds-input-search.component';
 import {
   DsInputPasswordComponent,
@@ -114,6 +115,7 @@ interface ResolvedInputSemanticBindingGroup {
     DsButtonComponent,
     DsInputBasicComponent,
     DsInputAffixComponent,
+    DsInputAffixLabelComponent,
     DsInputSearchComponent,
     DsInputPasswordComponent,
     DsInputFloatingLabelComponent,
@@ -465,6 +467,9 @@ export class App {
       if (section.component === 'input-affix') {
         return 'app-input-affix-demo.component.html';
       }
+      if (section.component === 'input-affix-label') {
+        return 'app-input-affix-label-demo.component.html';
+      }
       if (section.component === 'input-floating-label') {
         return 'app-input-floating-label-demo.component.html';
       }
@@ -482,6 +487,9 @@ export class App {
     }
     if (section.component === 'input-affix') {
       return 'input-affix-demo.component.ts';
+    }
+    if (section.component === 'input-affix-label') {
+      return 'input-affix-label-demo.component.ts';
     }
     if (section.component === 'input-floating-label') {
       return 'input-floating-label-demo.component.ts';
@@ -873,6 +881,7 @@ ${actionRows}
 
   private buildInputTypeScriptSnippet(section: InputDemoSection): string {
     const isAffix = section.component === 'input-affix';
+    const isAffixLabel = section.component === 'input-affix-label';
     const isSearch = section.component === 'input-search';
     const isPassword = section.component === 'input-password';
     const isTextArea = section.component === 'text-area';
@@ -881,6 +890,8 @@ ${actionRows}
       ? 'DsTextAreaComponent'
       : isAffix
         ? 'DsInputAffixComponent'
+        : isAffixLabel
+          ? 'DsInputAffixLabelComponent'
         : isSearch
           ? 'DsInputSearchComponent'
       : isPassword
@@ -892,6 +903,8 @@ ${actionRows}
       ? 'app-ds-text-area'
       : isAffix
         ? 'app-ds-input-affix'
+        : isAffixLabel
+          ? 'app-ds-input-affix-label'
         : isSearch
           ? 'app-ds-input-search'
       : isPassword
@@ -903,6 +916,8 @@ ${actionRows}
       ? './components/ds-text-area/ds-text-area.component'
       : isAffix
         ? './components/ds-input-affix/ds-input-affix.component'
+        : isAffixLabel
+          ? './components/ds-input-affix-label/ds-input-affix-label.component'
         : isSearch
           ? './components/ds-input-search/ds-input-search.component'
       : isPassword
@@ -914,6 +929,8 @@ ${actionRows}
       ? 'TextareaDemoComponent'
       : isAffix
         ? 'InputAffixDemoComponent'
+        : isAffixLabel
+          ? 'InputAffixLabelDemoComponent'
         : isSearch
           ? 'InputSearchDemoComponent'
       : isPassword
@@ -925,6 +942,8 @@ ${actionRows}
       ? 'app-textarea-demo'
       : isAffix
         ? 'app-input-affix-demo'
+        : isAffixLabel
+          ? 'app-input-affix-label-demo'
         : isSearch
           ? 'app-input-search-demo'
       : isPassword
@@ -933,9 +952,15 @@ ${actionRows}
           ? 'app-input-floating-label-demo'
           : 'app-input-basic-demo';
     const defaultPlaceholder =
-      isTextArea || isFloatingLabel || isSearch || isAffix ? 'Input text' : 'Enter something';
+      isTextArea || isFloatingLabel || isSearch || isAffix || isAffixLabel
+        ? 'Input text'
+        : 'Enter something';
     const defaultWidth =
-      isTextArea || isFloatingLabel || isSearch || isAffix ? 250 : isPassword ? 307 : 350;
+      isTextArea || isFloatingLabel || isSearch || isAffix
+        ? 250
+        : isAffixLabel || isPassword
+          ? 307
+          : 350;
 
     const actionRows = section.actions
       .map((action) => {
@@ -951,6 +976,9 @@ ${actionRows}
         }
         if (isAffix && action.affixMode) {
           parts.push(`affixMode: '${action.affixMode}'`);
+        }
+        if (isAffixLabel && action.labelMode) {
+          parts.push(`labelMode: '${action.labelMode}'`);
         }
         if (action.placeholder) {
           parts.push(`placeholder: '${this.escapeForSingleQuote(action.placeholder)}'`);
@@ -984,6 +1012,8 @@ import { ${componentClass} } from '${componentImportPath}';
           isPassword ? "\n        [contentMode]=\"action.contentMode ?? 'hide'\"" : ''
         }${
           isAffix ? "\n        [affixMode]=\"action.affixMode ?? 'prefix'\"" : ''
+        }${
+          isAffixLabel ? "\n        [labelMode]=\"action.labelMode ?? 'front'\"" : ''
         }${
           !isPassword ? `\n        [placeholder]="action.placeholder ?? '${defaultPlaceholder}'"` : ''
         }
@@ -1065,7 +1095,7 @@ ${actionRows}
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
+      /\b(Component|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');

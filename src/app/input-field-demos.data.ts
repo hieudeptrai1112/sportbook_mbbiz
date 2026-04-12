@@ -24,11 +24,17 @@ import type {
   DsInputAffixMode,
   DsInputAffixState,
 } from './components/ds-input-affix/ds-input-affix.component';
+import type {
+  DsInputAffixLabelInteractiveMode,
+  DsInputAffixLabelMode,
+  DsInputAffixLabelState,
+} from './components/ds-input-affix-label/ds-input-affix-label.component';
 
 export type InputCodeType = 'js' | 'ts';
 export type InputDemoComponent =
   | 'input-basic'
   | 'input-affix'
+  | 'input-affix-label'
   | 'input-search'
   | 'text-area'
   | 'input-password'
@@ -36,6 +42,7 @@ export type InputDemoComponent =
 export type InputDemoState =
   | DsInputBasicState
   | DsInputAffixState
+  | DsInputAffixLabelState
   | DsInputSearchState
   | DsTextAreaState
   | DsInputPasswordState
@@ -43,6 +50,7 @@ export type InputDemoState =
 export type InputDemoInteractiveMode =
   | DsInputBasicInteractiveMode
   | DsInputAffixInteractiveMode
+  | DsInputAffixLabelInteractiveMode
   | DsInputSearchInteractiveMode
   | DsTextAreaInteractiveMode
   | DsInputPasswordInteractiveMode
@@ -52,6 +60,7 @@ export interface InputDemoAction {
   value: string;
   state: InputDemoState;
   affixMode?: DsInputAffixMode;
+  labelMode?: DsInputAffixLabelMode;
   title?: string;
   contentMode?: DsInputPasswordContentMode;
   placeholder?: string;
@@ -70,6 +79,7 @@ export interface InputDemoSection {
   interactiveStates?: InputDemoState[];
   interactiveMode?: InputDemoInteractiveMode;
   interactiveAffixMode?: DsInputAffixMode;
+  interactiveLabelMode?: DsInputAffixLabelMode;
   interactiveTitle?: string;
   interactiveContentMode?: DsInputPasswordContentMode;
   interactivePlaceholder?: string;
@@ -385,6 +395,126 @@ import { DsInputAffixComponent } from './components/ds-input-affix/ds-input-affi
   \`,
 })
 export class InputAffixStatusDemoComponent {}`,
+  },
+  {
+    id: 'affix-label-basic',
+    component: 'input-affix-label',
+    title: 'Affix Label · Basic',
+    description:
+      'Interactive baseline for input/affix-label from Figma. Preview supports default, hover, focus, typing, and filled with live input behavior.',
+    tags: [
+      'variant=input/affix-label',
+      'labelMode=front',
+      'states=default/hover/focus/typing/filled',
+      'size=307 x 52',
+    ],
+    interactive: true,
+    interactiveStates: ['default', 'hover', 'focus', 'typing', 'filled'],
+    interactiveMode: 'default',
+    interactiveLabelMode: 'front',
+    interactivePlaceholder: 'Input text',
+    interactiveWidth: 307,
+    actions: [{ value: '', state: 'default', labelMode: 'front', placeholder: 'Input text', width: 307 }],
+    codeJs: `<app-ds-input-affix-label [interactive]="true" labelMode="front" placeholder="Input text" [width]="307" />`,
+    codeTs: `import { DsInputAffixLabelComponent } from './components/ds-input-affix-label/ds-input-affix-label.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-input-affix-label [interactive]="true" labelMode="front" placeholder="Input text" [width]="307" />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsInputAffixLabelComponent } from './components/ds-input-affix-label/ds-input-affix-label.component';
+
+@Component({
+  selector: 'app-input-affix-label-demo',
+  standalone: true,
+  imports: [DsInputAffixLabelComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-input-affix-label [interactive]="true" labelMode="front" placeholder="Input text" [width]="307" />
+    </section>
+  \`,
+})
+export class InputAffixLabelDemoComponent {}`,
+  },
+  {
+    id: 'affix-label-modes',
+    component: 'input-affix-label',
+    title: 'Affix Label · Front / Post / Both',
+    description:
+      'Composition axis from Figma. Front and post labels are documented as three mode variants in default state.',
+    tags: ['labelMode=front/post/both', 'state=default', 'size=307 x 52'],
+    actions: [
+      { value: '', state: 'default', labelMode: 'front', placeholder: 'Input text', width: 307 },
+      { value: '', state: 'default', labelMode: 'post', placeholder: 'Input text', width: 307 },
+      { value: '', state: 'default', labelMode: 'both', placeholder: 'Input text', width: 307 },
+    ],
+    codeJs: `<app-ds-input-affix-label labelMode="front" placeholder="Input text" [width]="307" />
+<app-ds-input-affix-label labelMode="post" placeholder="Input text" [width]="307" />
+<app-ds-input-affix-label labelMode="both" placeholder="Input text" [width]="307" />`,
+    codeTs: `import { DsInputAffixLabelComponent } from './components/ds-input-affix-label/ds-input-affix-label.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-input-affix-label labelMode="front" placeholder="Input text" [width]="307" />
+  <app-ds-input-affix-label labelMode="post" placeholder="Input text" [width]="307" />
+  <app-ds-input-affix-label labelMode="both" placeholder="Input text" [width]="307" />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsInputAffixLabelComponent } from './components/ds-input-affix-label/ds-input-affix-label.component';
+
+@Component({
+  selector: 'app-input-affix-label-modes-demo',
+  standalone: true,
+  imports: [DsInputAffixLabelComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-input-affix-label labelMode="front" placeholder="Input text" [width]="307" />
+      <app-ds-input-affix-label labelMode="post" placeholder="Input text" [width]="307" />
+      <app-ds-input-affix-label labelMode="both" placeholder="Input text" [width]="307" />
+    </section>
+  \`,
+})
+export class InputAffixLabelModesDemoComponent {}`,
+  },
+  {
+    id: 'affix-label-status',
+    component: 'input-affix-label',
+    title: 'Affix Label · Status',
+    description:
+      'Status branch from Figma. Error states are merged into one interactive preview while disabled remains as a separate locked sample.',
+    tags: [
+      'status=error/disabled',
+      'states=error/error-typing/error-filled + disabled',
+      'labelMode=front',
+      'size=307 x 52',
+    ],
+    interactive: true,
+    interactiveMode: 'error',
+    interactiveLabelMode: 'front',
+    interactivePlaceholder: 'Input text',
+    interactiveWidth: 307,
+    showDisabledCompanion: true,
+    disabledCompanionValue: 'Input text',
+    actions: [{ value: 'Input text', state: 'disabled', labelMode: 'front', placeholder: 'Input text', width: 307 }],
+    codeJs: `<app-ds-input-affix-label [interactive]="true" interactiveMode="error" labelMode="front" placeholder="Input text" [width]="307" />
+<app-ds-input-affix-label value="Input text" state="disabled" labelMode="front" placeholder="Input text" [width]="307" />`,
+    codeTs: `import { DsInputAffixLabelComponent } from './components/ds-input-affix-label/ds-input-affix-label.component';`,
+    snippetHtml: `<section class="button-demo-preview input-demo-preview">
+  <app-ds-input-affix-label [interactive]="true" interactiveMode="error" labelMode="front" placeholder="Input text" [width]="307" />
+  <app-ds-input-affix-label value="Input text" state="disabled" labelMode="front" placeholder="Input text" [width]="307" />
+</section>`,
+    snippetTs: `import { Component } from '@angular/core';
+import { DsInputAffixLabelComponent } from './components/ds-input-affix-label/ds-input-affix-label.component';
+
+@Component({
+  selector: 'app-input-affix-label-status-demo',
+  standalone: true,
+  imports: [DsInputAffixLabelComponent],
+  template: \`
+    <section class="button-demo-preview input-demo-preview">
+      <app-ds-input-affix-label [interactive]="true" interactiveMode="error" labelMode="front" placeholder="Input text" [width]="307" />
+      <app-ds-input-affix-label value="Input text" state="disabled" labelMode="front" placeholder="Input text" [width]="307" />
+    </section>
+  \`,
+})
+export class InputAffixLabelStatusDemoComponent {}`,
   },
   {
     id: 'search-basic',

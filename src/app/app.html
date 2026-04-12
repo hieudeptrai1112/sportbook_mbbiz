@@ -464,7 +464,7 @@
                 <div class="button-demo-preview input-demo-preview">
                   <ng-container *ngIf="isInputInteractiveSection(demo); else inputStaticPreview">
                     <div class="input-demo-playground">
-                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else interactiveAffixOrSearchOrFloatingOrPasswordOrTextAreaPreview">
+                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else interactiveAffixOrAffixLabelOrSearchOrFloatingOrPasswordOrTextAreaPreview">
                         <app-ds-input-basic
                           [interactive]="true"
                           [interactiveMode]="demo.interactiveMode ?? 'default'"
@@ -478,8 +478,8 @@
                           [width]="demo.interactiveWidth ?? 350"
                         />
                       </ng-container>
-                      <ng-template #interactiveAffixOrSearchOrFloatingOrPasswordOrTextAreaPreview>
-                        <ng-container *ngIf="isInputDemoComponent(demo, 'input-affix'); else interactiveSearchOrFloatingOrPasswordOrTextAreaPreview">
+                      <ng-template #interactiveAffixOrAffixLabelOrSearchOrFloatingOrPasswordOrTextAreaPreview>
+                        <ng-container *ngIf="isInputDemoComponent(demo, 'input-affix'); else interactiveAffixLabelOrSearchOrFloatingOrPasswordOrTextAreaPreview">
                           <app-ds-input-affix
                             [interactive]="true"
                             [interactiveMode]="demo.interactiveMode ?? 'default'"
@@ -494,6 +494,25 @@
                             [affixMode]="demo.interactiveAffixMode ?? 'prefix'"
                             [placeholder]="demo.interactivePlaceholder ?? 'Input text'"
                             [width]="demo.interactiveWidth ?? 250"
+                          />
+                        </ng-container>
+                      </ng-template>
+                      <ng-template #interactiveAffixLabelOrSearchOrFloatingOrPasswordOrTextAreaPreview>
+                        <ng-container *ngIf="isInputDemoComponent(demo, 'input-affix-label'); else interactiveSearchOrFloatingOrPasswordOrTextAreaPreview">
+                          <app-ds-input-affix-label
+                            [interactive]="true"
+                            [interactiveMode]="demo.interactiveMode ?? 'default'"
+                            [labelMode]="demo.interactiveLabelMode ?? 'front'"
+                            [placeholder]="demo.interactivePlaceholder ?? 'Input text'"
+                            [width]="demo.interactiveWidth ?? 307"
+                          />
+                          <app-ds-input-affix-label
+                            *ngIf="demo.showDisabledCompanion"
+                            [value]="demo.disabledCompanionValue ?? 'Input text'"
+                            state="disabled"
+                            [labelMode]="demo.interactiveLabelMode ?? 'front'"
+                            [placeholder]="demo.interactivePlaceholder ?? 'Input text'"
+                            [width]="demo.interactiveWidth ?? 307"
                           />
                         </ng-container>
                       </ng-template>
@@ -571,7 +590,7 @@
                   </ng-container>
 
                   <ng-template #inputStaticPreview>
-                    <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else staticAffixOrSearchOrFloatingOrPasswordOrTextAreaPreview">
+                    <ng-container *ngIf="isInputDemoComponent(demo, 'input-basic'); else staticAffixOrAffixLabelOrSearchOrFloatingOrPasswordOrTextAreaPreview">
                       <app-ds-input-basic
                         *ngFor="let action of demo.actions"
                         [value]="action.value"
@@ -580,8 +599,8 @@
                         [width]="action.width ?? null"
                       />
                     </ng-container>
-                    <ng-template #staticAffixOrSearchOrFloatingOrPasswordOrTextAreaPreview>
-                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-affix'); else staticSearchOrFloatingOrPasswordOrTextAreaPreview">
+                    <ng-template #staticAffixOrAffixLabelOrSearchOrFloatingOrPasswordOrTextAreaPreview>
+                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-affix'); else staticAffixLabelOrSearchOrFloatingOrPasswordOrTextAreaPreview">
                         <app-ds-input-affix
                           *ngFor="let action of demo.actions"
                           [value]="action.value"
@@ -589,6 +608,18 @@
                           [affixMode]="action.affixMode ?? 'prefix'"
                           [placeholder]="action.placeholder ?? 'Input text'"
                           [width]="action.width ?? 250"
+                        />
+                      </ng-container>
+                    </ng-template>
+                    <ng-template #staticAffixLabelOrSearchOrFloatingOrPasswordOrTextAreaPreview>
+                      <ng-container *ngIf="isInputDemoComponent(demo, 'input-affix-label'); else staticSearchOrFloatingOrPasswordOrTextAreaPreview">
+                        <app-ds-input-affix-label
+                          *ngFor="let action of demo.actions"
+                          [value]="action.value"
+                          [state]="action.state"
+                          [labelMode]="action.labelMode ?? 'front'"
+                          [placeholder]="action.placeholder ?? 'Input text'"
+                          [width]="action.width ?? 307"
                         />
                       </ng-container>
                     </ng-template>
