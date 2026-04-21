@@ -269,7 +269,7 @@ export class ButtonSecondaryStateDemoComponent {
   <app-ds-button
     *ngFor="let item of shapeOptions"
     [label]="item"
-    shape="pill"
+    [shape]="item"
     tone="secondary"
     size="small"
     state="default"

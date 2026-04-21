@@ -14,7 +14,16 @@ export interface ButtonMappingDemoSection {
   snippetTs: string;
 }
 
+export interface ButtonMappingApiRow {
+  property: string;
+  description: string;
+  type: string;
+  defaultValue: string;
+}
+
 const SIZE_SCALE: readonly ButtonMappingSize[] = ['lg', 'md', 'sm'] as const;
+const START_ICON = `<svg sportbook6vnButtonStartIcon aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M10 4.25V15.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" /><path d="M4.25 10H15.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>`;
+const END_ICON = `<svg sportbook6vnButtonEndIcon aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M10 4.25V15.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" /><path d="M4.25 10H15.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>`;
 
 const toClassName = (id: string): string =>
   id
@@ -59,17 +68,17 @@ const buildDisabledButtonRow = (
   ).join('\n');
 
 const buildWithIconButtonRow = (shape: ButtonMappingShape, variant: ButtonMappingVariant): string => `    <sportbook6vn-button ${buildButtonAttrs(shape, variant, 'lg')}>
-      <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
+      ${START_ICON}
       Text
     </sportbook6vn-button>
     <sportbook6vn-button ${buildButtonAttrs(shape, variant, 'md')}>
       Text
-      <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
+      ${END_ICON}
     </sportbook6vn-button>
     <sportbook6vn-button ${buildButtonAttrs(shape, variant, 'sm')}>
-      <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
+      ${START_ICON}
       Text
-      <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
+      ${END_ICON}
     </sportbook6vn-button>`;
 
 const buildSnippetHtml = (shape: ButtonMappingShape, variant: ButtonMappingVariant): string => `<section class="button-mapping-preview">
@@ -157,4 +166,73 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
     'pill',
     'secondary',
   ),
+];
+
+export const BUTTON_MAPPING_API_ROWS: ButtonMappingApiRow[] = [
+  {
+    property: 'variant',
+    description: 'Visual variant axis from Figma (Primary / Secondary).',
+    type: "'primary' | 'secondary'",
+    defaultValue: "'primary'",
+  },
+  {
+    property: 'size',
+    description: 'Size axis from Figma (Large / Medium / Small).',
+    type: "'lg' | 'md' | 'sm'",
+    defaultValue: "'md'",
+  },
+  {
+    property: 'shape',
+    description: 'Shape axis from Figma (Rectangle / Pill).',
+    type: "'rectangle' | 'pill'",
+    defaultValue: "'rectangle'",
+  },
+  {
+    property: 'disabled',
+    description: 'Disables interaction and applies disabled visual state.',
+    type: 'boolean',
+    defaultValue: 'false',
+  },
+  {
+    property: 'loading',
+    description: 'Shows loading state and blocks click interaction.',
+    type: 'boolean',
+    defaultValue: 'false',
+  },
+  {
+    property: 'fullWidth',
+    description: 'Expands button width to fill its container.',
+    type: 'boolean',
+    defaultValue: 'false',
+  },
+  {
+    property: 'type',
+    description: 'Native button type attribute.',
+    type: "'button' | 'submit' | 'reset'",
+    defaultValue: "'button'",
+  },
+  {
+    property: 'ariaLabel',
+    description: 'Optional accessibility label for icon-only or custom content cases.',
+    type: 'string | null',
+    defaultValue: 'null',
+  },
+  {
+    property: 'buttonClick',
+    description: 'Emits click event after internal disabled/loading guard.',
+    type: 'Output<MouseEvent>',
+    defaultValue: '-',
+  },
+  {
+    property: '[sportbook6vnButtonStartIcon]',
+    description: 'Content projection slot for leading icon.',
+    type: 'Projected slot',
+    defaultValue: '-',
+  },
+  {
+    property: '[sportbook6vnButtonEndIcon]',
+    description: 'Content projection slot for trailing icon.',
+    type: 'Projected slot',
+    defaultValue: '-',
+  },
 ];

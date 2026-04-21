@@ -55,7 +55,9 @@ import {
   type ButtonVariableGroup,
 } from './button-demos.data';
 import {
+  BUTTON_MAPPING_API_ROWS,
   BUTTON_MAPPING_DEMO_SECTIONS,
+  type ButtonMappingApiRow,
   type ButtonMappingCodeType,
   type ButtonMappingDemoSection,
 } from './button-mapping.demos.data';
@@ -180,6 +182,7 @@ export class App {
   protected readonly typographyScaleGroups: TypographyScaleGroup[] = TYPOGRAPHY_SCALE_GROUPS;
   protected readonly buttonDemoSections: ButtonDemoSection[] = BUTTON_DEMO_SECTIONS;
   protected readonly buttonMappingDemoSections: ButtonMappingDemoSection[] = BUTTON_MAPPING_DEMO_SECTIONS;
+  protected readonly buttonMappingApiRows: ButtonMappingApiRow[] = BUTTON_MAPPING_API_ROWS;
   protected readonly buttonApiRows: ButtonApiRow[] = BUTTON_API_ROWS;
   protected readonly buttonSemanticBindingGroups: ResolvedButtonSemanticBindingGroup[] =
     this.buildButtonSemanticBindingGroups(BUTTON_SEMANTIC_BINDING_GROUPS);
