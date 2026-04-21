@@ -1069,6 +1069,7 @@
 
 .core3-map-input-grid {
   display: grid;
+  align-items: start;
   gap: 16px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   width: 100%;
@@ -1091,6 +1092,7 @@
 }
 
 .core3-map-input-card .core3-map-col {
+  align-content: start;
   width: 100%;
 }
 
