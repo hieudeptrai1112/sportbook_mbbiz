@@ -12,10 +12,19 @@ import {
 import { DsInputFloatingLabelComponent } from './components/ds-input-floating-label/ds-input-floating-label.component';
 import { DsTextAreaComponent } from './components/ds-text-area/ds-text-area.component';
 import {
+  Sportbook6vnAffixInputComponent,
+  Sportbook6vnAffixLabelInputComponent,
   Sportbook6vnButtonComponent,
   Sportbook6vnDropdownComponent,
+  Sportbook6vnFloatingLabelInputComponent,
   Sportbook6vnInputComponent,
+  Sportbook6vnInputTagComponent,
+  type Sportbook6vnInputTagValue,
+  type Sportbook6vnAffixDropdownSide,
+  type Sportbook6vnAffixDropdownItem,
+  Sportbook6vnPasswordInputComponent,
   Sportbook6vnSearchInputComponent,
+  Sportbook6vnTextareaComponent,
 } from 'sportbook6vn';
 import {
   SEMANTIC_BACKGROUND_FIGMA_ORDER,
@@ -126,9 +135,15 @@ interface ResolvedInputSemanticBindingGroup {
     DsInputPasswordComponent,
     DsInputFloatingLabelComponent,
     DsTextAreaComponent,
+    Sportbook6vnAffixInputComponent,
+    Sportbook6vnAffixLabelInputComponent,
     Sportbook6vnButtonComponent,
+    Sportbook6vnFloatingLabelInputComponent,
     Sportbook6vnInputComponent,
+    Sportbook6vnInputTagComponent,
+    Sportbook6vnPasswordInputComponent,
     Sportbook6vnSearchInputComponent,
+    Sportbook6vnTextareaComponent,
     Sportbook6vnDropdownComponent,
   ],
   templateUrl: './app.html',
@@ -183,7 +198,19 @@ export class App {
   protected readonly expandedInputDemoIds = signal<string[]>([]);
   protected readonly copiedInputDemoId = signal<string | null>(null);
   protected readonly core3MapInputValue = signal('');
+  protected readonly core3MapAffixInputValue = signal('Input text');
   protected readonly core3MapSearchValue = signal('');
+  protected readonly core3MapPasswordValue = signal('');
+  protected readonly core3MapPasswordVisible = signal(false);
+  protected readonly core3MapTextareaValue = signal('Input text');
+  protected readonly core3MapFloatingLabelValue = signal('');
+  protected readonly core3MapAffixLabelValue = signal('');
+  protected readonly core3MapAffixLabelPrefixValue = signal<string | null>(null);
+  protected readonly core3MapAffixLabelOpen = signal<Sportbook6vnAffixDropdownSide | null>('prefix');
+  protected readonly core3MapInputTagValue = signal('');
+  protected readonly core3MapInputTagTags = signal<Sportbook6vnInputTagValue[]>([]);
+  protected readonly core3MapInputTagValidatedValue = signal('');
+  protected readonly core3MapInputTagValidatedTags = signal<Sportbook6vnInputTagValue[]>([]);
   protected readonly core3MapDropdownValue = signal<string | null>(null);
   protected readonly core3MapDropdownOpen = signal(false);
   protected readonly core3MapDropdownItems = [
@@ -194,6 +221,21 @@ export class App {
     { id: 'option-5', label: 'Option 5' },
     { id: 'option-6', label: 'Option 6' },
   ] as const;
+  protected readonly core3MapAffixLabelItems: readonly Sportbook6vnAffixDropdownItem[] = [
+    { id: 'vnd', label: 'VND', flagCode: 'vnd' },
+    { id: 'usd', label: 'USD', flagCode: 'usd' },
+    { id: 'krw', label: 'KRW', flagCode: 'krw' },
+    { id: 'gbp', label: 'GBP', flagCode: 'gbp' },
+    { id: 'cad', label: 'CAD', flagCode: 'cad' },
+    { id: 'thb', label: 'THB', flagCode: 'thb' },
+  ] as const;
+  protected readonly core3MapInputTagResponsiveTags = signal<Sportbook6vnInputTagValue[]>([
+    'label 1',
+    'label 2',
+    'label 3',
+    'label 4',
+    'label 5',
+  ]);
   private readonly themeStorageKey = 'sportbook.theme-id';
   private readonly semanticThemeAliasValueMaps = buildSemanticThemeAliasValueMaps(
     this.semanticTokenMappings,
@@ -258,8 +300,56 @@ export class App {
     this.core3MapInputValue.set(value);
   }
 
+  protected setCore3MapAffixInputValue(value: string) {
+    this.core3MapAffixInputValue.set(value);
+  }
+
   protected setCore3MapSearchValue(value: string) {
     this.core3MapSearchValue.set(value);
+  }
+
+  protected setCore3MapPasswordValue(value: string) {
+    this.core3MapPasswordValue.set(value);
+  }
+
+  protected setCore3MapPasswordVisible(value: boolean) {
+    this.core3MapPasswordVisible.set(value);
+  }
+
+  protected setCore3MapTextareaValue(value: string) {
+    this.core3MapTextareaValue.set(value);
+  }
+
+  protected setCore3MapFloatingLabelValue(value: string) {
+    this.core3MapFloatingLabelValue.set(value);
+  }
+
+  protected setCore3MapAffixLabelValue(value: string) {
+    this.core3MapAffixLabelValue.set(value);
+  }
+
+  protected setCore3MapAffixLabelPrefixValue(value: string | null) {
+    this.core3MapAffixLabelPrefixValue.set(value);
+  }
+
+  protected setCore3MapAffixLabelOpen(value: Sportbook6vnAffixDropdownSide | null) {
+    this.core3MapAffixLabelOpen.set(value);
+  }
+
+  protected setCore3MapInputTagValue(value: string) {
+    this.core3MapInputTagValue.set(value);
+  }
+
+  protected setCore3MapInputTagTags(value: Sportbook6vnInputTagValue[]) {
+    this.core3MapInputTagTags.set(value);
+  }
+
+  protected setCore3MapInputTagValidatedValue(value: string) {
+    this.core3MapInputTagValidatedValue.set(value);
+  }
+
+  protected setCore3MapInputTagValidatedTags(value: Sportbook6vnInputTagValue[]) {
+    this.core3MapInputTagValidatedTags.set(value);
   }
 
   protected setCore3MapDropdownValue(value: string | null) {
@@ -269,6 +359,46 @@ export class App {
   protected setCore3MapDropdownOpen(open: boolean) {
     this.core3MapDropdownOpen.set(open);
   }
+
+  protected readonly core3MapInputTagOverflowRender = (count: number) => `${count} More`;
+  protected readonly core3MapInputTagResponsiveOverflowRender = (count: number) => `+${count} More`;
+
+  protected readonly core3MapInputTagRenderTone = ({ value, label }: { value: string; label: string }) => {
+    const toneMap: Record<string, 'brand' | 'warning' | 'success'> = {
+      arcoblue: 'brand',
+      orange: 'warning',
+      lime: 'success',
+    };
+
+    return {
+      label,
+      tone: toneMap[value] ?? 'brand',
+    };
+  };
+
+  protected readonly core3MapInputTagEmailValidate = (
+    inputValue: string,
+    tags: readonly Sportbook6vnInputTagValue[],
+  ) => {
+    const candidate = inputValue.trim().toLowerCase();
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate);
+    const duplicated = tags.some((tag) => {
+      if (typeof tag === 'string') {
+        return tag === candidate;
+      }
+
+      return tag.value === candidate;
+    });
+
+    if (!candidate || !isEmail || duplicated) {
+      return false;
+    }
+
+    return {
+      value: candidate,
+      label: candidate,
+    };
+  };
 
   protected toggleSection(section: 'gettingStarted' | 'designTokens' | 'components') {
     if (section === 'gettingStarted') {

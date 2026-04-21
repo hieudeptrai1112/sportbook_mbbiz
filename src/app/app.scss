@@ -1067,6 +1067,56 @@
   width: min(100%, 500px);
 }
 
+.core3-map-input-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+}
+
+.core3-map-input-card {
+  border: 1px solid rgba(195, 197, 217, 0.35);
+  border-radius: 10px;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.core3-map-input-card__title {
+  color: #141f38;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  margin: 0;
+}
+
+.core3-map-input-card .core3-map-col {
+  width: 100%;
+}
+
+.core3-map-input-card .core3-map-row {
+  align-items: flex-start;
+}
+
+.core3-map-input-card .core3-map-row > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.core3-map-input-card--wide {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 1100px) {
+  .core3-map-input-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .core3-map-input-card--wide {
+    grid-column: auto;
+  }
+}
+
 .input-demo-playground-controls {
   display: flex;
   flex-wrap: wrap;

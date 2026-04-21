@@ -34,6 +34,11 @@
           "previewSection": "Input family"
         },
         {
+          "selector": "sportbook6vn-affix-input",
+          "entry": "projects/sportbook6vn/src/lib/wrappers/affix-input/affix-input.component.ts",
+          "previewSection": "Input family"
+        },
+        {
           "selector": "sportbook6vn-search-input",
           "entry": "projects/sportbook6vn/src/lib/wrappers/search-input/search-input.component.ts",
           "previewSection": "Input family"

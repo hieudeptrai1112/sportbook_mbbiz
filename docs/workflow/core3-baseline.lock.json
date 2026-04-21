@@ -44,15 +44,15 @@
     },
     {
       "path": "projects/sportbook6vn-preview/src/app/app.component.ts",
-      "sha256": "b9e6bd8648f02a8fa8a2da8f660cf0b6bc1ec58ed1f2d822dadc18e98262f16a"
+      "sha256": "5e298fa07b61b090f072a716e4c87c7d246814f2661e4d6db530c19d5b4c6e20"
     },
     {
       "path": "projects/sportbook6vn-preview/src/app/app.component.html",
-      "sha256": "cf2c8cb026042d0c1249eb0e67d3fcc54ed18db4e861cd3b3a102096adccff6e"
+      "sha256": "3789499f2241368e268ca22d8e30f7f08acd909c905aeb3acc849f3560d4cf6c"
     },
     {
       "path": "projects/sportbook6vn-preview/src/app/app.component.scss",
-      "sha256": "a879c92a882310830440b9e73cd4e605f96887fd95681a15ac7582b409f8adb8"
+      "sha256": "e935c28fa752ef049b94332f957d4f742c8ec4a4805f3b9bb3b10bcf8aa68f67"
     }
   ]
 }

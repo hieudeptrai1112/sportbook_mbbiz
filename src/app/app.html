@@ -896,39 +896,285 @@
             </section>
 
             <section class="section button-demo-section" id="core3-map-input">
-              <h2>Input mapping</h2>
+              <h2>Input Family Mapping</h2>
               <p class="button-demo-description">
                 Selectors:
                 <span class="button-inline-code">sportbook6vn-input</span>,
-                <span class="button-inline-code">sportbook6vn-search-input</span>
+                <span class="button-inline-code">sportbook6vn-affix-input</span>,
+                <span class="button-inline-code">sportbook6vn-search-input</span>,
+                <span class="button-inline-code">sportbook6vn-password-input</span>,
+                <span class="button-inline-code">sportbook6vn-textarea</span>,
+                <span class="button-inline-code">sportbook6vn-floating-label-input</span>,
+                <span class="button-inline-code">sportbook6vn-affix-label-input</span>,
+                <span class="button-inline-code">sportbook6vn-input-tag</span>
               </p>
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
-                  <div class="core3-map-col">
-                    <sportbook6vn-input
-                      inputId="core3-map-basic-input"
-                      placeholder="Input text"
-                      [value]="core3MapInputValue()"
-                      (valueChange)="setCore3MapInputValue($event)"
-                    />
-                    <sportbook6vn-search-input
-                      inputId="core3-map-search-input"
-                      placeholder="Input text"
-                      [value]="core3MapSearchValue()"
-                      (valueChange)="setCore3MapSearchValue($event)"
-                    />
-                    <sportbook6vn-input
-                      inputId="core3-map-error-input"
-                      placeholder="Input text"
-                      status="error"
-                      value="Input text"
-                    />
-                    <sportbook6vn-input
-                      inputId="core3-map-disabled-input"
-                      placeholder="Input text"
-                      value="Input text"
-                      [disabled]="true"
-                    />
+                  <div class="core3-map-input-grid">
+                    <article class="core3-map-input-card">
+                      <h3 class="core3-map-input-card__title">Input / Basic</h3>
+                      <div class="core3-map-col">
+                        <sportbook6vn-input
+                          inputId="core3-map-basic-input"
+                          placeholder="Input text"
+                          [value]="core3MapInputValue()"
+                          (valueChange)="setCore3MapInputValue($event)"
+                        />
+                        <sportbook6vn-input
+                          inputId="core3-map-basic-input-error"
+                          placeholder="Input text"
+                          status="error"
+                          value="Input text"
+                        />
+                        <sportbook6vn-input
+                          inputId="core3-map-basic-input-disabled"
+                          placeholder="Input text"
+                          value="Input text"
+                          [disabled]="true"
+                        />
+                      </div>
+                    </article>
+
+                    <article class="core3-map-input-card">
+                      <h3 class="core3-map-input-card__title">Input / Affix</h3>
+                      <div class="core3-map-col">
+                        <sportbook6vn-affix-input
+                          inputId="core3-map-affix-input"
+                          mode="prefix"
+                          prefixText="₫"
+                          placeholder="Input text"
+                          [value]="core3MapAffixInputValue()"
+                          (valueChange)="setCore3MapAffixInputValue($event)"
+                        />
+                        <sportbook6vn-affix-input
+                          inputId="core3-map-affix-input-error"
+                          mode="suffix"
+                          suffixText="VND"
+                          placeholder="Input text"
+                          status="error"
+                          value="Input text"
+                        />
+                        <sportbook6vn-affix-input
+                          inputId="core3-map-affix-input-disabled"
+                          mode="both"
+                          placeholder="Input text"
+                          value="Input text"
+                          [disabled]="true"
+                        />
+                      </div>
+                    </article>
+
+                    <article class="core3-map-input-card">
+                      <h3 class="core3-map-input-card__title">Input / Search</h3>
+                      <div class="core3-map-col">
+                        <sportbook6vn-search-input
+                          inputId="core3-map-search-input"
+                          placeholder="Input text"
+                          [value]="core3MapSearchValue()"
+                          (valueChange)="setCore3MapSearchValue($event)"
+                        />
+                        <sportbook6vn-search-input
+                          inputId="core3-map-search-input-error"
+                          placeholder="Input text"
+                          status="error"
+                          value="Input text"
+                        />
+                        <sportbook6vn-search-input
+                          inputId="core3-map-search-input-disabled"
+                          placeholder="Input text"
+                          value="Input text"
+                          [disabled]="true"
+                        />
+                      </div>
+                    </article>
+
+                    <article class="core3-map-input-card">
+                      <h3 class="core3-map-input-card__title">Input / Password</h3>
+                      <div class="core3-map-col">
+                        <sportbook6vn-password-input
+                          inputId="core3-map-password-input"
+                          [value]="core3MapPasswordValue()"
+                          [visible]="core3MapPasswordVisible()"
+                          (valueChange)="setCore3MapPasswordValue($event)"
+                          (visibleChange)="setCore3MapPasswordVisible($event)"
+                        />
+                        <sportbook6vn-password-input
+                          inputId="core3-map-password-input-error"
+                          status="error"
+                          value="hidden-value"
+                        />
+                        <sportbook6vn-password-input
+                          inputId="core3-map-password-input-disabled"
+                          value="hidden-value"
+                          [disabled]="true"
+                        />
+                      </div>
+                    </article>
+
+                    <article class="core3-map-input-card">
+                      <h3 class="core3-map-input-card__title">Input / Textarea</h3>
+                      <div class="core3-map-col">
+                        <sportbook6vn-textarea
+                          textareaId="core3-map-textarea-input"
+                          placeholder="Input text"
+                          [rows]="4"
+                          [maxLength]="100"
+                          [value]="core3MapTextareaValue()"
+                          (valueChange)="setCore3MapTextareaValue($event)"
+                        />
+                        <sportbook6vn-textarea
+                          textareaId="core3-map-textarea-input-error"
+                          placeholder="Input text"
+                          [rows]="4"
+                          [maxLength]="100"
+                          status="error"
+                          value="Input text"
+                        />
+                        <sportbook6vn-textarea
+                          textareaId="core3-map-textarea-input-disabled"
+                          placeholder="Input text"
+                          [rows]="4"
+                          [maxLength]="100"
+                          value="Input text"
+                          [disabled]="true"
+                        />
+                      </div>
+                    </article>
+
+                    <article class="core3-map-input-card">
+                      <h3 class="core3-map-input-card__title">Input / Floating label</h3>
+                      <div class="core3-map-col">
+                        <sportbook6vn-floating-label-input
+                          inputId="core3-map-floating-input"
+                          label="Title"
+                          placeholder="Input text"
+                          [value]="core3MapFloatingLabelValue()"
+                          (valueChange)="setCore3MapFloatingLabelValue($event)"
+                        />
+                        <sportbook6vn-floating-label-input
+                          inputId="core3-map-floating-input-error"
+                          label="Title"
+                          placeholder="Input text"
+                          status="error"
+                          value="Input text"
+                        />
+                        <sportbook6vn-floating-label-input
+                          inputId="core3-map-floating-input-disabled"
+                          label="Title"
+                          placeholder="Input text"
+                          [disabled]="true"
+                          value="Input text"
+                        />
+                      </div>
+                    </article>
+
+                    <article class="core3-map-input-card">
+                      <h3 class="core3-map-input-card__title">Input / Affix label</h3>
+                      <div class="core3-map-col">
+                        <sportbook6vn-affix-label-input
+                          inputId="core3-map-affix-label-input"
+                          placeholder="Input text"
+                          prefixLabel="Loại tiền"
+                          [prefixDropdownItems]="core3MapAffixLabelItems"
+                          [prefixDropdownValue]="core3MapAffixLabelPrefixValue()"
+                          [openAffix]="core3MapAffixLabelOpen()"
+                          [value]="core3MapAffixLabelValue()"
+                          (valueChange)="setCore3MapAffixLabelValue($event)"
+                          (prefixDropdownValueChange)="setCore3MapAffixLabelPrefixValue($event)"
+                          (openAffixChange)="setCore3MapAffixLabelOpen($event)"
+                        />
+                        <sportbook6vn-affix-label-input
+                          inputId="core3-map-affix-label-input-error"
+                          placeholder="Input text"
+                          prefixLabel="Loại tiền"
+                          [prefixDropdownItems]="core3MapAffixLabelItems"
+                          status="error"
+                          value="Input text"
+                        />
+                        <sportbook6vn-affix-label-input
+                          inputId="core3-map-affix-label-input-disabled"
+                          placeholder="Input text"
+                          prefixLabel="Loại tiền"
+                          [prefixDropdownItems]="core3MapAffixLabelItems"
+                          [disabled]="true"
+                          value="Input text"
+                        />
+                      </div>
+                    </article>
+
+                    <article class="core3-map-input-card core3-map-input-card--wide">
+                      <h3 class="core3-map-input-card__title">Input / Tag</h3>
+                      <div class="core3-map-col">
+                        <sportbook6vn-input-tag
+                          inputId="core3-map-input-tag"
+                          placeholder="Input and press Enter"
+                          [allowClear]="true"
+                          [saveOnBlur]="true"
+                          [value]="core3MapInputTagValue()"
+                          [tags]="core3MapInputTagTags()"
+                          (valueChange)="setCore3MapInputTagValue($event)"
+                          (tagsChange)="setCore3MapInputTagTags($event)"
+                        />
+                        <sportbook6vn-input-tag
+                          inputId="core3-map-input-tag-error"
+                          placeholder="Input text"
+                          [tags]="['name@']"
+                          value="Input text"
+                          status="error"
+                          [showTrailingClear]="true"
+                        />
+                        <sportbook6vn-input-tag
+                          inputId="core3-map-input-tag-disabled"
+                          placeholder="Input text"
+                          [disabled]="true"
+                        />
+                        <div class="core3-map-row">
+                          <sportbook6vn-input-tag
+                            inputId="core3-map-input-tag-max-tag-count-default"
+                            placeholder=""
+                            [tags]="['1', '2', '3', '4', '5']"
+                            [maxTagCount]="3"
+                          />
+                          <sportbook6vn-input-tag
+                            inputId="core3-map-input-tag-max-tag-count-custom"
+                            placeholder=""
+                            [tags]="['11', '22', '33', '4', '55']"
+                            [maxTagCount]="{ count: 3, render: core3MapInputTagOverflowRender }"
+                          />
+                        </div>
+                        <div class="core3-map-row">
+                          <sportbook6vn-input-tag
+                            inputId="core3-map-input-tag-responsive-default"
+                            placeholder=""
+                            [tags]="core3MapInputTagResponsiveTags()"
+                            maxTagCount="responsive"
+                          />
+                          <sportbook6vn-input-tag
+                            inputId="core3-map-input-tag-responsive-custom"
+                            placeholder=""
+                            [tags]="core3MapInputTagResponsiveTags()"
+                            [maxTagCount]="{ count: 'responsive', render: core3MapInputTagResponsiveOverflowRender }"
+                          />
+                        </div>
+                        <sportbook6vn-input-tag
+                          inputId="core3-map-input-tag-render-tag"
+                          placeholder="Color tags"
+                          [allowClear]="true"
+                          [tags]="['arcoblue', 'orange', 'lime']"
+                          [renderTag]="core3MapInputTagRenderTone"
+                        />
+                        <sportbook6vn-input-tag
+                          inputId="core3-map-input-tag-validate-email"
+                          placeholder="Input email and press Enter"
+                          [allowClear]="true"
+                          [value]="core3MapInputTagValidatedValue()"
+                          [tags]="core3MapInputTagValidatedTags()"
+                          [validate]="core3MapInputTagEmailValidate"
+                          (valueChange)="setCore3MapInputTagValidatedValue($event)"
+                          (tagsChange)="setCore3MapInputTagValidatedTags($event)"
+                        />
+                      </div>
+                    </article>
                   </div>
                 </div>
               </div>

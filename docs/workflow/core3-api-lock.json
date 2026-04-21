@@ -40,6 +40,7 @@
       "outputs": [{ "name": "valueChange", "type": "string" }],
       "previewSelectors": [
         "sportbook6vn-input",
+        "sportbook6vn-affix-input",
         "sportbook6vn-search-input",
         "sportbook6vn-password-input",
         "sportbook6vn-textarea",

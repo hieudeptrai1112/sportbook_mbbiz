@@ -33,6 +33,7 @@
       "previewSection": "Input family",
       "previewSelectors": [
         "sportbook6vn-input",
+        "sportbook6vn-affix-input",
         "sportbook6vn-search-input",
         "sportbook6vn-password-input",
         "sportbook6vn-textarea",
@@ -42,6 +43,7 @@
       ],
       "libraryEntries": [
         "projects/sportbook6vn/src/lib/wrappers/input/input.component.ts",
+        "projects/sportbook6vn/src/lib/wrappers/affix-input/affix-input.component.ts",
         "projects/sportbook6vn/src/lib/wrappers/search-input/search-input.component.ts",
         "projects/sportbook6vn/src/lib/wrappers/password-input/password-input.component.ts",
         "projects/sportbook6vn/src/lib/wrappers/textarea/textarea.component.ts",
@@ -60,7 +62,16 @@
         "src/app/components/ds-input-affix-label/ds-input-affix-label.component.ts",
         "src/app/components/ds-text-area/ds-text-area.component.ts"
       ],
-      "appSelectors": ["sportbook6vn-input", "sportbook6vn-search-input"]
+      "appSelectors": [
+        "sportbook6vn-input",
+        "sportbook6vn-affix-input",
+        "sportbook6vn-search-input",
+        "sportbook6vn-password-input",
+        "sportbook6vn-textarea",
+        "sportbook6vn-floating-label-input",
+        "sportbook6vn-affix-label-input",
+        "sportbook6vn-input-tag"
+      ]
     },
     {
       "name": "dropdown",
