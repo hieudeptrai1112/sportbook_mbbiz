@@ -76,6 +76,7 @@ export class Sportbook6vnPreviewAppComponent {
   ];
 
   protected readonly basicInputValue = signal('Input text');
+  protected readonly affixSlotInputValue = signal('Input text');
   protected readonly searchValue = signal('');
   protected readonly passwordInteractiveValue = signal('');
   protected readonly passwordVisible = signal(false);
@@ -109,6 +110,10 @@ export class Sportbook6vnPreviewAppComponent {
 
   protected setBasicInputValue(value: string) {
     this.basicInputValue.set(value);
+  }
+
+  protected setAffixSlotInputValue(value: string) {
+    this.affixSlotInputValue.set(value);
   }
 
   protected setSearchValue(value: string) {

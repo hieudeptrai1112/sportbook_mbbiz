@@ -18,10 +18,10 @@
 
     <div class="sportbook6vn-preview-grid">
       <article class="sportbook6vn-preview-card">
-        <h3>Basic input</h3>
+        <h3>Input / Basic</h3>
         <div class="sportbook6vn-preview-input-state-strip">
           <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Interactive</span>
+            <span class="sportbook6vn-preview-button-row-label">Basic</span>
             <sportbook6vn-input
               inputId="preview-basic-input-interactive"
               placeholder="Input text"
@@ -31,32 +31,72 @@
           </div>
 
           <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Error</span>
-            <sportbook6vn-input
-              inputId="preview-basic-input-error"
-              placeholder="Input text"
-              status="error"
-              value="Input text"
-            />
-          </div>
-
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Disabled</span>
-            <sportbook6vn-input
-              inputId="preview-basic-input-disabled"
-              placeholder="Input text"
-              value="Input text"
-              [disabled]="true"
-            />
+            <span class="sportbook6vn-preview-button-row-label">Status</span>
+            <div class="sportbook6vn-preview-input-status-stack">
+              <sportbook6vn-input
+                inputId="preview-basic-input-error"
+                placeholder="Input text"
+                status="error"
+                value="Input text"
+              />
+              <sportbook6vn-input
+                inputId="preview-basic-input-disabled"
+                placeholder="Input text"
+                value="Input text"
+                [disabled]="true"
+              />
+            </div>
           </div>
         </div>
       </article>
 
       <article class="sportbook6vn-preview-card">
-        <h3>Search input</h3>
+        <h3>Input / Affix</h3>
         <div class="sportbook6vn-preview-input-state-strip">
           <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Interactive</span>
+            <span class="sportbook6vn-preview-button-row-label">Basic</span>
+            <sportbook6vn-input
+              inputId="preview-affix-input-interactive"
+              placeholder="Input text"
+              [value]="affixSlotInputValue()"
+              (valueChange)="setAffixSlotInputValue($event)"
+            >
+              <span sportbook6vnInputPrefix class="sportbook6vn-preview-input-affix-token">₫</span>
+              <span sportbook6vnInputSuffix class="sportbook6vn-preview-input-affix-token">VND</span>
+            </sportbook6vn-input>
+          </div>
+
+          <div class="sportbook6vn-preview-variant-stack">
+            <span class="sportbook6vn-preview-button-row-label">Status</span>
+            <div class="sportbook6vn-preview-input-status-stack">
+              <sportbook6vn-input
+                inputId="preview-affix-input-error"
+                placeholder="Input text"
+                status="error"
+                value="Input text"
+              >
+                <span sportbook6vnInputPrefix class="sportbook6vn-preview-input-affix-token">₫</span>
+                <span sportbook6vnInputSuffix class="sportbook6vn-preview-input-affix-token">VND</span>
+              </sportbook6vn-input>
+              <sportbook6vn-input
+                inputId="preview-affix-input-disabled"
+                placeholder="Input text"
+                value="Input text"
+                [disabled]="true"
+              >
+                <span sportbook6vnInputPrefix class="sportbook6vn-preview-input-affix-token">₫</span>
+                <span sportbook6vnInputSuffix class="sportbook6vn-preview-input-affix-token">VND</span>
+              </sportbook6vn-input>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Input / Search</h3>
+        <div class="sportbook6vn-preview-input-state-strip">
+          <div class="sportbook6vn-preview-variant-stack">
+            <span class="sportbook6vn-preview-button-row-label">Basic</span>
             <sportbook6vn-search-input
               inputId="preview-search-input-interactive"
               placeholder="Input text"
@@ -66,32 +106,30 @@
           </div>
 
           <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Error</span>
-            <sportbook6vn-search-input
-              inputId="preview-search-input-error"
-              placeholder="Input text"
-              status="error"
-              value="Input text"
-            />
-          </div>
-
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Disabled</span>
-            <sportbook6vn-search-input
-              inputId="preview-search-input-disabled"
-              placeholder="Input text"
-              value="Input text"
-              [disabled]="true"
-            />
+            <span class="sportbook6vn-preview-button-row-label">Status</span>
+            <div class="sportbook6vn-preview-input-status-stack">
+              <sportbook6vn-search-input
+                inputId="preview-search-input-error"
+                placeholder="Input text"
+                status="error"
+                value="Input text"
+              />
+              <sportbook6vn-search-input
+                inputId="preview-search-input-disabled"
+                placeholder="Input text"
+                value="Input text"
+                [disabled]="true"
+              />
+            </div>
           </div>
         </div>
       </article>
 
       <article class="sportbook6vn-preview-card">
-        <h3>Password input</h3>
+        <h3>Input / Password</h3>
         <div class="sportbook6vn-preview-input-state-strip">
           <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Interactive</span>
+            <span class="sportbook6vn-preview-button-row-label">Basic</span>
             <sportbook6vn-password-input
               inputId="preview-password-input-interactive"
               [value]="passwordInteractiveValue()"
@@ -102,30 +140,28 @@
           </div>
 
           <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Error</span>
-            <sportbook6vn-password-input
-              inputId="preview-password-input-error"
-              status="error"
-              value="hidden-value"
-            />
-          </div>
-
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Disabled</span>
-            <sportbook6vn-password-input
-              inputId="preview-password-input-disabled"
-              value="hidden-value"
-              [disabled]="true"
-            />
+            <span class="sportbook6vn-preview-button-row-label">Status</span>
+            <div class="sportbook6vn-preview-input-status-stack">
+              <sportbook6vn-password-input
+                inputId="preview-password-input-error"
+                status="error"
+                value="hidden-value"
+              />
+              <sportbook6vn-password-input
+                inputId="preview-password-input-disabled"
+                value="hidden-value"
+                [disabled]="true"
+              />
+            </div>
           </div>
         </div>
       </article>
 
       <article class="sportbook6vn-preview-card">
-        <h3>Textarea</h3>
+        <h3>Input / Textarea</h3>
         <div class="sportbook6vn-preview-input-state-strip">
           <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Interactive</span>
+            <span class="sportbook6vn-preview-button-row-label">Basic</span>
             <sportbook6vn-textarea
               textareaId="preview-textarea-interactive"
               placeholder="Input text"
@@ -137,36 +173,34 @@
           </div>
 
           <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Error</span>
-            <sportbook6vn-textarea
-              textareaId="preview-textarea-error"
-              placeholder="Input text"
-              [rows]="4"
-              [maxLength]="100"
-              status="error"
-              value="Input text"
-            />
-          </div>
-
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Disabled</span>
-            <sportbook6vn-textarea
-              textareaId="preview-textarea-disabled"
-              placeholder="Input text"
-              [rows]="4"
-              [maxLength]="100"
-              value="Input text"
-              [disabled]="true"
-            />
+            <span class="sportbook6vn-preview-button-row-label">Status</span>
+            <div class="sportbook6vn-preview-input-status-stack">
+              <sportbook6vn-textarea
+                textareaId="preview-textarea-error"
+                placeholder="Input text"
+                [rows]="4"
+                [maxLength]="100"
+                status="error"
+                value="Input text"
+              />
+              <sportbook6vn-textarea
+                textareaId="preview-textarea-disabled"
+                placeholder="Input text"
+                [rows]="4"
+                [maxLength]="100"
+                value="Input text"
+                [disabled]="true"
+              />
+            </div>
           </div>
         </div>
       </article>
 
       <article class="sportbook6vn-preview-card">
-        <h3>Floating label input</h3>
+        <h3>Input / Floating label</h3>
         <div class="sportbook6vn-preview-input-state-strip">
           <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Interactive</span>
+            <span class="sportbook6vn-preview-button-row-label">Basic</span>
             <sportbook6vn-floating-label-input
               inputId="preview-floating-label-interactive"
               label="Title"
@@ -177,34 +211,32 @@
           </div>
 
           <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Error</span>
-            <sportbook6vn-floating-label-input
-              inputId="preview-floating-label-error"
-              label="Title"
-              placeholder="Input text"
-              status="error"
-              value="Input text"
-            />
-          </div>
-
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Disabled</span>
-            <sportbook6vn-floating-label-input
-              inputId="preview-floating-label-disabled"
-              label="Title"
-              placeholder="Input text"
-              [disabled]="true"
-              value="Input text"
-            />
+            <span class="sportbook6vn-preview-button-row-label">Status</span>
+            <div class="sportbook6vn-preview-input-status-stack">
+              <sportbook6vn-floating-label-input
+                inputId="preview-floating-label-error"
+                label="Title"
+                placeholder="Input text"
+                status="error"
+                value="Input text"
+              />
+              <sportbook6vn-floating-label-input
+                inputId="preview-floating-label-disabled"
+                label="Title"
+                placeholder="Input text"
+                [disabled]="true"
+                value="Input text"
+              />
+            </div>
           </div>
         </div>
       </article>
 
       <article class="sportbook6vn-preview-card">
-        <h3>Affix label input</h3>
+        <h3>Input / Affix label</h3>
         <div class="sportbook6vn-preview-input-state-strip">
           <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Interactive</span>
+            <span class="sportbook6vn-preview-button-row-label">Basic</span>
             <sportbook6vn-affix-label-input
               inputId="preview-affix-label-interactive"
               placeholder="Input text"
@@ -220,36 +252,34 @@
           </div>
 
           <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Error</span>
-            <sportbook6vn-affix-label-input
-              inputId="preview-affix-label-error-dropdown"
-              placeholder="Input text"
-              prefixLabel="Loại tiền"
-              [prefixDropdownItems]="currencyAffixItems"
-              status="error"
-              value="Input text"
-            />
-          </div>
-
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Disabled</span>
-            <sportbook6vn-affix-label-input
-              inputId="preview-affix-label-disabled-dropdown"
-              placeholder="Input text"
-              prefixLabel="Loại tiền"
-              [prefixDropdownItems]="currencyAffixItems"
-              [disabled]="true"
-              value="Input text"
-            />
+            <span class="sportbook6vn-preview-button-row-label">Status</span>
+            <div class="sportbook6vn-preview-input-status-stack">
+              <sportbook6vn-affix-label-input
+                inputId="preview-affix-label-error-dropdown"
+                placeholder="Input text"
+                prefixLabel="Loại tiền"
+                [prefixDropdownItems]="currencyAffixItems"
+                status="error"
+                value="Input text"
+              />
+              <sportbook6vn-affix-label-input
+                inputId="preview-affix-label-disabled-dropdown"
+                placeholder="Input text"
+                prefixLabel="Loại tiền"
+                [prefixDropdownItems]="currencyAffixItems"
+                [disabled]="true"
+                value="Input text"
+              />
+            </div>
           </div>
         </div>
       </article>
 
       <article class="sportbook6vn-preview-card">
-        <h3>Input tag</h3>
+        <h3>Input / Tag</h3>
         <div class="sportbook6vn-preview-input-state-strip">
           <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Interactive</span>
+            <span class="sportbook6vn-preview-button-row-label">Basic</span>
             <sportbook6vn-input-tag
               inputId="preview-input-tag-interactive"
               placeholder="Input and press Enter"
@@ -263,87 +293,78 @@
           </div>
 
           <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Error</span>
-            <sportbook6vn-input-tag
-              inputId="preview-input-tag-error"
-              placeholder="Input text"
-              [tags]="['name@']"
-              value="Input text"
-              status="error"
-              [showTrailingClear]="true"
-            />
-          </div>
-
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Disabled</span>
-            <sportbook6vn-input-tag
-              inputId="preview-input-tag-disabled"
-              placeholder="Input text"
-              [disabled]="true"
-            />
-          </div>
-
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">MaxTagCount</span>
-            <div class="sportbook6vn-preview-input-tag-pair sportbook6vn-preview-input-tag-pair--arco">
+            <span class="sportbook6vn-preview-button-row-label">Status</span>
+            <div class="sportbook6vn-preview-input-status-stack">
               <sportbook6vn-input-tag
-                inputId="preview-input-tag-max-tag-count-default"
-                placeholder=""
-                [tags]="['1', '2', '3', '4', '5']"
-                [maxTagCount]="3"
+                inputId="preview-input-tag-error"
+                placeholder="Input text"
+                [tags]="['name@']"
+                value="Input text"
+                status="error"
+                [showTrailingClear]="true"
               />
-
               <sportbook6vn-input-tag
-                inputId="preview-input-tag-max-tag-count-custom"
-                placeholder=""
-                [tags]="['11', '22', '33', '4', '55']"
-                [maxTagCount]="{ count: 3, render: inputTagOverflowRender }"
+                inputId="preview-input-tag-disabled"
+                placeholder="Input text"
+                [disabled]="true"
               />
             </div>
           </div>
 
           <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Responsive Tags</span>
-            <div class="sportbook6vn-preview-input-tag-pair sportbook6vn-preview-input-tag-pair--arco">
+            <span class="sportbook6vn-preview-button-row-label">Advanced</span>
+            <div class="sportbook6vn-preview-input-status-stack">
+              <div class="sportbook6vn-preview-input-tag-pair sportbook6vn-preview-input-tag-pair--arco">
+                <sportbook6vn-input-tag
+                  inputId="preview-input-tag-max-tag-count-default"
+                  placeholder=""
+                  [tags]="['1', '2', '3', '4', '5']"
+                  [maxTagCount]="3"
+                />
+
+                <sportbook6vn-input-tag
+                  inputId="preview-input-tag-max-tag-count-custom"
+                  placeholder=""
+                  [tags]="['11', '22', '33', '4', '55']"
+                  [maxTagCount]="{ count: 3, render: inputTagOverflowRender }"
+                />
+              </div>
+
+              <div class="sportbook6vn-preview-input-tag-pair sportbook6vn-preview-input-tag-pair--arco">
+                <sportbook6vn-input-tag
+                  inputId="preview-input-tag-responsive-default"
+                  placeholder=""
+                  [tags]="inputTagResponsiveTags()"
+                  maxTagCount="responsive"
+                />
+
+                <sportbook6vn-input-tag
+                  inputId="preview-input-tag-responsive-custom"
+                  placeholder=""
+                  [tags]="inputTagResponsiveTags()"
+                  [maxTagCount]="{ count: 'responsive', render: inputTagResponsiveOverflowRender }"
+                />
+              </div>
+
               <sportbook6vn-input-tag
-                inputId="preview-input-tag-responsive-default"
-                placeholder=""
-                [tags]="inputTagResponsiveTags()"
-                maxTagCount="responsive"
+                inputId="preview-input-tag-render-tag"
+                placeholder="Color tags"
+                [allowClear]="true"
+                [tags]="['arcoblue', 'orange', 'lime']"
+                [renderTag]="inputTagRenderTone"
               />
 
               <sportbook6vn-input-tag
-                inputId="preview-input-tag-responsive-custom"
-                placeholder=""
-                [tags]="inputTagResponsiveTags()"
-                [maxTagCount]="{ count: 'responsive', render: inputTagResponsiveOverflowRender }"
+                inputId="preview-input-tag-validate-email"
+                placeholder="Input email and press Enter"
+                [allowClear]="true"
+                [value]="inputTagValidatedValue()"
+                [tags]="inputTagValidatedTags()"
+                [validate]="inputTagEmailValidate"
+                (valueChange)="setInputTagValidatedValue($event)"
+                (tagsChange)="setInputTagValidatedTags($event)"
               />
             </div>
-          </div>
-
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Render Tag</span>
-            <sportbook6vn-input-tag
-              inputId="preview-input-tag-render-tag"
-              placeholder="Color tags"
-              [allowClear]="true"
-              [tags]="['arcoblue', 'orange', 'lime']"
-              [renderTag]="inputTagRenderTone"
-            />
-          </div>
-
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Validate Email</span>
-            <sportbook6vn-input-tag
-              inputId="preview-input-tag-validate-email"
-              placeholder="Input email and press Enter"
-              [allowClear]="true"
-              [value]="inputTagValidatedValue()"
-              [tags]="inputTagValidatedTags()"
-              [validate]="inputTagEmailValidate"
-              (valueChange)="setInputTagValidatedValue($event)"
-              (tagsChange)="setInputTagValidatedTags($event)"
-            />
           </div>
         </div>
       </article>
