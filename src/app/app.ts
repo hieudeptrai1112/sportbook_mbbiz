@@ -160,7 +160,7 @@ export class App {
   protected readonly isDesignTokensOpen = signal(false);
   protected readonly isComponentsOpen = signal(true);
   protected readonly activePage = signal<
-    'buttons' | 'inputField' | 'core3Mapping' | 'color' | 'tokens' | 'spacing' | 'typography'
+    'buttons' | 'buttonMapping' | 'inputField' | 'core3Mapping' | 'color' | 'tokens' | 'spacing' | 'typography'
   >('buttons');
   protected readonly semanticTokenMappings = SEMANTIC_COLOR_TOKEN_MAPPINGS;
   protected readonly semanticTokenGroups = this.buildSemanticTokenGroups();
@@ -284,7 +284,15 @@ export class App {
   }
 
   protected setPage(
-    page: 'buttons' | 'inputField' | 'core3Mapping' | 'color' | 'tokens' | 'spacing' | 'typography',
+    page:
+      | 'buttons'
+      | 'buttonMapping'
+      | 'inputField'
+      | 'core3Mapping'
+      | 'color'
+      | 'tokens'
+      | 'spacing'
+      | 'typography',
   ) {
     this.activePage.set(page);
     if (page === 'tokens' || page === 'spacing' || page === 'typography') {

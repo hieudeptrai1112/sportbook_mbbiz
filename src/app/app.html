@@ -192,6 +192,14 @@
             </div>
             <div
               class="sidebar-link"
+              [class.active]="activePage() === 'buttonMapping'"
+              (click)="setPage('buttonMapping')"
+            >
+              <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
+              <span>Button Mapping</span>
+            </div>
+            <div
+              class="sidebar-link"
               [class.active]="activePage() === 'inputField'"
               (click)="setPage('inputField')"
             >
@@ -862,19 +870,17 @@
             </section>
           </ng-container>
 
-          <ng-container *ngIf="activePage() === 'core3Mapping'">
+          <ng-container *ngIf="activePage() === 'buttonMapping'">
             <div class="page-header">
               <div class="header-meta">
                 <span class="badge">Integration</span>
                 <span class="slash">/</span>
                 <span class="meta-version">core-3</span>
               </div>
-              <h1>Core-3 Mapping</h1>
+              <h1>Button Mapping</h1>
               <p class="lead">
-                Bản đối chiếu trực tiếp giữa preview và app chính cho 3 wrapper đã chốt:
-                <span class="button-inline-code">button</span>,
-                <span class="button-inline-code">input</span>,
-                <span class="button-inline-code">dropdown</span>.
+                Bản tách riêng cho wrapper <span class="button-inline-code">sportbook6vn-button</span>,
+                map 1:1 từ preview sang app docs theo cấu trúc component page.
               </p>
             </div>
 
@@ -1049,6 +1055,22 @@
                 </div>
               </div>
             </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'core3Mapping'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Integration</span>
+                <span class="slash">/</span>
+                <span class="meta-version">core-3</span>
+              </div>
+              <h1>Core-3 Mapping</h1>
+              <p class="lead">
+                Bản đối chiếu trực tiếp giữa preview và app chính cho 2 wrapper đã chốt:
+                <span class="button-inline-code">input</span>,
+                <span class="button-inline-code">dropdown</span>.
+              </p>
+            </div>
 
             <section class="section button-demo-section" id="core3-map-input">
               <h2>Input Family Mapping</h2>
@@ -2062,12 +2084,41 @@
           </div>
         </ng-container>
 
-        <ng-container *ngIf="activePage() === 'core3Mapping'">
+        <ng-container *ngIf="activePage() === 'buttonMapping'">
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
               <span class="toc-label">On This Page</span>
               <div class="toc-list">
                 <a class="toc-item" href="#core3-map-button">Button mapping</a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Pro Tip</span>
+                </div>
+                <p>
+                  Đây là bản tách riêng cho button để review độc lập trên menu trái trước khi
+                  mở rộng mapping cho component tiếp theo.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'core3Mapping'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
                 <a class="toc-item" href="#core3-map-input">Input mapping</a>
                 <a class="toc-item" href="#core3-map-dropdown">Dropdown mapping</a>
               </div>
