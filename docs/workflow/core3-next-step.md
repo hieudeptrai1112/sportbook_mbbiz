@@ -55,3 +55,18 @@ Input cần chốt trước khi code:
 - rule giữ nguyên/không giữ nguyên demo hiện tại
 
 Khi có đủ input trên, triển khai theo cùng pattern đã dùng cho core-3.
+
+## 4) DoD checklist cho mỗi component (sau khi chốt preview)
+
+Checklist này áp dụng cho flow hiện tại (clone NG-Zorro + wrapper `sportbook6vn`):
+
+- [ ] Chốt node ID Figma + rule interaction bắt buộc.
+- [ ] Implement wrapper trong `projects/sportbook6vn/src/lib/wrappers/<component>/`.
+- [ ] Chốt full variant/state/interaction trên preview (không thiếu, không thừa).
+- [ ] Chạy `mapping lên app + <tên component>` để map 1:1 từ preview sang app docs.
+- [ ] Commit + push + kiểm tra bản deploy thực tế (hard refresh).
+- [ ] Chạy Code Connect cho component vừa chốt (map node Figma ↔ wrapper code).
+- [ ] Chạy `npm run verify:core3` để kiểm tra contracts + locks + type-check.
+- [ ] Chỉ khi chủ động chốt baseline mới thì chạy `npm run lock:core3:update`.
+- [ ] Nếu cần tách nội dung theo docs IA: chạy `tách + <tên component>` để tạo tab/menu trái riêng và giữ đúng cấu trúc docs rules.
+- [ ] Chốt release nội bộ (version + changelog ngắn) để app team dùng thật.
