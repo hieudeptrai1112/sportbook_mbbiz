@@ -55,6 +55,11 @@ import {
   type ButtonVariableGroup,
 } from './button-demos.data';
 import {
+  BUTTON_MAPPING_DEMO_SECTIONS,
+  type ButtonMappingCodeType,
+  type ButtonMappingDemoSection,
+} from './button-mapping.demos.data';
+import {
   INPUT_API_ROWS,
   type InputDemoComponent,
   INPUT_DEMO_SECTIONS,
@@ -174,6 +179,7 @@ export class App {
   protected readonly radiusScaleRows: NumericScaleRow[] = RADIUS_SCALE_ROWS;
   protected readonly typographyScaleGroups: TypographyScaleGroup[] = TYPOGRAPHY_SCALE_GROUPS;
   protected readonly buttonDemoSections: ButtonDemoSection[] = BUTTON_DEMO_SECTIONS;
+  protected readonly buttonMappingDemoSections: ButtonMappingDemoSection[] = BUTTON_MAPPING_DEMO_SECTIONS;
   protected readonly buttonApiRows: ButtonApiRow[] = BUTTON_API_ROWS;
   protected readonly buttonSemanticBindingGroups: ResolvedButtonSemanticBindingGroup[] =
     this.buildButtonSemanticBindingGroups(BUTTON_SEMANTIC_BINDING_GROUPS);
@@ -183,6 +189,13 @@ export class App {
   protected readonly buttonCodeType = signal<ButtonCodeType>('js');
   protected readonly expandedButtonDemoIds = signal<string[]>([]);
   protected readonly copiedButtonDemoId = signal<string | null>(null);
+  protected readonly activeButtonMappingSection = signal(
+    this.getButtonMappingSectionId(this.buttonMappingDemoSections[0]?.id ?? 'rectangle-primary'),
+  );
+  protected readonly buttonMappingCodeType = signal<ButtonMappingCodeType>('js');
+  protected readonly expandedButtonMappingDemoIds = signal<string[]>([]);
+  protected readonly copiedButtonMappingDemoId = signal<string | null>(null);
+  protected readonly buttonMappingSizeScale = ['lg', 'md', 'sm'] as const;
   protected readonly inputDemoSections: InputDemoSection[] = INPUT_DEMO_SECTIONS;
   protected readonly inputApiRows: InputApiRow[] = INPUT_API_ROWS;
   protected readonly inputStateContractRows: InputStateContractRow[] = INPUT_STATE_CONTRACT_ROWS;
@@ -299,6 +312,8 @@ export class App {
       setTimeout(() => this.updateActiveTokenSection(), 0);
     } else if (page === 'buttons') {
       setTimeout(() => this.updateActiveButtonSection(), 0);
+    } else if (page === 'buttonMapping') {
+      setTimeout(() => this.updateActiveButtonMappingSection(), 0);
     } else if (page === 'inputField') {
       setTimeout(() => this.updateActiveInputSection(), 0);
     }
@@ -432,6 +447,10 @@ export class App {
 
   protected setActiveButtonSection(sectionId: string) {
     this.activeButtonSection.set(sectionId);
+  }
+
+  protected setActiveButtonMappingSection(sectionId: string) {
+    this.activeButtonMappingSection.set(sectionId);
   }
 
   protected setActiveInputSection(sectionId: string) {
@@ -583,8 +602,77 @@ export class App {
     }, 1200);
   }
 
+  protected isButtonMappingDemoExpanded(sectionId: string): boolean {
+    return this.expandedButtonMappingDemoIds().includes(sectionId);
+  }
+
+  protected toggleButtonMappingDemoCode(sectionId: string) {
+    const next = new Set(this.expandedButtonMappingDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedButtonMappingDemoIds.set([...next]);
+  }
+
+  protected toggleAllButtonMappingDemoCode() {
+    const expanded = this.expandedButtonMappingDemoIds();
+    const allIds = this.buttonMappingDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedButtonMappingDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllButtonMappingDemoCodeExpanded(): boolean {
+    return this.expandedButtonMappingDemoIds().length === this.buttonMappingDemoSections.length;
+  }
+
+  protected setButtonMappingCodeType(type: ButtonMappingCodeType) {
+    this.buttonMappingCodeType.set(type);
+  }
+
+  protected getButtonMappingDemoCode(section: ButtonMappingDemoSection): string {
+    if (this.buttonMappingCodeType() === 'ts') {
+      return section.snippetTs;
+    }
+    return section.snippetHtml;
+  }
+
+  protected getButtonMappingDemoHighlightedCode(section: ButtonMappingDemoSection): string {
+    const code = this.getButtonMappingDemoCode(section);
+    if (this.buttonMappingCodeType() === 'ts') {
+      return this.highlightTypeScriptSnippet(code);
+    }
+    return this.highlightHtmlSnippet(code);
+  }
+
+  protected getButtonMappingCodeLanguageLabel(): string {
+    return this.buttonMappingCodeType() === 'js'
+      ? 'button-mapping-demo.component.html'
+      : 'button-mapping-demo.component.ts';
+  }
+
+  protected async copyButtonMappingDemoCode(section: ButtonMappingDemoSection) {
+    const code = this.getButtonMappingDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedButtonMappingDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedButtonMappingDemoId() === section.id) {
+        this.copiedButtonMappingDemoId.set(null);
+      }
+    }, 1200);
+  }
+
   protected getButtonSectionId(sectionId: string): string {
     return `button-${sectionId}`;
+  }
+
+  protected getButtonMappingSectionId(sectionId: string): string {
+    if (sectionId === 'rectangle-primary') {
+      return 'core3-map-button';
+    }
+
+    return `button-mapping-${sectionId}`;
   }
 
   protected getInputSectionId(sectionId: string): string {
@@ -695,6 +783,7 @@ export class App {
   protected onViewportChange() {
     this.updateActiveTokenSection();
     this.updateActiveButtonSection();
+    this.updateActiveButtonMappingSection();
     this.updateActiveInputSection();
   }
 
@@ -751,6 +840,31 @@ export class App {
     }
 
     this.activeButtonSection.set(currentSection);
+  }
+
+  private updateActiveButtonMappingSection() {
+    if (this.activePage() !== 'buttonMapping' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getButtonMappingSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeButtonMappingSection.set(currentSection);
   }
 
   private updateActiveInputSection() {
@@ -900,6 +1014,14 @@ export class App {
       ...this.buttonDemoSections.map((section) => this.getButtonSectionId(section.id)),
       'button-api',
       'button-variables',
+    ];
+  }
+
+  private getButtonMappingSectionIds(): string[] {
+    return [
+      ...this.buttonMappingDemoSections.map((section) => this.getButtonMappingSectionId(section.id)),
+      'button-mapping-api',
+      'button-mapping-variables',
     ];
   }
 

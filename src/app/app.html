@@ -884,175 +884,209 @@
               </p>
             </div>
 
-            <section class="section button-demo-section" id="core3-map-button">
-              <h2>Button mapping</h2>
-              <p class="button-demo-description">
-                Selector: <span class="button-inline-code">sportbook6vn-button</span>
-              </p>
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of buttonMappingDemoSections; let i = index"
+              [attr.id]="getButtonMappingSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+                <button
+                  *ngIf="i === 0"
+                  class="button-doc-toggle"
+                  type="button"
+                  (click)="toggleAllButtonMappingDemoCode()"
+                >
+                  {{ areAllButtonMappingDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                </button>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
-                  <div class="core3-map-input-grid core3-map-button-grid">
-                    <article class="core3-map-input-card">
-                      <h3 class="core3-map-input-card__title">Rectangle / Primary</h3>
-                      <div class="core3-map-col core3-map-col--button">
-                        <div class="core3-map-button-row">
-                          <span class="core3-map-button-row-label">Default</span>
-                          <div class="core3-map-row">
-                            <sportbook6vn-button size="lg">Text</sportbook6vn-button>
-                            <sportbook6vn-button size="md">Text</sportbook6vn-button>
-                            <sportbook6vn-button size="sm">Text</sportbook6vn-button>
-                          </div>
-                        </div>
-                        <div class="core3-map-button-row">
-                          <span class="core3-map-button-row-label">With icon</span>
-                          <div class="core3-map-row">
-                            <sportbook6vn-button size="lg">
-                              <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                              Text
-                            </sportbook6vn-button>
-                            <sportbook6vn-button size="md">
-                              Text
-                              <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                            </sportbook6vn-button>
-                            <sportbook6vn-button size="sm">
-                              <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                              Text
-                              <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                            </sportbook6vn-button>
-                          </div>
-                        </div>
-                        <div class="core3-map-button-row">
-                          <span class="core3-map-button-row-label">Disabled</span>
-                          <div class="core3-map-row">
-                            <sportbook6vn-button size="lg" [disabled]="true">Text</sportbook6vn-button>
-                            <sportbook6vn-button size="md" [disabled]="true">Text</sportbook6vn-button>
-                            <sportbook6vn-button size="sm" [disabled]="true">Text</sportbook6vn-button>
-                          </div>
-                        </div>
+                  <div class="core3-map-col core3-map-col--button">
+                    <div class="core3-map-button-row">
+                      <span class="core3-map-button-row-label">Default</span>
+                      <div class="core3-map-row">
+                        <sportbook6vn-button
+                          *ngFor="let size of buttonMappingSizeScale"
+                          [shape]="demo.shape"
+                          [variant]="demo.variant"
+                          [size]="size"
+                        >
+                          Text
+                        </sportbook6vn-button>
                       </div>
-                    </article>
-
-                    <article class="core3-map-input-card">
-                      <h3 class="core3-map-input-card__title">Rectangle / Secondary</h3>
-                      <div class="core3-map-col core3-map-col--button">
-                        <div class="core3-map-button-row">
-                          <span class="core3-map-button-row-label">Default</span>
-                          <div class="core3-map-row">
-                            <sportbook6vn-button variant="secondary" size="lg">Text</sportbook6vn-button>
-                            <sportbook6vn-button variant="secondary" size="md">Text</sportbook6vn-button>
-                            <sportbook6vn-button variant="secondary" size="sm">Text</sportbook6vn-button>
-                          </div>
-                        </div>
-                        <div class="core3-map-button-row">
-                          <span class="core3-map-button-row-label">With icon</span>
-                          <div class="core3-map-row">
-                            <sportbook6vn-button variant="secondary" size="lg">
-                              <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                              Text
-                            </sportbook6vn-button>
-                            <sportbook6vn-button variant="secondary" size="md">
-                              Text
-                              <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                            </sportbook6vn-button>
-                            <sportbook6vn-button variant="secondary" size="sm">
-                              <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                              Text
-                              <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                            </sportbook6vn-button>
-                          </div>
-                        </div>
-                        <div class="core3-map-button-row">
-                          <span class="core3-map-button-row-label">Disabled</span>
-                          <div class="core3-map-row">
-                            <sportbook6vn-button variant="secondary" size="lg" [disabled]="true">Text</sportbook6vn-button>
-                            <sportbook6vn-button variant="secondary" size="md" [disabled]="true">Text</sportbook6vn-button>
-                            <sportbook6vn-button variant="secondary" size="sm" [disabled]="true">Text</sportbook6vn-button>
-                          </div>
-                        </div>
+                    </div>
+                    <div class="core3-map-button-row">
+                      <span class="core3-map-button-row-label">With icon</span>
+                      <div class="core3-map-row">
+                        <sportbook6vn-button [shape]="demo.shape" [variant]="demo.variant" size="lg">
+                          <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
+                          Text
+                        </sportbook6vn-button>
+                        <sportbook6vn-button [shape]="demo.shape" [variant]="demo.variant" size="md">
+                          Text
+                          <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
+                        </sportbook6vn-button>
+                        <sportbook6vn-button [shape]="demo.shape" [variant]="demo.variant" size="sm">
+                          <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
+                          Text
+                          <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
+                        </sportbook6vn-button>
                       </div>
-                    </article>
-
-                    <article class="core3-map-input-card">
-                      <h3 class="core3-map-input-card__title">Pill / Primary</h3>
-                      <div class="core3-map-col core3-map-col--button">
-                        <div class="core3-map-button-row">
-                          <span class="core3-map-button-row-label">Default</span>
-                          <div class="core3-map-row">
-                            <sportbook6vn-button shape="pill" size="lg">Text</sportbook6vn-button>
-                            <sportbook6vn-button shape="pill" size="md">Text</sportbook6vn-button>
-                            <sportbook6vn-button shape="pill" size="sm">Text</sportbook6vn-button>
-                          </div>
-                        </div>
-                        <div class="core3-map-button-row">
-                          <span class="core3-map-button-row-label">With icon</span>
-                          <div class="core3-map-row">
-                            <sportbook6vn-button shape="pill" size="lg">
-                              <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                              Text
-                            </sportbook6vn-button>
-                            <sportbook6vn-button shape="pill" size="md">
-                              Text
-                              <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                            </sportbook6vn-button>
-                            <sportbook6vn-button shape="pill" size="sm">
-                              <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                              Text
-                              <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                            </sportbook6vn-button>
-                          </div>
-                        </div>
-                        <div class="core3-map-button-row">
-                          <span class="core3-map-button-row-label">Disabled</span>
-                          <div class="core3-map-row">
-                            <sportbook6vn-button shape="pill" size="lg" [disabled]="true">Text</sportbook6vn-button>
-                            <sportbook6vn-button shape="pill" size="md" [disabled]="true">Text</sportbook6vn-button>
-                            <sportbook6vn-button shape="pill" size="sm" [disabled]="true">Text</sportbook6vn-button>
-                          </div>
-                        </div>
+                    </div>
+                    <div class="core3-map-button-row">
+                      <span class="core3-map-button-row-label">Disabled</span>
+                      <div class="core3-map-row">
+                        <sportbook6vn-button
+                          *ngFor="let size of buttonMappingSizeScale"
+                          [shape]="demo.shape"
+                          [variant]="demo.variant"
+                          [size]="size"
+                          [disabled]="true"
+                        >
+                          Text
+                        </sportbook6vn-button>
                       </div>
-                    </article>
-
-                    <article class="core3-map-input-card">
-                      <h3 class="core3-map-input-card__title">Pill / Secondary</h3>
-                      <div class="core3-map-col core3-map-col--button">
-                        <div class="core3-map-button-row">
-                          <span class="core3-map-button-row-label">Default</span>
-                          <div class="core3-map-row">
-                            <sportbook6vn-button shape="pill" variant="secondary" size="lg">Text</sportbook6vn-button>
-                            <sportbook6vn-button shape="pill" variant="secondary" size="md">Text</sportbook6vn-button>
-                            <sportbook6vn-button shape="pill" variant="secondary" size="sm">Text</sportbook6vn-button>
-                          </div>
-                        </div>
-                        <div class="core3-map-button-row">
-                          <span class="core3-map-button-row-label">With icon</span>
-                          <div class="core3-map-row">
-                            <sportbook6vn-button shape="pill" variant="secondary" size="lg">
-                              <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                              Text
-                            </sportbook6vn-button>
-                            <sportbook6vn-button shape="pill" variant="secondary" size="md">
-                              Text
-                              <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                            </sportbook6vn-button>
-                            <sportbook6vn-button shape="pill" variant="secondary" size="sm">
-                              <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                              Text
-                              <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                            </sportbook6vn-button>
-                          </div>
-                        </div>
-                        <div class="core3-map-button-row">
-                          <span class="core3-map-button-row-label">Disabled</span>
-                          <div class="core3-map-row">
-                            <sportbook6vn-button shape="pill" variant="secondary" size="lg" [disabled]="true">Text</sportbook6vn-button>
-                            <sportbook6vn-button shape="pill" variant="secondary" size="md" [disabled]="true">Text</sportbook6vn-button>
-                            <sportbook6vn-button shape="pill" variant="secondary" size="sm" [disabled]="true">Text</sportbook6vn-button>
-                          </div>
-                        </div>
-                      </div>
-                    </article>
+                    </div>
                   </div>
                 </div>
+
+                <div class="button-demo-controls">
+                  <div class="button-demo-icons">
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      [class.active]="isButtonMappingDemoExpanded(demo.id)"
+                      (click)="toggleButtonMappingDemoCode(demo.id)"
+                      aria-label="Toggle code"
+                    >
+                      &lt;/&gt;
+                    </button>
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      (click)="copyButtonMappingDemoCode(demo)"
+                      aria-label="Copy code"
+                    >
+                      {{ copiedButtonMappingDemoId() === demo.id ? 'Copied' : 'Copy' }}
+                    </button>
+                  </div>
+
+                  <div class="button-code-type">
+                    <button
+                      type="button"
+                      class="button-code-type-btn"
+                      [class.active]="buttonMappingCodeType() === 'js'"
+                      (click)="setButtonMappingCodeType('js')"
+                    >
+                      HTML
+                    </button>
+                    <button
+                      type="button"
+                      class="button-code-type-btn"
+                      [class.active]="buttonMappingCodeType() === 'ts'"
+                      [disabled]="!demo.snippetTs"
+                      (click)="setButtonMappingCodeType('ts')"
+                    >
+                      TS
+                    </button>
+                  </div>
+                </div>
+
+                <div class="button-code-wrapper" *ngIf="isButtonMappingDemoExpanded(demo.id)">
+                  <div class="button-code-head">
+                    <span class="button-code-file">{{ getButtonMappingCodeLanguageLabel() }}</span>
+                    <span class="button-code-hint">Copy-ready snippet</span>
+                  </div>
+                  <pre class="button-code-block"><code [innerHTML]="getButtonMappingDemoHighlightedCode(demo)"></code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-api-section" id="button-mapping-api">
+              <h2>API</h2>
+              <h3 class="button-api-group-title">sportbook6vn-button</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of buttonApiRows">
+                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="button-mapping-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Mapping page dùng lại hệ token của button để đảm bảo render wrapper và render docs
+                đồng nhất với nguồn semantic token.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of buttonSemanticBindingGroups">
+                <h3>{{ group.title }}</h3>
+                <p class="scale-note">{{ group.description }}</p>
+                <div class="token-table button-semantic-table">
+                  <div class="token-row token-head">
+                    <span>Component Token</span>
+                    <span>Alias Token</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.rows">
+                    <div class="token-alias-cell" [class.na]="row.semanticValue === 'N/A'">
+                      <span
+                        class="token-swatch"
+                        [style.background]="row.semanticValue === 'N/A' ? '#E2E8F0' : row.semanticValue"
+                      ></span>
+                      <code class="token-code">{{ row.componentToken }}</code>
+                    </div>
+                    <code class="token-code">{{ row.semanticAlias }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-subsection">
+                <h3>Layout & Typography Specs</h3>
+                <p class="scale-note">
+                  Non-color variables used by Button sizing, spacing, radius, and text styles.
+                </p>
+                <div class="scale-block" *ngFor="let group of buttonVariableGroups">
+                  <h4>{{ group.title }}</h4>
+                  <div class="token-table button-variable-table">
+                    <div class="token-row token-head">
+                      <span>Token note</span>
+                      <span>Value</span>
+                      <span>Applied To</span>
+                    </div>
+                    <div class="token-row" *ngFor="let row of group.rows">
+                      <div class="token-note-cell">
+                        <code class="token-code">{{ row.token }}</code>
+                        <span class="token-description">{{ row.notes }}</span>
+                      </div>
+                      <code class="token-code">{{ row.value }}</code>
+                      <span>{{ row.appliesTo }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of buttonVariableNotes">{{ note }}</li>
+                </ul>
               </div>
             </section>
           </ng-container>
@@ -2089,7 +2123,54 @@
             <aside class="toc">
               <span class="toc-label">On This Page</span>
               <div class="toc-list">
-                <a class="toc-item" href="#core3-map-button">Button mapping</a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeButtonMappingSection() === 'core3-map-button'"
+                  href="#core3-map-button"
+                  (click)="setActiveButtonMappingSection('core3-map-button')"
+                >
+                  Rectangle · Primary
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeButtonMappingSection() === 'button-mapping-rectangle-secondary'"
+                  href="#button-mapping-rectangle-secondary"
+                  (click)="setActiveButtonMappingSection('button-mapping-rectangle-secondary')"
+                >
+                  Rectangle · Secondary
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeButtonMappingSection() === 'button-mapping-pill-primary'"
+                  href="#button-mapping-pill-primary"
+                  (click)="setActiveButtonMappingSection('button-mapping-pill-primary')"
+                >
+                  Pill · Primary
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeButtonMappingSection() === 'button-mapping-pill-secondary'"
+                  href="#button-mapping-pill-secondary"
+                  (click)="setActiveButtonMappingSection('button-mapping-pill-secondary')"
+                >
+                  Pill · Secondary
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeButtonMappingSection() === 'button-mapping-api'"
+                  href="#button-mapping-api"
+                  (click)="setActiveButtonMappingSection('button-mapping-api')"
+                >
+                  API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeButtonMappingSection() === 'button-mapping-variables'"
+                  href="#button-mapping-variables"
+                  (click)="setActiveButtonMappingSection('button-mapping-variables')"
+                >
+                  Component Token
+                </a>
               </div>
 
               <div class="pro-tip">
@@ -2098,8 +2179,8 @@
                   <span>Pro Tip</span>
                 </div>
                 <p>
-                  Đây là bản tách riêng cho button để review độc lập trên menu trái trước khi
-                  mở rộng mapping cho component tiếp theo.
+                  Trang này bám theo cấu trúc docs component page để map 1:1 từ preview sang app
+                  mà không đổi shell điều hướng chung.
                 </p>
               </div>
             </aside>

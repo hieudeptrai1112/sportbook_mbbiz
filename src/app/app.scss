@@ -1057,15 +1057,16 @@
   gap: 12px;
 }
 
-.core3-map-button-grid .core3-map-col {
+.core3-map-col--button {
   gap: 16px;
+  width: 100%;
 }
 
-.core3-map-button-grid .core3-map-row {
+.core3-map-col--button .core3-map-row {
   align-items: center;
 }
 
-.core3-map-button-grid .core3-map-row > * {
+.core3-map-col--button .core3-map-row > * {
   flex: 0 0 auto;
   min-width: auto;
 }
