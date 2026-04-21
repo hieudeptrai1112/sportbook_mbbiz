@@ -55,38 +55,34 @@
         <div class="sportbook6vn-preview-input-state-strip">
           <div class="sportbook6vn-preview-variant-stack">
             <span class="sportbook6vn-preview-button-row-label">Basic</span>
-            <sportbook6vn-input
+            <sportbook6vn-affix-input
               inputId="preview-affix-input-interactive"
               placeholder="Input text"
+              mode="prefix"
               [value]="affixSlotInputValue()"
               (valueChange)="setAffixSlotInputValue($event)"
-            >
-              <span sportbook6vnInputPrefix class="sportbook6vn-preview-input-affix-token">₫</span>
-              <span sportbook6vnInputSuffix class="sportbook6vn-preview-input-affix-token">VND</span>
-            </sportbook6vn-input>
+              prefixText="₫"
+            />
           </div>
 
           <div class="sportbook6vn-preview-variant-stack">
             <span class="sportbook6vn-preview-button-row-label">Status</span>
             <div class="sportbook6vn-preview-input-status-stack">
-              <sportbook6vn-input
+              <sportbook6vn-affix-input
                 inputId="preview-affix-input-error"
                 placeholder="Input text"
                 status="error"
                 value="Input text"
-              >
-                <span sportbook6vnInputPrefix class="sportbook6vn-preview-input-affix-token">₫</span>
-                <span sportbook6vnInputSuffix class="sportbook6vn-preview-input-affix-token">VND</span>
-              </sportbook6vn-input>
-              <sportbook6vn-input
+                mode="suffix"
+                suffixText="VND"
+              />
+              <sportbook6vn-affix-input
                 inputId="preview-affix-input-disabled"
                 placeholder="Input text"
                 value="Input text"
                 [disabled]="true"
-              >
-                <span sportbook6vnInputPrefix class="sportbook6vn-preview-input-affix-token">₫</span>
-                <span sportbook6vnInputSuffix class="sportbook6vn-preview-input-affix-token">VND</span>
-              </sportbook6vn-input>
+                mode="both"
+              />
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ export * from './lib/wrappers/button/button.component';
 export * from './lib/wrappers/button/button.types';
 export * from './lib/wrappers/input/input.component';
 export * from './lib/wrappers/input/input.types';
+export * from './lib/wrappers/affix-input/affix-input.component';
 export * from './lib/wrappers/search-input/search-input.component';
 export * from './lib/wrappers/password-input/password-input.component';
 export * from './lib/wrappers/textarea/textarea.component';

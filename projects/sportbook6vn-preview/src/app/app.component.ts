@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewEncapsulation, signal } from '@angular/core';
 import {
+  Sportbook6vnAffixInputComponent,
   Sportbook6vnAffixLabelInputComponent,
   Sportbook6vnButtonComponent,
   Sportbook6vnCheckboxComponent,
@@ -23,6 +24,7 @@ import {
   selector: 'sportbook6vn-preview-root',
   imports: [
     CommonModule,
+    Sportbook6vnAffixInputComponent,
     Sportbook6vnAffixLabelInputComponent,
     Sportbook6vnButtonComponent,
     Sportbook6vnCheckboxComponent,
