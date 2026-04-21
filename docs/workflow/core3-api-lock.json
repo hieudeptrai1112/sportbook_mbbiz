@@ -1,0 +1,83 @@
+{
+  "version": "2026-04-21",
+  "description": "API lock for core-3 wrappers. Any input/output drift must be intentional and reviewed.",
+  "components": [
+    {
+      "name": "button",
+      "selector": "sportbook6vn-button",
+      "entry": "projects/sportbook6vn/src/lib/wrappers/button/button.component.ts",
+      "publicApiExport": "./lib/wrappers/button/button.component",
+      "inputs": [
+        { "name": "variant", "type": "Sportbook6vnButtonVariant", "default": "'primary'" },
+        { "name": "size", "type": "Sportbook6vnButtonSize", "default": "'md'" },
+        { "name": "shape", "type": "Sportbook6vnButtonShape", "default": "'rectangle'" },
+        { "name": "disabled", "type": null, "default": "false" },
+        { "name": "loading", "type": null, "default": "false" },
+        { "name": "fullWidth", "type": null, "default": "false" },
+        { "name": "type", "type": "'button' | 'submit' | 'reset'", "default": "'button'" },
+        { "name": "ariaLabel", "type": "string | null", "default": "null" }
+      ],
+      "outputs": [{ "name": "buttonClick", "type": "MouseEvent" }],
+      "previewSelectors": ["sportbook6vn-button"]
+    },
+    {
+      "name": "input",
+      "selector": "sportbook6vn-input",
+      "entry": "projects/sportbook6vn/src/lib/wrappers/input/input.component.ts",
+      "publicApiExport": "./lib/wrappers/input/input.component",
+      "inputs": [
+        { "name": "value", "type": null, "default": "''" },
+        { "name": "placeholder", "type": null, "default": "''" },
+        { "name": "disabled", "type": null, "default": "false" },
+        { "name": "size", "type": "Sportbook6vnInputSize", "default": "'md'" },
+        { "name": "status", "type": "Sportbook6vnInputStatus", "default": "'default'" },
+        { "name": "type", "type": "'text' | 'email' | 'number' | 'password' | 'search'", "default": "'text'" },
+        { "name": "inputId", "type": "string | null", "default": "null" },
+        { "name": "label", "type": "string | null", "default": "null" },
+        { "name": "hint", "type": "string | null", "default": "null" },
+        { "name": "errorMessage", "type": "string | null", "default": "null" }
+      ],
+      "outputs": [{ "name": "valueChange", "type": "string" }],
+      "previewSelectors": [
+        "sportbook6vn-input",
+        "sportbook6vn-search-input",
+        "sportbook6vn-password-input",
+        "sportbook6vn-textarea",
+        "sportbook6vn-floating-label-input",
+        "sportbook6vn-affix-label-input",
+        "sportbook6vn-input-tag"
+      ]
+    },
+    {
+      "name": "dropdown",
+      "selector": "sportbook6vn-dropdown",
+      "entry": "projects/sportbook6vn/src/lib/wrappers/dropdown/dropdown.component.ts",
+      "publicApiExport": "./lib/wrappers/dropdown/dropdown.component",
+      "inputs": [
+        { "name": "title", "type": null, "default": "'Title'" },
+        { "name": "placeholder", "type": null, "default": "'Lựa chọn'" },
+        { "name": "items", "type": "readonly Sportbook6vnDropdownItem[]", "default": "[]" },
+        { "name": "mode", "type": "Sportbook6vnDropdownMode", "default": "'single'" },
+        { "name": "labelMode", "type": "Sportbook6vnDropdownLabelMode", "default": "'outside'" },
+        { "name": "status", "type": "Sportbook6vnDropdownStatus", "default": "'default'" },
+        { "name": "disabled", "type": null, "default": "false" },
+        { "name": "errorMessage", "type": "string | null", "default": "null" },
+        { "name": "value", "type": "string | null", "default": "null" },
+        { "name": "values", "type": "readonly string[]", "default": "[]" },
+        { "name": "open", "type": null, "default": "false" },
+        { "name": "searchBehavior", "type": "Sportbook6vnDropdownSearchBehavior", "default": "'auto'" },
+        { "name": "searchThreshold", "type": null, "default": "5" },
+        { "name": "emptyState", "type": "Sportbook6vnDropdownEmptyState", "default": "'none'" },
+        { "name": "retryDelayMs", "type": null, "default": "3000" }
+      ],
+      "outputs": [
+        { "name": "valueChange", "type": "string | null" },
+        { "name": "valuesChange", "type": "string[]" },
+        { "name": "itemSelect", "type": "Sportbook6vnDropdownItem" },
+        { "name": "openChange", "type": "boolean" },
+        { "name": "retryRequest", "type": "void" }
+      ],
+      "previewSelectors": ["sportbook6vn-dropdown", "sportbook6vn-dropdown-tag"]
+    }
+  ]
+}

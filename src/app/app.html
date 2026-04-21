@@ -198,6 +198,14 @@
               <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
               <span>Input Field</span>
             </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'core3Mapping'"
+              (click)="setPage('core3Mapping')"
+            >
+              <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
+              <span>Core-3 Mapping</span>
+            </div>
             <div class="sidebar-link">
               <img src="/assets/figma/b9238733-6594-4666-b6ab-b199a6aca7e8.svg" alt="" />
               <span>Typography</span>
@@ -850,6 +858,115 @@
                 <ul>
                   <li *ngFor="let note of inputVariableNotes">{{ note }}</li>
                 </ul>
+              </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'core3Mapping'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Integration</span>
+                <span class="slash">/</span>
+                <span class="meta-version">core-3</span>
+              </div>
+              <h1>Core-3 Mapping</h1>
+              <p class="lead">
+                Bản đối chiếu trực tiếp giữa preview và app chính cho 3 wrapper đã chốt:
+                <span class="button-inline-code">button</span>,
+                <span class="button-inline-code">input</span>,
+                <span class="button-inline-code">dropdown</span>.
+              </p>
+            </div>
+
+            <section class="section button-demo-section" id="core3-map-button">
+              <h2>Button mapping</h2>
+              <p class="button-demo-description">
+                Selector: <span class="button-inline-code">sportbook6vn-button</span>
+              </p>
+              <div class="button-demo-card">
+                <div class="button-demo-preview core3-map-preview">
+                  <div class="core3-map-row">
+                    <sportbook6vn-button size="lg">Text</sportbook6vn-button>
+                    <sportbook6vn-button variant="secondary" size="lg">Text</sportbook6vn-button>
+                    <sportbook6vn-button shape="pill" size="md">Text</sportbook6vn-button>
+                    <sportbook6vn-button [disabled]="true" size="md">Text</sportbook6vn-button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-demo-section" id="core3-map-input">
+              <h2>Input mapping</h2>
+              <p class="button-demo-description">
+                Selectors:
+                <span class="button-inline-code">sportbook6vn-input</span>,
+                <span class="button-inline-code">sportbook6vn-search-input</span>
+              </p>
+              <div class="button-demo-card">
+                <div class="button-demo-preview core3-map-preview">
+                  <div class="core3-map-col">
+                    <sportbook6vn-input
+                      inputId="core3-map-basic-input"
+                      placeholder="Input text"
+                      [value]="core3MapInputValue()"
+                      (valueChange)="setCore3MapInputValue($event)"
+                    />
+                    <sportbook6vn-search-input
+                      inputId="core3-map-search-input"
+                      placeholder="Input text"
+                      [value]="core3MapSearchValue()"
+                      (valueChange)="setCore3MapSearchValue($event)"
+                    />
+                    <sportbook6vn-input
+                      inputId="core3-map-error-input"
+                      placeholder="Input text"
+                      status="error"
+                      value="Input text"
+                    />
+                    <sportbook6vn-input
+                      inputId="core3-map-disabled-input"
+                      placeholder="Input text"
+                      value="Input text"
+                      [disabled]="true"
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-demo-section" id="core3-map-dropdown">
+              <h2>Dropdown mapping</h2>
+              <p class="button-demo-description">
+                Selector:
+                <span class="button-inline-code">sportbook6vn-dropdown</span>
+              </p>
+              <div class="button-demo-card">
+                <div class="button-demo-preview core3-map-preview">
+                  <div class="core3-map-col core3-map-col--dropdown">
+                    <sportbook6vn-dropdown
+                      title="Title"
+                      placeholder="Lựa chọn"
+                      [items]="core3MapDropdownItems"
+                      [value]="core3MapDropdownValue()"
+                      [open]="core3MapDropdownOpen()"
+                      (valueChange)="setCore3MapDropdownValue($event)"
+                      (openChange)="setCore3MapDropdownOpen($event)"
+                    />
+                    <sportbook6vn-dropdown
+                      title="Title"
+                      placeholder="Lựa chọn"
+                      mode="multiple"
+                      [items]="core3MapDropdownItems"
+                      [values]="['option-1', 'option-2', 'option-3']"
+                    />
+                    <sportbook6vn-dropdown
+                      title="Title"
+                      placeholder="Lựa chọn"
+                      status="error"
+                      [items]="core3MapDropdownItems"
+                    />
+                  </div>
+                </div>
               </div>
             </section>
           </ng-container>
@@ -1530,6 +1647,38 @@
                   <span class="mono">focus</span>,
                   <span class="mono">typing</span>, and
                   <span class="mono">filled</span> behaviors.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'core3Mapping'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a class="toc-item" href="#core3-map-button">Button mapping</a>
+                <a class="toc-item" href="#core3-map-input">Input mapping</a>
+                <a class="toc-item" href="#core3-map-dropdown">Dropdown mapping</a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Pro Tip</span>
+                </div>
+                <p>
+                  Đây là điểm check nhanh để so behavior giữa preview và app chính trước khi
+                  làm component tiếp theo.
                 </p>
               </div>
             </aside>

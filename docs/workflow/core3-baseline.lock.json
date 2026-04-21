@@ -1,0 +1,58 @@
+{
+  "version": "2026-04-21",
+  "description": "Locked baseline for the shipped core-3 families: button, input, dropdown.",
+  "files": [
+    {
+      "path": "projects/sportbook6vn/src/lib/wrappers/button/button.component.ts",
+      "sha256": "4faf8601f1e642f8af81273badd8b0d0c3de97ee98ef3773f44c7aae783a7ad8"
+    },
+    {
+      "path": "projects/sportbook6vn/src/lib/wrappers/button/button.component.html",
+      "sha256": "538bb0553be2a4242555b2baaf786bc20a01c21b3f3ec44d0deed970818bcdd0"
+    },
+    {
+      "path": "projects/sportbook6vn/src/lib/wrappers/button/button.component.scss",
+      "sha256": "9d165347f36a5fe064f0b0135a8bfdd7d74b1fb74a5ed9574ff0c6b66408d9a9"
+    },
+    {
+      "path": "projects/sportbook6vn/src/lib/wrappers/input/input.component.ts",
+      "sha256": "1e7b3e5d2418d68edc87cbca32e892ffe64abba4c0fa8cf1c6885aaf6ef59885"
+    },
+    {
+      "path": "projects/sportbook6vn/src/lib/wrappers/input/input.component.html",
+      "sha256": "3f6586ea707987c8340a7f829621b54ba74378aeb8296c4e766d5c88a51c4c82"
+    },
+    {
+      "path": "projects/sportbook6vn/src/lib/wrappers/input/input.component.scss",
+      "sha256": "f800e4ec167cde2fea50c3a6f73f3fbd8d59515a3c76e47d445266db6e91d153"
+    },
+    {
+      "path": "projects/sportbook6vn/src/lib/wrappers/dropdown/dropdown.component.ts",
+      "sha256": "005ce946a3f0a5aff9857238278a6c1754b4737ed63b2f1d16ecd54eda7e3e8c"
+    },
+    {
+      "path": "projects/sportbook6vn/src/lib/wrappers/dropdown/dropdown.component.html",
+      "sha256": "a8593f68267792e2765ec3903f0e5cb72a94bfe3ea23d7f64fa8421206677b8f"
+    },
+    {
+      "path": "projects/sportbook6vn/src/lib/wrappers/dropdown/dropdown.component.scss",
+      "sha256": "64adcca253741c13cce5c227960c1fdb763544fea41a275f54afa701000c8f51"
+    },
+    {
+      "path": "projects/sportbook6vn/src/lib/wrappers/dropdown/dropdown.types.ts",
+      "sha256": "8031f7e63600c96de02e3631bc85b1a7636defd474e45b4493fd92dbd36f94b8"
+    },
+    {
+      "path": "projects/sportbook6vn-preview/src/app/app.component.ts",
+      "sha256": "b9e6bd8648f02a8fa8a2da8f660cf0b6bc1ec58ed1f2d822dadc18e98262f16a"
+    },
+    {
+      "path": "projects/sportbook6vn-preview/src/app/app.component.html",
+      "sha256": "cf2c8cb026042d0c1249eb0e67d3fcc54ed18db4e861cd3b3a102096adccff6e"
+    },
+    {
+      "path": "projects/sportbook6vn-preview/src/app/app.component.scss",
+      "sha256": "a879c92a882310830440b9e73cd4e605f96887fd95681a15ac7582b409f8adb8"
+    }
+  ]
+}

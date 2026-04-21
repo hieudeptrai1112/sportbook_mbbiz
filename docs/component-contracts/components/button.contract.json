@@ -238,6 +238,10 @@
   ],
   "changelog": [
     {
+      "date": "2026-04-21",
+      "change": "Core-3 API lock and preview mapping guard enabled in workflow verification."
+    },
+    {
       "date": "2026-04-04",
       "change": "Contract scaffold aligned with current shipped Button implementation."
     }

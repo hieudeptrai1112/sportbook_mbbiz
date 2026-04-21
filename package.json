@@ -5,8 +5,15 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:sportbook6vn": "ng build sportbook6vn",
+    "test:sportbook6vn": "ng test sportbook6vn --watch=false",
+    "start:sportbook6vn-preview": "ng serve sportbook6vn_preview",
+    "build:sportbook6vn-preview": "ng build sportbook6vn_preview",
     "build-storybook": "ng build && rm -rf storybook-static && mkdir -p storybook-static && cp -R dist/sportbook_mbbiz/browser/. storybook-static",
     "contracts:validate": "node scripts/contracts/validate.mjs",
+    "lock:core3:update": "node scripts/workflow/update-core3-baseline-lock.mjs",
+    "verify:core3:locks": "node scripts/workflow/verify-core3-locks.mjs",
+    "verify:core3": "node scripts/workflow/verify-core3.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -19,6 +26,7 @@
     "@angular/forms": "^21.2.0",
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
+    "ng-zorro-antd": "^21.2.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -26,7 +34,11 @@
     "@angular/build": "^21.2.5",
     "@angular/cli": "^21.2.5",
     "@angular/compiler-cli": "^21.2.0",
+    "jsdom": "^26.1.0",
+    "less": "^4.4.2",
+    "ng-packagr": "^21.2.2",
     "prettier": "^3.8.1",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "vitest": "^4.1.4"
   }
 }

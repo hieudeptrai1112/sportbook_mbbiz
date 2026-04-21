@@ -1,0 +1,78 @@
+{
+  "version": "2026-04-21",
+  "description": "Mapping between sportbook6vn preview blocks and implementation targets.",
+  "families": [
+    {
+      "name": "button",
+      "figmaNodes": ["18693:412281"],
+      "previewSection": "Button family",
+      "previewSelectors": ["sportbook6vn-button"],
+      "libraryEntries": ["projects/sportbook6vn/src/lib/wrappers/button/button.component.ts"],
+      "docsAppTargets": [
+        "src/app/app.ts",
+        "src/app/app.html",
+        "src/app/components/ds-button/ds-button.component.ts"
+      ],
+      "appSelectors": ["sportbook6vn-button"]
+    },
+    {
+      "name": "input",
+      "figmaNodes": [
+        "19450:96388",
+        "19444:75798",
+        "19445:75976",
+        "19455:97731",
+        "19463:107802",
+        "19442:66727",
+        "19453:96884",
+        "19445:76417",
+        "19445:76862",
+        "19445:76891",
+        "19445:76840"
+      ],
+      "previewSection": "Input family",
+      "previewSelectors": [
+        "sportbook6vn-input",
+        "sportbook6vn-search-input",
+        "sportbook6vn-password-input",
+        "sportbook6vn-textarea",
+        "sportbook6vn-floating-label-input",
+        "sportbook6vn-affix-label-input",
+        "sportbook6vn-input-tag"
+      ],
+      "libraryEntries": [
+        "projects/sportbook6vn/src/lib/wrappers/input/input.component.ts",
+        "projects/sportbook6vn/src/lib/wrappers/search-input/search-input.component.ts",
+        "projects/sportbook6vn/src/lib/wrappers/password-input/password-input.component.ts",
+        "projects/sportbook6vn/src/lib/wrappers/textarea/textarea.component.ts",
+        "projects/sportbook6vn/src/lib/wrappers/floating-label-input/floating-label-input.component.ts",
+        "projects/sportbook6vn/src/lib/wrappers/affix-label-input/affix-label-input.component.ts",
+        "projects/sportbook6vn/src/lib/wrappers/input-tag/input-tag.component.ts"
+      ],
+      "docsAppTargets": [
+        "src/app/app.ts",
+        "src/app/app.html",
+        "src/app/components/ds-input-basic/ds-input-basic.component.ts",
+        "src/app/components/ds-input-search/ds-input-search.component.ts",
+        "src/app/components/ds-input-password/ds-input-password.component.ts",
+        "src/app/components/ds-input-floating-label/ds-input-floating-label.component.ts",
+        "src/app/components/ds-input-affix/ds-input-affix.component.ts",
+        "src/app/components/ds-input-affix-label/ds-input-affix-label.component.ts",
+        "src/app/components/ds-text-area/ds-text-area.component.ts"
+      ],
+      "appSelectors": ["sportbook6vn-input", "sportbook6vn-search-input"]
+    },
+    {
+      "name": "dropdown",
+      "figmaNodes": ["19564:29158", "18679:398700", "19564:29826", "19564:44125", "19564:45850", "18676:395476"],
+      "previewSection": "Dropdown family",
+      "previewSelectors": ["sportbook6vn-dropdown", "sportbook6vn-dropdown-tag"],
+      "libraryEntries": [
+        "projects/sportbook6vn/src/lib/wrappers/dropdown/dropdown.component.ts",
+        "projects/sportbook6vn/src/lib/wrappers/dropdown-tag/dropdown-tag.component.ts"
+      ],
+      "docsAppTargets": ["src/app/app.ts", "src/app/app.html"],
+      "appSelectors": ["sportbook6vn-dropdown"]
+    }
+  ]
+}

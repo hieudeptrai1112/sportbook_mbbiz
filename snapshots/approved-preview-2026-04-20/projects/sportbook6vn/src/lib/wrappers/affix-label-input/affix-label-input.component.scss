@@ -1,0 +1,243 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.sportbook6vn-affix-label-input-shell {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 100%;
+  min-width: 250px;
+  width: fit-content;
+}
+
+.sportbook6vn-affix-label-input {
+  align-items: center;
+  background: var(--sportbook6vn-color-surface-primary, #ffffff);
+  border: 1px solid var(--sportbook6vn-color-border-brand-active, #a3b7fd);
+  border-radius: var(--sportbook6vn-radius-md, 4px);
+  display: flex;
+  gap: 4px;
+  min-width: 250px;
+  padding: 8px;
+  transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+.sportbook6vn-affix-label-input:hover:not(.sportbook6vn-affix-label-input--disabled):not(.sportbook6vn-affix-label-input--status-error),
+.sportbook6vn-affix-label-input:focus-within:not(.sportbook6vn-affix-label-input--disabled):not(.sportbook6vn-affix-label-input--status-error),
+.sportbook6vn-affix-label-input--open:not(.sportbook6vn-affix-label-input--disabled):not(.sportbook6vn-affix-label-input--status-error) {
+  border-color: var(--sportbook6vn-color-border-brand-tertiary, #52dddd);
+}
+
+.sportbook6vn-affix-label-input--status-error {
+  border-color: var(--sportbook6vn-color-danger-strong, #f34343);
+}
+
+.sportbook6vn-affix-label-input--disabled {
+  background: var(--sportbook6vn-color-surface-disabled, #f3f3f3);
+  border-color: var(--sportbook6vn-color-border-disabled, #cccccc);
+}
+
+.sportbook6vn-affix-label-input__affix {
+  align-items: center;
+  background: var(--sportbook6vn-color-surface-affix, #e9efff);
+  border: 0;
+  border-radius: var(--sportbook6vn-radius-md, 4px);
+  color: var(--sportbook6vn-color-text-field, #192d39);
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 4px;
+  height: 36px;
+  padding: 8px 12px;
+}
+
+.sportbook6vn-affix-label-input__affix--dropdown {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.sportbook6vn-affix-label-input__affix--dropdown:disabled {
+  cursor: not-allowed;
+}
+
+.sportbook6vn-affix-label-input__affix--disabled {
+  background: #d8d8d8;
+  color: #808080;
+}
+
+.sportbook6vn-affix-label-input__affix-label {
+  font: 400 14px/20px var(--sportbook6vn-font-family-sans, "Inter", "Segoe UI", sans-serif);
+  letter-spacing: 0.25px;
+  white-space: nowrap;
+}
+
+.sportbook6vn-affix-label-input__affix-image {
+  border-radius: 999px;
+  flex: 0 0 auto;
+  height: 20px;
+  object-fit: cover;
+  width: 20px;
+}
+
+.sportbook6vn-affix-label-input__affix-icon {
+  fill: none;
+  flex: 0 0 auto;
+  height: 20px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+  width: 20px;
+}
+
+.sportbook6vn-affix-label-input__native.ant-input {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: var(--sportbook6vn-color-text-field, #192d39);
+  flex: 1 1 auto;
+  font: 400 14px/20px var(--sportbook6vn-font-family-sans, "Inter", "Segoe UI", sans-serif);
+  letter-spacing: 0.25px;
+  min-width: 0;
+  padding: 0 4px;
+  width: 100%;
+}
+
+.sportbook6vn-affix-label-input__native.ant-input:focus,
+.sportbook6vn-affix-label-input__native.ant-input:focus-visible {
+  border: 0;
+  box-shadow: none;
+  outline: none;
+}
+
+.sportbook6vn-affix-label-input__native.ant-input::placeholder {
+  color: var(--sportbook6vn-color-text-tertiary, #9bafc8);
+}
+
+.sportbook6vn-affix-label-input--disabled .sportbook6vn-affix-label-input__native.ant-input,
+.sportbook6vn-affix-label-input--disabled .sportbook6vn-affix-label-input__native.ant-input::placeholder {
+  color: var(--sportbook6vn-color-text-disabled, #808080);
+}
+
+.sportbook6vn-affix-label-input__panel {
+  background: #ffffff;
+  border: 1px solid #52dddd;
+  border-radius: var(--sportbook6vn-radius-md, 4px);
+  display: grid;
+  gap: 12px;
+  overflow: hidden;
+  padding: 12px;
+  width: 100%;
+}
+
+.sportbook6vn-affix-label-input__panel--scrollable .sportbook6vn-affix-label-input__options {
+  max-height: 232px;
+  overflow-y: auto;
+}
+
+.sportbook6vn-affix-label-input__panel--scrollable .sportbook6vn-affix-label-input__options::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sportbook6vn-affix-label-input__panel--scrollable .sportbook6vn-affix-label-input__options::-webkit-scrollbar-thumb {
+  background: #cadbe8;
+  border-radius: 21px;
+}
+
+.sportbook6vn-affix-label-input__search {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #a3b7fd;
+  border-radius: var(--sportbook6vn-radius-md, 4px);
+  display: inline-flex;
+  gap: 4px;
+  min-height: 52px;
+  padding: 12px;
+  width: 100%;
+}
+
+.sportbook6vn-affix-label-input__search-input {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: #192d39;
+  flex: 1 1 auto;
+  font: 400 14px/20px var(--sportbook6vn-font-family-sans, "Inter", "Segoe UI", sans-serif);
+  letter-spacing: 0.25px;
+  min-width: 0;
+  padding: 0;
+}
+
+.sportbook6vn-affix-label-input__search-input:focus,
+.sportbook6vn-affix-label-input__search-input:focus-visible {
+  outline: none;
+}
+
+.sportbook6vn-affix-label-input__search-input::placeholder {
+  color: #9bafc8;
+}
+
+.sportbook6vn-affix-label-input__search-icon {
+  color: #141ed2;
+  display: inline-flex;
+}
+
+.sportbook6vn-affix-label-input__search-icon svg {
+  fill: none;
+  height: 24px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  width: 24px;
+}
+
+.sportbook6vn-affix-label-input__options {
+  display: grid;
+}
+
+.sportbook6vn-affix-label-input__option {
+  -webkit-appearance: none;
+  appearance: none;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: var(--sportbook6vn-radius-md, 4px);
+  color: #192d39;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 8px;
+  min-height: 40px;
+  padding: 4px;
+  text-align: left;
+  width: 100%;
+}
+
+.sportbook6vn-affix-label-input__option:hover:not(:disabled) {
+  background: rgba(20, 30, 210, 0.04);
+}
+
+.sportbook6vn-affix-label-input__option--disabled {
+  color: #808080;
+  cursor: not-allowed;
+}
+
+.sportbook6vn-affix-label-input__option-image {
+  border-radius: 999px;
+  flex: 0 0 auto;
+  height: 20px;
+  object-fit: cover;
+  width: 20px;
+}
+
+.sportbook6vn-affix-label-input__option-label {
+  flex: 1 1 auto;
+  font: 400 14px/20px var(--sportbook6vn-font-family-sans, "Inter", "Segoe UI", sans-serif);
+  letter-spacing: 0.25px;
+}

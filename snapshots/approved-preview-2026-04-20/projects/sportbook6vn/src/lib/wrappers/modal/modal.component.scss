@@ -1,0 +1,142 @@
+:host {
+  display: block;
+  width: min(100%, 400px);
+}
+
+.sportbook6vn-modal {
+  background: var(--sportbook6vn-color-surface-primary, #ffffff);
+  border-radius: var(--sportbook6vn-radius-md, 4px);
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.12);
+  color: var(--sportbook6vn-color-text-field, #192d39);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 28px;
+  position: relative;
+  width: min(100%, 400px);
+}
+
+.sportbook6vn-modal__hero {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.sportbook6vn-modal__illustration {
+  align-items: center;
+  display: flex;
+  height: 196px;
+  justify-content: center;
+  width: 196px;
+}
+
+.sportbook6vn-modal__art {
+  display: block;
+  height: 196px;
+  width: 196px;
+}
+
+.sportbook6vn-modal__copy {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+  width: 100%;
+}
+
+.sportbook6vn-modal__title {
+  color: var(--sportbook6vn-color-text-field, #192d39);
+  font-family: var(--sportbook6vn-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 32px;
+  margin: 0;
+}
+
+.sportbook6vn-modal__description,
+.sportbook6vn-modal__error-code {
+  color: var(--sportbook6vn-color-text-field, #192d39);
+  font-family: var(--sportbook6vn-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  margin: 0;
+  max-width: 100%;
+}
+
+.sportbook6vn-modal__error-code strong {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.sportbook6vn-modal__text-link {
+  background: transparent;
+  border: 0;
+  color: var(--sportbook6vn-color-text-brand, #141ed2);
+  cursor: pointer;
+  font-family: var(--sportbook6vn-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.sportbook6vn-modal__actions {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+}
+
+.sportbook6vn-modal__close {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: #6d83a7;
+  cursor: pointer;
+  display: inline-flex;
+  height: 24px;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 24px;
+}
+
+.sportbook6vn-modal__close svg {
+  display: block;
+  height: 20px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.75;
+  width: 20px;
+}
+
+.sportbook6vn-modal__pagination {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.sportbook6vn-modal__pagination-dot {
+  background: #d9e0ef;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  height: 8px;
+  padding: 0;
+  width: 8px;
+}
+
+.sportbook6vn-modal__pagination-dot--active {
+  background: var(--sportbook6vn-color-brand-600, #141ed2);
+}

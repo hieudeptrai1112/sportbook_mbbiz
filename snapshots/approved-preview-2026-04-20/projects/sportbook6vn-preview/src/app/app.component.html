@@ -1,0 +1,876 @@
+<div class="sportbook6vn-preview-page">
+  <header class="sportbook6vn-preview-hero">
+    <div>
+      <p class="sportbook6vn-preview-eyebrow">Sportbook6vn Preview App</p>
+      <h1>Wrapper preview for the new library</h1>
+      <p class="sportbook6vn-preview-copy">
+        This preview app is isolated from the current docs app. It only shows wrappers that already have Figma
+        node IDs confirmed for implementation review.
+      </p>
+    </div>
+  </header>
+
+  <section class="sportbook6vn-preview-section">
+    <div class="sportbook6vn-preview-section-heading">
+      <h2>Input family</h2>
+      <p>These wrappers are aligned to the Figma input nodes already reviewed.</p>
+    </div>
+
+    <div class="sportbook6vn-preview-grid">
+      <article class="sportbook6vn-preview-card">
+        <h3>Basic input</h3>
+        <div class="sportbook6vn-preview-input-state-strip">
+          <sportbook6vn-input
+            inputId="preview-basic-input-default"
+            placeholder="Input text"
+          />
+
+          <sportbook6vn-input
+            inputId="preview-basic-input-filled"
+            placeholder="Input text"
+            value="Input text"
+          />
+
+          <sportbook6vn-input
+            inputId="preview-basic-input-with-affix"
+            placeholder="Input text"
+            [value]="basicInputValue()"
+            (valueChange)="setBasicInputValue($event)"
+          >
+            <span sportbook6vnInputPrefix>₫</span>
+            <span sportbook6vnInputSuffix>VND</span>
+          </sportbook6vn-input>
+
+          <sportbook6vn-input
+            inputId="preview-basic-input-error"
+            placeholder="Input text"
+            status="error"
+          />
+
+          <sportbook6vn-input
+            inputId="preview-basic-input-disabled"
+            placeholder="Input text"
+            [disabled]="true"
+          />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Search input</h3>
+        <div class="sportbook6vn-preview-input-state-strip">
+          <sportbook6vn-search-input
+            inputId="preview-search-input-interactive"
+            placeholder="Input text"
+            [value]="searchValue()"
+            (valueChange)="setSearchValue($event)"
+          />
+
+          <sportbook6vn-search-input
+            inputId="preview-search-input-error"
+            placeholder="Input text"
+            status="error"
+            value="Input text"
+          />
+
+          <sportbook6vn-search-input
+            inputId="preview-search-input-disabled"
+            placeholder="Input text"
+            value="Input text"
+            [disabled]="true"
+          />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Password input</h3>
+        <div class="sportbook6vn-preview-input-state-strip">
+          <sportbook6vn-password-input
+            inputId="preview-password-input-default"
+            label="Title"
+          />
+
+          <sportbook6vn-password-input
+            inputId="preview-password-input-typing"
+            label="Title"
+            [value]="passwordTypingValue()"
+            (valueChange)="setPasswordTypingValue($event)"
+          />
+
+          <sportbook6vn-password-input
+            inputId="preview-password-input-visible"
+            label="Title"
+            [value]="passwordValue()"
+            [visible]="passwordVisible()"
+            (valueChange)="setPasswordValue($event)"
+            (visibleChange)="setPasswordVisible($event)"
+          />
+
+          <sportbook6vn-password-input
+            inputId="preview-password-input-error"
+            label="Title"
+            status="error"
+            value="hidden-value"
+          />
+
+          <sportbook6vn-password-input
+            inputId="preview-password-input-disabled"
+            label="Title"
+            value="hidden-value"
+            [disabled]="true"
+          />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Textarea</h3>
+        <div class="sportbook6vn-preview-input-state-strip">
+          <sportbook6vn-textarea
+            textareaId="preview-textarea-default"
+            placeholder="Input text"
+            [rows]="4"
+            [maxLength]="100"
+          />
+
+          <sportbook6vn-textarea
+            textareaId="preview-textarea-filled"
+            placeholder="Input text"
+            [rows]="4"
+            [maxLength]="100"
+            value="Input text"
+          />
+
+          <sportbook6vn-textarea
+            textareaId="preview-textarea-typing"
+            placeholder="Input text"
+            [rows]="4"
+            [maxLength]="100"
+            [value]="textareaValue()"
+            (valueChange)="setTextareaValue($event)"
+          />
+
+          <sportbook6vn-textarea
+            textareaId="preview-textarea-error"
+            placeholder="Input text"
+            [rows]="4"
+            [maxLength]="100"
+            status="error"
+            value="Input text"
+          />
+
+          <sportbook6vn-textarea
+            textareaId="preview-textarea-disabled"
+            placeholder="Input text"
+            [rows]="4"
+            [maxLength]="100"
+            value="Input text"
+            [disabled]="true"
+          />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Floating label input</h3>
+        <div class="sportbook6vn-preview-input-state-strip">
+          <sportbook6vn-floating-label-input
+            inputId="preview-floating-label-default"
+            label="Title"
+            placeholder="Input text"
+          />
+
+          <sportbook6vn-floating-label-input
+            inputId="preview-floating-label-filled"
+            label="Title"
+            placeholder="Input text"
+            value="Input text"
+          />
+
+          <sportbook6vn-floating-label-input
+            inputId="preview-floating-label-error"
+            label="Title"
+            placeholder="Input text"
+            status="error"
+            value="Input text"
+          />
+
+          <sportbook6vn-floating-label-input
+            inputId="preview-floating-label-disabled"
+            label="Title"
+            placeholder="Input text"
+            [disabled]="true"
+            value="Input text"
+          />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Affix label input</h3>
+        <div class="sportbook6vn-preview-input-state-strip">
+          <sportbook6vn-affix-label-input
+            inputId="preview-affix-label-prefix-dropdown-active"
+            placeholder="Input text"
+            prefixLabel="Loại tiền"
+            [prefixDropdownItems]="currencyAffixItems"
+            [prefixDropdownValue]="affixPreviewPrefixValue()"
+            [openAffix]="affixPreviewOpenAffix()"
+            (prefixDropdownValueChange)="setAffixPreviewPrefixValue($event)"
+            (openAffixChange)="setAffixPreviewOpenAffix($event)"
+          />
+
+          <sportbook6vn-affix-label-input
+            inputId="preview-affix-label-suffix-dropdown"
+            placeholder="Input text"
+            suffixLabel="Loại tiền"
+            [suffixDropdownItems]="currencyAffixItems"
+            suffixDropdownValue="vnd"
+            value="Input text"
+          />
+
+          <sportbook6vn-affix-label-input
+            inputId="preview-affix-label-error-dropdown"
+            placeholder="Input text"
+            prefixLabel="Loại tiền"
+            [prefixDropdownItems]="currencyAffixItems"
+            status="error"
+            value="Input text"
+          />
+
+          <sportbook6vn-affix-label-input
+            inputId="preview-affix-label-disabled-dropdown"
+            placeholder="Input text"
+            prefixLabel="Loại tiền"
+            [prefixDropdownItems]="currencyAffixItems"
+            [disabled]="true"
+            value="Input text"
+          />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Input tag</h3>
+        <div class="sportbook6vn-preview-input-state-strip">
+          <div class="sportbook6vn-preview-variant-stack">
+            <span class="sportbook6vn-preview-button-row-label">Interactive</span>
+            <sportbook6vn-input-tag
+              inputId="preview-input-tag-interactive"
+              placeholder="Input and press Enter"
+              [allowClear]="true"
+              [saveOnBlur]="true"
+              [value]="inputTagValue()"
+              [tags]="inputTagTags()"
+              (valueChange)="setInputTagValue($event)"
+              (tagsChange)="setInputTagTags($event)"
+            />
+          </div>
+
+          <div class="sportbook6vn-preview-variant-stack">
+            <span class="sportbook6vn-preview-button-row-label">State Strip</span>
+            <div class="sportbook6vn-preview-input-state-strip">
+              <sportbook6vn-input-tag
+                inputId="preview-input-tag-default"
+                placeholder="Input text"
+              />
+
+              <sportbook6vn-input-tag
+                inputId="preview-input-tag-disabled"
+                placeholder="Input text"
+                [disabled]="true"
+              />
+
+              <sportbook6vn-input-tag
+                inputId="preview-input-tag-filled"
+                placeholder="Input text"
+                [tags]="['name@add', 'name@add']"
+                [showTrailingClear]="true"
+              />
+
+              <sportbook6vn-input-tag
+                inputId="preview-input-tag-error"
+                placeholder="Input text"
+                [tags]="['name@']"
+                value="Input text"
+                status="error"
+                [showTrailingClear]="true"
+              />
+            </div>
+          </div>
+
+          <div class="sportbook6vn-preview-variant-stack">
+            <span class="sportbook6vn-preview-button-row-label">MaxTagCount</span>
+            <div class="sportbook6vn-preview-input-tag-pair sportbook6vn-preview-input-tag-pair--arco">
+              <sportbook6vn-input-tag
+                inputId="preview-input-tag-max-tag-count-default"
+                placeholder=""
+                [tags]="['1', '2', '3', '4', '5']"
+                [maxTagCount]="3"
+              />
+
+              <sportbook6vn-input-tag
+                inputId="preview-input-tag-max-tag-count-custom"
+                placeholder=""
+                [tags]="['11', '22', '33', '4', '55']"
+                [maxTagCount]="{ count: 3, render: inputTagOverflowRender }"
+              />
+            </div>
+          </div>
+
+          <div class="sportbook6vn-preview-variant-stack">
+            <span class="sportbook6vn-preview-button-row-label">Responsive Tags</span>
+            <div class="sportbook6vn-preview-input-tag-pair sportbook6vn-preview-input-tag-pair--arco">
+              <sportbook6vn-input-tag
+                inputId="preview-input-tag-responsive-default"
+                placeholder=""
+                [tags]="inputTagResponsiveTags()"
+                maxTagCount="responsive"
+              />
+
+              <sportbook6vn-input-tag
+                inputId="preview-input-tag-responsive-custom"
+                placeholder=""
+                [tags]="inputTagResponsiveTags()"
+                [maxTagCount]="{ count: 'responsive', render: inputTagResponsiveOverflowRender }"
+              />
+            </div>
+          </div>
+
+          <div class="sportbook6vn-preview-variant-stack">
+            <span class="sportbook6vn-preview-button-row-label">Label In Value</span>
+            <sportbook6vn-input-tag
+              inputId="preview-input-tag-label-in-value"
+              placeholder="Input and press Enter"
+              [allowClear]="true"
+              [labelInValue]="true"
+              [value]="inputTagObjectValue()"
+              [tags]="inputTagObjectTags()"
+              (valueChange)="setInputTagObjectValue($event)"
+              (tagsChange)="setInputTagObjectTags($event)"
+            />
+          </div>
+
+          <div class="sportbook6vn-preview-variant-stack">
+            <span class="sportbook6vn-preview-button-row-label">Render Tag</span>
+            <sportbook6vn-input-tag
+              inputId="preview-input-tag-render-tag"
+              placeholder="Color tags"
+              [allowClear]="true"
+              [tags]="['arcoblue', 'orange', 'lime']"
+              [renderTag]="inputTagRenderTone"
+            />
+          </div>
+
+          <div class="sportbook6vn-preview-variant-stack">
+            <span class="sportbook6vn-preview-button-row-label">Token Separator</span>
+            <sportbook6vn-input-tag
+              inputId="preview-input-tag-token-separator"
+              placeholder="Paste: alpha,beta|gamma"
+              [allowClear]="true"
+              [tokenSeparators]="[',', '|', '/']"
+              [value]="inputTagTokenValue()"
+              [tags]="inputTagTokenTags()"
+              (valueChange)="setInputTagTokenValue($event)"
+              (tagsChange)="setInputTagTokenTags($event)"
+            />
+          </div>
+
+          <div class="sportbook6vn-preview-variant-stack">
+            <span class="sportbook6vn-preview-button-row-label">Validate Email</span>
+            <sportbook6vn-input-tag
+              inputId="preview-input-tag-validate-email"
+              placeholder="Input email and press Enter"
+              [allowClear]="true"
+              [labelInValue]="true"
+              [value]="inputTagValidatedValue()"
+              [tags]="inputTagValidatedTags()"
+              [validate]="inputTagEmailValidate"
+              (valueChange)="setInputTagValidatedValue($event)"
+              (tagsChange)="setInputTagValidatedTags($event)"
+            />
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sportbook6vn-preview-section">
+    <div class="sportbook6vn-preview-section-heading">
+      <h2>Selection controls</h2>
+      <p>Aligned to Figma nodes <code>3800:179128</code> for checkbox and <code>3800:178451</code> for radio.</p>
+    </div>
+
+    <div class="sportbook6vn-preview-grid">
+      <article class="sportbook6vn-preview-card">
+        <h3>Checkbox</h3>
+        <div class="sportbook6vn-preview-control-matrix">
+          <div class="sportbook6vn-preview-control-matrix__row">
+            <span class="sportbook6vn-preview-control-matrix__label">Basic</span>
+            <div class="sportbook6vn-preview-control-matrix__items">
+              <sportbook6vn-checkbox label="Checkbox" />
+              <sportbook6vn-checkbox label="Disabled Checkbox" [disabled]="true" />
+            </div>
+          </div>
+
+          <div class="sportbook6vn-preview-control-matrix__row">
+            <span class="sportbook6vn-preview-control-matrix__label">Checkbox group</span>
+            <sportbook6vn-checkbox-group
+              [options]="checkboxGroupOptions"
+              [value]="checkboxGroupValues()"
+              (valueChange)="setCheckboxGroupValues($event)"
+            />
+          </div>
+
+          <div class="sportbook6vn-preview-control-matrix__row">
+            <span class="sportbook6vn-preview-control-matrix__label">Vertical checkbox group</span>
+            <sportbook6vn-checkbox-group
+              direction="vertical"
+              [options]="checkboxGroupOptions"
+              [value]="checkboxGroupVerticalValues()"
+              (valueChange)="setCheckboxGroupVerticalValues($event)"
+            />
+          </div>
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Radio</h3>
+        <div class="sportbook6vn-preview-control-matrix">
+          <div class="sportbook6vn-preview-control-matrix__row">
+            <span class="sportbook6vn-preview-control-matrix__label">Basic</span>
+            <div class="sportbook6vn-preview-control-matrix__items">
+              <sportbook6vn-radio label="Radio" />
+              <sportbook6vn-radio label="Disabled Radio" [disabled]="true" />
+            </div>
+          </div>
+
+          <div class="sportbook6vn-preview-control-matrix__row">
+            <span class="sportbook6vn-preview-control-matrix__label">Radio group</span>
+            <sportbook6vn-radio-group
+              name="preview-radio-group-horizontal"
+              [options]="radioGroupOptions"
+              [value]="radioGroupValue()"
+              (valueChange)="setRadioGroupValue($event)"
+            />
+          </div>
+
+          <div class="sportbook6vn-preview-control-matrix__row">
+            <span class="sportbook6vn-preview-control-matrix__label">Vertical radio group</span>
+            <sportbook6vn-radio-group
+              name="preview-radio-group-vertical"
+              direction="vertical"
+              [options]="radioGroupOptions"
+              [value]="radioGroupVerticalValue()"
+              (valueChange)="setRadioGroupVerticalValue($event)"
+            />
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sportbook6vn-preview-section">
+    <div class="sportbook6vn-preview-section-heading">
+      <h2>Modal family</h2>
+      <p>Aligned to Figma node <code>3582:174031</code>. Each card below keeps the same modal shell with variant-specific artwork and CTA stack.</p>
+    </div>
+
+    <div class="sportbook6vn-preview-modal-grid">
+      <article class="sportbook6vn-preview-card">
+        <h3>Warning</h3>
+        <div class="sportbook6vn-preview-modal-stage">
+          <sportbook6vn-modal
+            type="warning"
+            [showTextLink]="true"
+            textLinkLabel="Text Link"
+          />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Success</h3>
+        <div class="sportbook6vn-preview-modal-stage">
+          <sportbook6vn-modal type="success" />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Error</h3>
+        <div class="sportbook6vn-preview-modal-stage">
+          <sportbook6vn-modal
+            type="error"
+            [showTextLink]="true"
+            textLinkLabel="Text Link"
+          />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Confirm</h3>
+        <div class="sportbook6vn-preview-modal-stage">
+          <sportbook6vn-modal type="confirm" />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Destructive</h3>
+        <div class="sportbook6vn-preview-modal-stage">
+          <sportbook6vn-modal type="destructive" />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Notification</h3>
+        <div class="sportbook6vn-preview-modal-stage">
+          <sportbook6vn-modal
+            type="notification"
+            [showPagination]="true"
+          />
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sportbook6vn-preview-section">
+    <div class="sportbook6vn-preview-section-heading">
+      <h2>Button family</h2>
+      <p>Aligned to Figma node <code>18693:412281</code>. Hover and press the enabled buttons to review interactive states.</p>
+    </div>
+
+    <div class="sportbook6vn-preview-grid">
+      <article class="sportbook6vn-preview-card">
+        <h3>Rectangle / Primary</h3>
+        <div class="sportbook6vn-preview-button-group">
+          <div class="sportbook6vn-preview-button-row">
+            <span class="sportbook6vn-preview-button-row-label">Default</span>
+            <div class="sportbook6vn-preview-button-row-items">
+              <sportbook6vn-button size="lg">Text</sportbook6vn-button>
+              <sportbook6vn-button size="md">Text</sportbook6vn-button>
+              <sportbook6vn-button size="sm">Text</sportbook6vn-button>
+            </div>
+          </div>
+          <div class="sportbook6vn-preview-button-row">
+            <span class="sportbook6vn-preview-button-row-label">With icon</span>
+            <div class="sportbook6vn-preview-button-row-items">
+              <sportbook6vn-button size="lg">
+                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+                Text
+              </sportbook6vn-button>
+              <sportbook6vn-button size="md">
+                Text
+                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+              </sportbook6vn-button>
+              <sportbook6vn-button size="sm">
+                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+                Text
+                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+              </sportbook6vn-button>
+            </div>
+          </div>
+          <div class="sportbook6vn-preview-button-row">
+            <span class="sportbook6vn-preview-button-row-label">Disabled</span>
+            <div class="sportbook6vn-preview-button-row-items">
+              <sportbook6vn-button size="lg" [disabled]="true">Text</sportbook6vn-button>
+              <sportbook6vn-button size="md" [disabled]="true">Text</sportbook6vn-button>
+              <sportbook6vn-button size="sm" [disabled]="true">Text</sportbook6vn-button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Rectangle / Secondary</h3>
+        <div class="sportbook6vn-preview-button-group">
+          <div class="sportbook6vn-preview-button-row">
+            <span class="sportbook6vn-preview-button-row-label">Default</span>
+            <div class="sportbook6vn-preview-button-row-items">
+              <sportbook6vn-button variant="secondary" size="lg">Text</sportbook6vn-button>
+              <sportbook6vn-button variant="secondary" size="md">Text</sportbook6vn-button>
+              <sportbook6vn-button variant="secondary" size="sm">Text</sportbook6vn-button>
+            </div>
+          </div>
+          <div class="sportbook6vn-preview-button-row">
+            <span class="sportbook6vn-preview-button-row-label">With icon</span>
+            <div class="sportbook6vn-preview-button-row-items">
+              <sportbook6vn-button variant="secondary" size="lg">
+                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+                Text
+              </sportbook6vn-button>
+              <sportbook6vn-button variant="secondary" size="md">
+                Text
+                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+              </sportbook6vn-button>
+              <sportbook6vn-button variant="secondary" size="sm">
+                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+                Text
+                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+              </sportbook6vn-button>
+            </div>
+          </div>
+          <div class="sportbook6vn-preview-button-row">
+            <span class="sportbook6vn-preview-button-row-label">Disabled</span>
+            <div class="sportbook6vn-preview-button-row-items">
+              <sportbook6vn-button variant="secondary" size="lg" [disabled]="true">Text</sportbook6vn-button>
+              <sportbook6vn-button variant="secondary" size="md" [disabled]="true">Text</sportbook6vn-button>
+              <sportbook6vn-button variant="secondary" size="sm" [disabled]="true">Text</sportbook6vn-button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Pill / Primary</h3>
+        <div class="sportbook6vn-preview-button-group">
+          <div class="sportbook6vn-preview-button-row">
+            <span class="sportbook6vn-preview-button-row-label">Default</span>
+            <div class="sportbook6vn-preview-button-row-items">
+              <sportbook6vn-button shape="pill" size="lg">Text</sportbook6vn-button>
+              <sportbook6vn-button shape="pill" size="md">Text</sportbook6vn-button>
+              <sportbook6vn-button shape="pill" size="sm">Text</sportbook6vn-button>
+            </div>
+          </div>
+          <div class="sportbook6vn-preview-button-row">
+            <span class="sportbook6vn-preview-button-row-label">With icon</span>
+            <div class="sportbook6vn-preview-button-row-items">
+              <sportbook6vn-button shape="pill" size="lg">
+                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+                Text
+              </sportbook6vn-button>
+              <sportbook6vn-button shape="pill" size="md">
+                Text
+                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+              </sportbook6vn-button>
+              <sportbook6vn-button shape="pill" size="sm">
+                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+                Text
+                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+              </sportbook6vn-button>
+            </div>
+          </div>
+          <div class="sportbook6vn-preview-button-row">
+            <span class="sportbook6vn-preview-button-row-label">Disabled</span>
+            <div class="sportbook6vn-preview-button-row-items">
+              <sportbook6vn-button shape="pill" size="lg" [disabled]="true">Text</sportbook6vn-button>
+              <sportbook6vn-button shape="pill" size="md" [disabled]="true">Text</sportbook6vn-button>
+              <sportbook6vn-button shape="pill" size="sm" [disabled]="true">Text</sportbook6vn-button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Pill / Secondary</h3>
+        <div class="sportbook6vn-preview-button-group">
+          <div class="sportbook6vn-preview-button-row">
+            <span class="sportbook6vn-preview-button-row-label">Default</span>
+            <div class="sportbook6vn-preview-button-row-items">
+              <sportbook6vn-button shape="pill" variant="secondary" size="lg">Text</sportbook6vn-button>
+              <sportbook6vn-button shape="pill" variant="secondary" size="md">Text</sportbook6vn-button>
+              <sportbook6vn-button shape="pill" variant="secondary" size="sm">Text</sportbook6vn-button>
+            </div>
+          </div>
+          <div class="sportbook6vn-preview-button-row">
+            <span class="sportbook6vn-preview-button-row-label">With icon</span>
+            <div class="sportbook6vn-preview-button-row-items">
+              <sportbook6vn-button shape="pill" variant="secondary" size="lg">
+                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+                Text
+              </sportbook6vn-button>
+              <sportbook6vn-button shape="pill" variant="secondary" size="md">
+                Text
+                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+              </sportbook6vn-button>
+              <sportbook6vn-button shape="pill" variant="secondary" size="sm">
+                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+                Text
+                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+              </sportbook6vn-button>
+            </div>
+          </div>
+          <div class="sportbook6vn-preview-button-row">
+            <span class="sportbook6vn-preview-button-row-label">Disabled</span>
+            <div class="sportbook6vn-preview-button-row-items">
+              <sportbook6vn-button shape="pill" variant="secondary" size="lg" [disabled]="true">Text</sportbook6vn-button>
+              <sportbook6vn-button shape="pill" variant="secondary" size="md" [disabled]="true">Text</sportbook6vn-button>
+              <sportbook6vn-button shape="pill" variant="secondary" size="sm" [disabled]="true">Text</sportbook6vn-button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sportbook6vn-preview-section">
+    <div class="sportbook6vn-preview-section-heading">
+      <h2>Dropdown family</h2>
+      <p>
+        Aligned to the confirmed dropdown nodes: <code>19564:44125</code>, <code>18679:398700</code>,
+        <code>19564:29826</code>, <code>18676:395476</code>, and <code>19564:45850</code>.
+      </p>
+    </div>
+
+    <div class="sportbook6vn-preview-grid">
+      <article class="sportbook6vn-preview-card">
+        <h3>Normal / Single select</h3>
+        <div class="sportbook6vn-preview-input-state-strip">
+          <sportbook6vn-dropdown
+            placeholder="Lựa chọn"
+            [items]="dropdownItems"
+          />
+
+          <sportbook6vn-dropdown
+            placeholder="Lựa chọn"
+            value="option-1"
+            [items]="dropdownItems"
+          />
+
+          <sportbook6vn-dropdown
+            title="Title"
+            labelMode="inside"
+            placeholder="Lựa chọn"
+            value="option-1"
+            [items]="dropdownItems"
+          />
+
+          <sportbook6vn-dropdown
+            placeholder="Lựa chọn"
+            [items]="dropdownItems"
+            [open]="true"
+          />
+
+          <sportbook6vn-dropdown
+            placeholder="Lựa chọn"
+            status="error"
+            [items]="dropdownItems"
+          />
+
+          <sportbook6vn-dropdown
+            placeholder="Lựa chọn"
+            [items]="dropdownItems"
+            [disabled]="true"
+          />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Normal / Multi select</h3>
+        <div class="sportbook6vn-preview-input-state-strip">
+          <sportbook6vn-dropdown
+            placeholder="Lựa chọn"
+            mode="multiple"
+            [items]="dropdownItems"
+          />
+
+          <sportbook6vn-dropdown
+            placeholder="Lựa chọn"
+            mode="multiple"
+            [items]="dropdownItems"
+            [values]="['option-1', 'option-2', 'option-3']"
+          />
+
+          <sportbook6vn-dropdown
+            title="Title"
+            labelMode="inside"
+            placeholder="Lựa chọn"
+            mode="multiple"
+            [items]="dropdownItems"
+            [values]="['option-1', 'option-2']"
+          />
+
+          <sportbook6vn-dropdown
+            placeholder="Lựa chọn"
+            mode="multiple"
+            [items]="dropdownItems"
+            [values]="['option-1', 'option-2']"
+            [open]="true"
+          />
+
+          <sportbook6vn-dropdown
+            placeholder="Lựa chọn"
+            mode="multiple"
+            status="error"
+            [items]="dropdownItems"
+            [values]="['option-1', 'option-2']"
+          />
+
+          <sportbook6vn-dropdown
+            placeholder="Lựa chọn"
+            mode="multiple"
+            [items]="dropdownItems"
+            [disabled]="true"
+            [values]="['option-1', 'option-2']"
+          />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Dropdown / Tag</h3>
+        <div class="sportbook6vn-preview-input-state-strip">
+          <sportbook6vn-dropdown-tag
+            placeholder="Lựa chọn"
+            [items]="dropdownItems"
+          />
+
+          <sportbook6vn-dropdown-tag
+            placeholder="Lựa chọn"
+            [items]="dropdownItems"
+            [values]="['option-1', 'option-2', 'option-3', 'option-4']"
+          />
+
+          <sportbook6vn-dropdown-tag
+            placeholder="Lựa chọn"
+            [items]="dropdownItems"
+            [values]="['option-1', 'option-2', 'option-3', 'option-4']"
+            [open]="true"
+          />
+
+          <sportbook6vn-dropdown-tag
+            placeholder="Lựa chọn"
+            status="error"
+            [items]="dropdownItems"
+          />
+
+          <sportbook6vn-dropdown-tag
+            placeholder="Lựa chọn"
+            [items]="dropdownItems"
+            [values]="['option-1', 'option-2', 'option-3', 'option-4']"
+            [disabled]="true"
+          />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Drop list / Empty states</h3>
+        <div class="sportbook6vn-preview-input-state-strip">
+          <sportbook6vn-dropdown
+            title="Title"
+            placeholder="Lựa chọn"
+            [items]="[]"
+            [open]="true"
+            emptyState="no-data"
+          />
+
+          <sportbook6vn-dropdown
+            title="Title"
+            placeholder="Lựa chọn"
+            [items]="dropdownItems"
+            [open]="true"
+            emptyState="search-no-data"
+          />
+
+          <sportbook6vn-dropdown
+            title="Title"
+            placeholder="Lựa chọn"
+            [items]="dropdownItems"
+            [open]="true"
+            emptyState="api-error"
+          />
+
+          <sportbook6vn-dropdown
+            title="Title"
+            placeholder="Lựa chọn"
+            [items]="dropdownItems"
+            [open]="true"
+            emptyState="loading"
+          />
+        </div>
+      </article>
+    </div>
+  </section>
+</div>

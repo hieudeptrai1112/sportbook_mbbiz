@@ -12,6 +12,12 @@ import {
 import { DsInputFloatingLabelComponent } from './components/ds-input-floating-label/ds-input-floating-label.component';
 import { DsTextAreaComponent } from './components/ds-text-area/ds-text-area.component';
 import {
+  Sportbook6vnButtonComponent,
+  Sportbook6vnDropdownComponent,
+  Sportbook6vnInputComponent,
+  Sportbook6vnSearchInputComponent,
+} from 'sportbook6vn';
+import {
   SEMANTIC_BACKGROUND_FIGMA_ORDER,
   SEMANTIC_BORDER_FIGMA_ORDER,
   SEMANTIC_COLOR_TOKEN_MAPPINGS,
@@ -120,6 +126,10 @@ interface ResolvedInputSemanticBindingGroup {
     DsInputPasswordComponent,
     DsInputFloatingLabelComponent,
     DsTextAreaComponent,
+    Sportbook6vnButtonComponent,
+    Sportbook6vnInputComponent,
+    Sportbook6vnSearchInputComponent,
+    Sportbook6vnDropdownComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -135,7 +145,7 @@ export class App {
   protected readonly isDesignTokensOpen = signal(false);
   protected readonly isComponentsOpen = signal(true);
   protected readonly activePage = signal<
-    'buttons' | 'inputField' | 'color' | 'tokens' | 'spacing' | 'typography'
+    'buttons' | 'inputField' | 'core3Mapping' | 'color' | 'tokens' | 'spacing' | 'typography'
   >('buttons');
   protected readonly semanticTokenMappings = SEMANTIC_COLOR_TOKEN_MAPPINGS;
   protected readonly semanticTokenGroups = this.buildSemanticTokenGroups();
@@ -172,6 +182,18 @@ export class App {
   protected readonly inputCodeType = signal<InputCodeType>('js');
   protected readonly expandedInputDemoIds = signal<string[]>([]);
   protected readonly copiedInputDemoId = signal<string | null>(null);
+  protected readonly core3MapInputValue = signal('');
+  protected readonly core3MapSearchValue = signal('');
+  protected readonly core3MapDropdownValue = signal<string | null>(null);
+  protected readonly core3MapDropdownOpen = signal(false);
+  protected readonly core3MapDropdownItems = [
+    { id: 'option-1', label: 'Option 1' },
+    { id: 'option-2', label: 'Option 2' },
+    { id: 'option-3', label: 'Option 3' },
+    { id: 'option-4', label: 'Option 4' },
+    { id: 'option-5', label: 'Option 5' },
+    { id: 'option-6', label: 'Option 6' },
+  ] as const;
   private readonly themeStorageKey = 'sportbook.theme-id';
   private readonly semanticThemeAliasValueMaps = buildSemanticThemeAliasValueMaps(
     this.semanticTokenMappings,
@@ -220,7 +242,7 @@ export class App {
   }
 
   protected setPage(
-    page: 'buttons' | 'inputField' | 'color' | 'tokens' | 'spacing' | 'typography',
+    page: 'buttons' | 'inputField' | 'core3Mapping' | 'color' | 'tokens' | 'spacing' | 'typography',
   ) {
     this.activePage.set(page);
     if (page === 'tokens' || page === 'spacing' || page === 'typography') {
@@ -230,6 +252,22 @@ export class App {
     } else if (page === 'inputField') {
       setTimeout(() => this.updateActiveInputSection(), 0);
     }
+  }
+
+  protected setCore3MapInputValue(value: string) {
+    this.core3MapInputValue.set(value);
+  }
+
+  protected setCore3MapSearchValue(value: string) {
+    this.core3MapSearchValue.set(value);
+  }
+
+  protected setCore3MapDropdownValue(value: string | null) {
+    this.core3MapDropdownValue.set(value);
+  }
+
+  protected setCore3MapDropdownOpen(open: boolean) {
+    this.core3MapDropdownOpen.set(open);
   }
 
   protected toggleSection(section: 'gettingStarted' | 'designTokens' | 'components') {

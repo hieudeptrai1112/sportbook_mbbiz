@@ -1,0 +1,31 @@
+@if (label()) {
+  <label class="sportbook6vn-input__label" [attr.for]="inputId()">
+    {{ label() }}
+  </label>
+}
+
+<div [class]="wrapperClass()">
+  <span class="sportbook6vn-input__slot" aria-hidden="true">
+    <ng-content select="[sportbook6vnInputPrefix]" />
+  </span>
+
+  <input
+    class="sportbook6vn-input__native"
+    [attr.id]="inputId()"
+    [attr.placeholder]="placeholder()"
+    [attr.type]="type()"
+    [disabled]="disabled()"
+    [value]="value()"
+    (input)="onInput($event)"
+  />
+
+  <span class="sportbook6vn-input__slot" aria-hidden="true">
+    <ng-content select="[sportbook6vnInputSuffix]" />
+  </span>
+</div>
+
+@if (caption()) {
+  <p class="sportbook6vn-input__caption">
+    {{ caption() }}
+  </p>
+}

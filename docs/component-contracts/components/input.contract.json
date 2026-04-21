@@ -1,7 +1,7 @@
 {
   "component": "Input Field",
   "slug": "input-field",
-  "implementationStatus": "planned",
+  "implementationStatus": "shipped",
   "version": "1.0.0",
   "owner": "Design System",
   "overview": {
@@ -212,8 +212,8 @@
   ],
   "changelog": [
     {
-      "date": "2026-04-04",
-      "change": "Planned contract scaffold for upcoming Input component implementation."
+      "date": "2026-04-21",
+      "change": "Promoted to shipped for core-3 lock. API and preview mapping are now guarded in workflow verification."
     }
   ]
 }

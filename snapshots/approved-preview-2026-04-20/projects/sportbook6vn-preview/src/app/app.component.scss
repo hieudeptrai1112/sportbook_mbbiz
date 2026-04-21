@@ -1,0 +1,274 @@
+.sportbook6vn-preview-page {
+  background:
+    radial-gradient(circle at top right, rgba(20, 30, 210, 0.08), transparent 28%),
+    linear-gradient(180deg, #f8f9fb 0%, #eef2ff 100%);
+  color: #0f172a;
+  min-height: 100vh;
+  padding: 48px;
+}
+
+.sportbook6vn-preview-hero {
+  align-items: flex-start;
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  margin: 0 auto 32px;
+  max-width: 1200px;
+}
+
+.sportbook6vn-preview-eyebrow {
+  color: #141ed2;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.sportbook6vn-preview-hero h1 {
+  font-size: 40px;
+  line-height: 1.1;
+  margin: 0;
+  max-width: 720px;
+}
+
+.sportbook6vn-preview-copy {
+  color: #4e5969;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 16px 0 0;
+  max-width: 680px;
+}
+
+.sportbook6vn-preview-section {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(20, 30, 210, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+  margin: 0 auto 24px;
+  max-width: 1200px;
+  padding: 24px;
+}
+
+.sportbook6vn-preview-section-heading {
+  margin-bottom: 20px;
+}
+
+.sportbook6vn-preview-section-heading h2 {
+  font-size: 24px;
+  margin: 0 0 8px;
+}
+
+.sportbook6vn-preview-section-heading p {
+  color: #4e5969;
+  margin: 0;
+}
+
+.sportbook6vn-preview-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sportbook6vn-preview-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 220px;
+  overflow: visible;
+  padding: 20px;
+  position: relative;
+}
+
+.sportbook6vn-preview-card h3 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.sportbook6vn-preview-input-state-strip {
+  display: grid;
+  gap: 12px;
+}
+
+.sportbook6vn-preview-variant-stack {
+  display: grid;
+  gap: 12px;
+}
+
+.sportbook6vn-preview-input-tag-pair {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sportbook6vn-preview-input-tag-pair--arco .sportbook6vn-input-tag {
+  background: #f2f3f5;
+  border-color: transparent;
+  min-height: 44px;
+  padding: 6px 8px;
+}
+
+.sportbook6vn-preview-input-tag-pair--arco .sportbook6vn-input-tag__chip {
+  background: #ffffff;
+  border: 1px solid #e5e6eb;
+  border-radius: 2px;
+  color: #1d2129;
+  gap: 6px;
+  padding: 0 10px;
+}
+
+.sportbook6vn-preview-input-tag-pair--arco .sportbook6vn-input-tag__chip-label {
+  font-family: Inter, "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.sportbook6vn-preview-input-tag-pair--arco .sportbook6vn-input-tag__overflow {
+  color: #1d2129;
+  font-size: 14px;
+  line-height: 20px;
+  padding-right: 0;
+}
+
+.sportbook6vn-preview-field-stack {
+  display: grid;
+  gap: 4px;
+}
+
+.sportbook6vn-preview-field-label {
+  color: #516682;
+  font-family: "Averta Std CY", "Inter", "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+}
+
+.sportbook6vn-preview-field-message {
+  color: #f34343;
+  font-family: "Averta Std CY", "Inter", "Segoe UI", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 16px;
+}
+
+.sportbook6vn-preview-button-group {
+  display: grid;
+  gap: 16px;
+}
+
+.sportbook6vn-preview-button-row {
+  display: grid;
+  gap: 12px;
+}
+
+.sportbook6vn-preview-button-row-label {
+  color: #516682;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sportbook6vn-preview-control-matrix {
+  display: grid;
+  gap: 16px;
+}
+
+.sportbook6vn-preview-control-matrix__nested {
+  display: grid;
+  gap: 16px;
+}
+
+.sportbook6vn-preview-control-matrix__row {
+  display: grid;
+  gap: 10px;
+}
+
+.sportbook6vn-preview-control-matrix__label {
+  color: #516682;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sportbook6vn-preview-control-matrix__items {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.sportbook6vn-preview-control-matrix__items--stack {
+  align-items: flex-start;
+  display: grid;
+  gap: 12px;
+}
+
+.sportbook6vn-preview-button-row-items {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.sportbook6vn-preview-button-add-icon {
+  display: inline-flex;
+  height: 20px;
+  width: 20px;
+}
+
+.sportbook6vn-preview-button-add-icon::before {
+  background: currentColor;
+  content: "";
+  display: block;
+  height: 20px;
+  width: 20px;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' width='100%25' height='100%25' overflow='visible' viewBox='0 0 11.5 11.5' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.75 5.58399H10.75M5.58399 10.75L5.58399 0.75' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")
+    center / 11.5px 11.5px no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' width='100%25' height='100%25' overflow='visible' viewBox='0 0 11.5 11.5' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.75 5.58399H10.75M5.58399 10.75L5.58399 0.75' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")
+    center / 11.5px 11.5px no-repeat;
+}
+
+.sportbook6vn-preview-modal-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sportbook6vn-preview-modal-stage {
+  align-items: center;
+  background: linear-gradient(180deg, #e9f2ff 0%, #f7fafe 100%);
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  min-height: 560px;
+  padding: 24px;
+}
+
+@media (max-width: 900px) {
+  .sportbook6vn-preview-page {
+    padding: 24px;
+  }
+
+  .sportbook6vn-preview-hero {
+    flex-direction: column;
+  }
+
+  .sportbook6vn-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sportbook6vn-preview-input-tag-pair {
+    grid-template-columns: 1fr;
+  }
+
+  .sportbook6vn-preview-modal-grid {
+    grid-template-columns: 1fr;
+  }
+}

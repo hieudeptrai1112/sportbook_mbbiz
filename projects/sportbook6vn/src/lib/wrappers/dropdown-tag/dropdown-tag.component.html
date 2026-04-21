@@ -1,0 +1,179 @@
+<div [class]="wrapperClass()">
+  <div class="sportbook6vn-dropdown-tag__surface">
+    <button
+      type="button"
+      [class]="fieldClass()"
+      [disabled]="disabled()"
+      (click)="toggleOpen()"
+    >
+      <span class="sportbook6vn-dropdown-tag__content">
+        @if (!hasSelection()) {
+          <span class="sportbook6vn-dropdown-tag__placeholder">{{ placeholder() }}</span>
+        } @else {
+          <span class="sportbook6vn-dropdown-tag__selection">
+            <span class="sportbook6vn-dropdown-tag__chips">
+              @for (item of visibleTags(); track trackById($index, item)) {
+                <span class="sportbook6vn-dropdown-tag__chip">
+                  <span class="sportbook6vn-dropdown-tag__chip-label">{{ item.label }}</span>
+                  <button
+                    type="button"
+                    class="sportbook6vn-dropdown-tag__chip-remove"
+                    aria-label="Remove selected value"
+                    (click)="removeItem(item.id, $event)"
+                  >
+                    <svg viewBox="0 0 16 16">
+                      <path d="M4.5 4.5L11.5 11.5" />
+                      <path d="M11.5 4.5L4.5 11.5" />
+                    </svg>
+                  </button>
+                </span>
+              }
+            </span>
+
+            @if (overflowCount() > 0) {
+              <span class="sportbook6vn-dropdown-tag__overflow">+{{ overflowCount() }}</span>
+            }
+          </span>
+        }
+      </span>
+
+      <span class="sportbook6vn-dropdown-tag__chevron" aria-hidden="true">
+        @if (localOpen()) {
+          <svg viewBox="0 0 20 20">
+            <path d="M5 12.5L10 7.5L15 12.5" />
+          </svg>
+        } @else {
+          <svg viewBox="0 0 20 20">
+            <path d="M5 7.5L10 12.5L15 7.5" />
+          </svg>
+        }
+      </span>
+    </button>
+
+    @if (localOpen()) {
+      <div [class]="panelClass()">
+        @if (showSearch()) {
+          <label class="sportbook6vn-dropdown-tag__search">
+            <input
+              type="text"
+              class="sportbook6vn-dropdown-tag__search-input"
+              placeholder="Tìm kiếm"
+              [value]="searchQuery()"
+              (input)="onSearchInput($event)"
+            />
+            <span class="sportbook6vn-dropdown-tag__search-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="5.5" />
+                <path d="M16 16L20 20" />
+              </svg>
+            </span>
+          </label>
+        }
+
+        @if (resolvedEmptyState() === 'loading') {
+          <div class="sportbook6vn-dropdown-tag__state sportbook6vn-dropdown-tag__state--loading">
+            <img
+              class="sportbook6vn-dropdown-tag__loading-image"
+              [src]="emptyStateAssets.loading.iconUrl"
+              alt=""
+              aria-hidden="true"
+            />
+          </div>
+        } @else if (resolvedEmptyState() === 'api-error') {
+          <div class="sportbook6vn-dropdown-tag__state sportbook6vn-dropdown-tag__state--api-error">
+            <div class="sportbook6vn-dropdown-tag__state-illustration sportbook6vn-dropdown-tag__state-illustration--api-error" aria-hidden="true">
+              <img
+                class="sportbook6vn-dropdown-tag__state-asset sportbook6vn-dropdown-tag__state-asset--api-error-base"
+                [src]="emptyStateAssets.apiError.baseUrl"
+                alt=""
+              />
+              <img
+                class="sportbook6vn-dropdown-tag__state-asset sportbook6vn-dropdown-tag__state-asset--api-error-accent"
+                [src]="emptyStateAssets.apiError.accentUrl"
+                alt=""
+              />
+            </div>
+            <p class="sportbook6vn-dropdown-tag__state-copy">{{ emptyStateAssets.apiError.description }}</p>
+            <button
+              type="button"
+              class="sportbook6vn-dropdown-tag__retry"
+              [disabled]="retryLocked()"
+              (click)="onRetry()"
+            >
+              {{ emptyStateAssets.apiError.retryLabel }}
+            </button>
+          </div>
+        } @else if (resolvedEmptyState() === 'search-no-data') {
+          <div class="sportbook6vn-dropdown-tag__state sportbook6vn-dropdown-tag__state--search-empty">
+            <div class="sportbook6vn-dropdown-tag__state-illustration sportbook6vn-dropdown-tag__state-illustration--search" aria-hidden="true">
+              <img
+                class="sportbook6vn-dropdown-tag__state-asset sportbook6vn-dropdown-tag__state-asset--search-sheet"
+                [src]="emptyStateAssets.searchNoData.sheetUrl"
+                alt=""
+              />
+              <span class="sportbook6vn-dropdown-tag__state-search-lines">
+                <span class="sportbook6vn-dropdown-tag__state-search-line sportbook6vn-dropdown-tag__state-search-line--short"></span>
+                <span class="sportbook6vn-dropdown-tag__state-search-line"></span>
+                <span class="sportbook6vn-dropdown-tag__state-search-line"></span>
+              </span>
+              <img
+                class="sportbook6vn-dropdown-tag__state-asset sportbook6vn-dropdown-tag__state-asset--search-lens"
+                [src]="emptyStateAssets.searchNoData.lensUrl"
+                alt=""
+              />
+            </div>
+            <div class="sportbook6vn-dropdown-tag__state-copy-group">
+              <p class="sportbook6vn-dropdown-tag__state-title">{{ emptyStateAssets.searchNoData.title }}</p>
+              <p class="sportbook6vn-dropdown-tag__state-copy">{{ emptyStateAssets.searchNoData.description }}</p>
+            </div>
+          </div>
+        } @else if (resolvedEmptyState() === 'no-data') {
+          <div class="sportbook6vn-dropdown-tag__state sportbook6vn-dropdown-tag__state--no-data">
+            <div class="sportbook6vn-dropdown-tag__state-illustration sportbook6vn-dropdown-tag__state-illustration--no-data" aria-hidden="true">
+              <img
+                class="sportbook6vn-dropdown-tag__state-asset sportbook6vn-dropdown-tag__state-asset--no-data-base"
+                [src]="emptyStateAssets.noData.baseUrl"
+                alt=""
+              />
+              <img
+                class="sportbook6vn-dropdown-tag__state-asset sportbook6vn-dropdown-tag__state-asset--no-data-accent"
+                [src]="emptyStateAssets.noData.accentUrl"
+                alt=""
+              />
+            </div>
+            <p class="sportbook6vn-dropdown-tag__state-copy sportbook6vn-dropdown-tag__state-copy--single">
+              {{ emptyStateAssets.noData.description }}
+            </p>
+          </div>
+        } @else {
+          <div class="sportbook6vn-dropdown-tag__options">
+            @for (item of filteredItems(); track trackById($index, item)) {
+              <button
+                type="button"
+                class="sportbook6vn-dropdown-tag__option"
+                [class.sportbook6vn-dropdown-tag__option--selected]="isSelected(item)"
+                [class.sportbook6vn-dropdown-tag__option--disabled]="!!item.disabled"
+                [disabled]="!!item.disabled"
+                (click)="selectItem(item, $event)"
+              >
+                <span
+                  class="sportbook6vn-dropdown-tag__checkbox"
+                  [class.sportbook6vn-dropdown-tag__checkbox--selected]="isSelected(item)"
+                  aria-hidden="true"
+                ></span>
+                <span class="sportbook6vn-dropdown-tag__option-label">{{ item.label }}</span>
+              </button>
+            }
+          </div>
+
+          @if (hasSelection()) {
+            <button type="button" class="sportbook6vn-dropdown-tag__reset" (click)="resetSelection($event)">
+              Thiết lập lại
+            </button>
+          }
+        }
+      </div>
+    }
+  </div>
+
+</div>

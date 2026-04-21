@@ -1,0 +1,227 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.sportbook6vn-button.ant-btn {
+  --sportbook6vn-button-height: 44px;
+  --sportbook6vn-button-min-width: 103px;
+  --sportbook6vn-button-padding-x: 20px;
+  --sportbook6vn-button-font-size: 14px;
+  --sportbook6vn-button-line-height: 20px;
+  --sportbook6vn-button-label-color: var(--sportbook6vn-color-text-on-brand, #ffffff);
+
+  -webkit-appearance: none;
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  background-image: none;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 1px;
+  box-shadow: none;
+  display: inline-flex;
+  font-family: var(--sportbook6vn-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  gap: 4px;
+  height: var(--sportbook6vn-button-height);
+  justify-content: center;
+  min-width: var(--sportbook6vn-button-min-width);
+  padding-inline: var(--sportbook6vn-button-padding-x);
+  -webkit-text-fill-color: currentColor;
+  transition:
+    background 140ms ease,
+    background-color 140ms ease,
+    background-image 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease,
+    opacity 140ms ease;
+  white-space: nowrap;
+}
+
+.sportbook6vn-button--full-width {
+  width: 100%;
+}
+
+.sportbook6vn-button__label {
+  align-items: center;
+  color: inherit;
+  display: inline-flex;
+  font-size: var(--sportbook6vn-button-font-size);
+  font-weight: 600;
+  justify-content: center;
+  letter-spacing: 0.25px;
+  line-height: var(--sportbook6vn-button-line-height);
+}
+
+.sportbook6vn-button__icon {
+  align-items: center;
+  color: inherit;
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 20px;
+  justify-content: center;
+  width: 20px;
+}
+
+.sportbook6vn-button__icon > * {
+  display: block;
+}
+
+.sportbook6vn-button__icon svg {
+  display: block;
+  flex: 0 0 auto;
+  height: 20px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  width: 20px;
+}
+
+.sportbook6vn-button__icon:empty {
+  display: none;
+}
+
+.sportbook6vn-button--shape-rectangle.ant-btn {
+  border-radius: var(--sportbook6vn-radius-md, 4px);
+}
+
+.sportbook6vn-button--shape-pill.ant-btn {
+  border-radius: 20px;
+}
+
+.sportbook6vn-button--size-sm.ant-btn {
+  --sportbook6vn-button-min-width: 80px;
+  --sportbook6vn-button-font-size: 12px;
+  --sportbook6vn-button-line-height: 16px;
+}
+
+.sportbook6vn-button--size-md.ant-btn {
+  --sportbook6vn-button-min-width: 103px;
+  --sportbook6vn-button-font-size: 14px;
+  --sportbook6vn-button-line-height: 20px;
+}
+
+.sportbook6vn-button--size-lg.ant-btn {
+  --sportbook6vn-button-min-width: 128px;
+  --sportbook6vn-button-font-size: 16px;
+  --sportbook6vn-button-line-height: 24px;
+}
+
+.sportbook6vn-button--shape-rectangle.sportbook6vn-button--size-lg.ant-btn {
+  --sportbook6vn-button-height: 48px;
+}
+
+.sportbook6vn-button--shape-rectangle.sportbook6vn-button--size-md.ant-btn {
+  --sportbook6vn-button-height: 44px;
+}
+
+.sportbook6vn-button--shape-rectangle.sportbook6vn-button--size-sm.ant-btn {
+  --sportbook6vn-button-height: 40px;
+}
+
+.sportbook6vn-button--shape-rectangle.sportbook6vn-button--variant-secondary.sportbook6vn-button--size-sm.ant-btn {
+  --sportbook6vn-button-height: 36px;
+}
+
+.sportbook6vn-button--shape-pill.sportbook6vn-button--size-lg.ant-btn {
+  --sportbook6vn-button-height: 40px;
+}
+
+.sportbook6vn-button--shape-pill.sportbook6vn-button--size-md.ant-btn {
+  --sportbook6vn-button-height: 36px;
+}
+
+.sportbook6vn-button--shape-pill.sportbook6vn-button--size-sm.ant-btn {
+  --sportbook6vn-button-height: 28px;
+}
+
+.sportbook6vn-button--variant-primary.ant-btn-primary {
+  background: linear-gradient(
+    90deg,
+    var(--sportbook6vn-color-action-primary-start, #141ed2) 0%,
+    var(--sportbook6vn-color-action-primary-end, #0075ff) 100%
+  );
+  border-color: transparent;
+  color: var(--sportbook6vn-button-label-color);
+}
+
+.sportbook6vn-button--variant-primary.ant-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(
+    90deg,
+    var(--sportbook6vn-color-action-primary-hover-start, #3949d6) 0%,
+    var(--sportbook6vn-color-action-primary-hover-end, #2c87f6) 100%
+  );
+  border-color: transparent;
+}
+
+.sportbook6vn-button--variant-primary.ant-btn-primary:active:not(:disabled) {
+  background: linear-gradient(
+    90deg,
+    var(--sportbook6vn-color-action-primary-active-start, #606ad5) 0%,
+    var(--sportbook6vn-color-action-primary-active-end, #569aed) 100%
+  );
+  border-color: transparent;
+}
+
+.sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary {
+  background: var(--sportbook6vn-color-brand-600, #141ed2);
+}
+
+.sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary:hover:not(:disabled) {
+  background: var(--sportbook6vn-color-action-pill-primary-hover, #5f7eeb);
+}
+
+.sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary:active:not(:disabled) {
+  background: var(--sportbook6vn-color-action-pill-primary-active, #a3b7fd);
+}
+
+.sportbook6vn-button--variant-secondary.ant-btn-default {
+  background: var(--sportbook6vn-color-surface-secondary, #ffffff);
+  border-color: var(--sportbook6vn-color-button-secondary-default, #141ed2);
+  color: var(--sportbook6vn-color-button-secondary-default, #141ed2);
+}
+
+.sportbook6vn-button--variant-secondary.ant-btn-default:hover:not(:disabled) {
+  background: var(--sportbook6vn-color-surface-secondary, #ffffff);
+  border-color: var(--sportbook6vn-color-button-secondary-hover, #5f7eeb);
+  color: var(--sportbook6vn-color-button-secondary-hover, #5f7eeb);
+  opacity: 0.7;
+}
+
+.sportbook6vn-button--variant-secondary.ant-btn-default:active:not(:disabled) {
+  background: var(--sportbook6vn-color-surface-secondary, #ffffff);
+  border-color: var(--sportbook6vn-color-button-secondary-pressed, #a3b7fd);
+  color: var(--sportbook6vn-color-button-secondary-pressed, #a3b7fd);
+}
+
+.sportbook6vn-button.ant-btn:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.sportbook6vn-button--variant-primary.ant-btn-primary:disabled {
+  background: var(--sportbook6vn-color-action-primary-disabled, #d8d8d8);
+  border-color: transparent;
+  color: var(--sportbook6vn-color-text-on-brand-muted, #f3f3f3);
+}
+
+.sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary:disabled {
+  background: var(--sportbook6vn-color-action-pill-primary-disabled, #dae4ff);
+}
+
+.sportbook6vn-button--variant-secondary.sportbook6vn-button--shape-rectangle.ant-btn-default:disabled {
+  background: var(--sportbook6vn-color-surface-secondary, #ffffff);
+  border-color: var(--sportbook6vn-color-button-secondary-disabled-rectangle, #9b9b9b);
+  color: var(--sportbook6vn-color-button-secondary-disabled-rectangle, #9b9b9b);
+}
+
+.sportbook6vn-button--variant-secondary.sportbook6vn-button--shape-pill.ant-btn-default:disabled {
+  background: var(--sportbook6vn-color-surface-secondary, #ffffff);
+  border-color: var(--sportbook6vn-color-button-secondary-disabled-pill, #dae4ff);
+  color: var(--sportbook6vn-color-button-secondary-disabled-pill, #dae4ff);
+}
+
+.sportbook6vn-button.ant-btn:focus-visible {
+  box-shadow: none;
+  outline: none;
+}

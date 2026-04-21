@@ -1,0 +1,85 @@
+{
+  "version": "2026-04-21",
+  "families": [
+    {
+      "name": "button",
+      "figmaNodes": ["18693:412281"],
+      "components": [
+        {
+          "selector": "sportbook6vn-button",
+          "entry": "projects/sportbook6vn/src/lib/wrappers/button/button.component.ts",
+          "previewSection": "Button family"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "figmaNodes": [
+        "19450:96388",
+        "19444:75798",
+        "19445:75976",
+        "19455:97731",
+        "19463:107802",
+        "19442:66727",
+        "19453:96884",
+        "19445:76417",
+        "19445:76862",
+        "19445:76891",
+        "19445:76840"
+      ],
+      "components": [
+        {
+          "selector": "sportbook6vn-input",
+          "entry": "projects/sportbook6vn/src/lib/wrappers/input/input.component.ts",
+          "previewSection": "Input family"
+        },
+        {
+          "selector": "sportbook6vn-search-input",
+          "entry": "projects/sportbook6vn/src/lib/wrappers/search-input/search-input.component.ts",
+          "previewSection": "Input family"
+        },
+        {
+          "selector": "sportbook6vn-password-input",
+          "entry": "projects/sportbook6vn/src/lib/wrappers/password-input/password-input.component.ts",
+          "previewSection": "Input family"
+        },
+        {
+          "selector": "sportbook6vn-textarea",
+          "entry": "projects/sportbook6vn/src/lib/wrappers/textarea/textarea.component.ts",
+          "previewSection": "Input family"
+        },
+        {
+          "selector": "sportbook6vn-floating-label-input",
+          "entry": "projects/sportbook6vn/src/lib/wrappers/floating-label-input/floating-label-input.component.ts",
+          "previewSection": "Input family"
+        },
+        {
+          "selector": "sportbook6vn-affix-label-input",
+          "entry": "projects/sportbook6vn/src/lib/wrappers/affix-label-input/affix-label-input.component.ts",
+          "previewSection": "Input family"
+        },
+        {
+          "selector": "sportbook6vn-input-tag",
+          "entry": "projects/sportbook6vn/src/lib/wrappers/input-tag/input-tag.component.ts",
+          "previewSection": "Input family"
+        }
+      ]
+    },
+    {
+      "name": "dropdown",
+      "figmaNodes": ["19564:29158", "18679:398700", "19564:29826", "19564:44125", "19564:45850", "18676:395476"],
+      "components": [
+        {
+          "selector": "sportbook6vn-dropdown",
+          "entry": "projects/sportbook6vn/src/lib/wrappers/dropdown/dropdown.component.ts",
+          "previewSection": "Dropdown family"
+        },
+        {
+          "selector": "sportbook6vn-dropdown-tag",
+          "entry": "projects/sportbook6vn/src/lib/wrappers/dropdown-tag/dropdown-tag.component.ts",
+          "previewSection": "Dropdown family"
+        }
+      ]
+    }
+  ]
+}

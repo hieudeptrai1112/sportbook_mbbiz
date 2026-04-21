@@ -1044,6 +1044,29 @@
   gap: 16px;
 }
 
+.core3-map-preview {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.core3-map-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.core3-map-col {
+  display: grid;
+  gap: 12px;
+  width: min(100%, 460px);
+}
+
+.core3-map-col--dropdown {
+  width: min(100%, 500px);
+}
+
 .input-demo-playground-controls {
   display: flex;
   flex-wrap: wrap;
