@@ -1236,6 +1236,13 @@
   gap: 8px;
 }
 
+.button-code-switchers {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .button-code-type-btn {
   height: 24px;
   border: 1px solid #e5e6eb;

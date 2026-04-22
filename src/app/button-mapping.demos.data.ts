@@ -12,6 +12,8 @@ export interface ButtonMappingDemoSection {
   variant: ButtonMappingVariant;
   snippetHtml: string;
   snippetTs: string;
+  quickUsageHtml?: string;
+  setupTs?: string;
 }
 
 export interface ButtonMappingApiRow {
@@ -115,6 +117,26 @@ import { Sportbook6vnButtonComponent } from 'sportbook6vn';
 })
 export class ${toClassName(id)}MappingDemoComponent {}`;
 
+const buildQuickUsageHtml = (shape: ButtonMappingShape, variant: ButtonMappingVariant): string =>
+  `<sportbook6vn-button shape="${shape}" variant="${variant}" size="md">Text</sportbook6vn-button>`;
+
+const buildSetupTs = (
+  id: string,
+  shape: ButtonMappingShape,
+  variant: ButtonMappingVariant,
+): string => `import { Component } from '@angular/core';
+import { Sportbook6vnButtonComponent } from 'sportbook6vn';
+
+@Component({
+  selector: 'app-${id}-quick-usage',
+  standalone: true,
+  imports: [Sportbook6vnButtonComponent],
+  template: \`
+    <sportbook6vn-button shape="${shape}" variant="${variant}" size="md">Text</sportbook6vn-button>
+  \`,
+})
+export class ${toClassName(id)}QuickUsageComponent {}`;
+
 const makeSection = (
   id: string,
   title: string,
@@ -122,6 +144,7 @@ const makeSection = (
   tags: string[],
   shape: ButtonMappingShape,
   variant: ButtonMappingVariant,
+  snippetOverrides: Partial<Pick<ButtonMappingDemoSection, 'quickUsageHtml' | 'setupTs'>> = {},
 ): ButtonMappingDemoSection => ({
   id,
   title,
@@ -131,6 +154,7 @@ const makeSection = (
   variant,
   snippetHtml: buildSnippetHtml(shape, variant),
   snippetTs: buildSnippetTs(id),
+  ...snippetOverrides,
 });
 
 export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
@@ -141,6 +165,10 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
     ['selector=sportbook6vn-button', 'shape=rectangle', 'variant=primary', 'sizes=lg/md/sm'],
     'rectangle',
     'primary',
+    {
+      quickUsageHtml: buildQuickUsageHtml('rectangle', 'primary'),
+      setupTs: buildSetupTs('rectangle-primary', 'rectangle', 'primary'),
+    },
   ),
   makeSection(
     'rectangle-secondary',
