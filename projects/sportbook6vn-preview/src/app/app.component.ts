@@ -17,6 +17,7 @@ import {
   Sportbook6vnRadioComponent,
   Sportbook6vnRadioGroupComponent,
   Sportbook6vnSearchInputComponent,
+  Sportbook6vnSwitchComponent,
   Sportbook6vnTextareaComponent,
 } from 'sportbook6vn';
 
@@ -39,6 +40,7 @@ import {
     Sportbook6vnRadioComponent,
     Sportbook6vnRadioGroupComponent,
     Sportbook6vnSearchInputComponent,
+    Sportbook6vnSwitchComponent,
     Sportbook6vnTextareaComponent,
   ],
   templateUrl: './app.component.html',
@@ -107,6 +109,7 @@ export class Sportbook6vnPreviewAppComponent {
   protected readonly inputTagValidatedTags = signal<Sportbook6vnInputTagValue[]>([]);
   protected readonly checkboxGroupValues = signal<(string | number)[]>(['a']);
   protected readonly checkboxGroupVerticalValues = signal<(string | number)[]>(['a']);
+  protected readonly checkboxSelectAllValues = signal<(string | number)[]>(['a']);
   protected readonly radioGroupValue = signal<string | number | null>('a');
   protected readonly radioGroupVerticalValue = signal<string | number | null>('a');
 
@@ -172,6 +175,23 @@ export class Sportbook6vnPreviewAppComponent {
 
   protected setCheckboxGroupVerticalValues(value: (string | number)[]) {
     this.checkboxGroupVerticalValues.set(value);
+  }
+
+  protected setCheckboxSelectAllValues(value: (string | number)[]) {
+    this.checkboxSelectAllValues.set(value);
+  }
+
+  protected setCheckboxSelectAll(checked: boolean) {
+    this.checkboxSelectAllValues.set(checked ? this.checkboxGroupOptions.map((option) => option.value) : []);
+  }
+
+  protected isCheckboxSelectAllChecked() {
+    return this.checkboxSelectAllValues().length === this.checkboxGroupOptions.length;
+  }
+
+  protected isCheckboxSelectAllIndeterminate() {
+    const selectedCount = this.checkboxSelectAllValues().length;
+    return selectedCount > 0 && selectedCount < this.checkboxGroupOptions.length;
   }
 
   protected setRadioGroupValue(value: string | number | null) {

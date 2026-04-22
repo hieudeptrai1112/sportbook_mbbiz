@@ -7,7 +7,7 @@
       "components": [
         {
           "selector": "sportbook6vn-button",
-          "entry": "projects/sportbook6vn/src/lib/wrappers/button/button.component.ts",
+          "entry": "projects/sportbook6vn/src/lib/components/button/button.component.ts",
           "previewSection": "Button family"
         }
       ]
@@ -30,42 +30,42 @@
       "components": [
         {
           "selector": "sportbook6vn-input",
-          "entry": "projects/sportbook6vn/src/lib/wrappers/input/input.component.ts",
+          "entry": "projects/sportbook6vn/src/lib/components/input/input.component.ts",
           "previewSection": "Input family"
         },
         {
           "selector": "sportbook6vn-affix-input",
-          "entry": "projects/sportbook6vn/src/lib/wrappers/affix-input/affix-input.component.ts",
+          "entry": "projects/sportbook6vn/src/lib/components/affix-input/affix-input.component.ts",
           "previewSection": "Input family"
         },
         {
           "selector": "sportbook6vn-search-input",
-          "entry": "projects/sportbook6vn/src/lib/wrappers/search-input/search-input.component.ts",
+          "entry": "projects/sportbook6vn/src/lib/components/search-input/search-input.component.ts",
           "previewSection": "Input family"
         },
         {
           "selector": "sportbook6vn-password-input",
-          "entry": "projects/sportbook6vn/src/lib/wrappers/password-input/password-input.component.ts",
+          "entry": "projects/sportbook6vn/src/lib/components/password-input/password-input.component.ts",
           "previewSection": "Input family"
         },
         {
           "selector": "sportbook6vn-textarea",
-          "entry": "projects/sportbook6vn/src/lib/wrappers/textarea/textarea.component.ts",
+          "entry": "projects/sportbook6vn/src/lib/components/textarea/textarea.component.ts",
           "previewSection": "Input family"
         },
         {
           "selector": "sportbook6vn-floating-label-input",
-          "entry": "projects/sportbook6vn/src/lib/wrappers/floating-label-input/floating-label-input.component.ts",
+          "entry": "projects/sportbook6vn/src/lib/components/floating-label-input/floating-label-input.component.ts",
           "previewSection": "Input family"
         },
         {
           "selector": "sportbook6vn-affix-label-input",
-          "entry": "projects/sportbook6vn/src/lib/wrappers/affix-label-input/affix-label-input.component.ts",
+          "entry": "projects/sportbook6vn/src/lib/components/affix-label-input/affix-label-input.component.ts",
           "previewSection": "Input family"
         },
         {
           "selector": "sportbook6vn-input-tag",
-          "entry": "projects/sportbook6vn/src/lib/wrappers/input-tag/input-tag.component.ts",
+          "entry": "projects/sportbook6vn/src/lib/components/input-tag/input-tag.component.ts",
           "previewSection": "Input family"
         }
       ]
@@ -76,12 +76,12 @@
       "components": [
         {
           "selector": "sportbook6vn-dropdown",
-          "entry": "projects/sportbook6vn/src/lib/wrappers/dropdown/dropdown.component.ts",
+          "entry": "projects/sportbook6vn/src/lib/components/dropdown/dropdown.component.ts",
           "previewSection": "Dropdown family"
         },
         {
           "selector": "sportbook6vn-dropdown-tag",
-          "entry": "projects/sportbook6vn/src/lib/wrappers/dropdown-tag/dropdown-tag.component.ts",
+          "entry": "projects/sportbook6vn/src/lib/components/dropdown-tag/dropdown-tag.component.ts",
           "previewSection": "Dropdown family"
         }
       ]

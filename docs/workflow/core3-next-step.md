@@ -42,7 +42,7 @@ Nếu cần diff với snapshot an toàn:
 - Chỉ mở scope file cho component mới + block preview tương ứng.
 - Mỗi component mới phải đi qua 3 bước:
   1. chốt node ID Figma
-  2. implement wrapper + interaction thật
+  2. implement component thật + interaction thật
   3. verify lại `verify:core3` để chắc chắn core-3 không bị drift
 
 ## 3) Component tiếp theo nên làm
@@ -58,14 +58,14 @@ Khi có đủ input trên, triển khai theo cùng pattern đã dùng cho core-3
 
 ## 4) DoD checklist cho mỗi component (sau khi chốt preview)
 
-Checklist này áp dụng cho flow hiện tại (clone NG-Zorro + wrapper `sportbook6vn`):
+Checklist này áp dụng cho flow hiện tại (clone NG-Zorro style + component thật `sportbook6vn`):
 
 - [ ] Chốt node ID Figma + rule interaction bắt buộc.
-- [ ] Implement wrapper trong `projects/sportbook6vn/src/lib/wrappers/<component>/`.
+- [ ] Implement component trong `projects/sportbook6vn/src/lib/components/<component>/`.
 - [ ] Chốt full variant/state/interaction trên preview (không thiếu, không thừa).
 - [ ] Chạy `mapping lên app + <tên component>` để map 1:1 từ preview sang app docs.
 - [ ] Commit + push + kiểm tra bản deploy thực tế (hard refresh).
-- [ ] Chạy Code Connect cho component vừa chốt (map node Figma ↔ wrapper code).
+- [ ] Chạy Code Connect cho component vừa chốt (map node Figma ↔ component code).
 - [ ] Chạy `npm run verify:core3` để kiểm tra contracts + locks + type-check.
 - [ ] Chỉ khi chủ động chốt baseline mới thì chạy `npm run lock:core3:update`.
 - [ ] Nếu cần tách nội dung theo docs IA: chạy `tách + <tên component>` để tạo tab/menu trái riêng và giữ đúng cấu trúc docs rules.

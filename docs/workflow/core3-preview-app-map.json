@@ -7,7 +7,7 @@
       "figmaNodes": ["18693:412281"],
       "previewSection": "Button family",
       "previewSelectors": ["sportbook6vn-button"],
-      "libraryEntries": ["projects/sportbook6vn/src/lib/wrappers/button/button.component.ts"],
+      "libraryEntries": ["projects/sportbook6vn/src/lib/components/button/button.component.ts"],
       "docsAppTargets": [
         "src/app/app.ts",
         "src/app/app.html",
@@ -42,14 +42,14 @@
         "sportbook6vn-input-tag"
       ],
       "libraryEntries": [
-        "projects/sportbook6vn/src/lib/wrappers/input/input.component.ts",
-        "projects/sportbook6vn/src/lib/wrappers/affix-input/affix-input.component.ts",
-        "projects/sportbook6vn/src/lib/wrappers/search-input/search-input.component.ts",
-        "projects/sportbook6vn/src/lib/wrappers/password-input/password-input.component.ts",
-        "projects/sportbook6vn/src/lib/wrappers/textarea/textarea.component.ts",
-        "projects/sportbook6vn/src/lib/wrappers/floating-label-input/floating-label-input.component.ts",
-        "projects/sportbook6vn/src/lib/wrappers/affix-label-input/affix-label-input.component.ts",
-        "projects/sportbook6vn/src/lib/wrappers/input-tag/input-tag.component.ts"
+        "projects/sportbook6vn/src/lib/components/input/input.component.ts",
+        "projects/sportbook6vn/src/lib/components/affix-input/affix-input.component.ts",
+        "projects/sportbook6vn/src/lib/components/search-input/search-input.component.ts",
+        "projects/sportbook6vn/src/lib/components/password-input/password-input.component.ts",
+        "projects/sportbook6vn/src/lib/components/textarea/textarea.component.ts",
+        "projects/sportbook6vn/src/lib/components/floating-label-input/floating-label-input.component.ts",
+        "projects/sportbook6vn/src/lib/components/affix-label-input/affix-label-input.component.ts",
+        "projects/sportbook6vn/src/lib/components/input-tag/input-tag.component.ts"
       ],
       "docsAppTargets": [
         "src/app/app.ts",
@@ -79,8 +79,8 @@
       "previewSection": "Dropdown family",
       "previewSelectors": ["sportbook6vn-dropdown", "sportbook6vn-dropdown-tag"],
       "libraryEntries": [
-        "projects/sportbook6vn/src/lib/wrappers/dropdown/dropdown.component.ts",
-        "projects/sportbook6vn/src/lib/wrappers/dropdown-tag/dropdown-tag.component.ts"
+        "projects/sportbook6vn/src/lib/components/dropdown/dropdown.component.ts",
+        "projects/sportbook6vn/src/lib/components/dropdown-tag/dropdown-tag.component.ts"
       ],
       "docsAppTargets": ["src/app/app.ts", "src/app/app.html"],
       "appSelectors": ["sportbook6vn-dropdown"]

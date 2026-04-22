@@ -18,18 +18,18 @@ describe('Sportbook6vnAffixInputComponent', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('should emit input value changes', () => {
+  it('should emit value changes', () => {
     const spy = vi.fn();
     fixture.componentInstance.valueChange.subscribe(spy);
 
     const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
-    input.value = '123';
+    input.value = 'updated';
     input.dispatchEvent(new Event('input'));
 
-    expect(spy).toHaveBeenCalledWith('123');
+    expect(spy).toHaveBeenCalledWith('updated');
   });
 
-  it('should render both affix icons when mode is both', () => {
+  it('should render prefix and suffix icons in both mode', () => {
     fixture.componentRef.setInput('mode', 'both');
     fixture.detectChanges();
 

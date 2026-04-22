@@ -370,7 +370,10 @@
   <section class="sportbook6vn-preview-section">
     <div class="sportbook6vn-preview-section-heading">
       <h2>Selection controls</h2>
-      <p>Aligned to Figma nodes <code>3800:179128</code> for checkbox and <code>3800:178451</code> for radio.</p>
+      <p>
+        Aligned to Figma nodes <code>3800:179128</code> for checkbox, <code>3800:178451</code> for radio, and
+        <code>3874:181912</code> for switch.
+      </p>
     </div>
 
     <div class="sportbook6vn-preview-grid">
@@ -392,6 +395,23 @@
               [value]="checkboxGroupValues()"
               (valueChange)="setCheckboxGroupValues($event)"
             />
+          </div>
+
+          <div class="sportbook6vn-preview-control-matrix__row">
+            <span class="sportbook6vn-preview-control-matrix__label">Select all</span>
+            <div class="sportbook6vn-preview-control-matrix__items--stack">
+              <sportbook6vn-checkbox
+                label="Select all"
+                [checked]="isCheckboxSelectAllChecked()"
+                [indeterminate]="isCheckboxSelectAllIndeterminate()"
+                (checkedChange)="setCheckboxSelectAll($event)"
+              />
+              <sportbook6vn-checkbox-group
+                [options]="checkboxGroupOptions"
+                [value]="checkboxSelectAllValues()"
+                (valueChange)="setCheckboxSelectAllValues($event)"
+              />
+            </div>
           </div>
 
           <div class="sportbook6vn-preview-control-matrix__row">
@@ -436,6 +456,41 @@
               [value]="radioGroupVerticalValue()"
               (valueChange)="setRadioGroupVerticalValue($event)"
             />
+          </div>
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-card">
+        <h3>Switch</h3>
+        <div class="sportbook6vn-preview-control-matrix">
+          <div class="sportbook6vn-preview-control-matrix__row">
+            <span class="sportbook6vn-preview-control-matrix__label">Basic</span>
+            <div class="sportbook6vn-preview-control-matrix__items">
+              <sportbook6vn-switch size="l" />
+            </div>
+          </div>
+
+          <div class="sportbook6vn-preview-control-matrix__row">
+            <span class="sportbook6vn-preview-control-matrix__label">Disable</span>
+            <div class="sportbook6vn-preview-control-matrix__items">
+              <sportbook6vn-switch size="l" [disabled]="true" />
+            </div>
+          </div>
+
+          <div class="sportbook6vn-preview-control-matrix__row">
+            <span class="sportbook6vn-preview-control-matrix__label">Loading</span>
+            <div class="sportbook6vn-preview-control-matrix__items">
+              <sportbook6vn-switch size="l" interactionState="loading" />
+              <sportbook6vn-switch size="l" [defaultChecked]="true" interactionState="loading" />
+            </div>
+          </div>
+
+          <div class="sportbook6vn-preview-control-matrix__row">
+            <span class="sportbook6vn-preview-control-matrix__label">Size</span>
+            <div class="sportbook6vn-preview-control-matrix__items">
+              <sportbook6vn-switch size="l" [defaultChecked]="true" />
+              <sportbook6vn-switch size="m" [defaultChecked]="true" />
+            </div>
           </div>
         </div>
       </article>

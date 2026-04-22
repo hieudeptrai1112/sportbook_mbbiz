@@ -1,12 +1,12 @@
 {
   "version": "2026-04-21",
-  "description": "API lock for core-3 wrappers. Any input/output drift must be intentional and reviewed.",
+  "description": "API lock for core-3 components. Any input/output drift must be intentional and reviewed.",
   "components": [
     {
       "name": "button",
       "selector": "sportbook6vn-button",
-      "entry": "projects/sportbook6vn/src/lib/wrappers/button/button.component.ts",
-      "publicApiExport": "./lib/wrappers/button/button.component",
+      "entry": "projects/sportbook6vn/src/lib/components/button/button.component.ts",
+      "publicApiExport": "./lib/components/button/button.component",
       "inputs": [
         { "name": "variant", "type": "Sportbook6vnButtonVariant", "default": "'primary'" },
         { "name": "size", "type": "Sportbook6vnButtonSize", "default": "'md'" },
@@ -23,8 +23,8 @@
     {
       "name": "input",
       "selector": "sportbook6vn-input",
-      "entry": "projects/sportbook6vn/src/lib/wrappers/input/input.component.ts",
-      "publicApiExport": "./lib/wrappers/input/input.component",
+      "entry": "projects/sportbook6vn/src/lib/components/input/input.component.ts",
+      "publicApiExport": "./lib/components/input/input.component",
       "inputs": [
         { "name": "value", "type": null, "default": "''" },
         { "name": "placeholder", "type": null, "default": "''" },
@@ -52,8 +52,8 @@
     {
       "name": "dropdown",
       "selector": "sportbook6vn-dropdown",
-      "entry": "projects/sportbook6vn/src/lib/wrappers/dropdown/dropdown.component.ts",
-      "publicApiExport": "./lib/wrappers/dropdown/dropdown.component",
+      "entry": "projects/sportbook6vn/src/lib/components/dropdown/dropdown.component.ts",
+      "publicApiExport": "./lib/components/dropdown/dropdown.component",
       "inputs": [
         { "name": "title", "type": null, "default": "'Title'" },
         { "name": "placeholder", "type": null, "default": "'Lựa chọn'" },
