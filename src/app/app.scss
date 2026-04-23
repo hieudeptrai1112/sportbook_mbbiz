@@ -1121,10 +1121,10 @@
 }
 
 .core3-map-state-group__label {
-  color: #526581;
-  font-size: 14px;
+  color: #516682;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1.2px;
+  letter-spacing: 0.08em;
   line-height: 20px;
   margin: 0;
   text-transform: uppercase;
@@ -1139,6 +1139,24 @@
 
 .core3-map-button-row sportbook6vn-button {
   flex: 0 0 auto;
+}
+
+.core3-map-button-add-icon {
+  display: inline-flex;
+  height: 20px;
+  width: 20px;
+}
+
+.core3-map-button-add-icon::before {
+  background: currentColor;
+  content: '';
+  display: block;
+  height: 20px;
+  width: 20px;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' width='100%25' height='100%25' overflow='visible' viewBox='0 0 11.5 11.5' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.75 5.58399H10.75M5.58399 10.75L5.58399 0.75' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")
+    center / 11.5px 11.5px no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' width='100%25' height='100%25' overflow='visible' viewBox='0 0 11.5 11.5' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.75 5.58399H10.75M5.58399 10.75L5.58399 0.75' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")
+    center / 11.5px 11.5px no-repeat;
 }
 
 @media (max-width: 1100px) {
