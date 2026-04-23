@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
-import { DsButtonComponent } from './components/ds-button/ds-button.component';
 import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';
 import { DsInputAffixComponent } from './components/ds-input-affix/ds-input-affix.component';
 import { DsInputAffixLabelComponent } from './components/ds-input-affix-label/ds-input-affix-label.component';
@@ -14,11 +13,14 @@ import { DsTextAreaComponent } from './components/ds-text-area/ds-text-area.comp
 import {
   Sportbook6vnAffixInputComponent,
   Sportbook6vnAffixLabelInputComponent,
+  Sportbook6vnButtonComponent,
   Sportbook6vnDropdownComponent,
   Sportbook6vnFloatingLabelInputComponent,
   Sportbook6vnInputComponent,
   Sportbook6vnInputTagComponent,
   type Sportbook6vnInputTagValue,
+  type Sportbook6vnButtonSize,
+  type Sportbook6vnButtonVariant,
   type Sportbook6vnAffixDropdownSide,
   type Sportbook6vnAffixDropdownItem,
   Sportbook6vnPasswordInputComponent,
@@ -126,7 +128,6 @@ interface ResolvedInputSemanticBindingGroup {
   selector: 'app-root',
   imports: [
     CommonModule,
-    DsButtonComponent,
     DsInputBasicComponent,
     DsInputAffixComponent,
     DsInputAffixLabelComponent,
@@ -134,6 +135,7 @@ interface ResolvedInputSemanticBindingGroup {
     DsInputPasswordComponent,
     DsInputFloatingLabelComponent,
     DsTextAreaComponent,
+    Sportbook6vnButtonComponent,
     Sportbook6vnAffixInputComponent,
     Sportbook6vnAffixLabelInputComponent,
     Sportbook6vnFloatingLabelInputComponent,
@@ -435,6 +437,29 @@ export class App {
     this.activeInputSection.set(sectionId);
   }
 
+  protected getButtonVariant(action: ButtonDemoAction): Sportbook6vnButtonVariant {
+    return action.tone === 'secondary' ? 'secondary' : 'primary';
+  }
+
+  protected getButtonSize(action: ButtonDemoAction): Sportbook6vnButtonSize {
+    switch (action.size) {
+      case 'small':
+        return 'sm';
+      case 'medium':
+        return 'md';
+      default:
+        return 'lg';
+    }
+  }
+
+  protected getButtonDocState(action: ButtonDemoAction): 'default' | 'hover' | 'pressed' | 'disabled' {
+    return action.state ?? 'default';
+  }
+
+  protected isButtonActionDisabled(action: ButtonDemoAction): boolean {
+    return this.getButtonDocState(action) === 'disabled';
+  }
+
   protected isInputInteractiveSection(section: InputDemoSection): boolean {
     return section.interactive === true;
   }
@@ -550,9 +575,9 @@ export class App {
 
   protected getButtonDemoCode(section: ButtonDemoSection): string {
     if (this.buttonCodeType() === 'ts') {
-      return section.snippetTs ?? this.buildTypeScriptSnippet(section);
+      return this.buildTypeScriptSnippet(section);
     }
-    return section.snippetHtml ?? this.buildHtmlSnippet(section);
+    return this.buildHtmlSnippet(section);
   }
 
   protected getButtonDemoHighlightedCode(section: ButtonDemoSection): string {
@@ -1003,11 +1028,10 @@ export class App {
   }
 
   private buildHtmlSnippet(section: ButtonDemoSection): string {
-    const indentedRows = section.codeJs
-      .split('\n')
-      .map((line) => `  ${line}`)
-      .join('\n');
-    return `<section class="button-demo-preview">\n${indentedRows}\n</section>`;
+    const actionRows = section.actions
+      .map((action) => this.buildButtonCodeActionMarkup(action, '  '))
+      .join('\n\n');
+    return `<section class="button-demo-preview">\n${actionRows}\n</section>`;
   }
 
   private buildTypeScriptSnippet(section: ButtonDemoSection): string {
@@ -1015,33 +1039,89 @@ export class App {
       .map((action) => `    ${this.formatActionForSnippet(action)},`)
       .join('\n');
 
-    return `import { Component } from '@angular/core';
-import { DsButtonComponent } from './components/ds-button/ds-button.component';
+    return `import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { Sportbook6vnButtonComponent } from 'sportbook6vn';
+
+type ButtonDocState = 'default' | 'hover' | 'pressed' | 'disabled';
+
+interface ButtonAction {
+  label: string;
+  shape: 'rectangle' | 'pill';
+  variant: 'primary' | 'secondary';
+  size: 'sm' | 'md' | 'lg';
+  docState: ButtonDocState;
+  showLeftIcon?: boolean;
+  showRightIcon?: boolean;
+}
 
 @Component({
   selector: 'app-button-demo',
   standalone: true,
-  imports: [DsButtonComponent],
+  imports: [CommonModule, Sportbook6vnButtonComponent],
   template: \`
     <div class="button-demo-preview">
-      <app-ds-button
+      <sportbook6vn-button
         *ngFor="let action of actions"
-        [label]="action.label"
         [shape]="action.shape"
-        [tone]="action.tone"
-        [state]="action.state"
+        [variant]="action.variant"
         [size]="action.size"
-        [showLeftIcon]="action.showLeftIcon ?? false"
-        [showRightIcon]="action.showRightIcon ?? false"
-      />
+        [disabled]="action.docState === 'disabled'"
+        [class.button-doc-state-hover]="action.docState === 'hover'"
+        [class.button-doc-state-pressed]="action.docState === 'pressed'"
+      >
+        @if (action.showLeftIcon) {
+          <span sportbook6vnButtonStartIcon aria-hidden="true">+</span>
+        }
+        {{ action.label }}
+        @if (action.showRightIcon) {
+          <span sportbook6vnButtonEndIcon aria-hidden="true">+</span>
+        }
+      </sportbook6vn-button>
     </div>
   \`,
 })
 export class ButtonDemoComponent {
-  readonly actions = [
+  readonly actions: ButtonAction[] = [
 ${actionRows}
   ];
 }`;
+  }
+
+  private buildButtonCodeActionMarkup(action: ButtonDemoAction, indent: string): string {
+    const state = this.getButtonDocState(action);
+    const lines = [
+      `${indent}<sportbook6vn-button`,
+      `${indent}  shape="${action.shape ?? 'rectangle'}"`,
+      `${indent}  variant="${this.getButtonVariant(action)}"`,
+      `${indent}  size="${this.getButtonSize(action)}"`,
+    ];
+
+    if (state === 'hover') {
+      lines.push(`${indent}  class="button-doc-state-hover"`);
+    } else if (state === 'pressed') {
+      lines.push(`${indent}  class="button-doc-state-pressed"`);
+    }
+
+    if (state === 'disabled') {
+      lines.push(`${indent}  [disabled]="true"`);
+    }
+
+    lines.push(`${indent}>`);
+
+    if (action.showLeftIcon) {
+      lines.push(`${indent}  <span sportbook6vnButtonStartIcon aria-hidden="true">+</span>`);
+    }
+
+    lines.push(`${indent}  ${action.label}`);
+
+    if (action.showRightIcon) {
+      lines.push(`${indent}  <span sportbook6vnButtonEndIcon aria-hidden="true">+</span>`);
+    }
+
+    lines.push(`${indent}</sportbook6vn-button>`);
+
+    return lines.join('\n');
   }
 
   private buildInputHtmlSnippet(section: InputDemoSection): string {
@@ -1206,11 +1286,11 @@ ${actionRows}
 
   private formatActionForSnippet(action: ButtonDemoAction): string {
     const parts = [
-      `label: '${action.label}'`,
+      `label: '${this.escapeForSingleQuote(action.label)}'`,
       `shape: '${action.shape ?? 'rectangle'}'`,
-      `tone: '${action.tone ?? 'primary'}'`,
-      `state: '${action.state ?? 'default'}'`,
-      `size: '${action.size ?? 'large'}'`,
+      `variant: '${this.getButtonVariant(action)}'`,
+      `size: '${this.getButtonSize(action)}'`,
+      `docState: '${this.getButtonDocState(action)}'`,
     ];
 
     if (action.showLeftIcon) {
@@ -1268,7 +1348,7 @@ ${actionRows}
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
+      /\b(Component|Sportbook6vnButtonComponent|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');

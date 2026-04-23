@@ -289,16 +289,23 @@
 
             <div class="button-demo-card">
               <div class="button-demo-preview">
-                <app-ds-button
+                <sportbook6vn-button
                   *ngFor="let action of demo.actions"
-                  [label]="action.label"
                   [shape]="action.shape ?? 'rectangle'"
-                  [tone]="action.tone ?? 'primary'"
-                  [state]="action.state ?? 'default'"
-                  [size]="action.size ?? 'large'"
-                  [showLeftIcon]="action.showLeftIcon ?? false"
-                  [showRightIcon]="action.showRightIcon ?? false"
-                />
+                  [variant]="getButtonVariant(action)"
+                  [size]="getButtonSize(action)"
+                  [disabled]="isButtonActionDisabled(action)"
+                  [class.button-doc-state-hover]="getButtonDocState(action) === 'hover'"
+                  [class.button-doc-state-pressed]="getButtonDocState(action) === 'pressed'"
+                >
+                  @if (action.showLeftIcon ?? false) {
+                    <span sportbook6vnButtonStartIcon class="button-doc-plus-icon" aria-hidden="true">+</span>
+                  }
+                  {{ action.label }}
+                  @if (action.showRightIcon ?? false) {
+                    <span sportbook6vnButtonEndIcon class="button-doc-plus-icon" aria-hidden="true">+</span>
+                  }
+                </sportbook6vn-button>
               </div>
 
               <div class="button-demo-controls">

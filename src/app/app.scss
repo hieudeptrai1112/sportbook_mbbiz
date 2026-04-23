@@ -1032,6 +1032,63 @@
   gap: 16px;
 }
 
+.button-doc-plus-icon {
+  align-items: center;
+  display: inline-flex;
+  font-size: 24px;
+  font-weight: 400;
+  justify-content: center;
+  line-height: 1;
+  width: 20px;
+}
+
+sportbook6vn-button.button-doc-state-hover,
+sportbook6vn-button.button-doc-state-pressed {
+  pointer-events: none;
+}
+
+sportbook6vn-button.button-doc-state-hover
+  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-rectangle.ant-btn-primary:not(:disabled) {
+  background: linear-gradient(
+    90deg,
+    var(--sportbook6vn-color-action-primary-hover-start, #3949d6) 0%,
+    var(--sportbook6vn-color-action-primary-hover-end, #2c87f6) 100%
+  );
+  border-color: transparent;
+}
+
+sportbook6vn-button.button-doc-state-pressed
+  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-rectangle.ant-btn-primary:not(:disabled) {
+  background: linear-gradient(
+    90deg,
+    var(--sportbook6vn-color-action-primary-active-start, #606ad5) 0%,
+    var(--sportbook6vn-color-action-primary-active-end, #569aed) 100%
+  );
+  border-color: transparent;
+}
+
+sportbook6vn-button.button-doc-state-hover
+  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary:not(:disabled) {
+  background: var(--sportbook6vn-color-action-pill-primary-hover, #5f7eeb);
+}
+
+sportbook6vn-button.button-doc-state-pressed
+  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary:not(:disabled) {
+  background: var(--sportbook6vn-color-action-pill-primary-active, #a3b7fd);
+}
+
+sportbook6vn-button.button-doc-state-hover .sportbook6vn-button--variant-secondary.ant-btn-default:not(:disabled) {
+  border-color: var(--sportbook6vn-color-button-secondary-hover, #5f7eeb);
+  color: var(--sportbook6vn-color-button-secondary-hover, #5f7eeb);
+  opacity: 0.7;
+}
+
+sportbook6vn-button.button-doc-state-pressed
+  .sportbook6vn-button--variant-secondary.ant-btn-default:not(:disabled) {
+  border-color: var(--sportbook6vn-color-button-secondary-pressed, #a3b7fd);
+  color: var(--sportbook6vn-color-button-secondary-pressed, #a3b7fd);
+}
+
 .input-demo-preview {
   align-items: flex-start;
   flex-direction: column;
@@ -1432,7 +1489,7 @@
     gap: 12px;
   }
 
-  app-ds-button {
+  sportbook6vn-button {
     width: 100%;
   }
 }
