@@ -14,6 +14,7 @@ import { DsTextAreaComponent } from './components/ds-text-area/ds-text-area.comp
 import {
   Sportbook6vnAffixInputComponent,
   Sportbook6vnAffixLabelInputComponent,
+  Sportbook6vnButtonComponent,
   Sportbook6vnDropdownComponent,
   Sportbook6vnFloatingLabelInputComponent,
   Sportbook6vnInputComponent,
@@ -134,6 +135,7 @@ interface ResolvedInputSemanticBindingGroup {
     DsInputPasswordComponent,
     DsInputFloatingLabelComponent,
     DsTextAreaComponent,
+    Sportbook6vnButtonComponent,
     Sportbook6vnAffixInputComponent,
     Sportbook6vnAffixLabelInputComponent,
     Sportbook6vnFloatingLabelInputComponent,
