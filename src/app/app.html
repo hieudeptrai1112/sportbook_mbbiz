@@ -559,34 +559,7 @@
                   </div>
 
                   <div class="button-code-switchers">
-                    <div class="button-code-type" *ngIf="hasButtonMappingSnippetLayers(demo)">
-                      <button
-                        type="button"
-                        class="button-code-type-btn"
-                        [class.active]="getButtonMappingSnippetLayer(demo) === 'quick'"
-                        (click)="setButtonMappingSnippetLayer(demo.id, 'quick')"
-                      >
-                        Quick usage
-                      </button>
-                      <button
-                        type="button"
-                        class="button-code-type-btn"
-                        [class.active]="getButtonMappingSnippetLayer(demo) === 'setup'"
-                        (click)="setButtonMappingSnippetLayer(demo.id, 'setup')"
-                      >
-                        Angular setup
-                      </button>
-                      <button
-                        type="button"
-                        class="button-code-type-btn"
-                        [class.active]="getButtonMappingSnippetLayer(demo) === 'interactive'"
-                        (click)="setButtonMappingSnippetLayer(demo.id, 'interactive')"
-                      >
-                        Interactive
-                      </button>
-                    </div>
-
-                    <div class="button-code-type" *ngIf="shouldShowButtonMappingCodeTypeSwitcher(demo)">
+                    <div class="button-code-type">
                       <button
                         type="button"
                         class="button-code-type-btn"
@@ -610,8 +583,8 @@
 
                 <div class="button-code-wrapper" *ngIf="isButtonMappingDemoExpanded(demo.id)">
                   <div class="button-code-head">
-                    <span class="button-code-file">{{ getButtonMappingCodeLanguageLabel(demo) }}</span>
-                    <span class="button-code-hint">{{ getButtonMappingCodeHint(demo) }}</span>
+                    <span class="button-code-file">{{ getButtonMappingCodeLanguageLabel() }}</span>
+                    <span class="button-code-hint">{{ getButtonMappingCodeHint() }}</span>
                   </div>
                   <pre class="button-code-block"><code [innerHTML]="getButtonMappingDemoHighlightedCode(demo)"></code></pre>
                 </div>

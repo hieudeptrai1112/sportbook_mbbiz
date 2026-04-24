@@ -12,8 +12,6 @@ export interface ButtonMappingDemoSection {
   variant: ButtonMappingVariant;
   snippetHtml: string;
   snippetTs: string;
-  quickUsageHtml?: string;
-  setupTs?: string;
 }
 
 export interface ButtonMappingApiRow {
@@ -39,13 +37,7 @@ const buildButtonAttrs = (
   size: ButtonMappingSize,
   disabled = false,
 ): string => {
-  const attrs = [`size="${size}"`];
-  if (shape === 'pill') {
-    attrs.push('shape="pill"');
-  }
-  if (variant === 'secondary') {
-    attrs.push('variant="secondary"');
-  }
+  const attrs = [`shape="${shape}"`, `variant="${variant}"`, `size="${size}"`];
   if (disabled) {
     attrs.push('[disabled]="true"');
   }
@@ -106,21 +98,34 @@ ${buildDisabledButtonRow(shape, variant)}
   </div>
 </section>`;
 
-const buildSnippetTs = (id: string): string => `import { Component } from '@angular/core';
-import { Sportbook6vnButtonComponent } from 'sportbook6vn';
+const buildSnippetStyles = (): string => `    .button-mapping-preview {
+      display: grid;
+      gap: 24px;
+    }
 
-@Component({
-  selector: 'app-${id}-mapping-demo',
-  standalone: true,
-  imports: [Sportbook6vnButtonComponent],
-  templateUrl: './${id}-mapping-demo.component.html',
-})
-export class ${toClassName(id)}MappingDemoComponent {}`;
+    .button-state-group {
+      display: grid;
+      gap: 12px;
+    }
 
-const buildQuickUsageHtml = (shape: ButtonMappingShape, variant: ButtonMappingVariant): string =>
-  `<sportbook6vn-button shape="${shape}" variant="${variant}" size="md">Text</sportbook6vn-button>`;
+    .button-state-group h4 {
+      margin: 0;
+      color: #596a82;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
 
-const buildSetupTs = (
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+  `;
+
+const buildSnippetTs = (
   id: string,
   shape: ButtonMappingShape,
   variant: ButtonMappingVariant,
@@ -128,14 +133,17 @@ const buildSetupTs = (
 import { Sportbook6vnButtonComponent } from 'sportbook6vn';
 
 @Component({
-  selector: 'app-${id}-quick-usage',
+  selector: 'app-${id}-mapping-demo',
   standalone: true,
   imports: [Sportbook6vnButtonComponent],
   template: \`
-    <sportbook6vn-button shape="${shape}" variant="${variant}" size="md">Text</sportbook6vn-button>
+${buildSnippetHtml(shape, variant)}
   \`,
+  styles: [\`
+${buildSnippetStyles()}
+  \`],
 })
-export class ${toClassName(id)}QuickUsageComponent {}`;
+export class ${toClassName(id)}MappingDemoComponent {}`;
 
 const makeSection = (
   id: string,
@@ -144,7 +152,6 @@ const makeSection = (
   tags: string[],
   shape: ButtonMappingShape,
   variant: ButtonMappingVariant,
-  snippetOverrides: Partial<Pick<ButtonMappingDemoSection, 'quickUsageHtml' | 'setupTs'>> = {},
 ): ButtonMappingDemoSection => ({
   id,
   title,
@@ -153,8 +160,7 @@ const makeSection = (
   shape,
   variant,
   snippetHtml: buildSnippetHtml(shape, variant),
-  snippetTs: buildSnippetTs(id),
-  ...snippetOverrides,
+  snippetTs: buildSnippetTs(id, shape, variant),
 });
 
 export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
@@ -165,10 +171,6 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
     ['selector=sportbook6vn-button', 'shape=rectangle', 'variant=primary', 'sizes=lg/md/sm'],
     'rectangle',
     'primary',
-    {
-      quickUsageHtml: buildQuickUsageHtml('rectangle', 'primary'),
-      setupTs: buildSetupTs('rectangle-primary', 'rectangle', 'primary'),
-    },
   ),
   makeSection(
     'rectangle-secondary',

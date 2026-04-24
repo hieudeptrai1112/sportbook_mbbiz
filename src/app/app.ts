@@ -131,8 +131,6 @@ interface ResolvedInputSemanticBindingGroup {
   rows: ResolvedInputSemanticBindingRow[];
 }
 
-type ButtonMappingSnippetLayer = 'quick' | 'setup' | 'interactive';
-
 @Component({
   selector: 'app-root',
   imports: [
@@ -204,10 +202,7 @@ export class App {
   protected readonly activeButtonMappingSection = signal(
     this.getButtonMappingSectionId(this.buttonMappingDemoSections[0]?.id ?? 'rectangle-primary'),
   );
-  protected readonly buttonMappingCodeType = signal<ButtonMappingCodeType>('js');
-  protected readonly buttonMappingSnippetLayerBySection = signal<
-    Partial<Record<ButtonMappingDemoSection['id'], ButtonMappingSnippetLayer>>
-  >({});
+  protected readonly buttonMappingCodeType = signal<ButtonMappingCodeType>('ts');
   protected readonly expandedButtonMappingDemoIds = signal<string[]>([]);
   protected readonly copiedButtonMappingDemoId = signal<string | null>(null);
   protected readonly buttonMappingSizeScale = ['lg', 'md', 'sm'] as const;
@@ -669,53 +664,7 @@ export class App {
     this.buttonMappingCodeType.set(type);
   }
 
-  protected hasButtonMappingSnippetLayers(section: ButtonMappingDemoSection): boolean {
-    return section.id === 'rectangle-primary' && Boolean(section.quickUsageHtml) && Boolean(section.setupTs);
-  }
-
-  protected getButtonMappingSnippetLayer(section: ButtonMappingDemoSection): ButtonMappingSnippetLayer {
-    if (!this.hasButtonMappingSnippetLayers(section)) {
-      return 'interactive';
-    }
-
-    return this.buttonMappingSnippetLayerBySection()[section.id] ?? 'quick';
-  }
-
-  protected setButtonMappingSnippetLayer(
-    sectionId: ButtonMappingDemoSection['id'],
-    layer: ButtonMappingSnippetLayer,
-  ) {
-    const next = {
-      ...this.buttonMappingSnippetLayerBySection(),
-      [sectionId]: layer,
-    };
-    this.buttonMappingSnippetLayerBySection.set(next);
-  }
-
-  protected shouldShowButtonMappingCodeTypeSwitcher(section: ButtonMappingDemoSection): boolean {
-    return this.getButtonMappingSnippetLayer(section) === 'interactive';
-  }
-
-  protected isButtonMappingSnippetTypeScript(section: ButtonMappingDemoSection): boolean {
-    const layer = this.getButtonMappingSnippetLayer(section);
-    if (layer === 'quick') {
-      return false;
-    }
-    if (layer === 'setup') {
-      return true;
-    }
-    return this.buttonMappingCodeType() === 'ts';
-  }
-
   protected getButtonMappingDemoCode(section: ButtonMappingDemoSection): string {
-    const layer = this.getButtonMappingSnippetLayer(section);
-    if (layer === 'quick') {
-      return section.quickUsageHtml ?? section.snippetHtml;
-    }
-    if (layer === 'setup') {
-      return section.setupTs ?? section.snippetTs;
-    }
-
     if (this.buttonMappingCodeType() === 'ts') {
       return section.snippetTs;
     }
@@ -724,35 +673,22 @@ export class App {
 
   protected getButtonMappingDemoHighlightedCode(section: ButtonMappingDemoSection): string {
     const code = this.getButtonMappingDemoCode(section);
-    if (this.isButtonMappingSnippetTypeScript(section)) {
+    if (this.buttonMappingCodeType() === 'ts') {
       return this.highlightTypeScriptSnippet(code);
     }
     return this.highlightHtmlSnippet(code);
   }
 
-  protected getButtonMappingCodeLanguageLabel(section: ButtonMappingDemoSection): string {
-    const layer = this.getButtonMappingSnippetLayer(section);
-    if (layer === 'quick') {
-      return 'quick-usage.component.html';
-    }
-    if (layer === 'setup') {
-      return 'quick-usage.component.ts';
-    }
-
+  protected getButtonMappingCodeLanguageLabel(): string {
     return this.buttonMappingCodeType() === 'js'
       ? 'button-mapping-demo.component.html'
       : 'button-mapping-demo.component.ts';
   }
 
-  protected getButtonMappingCodeHint(section: ButtonMappingDemoSection): string {
-    const layer = this.getButtonMappingSnippetLayer(section);
-    if (layer === 'quick') {
-      return 'Quick usage snippet';
-    }
-    if (layer === 'setup') {
-      return 'Angular setup snippet';
-    }
-    return 'Interactive demo snippet';
+  protected getButtonMappingCodeHint(): string {
+    return this.buttonMappingCodeType() === 'ts'
+      ? 'Angular standalone snippet'
+      : 'Template-only snippet';
   }
 
   protected async copyButtonMappingDemoCode(section: ButtonMappingDemoSection) {
