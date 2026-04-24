@@ -1429,15 +1429,15 @@ ${actionRows}
 
   private highlightHtmlSnippet(code: string): string {
     const stash: string[] = [];
-    let escaped = this.escapeHtml(code);
+    const escaped = this.escapeHtml(code);
 
-    escaped = this.captureToken(escaped, /(&lt;!--[\s\S]*?--&gt;)/g, 'comment', stash);
-    escaped = this.captureToken(
-      escaped,
-      /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g,
-      'string',
-      stash,
-    );
+    return this.highlightEscapedHtmlSnippet(escaped, stash);
+  }
+
+  private highlightEscapedHtmlSnippet(escapedCode: string, stash: string[]): string {
+    let escaped = this.captureToken(escapedCode, /(&lt;!--[\s\S]*?--&gt;)/g, 'comment', stash);
+
+    escaped = this.captureToken(escaped, /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g, 'string', stash);
 
     escaped = escaped.replace(
       /(&lt;\/?)([A-Za-z][\w-]*)/g,
@@ -1467,9 +1467,17 @@ ${actionRows}
         return `${prefix}${key}`;
       },
     );
+    escaped = escaped.replace(/`([\s\S]*?)`/g, (_match, templateBody: string) => {
+      const key = `__code_token_${stash.length}__`;
+      const highlightedTemplate = this.highlightEscapedHtmlSnippet(templateBody, []);
+      stash.push(
+        `<span class="code-token punctuation">\`</span>${highlightedTemplate}<span class="code-token punctuation">\`</span>`,
+      );
+      return key;
+    });
     escaped = this.captureToken(
       escaped,
-      /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`)/g,
+      /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g,
       'string',
       stash,
     );
