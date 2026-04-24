@@ -558,27 +558,7 @@
                     </button>
                   </div>
 
-                  <div class="button-code-switchers">
-                    <div class="button-code-type">
-                      <button
-                        type="button"
-                        class="button-code-type-btn"
-                        [class.active]="buttonMappingCodeType() === 'js'"
-                        (click)="setButtonMappingCodeType('js')"
-                      >
-                        HTML
-                      </button>
-                      <button
-                        type="button"
-                        class="button-code-type-btn"
-                        [class.active]="buttonMappingCodeType() === 'ts'"
-                        [disabled]="!demo.snippetTs"
-                        (click)="setButtonMappingCodeType('ts')"
-                      >
-                        TS
-                      </button>
-                    </div>
-                  </div>
+                  <span class="button-code-hint">TS</span>
                 </div>
 
                 <div class="button-code-wrapper" *ngIf="isButtonMappingDemoExpanded(demo.id)">

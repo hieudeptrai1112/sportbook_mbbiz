@@ -1,4 +1,3 @@
-export type ButtonMappingCodeType = 'js' | 'ts';
 export type ButtonMappingShape = 'rectangle' | 'pill';
 export type ButtonMappingVariant = 'primary' | 'secondary';
 export type ButtonMappingSize = 'lg' | 'md' | 'sm';
@@ -10,7 +9,6 @@ export interface ButtonMappingDemoSection {
   tags: string[];
   shape: ButtonMappingShape;
   variant: ButtonMappingVariant;
-  snippetHtml: string;
   snippetTs: string;
 }
 
@@ -159,7 +157,6 @@ const makeSection = (
   tags,
   shape,
   variant,
-  snippetHtml: buildSnippetHtml(shape, variant),
   snippetTs: buildSnippetTs(id, shape, variant),
 });
 

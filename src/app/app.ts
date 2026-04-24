@@ -59,7 +59,6 @@ import {
   BUTTON_MAPPING_API_ROWS,
   BUTTON_MAPPING_DEMO_SECTIONS,
   type ButtonMappingApiRow,
-  type ButtonMappingCodeType,
   type ButtonMappingDemoSection,
 } from './button-mapping.demos.data';
 import {
@@ -202,7 +201,6 @@ export class App {
   protected readonly activeButtonMappingSection = signal(
     this.getButtonMappingSectionId(this.buttonMappingDemoSections[0]?.id ?? 'rectangle-primary'),
   );
-  protected readonly buttonMappingCodeType = signal<ButtonMappingCodeType>('ts');
   protected readonly expandedButtonMappingDemoIds = signal<string[]>([]);
   protected readonly copiedButtonMappingDemoId = signal<string | null>(null);
   protected readonly buttonMappingSizeScale = ['lg', 'md', 'sm'] as const;
@@ -660,35 +658,21 @@ export class App {
     return this.expandedButtonMappingDemoIds().length === this.buttonMappingDemoSections.length;
   }
 
-  protected setButtonMappingCodeType(type: ButtonMappingCodeType) {
-    this.buttonMappingCodeType.set(type);
-  }
-
   protected getButtonMappingDemoCode(section: ButtonMappingDemoSection): string {
-    if (this.buttonMappingCodeType() === 'ts') {
-      return section.snippetTs;
-    }
-    return section.snippetHtml;
+    return section.snippetTs;
   }
 
   protected getButtonMappingDemoHighlightedCode(section: ButtonMappingDemoSection): string {
     const code = this.getButtonMappingDemoCode(section);
-    if (this.buttonMappingCodeType() === 'ts') {
-      return this.highlightTypeScriptSnippet(code);
-    }
-    return this.highlightHtmlSnippet(code);
+    return this.highlightTypeScriptSnippet(code);
   }
 
   protected getButtonMappingCodeLanguageLabel(): string {
-    return this.buttonMappingCodeType() === 'js'
-      ? 'button-mapping-demo.component.html'
-      : 'button-mapping-demo.component.ts';
+    return 'button-mapping-demo.component.ts';
   }
 
   protected getButtonMappingCodeHint(): string {
-    return this.buttonMappingCodeType() === 'ts'
-      ? 'Angular standalone snippet'
-      : 'Template-only snippet';
+    return 'Angular standalone snippet';
   }
 
   protected async copyButtonMappingDemoCode(section: ButtonMappingDemoSection) {
@@ -1475,6 +1459,14 @@ ${actionRows}
     let escaped = this.escapeHtml(code);
 
     escaped = this.captureToken(escaped, /(\/\*[\s\S]*?\*\/|\/\/.*$)/gm, 'comment', stash);
+    escaped = escaped.replace(
+      /\b(from\s*)("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g,
+      (_match, prefix: string, literal: string) => {
+        const key = `__code_token_${stash.length}__`;
+        stash.push(`<span class="code-token module">${literal}</span>`);
+        return `${prefix}${key}`;
+      },
+    );
     escaped = this.captureToken(
       escaped,
       /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`)/g,

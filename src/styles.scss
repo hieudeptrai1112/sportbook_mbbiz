@@ -358,31 +358,35 @@ button {
 }
 
 .code-token.keyword {
-  color: #00a83a;
+  color: #00b42a;
 }
 
 .code-token.tag {
-  color: #165dff;
+  color: #00b42a;
 }
 
 .code-token.type {
-  color: #165dff;
+  color: #4e5969;
 }
 
 .code-token.attr {
-  color: #8f5cf6;
+  color: #b37feb;
 }
 
 .code-token.string {
-  color: #00a854;
+  color: #00b42a;
+}
+
+.code-token.module {
+  color: #b37feb;
 }
 
 .code-token.comment {
-  color: #8c919a;
+  color: #86909c;
 }
 
 .code-token.number {
-  color: #1d9bf0;
+  color: #165dff;
 }
 
 .code-token.punctuation {
@@ -559,9 +563,12 @@ button {
   color: #7bd88f;
 }
 
-.page.theme-dark .code-token.tag,
+.page.theme-dark .code-token.tag {
+  color: #7bd88f;
+}
+
 .page.theme-dark .code-token.type {
-  color: #69a5ff;
+  color: #c7d0df;
 }
 
 .page.theme-dark .code-token.attr {
@@ -570,6 +577,10 @@ button {
 
 .page.theme-dark .code-token.string {
   color: #7bd88f;
+}
+
+.page.theme-dark .code-token.module {
+  color: #b79cff;
 }
 
 .page.theme-dark .code-token.comment {
