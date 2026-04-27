@@ -384,7 +384,17 @@
             <span class="sportbook6vn-preview-control-matrix__label">Basic</span>
             <div class="sportbook6vn-preview-control-matrix__items">
               <sportbook6vn-checkbox label="Checkbox" />
-              <sportbook6vn-checkbox label="Disabled Checkbox" [disabled]="true" />
+              <sportbook6vn-checkbox label="Checked" [defaultChecked]="true" />
+              <sportbook6vn-checkbox label="Indeterminate" [defaultIndeterminate]="true" />
+            </div>
+          </div>
+
+          <div class="sportbook6vn-preview-control-matrix__row">
+            <span class="sportbook6vn-preview-control-matrix__label">Disabled</span>
+            <div class="sportbook6vn-preview-control-matrix__items">
+              <sportbook6vn-checkbox label="Disabled" [disabled]="true" />
+              <sportbook6vn-checkbox label="Disabled checked" [defaultChecked]="true" [disabled]="true" />
+              <sportbook6vn-checkbox label="Disabled indeterminate" [defaultIndeterminate]="true" [disabled]="true" />
             </div>
           </div>
 
@@ -433,7 +443,15 @@
             <span class="sportbook6vn-preview-control-matrix__label">Basic</span>
             <div class="sportbook6vn-preview-control-matrix__items">
               <sportbook6vn-radio label="Radio" />
+              <sportbook6vn-radio label="Checked Radio" [defaultChecked]="true" />
+            </div>
+          </div>
+
+          <div class="sportbook6vn-preview-control-matrix__row">
+            <span class="sportbook6vn-preview-control-matrix__label">Disabled</span>
+            <div class="sportbook6vn-preview-control-matrix__items">
               <sportbook6vn-radio label="Disabled Radio" [disabled]="true" />
+              <sportbook6vn-radio label="Disabled Checked Radio" [defaultChecked]="true" [disabled]="true" />
             </div>
           </div>
 
@@ -467,13 +485,15 @@
             <span class="sportbook6vn-preview-control-matrix__label">Basic</span>
             <div class="sportbook6vn-preview-control-matrix__items">
               <sportbook6vn-switch size="l" />
+              <sportbook6vn-switch size="l" [defaultChecked]="true" />
             </div>
           </div>
 
           <div class="sportbook6vn-preview-control-matrix__row">
-            <span class="sportbook6vn-preview-control-matrix__label">Disable</span>
+            <span class="sportbook6vn-preview-control-matrix__label">Disabled</span>
             <div class="sportbook6vn-preview-control-matrix__items">
               <sportbook6vn-switch size="l" [disabled]="true" />
+              <sportbook6vn-switch size="l" [defaultChecked]="true" [disabled]="true" />
             </div>
           </div>
 
@@ -488,7 +508,9 @@
           <div class="sportbook6vn-preview-control-matrix__row">
             <span class="sportbook6vn-preview-control-matrix__label">Size</span>
             <div class="sportbook6vn-preview-control-matrix__items">
+              <sportbook6vn-switch size="l" />
               <sportbook6vn-switch size="l" [defaultChecked]="true" />
+              <sportbook6vn-switch size="m" />
               <sportbook6vn-switch size="m" [defaultChecked]="true" />
             </div>
           </div>
