@@ -117,6 +117,31 @@ interface ResolvedInputSemanticBindingGroup {
   rows: ResolvedInputSemanticBindingRow[];
 }
 
+type InputDocsSectionId =
+  | 'input-basic-text'
+  | 'input-affix-prefix'
+  | 'input-affix-both'
+  | 'input-search'
+  | 'input-password'
+  | 'input-textarea'
+  | 'input-floating-label'
+  | 'input-affix-label'
+  | 'input-status'
+  | 'input-disabled';
+
+const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
+  'input-basic-text',
+  'input-affix-prefix',
+  'input-affix-both',
+  'input-search',
+  'input-password',
+  'input-textarea',
+  'input-floating-label',
+  'input-affix-label',
+  'input-status',
+  'input-disabled',
+];
+
 @Component({
   selector: 'app-root',
   imports: [
@@ -197,6 +222,8 @@ export class App {
   protected readonly inputCodeType = signal<InputCodeType>('js');
   protected readonly expandedInputDemoIds = signal<string[]>([]);
   protected readonly copiedInputDemoId = signal<string | null>(null);
+  protected readonly expandedInputDocsDemoIds = signal<string[]>([]);
+  protected readonly copiedInputDocsDemoId = signal<string | null>(null);
   protected readonly core3InputValue = signal('');
   protected readonly core3AffixPrefixValue = signal('');
   protected readonly core3SearchValue = signal('');
@@ -682,6 +709,100 @@ export class App {
     setTimeout(() => {
       if (this.copiedInputDemoId() === section.id) {
         this.copiedInputDemoId.set(null);
+      }
+    }, 1200);
+  }
+
+  protected isInputDocsDemoExpanded(sectionId: string): boolean {
+    return this.expandedInputDocsDemoIds().includes(sectionId);
+  }
+
+  protected toggleInputDocsDemoCode(sectionId: string) {
+    const next = new Set(this.expandedInputDocsDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedInputDocsDemoIds.set([...next]);
+  }
+
+  protected toggleAllInputDocsDemoCode() {
+    const expanded = this.expandedInputDocsDemoIds();
+    const shouldExpandAll = expanded.length !== INPUT_DOC_SECTION_IDS.length;
+    this.expandedInputDocsDemoIds.set(shouldExpandAll ? [...INPUT_DOC_SECTION_IDS] : []);
+  }
+
+  protected areAllInputDocsDemoCodeExpanded(): boolean {
+    return this.expandedInputDocsDemoIds().length === INPUT_DOC_SECTION_IDS.length;
+  }
+
+  protected getInputDocsDemoCode(sectionId: string): string {
+    switch (sectionId) {
+      case 'input-basic-text':
+        return this.buildInputDocsBasicSnippet();
+      case 'input-affix-prefix':
+        return this.buildInputDocsAffixPrefixSnippet();
+      case 'input-affix-both':
+        return this.buildInputDocsAffixBothSnippet();
+      case 'input-search':
+        return this.buildInputDocsSearchSnippet();
+      case 'input-password':
+        return this.buildInputDocsPasswordSnippet();
+      case 'input-textarea':
+        return this.buildInputDocsTextareaSnippet();
+      case 'input-floating-label':
+        return this.buildInputDocsFloatingLabelSnippet();
+      case 'input-affix-label':
+        return this.buildInputDocsAffixLabelSnippet();
+      case 'input-status':
+        return this.buildInputDocsStatusSnippet();
+      case 'input-disabled':
+        return this.buildInputDocsDisabledSnippet();
+      default:
+        return '';
+    }
+  }
+
+  protected getInputDocsDemoHighlightedCode(sectionId: string): string {
+    return this.highlightTypeScriptSnippet(this.getInputDocsDemoCode(sectionId));
+  }
+
+  protected getInputDocsCodeLanguageLabel(sectionId: string): string {
+    switch (sectionId) {
+      case 'input-affix-prefix':
+      case 'input-affix-both':
+        return 'affix-input-demo.component.ts';
+      case 'input-search':
+        return 'search-input-demo.component.ts';
+      case 'input-password':
+        return 'password-input-demo.component.ts';
+      case 'input-textarea':
+        return 'textarea-demo.component.ts';
+      case 'input-floating-label':
+        return 'floating-label-input-demo.component.ts';
+      case 'input-affix-label':
+        return 'affix-label-input-demo.component.ts';
+      case 'input-status':
+        return 'input-status-demo.component.ts';
+      case 'input-disabled':
+        return 'input-disabled-demo.component.ts';
+      default:
+        return 'input-basic-demo.component.ts';
+    }
+  }
+
+  protected getInputDocsCodeHint(): string {
+    return 'Angular standalone snippet';
+  }
+
+  protected async copyInputDocsDemoCode(sectionId: string) {
+    const code = this.getInputDocsDemoCode(sectionId);
+    await this.writeTextToClipboard(code);
+    this.copiedInputDocsDemoId.set(sectionId);
+    setTimeout(() => {
+      if (this.copiedInputDocsDemoId() === sectionId) {
+        this.copiedInputDocsDemoId.set(null);
       }
     }, 1200);
   }
@@ -1301,6 +1422,295 @@ ${actionRows}
 }`;
   }
 
+  private buildInputDocsBasicSnippet(): string {
+    return `import { Component, signal } from '@angular/core';
+import { Sportbook6vnInputComponent } from 'sportbook6vn';
+
+@Component({
+  selector: 'app-input-basic-demo',
+  standalone: true,
+  imports: [Sportbook6vnInputComponent],
+  template: \`
+    <sportbook6vn-input
+      inputId="basic-input"
+      placeholder="Input text"
+      [value]="value()"
+      (valueChange)="value.set($event)"
+    />
+  \`,
+})
+export class InputBasicDemoComponent {
+  readonly value = signal('');
+}`;
+  }
+
+  private buildInputDocsAffixPrefixSnippet(): string {
+    return `import { Component, signal } from '@angular/core';
+import { Sportbook6vnAffixInputComponent } from 'sportbook6vn';
+
+@Component({
+  selector: 'app-affix-input-prefix-demo',
+  standalone: true,
+  imports: [Sportbook6vnAffixInputComponent],
+  template: \`
+    <sportbook6vn-affix-input
+      inputId="affix-prefix-input"
+      mode="prefix"
+      prefixText="₫"
+      placeholder="Input text"
+      [value]="value()"
+      (valueChange)="value.set($event)"
+    />
+  \`,
+})
+export class AffixInputPrefixDemoComponent {
+  readonly value = signal('');
+}`;
+  }
+
+  private buildInputDocsAffixBothSnippet(): string {
+    return `import { Component, signal } from '@angular/core';
+import { Sportbook6vnAffixInputComponent } from 'sportbook6vn';
+
+@Component({
+  selector: 'app-affix-input-both-demo',
+  standalone: true,
+  imports: [Sportbook6vnAffixInputComponent],
+  template: \`
+    <sportbook6vn-affix-input
+      inputId="affix-both-input"
+      mode="both"
+      prefixText="₫"
+      suffixText="VND"
+      placeholder="Input text"
+      [value]="value()"
+      (valueChange)="value.set($event)"
+    />
+  \`,
+})
+export class AffixInputBothDemoComponent {
+  readonly value = signal('');
+}`;
+  }
+
+  private buildInputDocsSearchSnippet(): string {
+    return `import { Component, signal } from '@angular/core';
+import { Sportbook6vnSearchInputComponent } from 'sportbook6vn';
+
+@Component({
+  selector: 'app-search-input-demo',
+  standalone: true,
+  imports: [Sportbook6vnSearchInputComponent],
+  template: \`
+    <sportbook6vn-search-input
+      inputId="search-input"
+      placeholder="Input text"
+      [value]="query()"
+      (valueChange)="query.set($event)"
+      (searchSubmit)="submitSearch($event)"
+    />
+  \`,
+})
+export class SearchInputDemoComponent {
+  readonly query = signal('');
+
+  submitSearch(value: string) {
+    this.query.set(value.trim());
+  }
+}`;
+  }
+
+  private buildInputDocsPasswordSnippet(): string {
+    return `import { Component, signal } from '@angular/core';
+import { Sportbook6vnPasswordInputComponent } from 'sportbook6vn';
+
+@Component({
+  selector: 'app-password-input-demo',
+  standalone: true,
+  imports: [Sportbook6vnPasswordInputComponent],
+  template: \`
+    <sportbook6vn-password-input
+      inputId="password-input"
+      [value]="password()"
+      [visible]="visible()"
+      (valueChange)="password.set($event)"
+      (visibleChange)="visible.set($event)"
+    />
+  \`,
+})
+export class PasswordInputDemoComponent {
+  readonly password = signal('');
+  readonly visible = signal(false);
+}`;
+  }
+
+  private buildInputDocsTextareaSnippet(): string {
+    return `import { Component, signal } from '@angular/core';
+import { Sportbook6vnTextareaComponent } from 'sportbook6vn';
+
+@Component({
+  selector: 'app-textarea-demo',
+  standalone: true,
+  imports: [Sportbook6vnTextareaComponent],
+  template: \`
+    <sportbook6vn-textarea
+      textareaId="message-textarea"
+      placeholder="Input text"
+      [rows]="4"
+      [maxLength]="100"
+      [value]="message()"
+      (valueChange)="message.set($event)"
+    />
+  \`,
+})
+export class TextareaDemoComponent {
+  readonly message = signal('');
+}`;
+  }
+
+  private buildInputDocsFloatingLabelSnippet(): string {
+    return `import { Component, signal } from '@angular/core';
+import { Sportbook6vnFloatingLabelInputComponent } from 'sportbook6vn';
+
+@Component({
+  selector: 'app-floating-label-input-demo',
+  standalone: true,
+  imports: [Sportbook6vnFloatingLabelInputComponent],
+  template: \`
+    <sportbook6vn-floating-label-input
+      inputId="floating-label-input"
+      label="Title"
+      placeholder="Input text"
+      [value]="value()"
+      (valueChange)="value.set($event)"
+    />
+  \`,
+})
+export class FloatingLabelInputDemoComponent {
+  readonly value = signal('');
+}`;
+  }
+
+  private buildInputDocsAffixLabelSnippet(): string {
+    return `import { Component, signal } from '@angular/core';
+import {
+  Sportbook6vnAffixDropdownItem,
+  Sportbook6vnAffixLabelInputComponent,
+} from 'sportbook6vn';
+
+@Component({
+  selector: 'app-affix-label-input-demo',
+  standalone: true,
+  imports: [Sportbook6vnAffixLabelInputComponent],
+  template: \`
+    <sportbook6vn-affix-label-input
+      inputId="currency-input"
+      placeholder="Input text"
+      prefixLabel="Loại tiền"
+      [prefixDropdownItems]="currencyItems"
+      [prefixDropdownValue]="currencyId()"
+      [value]="value()"
+      (prefixDropdownValueChange)="currencyId.set($event)"
+      (valueChange)="value.set($event)"
+    />
+  \`,
+})
+export class AffixLabelInputDemoComponent {
+  readonly value = signal('');
+  readonly currencyId = signal<string | null>(null);
+
+  readonly currencyItems: readonly Sportbook6vnAffixDropdownItem[] = [
+    { id: 'vnd', label: 'VND', flagCode: 'vnd' },
+    { id: 'usd', label: 'USD', flagCode: 'usd' },
+    { id: 'krw', label: 'KRW', flagCode: 'krw' },
+  ];
+}`;
+  }
+
+  private buildInputDocsStatusSnippet(): string {
+    return `import { Component } from '@angular/core';
+import {
+  Sportbook6vnFloatingLabelInputComponent,
+  Sportbook6vnInputComponent,
+  Sportbook6vnPasswordInputComponent,
+  Sportbook6vnSearchInputComponent,
+  Sportbook6vnTextareaComponent,
+} from 'sportbook6vn';
+
+@Component({
+  selector: 'app-input-status-demo',
+  standalone: true,
+  imports: [
+    Sportbook6vnInputComponent,
+    Sportbook6vnSearchInputComponent,
+    Sportbook6vnPasswordInputComponent,
+    Sportbook6vnTextareaComponent,
+    Sportbook6vnFloatingLabelInputComponent,
+  ],
+  template: \`
+    <sportbook6vn-input inputId="input-error" placeholder="Input text" status="error" />
+    <sportbook6vn-search-input inputId="search-error" placeholder="Input text" status="error" />
+    <sportbook6vn-password-input inputId="password-error" status="error" />
+    <sportbook6vn-textarea
+      textareaId="textarea-error"
+      placeholder="Input text"
+      [rows]="4"
+      [maxLength]="100"
+      status="error"
+    />
+    <sportbook6vn-floating-label-input
+      inputId="floating-error"
+      label="Title"
+      placeholder="Input text"
+      status="error"
+    />
+  \`,
+})
+export class InputStatusDemoComponent {}`;
+  }
+
+  private buildInputDocsDisabledSnippet(): string {
+    return `import { Component } from '@angular/core';
+import {
+  Sportbook6vnFloatingLabelInputComponent,
+  Sportbook6vnInputComponent,
+  Sportbook6vnPasswordInputComponent,
+  Sportbook6vnSearchInputComponent,
+  Sportbook6vnTextareaComponent,
+} from 'sportbook6vn';
+
+@Component({
+  selector: 'app-input-disabled-demo',
+  standalone: true,
+  imports: [
+    Sportbook6vnInputComponent,
+    Sportbook6vnSearchInputComponent,
+    Sportbook6vnPasswordInputComponent,
+    Sportbook6vnTextareaComponent,
+    Sportbook6vnFloatingLabelInputComponent,
+  ],
+  template: \`
+    <sportbook6vn-input inputId="input-disabled" placeholder="Input text" [disabled]="true" />
+    <sportbook6vn-search-input inputId="search-disabled" placeholder="Input text" [disabled]="true" />
+    <sportbook6vn-password-input inputId="password-disabled" [disabled]="true" />
+    <sportbook6vn-textarea
+      textareaId="textarea-disabled"
+      placeholder="Input text"
+      [rows]="4"
+      [maxLength]="100"
+      [disabled]="true"
+    />
+    <sportbook6vn-floating-label-input
+      inputId="floating-disabled"
+      label="Title"
+      placeholder="Input text"
+      [disabled]="true"
+    />
+  \`,
+})
+export class InputDisabledDemoComponent {}`;
+  }
+
   private formatActionForSnippet(action: ButtonDemoAction): string {
     const parts = [
       `label: '${this.escapeForSingleQuote(action.label)}'`,
@@ -1381,7 +1791,7 @@ ${actionRows}
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|Sportbook6vnButtonComponent|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
+      /\b(Component|Sportbook6vnButtonComponent|Sportbook6vnInputComponent|Sportbook6vnAffixInputComponent|Sportbook6vnSearchInputComponent|Sportbook6vnPasswordInputComponent|Sportbook6vnTextareaComponent|Sportbook6vnFloatingLabelInputComponent|Sportbook6vnAffixLabelInputComponent|Sportbook6vnAffixDropdownItem|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');

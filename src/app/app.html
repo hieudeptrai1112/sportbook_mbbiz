@@ -634,9 +634,50 @@
               </p>
             </div>
 
+            <ng-template #inputDocsSnippetControls let-sectionId="sectionId">
+              <div class="button-demo-controls">
+                <div class="button-demo-icons">
+                  <button
+                    type="button"
+                    class="button-icon-btn"
+                    [class.active]="isInputDocsDemoExpanded(sectionId)"
+                    (click)="toggleInputDocsDemoCode(sectionId)"
+                    aria-label="Toggle code"
+                  >
+                    &lt;/&gt;
+                  </button>
+                  <button
+                    type="button"
+                    class="button-icon-btn"
+                    (click)="copyInputDocsDemoCode(sectionId)"
+                    aria-label="Copy code"
+                  >
+                    {{ copiedInputDocsDemoId() === sectionId ? 'Copied' : 'Copy' }}
+                  </button>
+                </div>
+
+                <span class="button-code-hint">TS</span>
+              </div>
+
+              <div class="button-code-wrapper" *ngIf="isInputDocsDemoExpanded(sectionId)">
+                <div class="button-code-head">
+                  <span class="button-code-file">{{ getInputDocsCodeLanguageLabel(sectionId) }}</span>
+                  <span class="button-code-hint">{{ getInputDocsCodeHint() }}</span>
+                </div>
+                <pre class="button-code-block"><code [innerHTML]="getInputDocsDemoHighlightedCode(sectionId)"></code></pre>
+              </div>
+            </ng-template>
+
             <section class="section button-demo-section" id="input-basic-text">
               <div class="button-demo-head">
                 <h2>Basic Text Input</h2>
+                <button
+                  class="button-doc-toggle"
+                  type="button"
+                  (click)="toggleAllInputDocsDemoCode()"
+                >
+                  {{ areAllInputDocsDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                </button>
               </div>
               <p class="button-demo-description">
                 Baseline text entry with real
@@ -663,6 +704,9 @@
                     />
                   </div>
                 </div>
+                <ng-container
+                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-basic-text' }"
+                ></ng-container>
               </div>
             </section>
 
@@ -692,6 +736,9 @@
                     />
                   </div>
                 </div>
+                <ng-container
+                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-affix-prefix' }"
+                ></ng-container>
               </div>
             </section>
 
@@ -721,6 +768,9 @@
                     />
                   </div>
                 </div>
+                <ng-container
+                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-affix-both' }"
+                ></ng-container>
               </div>
             </section>
 
@@ -749,6 +799,9 @@
                     />
                   </div>
                 </div>
+                <ng-container
+                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-search' }"
+                ></ng-container>
               </div>
             </section>
 
@@ -777,6 +830,9 @@
                     />
                   </div>
                 </div>
+                <ng-container
+                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-password' }"
+                ></ng-container>
               </div>
             </section>
 
@@ -807,6 +863,9 @@
                     />
                   </div>
                 </div>
+                <ng-container
+                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-textarea' }"
+                ></ng-container>
               </div>
             </section>
 
@@ -835,6 +894,9 @@
                     />
                   </div>
                 </div>
+                <ng-container
+                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-floating-label' }"
+                ></ng-container>
               </div>
             </section>
 
@@ -878,6 +940,9 @@
                     </div>
                   </div>
                 </div>
+                <ng-container
+                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-affix-label' }"
+                ></ng-container>
               </div>
             </section>
 
@@ -934,6 +999,9 @@
                     </div>
                   </div>
                 </div>
+                <ng-container
+                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-status' }"
+                ></ng-container>
               </div>
             </section>
 
@@ -994,6 +1062,9 @@
                     </div>
                   </div>
                 </div>
+                <ng-container
+                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-disabled' }"
+                ></ng-container>
               </div>
             </section>
 
