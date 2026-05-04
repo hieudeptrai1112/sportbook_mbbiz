@@ -1047,22 +1047,15 @@
   gap: 16px;
 }
 
-.button-demo-section[id^='input-'] > .button-demo-card {
-  background: transparent;
+.input-doc-card {
   border: 0;
-  border-radius: 0;
+  background: transparent;
   overflow: visible;
 }
 
-.button-demo-section[id^='input-'] > .button-demo-card > .button-demo-preview {
-  min-height: auto;
+.input-doc-card > .button-demo-preview {
+  min-height: 0;
   padding: 0;
-}
-
-.button-demo-section[id^='input-'] > .button-demo-card > .button-demo-controls {
-  border: 1px solid rgba(195, 197, 217, 0.2);
-  border-radius: 10px;
-  margin-top: 24px;
 }
 
 .button-doc-plus-icon {
@@ -1595,7 +1588,6 @@ sportbook6vn-button.button-doc-state-pressed
   }
 }
 
-/* Ensure dark theme applies to the full page shell, not only cards/tables */
 .page.theme-dark {
   background: #14161b;
   color: #c7d0df;
