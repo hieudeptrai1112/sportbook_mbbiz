@@ -173,7 +173,9 @@ export class App {
     this.buildButtonSemanticBindingGroups(BUTTON_SEMANTIC_BINDING_GROUPS);
   protected readonly buttonVariableGroups: ButtonVariableGroup[] = BUTTON_VARIABLE_GROUPS;
   protected readonly buttonVariableNotes = BUTTON_VARIABLE_NOTES;
-  protected readonly activeButtonSection = signal(this.getButtonSectionId(this.buttonDemoSections[0].id));
+  protected readonly activeButtonSection = signal(
+    this.getButtonSectionId(this.buttonMappingDemoSections[0]?.id ?? 'basic'),
+  );
   protected readonly buttonCodeType = signal<ButtonCodeType>('js');
   protected readonly expandedButtonDemoIds = signal<string[]>([]);
   protected readonly copiedButtonDemoId = signal<string | null>(null);
@@ -503,7 +505,7 @@ export class App {
   }
 
   protected getButtonMappingCodeLanguageLabel(): string {
-    return 'button-mapping-demo.component.ts';
+    return 'button-demo.component.ts';
   }
 
   protected getButtonMappingCodeHint(): string {
@@ -865,7 +867,7 @@ export class App {
 
   private getButtonSectionIds(): string[] {
     return [
-      ...this.buttonDemoSections.map((section) => this.getButtonSectionId(section.id)),
+      ...this.buttonMappingDemoSections.map((section) => this.getButtonSectionId(section.id)),
       'button-api',
       'button-variables',
     ];

@@ -196,14 +196,6 @@
             </div>
             <div
               class="sidebar-link"
-              [class.active]="activePage() === 'buttonMapping'"
-              (click)="setPage('buttonMapping')"
-            >
-              <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
-              <span>Button Mapping</span>
-            </div>
-            <div
-              class="sidebar-link"
               [class.active]="activePage() === 'inputField'"
               (click)="setPage('inputField')"
             >
@@ -269,14 +261,14 @@
             </div>
             <h1>Button</h1>
             <p class="lead">
-              Buttons allow users to take actions, and make choices, with a single tap. They
-              communicate actions that users can take and are typically placed throughout your UI.
+              Buttons allow users to take actions with a single tap. This page uses the approved
+              preview structure: Basic, Size, Shape, With icon, and Disabled.
             </p>
           </div>
 
           <section
             class="section button-demo-section"
-            *ngFor="let demo of buttonDemoSections; let i = index"
+            *ngFor="let demo of buttonMappingDemoSections; let i = index"
             [attr.id]="getButtonSectionId(demo.id)"
           >
             <div class="button-demo-head">
@@ -285,9 +277,9 @@
                 *ngIf="i === 0"
                 class="button-doc-toggle"
                 type="button"
-                (click)="toggleAllButtonDemoCode()"
+                (click)="toggleAllButtonMappingDemoCode()"
               >
-                {{ areAllButtonDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                {{ areAllButtonMappingDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
               </button>
             </div>
             <p class="button-demo-description">{{ demo.description }}</p>
@@ -296,24 +288,26 @@
             </div>
 
             <div class="button-demo-card">
-              <div class="button-demo-preview">
-                <sportbook6vn-button
-                  *ngFor="let action of demo.actions"
-                  [shape]="action.shape ?? 'rectangle'"
-                  [variant]="getButtonVariant(action)"
-                  [size]="getButtonSize(action)"
-                  [disabled]="isButtonActionDisabled(action)"
-                  [class.button-doc-state-hover]="getButtonDocState(action) === 'hover'"
-                  [class.button-doc-state-pressed]="getButtonDocState(action) === 'pressed'"
-                >
-                  @if (action.showLeftIcon ?? false) {
-                    <span sportbook6vnButtonStartIcon class="button-doc-plus-icon" aria-hidden="true">+</span>
-                  }
-                  {{ action.label }}
-                  @if (action.showRightIcon ?? false) {
-                    <span sportbook6vnButtonEndIcon class="button-doc-plus-icon" aria-hidden="true">+</span>
-                  }
-                </sportbook6vn-button>
+              <div class="button-demo-preview core3-map-preview">
+                <div class="core3-map-col core3-map-col--button">
+                  <div class="core3-map-button-row" *ngFor="let group of demo.groups">
+                    <span class="core3-map-button-row-label">{{ group.label }}</span>
+                    <div class="core3-map-row">
+                      <sportbook6vn-button
+                        *ngFor="let action of group.actions"
+                        [shape]="action.shape"
+                        [variant]="action.variant"
+                        [size]="action.size"
+                        [disabled]="action.disabled ?? false"
+                      >
+                        @if (action.showStartIcon ?? false) {
+                          <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
+                        }
+                        {{ action.label }}
+                      </sportbook6vn-button>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div class="button-demo-controls">
@@ -321,8 +315,8 @@
                   <button
                     type="button"
                     class="button-icon-btn"
-                    [class.active]="isButtonDemoExpanded(demo.id)"
-                    (click)="toggleButtonDemoCode(demo.id)"
+                    [class.active]="isButtonMappingDemoExpanded(demo.id)"
+                    (click)="toggleButtonMappingDemoCode(demo.id)"
                     aria-label="Toggle code"
                   >
                     &lt;/&gt;
@@ -330,47 +324,29 @@
                   <button
                     type="button"
                     class="button-icon-btn"
-                    (click)="copyButtonDemoCode(demo)"
+                    (click)="copyButtonMappingDemoCode(demo)"
                     aria-label="Copy code"
                   >
-                    {{ copiedButtonDemoId() === demo.id ? 'Copied' : 'Copy' }}
+                    {{ copiedButtonMappingDemoId() === demo.id ? 'Copied' : 'Copy' }}
                   </button>
                 </div>
 
-                <div class="button-code-type">
-                  <button
-                    type="button"
-                    class="button-code-type-btn"
-                    [class.active]="buttonCodeType() === 'js'"
-                    (click)="setButtonCodeType('js')"
-                  >
-                    HTML
-                  </button>
-                  <button
-                    type="button"
-                    class="button-code-type-btn"
-                    [class.active]="buttonCodeType() === 'ts'"
-                    [disabled]="!demo.codeTs"
-                    (click)="setButtonCodeType('ts')"
-                  >
-                    TS
-                  </button>
-                </div>
+                <span class="button-code-hint">TS</span>
               </div>
 
-              <div class="button-code-wrapper" *ngIf="isButtonDemoExpanded(demo.id)">
+              <div class="button-code-wrapper" *ngIf="isButtonMappingDemoExpanded(demo.id)">
                 <div class="button-code-head">
-                  <span class="button-code-file">{{ getButtonCodeLanguageLabel() }}</span>
-                  <span class="button-code-hint">Copy-ready snippet</span>
+                  <span class="button-code-file">{{ getButtonMappingCodeLanguageLabel() }}</span>
+                  <span class="button-code-hint">{{ getButtonMappingCodeHint() }}</span>
                 </div>
-                <pre class="button-code-block"><code [innerHTML]="getButtonDemoHighlightedCode(demo)"></code></pre>
+                <pre class="button-code-block"><code [innerHTML]="getButtonMappingDemoHighlightedCode(demo)"></code></pre>
               </div>
             </div>
           </section>
 
           <section class="section button-api-section" id="button-api">
             <h2>API</h2>
-            <h3 class="button-api-group-title">Button</h3>
+            <h3 class="button-api-group-title">sportbook6vn-button</h3>
             <div class="button-api-table">
               <div class="button-api-row button-api-head">
                 <span class="button-api-col button-api-col-property">Property</span>
@@ -378,7 +354,7 @@
                 <span class="button-api-col button-api-col-type">Type</span>
                 <span class="button-api-col button-api-col-default">Default</span>
               </div>
-              <div class="button-api-row" *ngFor="let row of buttonApiRows">
+              <div class="button-api-row" *ngFor="let row of buttonMappingApiRows">
                 <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
                 <span class="button-api-col button-api-col-description">{{ row.description }}</span>
                 <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
@@ -1067,7 +1043,7 @@
               <h1>Core-3 Mapping</h1>
               <p class="lead">
                 Bản mapping tổng hợp từ preview sang app chính cho các component đã chốt.
-                Button đã được tách sang tab riêng <span class="button-inline-code">Button Mapping</span>.
+                Button hiện dùng trực tiếp tab <span class="button-inline-code">Buttons</span>.
               </p>
             </div>
 
@@ -1075,7 +1051,7 @@
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview core3-map-preview--empty">
                   <h3>Core-3 Mapping đang trống</h3>
-                  <p>Button đã được chuyển sang tab riêng để review và hoàn thiện docs độc lập.</p>
+                  <p>Button đã được chuyển về tab Buttons để review và hoàn thiện docs độc lập.</p>
                 </div>
               </div>
             </section>
@@ -1631,7 +1607,7 @@
               <div class="toc-list">
                 <a
                   class="toc-item"
-                  *ngFor="let demo of buttonDemoSections"
+                  *ngFor="let demo of buttonMappingDemoSections"
                   [class.active]="activeButtonSection() === getButtonSectionId(demo.id)"
                   [href]="'#' + getButtonSectionId(demo.id)"
                   (click)="setActiveButtonSection(getButtonSectionId(demo.id))"
