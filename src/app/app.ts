@@ -1,15 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
-import { DsInputBasicComponent } from './components/ds-input-basic/ds-input-basic.component';
-import { DsInputAffixComponent } from './components/ds-input-affix/ds-input-affix.component';
-import { DsInputAffixLabelComponent } from './components/ds-input-affix-label/ds-input-affix-label.component';
-import { DsInputSearchComponent } from './components/ds-input-search/ds-input-search.component';
-import {
-  DsInputPasswordComponent,
-  type DsInputPasswordState,
-} from './components/ds-input-password/ds-input-password.component';
-import { DsInputFloatingLabelComponent } from './components/ds-input-floating-label/ds-input-floating-label.component';
-import { DsTextAreaComponent } from './components/ds-text-area/ds-text-area.component';
+import type { DsInputPasswordState } from './components/ds-input-password/ds-input-password.component';
 import {
   Sportbook6vnAffixInputComponent,
   Sportbook6vnAffixLabelInputComponent,
@@ -130,13 +121,6 @@ interface ResolvedInputSemanticBindingGroup {
   selector: 'app-root',
   imports: [
     CommonModule,
-    DsInputBasicComponent,
-    DsInputAffixComponent,
-    DsInputAffixLabelComponent,
-    DsInputSearchComponent,
-    DsInputPasswordComponent,
-    DsInputFloatingLabelComponent,
-    DsTextAreaComponent,
     Sportbook6vnAffixInputComponent,
     Sportbook6vnAffixLabelInputComponent,
     Sportbook6vnButtonComponent,
@@ -209,7 +193,7 @@ export class App {
   protected readonly inputVariableGroups: InputVariableGroup[] = INPUT_VARIABLE_GROUPS;
   protected readonly inputVariableNotes = INPUT_VARIABLE_NOTES;
   protected readonly inputSpacingRules = INPUT_SPACING_RULES;
-  protected readonly activeInputSection = signal(this.getInputSectionId(this.inputDemoSections[0].id));
+  protected readonly activeInputSection = signal('input-basic-text');
   protected readonly inputCodeType = signal<InputCodeType>('js');
   protected readonly expandedInputDemoIds = signal<string[]>([]);
   protected readonly copiedInputDemoId = signal<string | null>(null);
@@ -951,7 +935,16 @@ export class App {
 
   private getInputSectionIds(): string[] {
     return [
-      ...this.inputDemoSections.map((section) => this.getInputSectionId(section.id)),
+      'input-basic-text',
+      'input-affix-prefix',
+      'input-affix-both',
+      'input-search',
+      'input-password',
+      'input-textarea',
+      'input-floating-label',
+      'input-affix-label',
+      'input-status',
+      'input-disabled',
       'input-api',
       'input-state-contract',
       'input-spacing',
