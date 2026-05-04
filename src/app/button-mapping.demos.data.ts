@@ -127,7 +127,7 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
   makeSection(
     'basic',
     'Basic',
-    'Use case cơ bản từ preview: primary/secondary và pill variants ở size large.',
+    'There are primary, secondary, pill primary, and pill secondary button variants.',
     ['selector=sportbook6vn-button', 'use-case=basic', 'size=lg'],
     [
       {
@@ -149,7 +149,7 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
   makeSection(
     'size',
     'Size',
-    'Scale size theo từng tổ hợp shape/variant đã chốt trên preview.',
+    'Buttons support large, medium, and small sizes across rectangle and pill shapes.',
     ['selector=sportbook6vn-button', 'use-case=size', 'sizes=lg/md/sm'],
     [
       {
@@ -173,7 +173,7 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
   makeSection(
     'shape',
     'Shape',
-    'So sánh shape rectangle và pill ở size large, giữ đủ primary/secondary.',
+    'Buttons can be rendered as rectangle or pill shapes.',
     ['selector=sportbook6vn-button', 'use-case=shape', 'shape=rectangle/pill'],
     [
       {
@@ -195,7 +195,7 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
   makeSection(
     'with-icon',
     'With icon',
-    'Leading icon theo preview. Trailing icon và both sides đang được tạm ẩn.',
+    'Use the start icon slot to display an icon before the label.',
     ['selector=sportbook6vn-button', 'use-case=with-icon', 'slot=startIcon'],
     [
       {
@@ -212,7 +212,7 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
   makeSection(
     'disabled',
     'Disabled',
-    'Disabled chỉ demo một size đại diện cho mỗi tổ hợp shape/variant, đúng theo preview.',
+    'Disabled buttons prevent interaction and use muted visual styles.',
     ['selector=sportbook6vn-button', 'use-case=disabled', 'size=lg'],
     [
       {
