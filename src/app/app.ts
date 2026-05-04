@@ -178,11 +178,10 @@ export class App {
   protected readonly expandedButtonDemoIds = signal<string[]>([]);
   protected readonly copiedButtonDemoId = signal<string | null>(null);
   protected readonly activeButtonMappingSection = signal(
-    this.getButtonMappingSectionId(this.buttonMappingDemoSections[0]?.id ?? 'rectangle-primary'),
+    this.getButtonMappingSectionId(this.buttonMappingDemoSections[0]?.id ?? 'basic'),
   );
   protected readonly expandedButtonMappingDemoIds = signal<string[]>([]);
   protected readonly copiedButtonMappingDemoId = signal<string | null>(null);
-  protected readonly buttonMappingSizeScale = ['lg', 'md', 'sm'] as const;
   protected readonly inputDemoSections: InputDemoSection[] = INPUT_DEMO_SECTIONS;
   protected readonly inputApiRows: InputApiRow[] = INPUT_API_ROWS;
   protected readonly inputStateContractRows: InputStateContractRow[] = INPUT_STATE_CONTRACT_ROWS;

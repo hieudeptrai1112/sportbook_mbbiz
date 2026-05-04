@@ -461,7 +461,8 @@
               <h1>Button Mapping</h1>
               <p class="lead">
                 Bản tách riêng cho component <span class="button-inline-code">sportbook6vn-button</span>,
-                map 1:1 từ preview sang app docs theo cấu trúc component page.
+                map 1:1 từ preview sang app docs theo cấu trúc use-case-first: Basic, Size, Shape,
+                With icon, Disabled.
               </p>
             </div>
 
@@ -489,38 +490,20 @@
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
                   <div class="core3-map-col core3-map-col--button">
-                    <div class="core3-map-button-row">
-                      <span class="core3-map-button-row-label">Default</span>
+                    <div class="core3-map-button-row" *ngFor="let group of demo.groups">
+                      <span class="core3-map-button-row-label">{{ group.label }}</span>
                       <div class="core3-map-row">
                         <sportbook6vn-button
-                          *ngFor="let size of buttonMappingSizeScale"
-                          [shape]="demo.shape"
-                          [variant]="demo.variant"
-                          [size]="size"
+                          *ngFor="let action of group.actions"
+                          [shape]="action.shape"
+                          [variant]="action.variant"
+                          [size]="action.size"
+                          [disabled]="action.disabled ?? false"
                         >
-                          Text
-                        </sportbook6vn-button>
-                      </div>
-                    </div>
-                    <div class="core3-map-button-row">
-                      <span class="core3-map-button-row-label">With icon</span>
-                      <div class="core3-map-row">
-                        <sportbook6vn-button [shape]="demo.shape" [variant]="demo.variant" size="lg">
-                          <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                          Text
-                        </sportbook6vn-button>
-                      </div>
-                    </div>
-                    <div class="core3-map-button-row">
-                      <span class="core3-map-button-row-label">Disabled</span>
-                      <div class="core3-map-row">
-                        <sportbook6vn-button
-                          [shape]="demo.shape"
-                          [variant]="demo.variant"
-                          size="lg"
-                          [disabled]="true"
-                        >
-                          Text
+                          @if (action.showStartIcon ?? false) {
+                            <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
+                          }
+                          {{ action.label }}
                         </sportbook6vn-button>
                       </div>
                     </div>
@@ -1701,36 +1684,13 @@
               <span class="toc-label">On This Page</span>
               <div class="toc-list">
                 <a
+                  *ngFor="let demo of buttonMappingDemoSections"
                   class="toc-item"
-                  [class.active]="activeButtonMappingSection() === 'button-mapping-rectangle-primary'"
-                  href="#button-mapping-rectangle-primary"
-                  (click)="setActiveButtonMappingSection('button-mapping-rectangle-primary')"
+                  [class.active]="activeButtonMappingSection() === getButtonMappingSectionId(demo.id)"
+                  [href]="'#' + getButtonMappingSectionId(demo.id)"
+                  (click)="setActiveButtonMappingSection(getButtonMappingSectionId(demo.id))"
                 >
-                  Rectangle · Primary
-                </a>
-                <a
-                  class="toc-item"
-                  [class.active]="activeButtonMappingSection() === 'button-mapping-rectangle-secondary'"
-                  href="#button-mapping-rectangle-secondary"
-                  (click)="setActiveButtonMappingSection('button-mapping-rectangle-secondary')"
-                >
-                  Rectangle · Secondary
-                </a>
-                <a
-                  class="toc-item"
-                  [class.active]="activeButtonMappingSection() === 'button-mapping-pill-primary'"
-                  href="#button-mapping-pill-primary"
-                  (click)="setActiveButtonMappingSection('button-mapping-pill-primary')"
-                >
-                  Pill · Primary
-                </a>
-                <a
-                  class="toc-item"
-                  [class.active]="activeButtonMappingSection() === 'button-mapping-pill-secondary'"
-                  href="#button-mapping-pill-secondary"
-                  (click)="setActiveButtonMappingSection('button-mapping-pill-secondary')"
-                >
-                  Pill · Secondary
+                  {{ demo.title }}
                 </a>
                 <a
                   class="toc-item"

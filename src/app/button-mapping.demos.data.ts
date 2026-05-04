@@ -7,9 +7,22 @@ export interface ButtonMappingDemoSection {
   title: string;
   description: string;
   tags: string[];
+  groups: ButtonMappingDemoGroup[];
+  snippetTs: string;
+}
+
+export interface ButtonMappingDemoGroup {
+  label: string;
+  actions: ButtonMappingDemoAction[];
+}
+
+export interface ButtonMappingDemoAction {
+  label: string;
   shape: ButtonMappingShape;
   variant: ButtonMappingVariant;
-  snippetTs: string;
+  size: ButtonMappingSize;
+  disabled?: boolean;
+  showStartIcon?: boolean;
 }
 
 export interface ButtonMappingApiRow {
@@ -21,6 +34,7 @@ export interface ButtonMappingApiRow {
 
 const SIZE_SCALE: readonly ButtonMappingSize[] = ['lg', 'md', 'sm'] as const;
 const START_ICON = `<svg sportbook6vnButtonStartIcon aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M10 4.25V15.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" /><path d="M4.25 10H15.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>`;
+const LABEL = 'Text';
 
 const toClassName = (id: string): string =>
   id
@@ -41,46 +55,47 @@ const buildButtonAttrs = (
   return attrs.join(' ');
 };
 
-const buildDefaultButtonRow = (
+const makeButtonAction = (
   shape: ButtonMappingShape,
   variant: ButtonMappingVariant,
-): string =>
-  SIZE_SCALE.map(
-    (size) => `    <sportbook6vn-button ${buildButtonAttrs(shape, variant, size)}>Text</sportbook6vn-button>`,
-  ).join('\n');
+  size: ButtonMappingSize,
+  overrides: Partial<ButtonMappingDemoAction> = {},
+): ButtonMappingDemoAction => ({
+  label: LABEL,
+  shape,
+  variant,
+  size,
+  ...overrides,
+});
 
-const buildDisabledButtonRow = (
+const makeSizeScaleActions = (
   shape: ButtonMappingShape,
   variant: ButtonMappingVariant,
-): string =>
-  `    <sportbook6vn-button ${buildButtonAttrs(shape, variant, 'lg', true)}>Text</sportbook6vn-button>`;
+): ButtonMappingDemoAction[] => SIZE_SCALE.map((size) => makeButtonAction(shape, variant, size));
 
-const buildWithIconButtonRow = (shape: ButtonMappingShape, variant: ButtonMappingVariant): string => `    <sportbook6vn-button ${buildButtonAttrs(shape, variant, 'lg')}>
-      ${START_ICON}
-      Text
-    </sportbook6vn-button>`;
+const buildButtonMarkup = (action: ButtonMappingDemoAction): string => {
+  const attrs = buildButtonAttrs(action.shape, action.variant, action.size, action.disabled ?? false);
+  if (action.showStartIcon) {
+    return `      <sportbook6vn-button ${attrs}>
+        ${START_ICON}
+        ${action.label}
+      </sportbook6vn-button>`;
+  }
 
-const buildSnippetHtml = (shape: ButtonMappingShape, variant: ButtonMappingVariant): string => `<section class="button-mapping-preview">
-  <div class="button-state-group">
-    <h4>Default</h4>
+  return `      <sportbook6vn-button ${attrs}>${action.label}</sportbook6vn-button>`;
+};
+
+const buildSnippetHtml = (groups: ButtonMappingDemoGroup[]): string => `<section class="button-mapping-preview">
+${groups
+  .map(
+    (group) => `  <div class="button-state-group">
+    <h4>${group.label}</h4>
     <div class="button-row">
-${buildDefaultButtonRow(shape, variant)}
+${group.actions.map(buildButtonMarkup).join('\n')}
     </div>
-  </div>
-
-  <div class="button-state-group">
-    <h4>With icon</h4>
-    <div class="button-row">
-${buildWithIconButtonRow(shape, variant)}
-    </div>
-  </div>
-
-  <div class="button-state-group">
-    <h4>Disabled</h4>
-    <div class="button-row">
-${buildDisabledButtonRow(shape, variant)}
-    </div>
-  </div>
+  </div>`,
+  )
+  .join('\n\n')}
 </section>`;
 
 const buildSnippetStyles = (): string => `    .button-mapping-preview {
@@ -112,8 +127,7 @@ const buildSnippetStyles = (): string => `    .button-mapping-preview {
 
 const buildSnippetTs = (
   id: string,
-  shape: ButtonMappingShape,
-  variant: ButtonMappingVariant,
+  groups: ButtonMappingDemoGroup[],
 ): string => `import { Component } from '@angular/core';
 import { Sportbook6vnButtonComponent } from 'sportbook6vn';
 
@@ -122,7 +136,7 @@ import { Sportbook6vnButtonComponent } from 'sportbook6vn';
   standalone: true,
   imports: [Sportbook6vnButtonComponent],
   template: \`
-${buildSnippetHtml(shape, variant)}
+${buildSnippetHtml(groups)}
   \`,
   styles: [\`
 ${buildSnippetStyles()}
@@ -135,50 +149,125 @@ const makeSection = (
   title: string,
   description: string,
   tags: string[],
-  shape: ButtonMappingShape,
-  variant: ButtonMappingVariant,
+  groups: ButtonMappingDemoGroup[],
 ): ButtonMappingDemoSection => ({
   id,
   title,
   description,
   tags,
-  shape,
-  variant,
-  snippetTs: buildSnippetTs(id, shape, variant),
+  groups,
+  snippetTs: buildSnippetTs(id, groups),
 });
 
 export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
   makeSection(
-    'rectangle-primary',
-    'Rectangle · Primary',
-    'Component map 1:1 theo bộ rectangle primary từ preview, gồm default, leading icon, disabled.',
-    ['selector=sportbook6vn-button', 'shape=rectangle', 'variant=primary', 'sizes=lg/md/sm'],
-    'rectangle',
-    'primary',
+    'basic',
+    'Basic',
+    'Use case cơ bản từ preview: primary/secondary và pill variants ở size large.',
+    ['selector=sportbook6vn-button', 'use-case=basic', 'size=lg'],
+    [
+      {
+        label: 'Primary and secondary',
+        actions: [
+          makeButtonAction('rectangle', 'primary', 'lg'),
+          makeButtonAction('rectangle', 'secondary', 'lg'),
+        ],
+      },
+      {
+        label: 'Pill variants',
+        actions: [
+          makeButtonAction('pill', 'primary', 'lg'),
+          makeButtonAction('pill', 'secondary', 'lg'),
+        ],
+      },
+    ],
   ),
   makeSection(
-    'rectangle-secondary',
-    'Rectangle · Secondary',
-    'Component map 1:1 cho rectangle secondary với default, leading icon và disabled đại diện.',
-    ['selector=sportbook6vn-button', 'shape=rectangle', 'variant=secondary', 'sizes=lg/md/sm'],
-    'rectangle',
-    'secondary',
+    'size',
+    'Size',
+    'Scale size theo từng tổ hợp shape/variant đã chốt trên preview.',
+    ['selector=sportbook6vn-button', 'use-case=size', 'sizes=lg/md/sm'],
+    [
+      {
+        label: 'Rectangle / Primary',
+        actions: makeSizeScaleActions('rectangle', 'primary'),
+      },
+      {
+        label: 'Rectangle / Secondary',
+        actions: makeSizeScaleActions('rectangle', 'secondary'),
+      },
+      {
+        label: 'Pill / Primary',
+        actions: makeSizeScaleActions('pill', 'primary'),
+      },
+      {
+        label: 'Pill / Secondary',
+        actions: makeSizeScaleActions('pill', 'secondary'),
+      },
+    ],
   ),
   makeSection(
-    'pill-primary',
-    'Pill · Primary',
-    'Component map 1:1 cho pill primary, giữ cùng bố cục default, leading icon và disabled như preview.',
-    ['selector=sportbook6vn-button', 'shape=pill', 'variant=primary', 'sizes=lg/md/sm'],
-    'pill',
-    'primary',
+    'shape',
+    'Shape',
+    'So sánh shape rectangle và pill ở size large, giữ đủ primary/secondary.',
+    ['selector=sportbook6vn-button', 'use-case=shape', 'shape=rectangle/pill'],
+    [
+      {
+        label: 'Rectangle',
+        actions: [
+          makeButtonAction('rectangle', 'primary', 'lg'),
+          makeButtonAction('rectangle', 'secondary', 'lg'),
+        ],
+      },
+      {
+        label: 'Pill',
+        actions: [
+          makeButtonAction('pill', 'primary', 'lg'),
+          makeButtonAction('pill', 'secondary', 'lg'),
+        ],
+      },
+    ],
   ),
   makeSection(
-    'pill-secondary',
-    'Pill · Secondary',
-    'Component map 1:1 cho pill secondary, bao gồm default, leading icon, disabled.',
-    ['selector=sportbook6vn-button', 'shape=pill', 'variant=secondary', 'sizes=lg/md/sm'],
-    'pill',
-    'secondary',
+    'with-icon',
+    'With icon',
+    'Leading icon theo preview. Trailing icon và both sides đang được tạm ẩn.',
+    ['selector=sportbook6vn-button', 'use-case=with-icon', 'slot=startIcon'],
+    [
+      {
+        label: 'Leading icon',
+        actions: [
+          makeButtonAction('rectangle', 'primary', 'lg', { showStartIcon: true }),
+          makeButtonAction('rectangle', 'secondary', 'lg', { showStartIcon: true }),
+          makeButtonAction('pill', 'primary', 'lg', { showStartIcon: true }),
+          makeButtonAction('pill', 'secondary', 'lg', { showStartIcon: true }),
+        ],
+      },
+    ],
+  ),
+  makeSection(
+    'disabled',
+    'Disabled',
+    'Disabled chỉ demo một size đại diện cho mỗi tổ hợp shape/variant, đúng theo preview.',
+    ['selector=sportbook6vn-button', 'use-case=disabled', 'size=lg'],
+    [
+      {
+        label: 'Rectangle / Primary',
+        actions: [makeButtonAction('rectangle', 'primary', 'lg', { disabled: true })],
+      },
+      {
+        label: 'Rectangle / Secondary',
+        actions: [makeButtonAction('rectangle', 'secondary', 'lg', { disabled: true })],
+      },
+      {
+        label: 'Pill / Primary',
+        actions: [makeButtonAction('pill', 'primary', 'lg', { disabled: true })],
+      },
+      {
+        label: 'Pill / Secondary',
+        actions: [makeButtonAction('pill', 'secondary', 'lg', { disabled: true })],
+      },
+    ],
   ),
 ];
 
