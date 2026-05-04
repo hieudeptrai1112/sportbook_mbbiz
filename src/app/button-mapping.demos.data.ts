@@ -2,10 +2,16 @@ export type ButtonMappingShape = 'rectangle' | 'pill';
 export type ButtonMappingVariant = 'primary' | 'secondary';
 export type ButtonMappingSize = 'lg' | 'md' | 'sm';
 
+export interface ButtonMappingDescriptionPart {
+  text?: string;
+  code?: string;
+}
+
 export interface ButtonMappingDemoSection {
   id: string;
   title: string;
   description: string;
+  descriptionParts: ButtonMappingDescriptionPart[];
   tags: string[];
   groups: ButtonMappingDemoGroup[];
   snippetTs: string;
@@ -114,10 +120,12 @@ const makeSection = (
   description: string,
   tags: string[],
   groups: ButtonMappingDemoGroup[],
+  descriptionParts: ButtonMappingDescriptionPart[] = [{ text: description }],
 ): ButtonMappingDemoSection => ({
   id,
   title,
   description,
+  descriptionParts,
   tags,
   groups,
   snippetTs: buildSnippetTs(id, groups),
@@ -145,6 +153,17 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
         ],
       },
     ],
+    [
+      { text: 'There are ' },
+      { code: 'primary' },
+      { text: ', ' },
+      { code: 'secondary' },
+      { text: ', ' },
+      { code: 'pill primary' },
+      { text: ', and ' },
+      { code: 'pill secondary' },
+      { text: ' button variants.' },
+    ],
   ),
   makeSection(
     'size',
@@ -169,6 +188,19 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
         actions: makeSizeScaleActions('pill', 'secondary'),
       },
     ],
+    [
+      { text: 'Buttons support ' },
+      { code: 'lg' },
+      { text: ', ' },
+      { code: 'md' },
+      { text: ', and ' },
+      { code: 'sm' },
+      { text: ' sizes across ' },
+      { code: 'rectangle' },
+      { text: ' and ' },
+      { code: 'pill' },
+      { text: ' shapes.' },
+    ],
   ),
   makeSection(
     'shape',
@@ -191,6 +223,13 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
         ],
       },
     ],
+    [
+      { text: 'Buttons can be rendered as ' },
+      { code: 'rectangle' },
+      { text: ' or ' },
+      { code: 'pill' },
+      { text: ' shapes.' },
+    ],
   ),
   makeSection(
     'with-icon',
@@ -207,6 +246,11 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
           makeButtonAction('pill', 'secondary', 'lg', { showStartIcon: true }),
         ],
       },
+    ],
+    [
+      { text: 'Use ' },
+      { code: 'sportbook6vnButtonStartIcon' },
+      { text: ' to display an icon before the label.' },
     ],
   ),
   makeSection(
@@ -231,6 +275,11 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
         label: 'Pill / Secondary',
         actions: [makeButtonAction('pill', 'secondary', 'lg', { disabled: true })],
       },
+    ],
+    [
+      { text: 'Set ' },
+      { code: '[disabled]="true"' },
+      { text: ' to prevent interaction and use muted visual styles.' },
     ],
   ),
 ];

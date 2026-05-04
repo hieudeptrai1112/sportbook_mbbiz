@@ -282,7 +282,15 @@
                 {{ areAllButtonMappingDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
               </button>
             </div>
-            <p class="button-demo-description">{{ demo.description }}</p>
+            <p class="button-demo-description button-demo-description--rich">
+              @for (part of demo.descriptionParts; track $index) {
+                @if (part.code) {
+                  <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                } @else {
+                  <span>{{ part.text }}</span>
+                }
+              }
+            </p>
             <div class="button-demo-tags">
               <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
             </div>
@@ -458,7 +466,15 @@
                   {{ areAllButtonMappingDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
                 </button>
               </div>
-              <p class="button-demo-description">{{ demo.description }}</p>
+              <p class="button-demo-description button-demo-description--rich">
+                @for (part of demo.descriptionParts; track $index) {
+                  @if (part.code) {
+                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                  } @else {
+                    <span>{{ part.text }}</span>
+                  }
+                }
+              </p>
               <div class="button-demo-tags">
                 <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
               </div>

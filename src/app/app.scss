@@ -1007,6 +1007,14 @@
   gap: 8px;
 }
 
+.button-demo-description--rich {
+  display: block;
+}
+
+.button-demo-description--rich > span {
+  vertical-align: middle;
+}
+
 .button-inline-code {
   font-family: "IBM Plex Mono", "Liberation Mono", monospace;
   font-size: 12px;
@@ -1014,6 +1022,13 @@
   background: #f2f3f5;
   border-radius: 4px;
   padding: 2px 8px;
+}
+
+.button-inline-code--description {
+  display: inline-block;
+  margin: 0 4px;
+  font-size: 0.85em;
+  line-height: 1.5;
 }
 
 .button-demo-card {
