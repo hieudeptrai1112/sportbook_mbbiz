@@ -33,7 +33,6 @@ export interface ButtonMappingApiRow {
 }
 
 const SIZE_SCALE: readonly ButtonMappingSize[] = ['lg', 'md', 'sm'] as const;
-const START_ICON = `<svg sportbook6vnButtonStartIcon aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M10 4.25V15.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" /><path d="M4.25 10H15.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>`;
 const LABEL = 'Text';
 
 const toClassName = (id: string): string =>
@@ -76,54 +75,22 @@ const makeSizeScaleActions = (
 const buildButtonMarkup = (action: ButtonMappingDemoAction): string => {
   const attrs = buildButtonAttrs(action.shape, action.variant, action.size, action.disabled ?? false);
   if (action.showStartIcon) {
-    return `      <sportbook6vn-button ${attrs}>
-        ${START_ICON}
-        ${action.label}
-      </sportbook6vn-button>`;
+    return `    <sportbook6vn-button ${attrs}>
+      <span sportbook6vnButtonStartIcon aria-hidden="true">+</span>
+      ${action.label}
+    </sportbook6vn-button>`;
   }
 
-  return `      <sportbook6vn-button ${attrs}>${action.label}</sportbook6vn-button>`;
+  return `    <sportbook6vn-button ${attrs}>${action.label}</sportbook6vn-button>`;
 };
 
-const buildSnippetHtml = (groups: ButtonMappingDemoGroup[]): string => `<section class="button-mapping-preview">
-${groups
-  .map(
-    (group) => `  <div class="button-state-group">
-    <h4>${group.label}</h4>
-    <div class="button-row">
-${group.actions.map(buildButtonMarkup).join('\n')}
-    </div>
-  </div>`,
-  )
-  .join('\n\n')}
-</section>`;
-
-const buildSnippetStyles = (): string => `    .button-mapping-preview {
-      display: grid;
-      gap: 24px;
-    }
-
-    .button-state-group {
-      display: grid;
-      gap: 12px;
-    }
-
-    .button-state-group h4 {
-      margin: 0;
-      color: #596a82;
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      align-items: center;
-    }
-  `;
+const buildSnippetTemplate = (groups: ButtonMappingDemoGroup[]): string =>
+  groups
+    .map(
+      (group) => `    <!-- ${group.label} -->
+${group.actions.map(buildButtonMarkup).join('\n')}`,
+    )
+    .join('\n\n');
 
 const buildSnippetTs = (
   id: string,
@@ -132,17 +99,14 @@ const buildSnippetTs = (
 import { Sportbook6vnButtonComponent } from 'sportbook6vn';
 
 @Component({
-  selector: 'app-${id}-mapping-demo',
+  selector: 'app-button-${id}-demo',
   standalone: true,
   imports: [Sportbook6vnButtonComponent],
   template: \`
-${buildSnippetHtml(groups)}
+${buildSnippetTemplate(groups)}
   \`,
-  styles: [\`
-${buildSnippetStyles()}
-  \`],
 })
-export class ${toClassName(id)}MappingDemoComponent {}`;
+export class Button${toClassName(id)}DemoComponent {}`;
 
 const makeSection = (
   id: string,
@@ -298,13 +262,15 @@ export const BUTTON_MAPPING_API_ROWS: ButtonMappingApiRow[] = [
   },
   {
     property: 'loading',
-    description: 'Shows loading state and blocks click interaction.',
+    description:
+      'Shows loading state and blocks click interaction. Supported by the component; add a dedicated use case when the Figma preview scope confirms loading.',
     type: 'boolean',
     defaultValue: 'false',
   },
   {
     property: 'fullWidth',
-    description: 'Expands button width to fill its container.',
+    description:
+      'Expands button width to fill its container. Supported layout API; not part of the current Button Mapping preview scope.',
     type: 'boolean',
     defaultValue: 'false',
   },
@@ -328,13 +294,14 @@ export const BUTTON_MAPPING_API_ROWS: ButtonMappingApiRow[] = [
   },
   {
     property: '[sportbook6vnButtonStartIcon]',
-    description: 'Content projection slot for leading icon.',
+    description: 'Content projection slot for leading icon. Covered by the current With icon use case.',
     type: 'Projected slot',
     defaultValue: '-',
   },
   {
     property: '[sportbook6vnButtonEndIcon]',
-    description: 'Content projection slot for trailing icon.',
+    description:
+      'Content projection slot for trailing icon. Supported by the component; temporarily hidden from the current preview mapping scope.',
     type: 'Projected slot',
     defaultValue: '-',
   },
