@@ -11,7 +11,15 @@ import {
 import { DsInputFloatingLabelComponent } from './components/ds-input-floating-label/ds-input-floating-label.component';
 import { DsTextAreaComponent } from './components/ds-text-area/ds-text-area.component';
 import {
+  Sportbook6vnAffixInputComponent,
+  Sportbook6vnAffixLabelInputComponent,
+  type Sportbook6vnAffixDropdownItem,
   Sportbook6vnButtonComponent,
+  Sportbook6vnFloatingLabelInputComponent,
+  Sportbook6vnInputComponent,
+  Sportbook6vnPasswordInputComponent,
+  Sportbook6vnSearchInputComponent,
+  Sportbook6vnTextareaComponent,
   type Sportbook6vnButtonSize,
   type Sportbook6vnButtonVariant,
 } from 'sportbook6vn';
@@ -129,7 +137,14 @@ interface ResolvedInputSemanticBindingGroup {
     DsInputPasswordComponent,
     DsInputFloatingLabelComponent,
     DsTextAreaComponent,
+    Sportbook6vnAffixInputComponent,
+    Sportbook6vnAffixLabelInputComponent,
     Sportbook6vnButtonComponent,
+    Sportbook6vnFloatingLabelInputComponent,
+    Sportbook6vnInputComponent,
+    Sportbook6vnPasswordInputComponent,
+    Sportbook6vnSearchInputComponent,
+    Sportbook6vnTextareaComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -198,6 +213,23 @@ export class App {
   protected readonly inputCodeType = signal<InputCodeType>('js');
   protected readonly expandedInputDemoIds = signal<string[]>([]);
   protected readonly copiedInputDemoId = signal<string | null>(null);
+  protected readonly core3InputValue = signal('');
+  protected readonly core3AffixPrefixValue = signal('');
+  protected readonly core3SearchValue = signal('');
+  protected readonly core3PasswordValue = signal('');
+  protected readonly core3PasswordVisible = signal(false);
+  protected readonly core3TextareaValue = signal('');
+  protected readonly core3FloatingLabelValue = signal('');
+  protected readonly core3AffixLabelValue = signal('');
+  protected readonly core3AffixLabelPrefixValue = signal<string | null>(null);
+  protected readonly core3CurrencyAffixItems: readonly Sportbook6vnAffixDropdownItem[] = [
+    { id: 'vnd', label: 'VND', flagCode: 'vnd' },
+    { id: 'usd', label: 'USD', flagCode: 'usd' },
+    { id: 'krw', label: 'KRW', flagCode: 'krw' },
+    { id: 'gbp', label: 'GBP', flagCode: 'gbp' },
+    { id: 'cad', label: 'CAD', flagCode: 'cad' },
+    { id: 'thb', label: 'THB', flagCode: 'thb' },
+  ];
   private readonly themeStorageKey = 'sportbook.theme-id';
   private readonly semanticThemeAliasValueMaps = buildSemanticThemeAliasValueMaps(
     this.semanticTokenMappings,
@@ -348,6 +380,42 @@ export class App {
       default:
         return 'default';
     }
+  }
+
+  protected setCore3InputValue(value: string) {
+    this.core3InputValue.set(value);
+  }
+
+  protected setCore3AffixPrefixValue(value: string) {
+    this.core3AffixPrefixValue.set(value);
+  }
+
+  protected setCore3SearchValue(value: string) {
+    this.core3SearchValue.set(value);
+  }
+
+  protected setCore3PasswordValue(value: string) {
+    this.core3PasswordValue.set(value);
+  }
+
+  protected setCore3PasswordVisible(value: boolean) {
+    this.core3PasswordVisible.set(value);
+  }
+
+  protected setCore3TextareaValue(value: string) {
+    this.core3TextareaValue.set(value);
+  }
+
+  protected setCore3FloatingLabelValue(value: string) {
+    this.core3FloatingLabelValue.set(value);
+  }
+
+  protected setCore3AffixLabelValue(value: string) {
+    this.core3AffixLabelValue.set(value);
+  }
+
+  protected setCore3AffixLabelPrefixValue(value: string | null) {
+    this.core3AffixLabelPrefixValue.set(value);
   }
 
   protected toggleTocCollapsed() {

@@ -1122,6 +1122,78 @@ sportbook6vn-button.button-doc-state-pressed
   gap: 20px;
 }
 
+.core3-input-family {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+}
+
+.core3-input-case {
+  border: 1px solid rgba(195, 197, 217, 0.45);
+  border-radius: 16px;
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+}
+
+.core3-input-case--wide {
+  grid-column: 1 / -1;
+}
+
+.core3-input-case__head {
+  display: grid;
+  gap: 6px;
+}
+
+.core3-input-case__head h3 {
+  color: #141f38;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 30px;
+  margin: 0;
+}
+
+.core3-input-case__head p {
+  color: #4c596d;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0;
+}
+
+.core3-input-frame {
+  align-items: center;
+  border: 1px solid rgba(222, 226, 236, 0.9);
+  border-radius: 14px;
+  display: flex;
+  min-height: 144px;
+  padding: 28px;
+}
+
+.core3-input-frame--compact {
+  justify-content: flex-start;
+}
+
+.core3-input-frame--intrinsic {
+  min-height: 124px;
+}
+
+.core3-input-frame--grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.core3-input-frame--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.core3-input-demo-stack {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
 .core3-map-preview--empty {
   min-height: 260px;
   justify-content: center;
@@ -1223,6 +1295,12 @@ sportbook6vn-button.button-doc-state-pressed
 
 @media (max-width: 1100px) {
   .core3-map-collection-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .core3-input-family,
+  .core3-input-frame--grid,
+  .core3-input-frame--three {
     grid-template-columns: 1fr;
   }
 }

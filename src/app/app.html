@@ -1059,15 +1059,270 @@
               <h1>Core-3 Mapping</h1>
               <p class="lead">
                 Bản mapping tổng hợp từ preview sang app chính cho các component đã chốt.
-                Button hiện dùng trực tiếp tab <span class="button-inline-code">Buttons</span>.
+                Button hiện dùng trực tiếp tab <span class="button-inline-code">Buttons</span>;
+                Input family được map 1:1 từ preview, chưa bao gồm Input Tag.
               </p>
             </div>
 
             <section class="section button-demo-section">
+              <div class="button-demo-head" id="core3-input-family-mapping">
+                <div>
+                  <h2>Input Family Mapping</h2>
+                  <p>
+                    Bản mapping từ preview <span class="button-inline-code">Input family / docs-ready draft</span>.
+                    Input Tag được giữ riêng để mapping thành component docs độc lập.
+                  </p>
+                  <div class="button-demo-tags">
+                    <span>source=preview</span>
+                    <span>component=input-family</span>
+                    <span>excludes=input-tag</span>
+                  </div>
+                </div>
+              </div>
+
               <div class="button-demo-card">
-                <div class="button-demo-preview core3-map-preview core3-map-preview--empty">
-                  <h3>Core-3 Mapping đang trống</h3>
-                  <p>Button đã được chuyển về tab Buttons để review và hoàn thiện docs độc lập.</p>
+                <div class="button-demo-preview core3-map-preview">
+                  <div class="core3-input-family">
+                    <article class="core3-input-case">
+                      <div class="core3-input-case__head">
+                        <h3>Basic Text Input</h3>
+                        <p>Baseline text entry. Hover, focus, typing, and filled states come from real input behavior.</p>
+                      </div>
+                      <div class="core3-input-frame core3-input-frame--compact">
+                        <sportbook6vn-input
+                          inputId="core3-basic-input"
+                          placeholder="Input text"
+                          [value]="core3InputValue()"
+                          (valueChange)="setCore3InputValue($event)"
+                        />
+                      </div>
+                    </article>
+
+                    <article class="core3-input-case">
+                      <div class="core3-input-case__head">
+                        <h3>Affix Input / Prefix</h3>
+                        <p>Text input with a fixed prefix slot.</p>
+                      </div>
+                      <div class="core3-input-frame core3-input-frame--compact">
+                        <sportbook6vn-affix-input
+                          inputId="core3-affix-prefix"
+                          placeholder="Input text"
+                          mode="prefix"
+                          prefixText="₫"
+                          [value]="core3AffixPrefixValue()"
+                          (valueChange)="setCore3AffixPrefixValue($event)"
+                        />
+                      </div>
+                    </article>
+
+                    <article class="core3-input-case">
+                      <div class="core3-input-case__head">
+                        <h3>Affix Input / Prefix + Suffix</h3>
+                        <p>Text input with both prefix and suffix slots.</p>
+                      </div>
+                      <div class="core3-input-frame core3-input-frame--compact">
+                        <sportbook6vn-affix-input
+                          inputId="core3-affix-both"
+                          placeholder="Input text"
+                          mode="both"
+                          prefixText="₫"
+                          suffixText="VND"
+                        />
+                      </div>
+                    </article>
+
+                    <article class="core3-input-case">
+                      <div class="core3-input-case__head">
+                        <h3>Search Input</h3>
+                        <p>Search input with clear and submit actions.</p>
+                      </div>
+                      <div class="core3-input-frame core3-input-frame--compact">
+                        <sportbook6vn-search-input
+                          inputId="core3-search-input"
+                          placeholder="Input text"
+                          [value]="core3SearchValue()"
+                          (valueChange)="setCore3SearchValue($event)"
+                        />
+                      </div>
+                    </article>
+
+                    <article class="core3-input-case">
+                      <div class="core3-input-case__head">
+                        <h3>Password Input</h3>
+                        <p>Password input with visibility toggle.</p>
+                      </div>
+                      <div class="core3-input-frame core3-input-frame--compact">
+                        <sportbook6vn-password-input
+                          inputId="core3-password-input"
+                          [value]="core3PasswordValue()"
+                          [visible]="core3PasswordVisible()"
+                          (valueChange)="setCore3PasswordValue($event)"
+                          (visibleChange)="setCore3PasswordVisible($event)"
+                        />
+                      </div>
+                    </article>
+
+                    <article class="core3-input-case">
+                      <div class="core3-input-case__head">
+                        <h3>Textarea</h3>
+                        <p>Long text input with counter and multiline layout.</p>
+                      </div>
+                      <div class="core3-input-frame core3-input-frame--compact">
+                        <sportbook6vn-textarea
+                          textareaId="core3-textarea"
+                          placeholder="Input text"
+                          [rows]="4"
+                          [maxLength]="100"
+                          [value]="core3TextareaValue()"
+                          (valueChange)="setCore3TextareaValue($event)"
+                        />
+                      </div>
+                    </article>
+
+                    <article class="core3-input-case">
+                      <div class="core3-input-case__head">
+                        <h3>Floating Label Input</h3>
+                        <p>Input with an inside floating label.</p>
+                      </div>
+                      <div class="core3-input-frame core3-input-frame--compact core3-input-frame--intrinsic">
+                        <sportbook6vn-floating-label-input
+                          inputId="core3-floating-label"
+                          label="Title"
+                          placeholder="Input text"
+                          [value]="core3FloatingLabelValue()"
+                          (valueChange)="setCore3FloatingLabelValue($event)"
+                        />
+                      </div>
+                    </article>
+
+                    <article class="core3-input-case core3-input-case--wide">
+                      <div class="core3-input-case__head">
+                        <h3>Affix Label Input</h3>
+                        <p>
+                          Currency selector inside the input shell. The default trigger is shown here;
+                          droplist behavior stays interactive.
+                        </p>
+                      </div>
+                      <div class="core3-input-frame core3-input-frame--grid">
+                        <div class="core3-input-demo-stack">
+                          <span class="core3-map-button-row-label">Interactive prefix</span>
+                          <sportbook6vn-affix-label-input
+                            inputId="core3-affix-label-interactive"
+                            placeholder="Input text"
+                            prefixLabel="Loại tiền"
+                            [prefixDropdownItems]="core3CurrencyAffixItems"
+                            [prefixDropdownValue]="core3AffixLabelPrefixValue()"
+                            [value]="core3AffixLabelValue()"
+                            (valueChange)="setCore3AffixLabelValue($event)"
+                            (prefixDropdownValueChange)="setCore3AffixLabelPrefixValue($event)"
+                          />
+                        </div>
+
+                        <div class="core3-input-demo-stack">
+                          <span class="core3-map-button-row-label">Selected currency</span>
+                          <sportbook6vn-affix-label-input
+                            inputId="core3-affix-label-selected"
+                            placeholder="Input text"
+                            prefixLabel="Loại tiền"
+                            prefixDropdownValue="vnd"
+                            [prefixDropdownItems]="core3CurrencyAffixItems"
+                          />
+                        </div>
+                      </div>
+                    </article>
+
+                    <article class="core3-input-case core3-input-case--wide">
+                      <div class="core3-input-case__head">
+                        <h3>Status</h3>
+                        <p>Error states are grouped to avoid repeating error inside every basic use case.</p>
+                      </div>
+                      <div class="core3-input-frame core3-input-frame--grid core3-input-frame--three">
+                        <div class="core3-input-demo-stack">
+                          <span class="core3-map-button-row-label">Input</span>
+                          <sportbook6vn-input inputId="core3-input-error" placeholder="Input text" status="error" />
+                        </div>
+                        <div class="core3-input-demo-stack">
+                          <span class="core3-map-button-row-label">Search</span>
+                          <sportbook6vn-search-input
+                            inputId="core3-search-error"
+                            placeholder="Input text"
+                            status="error"
+                          />
+                        </div>
+                        <div class="core3-input-demo-stack">
+                          <span class="core3-map-button-row-label">Password</span>
+                          <sportbook6vn-password-input inputId="core3-password-error" status="error" />
+                        </div>
+                        <div class="core3-input-demo-stack">
+                          <span class="core3-map-button-row-label">Textarea</span>
+                          <sportbook6vn-textarea
+                            textareaId="core3-textarea-error"
+                            placeholder="Input text"
+                            [rows]="4"
+                            [maxLength]="100"
+                            status="error"
+                          />
+                        </div>
+                        <div class="core3-input-demo-stack">
+                          <span class="core3-map-button-row-label">Floating label</span>
+                          <sportbook6vn-floating-label-input
+                            inputId="core3-floating-error"
+                            label="Title"
+                            placeholder="Input text"
+                            status="error"
+                          />
+                        </div>
+                      </div>
+                    </article>
+
+                    <article class="core3-input-case core3-input-case--wide">
+                      <div class="core3-input-case__head">
+                        <h3>Disabled</h3>
+                        <p>Disabled states are grouped as a semantic status section for quick parity checks.</p>
+                      </div>
+                      <div class="core3-input-frame core3-input-frame--grid core3-input-frame--three">
+                        <div class="core3-input-demo-stack">
+                          <span class="core3-map-button-row-label">Input</span>
+                          <sportbook6vn-input
+                            inputId="core3-input-disabled"
+                            placeholder="Input text"
+                            [disabled]="true"
+                          />
+                        </div>
+                        <div class="core3-input-demo-stack">
+                          <span class="core3-map-button-row-label">Search</span>
+                          <sportbook6vn-search-input
+                            inputId="core3-search-disabled"
+                            placeholder="Input text"
+                            [disabled]="true"
+                          />
+                        </div>
+                        <div class="core3-input-demo-stack">
+                          <span class="core3-map-button-row-label">Password</span>
+                          <sportbook6vn-password-input inputId="core3-password-disabled" [disabled]="true" />
+                        </div>
+                        <div class="core3-input-demo-stack">
+                          <span class="core3-map-button-row-label">Textarea</span>
+                          <sportbook6vn-textarea
+                            textareaId="core3-textarea-disabled"
+                            placeholder="Input text"
+                            [rows]="4"
+                            [maxLength]="100"
+                            [disabled]="true"
+                          />
+                        </div>
+                        <div class="core3-input-demo-stack">
+                          <span class="core3-map-button-row-label">Floating label</span>
+                          <sportbook6vn-floating-label-input
+                            inputId="core3-floating-disabled"
+                            label="Title"
+                            placeholder="Input text"
+                            [disabled]="true"
+                          />
+                        </div>
+                      </div>
+                    </article>
+                  </div>
                 </div>
               </div>
             </section>
@@ -1821,7 +2076,9 @@
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
               <span class="toc-label">On This Page</span>
-              <div class="toc-list"></div>
+              <div class="toc-list">
+                <a class="toc-item" href="#core3-input-family-mapping">Input family mapping</a>
+              </div>
 
               <div class="pro-tip">
                 <div class="pro-tip-title">
