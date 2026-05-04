@@ -527,10 +527,6 @@ export class App {
   }
 
   protected getButtonMappingSectionId(sectionId: string): string {
-    if (sectionId === 'rectangle-primary') {
-      return 'core3-map-button';
-    }
-
     return `button-mapping-${sectionId}`;
   }
 

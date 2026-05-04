@@ -21,7 +21,6 @@ export interface ButtonMappingApiRow {
 
 const SIZE_SCALE: readonly ButtonMappingSize[] = ['lg', 'md', 'sm'] as const;
 const START_ICON = `<svg sportbook6vnButtonStartIcon aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M10 4.25V15.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" /><path d="M4.25 10H15.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>`;
-const END_ICON = `<svg sportbook6vnButtonEndIcon aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M10 4.25V15.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" /><path d="M4.25 10H15.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>`;
 
 const toClassName = (id: string): string =>
   id
@@ -54,23 +53,11 @@ const buildDisabledButtonRow = (
   shape: ButtonMappingShape,
   variant: ButtonMappingVariant,
 ): string =>
-  SIZE_SCALE.map(
-    (size) =>
-      `    <sportbook6vn-button ${buildButtonAttrs(shape, variant, size, true)}>Text</sportbook6vn-button>`,
-  ).join('\n');
+  `    <sportbook6vn-button ${buildButtonAttrs(shape, variant, 'lg', true)}>Text</sportbook6vn-button>`;
 
 const buildWithIconButtonRow = (shape: ButtonMappingShape, variant: ButtonMappingVariant): string => `    <sportbook6vn-button ${buildButtonAttrs(shape, variant, 'lg')}>
       ${START_ICON}
       Text
-    </sportbook6vn-button>
-    <sportbook6vn-button ${buildButtonAttrs(shape, variant, 'md')}>
-      Text
-      ${END_ICON}
-    </sportbook6vn-button>
-    <sportbook6vn-button ${buildButtonAttrs(shape, variant, 'sm')}>
-      ${START_ICON}
-      Text
-      ${END_ICON}
     </sportbook6vn-button>`;
 
 const buildSnippetHtml = (shape: ButtonMappingShape, variant: ButtonMappingVariant): string => `<section class="button-mapping-preview">
@@ -164,7 +151,7 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
   makeSection(
     'rectangle-primary',
     'Rectangle · Primary',
-    'Component map 1:1 theo bộ rectangle primary từ preview, gồm default, with icon, disabled.',
+    'Component map 1:1 theo bộ rectangle primary từ preview, gồm default, leading icon, disabled.',
     ['selector=sportbook6vn-button', 'shape=rectangle', 'variant=primary', 'sizes=lg/md/sm'],
     'rectangle',
     'primary',
@@ -172,7 +159,7 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
   makeSection(
     'rectangle-secondary',
     'Rectangle · Secondary',
-    'Component map 1:1 cho rectangle secondary với cùng ma trận trạng thái và kích thước.',
+    'Component map 1:1 cho rectangle secondary với default, leading icon và disabled đại diện.',
     ['selector=sportbook6vn-button', 'shape=rectangle', 'variant=secondary', 'sizes=lg/md/sm'],
     'rectangle',
     'secondary',
@@ -180,7 +167,7 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
   makeSection(
     'pill-primary',
     'Pill · Primary',
-    'Component map 1:1 cho pill primary, giữ cùng bố cục state và icon như preview.',
+    'Component map 1:1 cho pill primary, giữ cùng bố cục default, leading icon và disabled như preview.',
     ['selector=sportbook6vn-button', 'shape=pill', 'variant=primary', 'sizes=lg/md/sm'],
     'pill',
     'primary',
@@ -188,7 +175,7 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
   makeSection(
     'pill-secondary',
     'Pill · Secondary',
-    'Component map 1:1 cho pill secondary, bao gồm default, with icon, disabled.',
+    'Component map 1:1 cho pill secondary, bao gồm default, leading icon, disabled.',
     ['selector=sportbook6vn-button', 'shape=pill', 'variant=secondary', 'sizes=lg/md/sm'],
     'pill',
     'secondary',

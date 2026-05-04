@@ -509,25 +509,15 @@
                           <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
                           Text
                         </sportbook6vn-button>
-                        <sportbook6vn-button [shape]="demo.shape" [variant]="demo.variant" size="md">
-                          Text
-                          <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                        </sportbook6vn-button>
-                        <sportbook6vn-button [shape]="demo.shape" [variant]="demo.variant" size="sm">
-                          <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                          Text
-                          <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                        </sportbook6vn-button>
                       </div>
                     </div>
                     <div class="core3-map-button-row">
                       <span class="core3-map-button-row-label">Disabled</span>
                       <div class="core3-map-row">
                         <sportbook6vn-button
-                          *ngFor="let size of buttonMappingSizeScale"
                           [shape]="demo.shape"
                           [variant]="demo.variant"
-                          [size]="size"
+                          size="lg"
                           [disabled]="true"
                         >
                           Text
@@ -1093,77 +1083,16 @@
               </div>
               <h1>Core-3 Mapping</h1>
               <p class="lead">
-                Bản mapping tổng hợp từ preview sang app chính cho component đã chốt:
-                <span class="button-inline-code">button</span>.
+                Bản mapping tổng hợp từ preview sang app chính cho các component đã chốt.
+                Button đã được tách sang tab riêng <span class="button-inline-code">Button Mapping</span>.
               </p>
             </div>
 
-            <section class="section button-demo-section" id="core3-map-button">
-              <h2>Button Mapping</h2>
-              <p class="button-demo-description">
-                Selector:
-                <span class="button-inline-code">sportbook6vn-button</span>.
-                Mapping 1:1 từ preview gồm rectangle/pill, primary/secondary, size scale,
-                icon slots và disabled state.
-              </p>
+            <section class="section button-demo-section">
               <div class="button-demo-card">
-                <div class="button-demo-preview core3-map-preview">
-                  <div class="core3-map-collection-grid">
-                    <article class="core3-map-collection-card" *ngFor="let demo of buttonMappingDemoSections">
-                      <h3>{{ demo.title }}</h3>
-                      <div class="button-demo-tags">
-                        <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
-                      </div>
-
-                      <div class="core3-map-col core3-map-col--button">
-                        <div class="core3-map-button-row">
-                          <span class="core3-map-button-row-label">Default</span>
-                          <div class="core3-map-row">
-                            <sportbook6vn-button
-                              *ngFor="let size of buttonMappingSizeScale"
-                              [shape]="demo.shape"
-                              [variant]="demo.variant"
-                              [size]="size"
-                            >
-                              Text
-                            </sportbook6vn-button>
-                          </div>
-                        </div>
-                        <div class="core3-map-button-row">
-                          <span class="core3-map-button-row-label">With icon</span>
-                          <div class="core3-map-row">
-                            <sportbook6vn-button [shape]="demo.shape" [variant]="demo.variant" size="lg">
-                              <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                              Text
-                            </sportbook6vn-button>
-                            <sportbook6vn-button [shape]="demo.shape" [variant]="demo.variant" size="md">
-                              Text
-                              <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                            </sportbook6vn-button>
-                            <sportbook6vn-button [shape]="demo.shape" [variant]="demo.variant" size="sm">
-                              <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                              Text
-                              <span sportbook6vnButtonEndIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                            </sportbook6vn-button>
-                          </div>
-                        </div>
-                        <div class="core3-map-button-row">
-                          <span class="core3-map-button-row-label">Disabled</span>
-                          <div class="core3-map-row">
-                            <sportbook6vn-button
-                              *ngFor="let size of buttonMappingSizeScale"
-                              [shape]="demo.shape"
-                              [variant]="demo.variant"
-                              [size]="size"
-                              [disabled]="true"
-                            >
-                              Text
-                            </sportbook6vn-button>
-                          </div>
-                        </div>
-                      </div>
-                    </article>
-                  </div>
+                <div class="button-demo-preview core3-map-preview core3-map-preview--empty">
+                  <h3>Core-3 Mapping đang trống</h3>
+                  <p>Button đã được chuyển sang tab riêng để review và hoàn thiện docs độc lập.</p>
                 </div>
               </div>
             </section>
@@ -1773,9 +1702,9 @@
               <div class="toc-list">
                 <a
                   class="toc-item"
-                  [class.active]="activeButtonMappingSection() === 'core3-map-button'"
-                  href="#core3-map-button"
-                  (click)="setActiveButtonMappingSection('core3-map-button')"
+                  [class.active]="activeButtonMappingSection() === 'button-mapping-rectangle-primary'"
+                  href="#button-mapping-rectangle-primary"
+                  (click)="setActiveButtonMappingSection('button-mapping-rectangle-primary')"
                 >
                   Rectangle · Primary
                 </a>
@@ -1940,9 +1869,7 @@
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
               <span class="toc-label">On This Page</span>
-              <div class="toc-list">
-                <a class="toc-item" href="#core3-map-button">Button mapping</a>
-              </div>
+              <div class="toc-list"></div>
 
               <div class="pro-tip">
                 <div class="pro-tip-title">
