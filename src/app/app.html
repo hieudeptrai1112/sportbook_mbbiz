@@ -223,7 +223,11 @@
               <img src="/assets/figma/c91fd4e6-3715-400c-afc3-e607a5774d04.svg" alt="" />
               <span>Breadcrumb</span>
             </div>
-            <div class="sidebar-link">
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'dropdown'"
+              (click)="setPage('dropdown')"
+            >
               <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
               <span>Dropdown</span>
             </div>
@@ -1416,6 +1420,375 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'dropdown'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Navigation</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Dropdown</h1>
+              <p class="lead">
+                Dropdown covers single select, multiple select, tag select, searchable droplist, status,
+                disabled, and empty-state behavior from the approved preview.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of dropdownDemoSections; let i = index"
+              [attr.id]="getDropdownSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+                <button
+                  *ngIf="i === 0"
+                  class="button-doc-toggle"
+                  type="button"
+                  (click)="toggleAllDropdownDemoCode()"
+                >
+                  {{ areAllDropdownDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                </button>
+              </div>
+              <p class="button-demo-description button-demo-description--rich">
+                @for (part of demo.descriptionParts; track $index) {
+                  @if (part.code) {
+                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                  } @else {
+                    <span>{{ part.text }}</span>
+                  }
+                }
+              </p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card">
+                <div class="button-demo-preview core3-map-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <div *ngSwitchCase="'basic'" class="core3-input-frame core3-input-frame--grid">
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Empty</span>
+                        <sportbook6vn-dropdown placeholder="Lựa chọn" [items]="core3DropdownItems" />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Selected value</span>
+                        <sportbook6vn-dropdown
+                          placeholder="Lựa chọn"
+                          value="option-1"
+                          [items]="core3DropdownItems"
+                        />
+                      </div>
+                    </div>
+
+                    <div *ngSwitchCase="'multiple'" class="core3-input-frame core3-input-frame--grid">
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Empty</span>
+                        <sportbook6vn-dropdown
+                          placeholder="Lựa chọn"
+                          mode="multiple"
+                          [items]="core3DropdownItems"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Selected values</span>
+                        <sportbook6vn-dropdown
+                          placeholder="Lựa chọn"
+                          mode="multiple"
+                          [items]="core3DropdownItems"
+                          [values]="['option-1', 'option-2', 'option-3']"
+                        />
+                      </div>
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'tag'"
+                      class="core3-input-frame core3-input-frame--grid core3-input-frame--three"
+                    >
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Empty</span>
+                        <sportbook6vn-dropdown-tag placeholder="Lựa chọn" [items]="core3DropdownItems" />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Selected tags</span>
+                        <sportbook6vn-dropdown-tag
+                          placeholder="Lựa chọn"
+                          [items]="core3DropdownItems"
+                          [values]="['option-1', 'option-2']"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Overflow +N</span>
+                        <sportbook6vn-dropdown-tag
+                          placeholder="Lựa chọn"
+                          [items]="core3DropdownItems"
+                          [values]="['option-1', 'option-2', 'option-3', 'option-4']"
+                        />
+                      </div>
+                    </div>
+
+                    <div *ngSwitchCase="'insideLabel'" class="core3-input-frame core3-input-frame--grid">
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Single</span>
+                        <sportbook6vn-dropdown
+                          title="Title"
+                          labelMode="inside"
+                          placeholder="Lựa chọn"
+                          value="option-1"
+                          [items]="core3DropdownItems"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Multiple</span>
+                        <sportbook6vn-dropdown
+                          title="Title"
+                          labelMode="inside"
+                          placeholder="Lựa chọn"
+                          mode="multiple"
+                          [items]="core3DropdownItems"
+                          [values]="['option-1', 'option-2']"
+                        />
+                      </div>
+                    </div>
+
+                    <div *ngSwitchCase="'searchable'" class="core3-input-frame core3-input-frame--grid">
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Single</span>
+                        <sportbook6vn-dropdown
+                          placeholder="Lựa chọn"
+                          [items]="core3DropdownItems"
+                          searchBehavior="auto"
+                          [searchThreshold]="5"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Multiple</span>
+                        <sportbook6vn-dropdown
+                          placeholder="Lựa chọn"
+                          mode="multiple"
+                          [items]="core3DropdownItems"
+                          searchBehavior="auto"
+                          [searchThreshold]="5"
+                        />
+                      </div>
+                    </div>
+
+                    <div *ngSwitchCase="'tagDroplist'" class="core3-input-frame core3-input-frame--compact">
+                      <sportbook6vn-dropdown-tag
+                        placeholder="Lựa chọn"
+                        [items]="core3DropdownItems"
+                        [values]="['option-1', 'option-2', 'option-3', 'option-4']"
+                      />
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'status'"
+                      class="core3-input-frame core3-input-frame--grid core3-input-frame--three"
+                    >
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Single error</span>
+                        <sportbook6vn-dropdown
+                          placeholder="Lựa chọn"
+                          status="error"
+                          [items]="core3DropdownItems"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Multiple error</span>
+                        <sportbook6vn-dropdown
+                          placeholder="Lựa chọn"
+                          mode="multiple"
+                          status="error"
+                          [items]="core3DropdownItems"
+                          [values]="['option-1', 'option-2']"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Tag error</span>
+                        <sportbook6vn-dropdown-tag
+                          placeholder="Lựa chọn"
+                          status="error"
+                          [items]="core3DropdownItems"
+                        />
+                      </div>
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'disabled'"
+                      class="core3-input-frame core3-input-frame--grid core3-input-frame--three"
+                    >
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Single</span>
+                        <sportbook6vn-dropdown
+                          placeholder="Lựa chọn"
+                          [items]="core3DropdownItems"
+                          [disabled]="true"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Multiple</span>
+                        <sportbook6vn-dropdown
+                          placeholder="Lựa chọn"
+                          mode="multiple"
+                          [items]="core3DropdownItems"
+                          [values]="['option-1', 'option-2']"
+                          [disabled]="true"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Tag</span>
+                        <sportbook6vn-dropdown-tag
+                          placeholder="Lựa chọn"
+                          [items]="core3DropdownItems"
+                          [values]="['option-1', 'option-2', 'option-3', 'option-4']"
+                          [disabled]="true"
+                        />
+                      </div>
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'emptyStates'"
+                      class="core3-input-frame core3-input-frame--grid core3-input-frame--three"
+                    >
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">No data</span>
+                        <sportbook6vn-dropdown
+                          placeholder="Lựa chọn"
+                          [items]="core3DropdownEmptyItems"
+                          emptyState="no-data"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Search no data</span>
+                        <sportbook6vn-dropdown
+                          placeholder="Lựa chọn"
+                          [items]="core3DropdownItems"
+                          emptyState="search-no-data"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">API error</span>
+                        <sportbook6vn-dropdown
+                          placeholder="Lựa chọn"
+                          [items]="core3DropdownItems"
+                          emptyState="api-error"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Loading</span>
+                        <sportbook6vn-dropdown
+                          placeholder="Lựa chọn"
+                          [items]="core3DropdownItems"
+                          emptyState="loading"
+                        />
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+
+                <div class="button-demo-controls">
+                  <div class="button-demo-icons">
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      [class.active]="isDropdownDemoExpanded(demo.id)"
+                      (click)="toggleDropdownDemoCode(demo.id)"
+                      aria-label="Toggle code"
+                    >
+                      &lt;/&gt;
+                    </button>
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      (click)="copyDropdownDemoCode(demo)"
+                      aria-label="Copy code"
+                    >
+                      {{ copiedDropdownDemoId() === demo.id ? 'Copied' : 'Copy' }}
+                    </button>
+                  </div>
+
+                  <span class="button-code-hint">TS</span>
+                </div>
+
+                <div class="button-code-wrapper" *ngIf="isDropdownDemoExpanded(demo.id)">
+                  <div class="button-code-head">
+                    <span class="button-code-file">{{ getDropdownCodeLanguageLabel(demo) }}</span>
+                    <span class="button-code-hint">{{ getDropdownCodeHint() }}</span>
+                  </div>
+                  <pre class="button-code-block"><code [innerHTML]="getDropdownDemoHighlightedCode(demo)"></code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-api-section" id="dropdown-api">
+              <h2>API</h2>
+              <h3 class="button-api-group-title">sportbook6vn-dropdown</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of dropdownApiRows">
+                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                </div>
+              </div>
+
+              <h3 class="button-api-group-title">sportbook6vn-dropdown-tag</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of dropdownTagApiRows">
+                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="dropdown-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Dropdown uses the shared select trigger, droplist, checkbox, and tag token layer.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of dropdownVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table button-variable-table">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Applied To</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.rows">
+                    <div class="token-note-cell">
+                      <code class="token-code">{{ row.token }}</code>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </div>
+                    <code class="token-code">{{ row.value }}</code>
+                    <span>{{ row.appliesTo }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of dropdownVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'core3Mapping'">
             <div class="page-header">
               <div class="header-meta">
@@ -1507,6 +1880,44 @@
             </section>
 
             <section class="section button-demo-section" id="core3-dropdown-family-mapping">
+              <div class="button-demo-head">
+                <div>
+                  <h2>Dropdown Family Mapping</h2>
+                  <p>
+                    Đã tách sang tab <span class="button-inline-code">Dropdown</span> theo cấu trúc
+                    component docs riêng. Core-3 Mapping chỉ giữ trạng thái để tránh duplicate source of truth.
+                  </p>
+                  <div class="button-demo-tags">
+                    <span>source=preview</span>
+                    <span>component=dropdown-family</span>
+                    <span>target=Dropdown</span>
+                    <span>status=split</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-demo-card">
+                <div class="button-demo-preview core3-map-preview">
+                  <div class="doc-list-card">
+                    <h3>Moved to component docs</h3>
+                    <ul>
+                      <li>
+                        Use <span class="button-inline-code">Dropdown</span> for single select,
+                        multiple select, tag select, inside label, searchable droplist, tag droplist,
+                        status, disabled, empty states, API, and component token docs.
+                      </li>
+                      <li>Keep this Core-3 tab as the mapping index only.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section
+              *ngIf="false"
+              class="section button-demo-section"
+              id="core3-dropdown-family-mapping-archive"
+            >
               <div class="button-demo-head">
                 <div>
                   <h2>Dropdown Family Mapping</h2>
@@ -2640,6 +3051,60 @@
                 <p>
                   Start from <span class="mono">Interactive</span> for production usage; use the other
                   sections when the product requires overflow, custom render, or validation behavior.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'dropdown'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of dropdownDemoSections"
+                  [class.active]="activeDropdownSection() === getDropdownSectionId(demo.id)"
+                  [href]="'#' + getDropdownSectionId(demo.id)"
+                  (click)="setActiveDropdownSection(getDropdownSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeDropdownSection() === 'dropdown-api'"
+                  href="#dropdown-api"
+                  (click)="setActiveDropdownSection('dropdown-api')"
+                >
+                  API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeDropdownSection() === 'dropdown-variables'"
+                  href="#dropdown-variables"
+                  (click)="setActiveDropdownSection('dropdown-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Pro Tip</span>
+                </div>
+                <p>
+                  Use <span class="mono">Basic Select</span> for normal dropdown usage; use
+                  <span class="mono">Tag Select</span> only when the selected values must stay visible as chips.
                 </p>
               </div>
             </aside>

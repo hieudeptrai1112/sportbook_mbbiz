@@ -82,6 +82,16 @@ import {
   type InputTagVariableGroup,
 } from './input-tag-demos.data';
 import {
+  DROPDOWN_API_ROWS,
+  DROPDOWN_DEMO_SECTIONS,
+  DROPDOWN_TAG_API_ROWS,
+  DROPDOWN_VARIABLE_GROUPS,
+  DROPDOWN_VARIABLE_NOTES,
+  type DropdownApiRow,
+  type DropdownDemoSection,
+  type DropdownVariableGroup,
+} from './dropdown-demos.data';
+import {
   DEFAULT_THEME_BRAND,
   DEFAULT_THEME_ID,
   DEFAULT_THEME_MODE,
@@ -190,6 +200,7 @@ export class App {
     | 'buttonMapping'
     | 'inputField'
     | 'inputTag'
+    | 'dropdown'
     | 'core3Mapping'
     | 'color'
     | 'tokens'
@@ -251,6 +262,16 @@ export class App {
   );
   protected readonly expandedInputTagDemoIds = signal<string[]>([]);
   protected readonly copiedInputTagDemoId = signal<string | null>(null);
+  protected readonly dropdownDemoSections: DropdownDemoSection[] = DROPDOWN_DEMO_SECTIONS;
+  protected readonly dropdownApiRows: DropdownApiRow[] = DROPDOWN_API_ROWS;
+  protected readonly dropdownTagApiRows: DropdownApiRow[] = DROPDOWN_TAG_API_ROWS;
+  protected readonly dropdownVariableGroups: DropdownVariableGroup[] = DROPDOWN_VARIABLE_GROUPS;
+  protected readonly dropdownVariableNotes = DROPDOWN_VARIABLE_NOTES;
+  protected readonly activeDropdownSection = signal(
+    this.getDropdownSectionId(this.dropdownDemoSections[0]?.id ?? 'basic'),
+  );
+  protected readonly expandedDropdownDemoIds = signal<string[]>([]);
+  protected readonly copiedDropdownDemoId = signal<string | null>(null);
   protected readonly core3InputValue = signal('');
   protected readonly core3AffixPrefixValue = signal('');
   protected readonly core3SearchValue = signal('');
@@ -338,6 +359,7 @@ export class App {
       | 'buttonMapping'
       | 'inputField'
       | 'inputTag'
+      | 'dropdown'
       | 'core3Mapping'
       | 'color'
       | 'tokens'
@@ -355,6 +377,8 @@ export class App {
       setTimeout(() => this.updateActiveInputSection(), 0);
     } else if (page === 'inputTag') {
       setTimeout(() => this.updateActiveInputTagSection(), 0);
+    } else if (page === 'dropdown') {
+      setTimeout(() => this.updateActiveDropdownSection(), 0);
     }
   }
 
@@ -985,6 +1009,66 @@ export class App {
     }, 1200);
   }
 
+  protected setActiveDropdownSection(sectionId: string) {
+    this.activeDropdownSection.set(sectionId);
+  }
+
+  protected getDropdownSectionId(sectionId: string): string {
+    return `dropdown-${sectionId}`;
+  }
+
+  protected isDropdownDemoExpanded(sectionId: string): boolean {
+    return this.expandedDropdownDemoIds().includes(sectionId);
+  }
+
+  protected toggleDropdownDemoCode(sectionId: string) {
+    const next = new Set(this.expandedDropdownDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedDropdownDemoIds.set([...next]);
+  }
+
+  protected toggleAllDropdownDemoCode() {
+    const expanded = this.expandedDropdownDemoIds();
+    const allIds = this.dropdownDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedDropdownDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllDropdownDemoCodeExpanded(): boolean {
+    return this.expandedDropdownDemoIds().length === this.dropdownDemoSections.length;
+  }
+
+  protected getDropdownDemoCode(section: DropdownDemoSection): string {
+    return section.snippetTs;
+  }
+
+  protected getDropdownDemoHighlightedCode(section: DropdownDemoSection): string {
+    return this.highlightTypeScriptSnippet(this.getDropdownDemoCode(section));
+  }
+
+  protected getDropdownCodeLanguageLabel(section: DropdownDemoSection): string {
+    return `dropdown-${section.id}-demo.component.ts`;
+  }
+
+  protected getDropdownCodeHint(): string {
+    return 'Angular standalone snippet';
+  }
+
+  protected async copyDropdownDemoCode(section: DropdownDemoSection) {
+    const code = this.getDropdownDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedDropdownDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedDropdownDemoId() === section.id) {
+        this.copiedDropdownDemoId.set(null);
+      }
+    }, 1200);
+  }
+
   @HostListener('window:scroll')
   @HostListener('window:resize')
   protected onViewportChange() {
@@ -993,6 +1077,7 @@ export class App {
     this.updateActiveButtonMappingSection();
     this.updateActiveInputSection();
     this.updateActiveInputTagSection();
+    this.updateActiveDropdownSection();
   }
 
   private updateActiveTokenSection() {
@@ -1123,6 +1208,31 @@ export class App {
     }
 
     this.activeInputTagSection.set(currentSection);
+  }
+
+  private updateActiveDropdownSection() {
+    if (this.activePage() !== 'dropdown' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getDropdownSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeDropdownSection.set(currentSection);
   }
 
   private buildSemanticTokenGroups(): SemanticTokenGroup[] {
@@ -1282,6 +1392,14 @@ export class App {
       ...this.inputTagDemoSections.map((section) => this.getInputTagSectionId(section.id)),
       'input-tag-api',
       'input-tag-variables',
+    ];
+  }
+
+  private getDropdownSectionIds(): string[] {
+    return [
+      ...this.dropdownDemoSections.map((section) => this.getDropdownSectionId(section.id)),
+      'dropdown-api',
+      'dropdown-variables',
     ];
   }
 
@@ -2003,7 +2121,7 @@ export class InputDisabledDemoComponent {}`;
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|Sportbook6vnButtonComponent|Sportbook6vnInputComponent|Sportbook6vnAffixInputComponent|Sportbook6vnSearchInputComponent|Sportbook6vnPasswordInputComponent|Sportbook6vnTextareaComponent|Sportbook6vnFloatingLabelInputComponent|Sportbook6vnAffixLabelInputComponent|Sportbook6vnAffixDropdownItem|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
+      /\b(Component|Sportbook6vnButtonComponent|Sportbook6vnInputComponent|Sportbook6vnAffixInputComponent|Sportbook6vnSearchInputComponent|Sportbook6vnPasswordInputComponent|Sportbook6vnTextareaComponent|Sportbook6vnFloatingLabelInputComponent|Sportbook6vnAffixLabelInputComponent|Sportbook6vnAffixDropdownItem|Sportbook6vnDropdownComponent|Sportbook6vnDropdownTagComponent|Sportbook6vnDropdownItem|Sportbook6vnInputTagComponent|Sportbook6vnInputTagValue|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');
