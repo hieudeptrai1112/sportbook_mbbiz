@@ -51,6 +51,13 @@ const OPTIONS_DECLARATION = `  readonly items: readonly Sportbook6vnDropdownItem
     { id: 'option-6', label: 'Option 6' },
   ];`;
 
+const BASIC_OPTIONS_DECLARATION = `  readonly items: readonly Sportbook6vnDropdownItem[] = [
+    { id: 'option-1', label: 'Option 1' },
+    { id: 'option-2', label: 'Option 2' },
+    { id: 'option-3', label: 'Option 3' },
+    { id: 'option-4', label: 'Option 4' },
+  ];`;
+
 export const DROPDOWN_DEMO_SECTIONS: DropdownDemoSection[] = [
   {
     id: 'basic',
@@ -80,7 +87,7 @@ import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sp
   \`,
 })
 export class DropdownBasicDemoComponent {
-${OPTIONS_DECLARATION}
+${BASIC_OPTIONS_DECLARATION}
 }`,
   },
   {

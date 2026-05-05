@@ -305,6 +305,8 @@ export class App {
     { id: 'option-5', label: 'Option 5' },
     { id: 'option-6', label: 'Option 6' },
   ];
+  protected readonly core3DropdownBasicItems: readonly Sportbook6vnDropdownItem[] =
+    this.core3DropdownItems.slice(0, 4);
   protected readonly core3DropdownEmptyItems: readonly Sportbook6vnDropdownItem[] = [];
   private readonly themeStorageKey = 'sportbook.theme-id';
   private readonly semanticThemeAliasValueMaps = buildSemanticThemeAliasValueMaps(
