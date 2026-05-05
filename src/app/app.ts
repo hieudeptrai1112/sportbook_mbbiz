@@ -6,6 +6,9 @@ import {
   Sportbook6vnAffixLabelInputComponent,
   type Sportbook6vnAffixDropdownItem,
   Sportbook6vnButtonComponent,
+  Sportbook6vnDropdownComponent,
+  type Sportbook6vnDropdownItem,
+  Sportbook6vnDropdownTagComponent,
   Sportbook6vnFloatingLabelInputComponent,
   Sportbook6vnInputComponent,
   Sportbook6vnInputTagComponent,
@@ -160,6 +163,8 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     Sportbook6vnAffixInputComponent,
     Sportbook6vnAffixLabelInputComponent,
     Sportbook6vnButtonComponent,
+    Sportbook6vnDropdownComponent,
+    Sportbook6vnDropdownTagComponent,
     Sportbook6vnFloatingLabelInputComponent,
     Sportbook6vnInputComponent,
     Sportbook6vnInputTagComponent,
@@ -271,6 +276,15 @@ export class App {
     { id: 'cad', label: 'CAD', flagCode: 'cad' },
     { id: 'thb', label: 'THB', flagCode: 'thb' },
   ];
+  protected readonly core3DropdownItems: readonly Sportbook6vnDropdownItem[] = [
+    { id: 'option-1', label: 'Option 1' },
+    { id: 'option-2', label: 'Option 2' },
+    { id: 'option-3', label: 'Option 3' },
+    { id: 'option-4', label: 'Option 4' },
+    { id: 'option-5', label: 'Option 5' },
+    { id: 'option-6', label: 'Option 6' },
+  ];
+  protected readonly core3DropdownEmptyItems: readonly Sportbook6vnDropdownItem[] = [];
   private readonly themeStorageKey = 'sportbook.theme-id';
   private readonly semanticThemeAliasValueMaps = buildSemanticThemeAliasValueMaps(
     this.semanticTokenMappings,
