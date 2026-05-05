@@ -8,6 +8,8 @@ import {
   Sportbook6vnButtonComponent,
   Sportbook6vnFloatingLabelInputComponent,
   Sportbook6vnInputComponent,
+  Sportbook6vnInputTagComponent,
+  type Sportbook6vnInputTagValue,
   Sportbook6vnPasswordInputComponent,
   Sportbook6vnSearchInputComponent,
   Sportbook6vnTextareaComponent,
@@ -151,6 +153,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     Sportbook6vnButtonComponent,
     Sportbook6vnFloatingLabelInputComponent,
     Sportbook6vnInputComponent,
+    Sportbook6vnInputTagComponent,
     Sportbook6vnPasswordInputComponent,
     Sportbook6vnSearchInputComponent,
     Sportbook6vnTextareaComponent,
@@ -233,6 +236,10 @@ export class App {
   protected readonly core3FloatingLabelValue = signal('');
   protected readonly core3AffixLabelValue = signal('');
   protected readonly core3AffixLabelPrefixValue = signal<string | null>(null);
+  protected readonly core3InputTagValue = signal('');
+  protected readonly core3InputTagTags = signal<Sportbook6vnInputTagValue[]>([]);
+  protected readonly core3InputTagValidatedValue = signal('');
+  protected readonly core3InputTagValidatedTags = signal<Sportbook6vnInputTagValue[]>([]);
   protected readonly core3CurrencyAffixItems: readonly Sportbook6vnAffixDropdownItem[] = [
     { id: 'vnd', label: 'VND', flagCode: 'vnd' },
     { id: 'usd', label: 'USD', flagCode: 'usd' },
@@ -428,6 +435,61 @@ export class App {
   protected setCore3AffixLabelPrefixValue(value: string | null) {
     this.core3AffixLabelPrefixValue.set(value);
   }
+
+  protected setCore3InputTagValue(value: string) {
+    this.core3InputTagValue.set(value);
+  }
+
+  protected setCore3InputTagTags(value: Sportbook6vnInputTagValue[]) {
+    this.core3InputTagTags.set(value);
+  }
+
+  protected setCore3InputTagValidatedValue(value: string) {
+    this.core3InputTagValidatedValue.set(value);
+  }
+
+  protected setCore3InputTagValidatedTags(value: Sportbook6vnInputTagValue[]) {
+    this.core3InputTagValidatedTags.set(value);
+  }
+
+  protected readonly core3InputTagResponsiveOverflowRender = (count: number) => `+${count} More`;
+
+  protected readonly core3InputTagRenderTone = ({ value, label }: { value: string; label: string }) => {
+    const toneMap: Record<string, 'brand' | 'warning' | 'success'> = {
+      arcoblue: 'brand',
+      orange: 'warning',
+      lime: 'success',
+    };
+
+    return {
+      label,
+      tone: toneMap[value] ?? 'brand',
+    };
+  };
+
+  protected readonly core3InputTagEmailValidate = (
+    inputValue: string,
+    tags: readonly Sportbook6vnInputTagValue[],
+  ) => {
+    const candidate = inputValue.trim().toLowerCase();
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate);
+    const duplicated = tags.some((tag) => {
+      if (typeof tag === 'string') {
+        return tag === candidate;
+      }
+
+      return tag.value === candidate;
+    });
+
+    if (!candidate || !isEmail || duplicated) {
+      return false;
+    }
+
+    return {
+      value: candidate,
+      label: candidate,
+    };
+  };
 
   protected toggleTocCollapsed() {
     this.isTocCollapsed.update((value) => !value);
