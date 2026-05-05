@@ -1463,14 +1463,11 @@
                 <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
               </div>
 
-              <div
-                class="button-demo-card"
-                [style.overflow]="demo.variant === 'basic' || demo.variant === 'searchable' ? 'visible' : null"
-              >
+              <div class="button-demo-card" style="overflow: visible">
                 <div
                   class="button-demo-preview core3-map-preview"
                   [style.min-height]="demo.variant === 'basic' ? '220px' : null"
-                  [style.overflow]="demo.variant === 'basic' ? 'visible' : null"
+                  style="overflow: visible"
                 >
                   <ng-container [ngSwitch]="demo.variant">
                     <div
