@@ -56,13 +56,13 @@ export const DROPDOWN_DEMO_SECTIONS: DropdownDemoSection[] = [
     id: 'basic',
     title: 'Basic Select',
     descriptionParts: [
-      { text: 'There are ' },
+      { text: 'Basic usage of single select with ' },
       { code: 'empty' },
       { text: ' and ' },
       { code: 'selected' },
-      { text: ' single-select trigger states. Droplist content appears only after user interaction.' },
+      { text: ' values.' },
     ],
-    tags: ['selector=sportbook6vn-dropdown', 'mode=single', 'state=closed'],
+    tags: ['selector=sportbook6vn-dropdown', 'mode=single'],
     variant: 'basic',
     snippetTs: `import { Component } from '@angular/core';
 import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sportbook6vn';
@@ -194,12 +194,15 @@ ${OPTIONS_DECLARATION}
     id: 'searchable-droplist',
     title: 'Searchable Droplist',
     descriptionParts: [
-      { code: 'searchBehavior="auto"' },
-      { text: ' shows search when option count is greater than ' },
+      { text: 'When option count is greater than ' },
       { code: 'searchThreshold' },
-      { text: '. The trigger stays closed in the docs preview until opened by the user.' },
+      { text: ', the open droplist shows ' },
+      { code: 'search' },
+      { text: ' and ' },
+      { code: 'scrollbar' },
+      { text: '.' },
     ],
-    tags: ['selector=sportbook6vn-dropdown', 'searchBehavior=auto', 'searchThreshold=5'],
+    tags: ['selector=sportbook6vn-dropdown', 'open=true', 'searchBehavior=auto', 'searchThreshold=5'],
     variant: 'searchable',
     snippetTs: `import { Component } from '@angular/core';
 import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sportbook6vn';
@@ -212,6 +215,7 @@ import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sp
     <sportbook6vn-dropdown
       placeholder="Lựa chọn"
       [items]="items"
+      [open]="true"
       searchBehavior="auto"
       [searchThreshold]="5"
     />
@@ -220,6 +224,7 @@ import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sp
       mode="multiple"
       placeholder="Lựa chọn"
       [items]="items"
+      [open]="true"
       searchBehavior="auto"
       [searchThreshold]="5"
     />

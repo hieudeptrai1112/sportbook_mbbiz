@@ -1038,6 +1038,10 @@
   overflow: hidden;
 }
 
+.button-demo-card--dropdown-open {
+  overflow: visible;
+}
+
 .button-demo-preview {
   min-height: 176px;
   padding: 48px;
@@ -1182,6 +1186,16 @@ sportbook6vn-button.button-doc-state-pressed
 
 .core3-input-frame--three {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.core3-input-frame--dropdown-open {
+  align-items: flex-start;
+  min-height: 420px;
+  overflow: visible;
+}
+
+.docs-static-select {
+  pointer-events: none;
 }
 
 .core3-input-demo-stack {
