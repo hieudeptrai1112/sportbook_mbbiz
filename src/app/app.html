@@ -228,6 +228,14 @@
               <span>Dropdown</span>
             </div>
             <span class="sidebar-sublabel">Data Entry</span>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'inputTag'"
+              (click)="setPage('inputTag')"
+            >
+              <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
+              <span>Input Tag</span>
+            </div>
             <div class="sidebar-link">
               <img src="/assets/figma/3e20b364-afaa-44e7-9d9d-1a4bbf8611cc.svg" alt="" />
               <span>Checkbox</span>
@@ -1199,6 +1207,215 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'inputTag'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Entry</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Input Tag</h1>
+              <p class="lead">
+                Input Tag creates removable values from typed text. This page is split from Input Field
+                because tag creation, overflow, custom rendering, and validation are independent behaviors.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of inputTagDemoSections; let i = index"
+              [attr.id]="getInputTagSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+                <button
+                  *ngIf="i === 0"
+                  class="button-doc-toggle"
+                  type="button"
+                  (click)="toggleAllInputTagDemoCode()"
+                >
+                  {{ areAllInputTagDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                </button>
+              </div>
+              <p class="button-demo-description button-demo-description--rich">
+                @for (part of demo.descriptionParts; track $index) {
+                  @if (part.code) {
+                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                  } @else {
+                    <span>{{ part.text }}</span>
+                  }
+                }
+              </p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card">
+                <div class="button-demo-preview core3-map-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <div *ngSwitchCase="'interactive'" class="core3-map-col">
+                      <sportbook6vn-input-tag
+                        inputId="input-tag-docs-interactive"
+                        placeholder="Input and press Enter"
+                        [allowClear]="true"
+                        [saveOnBlur]="true"
+                        [value]="inputTagDemoValue()"
+                        [tags]="inputTagDemoTags()"
+                        (valueChange)="setInputTagDemoValue($event)"
+                        (tagsChange)="setInputTagDemoTags($event)"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'overflow'" class="core3-input-frame core3-input-frame--grid">
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Max tag count</span>
+                        <sportbook6vn-input-tag
+                          inputId="input-tag-docs-overflow"
+                          placeholder=""
+                          [tags]="['1', '2', '3', '4', '5']"
+                          [maxTagCount]="3"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Responsive tags</span>
+                        <sportbook6vn-input-tag
+                          inputId="input-tag-docs-responsive"
+                          placeholder=""
+                          [tags]="['label 1', 'label 2', 'label 3', 'label 4', 'label 5']"
+                          [maxTagCount]="{ count: 1, render: core3InputTagResponsiveOverflowRender }"
+                        />
+                      </div>
+                    </div>
+
+                    <div *ngSwitchCase="'renderTag'" class="core3-map-col">
+                      <sportbook6vn-input-tag
+                        inputId="input-tag-docs-render"
+                        placeholder="Color tags"
+                        [allowClear]="true"
+                        [tags]="['arcoblue', 'orange', 'lime']"
+                        [renderTag]="core3InputTagRenderTone"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'validation'" class="core3-map-col">
+                      <sportbook6vn-input-tag
+                        inputId="input-tag-docs-validation"
+                        placeholder="Input email and press Enter"
+                        [allowClear]="true"
+                        [value]="inputTagValidatedValue()"
+                        [tags]="inputTagValidatedTags()"
+                        [validate]="core3InputTagEmailValidate"
+                        (valueChange)="setInputTagValidatedValue($event)"
+                        (tagsChange)="setInputTagValidatedTags($event)"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'error'" class="core3-map-col">
+                      <sportbook6vn-input-tag
+                        inputId="input-tag-docs-error"
+                        placeholder="Input text"
+                        status="error"
+                        [showTrailingClear]="true"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'disabled'" class="core3-map-col">
+                      <sportbook6vn-input-tag
+                        inputId="input-tag-docs-disabled"
+                        placeholder="Input text"
+                        [disabled]="true"
+                      />
+                    </div>
+                  </ng-container>
+                </div>
+
+                <div class="button-demo-controls">
+                  <div class="button-demo-icons">
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      [class.active]="isInputTagDemoExpanded(demo.id)"
+                      (click)="toggleInputTagDemoCode(demo.id)"
+                      aria-label="Toggle code"
+                    >
+                      &lt;/&gt;
+                    </button>
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      (click)="copyInputTagDemoCode(demo)"
+                      aria-label="Copy code"
+                    >
+                      {{ copiedInputTagDemoId() === demo.id ? 'Copied' : 'Copy' }}
+                    </button>
+                  </div>
+
+                  <span class="button-code-hint">TS</span>
+                </div>
+
+                <div class="button-code-wrapper" *ngIf="isInputTagDemoExpanded(demo.id)">
+                  <div class="button-code-head">
+                    <span class="button-code-file">{{ getInputTagCodeLanguageLabel(demo) }}</span>
+                    <span class="button-code-hint">{{ getInputTagCodeHint() }}</span>
+                  </div>
+                  <pre class="button-code-block"><code [innerHTML]="getInputTagDemoHighlightedCode(demo)"></code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-api-section" id="input-tag-api">
+              <h2>API</h2>
+              <h3 class="button-api-group-title">sportbook6vn-input-tag</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of inputTagApiRows">
+                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="input-tag-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Input Tag binds to the same semantic token layer as Input and Dropdown Tag chips.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of inputTagVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table button-variable-table">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Applied To</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.rows">
+                    <div class="token-note-cell">
+                      <code class="token-code">{{ row.token }}</code>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </div>
+                    <code class="token-code">{{ row.value }}</code>
+                    <span>{{ row.appliesTo }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of inputTagVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'core3Mapping'">
             <div class="page-header">
               <div class="header-meta">
@@ -1258,132 +1475,32 @@
                 <div>
                   <h2>Input Tag Mapping</h2>
                   <p>
-                    Mapping 1:1 từ preview draft cho component
-                    <span class="button-inline-code">sportbook6vn-input-tag</span>. Input Tag được giữ riêng
-                    vì có hành vi tạo tag, overflow, render, validation, error và disabled độc lập với Input
-                    Field.
+                    Đã tách sang tab <span class="button-inline-code">Input Tag</span> theo cấu trúc
+                    component docs riêng. Core-3 Mapping chỉ giữ lại trạng thái để tránh duplicate source of
+                    truth.
                   </p>
                   <div class="button-demo-tags">
                     <span>source=preview</span>
                     <span>component=input-tag</span>
-                    <span>target=Core-3 Mapping</span>
-                    <span>status=mapped</span>
+                    <span>target=Input Tag</span>
+                    <span>status=split</span>
                   </div>
                 </div>
               </div>
 
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
-                  <div class="core3-input-family">
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Interactive</h3>
-                        <p>Type a value and press Enter; clear removes all tags and input text.</p>
-                      </div>
-                      <div class="core3-input-frame core3-input-frame--compact core3-input-frame--intrinsic">
-                        <sportbook6vn-input-tag
-                          inputId="core3-input-tag-interactive"
-                          placeholder="Input and press Enter"
-                          [allowClear]="true"
-                          [saveOnBlur]="true"
-                          [value]="core3InputTagValue()"
-                          [tags]="core3InputTagTags()"
-                          (valueChange)="setCore3InputTagValue($event)"
-                          (tagsChange)="setCore3InputTagTags($event)"
-                        />
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Overflow</h3>
-                        <p>Max tag count and responsive count hide extra tags behind an overflow indicator.</p>
-                      </div>
-                      <div class="core3-input-frame core3-input-frame--grid">
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Max tag count</span>
-                          <sportbook6vn-input-tag
-                            inputId="core3-input-tag-overflow"
-                            placeholder=""
-                            [tags]="['1', '2', '3', '4', '5']"
-                            [maxTagCount]="3"
-                          />
-                        </div>
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Responsive tags</span>
-                          <sportbook6vn-input-tag
-                            inputId="core3-input-tag-responsive"
-                            placeholder=""
-                            [tags]="['label 1', 'label 2', 'label 3', 'label 4', 'label 5']"
-                            [maxTagCount]="{ count: 1, render: core3InputTagResponsiveOverflowRender }"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Render Tag</h3>
-                        <p>Custom tag rendering for color-coded labels.</p>
-                      </div>
-                      <div class="core3-input-frame core3-input-frame--compact core3-input-frame--intrinsic">
-                        <sportbook6vn-input-tag
-                          inputId="core3-input-tag-render"
-                          placeholder="Color tags"
-                          [allowClear]="true"
-                          [tags]="['arcoblue', 'orange', 'lime']"
-                          [renderTag]="core3InputTagRenderTone"
-                        />
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Validation</h3>
-                        <p>Email validation blocks invalid tag creation and keeps the typed value visible.</p>
-                      </div>
-                      <div class="core3-input-frame core3-input-frame--compact core3-input-frame--intrinsic">
-                        <sportbook6vn-input-tag
-                          inputId="core3-input-tag-validate"
-                          placeholder="Input email and press Enter"
-                          [allowClear]="true"
-                          [value]="core3InputTagValidatedValue()"
-                          [tags]="core3InputTagValidatedTags()"
-                          [validate]="core3InputTagEmailValidate"
-                          (valueChange)="setCore3InputTagValidatedValue($event)"
-                          (tagsChange)="setCore3InputTagValidatedTags($event)"
-                        />
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Error</h3>
-                        <p>Error state for invalid tags or invalid input value.</p>
-                      </div>
-                      <div class="core3-input-frame core3-input-frame--compact core3-input-frame--intrinsic">
-                        <sportbook6vn-input-tag
-                          inputId="core3-input-tag-error"
-                          placeholder="Input text"
-                          status="error"
-                          [showTrailingClear]="true"
-                        />
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Disabled</h3>
-                        <p>Disabled state prevents typing, tag deletion, and clear interaction.</p>
-                      </div>
-                      <div class="core3-input-frame core3-input-frame--compact core3-input-frame--intrinsic">
-                        <sportbook6vn-input-tag
-                          inputId="core3-input-tag-disabled"
-                          placeholder="Input text"
-                          [disabled]="true"
-                        />
-                      </div>
-                    </div>
+                  <div class="doc-list-card">
+                    <h3>Moved to component docs</h3>
+                    <ul>
+                      <li>
+                        Use <span class="button-inline-code">Input Tag</span> for interactive, overflow,
+                        render tag, validation, error, disabled, API, and component token docs.
+                      </li>
+                      <li>
+                        Keep this Core-3 tab as the mapping index only.
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -2191,6 +2308,60 @@
                   <span class="mono">focus</span>,
                   <span class="mono">typing</span>, and
                   <span class="mono">filled</span> behaviors.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'inputTag'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of inputTagDemoSections"
+                  [class.active]="activeInputTagSection() === getInputTagSectionId(demo.id)"
+                  [href]="'#' + getInputTagSectionId(demo.id)"
+                  (click)="setActiveInputTagSection(getInputTagSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeInputTagSection() === 'input-tag-api'"
+                  href="#input-tag-api"
+                  (click)="setActiveInputTagSection('input-tag-api')"
+                >
+                  API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeInputTagSection() === 'input-tag-variables'"
+                  href="#input-tag-variables"
+                  (click)="setActiveInputTagSection('input-tag-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Pro Tip</span>
+                </div>
+                <p>
+                  Start from <span class="mono">Interactive</span> for production usage; use the other
+                  sections when the product requires overflow, custom render, or validation behavior.
                 </p>
               </div>
             </aside>

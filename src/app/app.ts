@@ -70,6 +70,15 @@ import {
   type InputVariableGroup,
 } from './input-field-demos.data';
 import {
+  INPUT_TAG_API_ROWS,
+  INPUT_TAG_DEMO_SECTIONS,
+  INPUT_TAG_VARIABLE_GROUPS,
+  INPUT_TAG_VARIABLE_NOTES,
+  type InputTagApiRow,
+  type InputTagDemoSection,
+  type InputTagVariableGroup,
+} from './input-tag-demos.data';
+import {
   DEFAULT_THEME_BRAND,
   DEFAULT_THEME_ID,
   DEFAULT_THEME_MODE,
@@ -175,6 +184,7 @@ export class App {
     'buttons'
     | 'buttonMapping'
     | 'inputField'
+    | 'inputTag'
     | 'core3Mapping'
     | 'color'
     | 'tokens'
@@ -227,6 +237,15 @@ export class App {
   protected readonly copiedInputDemoId = signal<string | null>(null);
   protected readonly expandedInputDocsDemoIds = signal<string[]>([]);
   protected readonly copiedInputDocsDemoId = signal<string | null>(null);
+  protected readonly inputTagDemoSections: InputTagDemoSection[] = INPUT_TAG_DEMO_SECTIONS;
+  protected readonly inputTagApiRows: InputTagApiRow[] = INPUT_TAG_API_ROWS;
+  protected readonly inputTagVariableGroups: InputTagVariableGroup[] = INPUT_TAG_VARIABLE_GROUPS;
+  protected readonly inputTagVariableNotes = INPUT_TAG_VARIABLE_NOTES;
+  protected readonly activeInputTagSection = signal(
+    this.getInputTagSectionId(this.inputTagDemoSections[0]?.id ?? 'interactive'),
+  );
+  protected readonly expandedInputTagDemoIds = signal<string[]>([]);
+  protected readonly copiedInputTagDemoId = signal<string | null>(null);
   protected readonly core3InputValue = signal('');
   protected readonly core3AffixPrefixValue = signal('');
   protected readonly core3SearchValue = signal('');
@@ -240,6 +259,10 @@ export class App {
   protected readonly core3InputTagTags = signal<Sportbook6vnInputTagValue[]>([]);
   protected readonly core3InputTagValidatedValue = signal('');
   protected readonly core3InputTagValidatedTags = signal<Sportbook6vnInputTagValue[]>([]);
+  protected readonly inputTagDemoValue = signal('');
+  protected readonly inputTagDemoTags = signal<Sportbook6vnInputTagValue[]>([]);
+  protected readonly inputTagValidatedValue = signal('');
+  protected readonly inputTagValidatedTags = signal<Sportbook6vnInputTagValue[]>([]);
   protected readonly core3CurrencyAffixItems: readonly Sportbook6vnAffixDropdownItem[] = [
     { id: 'vnd', label: 'VND', flagCode: 'vnd' },
     { id: 'usd', label: 'USD', flagCode: 'usd' },
@@ -300,6 +323,7 @@ export class App {
       | 'buttons'
       | 'buttonMapping'
       | 'inputField'
+      | 'inputTag'
       | 'core3Mapping'
       | 'color'
       | 'tokens'
@@ -315,6 +339,8 @@ export class App {
       setTimeout(() => this.updateActiveButtonMappingSection(), 0);
     } else if (page === 'inputField') {
       setTimeout(() => this.updateActiveInputSection(), 0);
+    } else if (page === 'inputTag') {
+      setTimeout(() => this.updateActiveInputTagSection(), 0);
     }
   }
 
@@ -450,6 +476,22 @@ export class App {
 
   protected setCore3InputTagValidatedTags(value: Sportbook6vnInputTagValue[]) {
     this.core3InputTagValidatedTags.set(value);
+  }
+
+  protected setInputTagDemoValue(value: string) {
+    this.inputTagDemoValue.set(value);
+  }
+
+  protected setInputTagDemoTags(value: Sportbook6vnInputTagValue[]) {
+    this.inputTagDemoTags.set(value);
+  }
+
+  protected setInputTagValidatedValue(value: string) {
+    this.inputTagValidatedValue.set(value);
+  }
+
+  protected setInputTagValidatedTags(value: Sportbook6vnInputTagValue[]) {
+    this.inputTagValidatedTags.set(value);
   }
 
   protected readonly core3InputTagResponsiveOverflowRender = (count: number) => `+${count} More`;
@@ -869,6 +911,66 @@ export class App {
     }, 1200);
   }
 
+  protected setActiveInputTagSection(sectionId: string) {
+    this.activeInputTagSection.set(sectionId);
+  }
+
+  protected getInputTagSectionId(sectionId: string): string {
+    return `input-tag-${sectionId}`;
+  }
+
+  protected isInputTagDemoExpanded(sectionId: string): boolean {
+    return this.expandedInputTagDemoIds().includes(sectionId);
+  }
+
+  protected toggleInputTagDemoCode(sectionId: string) {
+    const next = new Set(this.expandedInputTagDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedInputTagDemoIds.set([...next]);
+  }
+
+  protected toggleAllInputTagDemoCode() {
+    const expanded = this.expandedInputTagDemoIds();
+    const allIds = this.inputTagDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedInputTagDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllInputTagDemoCodeExpanded(): boolean {
+    return this.expandedInputTagDemoIds().length === this.inputTagDemoSections.length;
+  }
+
+  protected getInputTagDemoCode(section: InputTagDemoSection): string {
+    return section.snippetTs;
+  }
+
+  protected getInputTagDemoHighlightedCode(section: InputTagDemoSection): string {
+    return this.highlightTypeScriptSnippet(this.getInputTagDemoCode(section));
+  }
+
+  protected getInputTagCodeLanguageLabel(section: InputTagDemoSection): string {
+    return `input-tag-${section.id}-demo.component.ts`;
+  }
+
+  protected getInputTagCodeHint(): string {
+    return 'Angular standalone snippet';
+  }
+
+  protected async copyInputTagDemoCode(section: InputTagDemoSection) {
+    const code = this.getInputTagDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedInputTagDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedInputTagDemoId() === section.id) {
+        this.copiedInputTagDemoId.set(null);
+      }
+    }, 1200);
+  }
+
   @HostListener('window:scroll')
   @HostListener('window:resize')
   protected onViewportChange() {
@@ -876,6 +978,7 @@ export class App {
     this.updateActiveButtonSection();
     this.updateActiveButtonMappingSection();
     this.updateActiveInputSection();
+    this.updateActiveInputTagSection();
   }
 
   private updateActiveTokenSection() {
@@ -981,6 +1084,31 @@ export class App {
     }
 
     this.activeInputSection.set(currentSection);
+  }
+
+  private updateActiveInputTagSection() {
+    if (this.activePage() !== 'inputTag' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getInputTagSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeInputTagSection.set(currentSection);
   }
 
   private buildSemanticTokenGroups(): SemanticTokenGroup[] {
@@ -1132,6 +1260,14 @@ export class App {
       'input-state-contract',
       'input-spacing',
       'input-variables',
+    ];
+  }
+
+  private getInputTagSectionIds(): string[] {
+    return [
+      ...this.inputTagDemoSections.map((section) => this.getInputTagSectionId(section.id)),
+      'input-tag-api',
+      'input-tag-variables',
     ];
   }
 
