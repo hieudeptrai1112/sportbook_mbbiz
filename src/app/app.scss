@@ -1038,10 +1038,6 @@
   overflow: hidden;
 }
 
-.button-demo-card--dropdown-open {
-  overflow: visible;
-}
-
 .button-demo-preview {
   min-height: 176px;
   padding: 48px;
@@ -1188,16 +1184,6 @@ sportbook6vn-button.button-doc-state-pressed
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.core3-input-frame--dropdown-open {
-  align-items: flex-start;
-  min-height: 420px;
-  overflow: visible;
-}
-
-.docs-static-select {
-  pointer-events: none;
-}
-
 .core3-input-demo-stack {
   display: grid;
   gap: 12px;
@@ -1273,40 +1259,6 @@ sportbook6vn-button.button-doc-state-pressed
   }
 }
 
-.input-demo-playground-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.input-state-chip {
-  border: 1px solid #d9dde8;
-  border-radius: 999px;
-  background: #ffffff;
-  color: #4e5969;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 20px;
-  padding: 4px 12px;
-  cursor: pointer;
-  transition: border-color 120ms ease, color 120ms ease, background 120ms ease;
-}
-
-.input-state-chip:hover {
-  border-color: #165dff;
-  color: #165dff;
-}
-
-.input-state-chip.active {
-  border-color: #165dff;
-  color: #165dff;
-  background: rgba(22, 93, 255, 0.08);
-}
-
-.input-state-chip--toggle {
-  margin-left: 4px;
-}
-
 .button-demo-controls {
   display: flex;
   align-items: center;
@@ -1337,39 +1289,6 @@ sportbook6vn-button.button-doc-state-pressed
   background: #1d2129;
   border-color: #1d2129;
   color: #ffffff;
-}
-
-.button-code-type {
-  display: flex;
-  gap: 8px;
-}
-
-.button-code-switchers {
-  align-items: flex-end;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.button-code-type-btn {
-  height: 24px;
-  border: 1px solid #e5e6eb;
-  border-radius: 4px;
-  background: #ffffff;
-  color: #4e5969;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.button-code-type-btn.active {
-  border-color: #165dff;
-  color: #165dff;
-}
-
-.button-code-type-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
 }
 
 .button-api-section {
@@ -1660,19 +1579,6 @@ sportbook6vn-button.button-doc-state-pressed
 .page.theme-dark .token-description,
 .page.theme-dark .button-api-col-description {
   color: #c7d0df;
-}
-
-.page.theme-dark .input-state-chip {
-  background: #1f2531;
-  border-color: rgba(255, 255, 255, 0.12);
-  color: #b8c2d6;
-}
-
-.page.theme-dark .input-state-chip:hover,
-.page.theme-dark .input-state-chip.active {
-  border-color: #3c7eff;
-  color: #8fb7ff;
-  background: rgba(60, 126, 255, 0.16);
 }
 
 .page.theme-dark .token-value-mode.shared {

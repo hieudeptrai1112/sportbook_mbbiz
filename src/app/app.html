@@ -1463,19 +1463,17 @@
                 <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
               </div>
 
-              <div
-                class="button-demo-card"
-                [class.button-demo-card--dropdown-open]="demo.variant === 'searchable'"
-              >
-                <div class="button-demo-preview core3-map-preview">
+              <div class="button-demo-card" [style.overflow]="demo.variant === 'searchable' ? 'visible' : null">
+                <div
+                  class="button-demo-preview core3-map-preview"
+                  [style.min-height]="demo.variant === 'basic' ? 'auto' : null"
+                >
                   <ng-container [ngSwitch]="demo.variant">
-                    <div *ngSwitchCase="'basic'" class="core3-input-frame core3-input-frame--grid">
-                      <div class="core3-input-demo-stack docs-static-select">
-                        <span class="core3-map-button-row-label">Empty</span>
+                    <div *ngSwitchCase="'basic'" class="core3-input-frame" style="gap: 32px">
+                      <div style="pointer-events: none">
                         <sportbook6vn-dropdown placeholder="Lựa chọn" [items]="core3DropdownItems" />
                       </div>
-                      <div class="core3-input-demo-stack docs-static-select">
-                        <span class="core3-map-button-row-label">Selected value</span>
+                      <div style="pointer-events: none">
                         <sportbook6vn-dropdown
                           placeholder="Lựa chọn"
                           value="option-1"
@@ -1556,7 +1554,8 @@
 
                     <div
                       *ngSwitchCase="'searchable'"
-                      class="core3-input-frame core3-input-frame--grid core3-input-frame--dropdown-open"
+                      class="core3-input-frame core3-input-frame--grid"
+                      style="align-items: flex-start; min-height: 420px; overflow: visible"
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Single</span>
