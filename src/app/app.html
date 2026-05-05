@@ -1463,17 +1463,22 @@
                 <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
               </div>
 
-              <div class="button-demo-card" [style.overflow]="demo.variant === 'searchable' ? 'visible' : null">
+              <div
+                class="button-demo-card"
+                [style.overflow]="demo.variant === 'basic' || demo.variant === 'searchable' ? 'visible' : null"
+              >
                 <div
                   class="button-demo-preview core3-map-preview"
-                  [style.min-height]="demo.variant === 'basic' ? 'auto' : null"
+                  [style.min-height]="demo.variant === 'basic' ? '420px' : null"
                 >
                   <ng-container [ngSwitch]="demo.variant">
-                    <div *ngSwitchCase="'basic'" class="core3-input-frame" style="gap: 32px">
-                      <div style="pointer-events: none">
-                        <sportbook6vn-dropdown placeholder="Lựa chọn" [items]="core3DropdownItems" />
+                    <div *ngSwitchCase="'basic'" class="core3-input-frame core3-input-frame--grid" style="align-items: flex-start; overflow: visible">
+                      <div class="core3-input-demo-stack" style="pointer-events: none">
+                        <span class="core3-map-button-row-label">Open droplist</span>
+                        <sportbook6vn-dropdown placeholder="Lựa chọn" [items]="core3DropdownItems" [open]="true" />
                       </div>
-                      <div style="pointer-events: none">
+                      <div class="core3-input-demo-stack" style="pointer-events: none">
+                        <span class="core3-map-button-row-label">Selected value</span>
                         <sportbook6vn-dropdown
                           placeholder="Lựa chọn"
                           value="option-1"

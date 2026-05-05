@@ -60,9 +60,9 @@ export const DROPDOWN_DEMO_SECTIONS: DropdownDemoSection[] = [
       { code: 'empty' },
       { text: ' and ' },
       { code: 'selected' },
-      { text: ' values.' },
+      { text: ' values; the open droplist state is shown for visual review.' },
     ],
-    tags: ['selector=sportbook6vn-dropdown', 'mode=single'],
+    tags: ['selector=sportbook6vn-dropdown', 'mode=single', 'state=open/closed'],
     variant: 'basic',
     snippetTs: `import { Component } from '@angular/core';
 import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sportbook6vn';
