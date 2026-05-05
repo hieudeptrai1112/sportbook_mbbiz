@@ -56,13 +56,15 @@ export const DROPDOWN_DEMO_SECTIONS: DropdownDemoSection[] = [
     id: 'basic',
     title: 'Basic Select',
     descriptionParts: [
-      { text: 'Basic usage of single select with ' },
+      { text: 'Basic usage of single select. Click the ' },
       { code: 'empty' },
-      { text: ' and ' },
+      { text: ' trigger to inspect the ' },
+      { code: 'open' },
+      { text: ' droplist state and compare it with a ' },
       { code: 'selected' },
-      { text: ' values; the open droplist state is shown for visual review.' },
+      { text: ' value.' },
     ],
-    tags: ['selector=sportbook6vn-dropdown', 'mode=single', 'state=open/closed'],
+    tags: ['selector=sportbook6vn-dropdown', 'mode=single', 'state=interactive/open/selected'],
     variant: 'basic',
     snippetTs: `import { Component } from '@angular/core';
 import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sportbook6vn';

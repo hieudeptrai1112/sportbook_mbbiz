@@ -1469,15 +1469,20 @@
               >
                 <div
                   class="button-demo-preview core3-map-preview"
-                  [style.min-height]="demo.variant === 'basic' ? '420px' : null"
+                  [style.min-height]="demo.variant === 'basic' ? '220px' : null"
+                  [style.overflow]="demo.variant === 'basic' ? 'visible' : null"
                 >
                   <ng-container [ngSwitch]="demo.variant">
-                    <div *ngSwitchCase="'basic'" class="core3-input-frame core3-input-frame--grid" style="align-items: flex-start; overflow: visible">
-                      <div class="core3-input-demo-stack" style="pointer-events: none">
-                        <span class="core3-map-button-row-label">Open droplist</span>
-                        <sportbook6vn-dropdown placeholder="Lựa chọn" [items]="core3DropdownItems" [open]="true" />
+                    <div
+                      *ngSwitchCase="'basic'"
+                      class="core3-input-frame core3-input-frame--grid"
+                      style="align-items: flex-start; overflow: visible; width: 720px; max-width: 100%"
+                    >
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Default / click to open</span>
+                        <sportbook6vn-dropdown placeholder="Lựa chọn" [items]="core3DropdownItems" />
                       </div>
-                      <div class="core3-input-demo-stack" style="pointer-events: none">
+                      <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Selected value</span>
                         <sportbook6vn-dropdown
                           placeholder="Lựa chọn"
