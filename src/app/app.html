@@ -240,6 +240,14 @@
               <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
               <span>Input Tag</span>
             </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'radio'"
+              (click)="setPage('radio')"
+            >
+              <img src="/assets/figma/3e20b364-afaa-44e7-9d9d-1a4bbf8611cc.svg" alt="" />
+              <span>Radio</span>
+            </div>
             <div class="sidebar-link">
               <img src="/assets/figma/3e20b364-afaa-44e7-9d9d-1a4bbf8611cc.svg" alt="" />
               <span>Checkbox</span>
@@ -1794,6 +1802,198 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'radio'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Entry</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Radio</h1>
+              <p class="lead">
+                Radio lets users choose one option from a set. This page is split from Core-3 Mapping
+                and keeps the approved preview states as the source of truth.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of radioDemoSections; let i = index"
+              [attr.id]="getRadioSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+                <button
+                  *ngIf="i === 0"
+                  class="button-doc-toggle"
+                  type="button"
+                  (click)="toggleAllRadioDemoCode()"
+                >
+                  {{ areAllRadioDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                </button>
+              </div>
+              <p class="button-demo-description button-demo-description--rich">
+                @for (part of demo.descriptionParts; track $index) {
+                  @if (part.code) {
+                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                  } @else {
+                    <span>{{ part.text }}</span>
+                  }
+                }
+              </p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card">
+                <div class="button-demo-preview core3-map-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <div *ngSwitchCase="'basic'" class="core3-input-family">
+                      <div class="core3-map-row">
+                        <sportbook6vn-radio label="Radio" />
+                        <sportbook6vn-radio label="Checked Radio" [defaultChecked]="true" />
+                      </div>
+                    </div>
+
+                    <div *ngSwitchCase="'disabled'" class="core3-input-family">
+                      <div class="core3-map-row">
+                        <sportbook6vn-radio label="Disabled Radio" [disabled]="true" />
+                        <sportbook6vn-radio
+                          label="Disabled Checked Radio"
+                          [defaultChecked]="true"
+                          [disabled]="true"
+                        />
+                      </div>
+                    </div>
+
+                    <div *ngSwitchCase="'group'" class="core3-input-family">
+                      <sportbook6vn-radio-group
+                        name="radio-docs-group-horizontal"
+                        [options]="core3RadioGroupOptions"
+                        [value]="radioGroupValue()"
+                        (valueChange)="setRadioGroupValue($event)"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'verticalGroup'" class="core3-input-family">
+                      <sportbook6vn-radio-group
+                        name="radio-docs-group-vertical"
+                        direction="vertical"
+                        [options]="core3RadioGroupOptions"
+                        [value]="radioGroupVerticalValue()"
+                        (valueChange)="setRadioGroupVerticalValue($event)"
+                      />
+                    </div>
+                  </ng-container>
+                </div>
+
+                <div class="button-demo-controls">
+                  <div class="button-demo-icons">
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      [class.active]="isRadioDemoExpanded(demo.id)"
+                      (click)="toggleRadioDemoCode(demo.id)"
+                      aria-label="Toggle code"
+                    >
+                      &lt;/&gt;
+                    </button>
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      (click)="copyRadioDemoCode(demo)"
+                      aria-label="Copy code"
+                    >
+                      {{ copiedRadioDemoId() === demo.id ? 'Copied' : 'Copy' }}
+                    </button>
+                  </div>
+
+                  <span class="button-code-hint">TS</span>
+                </div>
+
+                <div class="button-code-wrapper" *ngIf="isRadioDemoExpanded(demo.id)">
+                  <div class="button-code-head">
+                    <span class="button-code-file">{{ getRadioCodeLanguageLabel(demo) }}</span>
+                    <span class="button-code-hint">{{ getRadioCodeHint() }}</span>
+                  </div>
+                  <pre class="button-code-block"><code [innerHTML]="getRadioDemoHighlightedCode(demo)"></code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-api-section" id="radio-api">
+              <h2>API</h2>
+              <p class="button-demo-description">
+                Radio exposes a single control API and a group API for option arrays.
+              </p>
+
+              <h3 class="button-api-group-title">sportbook6vn-radio</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of radioApiRows">
+                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                </div>
+              </div>
+
+              <h3 class="button-api-group-title">sportbook6vn-radio-group</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of radioGroupApiRows">
+                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="radio-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Radio uses a compact control token layer for circle, dot, label, and group spacing.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of radioVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table button-variable-table">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Applied To</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.rows">
+                    <div class="token-note-cell">
+                      <code class="token-code">{{ row.token }}</code>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </div>
+                    <code class="token-code">{{ row.value }}</code>
+                    <span>{{ row.appliesTo }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of radioVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'core3Mapping'">
             <div class="page-header">
               <div class="header-meta">
@@ -1923,75 +2123,30 @@
                 <div>
                   <h2>Radio Mapping</h2>
                   <p>
-                    Mapping 1:1 từ preview cho
-                    <span class="button-inline-code">sportbook6vn-radio</span> và
-                    <span class="button-inline-code">sportbook6vn-radio-group</span>, gồm basic,
-                    disabled, group, và vertical group.
+                    Đã tách sang tab <span class="button-inline-code">Radio</span> theo cấu trúc
+                    component docs riêng. Core-3 Mapping chỉ giữ lại trạng thái để tránh duplicate source
+                    of truth.
                   </p>
                   <div class="button-demo-tags">
                     <span>source=preview</span>
                     <span>component=radio</span>
-                    <span>target=Core-3 Mapping</span>
-                    <span>status=mapped</span>
+                    <span>target=Radio</span>
+                    <span>status=split</span>
                   </div>
                 </div>
               </div>
 
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
-                  <div class="core3-input-family">
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Basic</h3>
-                        <p>There are unchecked and checked radio states.</p>
-                      </div>
-                      <div class="core3-map-row">
-                        <sportbook6vn-radio label="Radio" />
-                        <sportbook6vn-radio label="Checked Radio" [defaultChecked]="true" />
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Disabled</h3>
-                        <p>Disabled radios keep the same visual states but block selection.</p>
-                      </div>
-                      <div class="core3-map-row">
-                        <sportbook6vn-radio label="Disabled Radio" [disabled]="true" />
-                        <sportbook6vn-radio
-                          label="Disabled Checked Radio"
-                          [defaultChecked]="true"
-                          [disabled]="true"
-                        />
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Radio Group</h3>
-                        <p>Radio group allows one selected option in a horizontal layout.</p>
-                      </div>
-                      <sportbook6vn-radio-group
-                        name="core3-radio-group-horizontal"
-                        [options]="core3RadioGroupOptions"
-                        [value]="core3RadioGroupValue()"
-                        (valueChange)="setCore3RadioGroupValue($event)"
-                      />
-                    </div>
-
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Vertical Radio Group</h3>
-                        <p>Vertical group keeps the same selection behavior with stacked options.</p>
-                      </div>
-                      <sportbook6vn-radio-group
-                        name="core3-radio-group-vertical"
-                        direction="vertical"
-                        [options]="core3RadioGroupOptions"
-                        [value]="core3RadioGroupVerticalValue()"
-                        (valueChange)="setCore3RadioGroupVerticalValue($event)"
-                      />
-                    </div>
+                  <div class="doc-list-card">
+                    <h3>Moved to component docs</h3>
+                    <ul>
+                      <li>
+                        Use <span class="button-inline-code">Radio</span> for basic, disabled, group,
+                        vertical group, API, and component token docs.
+                      </li>
+                      <li>Keep this Core-3 tab as the mapping index only.</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -3278,6 +3433,60 @@
                 <p>
                   Use <span class="mono">Basic Select</span> for normal dropdown usage; use
                   <span class="mono">Tag Select</span> only when the selected values must stay visible as chips.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'radio'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of radioDemoSections"
+                  [class.active]="activeRadioSection() === getRadioSectionId(demo.id)"
+                  [href]="'#' + getRadioSectionId(demo.id)"
+                  (click)="setActiveRadioSection(getRadioSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeRadioSection() === 'radio-api'"
+                  href="#radio-api"
+                  (click)="setActiveRadioSection('radio-api')"
+                >
+                  API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeRadioSection() === 'radio-variables'"
+                  href="#radio-variables"
+                  (click)="setActiveRadioSection('radio-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Pro Tip</span>
+                </div>
+                <p>
+                  Use <span class="mono">Radio Group</span> when the user must choose exactly one option
+                  from a set.
                 </p>
               </div>
             </aside>

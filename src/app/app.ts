@@ -98,6 +98,16 @@ import {
   type DropdownVariableGroup,
 } from './dropdown-demos.data';
 import {
+  RADIO_API_ROWS,
+  RADIO_DEMO_SECTIONS,
+  RADIO_GROUP_API_ROWS,
+  RADIO_VARIABLE_GROUPS,
+  RADIO_VARIABLE_NOTES,
+  type RadioApiRow,
+  type RadioDemoSection,
+  type RadioVariableGroup,
+} from './radio-demos.data';
+import {
   DEFAULT_THEME_BRAND,
   DEFAULT_THEME_ID,
   DEFAULT_THEME_MODE,
@@ -211,6 +221,7 @@ export class App {
     | 'inputField'
     | 'inputTag'
     | 'dropdown'
+    | 'radio'
     | 'core3Mapping'
     | 'color'
     | 'tokens'
@@ -282,6 +293,16 @@ export class App {
   );
   protected readonly expandedDropdownDemoIds = signal<string[]>([]);
   protected readonly copiedDropdownDemoId = signal<string | null>(null);
+  protected readonly radioDemoSections: RadioDemoSection[] = RADIO_DEMO_SECTIONS;
+  protected readonly radioApiRows: RadioApiRow[] = RADIO_API_ROWS;
+  protected readonly radioGroupApiRows: RadioApiRow[] = RADIO_GROUP_API_ROWS;
+  protected readonly radioVariableGroups: RadioVariableGroup[] = RADIO_VARIABLE_GROUPS;
+  protected readonly radioVariableNotes = RADIO_VARIABLE_NOTES;
+  protected readonly activeRadioSection = signal(
+    this.getRadioSectionId(this.radioDemoSections[0]?.id ?? 'basic'),
+  );
+  protected readonly expandedRadioDemoIds = signal<string[]>([]);
+  protected readonly copiedRadioDemoId = signal<string | null>(null);
   protected readonly core3InputValue = signal('');
   protected readonly core3AffixPrefixValue = signal('');
   protected readonly core3SearchValue = signal('');
@@ -326,6 +347,8 @@ export class App {
   ];
   protected readonly core3RadioGroupValue = signal<string | number | null>('a');
   protected readonly core3RadioGroupVerticalValue = signal<string | number | null>('a');
+  protected readonly radioGroupValue = signal<string | number | null>('a');
+  protected readonly radioGroupVerticalValue = signal<string | number | null>('a');
   protected readonly core3CheckboxGroupOptions: readonly Sportbook6vnCheckboxGroupOption[] = [
     { label: 'A', value: 'a' },
     { label: 'B', value: 'b' },
@@ -397,6 +420,7 @@ export class App {
       | 'inputField'
       | 'inputTag'
       | 'dropdown'
+      | 'radio'
       | 'core3Mapping'
       | 'color'
       | 'tokens'
@@ -416,6 +440,8 @@ export class App {
       setTimeout(() => this.updateActiveInputTagSection(), 0);
     } else if (page === 'dropdown') {
       setTimeout(() => this.updateActiveDropdownSection(), 0);
+    } else if (page === 'radio') {
+      setTimeout(() => this.updateActiveRadioSection(), 0);
     }
   }
 
@@ -1078,6 +1104,14 @@ export class App {
     return `dropdown-${sectionId}`;
   }
 
+  protected setActiveRadioSection(sectionId: string) {
+    this.activeRadioSection.set(sectionId);
+  }
+
+  protected getRadioSectionId(sectionId: string): string {
+    return `radio-${sectionId}`;
+  }
+
   protected isDropdownDemoExpanded(sectionId: string): boolean {
     return this.expandedDropdownDemoIds().includes(sectionId);
   }
@@ -1130,6 +1164,66 @@ export class App {
     }, 1200);
   }
 
+  protected isRadioDemoExpanded(sectionId: string): boolean {
+    return this.expandedRadioDemoIds().includes(sectionId);
+  }
+
+  protected toggleRadioDemoCode(sectionId: string) {
+    const next = new Set(this.expandedRadioDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedRadioDemoIds.set([...next]);
+  }
+
+  protected toggleAllRadioDemoCode() {
+    const expanded = this.expandedRadioDemoIds();
+    const allIds = this.radioDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedRadioDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllRadioDemoCodeExpanded(): boolean {
+    return this.expandedRadioDemoIds().length === this.radioDemoSections.length;
+  }
+
+  protected getRadioDemoCode(section: RadioDemoSection): string {
+    return section.snippetTs;
+  }
+
+  protected getRadioDemoHighlightedCode(section: RadioDemoSection): string {
+    return this.highlightTypeScriptSnippet(this.getRadioDemoCode(section));
+  }
+
+  protected getRadioCodeLanguageLabel(section: RadioDemoSection): string {
+    return `radio-${section.id}-demo.component.ts`;
+  }
+
+  protected getRadioCodeHint(): string {
+    return 'Angular standalone snippet';
+  }
+
+  protected async copyRadioDemoCode(section: RadioDemoSection) {
+    const code = this.getRadioDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedRadioDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedRadioDemoId() === section.id) {
+        this.copiedRadioDemoId.set(null);
+      }
+    }, 1200);
+  }
+
+  protected setRadioGroupValue(value: string | number | null) {
+    this.radioGroupValue.set(value);
+  }
+
+  protected setRadioGroupVerticalValue(value: string | number | null) {
+    this.radioGroupVerticalValue.set(value);
+  }
+
   @HostListener('window:scroll')
   @HostListener('window:resize')
   protected onViewportChange() {
@@ -1139,6 +1233,7 @@ export class App {
     this.updateActiveInputSection();
     this.updateActiveInputTagSection();
     this.updateActiveDropdownSection();
+    this.updateActiveRadioSection();
   }
 
   private updateActiveTokenSection() {
@@ -1294,6 +1389,31 @@ export class App {
     }
 
     this.activeDropdownSection.set(currentSection);
+  }
+
+  private updateActiveRadioSection() {
+    if (this.activePage() !== 'radio' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getRadioSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeRadioSection.set(currentSection);
   }
 
   private buildSemanticTokenGroups(): SemanticTokenGroup[] {
@@ -1461,6 +1581,14 @@ export class App {
       ...this.dropdownDemoSections.map((section) => this.getDropdownSectionId(section.id)),
       'dropdown-api',
       'dropdown-variables',
+    ];
+  }
+
+  private getRadioSectionIds(): string[] {
+    return [
+      ...this.radioDemoSections.map((section) => this.getRadioSectionId(section.id)),
+      'radio-api',
+      'radio-variables',
     ];
   }
 
