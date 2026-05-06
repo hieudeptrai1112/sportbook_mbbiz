@@ -205,13 +205,13 @@ ${OPTIONS_DECLARATION}
     descriptionParts: [
       { text: 'When option count is greater than ' },
       { code: 'searchThreshold' },
-      { text: ', the open droplist shows ' },
+      { text: ', clicking the trigger opens a droplist with ' },
       { code: 'search' },
       { text: ' and ' },
       { code: 'scrollbar' },
       { text: '.' },
     ],
-    tags: ['selector=sportbook6vn-dropdown', 'open=true', 'searchBehavior=auto', 'searchThreshold=5'],
+    tags: ['selector=sportbook6vn-dropdown', 'state=closed/interactive', 'searchBehavior=auto', 'searchThreshold=5'],
     variant: 'searchable',
     snippetTs: `import { Component } from '@angular/core';
 import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sportbook6vn';
@@ -224,7 +224,6 @@ import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sp
     <sportbook6vn-dropdown
       placeholder="Lựa chọn"
       [items]="items"
-      [open]="true"
       searchBehavior="auto"
       [searchThreshold]="5"
     />
@@ -233,7 +232,7 @@ import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sp
       mode="multiple"
       placeholder="Lựa chọn"
       [items]="items"
-      [open]="true"
+      [values]="['option-1', 'option-2']"
       searchBehavior="auto"
       [searchThreshold]="5"
     />
