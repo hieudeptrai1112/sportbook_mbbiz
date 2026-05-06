@@ -1997,6 +1997,105 @@
               </div>
             </section>
 
+            <section class="section button-demo-section" id="core3-checkbox-mapping">
+              <div class="button-demo-head">
+                <div>
+                  <h2>Checkbox Mapping</h2>
+                  <p>
+                    Mapping 1:1 từ preview cho
+                    <span class="button-inline-code">sportbook6vn-checkbox</span> và
+                    <span class="button-inline-code">sportbook6vn-checkbox-group</span>, gồm basic,
+                    disabled, group, select all với indeterminate, và vertical group.
+                  </p>
+                  <div class="button-demo-tags">
+                    <span>source=preview</span>
+                    <span>component=checkbox</span>
+                    <span>target=Core-3 Mapping</span>
+                    <span>status=mapped</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-demo-card">
+                <div class="button-demo-preview core3-map-preview">
+                  <div class="core3-input-family">
+                    <div class="core3-input-case">
+                      <div class="core3-input-case__head">
+                        <h3>Basic</h3>
+                        <p>There are unchecked, checked, and indeterminate checkbox states.</p>
+                      </div>
+                      <div class="core3-map-row">
+                        <sportbook6vn-checkbox label="Checkbox" />
+                        <sportbook6vn-checkbox label="Checked" [defaultChecked]="true" />
+                        <sportbook6vn-checkbox label="Indeterminate" [defaultIndeterminate]="true" />
+                      </div>
+                    </div>
+
+                    <div class="core3-input-case">
+                      <div class="core3-input-case__head">
+                        <h3>Disabled</h3>
+                        <p>Disabled checkboxes keep visual state but block selection.</p>
+                      </div>
+                      <div class="core3-map-row">
+                        <sportbook6vn-checkbox label="Disabled" [disabled]="true" />
+                        <sportbook6vn-checkbox label="Disabled checked" [defaultChecked]="true" [disabled]="true" />
+                        <sportbook6vn-checkbox
+                          label="Disabled indeterminate"
+                          [defaultIndeterminate]="true"
+                          [disabled]="true"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="core3-input-case">
+                      <div class="core3-input-case__head">
+                        <h3>Checkbox Group</h3>
+                        <p>Checkbox group allows multiple selected options in a horizontal layout.</p>
+                      </div>
+                      <sportbook6vn-checkbox-group
+                        [options]="core3CheckboxGroupOptions"
+                        [value]="core3CheckboxGroupValues()"
+                        (valueChange)="setCore3CheckboxGroupValues($event)"
+                      />
+                    </div>
+
+                    <div class="core3-input-case">
+                      <div class="core3-input-case__head">
+                        <h3>Select All</h3>
+                        <p>Select all becomes indeterminate when only part of the group is selected.</p>
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <sportbook6vn-checkbox
+                          label="Select all"
+                          [checked]="core3CheckboxSelectAllChecked()"
+                          [indeterminate]="core3CheckboxSelectAllIndeterminate()"
+                          (checkedChange)="setCore3CheckboxSelectAll($event)"
+                        />
+                        <sportbook6vn-checkbox-group
+                          [options]="core3CheckboxGroupOptions"
+                          [value]="core3CheckboxSelectAllValues()"
+                          (valueChange)="setCore3CheckboxSelectAllValues($event)"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="core3-input-case core3-input-case--wide">
+                      <div class="core3-input-case__head">
+                        <h3>Vertical Checkbox Group</h3>
+                        <p>Vertical group keeps the same multi-select behavior with stacked options.</p>
+                      </div>
+                      <sportbook6vn-checkbox-group
+                        direction="vertical"
+                        [options]="core3CheckboxGroupOptions"
+                        [value]="core3CheckboxGroupVerticalValues()"
+                        (valueChange)="setCore3CheckboxGroupVerticalValues($event)"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
             <section
               *ngIf="false"
               class="section button-demo-section"
@@ -3202,6 +3301,7 @@
                 <a class="toc-item" href="#core3-input-tag-mapping">Input tag mapping</a>
                 <a class="toc-item" href="#core3-dropdown-family-mapping">Dropdown family mapping</a>
                 <a class="toc-item" href="#core3-radio-mapping">Radio mapping</a>
+                <a class="toc-item" href="#core3-checkbox-mapping">Checkbox mapping</a>
               </div>
 
               <div class="pro-tip">

@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, HostListener, computed, signal } from '@angular/core';
 import type { DsInputPasswordState } from './components/ds-input-password/ds-input-password.component';
 import {
   Sportbook6vnAffixInputComponent,
   Sportbook6vnAffixLabelInputComponent,
   type Sportbook6vnAffixDropdownItem,
   Sportbook6vnButtonComponent,
+  Sportbook6vnCheckboxComponent,
+  Sportbook6vnCheckboxGroupComponent,
+  type Sportbook6vnCheckboxGroupOption,
   Sportbook6vnDropdownComponent,
   type Sportbook6vnDropdownItem,
   Sportbook6vnDropdownTagComponent,
@@ -176,6 +179,8 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     Sportbook6vnAffixInputComponent,
     Sportbook6vnAffixLabelInputComponent,
     Sportbook6vnButtonComponent,
+    Sportbook6vnCheckboxComponent,
+    Sportbook6vnCheckboxGroupComponent,
     Sportbook6vnDropdownComponent,
     Sportbook6vnDropdownTagComponent,
     Sportbook6vnFloatingLabelInputComponent,
@@ -321,6 +326,23 @@ export class App {
   ];
   protected readonly core3RadioGroupValue = signal<string | number | null>('a');
   protected readonly core3RadioGroupVerticalValue = signal<string | number | null>('a');
+  protected readonly core3CheckboxGroupOptions: readonly Sportbook6vnCheckboxGroupOption[] = [
+    { label: 'A', value: 'a' },
+    { label: 'B', value: 'b' },
+    { label: 'C', value: 'c' },
+    { label: 'D', value: 'd' },
+  ];
+  protected readonly core3CheckboxGroupValues = signal<(string | number)[]>(['a']);
+  protected readonly core3CheckboxGroupVerticalValues = signal<(string | number)[]>(['a']);
+  protected readonly core3CheckboxSelectAllValues = signal<(string | number)[]>(['a']);
+  protected readonly core3CheckboxAllValues = this.core3CheckboxGroupOptions.map((option) => option.value);
+  protected readonly core3CheckboxSelectAllChecked = computed(
+    () => this.core3CheckboxSelectAllValues().length === this.core3CheckboxAllValues.length,
+  );
+  protected readonly core3CheckboxSelectAllIndeterminate = computed(() => {
+    const selectedCount = this.core3CheckboxSelectAllValues().length;
+    return selectedCount > 0 && selectedCount < this.core3CheckboxAllValues.length;
+  });
   private readonly themeStorageKey = 'sportbook.theme-id';
   private readonly semanticThemeAliasValueMaps = buildSemanticThemeAliasValueMaps(
     this.semanticTokenMappings,
@@ -553,6 +575,22 @@ export class App {
 
   protected setCore3RadioGroupVerticalValue(value: string | number | null) {
     this.core3RadioGroupVerticalValue.set(value);
+  }
+
+  protected setCore3CheckboxGroupValues(value: (string | number)[]) {
+    this.core3CheckboxGroupValues.set(value);
+  }
+
+  protected setCore3CheckboxGroupVerticalValues(value: (string | number)[]) {
+    this.core3CheckboxGroupVerticalValues.set(value);
+  }
+
+  protected setCore3CheckboxSelectAllValues(value: (string | number)[]) {
+    this.core3CheckboxSelectAllValues.set(value);
+  }
+
+  protected setCore3CheckboxSelectAll(checked: boolean) {
+    this.core3CheckboxSelectAllValues.set(checked ? [...this.core3CheckboxAllValues] : []);
   }
 
   protected readonly core3InputTagResponsiveOverflowRender = (count: number) => `+${count} More`;
