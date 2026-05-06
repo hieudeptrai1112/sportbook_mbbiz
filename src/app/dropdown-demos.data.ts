@@ -4,7 +4,6 @@ export type DropdownDemoVariant =
   | 'tag'
   | 'insideLabel'
   | 'searchable'
-  | 'tagDroplist'
   | 'status'
   | 'disabled'
   | 'emptyStates';
@@ -239,38 +238,6 @@ import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sp
   \`,
 })
 export class DropdownSearchableDemoComponent {
-${OPTIONS_DECLARATION}
-}`,
-  },
-  {
-    id: 'tag-droplist',
-    title: 'Tag Droplist',
-    descriptionParts: [
-      { text: 'Tag droplist uses the same ' },
-      { code: 'items' },
-      { text: ' source as select and keeps selected tags inside the trigger.' },
-    ],
-    tags: ['selector=sportbook6vn-dropdown-tag', 'searchBehavior=auto', 'state=closed'],
-    variant: 'tagDroplist',
-    snippetTs: `import { Component } from '@angular/core';
-import {
-  Sportbook6vnDropdownTagComponent,
-  type Sportbook6vnDropdownItem,
-} from 'sportbook6vn';
-
-@Component({
-  selector: 'app-dropdown-tag-droplist-demo',
-  standalone: true,
-  imports: [Sportbook6vnDropdownTagComponent],
-  template: \`
-    <sportbook6vn-dropdown-tag
-      placeholder="Lựa chọn"
-      [items]="items"
-      [values]="['option-1', 'option-2', 'option-3', 'option-4']"
-    />
-  \`,
-})
-export class DropdownTagDroplistDemoComponent {
 ${OPTIONS_DECLARATION}
 }`,
   },
