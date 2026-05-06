@@ -14,6 +14,9 @@ import {
   Sportbook6vnInputTagComponent,
   type Sportbook6vnInputTagValue,
   Sportbook6vnPasswordInputComponent,
+  Sportbook6vnRadioComponent,
+  Sportbook6vnRadioGroupComponent,
+  type Sportbook6vnRadioGroupOption,
   Sportbook6vnSearchInputComponent,
   Sportbook6vnTextareaComponent,
   type Sportbook6vnButtonSize,
@@ -179,6 +182,8 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     Sportbook6vnInputComponent,
     Sportbook6vnInputTagComponent,
     Sportbook6vnPasswordInputComponent,
+    Sportbook6vnRadioComponent,
+    Sportbook6vnRadioGroupComponent,
     Sportbook6vnSearchInputComponent,
     Sportbook6vnTextareaComponent,
   ],
@@ -308,6 +313,14 @@ export class App {
   protected readonly core3DropdownBasicItems: readonly Sportbook6vnDropdownItem[] =
     this.core3DropdownItems.slice(0, 4);
   protected readonly core3DropdownEmptyItems: readonly Sportbook6vnDropdownItem[] = [];
+  protected readonly core3RadioGroupOptions: readonly Sportbook6vnRadioGroupOption[] = [
+    { label: 'A', value: 'a' },
+    { label: 'B', value: 'b' },
+    { label: 'C', value: 'c' },
+    { label: 'D', value: 'd' },
+  ];
+  protected readonly core3RadioGroupValue = signal<string | number | null>('a');
+  protected readonly core3RadioGroupVerticalValue = signal<string | number | null>('a');
   private readonly themeStorageKey = 'sportbook.theme-id';
   private readonly semanticThemeAliasValueMaps = buildSemanticThemeAliasValueMaps(
     this.semanticTokenMappings,
@@ -532,6 +545,14 @@ export class App {
 
   protected setInputTagValidatedTags(value: Sportbook6vnInputTagValue[]) {
     this.inputTagValidatedTags.set(value);
+  }
+
+  protected setCore3RadioGroupValue(value: string | number | null) {
+    this.core3RadioGroupValue.set(value);
+  }
+
+  protected setCore3RadioGroupVerticalValue(value: string | number | null) {
+    this.core3RadioGroupVerticalValue.set(value);
   }
 
   protected readonly core3InputTagResponsiveOverflowRender = (count: number) => `+${count} More`;

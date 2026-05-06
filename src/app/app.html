@@ -1918,6 +1918,85 @@
               </div>
             </section>
 
+            <section class="section button-demo-section" id="core3-radio-mapping">
+              <div class="button-demo-head">
+                <div>
+                  <h2>Radio Mapping</h2>
+                  <p>
+                    Mapping 1:1 từ preview cho
+                    <span class="button-inline-code">sportbook6vn-radio</span> và
+                    <span class="button-inline-code">sportbook6vn-radio-group</span>, gồm basic,
+                    disabled, group, và vertical group.
+                  </p>
+                  <div class="button-demo-tags">
+                    <span>source=preview</span>
+                    <span>component=radio</span>
+                    <span>target=Core-3 Mapping</span>
+                    <span>status=mapped</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-demo-card">
+                <div class="button-demo-preview core3-map-preview">
+                  <div class="core3-input-family">
+                    <div class="core3-input-case">
+                      <div class="core3-input-case__head">
+                        <h3>Basic</h3>
+                        <p>There are unchecked and checked radio states.</p>
+                      </div>
+                      <div class="core3-map-row">
+                        <sportbook6vn-radio label="Radio" />
+                        <sportbook6vn-radio label="Checked Radio" [defaultChecked]="true" />
+                      </div>
+                    </div>
+
+                    <div class="core3-input-case">
+                      <div class="core3-input-case__head">
+                        <h3>Disabled</h3>
+                        <p>Disabled radios keep the same visual states but block selection.</p>
+                      </div>
+                      <div class="core3-map-row">
+                        <sportbook6vn-radio label="Disabled Radio" [disabled]="true" />
+                        <sportbook6vn-radio
+                          label="Disabled Checked Radio"
+                          [defaultChecked]="true"
+                          [disabled]="true"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="core3-input-case">
+                      <div class="core3-input-case__head">
+                        <h3>Radio Group</h3>
+                        <p>Radio group allows one selected option in a horizontal layout.</p>
+                      </div>
+                      <sportbook6vn-radio-group
+                        name="core3-radio-group-horizontal"
+                        [options]="core3RadioGroupOptions"
+                        [value]="core3RadioGroupValue()"
+                        (valueChange)="setCore3RadioGroupValue($event)"
+                      />
+                    </div>
+
+                    <div class="core3-input-case">
+                      <div class="core3-input-case__head">
+                        <h3>Vertical Radio Group</h3>
+                        <p>Vertical group keeps the same selection behavior with stacked options.</p>
+                      </div>
+                      <sportbook6vn-radio-group
+                        name="core3-radio-group-vertical"
+                        direction="vertical"
+                        [options]="core3RadioGroupOptions"
+                        [value]="core3RadioGroupVerticalValue()"
+                        (valueChange)="setCore3RadioGroupVerticalValue($event)"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
             <section
               *ngIf="false"
               class="section button-demo-section"
@@ -3122,6 +3201,7 @@
                 <a class="toc-item" href="#core3-input-family-mapping">Input family mapping</a>
                 <a class="toc-item" href="#core3-input-tag-mapping">Input tag mapping</a>
                 <a class="toc-item" href="#core3-dropdown-family-mapping">Dropdown family mapping</a>
+                <a class="toc-item" href="#core3-radio-mapping">Radio mapping</a>
               </div>
 
               <div class="pro-tip">
