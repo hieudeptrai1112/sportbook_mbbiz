@@ -202,7 +202,7 @@
             </div>
 
             <div class="sportbook6vn-datepicker__interest-days">
-              @for (cell of interestCells(); track cell.value) {
+              @for (cell of getPanelCells(); track cell.value) {
                 <button
                   type="button"
                   [class]="interestCellClass(cell)"

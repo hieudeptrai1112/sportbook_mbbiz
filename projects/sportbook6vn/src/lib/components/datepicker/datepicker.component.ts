@@ -180,12 +180,24 @@ export class Sportbook6vnDatepickerComponent {
     this.content() === 'day' && this.dayPanelMode() === 'month' ? 'month' : this.content(),
   );
   protected readonly resolvedPanelLabel = computed(() => {
+    const viewDate = this.calendarViewDate();
+    const year = viewDate.getFullYear();
+
+    if (this.content() === 'interest') {
+      return `Tháng ${viewDate.getMonth() + 1} ${year}`;
+    }
+
+    if (this.content() === 'month') {
+      return `${year}`;
+    }
+
+    if (this.content() === 'year') {
+      return this.formatYearPanelLabel(year);
+    }
+
     if (this.content() !== 'day') {
       return this.panelLabel();
     }
-
-    const viewDate = this.calendarViewDate();
-    const year = viewDate.getFullYear();
 
     if (this.dayPanelMode() === 'month') {
       return `${year}`;
@@ -212,6 +224,8 @@ export class Sportbook6vnDatepickerComponent {
   );
   protected readonly activeTimeLabel = computed(() => this.getActiveTimeValue() ?? this.getFallbackTimeValue());
   private readonly calendarMonthCells = computed(() => this.createCalendarMonthCells(this.calendarViewDate().getFullYear()));
+  private readonly calendarYearCells = computed(() => this.createCalendarYearCells(this.calendarViewDate().getFullYear()));
+  private readonly calendarInterestCells = computed(() => this.createCalendarInterestCells(this.calendarViewDate()));
 
   constructor() {
     effect(() => {
@@ -219,6 +233,13 @@ export class Sportbook6vnDatepickerComponent {
 
       untracked(() => {
         const wasOpen = this.localOpen();
+
+        if (isOpen && !wasOpen) {
+          this.calendarViewDate.set(
+            this.resolveInitialCalendarDate(this.value() ?? this.startValue() ?? this.endValue(), this.panelLabel(), this.content()),
+          );
+          this.dayPanelMode.set('day');
+        }
 
         if (isOpen && !wasOpen && this.mode() === 'range') {
           this.syncRangeDraftFromCommitted();
@@ -244,8 +265,8 @@ export class Sportbook6vnDatepickerComponent {
       const label = this.panelLabel();
 
       untracked(() => {
-        if (content === 'day' && !this.localOpen()) {
-          this.calendarViewDate.set(this.resolveInitialCalendarDate(selectedValue ?? startValue ?? endValue, label));
+        if (!this.localOpen()) {
+          this.calendarViewDate.set(this.resolveInitialCalendarDate(selectedValue ?? startValue ?? endValue, label, content));
           this.dayPanelMode.set('day');
         }
       });
@@ -375,11 +396,11 @@ export class Sportbook6vnDatepickerComponent {
 
     switch (this.content()) {
       case 'month':
-        return this.monthCells();
+        return this.monthCells() === DEFAULT_MONTH_CELLS ? this.calendarMonthCells() : this.monthCells();
       case 'year':
-        return this.yearCells();
+        return this.yearCells() === DEFAULT_YEAR_CELLS ? this.calendarYearCells() : this.yearCells();
       case 'interest':
-        return this.interestCells();
+        return this.interestCells() === DEFAULT_INTEREST_CELLS ? this.calendarInterestCells() : this.interestCells();
       case 'time':
         return this.timeCells();
       default:
@@ -428,7 +449,7 @@ export class Sportbook6vnDatepickerComponent {
       return;
     }
 
-    this.shiftCalendarView(this.dayPanelMode() === 'month' ? -12 : -1);
+    this.shiftCalendarView(this.resolvePanelMonthOffset(-1));
   }
 
   protected goToPreviousYearPanel() {
@@ -444,7 +465,7 @@ export class Sportbook6vnDatepickerComponent {
       return;
     }
 
-    this.shiftCalendarView(this.dayPanelMode() === 'month' ? 12 : 1);
+    this.shiftCalendarView(this.resolvePanelMonthOffset(1));
   }
 
   protected goToNextYearPanel() {
@@ -610,10 +631,6 @@ export class Sportbook6vnDatepickerComponent {
   }
 
   private shiftCalendarView(monthOffset: number) {
-    if (this.content() !== 'day') {
-      return;
-    }
-
     const viewDate = this.calendarViewDate();
     this.calendarViewDate.set(new Date(viewDate.getFullYear(), viewDate.getMonth() + monthOffset, 1));
   }
@@ -656,6 +673,11 @@ export class Sportbook6vnDatepickerComponent {
     if (dateMatch) {
       const [, year, month, day, time] = dateMatch;
       return `${day}/${month}/${year}${time ? ` ${time}` : ''}`;
+    }
+
+    const monthMatch = /^(\d{4})-(\d{2})$/.exec(value);
+    if (monthMatch) {
+      return `Tháng ${Number(monthMatch[2])}`;
     }
 
     return this.findLabel(value) ?? value;
@@ -838,7 +860,43 @@ export class Sportbook6vnDatepickerComponent {
     });
   }
 
-  private resolveInitialCalendarDate(value: string | null, fallbackLabel: string) {
+  private createCalendarYearCells(startYear: number): readonly Sportbook6vnDatepickerCell[] {
+    const selectedValue = this.mode() === 'range' ? (this.activeStartValue() ?? this.activeEndValue()) : this.localValue();
+    const selectedYearValue = this.extractYearPart(selectedValue);
+    const currentYearValue = `${new Date().getFullYear()}`;
+
+    return Array.from({ length: 12 }, (_, index) => {
+      const value = `${startYear + index}`;
+
+      return {
+        label: value,
+        value,
+        state: value === selectedYearValue ? 'active' : value === currentYearValue ? 'present' : undefined,
+      };
+    });
+  }
+
+  private createCalendarInterestCells(viewDate: Date): readonly Sportbook6vnDatepickerCell[] {
+    const year = viewDate.getFullYear();
+    const month = viewDate.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    return Array.from({ length: daysInMonth }, (_, index) => {
+      const day = index + 1;
+      const template = DEFAULT_INTEREST_CELLS[index];
+      const value = this.formatDateValue(new Date(year, month, day));
+
+      return {
+        label: `${day}`,
+        value,
+        caption: template?.caption,
+        state: template?.state,
+        disabled: template?.disabled,
+      };
+    });
+  }
+
+  private resolveInitialCalendarDate(value: string | null, fallbackLabel: string, content: Sportbook6vnDatepickerContent) {
     const datePart = this.extractDatePart(value);
     if (datePart) {
       const [year, month] = datePart.split('-').map(Number);
@@ -851,10 +909,27 @@ export class Sportbook6vnDatepickerComponent {
       return new Date(year, month - 1, 1);
     }
 
-    const labelMatch = /^Tháng\s+(\d{1,2})\/(\d{4})$/.exec(fallbackLabel.trim());
+    const yearPart = this.extractYearPart(value);
+    if (yearPart) {
+      const year = Number(yearPart);
+      return new Date(content === 'year' ? this.getYearPanelStart(year) : year, 0, 1);
+    }
+
+    const trimmedLabel = fallbackLabel.trim();
+    const labelMatch = /^Tháng\s+(\d{1,2})(?:\/|\s+)(\d{4})$/.exec(trimmedLabel);
     if (labelMatch) {
       const [, month, year] = labelMatch;
       return new Date(Number(year), Number(month) - 1, 1);
+    }
+
+    const yearRangeMatch = /^(\d{4})\s*-\s*(\d{4})$/.exec(trimmedLabel);
+    if (yearRangeMatch) {
+      return new Date(Number(yearRangeMatch[1]), 0, 1);
+    }
+
+    const yearLabelMatch = /^(\d{4})$/.exec(trimmedLabel);
+    if (yearLabelMatch) {
+      return new Date(Number(yearLabelMatch[1]), 0, 1);
     }
 
     return new Date(2026, 9, 1);
@@ -866,6 +941,26 @@ export class Sportbook6vnDatepickerComponent {
 
   private formatMonthValue(date: Date) {
     return `${date.getFullYear()}-${`${date.getMonth() + 1}`.padStart(2, '0')}`;
+  }
+
+  private formatYearPanelLabel(startYear: number) {
+    return `${startYear} - ${startYear + 11}`;
+  }
+
+  private getYearPanelStart(year: number) {
+    return 2020 + Math.floor((year - 2020) / 12) * 12;
+  }
+
+  private resolvePanelMonthOffset(direction: -1 | 1) {
+    if (this.content() === 'year') {
+      return direction * 12 * 12;
+    }
+
+    if (this.content() === 'month' || (this.content() === 'day' && this.dayPanelMode() === 'month')) {
+      return direction * 12;
+    }
+
+    return direction;
   }
 
   private emitRangeChange() {
@@ -933,6 +1028,10 @@ export class Sportbook6vnDatepickerComponent {
 
   private extractTimePart(value: string | null) {
     return /^\d{4}-\d{2}-\d{2}\s+(.+)$/.exec(value ?? '')?.[1] ?? null;
+  }
+
+  private extractYearPart(value: string | null) {
+    return /^(\d{4})(?:-\d{2}(?:-\d{2})?)?$/.exec(value ?? '')?.[1] ?? null;
   }
 
   private isTimeValue(value: string) {

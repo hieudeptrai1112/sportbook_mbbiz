@@ -514,6 +514,154 @@ describe('Sportbook6vnDatepickerComponent', () => {
     expect(fixture.componentInstance.valueChange).toBe('2026-05-01');
   });
 
+  it('navigates month, year, interest, and range option panels', () => {
+    @Component({
+      imports: [Sportbook6vnDatepickerComponent],
+      template: `
+        <sportbook6vn-datepicker
+          content="month"
+          panelLabel="2026"
+          [open]="true"
+          (valueChange)="valueChange = $event"
+        />
+      `,
+    })
+    class Sportbook6vnMonthNavigationTestHostComponent {
+      valueChange: string | null = null;
+    }
+
+    const monthFixture = TestBed.createComponent(Sportbook6vnMonthNavigationTestHostComponent);
+    monthFixture.detectChanges();
+
+    (monthFixture.nativeElement.querySelector('[aria-label="Next"]') as HTMLButtonElement).click();
+    monthFixture.detectChanges();
+
+    expect(monthFixture.nativeElement.querySelector('.sportbook6vn-datepicker__header-label-text').textContent.trim()).toBe('2027');
+
+    let options = monthFixture.nativeElement.querySelectorAll(
+      '.sportbook6vn-datepicker__option',
+    ) as NodeListOf<HTMLButtonElement>;
+    options[0].click();
+
+    expect(monthFixture.componentInstance.valueChange).toBe('2027-01');
+
+    @Component({
+      imports: [Sportbook6vnDatepickerComponent],
+      template: `
+        <sportbook6vn-datepicker
+          content="year"
+          panelLabel="2020 - 2031"
+          [open]="true"
+          (valueChange)="valueChange = $event"
+        />
+      `,
+    })
+    class Sportbook6vnYearNavigationTestHostComponent {
+      valueChange: string | null = null;
+    }
+
+    const yearFixture = TestBed.createComponent(Sportbook6vnYearNavigationTestHostComponent);
+    yearFixture.detectChanges();
+
+    (yearFixture.nativeElement.querySelector('[aria-label="Next"]') as HTMLButtonElement).click();
+    yearFixture.detectChanges();
+
+    expect(yearFixture.nativeElement.querySelector('.sportbook6vn-datepicker__header-label-text').textContent.trim()).toBe(
+      '2032 - 2043',
+    );
+
+    options = yearFixture.nativeElement.querySelectorAll('.sportbook6vn-datepicker__option') as NodeListOf<HTMLButtonElement>;
+    options[0].click();
+
+    expect(yearFixture.componentInstance.valueChange).toBe('2032');
+
+    @Component({
+      imports: [Sportbook6vnDatepickerComponent],
+      template: `
+        <sportbook6vn-datepicker
+          content="interest"
+          panelLabel="Tháng 5 2025"
+          [open]="true"
+          (valueChange)="valueChange = $event"
+        />
+      `,
+    })
+    class Sportbook6vnInterestNavigationTestHostComponent {
+      valueChange: string | null = null;
+    }
+
+    const interestFixture = TestBed.createComponent(Sportbook6vnInterestNavigationTestHostComponent);
+    interestFixture.detectChanges();
+
+    (interestFixture.nativeElement.querySelector('[aria-label="Next month"]') as HTMLButtonElement).click();
+    interestFixture.detectChanges();
+
+    expect(interestFixture.nativeElement.querySelector('.sportbook6vn-datepicker__header-label-text').textContent.trim()).toBe(
+      'Tháng 6 2025',
+    );
+
+    const interestDays = interestFixture.nativeElement.querySelectorAll(
+      '.sportbook6vn-datepicker__interest-day',
+    ) as NodeListOf<HTMLButtonElement>;
+    interestDays[0].click();
+
+    expect(interestFixture.componentInstance.valueChange).toBe('2025-06-01');
+
+    @Component({
+      imports: [Sportbook6vnDatepickerComponent],
+      template: `
+        <sportbook6vn-datepicker
+          mode="range"
+          content="month"
+          panelLabel="2026"
+          [open]="true"
+          (rangeChange)="rangeChange = $event"
+        />
+      `,
+    })
+    class Sportbook6vnRangeMonthNavigationTestHostComponent {
+      rangeChange: Sportbook6vnDatepickerRangeValue | null = null;
+    }
+
+    const rangeMonthFixture = TestBed.createComponent(Sportbook6vnRangeMonthNavigationTestHostComponent);
+    rangeMonthFixture.detectChanges();
+
+    (rangeMonthFixture.nativeElement.querySelector('[aria-label="Next"]') as HTMLButtonElement).click();
+    rangeMonthFixture.detectChanges();
+
+    options = rangeMonthFixture.nativeElement.querySelectorAll('.sportbook6vn-datepicker__option') as NodeListOf<HTMLButtonElement>;
+    options[0].click();
+
+    expect(rangeMonthFixture.componentInstance.rangeChange).toEqual({ start: '2027-01', end: null });
+
+    @Component({
+      imports: [Sportbook6vnDatepickerComponent],
+      template: `
+        <sportbook6vn-datepicker
+          mode="range"
+          content="year"
+          panelLabel="2020 - 2031"
+          [open]="true"
+          (rangeChange)="rangeChange = $event"
+        />
+      `,
+    })
+    class Sportbook6vnRangeYearNavigationTestHostComponent {
+      rangeChange: Sportbook6vnDatepickerRangeValue | null = null;
+    }
+
+    const rangeYearFixture = TestBed.createComponent(Sportbook6vnRangeYearNavigationTestHostComponent);
+    rangeYearFixture.detectChanges();
+
+    (rangeYearFixture.nativeElement.querySelector('[aria-label="Next"]') as HTMLButtonElement).click();
+    rangeYearFixture.detectChanges();
+
+    options = rangeYearFixture.nativeElement.querySelectorAll('.sportbook6vn-datepicker__option') as NodeListOf<HTMLButtonElement>;
+    options[0].click();
+
+    expect(rangeYearFixture.componentInstance.rangeChange).toEqual({ start: '2032', end: null });
+  });
+
   it('renders and emits selectable interest date cells', () => {
     @Component({
       imports: [Sportbook6vnDatepickerComponent],
