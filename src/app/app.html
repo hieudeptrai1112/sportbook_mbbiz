@@ -2049,17 +2049,29 @@
                 <div class="button-demo-preview core3-map-preview core3-datepicker-preview">
                   <ng-container [ngSwitch]="demo.variant">
                     <div
-                      *ngSwitchCase="'single'"
-                      class="core3-input-frame core3-input-frame--grid core3-input-frame--three core3-datepicker-frame"
+                      *ngSwitchCase="'singleDate'"
+                      class="core3-input-frame core3-input-frame--compact core3-datepicker-frame"
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Date</span>
                         <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" />
                       </div>
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'singleDateTime'"
+                      class="core3-input-frame core3-input-frame--compact core3-datepicker-frame"
+                    >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Date + time</span>
                         <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" [showTime]="true" />
                       </div>
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'interest'"
+                      class="core3-input-frame core3-input-frame--compact core3-datepicker-frame"
+                    >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Interest</span>
                         <sportbook6vn-datepicker
@@ -2069,6 +2081,12 @@
                           placeholder="Interest"
                         />
                       </div>
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'singleMonth'"
+                      class="core3-input-frame core3-input-frame--compact core3-datepicker-frame"
+                    >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Month</span>
                         <sportbook6vn-datepicker
@@ -2078,6 +2096,12 @@
                           placeholder="Chọn tháng"
                         />
                       </div>
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'singleYear'"
+                      class="core3-input-frame core3-input-frame--compact core3-datepicker-frame"
+                    >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Year</span>
                         <sportbook6vn-datepicker
@@ -2090,8 +2114,8 @@
                     </div>
 
                     <div
-                      *ngSwitchCase="'range'"
-                      class="core3-input-frame core3-input-frame--grid core3-input-frame--three core3-datepicker-frame"
+                      *ngSwitchCase="'rangeDate'"
+                      class="core3-input-frame core3-input-frame--compact core3-datepicker-frame"
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Date to date</span>
@@ -2102,6 +2126,12 @@
                           endPlaceholder="Đến ngày"
                         />
                       </div>
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'rangeDateTime'"
+                      class="core3-input-frame core3-input-frame--compact core3-datepicker-frame"
+                    >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Date to date + time</span>
                         <sportbook6vn-datepicker
@@ -2112,6 +2142,12 @@
                           [showTime]="true"
                         />
                       </div>
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'rangeMonth'"
+                      class="core3-input-frame core3-input-frame--compact core3-datepicker-frame"
+                    >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Month to month</span>
                         <sportbook6vn-datepicker
@@ -2123,6 +2159,12 @@
                           endPlaceholder="Đến tháng"
                         />
                       </div>
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'rangeYear'"
+                      class="core3-input-frame core3-input-frame--compact core3-datepicker-frame"
+                    >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Year to year</span>
                         <sportbook6vn-datepicker

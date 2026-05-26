@@ -1,4 +1,14 @@
-export type DatepickerDemoVariant = 'single' | 'range' | 'status';
+export type DatepickerDemoVariant =
+  | 'singleDate'
+  | 'singleDateTime'
+  | 'interest'
+  | 'singleMonth'
+  | 'singleYear'
+  | 'rangeDate'
+  | 'rangeDateTime'
+  | 'rangeMonth'
+  | 'rangeYear'
+  | 'status';
 
 export interface DatepickerDescriptionPart {
   text?: string;
@@ -35,40 +45,93 @@ export interface DatepickerVariableGroup {
 
 export const DATEPICKER_DEMO_SECTIONS: DatepickerDemoSection[] = [
   {
-    id: 'single-date',
-    title: 'Single Date',
+    id: 'date',
+    title: 'Date',
     descriptionParts: [
-      { code: 'mode="single"' },
-      { text: ' covers date, date + time, interest, month, and year cases with the same input trigger.' },
+      { code: 'content="day"' },
+      { text: ' renders the default single date input trigger.' },
     ],
-    tags: ['selector=sportbook6vn-datepicker', 'mode=single', 'content=day/interest/month/year'],
-    variant: 'single',
+    tags: ['selector=sportbook6vn-datepicker', 'mode=single', 'content=day'],
+    variant: 'singleDate',
     snippetTs: `import { Component } from '@angular/core';
 import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
 
 @Component({
-  selector: 'app-datepicker-single-demo',
+  selector: 'app-datepicker-date-demo',
   standalone: true,
   imports: [Sportbook6vnDatepickerComponent],
   template: \`
     <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" />
+  \`,
+})
+export class DatepickerDateDemoComponent {}`,
+  },
+  {
+    id: 'date-time',
+    title: 'Date + Time',
+    descriptionParts: [
+      { code: '[showTime]="true"' },
+      { text: ' adds time selection to the day picker.' },
+    ],
+    tags: ['selector=sportbook6vn-datepicker', 'mode=single', 'showTime=true'],
+    variant: 'singleDateTime',
+    snippetTs: `import { Component } from '@angular/core';
+import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
 
+@Component({
+  selector: 'app-datepicker-date-time-demo',
+  standalone: true,
+  imports: [Sportbook6vnDatepickerComponent],
+  template: \`
     <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" [showTime]="true" />
+  \`,
+})
+export class DatepickerDateTimeDemoComponent {}`,
+  },
+  {
+    id: 'month',
+    title: 'Month',
+    descriptionParts: [
+      { code: 'content="month"' },
+      { text: ' switches the panel to month selection.' },
+    ],
+    tags: ['selector=sportbook6vn-datepicker', 'mode=single', 'content=month'],
+    variant: 'singleMonth',
+    snippetTs: `import { Component } from '@angular/core';
+import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
 
-    <sportbook6vn-datepicker
-      field="input"
-      content="interest"
-      panelLabel="Tháng 5 2025"
-      placeholder="Interest"
-    />
-
+@Component({
+  selector: 'app-datepicker-month-demo',
+  standalone: true,
+  imports: [Sportbook6vnDatepickerComponent],
+  template: \`
     <sportbook6vn-datepicker
       field="input"
       content="month"
       panelLabel="2026"
       placeholder="Chọn tháng"
     />
+  \`,
+})
+export class DatepickerMonthDemoComponent {}`,
+  },
+  {
+    id: 'year',
+    title: 'Year',
+    descriptionParts: [
+      { code: 'content="year"' },
+      { text: ' switches the panel to year selection.' },
+    ],
+    tags: ['selector=sportbook6vn-datepicker', 'mode=single', 'content=year'],
+    variant: 'singleYear',
+    snippetTs: `import { Component } from '@angular/core';
+import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
 
+@Component({
+  selector: 'app-datepicker-year-demo',
+  standalone: true,
+  imports: [Sportbook6vnDatepickerComponent],
+  template: \`
     <sportbook6vn-datepicker
       field="input"
       content="year"
@@ -77,22 +140,49 @@ import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
     />
   \`,
 })
-export class DatepickerSingleDemoComponent {}`,
+export class DatepickerYearDemoComponent {}`,
   },
   {
-    id: 'date-range',
-    title: 'Date Range',
+    id: 'interest',
+    title: 'Interest',
     descriptionParts: [
-      { code: 'mode="range"' },
-      { text: ' covers date to date, date to date + time, month to month, and year to year cases.' },
+      { code: 'content="interest"' },
+      { text: ' renders a single-select interest date calendar with percentage captions.' },
     ],
-    tags: ['selector=sportbook6vn-datepicker', 'mode=range', 'rangeActive=start/end'],
-    variant: 'range',
+    tags: ['selector=sportbook6vn-datepicker', 'mode=single', 'content=interest'],
+    variant: 'interest',
     snippetTs: `import { Component } from '@angular/core';
 import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
 
 @Component({
-  selector: 'app-datepicker-range-demo',
+  selector: 'app-datepicker-interest-demo',
+  standalone: true,
+  imports: [Sportbook6vnDatepickerComponent],
+  template: \`
+    <sportbook6vn-datepicker
+      field="input"
+      content="interest"
+      panelLabel="Tháng 5 2025"
+      placeholder="Interest"
+    />
+  \`,
+})
+export class DatepickerInterestDemoComponent {}`,
+  },
+  {
+    id: 'date-to-date',
+    title: 'Date To Date',
+    descriptionParts: [
+      { code: 'mode="range"' },
+      { text: ' renders the default start/end date range input.' },
+    ],
+    tags: ['selector=sportbook6vn-datepicker', 'mode=range', 'content=day'],
+    variant: 'rangeDate',
+    snippetTs: `import { Component } from '@angular/core';
+import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
+
+@Component({
+  selector: 'app-datepicker-date-range-demo',
   standalone: true,
   imports: [Sportbook6vnDatepickerComponent],
   template: \`
@@ -102,7 +192,29 @@ import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
       startPlaceholder="Từ ngày"
       endPlaceholder="Đến ngày"
     />
+  \`,
+})
+export class DatepickerDateRangeDemoComponent {}`,
+  },
+  {
+    id: 'date-to-date-time',
+    title: 'Date To Date + Time',
+    descriptionParts: [
+      { code: 'mode="range"' },
+      { text: ' with ' },
+      { code: '[showTime]="true"' },
+      { text: ' adds time selection to start/end dates.' },
+    ],
+    tags: ['selector=sportbook6vn-datepicker', 'mode=range', 'showTime=true'],
+    variant: 'rangeDateTime',
+    snippetTs: `import { Component } from '@angular/core';
+import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
 
+@Component({
+  selector: 'app-datepicker-date-range-time-demo',
+  standalone: true,
+  imports: [Sportbook6vnDatepickerComponent],
+  template: \`
     <sportbook6vn-datepicker
       mode="range"
       field="input"
@@ -110,7 +222,27 @@ import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
       endPlaceholder="Đến ngày"
       [showTime]="true"
     />
+  \`,
+})
+export class DatepickerDateRangeTimeDemoComponent {}`,
+  },
+  {
+    id: 'month-to-month',
+    title: 'Month To Month',
+    descriptionParts: [
+      { code: 'content="month"' },
+      { text: ' renders month range selection.' },
+    ],
+    tags: ['selector=sportbook6vn-datepicker', 'mode=range', 'content=month'],
+    variant: 'rangeMonth',
+    snippetTs: `import { Component } from '@angular/core';
+import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
 
+@Component({
+  selector: 'app-datepicker-month-range-demo',
+  standalone: true,
+  imports: [Sportbook6vnDatepickerComponent],
+  template: \`
     <sportbook6vn-datepicker
       mode="range"
       field="input"
@@ -119,7 +251,27 @@ import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
       startPlaceholder="Từ tháng"
       endPlaceholder="Đến tháng"
     />
+  \`,
+})
+export class DatepickerMonthRangeDemoComponent {}`,
+  },
+  {
+    id: 'year-to-year',
+    title: 'Year To Year',
+    descriptionParts: [
+      { code: 'content="year"' },
+      { text: ' renders year range selection.' },
+    ],
+    tags: ['selector=sportbook6vn-datepicker', 'mode=range', 'content=year'],
+    variant: 'rangeYear',
+    snippetTs: `import { Component } from '@angular/core';
+import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
 
+@Component({
+  selector: 'app-datepicker-year-range-demo',
+  standalone: true,
+  imports: [Sportbook6vnDatepickerComponent],
+  template: \`
     <sportbook6vn-datepicker
       mode="range"
       field="input"
@@ -130,7 +282,7 @@ import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
     />
   \`,
 })
-export class DatepickerRangeDemoComponent {}`,
+export class DatepickerYearRangeDemoComponent {}`,
   },
   {
     id: 'status',
