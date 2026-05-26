@@ -1251,10 +1251,30 @@ sportbook6vn-button.button-doc-state-pressed
   width: min(100%, 460px);
 }
 
+.core3-datepicker-card,
+.core3-datepicker-preview,
+.core3-datepicker-family,
+.core3-datepicker-frame {
+  overflow: visible;
+}
+
+.core3-datepicker-family {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.core3-datepicker-frame {
+  align-items: start;
+}
+
+.core3-datepicker-frame .core3-input-demo-stack {
+  min-height: 84px;
+}
+
 @media (max-width: 1100px) {
   .core3-input-family,
   .core3-input-frame--grid,
-  .core3-input-frame--three {
+  .core3-input-frame--three,
+  .core3-datepicker-family {
     grid-template-columns: 1fr;
   }
 }

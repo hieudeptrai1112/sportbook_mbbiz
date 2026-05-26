@@ -16,6 +16,8 @@ export * from './lib/components/input-tag/input-tag.component';
 export * from './lib/components/dropdown/dropdown.component';
 export * from './lib/components/dropdown-tag/dropdown-tag.component';
 export * from './lib/components/dropdown/dropdown.types';
+export * from './lib/components/datepicker/datepicker.component';
+export * from './lib/components/datepicker/datepicker.types';
 export * from './lib/components/modal/modal.component';
 export * from './lib/components/modal/modal.types';
 export * from './lib/components/checkbox/checkbox.component';

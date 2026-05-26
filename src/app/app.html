@@ -242,6 +242,14 @@
             </div>
             <div
               class="sidebar-link"
+              [class.active]="activePage() === 'datepicker'"
+              (click)="setPage('datepicker')"
+            >
+              <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
+              <span>Date Picker</span>
+            </div>
+            <div
+              class="sidebar-link"
               [class.active]="activePage() === 'radio'"
               (click)="setPage('radio')"
             >
@@ -1994,6 +2002,283 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'datepicker'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Entry</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Date Picker</h1>
+              <p class="lead">
+                Date Picker covers single date, date + time, interest, month, year, range, range + time,
+                status, and disabled states from the approved preview.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of datepickerDemoSections; let i = index"
+              [attr.id]="getDatepickerSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+                <button
+                  *ngIf="i === 0"
+                  class="button-doc-toggle"
+                  type="button"
+                  (click)="toggleAllDatepickerDemoCode()"
+                >
+                  {{ areAllDatepickerDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                </button>
+              </div>
+              <p class="button-demo-description button-demo-description--rich">
+                @for (part of demo.descriptionParts; track $index) {
+                  @if (part.code) {
+                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                  } @else {
+                    <span>{{ part.text }}</span>
+                  }
+                }
+              </p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card core3-datepicker-card">
+                <div class="button-demo-preview core3-map-preview core3-datepicker-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <div
+                      *ngSwitchCase="'single'"
+                      class="core3-input-frame core3-input-frame--grid core3-input-frame--three core3-datepicker-frame"
+                    >
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Date</span>
+                        <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Date + time</span>
+                        <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" [showTime]="true" />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Interest</span>
+                        <sportbook6vn-datepicker
+                          field="input"
+                          content="interest"
+                          panelLabel="Tháng 5 2025"
+                          placeholder="Interest"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Month</span>
+                        <sportbook6vn-datepicker
+                          field="input"
+                          content="month"
+                          panelLabel="2026"
+                          placeholder="Chọn tháng"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Year</span>
+                        <sportbook6vn-datepicker
+                          field="input"
+                          content="year"
+                          panelLabel="2020 - 2031"
+                          placeholder="Chọn năm"
+                        />
+                      </div>
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'range'"
+                      class="core3-input-frame core3-input-frame--grid core3-input-frame--three core3-datepicker-frame"
+                    >
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Date to date</span>
+                        <sportbook6vn-datepicker
+                          mode="range"
+                          field="input"
+                          startPlaceholder="Từ ngày"
+                          endPlaceholder="Đến ngày"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Date to date + time</span>
+                        <sportbook6vn-datepicker
+                          mode="range"
+                          field="input"
+                          startPlaceholder="Từ ngày"
+                          endPlaceholder="Đến ngày"
+                          [showTime]="true"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Month to month</span>
+                        <sportbook6vn-datepicker
+                          mode="range"
+                          field="input"
+                          content="month"
+                          panelLabel="2026"
+                          startPlaceholder="Từ tháng"
+                          endPlaceholder="Đến tháng"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Year to year</span>
+                        <sportbook6vn-datepicker
+                          mode="range"
+                          field="input"
+                          content="year"
+                          panelLabel="2020 - 2031"
+                          startPlaceholder="Từ năm"
+                          endPlaceholder="Đến năm"
+                        />
+                      </div>
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'status'"
+                      class="core3-input-frame core3-input-frame--grid core3-input-frame--three core3-datepicker-frame"
+                    >
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Single error</span>
+                        <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" status="error" />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Single disabled</span>
+                        <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" [disabled]="true" />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Range error</span>
+                        <sportbook6vn-datepicker
+                          mode="range"
+                          field="input"
+                          startPlaceholder="Từ ngày"
+                          endPlaceholder="Đến ngày"
+                          status="error"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Range disabled</span>
+                        <sportbook6vn-datepicker
+                          mode="range"
+                          field="input"
+                          startPlaceholder="Từ ngày"
+                          endPlaceholder="Đến ngày"
+                          [disabled]="true"
+                        />
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+
+                <div class="button-demo-controls">
+                  <div class="button-demo-icons">
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      [class.active]="isDatepickerDemoExpanded(demo.id)"
+                      (click)="toggleDatepickerDemoCode(demo.id)"
+                      aria-label="Toggle code"
+                    >
+                      &lt;/&gt;
+                    </button>
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      (click)="copyDatepickerDemoCode(demo)"
+                      aria-label="Copy code"
+                    >
+                      {{ copiedDatepickerDemoId() === demo.id ? 'Copied' : 'Copy' }}
+                    </button>
+                  </div>
+
+                  <span class="button-code-hint">TS</span>
+                </div>
+
+                <div class="button-code-wrapper" *ngIf="isDatepickerDemoExpanded(demo.id)">
+                  <div class="button-code-head">
+                    <span class="button-code-file">{{ getDatepickerCodeLanguageLabel(demo) }}</span>
+                    <span class="button-code-hint">{{ getDatepickerCodeHint() }}</span>
+                  </div>
+                  <pre class="button-code-block"><code [innerHTML]="getDatepickerDemoHighlightedCode(demo)"></code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-api-section" id="datepicker-api">
+              <h2>API</h2>
+              <p class="button-demo-description">
+                Date Picker exposes controlled values, open state, range selection, and custom cell arrays.
+              </p>
+
+              <h3 class="button-api-group-title">sportbook6vn-datepicker inputs</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of datepickerApiRows">
+                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                </div>
+              </div>
+
+              <h3 class="button-api-group-title">sportbook6vn-datepicker outputs</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Output</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Payload</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of datepickerOutputRows">
+                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="datepicker-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Date Picker uses the same DS color aliases as Input plus panel-specific selection and range tokens.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of datepickerVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table button-variable-table">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Applied To</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.rows">
+                    <div class="token-note-cell">
+                      <code class="token-code">{{ row.token }}</code>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </div>
+                    <code class="token-code">{{ row.value }}</code>
+                    <span>{{ row.appliesTo }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of datepickerVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'core3Mapping'">
             <div class="page-header">
               <div class="header-meta">
@@ -2246,6 +2531,40 @@
                         (valueChange)="setCore3CheckboxGroupVerticalValues($event)"
                       />
                     </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-demo-section" id="core3-datepicker-mapping">
+              <div class="button-demo-head">
+                <div>
+                  <h2>Date Picker Mapping</h2>
+                  <p>
+                    Đã tách sang tab <span class="button-inline-code">Date Picker</span> theo cấu trúc
+                    component docs riêng. Core-3 Mapping chỉ giữ lại trạng thái để tránh duplicate source
+                    of truth.
+                  </p>
+                  <div class="button-demo-tags">
+                    <span>source=preview</span>
+                    <span>component=datepicker</span>
+                    <span>target=Date Picker</span>
+                    <span>status=split</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-demo-card">
+                <div class="button-demo-preview core3-map-preview">
+                  <div class="doc-list-card">
+                    <h3>Moved to component docs</h3>
+                    <ul>
+                      <li>
+                        Use <span class="button-inline-code">Date Picker</span> for single date,
+                        date + time, interest, month, year, range, status, API, and component token docs.
+                      </li>
+                      <li>Keep this Core-3 tab as the mapping index only.</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -3501,6 +3820,60 @@
           </div>
         </ng-container>
 
+        <ng-container *ngIf="activePage() === 'datepicker'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of datepickerDemoSections"
+                  [class.active]="activeDatepickerSection() === getDatepickerSectionId(demo.id)"
+                  [href]="'#' + getDatepickerSectionId(demo.id)"
+                  (click)="setActiveDatepickerSection(getDatepickerSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeDatepickerSection() === 'datepicker-api'"
+                  href="#datepicker-api"
+                  (click)="setActiveDatepickerSection('datepicker-api')"
+                >
+                  API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeDatepickerSection() === 'datepicker-variables'"
+                  href="#datepicker-variables"
+                  (click)="setActiveDatepickerSection('datepicker-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Pro Tip</span>
+                </div>
+                <p>
+                  Use <span class="mono">Single Date</span> for one value and
+                  <span class="mono">Date Range</span> when the product needs start/end selection.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
         <ng-container *ngIf="activePage() === 'core3Mapping'">
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
@@ -3511,6 +3884,7 @@
                 <a class="toc-item" href="#core3-dropdown-family-mapping">Dropdown family mapping</a>
                 <a class="toc-item" href="#core3-radio-mapping">Radio mapping</a>
                 <a class="toc-item" href="#core3-checkbox-mapping">Checkbox mapping</a>
+                <a class="toc-item" href="#core3-datepicker-mapping">Date picker mapping</a>
               </div>
 
               <div class="pro-tip">

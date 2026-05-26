@@ -1,6 +1,14 @@
 {
   "name": "sportbook6vn",
   "version": "0.0.1",
+  "description": "Angular UI components and design tokens for Sportbook6VN.",
+  "keywords": [
+    "angular",
+    "ui",
+    "components",
+    "design-system",
+    "sportbook6vn"
+  ],
   "peerDependencies": {
     "@angular/common": "^21.2.0",
     "@angular/core": "^21.2.0",
@@ -11,5 +19,16 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": [
+    "**/*.css",
+    "**/*.less"
+  ],
+  "exports": {
+    "./theme.css": {
+      "default": "./tokens/sportbook6vn-theme.css"
+    },
+    "./zorro-bridge.less": {
+      "default": "./tokens/zorro-bridge.less"
+    }
+  }
 }

@@ -85,6 +85,29 @@
           "previewSection": "Dropdown family"
         }
       ]
+    },
+    {
+      "name": "datepicker",
+      "figmaNodes": [
+        "19034:8808",
+        "19035:15265",
+        "3871:179124",
+        "3883:180997",
+        "3883:180964",
+        "3883:181030",
+        "19765:31074",
+        "19766:31291",
+        "19777:14879",
+        "19777:15122",
+        "19779:21973"
+      ],
+      "components": [
+        {
+          "selector": "sportbook6vn-datepicker",
+          "entry": "projects/sportbook6vn/src/lib/components/datepicker/datepicker.component.ts",
+          "previewSection": "Date picker family"
+        }
+      ]
     }
   ]
 }

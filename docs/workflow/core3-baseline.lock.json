@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-21",
+  "version": "2026-05-26",
   "description": "Locked baseline for the shipped core-3 families: button, input, dropdown.",
   "files": [
     {
@@ -44,15 +44,15 @@
     },
     {
       "path": "projects/sportbook6vn-preview/src/app/app.component.ts",
-      "sha256": "5e298fa07b61b090f072a716e4c87c7d246814f2661e4d6db530c19d5b4c6e20"
+      "sha256": "acc2bd1400e97ed4b93eefb83ce0d0a29aadc84783e2b589c3c5d9602419b046"
     },
     {
       "path": "projects/sportbook6vn-preview/src/app/app.component.html",
-      "sha256": "3789499f2241368e268ca22d8e30f7f08acd909c905aeb3acc849f3560d4cf6c"
+      "sha256": "57c7dea4b0ec141352aa9a0f483df88ab1ef90152b2f4b4720e0810b8f6bfd75"
     },
     {
       "path": "projects/sportbook6vn-preview/src/app/app.component.scss",
-      "sha256": "e935c28fa752ef049b94332f957d4f742c8ec4a4805f3b9bb3b10bcf8aa68f67"
+      "sha256": "64081bfeb3482c0fd76bd5eb245aeccc8c03838ce53a9af2cec619ce3a51b449"
     }
   ]
 }

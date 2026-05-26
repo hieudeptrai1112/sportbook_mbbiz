@@ -6,6 +6,7 @@ import {
   Sportbook6vnButtonComponent,
   Sportbook6vnCheckboxComponent,
   Sportbook6vnCheckboxGroupComponent,
+  Sportbook6vnDatepickerComponent,
   Sportbook6vnDropdownComponent,
   Sportbook6vnDropdownTagComponent,
   Sportbook6vnFloatingLabelInputComponent,
@@ -30,6 +31,7 @@ import {
     Sportbook6vnButtonComponent,
     Sportbook6vnCheckboxComponent,
     Sportbook6vnCheckboxGroupComponent,
+    Sportbook6vnDatepickerComponent,
     Sportbook6vnDropdownComponent,
     Sportbook6vnDropdownTagComponent,
     Sportbook6vnFloatingLabelInputComponent,
@@ -89,8 +91,21 @@ export class Sportbook6vnPreviewAppComponent {
   protected readonly affixPreviewPrefixValue = signal<string | null>(null);
   protected readonly affixPreviewOpenAffix = signal<'prefix' | 'suffix' | null>('prefix');
   protected readonly affixInputValue = signal('');
+  protected readonly draftBasicInputValue = signal('');
+  protected readonly draftAffixInputValue = signal('');
+  protected readonly draftSearchValue = signal('');
+  protected readonly draftPasswordValue = signal('');
+  protected readonly draftPasswordVisible = signal(false);
+  protected readonly draftTextareaValue = signal('');
+  protected readonly draftFloatingLabelValue = signal('');
+  protected readonly draftAffixLabelValue = signal('');
+  protected readonly draftAffixLabelPrefixValue = signal<string | null>(null);
   protected readonly inputTagValue = signal('');
   protected readonly inputTagTags = signal<Sportbook6vnInputTagValue[]>([]);
+  protected readonly draftInputTagValue = signal('');
+  protected readonly draftInputTagTags = signal<Sportbook6vnInputTagValue[]>([]);
+  protected readonly draftInputTagValidatedValue = signal('');
+  protected readonly draftInputTagValidatedTags = signal<Sportbook6vnInputTagValue[]>([]);
   protected readonly inputTagOverflowTags = signal<Sportbook6vnInputTagValue[]>([
     'alpha',
     'beta',
@@ -153,12 +168,64 @@ export class Sportbook6vnPreviewAppComponent {
     this.affixInputValue.set(value);
   }
 
+  protected setDraftBasicInputValue(value: string) {
+    this.draftBasicInputValue.set(value);
+  }
+
+  protected setDraftAffixInputValue(value: string) {
+    this.draftAffixInputValue.set(value);
+  }
+
+  protected setDraftSearchValue(value: string) {
+    this.draftSearchValue.set(value);
+  }
+
+  protected setDraftPasswordValue(value: string) {
+    this.draftPasswordValue.set(value);
+  }
+
+  protected setDraftPasswordVisible(value: boolean) {
+    this.draftPasswordVisible.set(value);
+  }
+
+  protected setDraftTextareaValue(value: string) {
+    this.draftTextareaValue.set(value);
+  }
+
+  protected setDraftFloatingLabelValue(value: string) {
+    this.draftFloatingLabelValue.set(value);
+  }
+
+  protected setDraftAffixLabelValue(value: string) {
+    this.draftAffixLabelValue.set(value);
+  }
+
+  protected setDraftAffixLabelPrefixValue(value: string | null) {
+    this.draftAffixLabelPrefixValue.set(value);
+  }
+
   protected setInputTagValue(value: string) {
     this.inputTagValue.set(value);
   }
 
   protected setInputTagTags(value: Sportbook6vnInputTagValue[]) {
     this.inputTagTags.set(value);
+  }
+
+  protected setDraftInputTagValue(value: string) {
+    this.draftInputTagValue.set(value);
+  }
+
+  protected setDraftInputTagTags(value: Sportbook6vnInputTagValue[]) {
+    this.draftInputTagTags.set(value);
+  }
+
+  protected setDraftInputTagValidatedValue(value: string) {
+    this.draftInputTagValidatedValue.set(value);
+  }
+
+  protected setDraftInputTagValidatedTags(value: Sportbook6vnInputTagValue[]) {
+    this.draftInputTagValidatedTags.set(value);
   }
 
   protected setInputTagValidatedValue(value: string) {

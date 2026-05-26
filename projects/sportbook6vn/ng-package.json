@@ -4,5 +4,11 @@
   "lib": {
     "entryFile": "src/public-api.ts"
   },
-  "assets": ["src/lib/foundations/tokens"]
+  "assets": [
+    {
+      "glob": "**/*",
+      "input": "src/lib/foundations/tokens",
+      "output": "tokens"
+    }
+  ]
 }

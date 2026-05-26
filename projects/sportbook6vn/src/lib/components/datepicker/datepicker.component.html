@@ -1,0 +1,321 @@
+<div [class]="wrapperClass()">
+  @if (mode() === 'range') {
+    @if (field() === 'input') {
+      <div
+        class="sportbook6vn-datepicker__range-input"
+        [class.sportbook6vn-datepicker__range-input--placeholder]="!hasStartValue() && !hasEndValue()"
+        (click)="openRangePanelFromShell()"
+      >
+        @if (showTime()) {
+          <span
+            class="sportbook6vn-datepicker__range-value"
+            [class.sportbook6vn-datepicker__range-value--placeholder]="!hasStartValue()"
+            [class.sportbook6vn-datepicker__range-value--active]="localOpen() && localRangeActive() === 'start'"
+            (click)="$event.stopPropagation(); openRangePanel('start')"
+          >
+            <span class="sportbook6vn-datepicker__range-value-text">{{ startInputValue() || startPlaceholder() }}</span>
+          </span>
+          <span class="sportbook6vn-datepicker__range-separator" aria-hidden="true"></span>
+          <span
+            class="sportbook6vn-datepicker__range-value"
+            [class.sportbook6vn-datepicker__range-value--placeholder]="!hasEndValue()"
+            [class.sportbook6vn-datepicker__range-value--active]="localOpen() && localRangeActive() === 'end'"
+            (click)="$event.stopPropagation(); openRangePanel('end')"
+          >
+            <span class="sportbook6vn-datepicker__range-value-text">{{ endInputValue() || endPlaceholder() }}</span>
+          </span>
+        } @else {
+          <span class="sportbook6vn-datepicker__range-control-frame">
+            <input
+              type="text"
+              class="sportbook6vn-datepicker__range-control"
+              [class.sportbook6vn-datepicker__range-control--active]="localOpen() && localRangeActive() === 'start'"
+              [value]="startInputValue()"
+              [placeholder]="startPlaceholder()"
+              [style.width.px]="rangeInputWidth(startInputValue(), startPlaceholder())"
+              [disabled]="disabled()"
+              (focus)="openRangePanel('start')"
+              (click)="$event.stopPropagation(); openRangePanel('start')"
+              (input)="updateRangeInputValue('start', $event)"
+            />
+          </span>
+          <span class="sportbook6vn-datepicker__range-separator" aria-hidden="true"></span>
+          <span class="sportbook6vn-datepicker__range-control-frame">
+            <input
+              type="text"
+              class="sportbook6vn-datepicker__range-control"
+              [class.sportbook6vn-datepicker__range-control--active]="localOpen() && localRangeActive() === 'end'"
+              [value]="endInputValue()"
+              [placeholder]="endPlaceholder()"
+              [style.width.px]="rangeInputWidth(endInputValue(), endPlaceholder())"
+              [disabled]="disabled()"
+              (focus)="openRangePanel('end')"
+              (click)="$event.stopPropagation(); openRangePanel('end')"
+              (input)="updateRangeInputValue('end', $event)"
+            />
+          </span>
+        }
+        <button
+          type="button"
+          class="sportbook6vn-datepicker__calendar-action"
+          aria-label="Open calendar"
+          [disabled]="disabled()"
+          (click)="$event.stopPropagation(); toggleRangePanelFromIcon()"
+        >
+          <svg aria-hidden="true" viewBox="0 0 20 20" focusable="false">
+            <path d="M6 2.5v3M14 2.5v3M3.75 7.5h12.5M5 4h10a1.75 1.75 0 0 1 1.75 1.75v9.5A1.75 1.75 0 0 1 15 17H5a1.75 1.75 0 0 1-1.75-1.75v-9.5A1.75 1.75 0 0 1 5 4Z" />
+          </svg>
+        </button>
+      </div>
+    } @else {
+      <div class="sportbook6vn-datepicker__range-fields">
+        <button
+          type="button"
+          class="sportbook6vn-datepicker__trigger"
+          [class.sportbook6vn-datepicker__trigger--placeholder]="!hasStartValue()"
+          [class.sportbook6vn-datepicker__trigger--active]="localOpen() && localRangeActive() === 'start'"
+          [disabled]="disabled()"
+          (click)="openRangePanel('start')"
+        >
+          <span>{{ startLabel() }}</span>
+          <span class="sportbook6vn-datepicker__chevron" aria-hidden="true"></span>
+        </button>
+
+        <button
+          type="button"
+          class="sportbook6vn-datepicker__trigger"
+          [class.sportbook6vn-datepicker__trigger--placeholder]="!hasEndValue()"
+          [class.sportbook6vn-datepicker__trigger--active]="localOpen() && localRangeActive() === 'end'"
+          [disabled]="disabled()"
+          (click)="openRangePanel('end')"
+        >
+          <span>{{ endLabel() }}</span>
+          <span class="sportbook6vn-datepicker__chevron" aria-hidden="true"></span>
+        </button>
+      </div>
+    }
+  } @else {
+    @if (field() === 'input') {
+      <div
+        class="sportbook6vn-datepicker__input-field"
+        [class.sportbook6vn-datepicker__input-field--placeholder]="!hasValue()"
+        (click)="openPanel()"
+      >
+        <input
+          type="text"
+          class="sportbook6vn-datepicker__input-control"
+          [value]="inputValue()"
+          [placeholder]="placeholder()"
+          [disabled]="disabled()"
+          [attr.aria-invalid]="status() === 'error'"
+          (focus)="openPanel()"
+          (input)="updateInputValue($event)"
+        />
+        <button
+          type="button"
+          class="sportbook6vn-datepicker__calendar-action"
+          aria-label="Open calendar"
+          [disabled]="disabled()"
+          (click)="$event.stopPropagation(); toggleOpen()"
+        >
+          <svg aria-hidden="true" viewBox="0 0 20 20" focusable="false">
+            <path d="M6 2.5v3M14 2.5v3M3.75 7.5h12.5M5 4h10a1.75 1.75 0 0 1 1.75 1.75v9.5A1.75 1.75 0 0 1 15 17H5a1.75 1.75 0 0 1-1.75-1.75v-9.5A1.75 1.75 0 0 1 5 4Z" />
+          </svg>
+        </button>
+      </div>
+    } @else {
+      <button
+        type="button"
+        class="sportbook6vn-datepicker__trigger"
+        [class.sportbook6vn-datepicker__trigger--placeholder]="!hasValue()"
+        [disabled]="disabled()"
+        [attr.aria-expanded]="localOpen()"
+        (click)="toggleOpen()"
+      >
+        <span>{{ triggerLabel() }}</span>
+        <span class="sportbook6vn-datepicker__chevron" aria-hidden="true"></span>
+      </button>
+    }
+  }
+
+  @if (localOpen()) {
+    <div class="sportbook6vn-datepicker__panel" role="dialog" aria-label="Date picker panel">
+      <div class="sportbook6vn-datepicker__header">
+        <div class="sportbook6vn-datepicker__calendar-header">
+          @if (showTimeParts() || content() === 'interest') {
+            <div class="sportbook6vn-datepicker__nav-group">
+              <button
+                type="button"
+                class="sportbook6vn-datepicker__nav sportbook6vn-datepicker__nav--double"
+                aria-label="Previous year"
+                (click)="goToPreviousYearPanel()"
+              ></button>
+              <button
+                type="button"
+                class="sportbook6vn-datepicker__nav"
+                aria-label="Previous month"
+                (click)="goToPreviousPanel()"
+              ></button>
+            </div>
+          } @else {
+            <button type="button" class="sportbook6vn-datepicker__nav" aria-label="Previous" (click)="goToPreviousPanel()"></button>
+          }
+          @if (content() === 'day') {
+            <button type="button" class="sportbook6vn-datepicker__header-label" (click)="openMonthPanel()">
+              {{ resolvedPanelLabel() }}
+            </button>
+          } @else {
+            <span class="sportbook6vn-datepicker__header-label-text">{{ resolvedPanelLabel() }}</span>
+          }
+          @if (showTimeParts() || content() === 'interest') {
+            <div class="sportbook6vn-datepicker__nav-group">
+              <button
+                type="button"
+                class="sportbook6vn-datepicker__nav sportbook6vn-datepicker__nav--next"
+                aria-label="Next month"
+                (click)="goToNextPanel()"
+              ></button>
+              <button
+                type="button"
+                class="sportbook6vn-datepicker__nav sportbook6vn-datepicker__nav--next sportbook6vn-datepicker__nav--double"
+                aria-label="Next year"
+                (click)="goToNextYearPanel()"
+              ></button>
+            </div>
+          } @else {
+            <button type="button" class="sportbook6vn-datepicker__nav sportbook6vn-datepicker__nav--next" aria-label="Next" (click)="goToNextPanel()"></button>
+          }
+        </div>
+
+        @if (showTimeParts()) {
+          <div class="sportbook6vn-datepicker__time-header">{{ activeTimeLabel() }}</div>
+        }
+      </div>
+
+      <div class="sportbook6vn-datepicker__body">
+        @if (content() === 'interest') {
+          <div class="sportbook6vn-datepicker__interest-calendar">
+            <div class="sportbook6vn-datepicker__interest-weekdays" aria-hidden="true">
+              @for (weekday of weekdays; track weekday) {
+                <span>{{ weekday }}</span>
+              }
+            </div>
+
+            <div class="sportbook6vn-datepicker__interest-days">
+              @for (cell of interestCells(); track cell.value) {
+                <button
+                  type="button"
+                  [class]="interestCellClass(cell)"
+                  [disabled]="cell.disabled"
+                  (click)="selectCell(cell)"
+                >
+                  <span class="sportbook6vn-datepicker__interest-date">{{ cell.label }}</span>
+                  @if (cell.caption) {
+                    <span class="sportbook6vn-datepicker__interest-caption">{{ cell.caption }}</span>
+                  }
+                </button>
+              }
+            </div>
+          </div>
+        } @else if (panelContent() === 'day') {
+          <div class="sportbook6vn-datepicker__calendar">
+            <div class="sportbook6vn-datepicker__weekdays" aria-hidden="true">
+              @for (weekday of weekdays; track weekday) {
+                <span>{{ weekday }}</span>
+              }
+            </div>
+
+            <div class="sportbook6vn-datepicker__days">
+              @for (cell of displayedDayCells(); track cell.value) {
+                <button
+                  type="button"
+                  [class]="dayCellClass(cell)"
+                  [disabled]="cell.disabled"
+                  (click)="selectCell(cell)"
+                >
+                  {{ cell.label }}
+                </button>
+              }
+            </div>
+          </div>
+        } @else if (content() === 'time') {
+          <div class="sportbook6vn-datepicker__time-list">
+            @for (cell of timeCells(); track cell.value) {
+              <button
+                type="button"
+                [class]="timeCellClass(cell)"
+                [disabled]="cell.disabled"
+                (click)="selectCell(cell)"
+              >
+                {{ cell.label }}
+              </button>
+            }
+          </div>
+        } @else {
+          <div class="sportbook6vn-datepicker__options">
+            @for (cell of getPanelCells(); track cell.value) {
+              <button
+                type="button"
+                [class]="optionCellClass(cell)"
+                [disabled]="cell.disabled"
+                (click)="selectPanelCell(cell)"
+              >
+                {{ cell.label }}
+              </button>
+            }
+          </div>
+        }
+
+        @if (showTime() && panelContent() === 'day') {
+          @if (showTimeParts()) {
+            <div class="sportbook6vn-datepicker__time-range">
+              <div class="sportbook6vn-datepicker__time-column sportbook6vn-datepicker__time-column--hour">
+                @for (cell of hourCells(); track cell.value) {
+                  <button
+                    type="button"
+                    [class]="timePartCellClass('hour', cell)"
+                    [disabled]="cell.disabled"
+                    (click)="selectTimePart('hour', cell)"
+                  >
+                    {{ cell.label }}
+                  </button>
+                }
+              </div>
+
+              <div class="sportbook6vn-datepicker__time-column sportbook6vn-datepicker__time-column--minute">
+                @for (cell of minuteCells(); track cell.value) {
+                  <button
+                    type="button"
+                    [class]="timePartCellClass('minute', cell)"
+                    [disabled]="cell.disabled"
+                    (click)="selectTimePart('minute', cell)"
+                  >
+                    {{ cell.label }}
+                  </button>
+                }
+              </div>
+            </div>
+          } @else {
+            <div class="sportbook6vn-datepicker__time-column">
+              @for (cell of timeCells(); track cell.value) {
+                <button
+                  type="button"
+                  [class]="timeCellClass(cell)"
+                  [disabled]="cell.disabled"
+                  (click)="selectCell(cell)"
+                >
+                  {{ cell.label }}
+                </button>
+              }
+            </div>
+          }
+        }
+      </div>
+
+      <div class="sportbook6vn-datepicker__footer">
+        <button type="button" class="sportbook6vn-datepicker__reset" (click)="reset()">Thiết lập lại</button>
+        <button type="button" class="sportbook6vn-datepicker__apply" (click)="apply()">Áp dụng</button>
+      </div>
+    </div>
+  }
+</div>

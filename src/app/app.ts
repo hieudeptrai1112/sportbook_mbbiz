@@ -9,6 +9,7 @@ import {
   Sportbook6vnCheckboxComponent,
   Sportbook6vnCheckboxGroupComponent,
   type Sportbook6vnCheckboxGroupOption,
+  Sportbook6vnDatepickerComponent,
   Sportbook6vnDropdownComponent,
   type Sportbook6vnDropdownItem,
   Sportbook6vnDropdownTagComponent,
@@ -108,6 +109,16 @@ import {
   type RadioVariableGroup,
 } from './radio-demos.data';
 import {
+  DATEPICKER_API_ROWS,
+  DATEPICKER_DEMO_SECTIONS,
+  DATEPICKER_OUTPUT_ROWS,
+  DATEPICKER_VARIABLE_GROUPS,
+  DATEPICKER_VARIABLE_NOTES,
+  type DatepickerApiRow,
+  type DatepickerDemoSection,
+  type DatepickerVariableGroup,
+} from './datepicker-demos.data';
+import {
   DEFAULT_THEME_BRAND,
   DEFAULT_THEME_ID,
   DEFAULT_THEME_MODE,
@@ -191,6 +202,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     Sportbook6vnButtonComponent,
     Sportbook6vnCheckboxComponent,
     Sportbook6vnCheckboxGroupComponent,
+    Sportbook6vnDatepickerComponent,
     Sportbook6vnDropdownComponent,
     Sportbook6vnDropdownTagComponent,
     Sportbook6vnFloatingLabelInputComponent,
@@ -222,6 +234,7 @@ export class App {
     | 'inputTag'
     | 'dropdown'
     | 'radio'
+    | 'datepicker'
     | 'core3Mapping'
     | 'color'
     | 'tokens'
@@ -303,6 +316,16 @@ export class App {
   );
   protected readonly expandedRadioDemoIds = signal<string[]>([]);
   protected readonly copiedRadioDemoId = signal<string | null>(null);
+  protected readonly datepickerDemoSections: DatepickerDemoSection[] = DATEPICKER_DEMO_SECTIONS;
+  protected readonly datepickerApiRows: DatepickerApiRow[] = DATEPICKER_API_ROWS;
+  protected readonly datepickerOutputRows: DatepickerApiRow[] = DATEPICKER_OUTPUT_ROWS;
+  protected readonly datepickerVariableGroups: DatepickerVariableGroup[] = DATEPICKER_VARIABLE_GROUPS;
+  protected readonly datepickerVariableNotes = DATEPICKER_VARIABLE_NOTES;
+  protected readonly activeDatepickerSection = signal(
+    this.getDatepickerSectionId(this.datepickerDemoSections[0]?.id ?? 'single-date'),
+  );
+  protected readonly expandedDatepickerDemoIds = signal<string[]>([]);
+  protected readonly copiedDatepickerDemoId = signal<string | null>(null);
   protected readonly core3InputValue = signal('');
   protected readonly core3AffixPrefixValue = signal('');
   protected readonly core3SearchValue = signal('');
@@ -421,6 +444,7 @@ export class App {
       | 'inputTag'
       | 'dropdown'
       | 'radio'
+      | 'datepicker'
       | 'core3Mapping'
       | 'color'
       | 'tokens'
@@ -442,6 +466,8 @@ export class App {
       setTimeout(() => this.updateActiveDropdownSection(), 0);
     } else if (page === 'radio') {
       setTimeout(() => this.updateActiveRadioSection(), 0);
+    } else if (page === 'datepicker') {
+      setTimeout(() => this.updateActiveDatepickerSection(), 0);
     }
   }
 
@@ -1112,6 +1138,14 @@ export class App {
     return `radio-${sectionId}`;
   }
 
+  protected setActiveDatepickerSection(sectionId: string) {
+    this.activeDatepickerSection.set(sectionId);
+  }
+
+  protected getDatepickerSectionId(sectionId: string): string {
+    return `datepicker-${sectionId}`;
+  }
+
   protected isDropdownDemoExpanded(sectionId: string): boolean {
     return this.expandedDropdownDemoIds().includes(sectionId);
   }
@@ -1216,6 +1250,58 @@ export class App {
     }, 1200);
   }
 
+  protected isDatepickerDemoExpanded(sectionId: string): boolean {
+    return this.expandedDatepickerDemoIds().includes(sectionId);
+  }
+
+  protected toggleDatepickerDemoCode(sectionId: string) {
+    const next = new Set(this.expandedDatepickerDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedDatepickerDemoIds.set([...next]);
+  }
+
+  protected toggleAllDatepickerDemoCode() {
+    const expanded = this.expandedDatepickerDemoIds();
+    const allIds = this.datepickerDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedDatepickerDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllDatepickerDemoCodeExpanded(): boolean {
+    return this.expandedDatepickerDemoIds().length === this.datepickerDemoSections.length;
+  }
+
+  protected getDatepickerDemoCode(section: DatepickerDemoSection): string {
+    return section.snippetTs;
+  }
+
+  protected getDatepickerDemoHighlightedCode(section: DatepickerDemoSection): string {
+    return this.highlightTypeScriptSnippet(this.getDatepickerDemoCode(section));
+  }
+
+  protected getDatepickerCodeLanguageLabel(section: DatepickerDemoSection): string {
+    return `datepicker-${section.id}-demo.component.ts`;
+  }
+
+  protected getDatepickerCodeHint(): string {
+    return 'Angular standalone snippet';
+  }
+
+  protected async copyDatepickerDemoCode(section: DatepickerDemoSection) {
+    const code = this.getDatepickerDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedDatepickerDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedDatepickerDemoId() === section.id) {
+        this.copiedDatepickerDemoId.set(null);
+      }
+    }, 1200);
+  }
+
   protected setRadioGroupValue(value: string | number | null) {
     this.radioGroupValue.set(value);
   }
@@ -1234,6 +1320,7 @@ export class App {
     this.updateActiveInputTagSection();
     this.updateActiveDropdownSection();
     this.updateActiveRadioSection();
+    this.updateActiveDatepickerSection();
   }
 
   private updateActiveTokenSection() {
@@ -1416,6 +1503,31 @@ export class App {
     this.activeRadioSection.set(currentSection);
   }
 
+  private updateActiveDatepickerSection() {
+    if (this.activePage() !== 'datepicker' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getDatepickerSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeDatepickerSection.set(currentSection);
+  }
+
   private buildSemanticTokenGroups(): SemanticTokenGroup[] {
     const normalizeAlias = (alias: string) => alias.replace(/^color\/semantic\//, '');
     const orderPairs: Array<[string, readonly string[]]> = [
@@ -1589,6 +1701,14 @@ export class App {
       ...this.radioDemoSections.map((section) => this.getRadioSectionId(section.id)),
       'radio-api',
       'radio-variables',
+    ];
+  }
+
+  private getDatepickerSectionIds(): string[] {
+    return [
+      ...this.datepickerDemoSections.map((section) => this.getDatepickerSectionId(section.id)),
+      'datepicker-api',
+      'datepicker-variables',
     ];
   }
 
@@ -2310,7 +2430,7 @@ export class InputDisabledDemoComponent {}`;
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|Sportbook6vnButtonComponent|Sportbook6vnInputComponent|Sportbook6vnAffixInputComponent|Sportbook6vnSearchInputComponent|Sportbook6vnPasswordInputComponent|Sportbook6vnTextareaComponent|Sportbook6vnFloatingLabelInputComponent|Sportbook6vnAffixLabelInputComponent|Sportbook6vnAffixDropdownItem|Sportbook6vnDropdownComponent|Sportbook6vnDropdownTagComponent|Sportbook6vnDropdownItem|Sportbook6vnInputTagComponent|Sportbook6vnInputTagValue|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
+      /\b(Component|Sportbook6vnButtonComponent|Sportbook6vnInputComponent|Sportbook6vnAffixInputComponent|Sportbook6vnSearchInputComponent|Sportbook6vnPasswordInputComponent|Sportbook6vnTextareaComponent|Sportbook6vnFloatingLabelInputComponent|Sportbook6vnAffixLabelInputComponent|Sportbook6vnAffixDropdownItem|Sportbook6vnDropdownComponent|Sportbook6vnDropdownTagComponent|Sportbook6vnDropdownItem|Sportbook6vnInputTagComponent|Sportbook6vnInputTagValue|Sportbook6vnDatepickerComponent|Sportbook6vnDatepickerCell|Sportbook6vnDatepickerRangeValue|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');

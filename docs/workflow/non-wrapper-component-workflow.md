@@ -13,6 +13,13 @@ Triển khai component theo hướng **không wrapper**: component thật đư�
 5. Mapping/tách không được viết lại component; chỉ tổ chức demo/docs quanh component thật.
 6. Snippet/API/token docs được hoàn thiện sau khi component đã ổn định qua preview và mapping.
 
+## Định danh môi trường
+
+- `preview app`: `http://127.0.0.1:4300/`.
+- `sportbook6vn app` / app docs: môi trường docs/app riêng, không được dùng thay cho preview.
+- Khi kiểm tra preview, luôn mở `http://127.0.0.1:4300/` và tìm đúng section component trong preview.
+- Khi mapping/tách/docs, preview là nguồn đã chốt; sportbook6vn app/docs là đích hiển thị.
+
 ## Chuỗi bước chuẩn
 
 1. Chốt đầu vào:

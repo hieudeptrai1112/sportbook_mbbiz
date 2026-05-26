@@ -84,6 +84,34 @@
       ],
       "docsAppTargets": ["src/app/app.ts", "src/app/app.html"],
       "appSelectors": ["sportbook6vn-dropdown"]
+    },
+    {
+      "name": "datepicker",
+      "figmaNodes": [
+        "19034:8808",
+        "19035:15265",
+        "3871:179124",
+        "3883:180997",
+        "3883:180964",
+        "3883:181030",
+        "19765:31074",
+        "19766:31291",
+        "19777:14879",
+        "19777:15122",
+        "19779:21973"
+      ],
+      "previewSection": "Date picker family",
+      "previewSelectors": ["sportbook6vn-datepicker"],
+      "libraryEntries": [
+        "projects/sportbook6vn/src/lib/components/datepicker/datepicker.component.ts",
+        "projects/sportbook6vn/src/lib/components/datepicker/datepicker.types.ts"
+      ],
+      "docsAppTargets": [
+        "src/app/app.ts",
+        "src/app/app.html",
+        "src/app/app.scss"
+      ],
+      "appSelectors": ["sportbook6vn-datepicker"]
     }
   ]
 }

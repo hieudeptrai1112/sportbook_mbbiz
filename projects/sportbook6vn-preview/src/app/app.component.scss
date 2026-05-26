@@ -109,6 +109,155 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.sportbook6vn-preview-doc-list {
+  display: grid;
+  gap: 24px;
+}
+
+.sportbook6vn-preview-doc-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  display: grid;
+  gap: 16px;
+  overflow: visible;
+  padding: 20px;
+}
+
+.sportbook6vn-preview-doc-card__heading {
+  display: grid;
+  gap: 8px;
+}
+
+.sportbook6vn-preview-doc-card__heading h3 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.sportbook6vn-preview-doc-card__heading p {
+  color: #4e5969;
+  margin: 0;
+}
+
+.sportbook6vn-preview-demo-frame {
+  background: #ffffff;
+  border: 1px solid #edf0f5;
+  border-radius: 12px;
+  display: grid;
+  gap: 24px;
+  overflow: visible;
+  padding: 24px;
+}
+
+.sportbook6vn-preview-demo-frame--compact {
+  min-height: 140px;
+}
+
+.sportbook6vn-preview-demo-frame--intrinsic {
+  align-items: flex-start;
+  justify-items: start;
+}
+
+.sportbook6vn-preview-doc-card sportbook6vn-input-tag {
+  align-self: flex-start;
+  justify-self: start;
+}
+
+.sportbook6vn-preview-demo-frame--open {
+  align-items: flex-start;
+  display: inline-flex;
+  justify-self: start;
+  min-height: 320px;
+  width: fit-content;
+}
+
+.sportbook6vn-preview-demo-frame--empty {
+  display: block;
+  min-height: 560px;
+}
+
+.sportbook6vn-preview-use-case-grid {
+  align-items: flex-start;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sportbook6vn-preview-use-case-grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sportbook6vn-preview-use-case-grid--spaced {
+  margin-top: 24px;
+}
+
+.sportbook6vn-preview-open-grid {
+  align-content: flex-start;
+  align-items: flex-start;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(2, 250px);
+}
+
+.sportbook6vn-preview-open-grid--three {
+  grid-template-columns: repeat(3, minmax(0, 317px));
+}
+
+.sportbook6vn-preview-open-grid--datepicker-single {
+  grid-template-columns: repeat(2, minmax(304px, 1fr));
+}
+
+.sportbook6vn-preview-dropdown-stage {
+  align-content: flex-start;
+  align-items: flex-start;
+  display: grid;
+  gap: 12px;
+  min-height: auto;
+  min-width: 0;
+  position: relative;
+}
+
+.sportbook6vn-preview-datepicker-frame {
+  align-items: flex-start;
+  min-height: 360px;
+  overflow: visible;
+}
+
+.sportbook6vn-preview-datepicker-frame--input {
+  min-height: 520px;
+}
+
+.sportbook6vn-preview-datepicker-frame--range {
+  min-height: 420px;
+}
+
+.sportbook6vn-preview-datepicker-frame--cases {
+  min-height: 320px;
+}
+
+.sportbook6vn-preview-datepicker-frame--status {
+  min-height: 180px;
+}
+
+.sportbook6vn-preview-datepicker-frame--states {
+  min-height: 720px;
+}
+
+.sportbook6vn-preview-datepicker-state-grid {
+  align-items: flex-start;
+  display: grid;
+  gap: 56px 96px;
+  grid-template-columns: repeat(2, minmax(0, 320px));
+}
+
+.sportbook6vn-preview-datepicker-list .sportbook6vn-preview-dropdown-stage {
+  min-height: 92px;
+}
+
+.sportbook6vn-preview-datepicker-list .sportbook6vn-preview-datepicker-frame--status .sportbook6vn-preview-dropdown-stage {
+  min-height: auto;
+}
+
 .sportbook6vn-preview-input-tag-pair--arco .sportbook6vn-input-tag {
   background: #f2f3f5;
   border-color: transparent;
@@ -274,7 +423,17 @@
     grid-template-columns: 1fr;
   }
 
+  .sportbook6vn-preview-use-case-grid,
+  .sportbook6vn-preview-use-case-grid--three,
+  .sportbook6vn-preview-open-grid {
+    grid-template-columns: 1fr;
+  }
+
   .sportbook6vn-preview-modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sportbook6vn-preview-datepicker-state-grid {
     grid-template-columns: 1fr;
   }
 }

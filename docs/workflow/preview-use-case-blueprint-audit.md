@@ -77,29 +77,35 @@ Các demo có sẵn trong `node_modules/ng-zorro-antd/schematics/demo` dùng là
    - Blueprint dự kiến theo phạm vi Figma: `Basic`, `Size`, `Shape`, `With icon`, `Disabled`.
    - Suggested missing cases nếu Figma không có: `Loading`, `Danger`, `Block`.
    - Không động tab `Buttons` nếu chỉ làm preview/mapping.
+   - Phase 2 update: preview đã chuyển sang các card `Basic`, `Size`, `Shape`, `With icon`, `Disabled`; chi tiết khóa ở `docs/workflow/phase-2-button-modal-blueprint.md`.
 
 5. Modal
    - Blueprint dự kiến: `Form / Two actions`, `Form / Single action`.
    - Suggested missing cases nếu Figma không có: `Async close`, `Confirm`, `Footer custom`.
    - Kiểm tra single action footer alignment trước khi chốt.
+   - Phase 2 update: preview giữ đúng hai use case đã có Figma node; chi tiết khóa ở `docs/workflow/phase-2-button-modal-blueprint.md`.
 
 ### Phase 3: Dropdown family, tách trigger và droplist rõ ràng
 
 6. Dropdown single
    - Blueprint dự kiến: `Basic`, `Selected`, `Inside label`, `Open`, `Error`, `Disabled`.
    - Không thêm title outside nếu node không có.
+   - Phase 3 update: preview đã chuyển sang docs-ready card `Basic Select`, `Inside Label`, `Searchable Droplist`, `Status`, `Disabled`; chi tiết khóa ở `docs/workflow/phase-3-dropdown-blueprint.md`.
 
 7. Dropdown multi
    - Blueprint dự kiến: `Basic`, `Selected`, `Inside label`, `Open`, `Error`, `Disabled`.
    - Kiểm tra overflow text không tràn.
+   - Phase 3 update: preview đã chuyển sang docs-ready card `Multiple Select`, `Inside Label`, `Searchable Droplist`, `Status`, `Disabled`; chi tiết khóa ở `docs/workflow/phase-3-dropdown-blueprint.md`.
 
 8. Dropdown tag
    - Blueprint dự kiến: `Basic`, `Selected tags`, `Overflow +N`, `Open`, `Error`, `Disabled`.
    - `+N` hover popover chỉ làm nếu Figma/user đã yêu cầu.
+   - Phase 3 update: preview đã chuyển sang docs-ready card `Tag Select`, `Tag Droplist`, `Status`, `Disabled`; error không thêm helptext; chi tiết khóa ở `docs/workflow/phase-3-dropdown-blueprint.md`.
 
 9. Droplist empty states
    - Blueprint dự kiến theo node đã cung cấp: `No data`, `Search no data`, `API error`, `Loading`.
    - Rule search/scrollbar chỉ áp dụng theo sản phẩm: >5 options hiển thị search + scrollbar.
+   - Phase 3 update: preview đã chuyển sang docs-ready card `Empty States` với bốn use case có nhãn; chi tiết khóa ở `docs/workflow/phase-3-dropdown-blueprint.md`.
 
 ### Phase 4: Input family, xử lý từng child component
 
@@ -143,4 +149,3 @@ Các demo có sẵn trong `node_modules/ng-zorro-antd/schematics/demo` dùng là
 - Component thật giữ nguyên source of truth; preview chỉ render component thật.
 - Nếu phát hiện case NG-Zorro/Arco hợp lý nhưng thiếu trong Figma, chỉ ghi `Suggested missing cases`.
 - Sau khi user chốt preview, mới mapping/tách/docs.
-
