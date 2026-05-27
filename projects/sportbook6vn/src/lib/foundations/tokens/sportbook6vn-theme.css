@@ -50,6 +50,17 @@
   --sportbook6vn-color-radio-background-disabled: #f3f3f3;
   --sportbook6vn-color-radio-selected-default: #52dddd;
   --sportbook6vn-color-radio-selected-disabled: #cccccc;
+  --sportbook6vn-color-breadcrumb-text-default: #6d83a7;
+  --sportbook6vn-color-breadcrumb-text-hover: #192d39;
+  --sportbook6vn-color-breadcrumb-text-focus: #354a5e;
+  --sportbook6vn-color-breadcrumb-icon-default: #6d83a7;
+  --sportbook6vn-color-breadcrumb-icon-hover: #192d39;
+  --sportbook6vn-color-breadcrumb-icon-focus: #354a5e;
+  --sportbook6vn-color-steps-step-default: #6d83a7;
+  --sportbook6vn-color-steps-step-active: #7b5fff;
+  --sportbook6vn-color-steps-step-next: #cadbe8;
+  --sportbook6vn-color-steps-line: #a3b7fd;
+  --sportbook6vn-color-steps-marker-text: #ffffff;
 
   --sportbook6vn-color-surface-primary: #ffffff;
   --sportbook6vn-color-surface-secondary: #ffffff;

@@ -1251,6 +1251,60 @@ sportbook6vn-button.button-doc-state-pressed
   width: min(100%, 460px);
 }
 
+.core3-breadcrumb-card,
+.core3-breadcrumb-preview {
+  overflow: visible;
+}
+
+.core3-breadcrumb-preview {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 28px;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.core3-breadcrumb-stack {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.core3-breadcrumb-state {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 640px);
+}
+
+.core3-steps-card,
+.core3-steps-preview {
+  overflow: visible;
+}
+
+.core3-steps-preview {
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 640px;
+  overflow-x: auto;
+}
+
+.core3-steps-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  min-width: 900px;
+  padding: 8px;
+  width: 100%;
+}
+
+.core3-steps-row {
+  align-items: start;
+  display: grid;
+  gap: 56px;
+}
+
 .core3-datepicker-card,
 .core3-datepicker-preview,
 .core3-datepicker-family,

@@ -219,9 +219,21 @@
               <span>Iconography</span>
             </div>
             <span class="sidebar-sublabel">Navigation</span>
-            <div class="sidebar-link">
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'breadcrumb'"
+              (click)="setPage('breadcrumb')"
+            >
               <img src="/assets/figma/c91fd4e6-3715-400c-afc3-e607a5774d04.svg" alt="" />
               <span>Breadcrumb</span>
+            </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'steps'"
+              (click)="setPage('steps')"
+            >
+              <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
+              <span>Steps</span>
             </div>
             <div
               class="sidebar-link"
@@ -1433,6 +1445,288 @@
                   <li *ngFor="let note of inputTagVariableNotes">{{ note }}</li>
                 </ul>
               </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'breadcrumb'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Navigation</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Breadcrumb</h1>
+              <p class="lead">
+                Breadcrumb wraps NG-Zorro nz-breadcrumb and applies the approved Sportbook6VN
+                typography, separator, and item states from Figma.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of breadcrumbDemoSections; let i = index"
+              [attr.id]="getBreadcrumbSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+                <button
+                  *ngIf="i === 0"
+                  class="button-doc-toggle"
+                  type="button"
+                  (click)="toggleAllBreadcrumbDemoCode()"
+                >
+                  {{ areAllBreadcrumbDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                </button>
+              </div>
+              <p class="button-demo-description button-demo-description--rich">
+                @for (part of demo.descriptionParts; track $index) {
+                  @if (part.code) {
+                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                  } @else {
+                    <span>{{ part.text }}</span>
+                  }
+                }
+              </p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card core3-breadcrumb-card">
+                <div class="button-demo-preview core3-map-preview core3-breadcrumb-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <div *ngSwitchCase="'amount'" class="core3-breadcrumb-stack">
+                      <sportbook6vn-breadcrumb [amount]="1" />
+                      <sportbook6vn-breadcrumb [amount]="2" />
+                      <sportbook6vn-breadcrumb [amount]="3" />
+                      <sportbook6vn-breadcrumb [amount]="4" />
+                      <sportbook6vn-breadcrumb [amount]="5" />
+                    </div>
+
+                    <div *ngSwitchCase="'state'" class="core3-breadcrumb-state">
+                      <sportbook6vn-breadcrumb [amount]="2" />
+                    </div>
+                  </ng-container>
+                </div>
+
+                <div class="button-demo-controls">
+                  <div class="button-demo-icons">
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      [class.active]="isBreadcrumbDemoExpanded(demo.id)"
+                      (click)="toggleBreadcrumbDemoCode(demo.id)"
+                      aria-label="Toggle code"
+                    >
+                      &lt;/&gt;
+                    </button>
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      (click)="copyBreadcrumbDemoCode(demo)"
+                      aria-label="Copy code"
+                    >
+                      {{ copiedBreadcrumbDemoId() === demo.id ? 'Copied' : 'Copy' }}
+                    </button>
+                  </div>
+
+                  <span class="button-code-hint">TS</span>
+                </div>
+
+                <div class="button-code-wrapper" *ngIf="isBreadcrumbDemoExpanded(demo.id)">
+                  <div class="button-code-head">
+                    <span class="button-code-file">{{ getBreadcrumbCodeLanguageLabel(demo) }}</span>
+                    <span class="button-code-hint">{{ getBreadcrumbCodeHint() }}</span>
+                  </div>
+                  <pre class="button-code-block"><code [innerHTML]="getBreadcrumbDemoHighlightedCode(demo)"></code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-api-section" id="breadcrumb-api">
+              <h2>API</h2>
+              <h3 class="button-api-group-title">sportbook6vn-breadcrumb</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of breadcrumbApiRows">
+                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="breadcrumb-variables">
+              <h2>Component Token</h2>
+              <div class="scale-block" *ngFor="let group of breadcrumbVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table button-variable-table">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.rows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <ul class="button-variable-notes">
+                <li *ngFor="let note of breadcrumbVariableNotes">{{ note }}</li>
+              </ul>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'steps'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Navigation</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Steps</h1>
+              <p class="lead">
+                Steps renders sequential progress states with Sportbook6VN numbered markers,
+                connector lines, and active/inactive text treatment from Figma.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of stepsDemoSections; let i = index"
+              [attr.id]="getStepsSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+                <button
+                  *ngIf="i === 0"
+                  class="button-doc-toggle"
+                  type="button"
+                  (click)="toggleAllStepsDemoCode()"
+                >
+                  {{ areAllStepsDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                </button>
+              </div>
+              <p class="button-demo-description button-demo-description--rich">
+                @for (part of demo.descriptionParts; track $index) {
+                  @if (part.code) {
+                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                  } @else {
+                    <span>{{ part.text }}</span>
+                  }
+                }
+              </p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card core3-steps-card">
+                <div class="button-demo-preview core3-map-preview core3-steps-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <div *ngSwitchCase="'number'" class="core3-steps-matrix">
+                      <div
+                        class="core3-steps-row"
+                        *ngFor="let group of stepsNumberMatrix"
+                        [style.grid-template-columns]="'repeat(' + group.currents.length + ', minmax(120px, 218px))'"
+                      >
+                        <sportbook6vn-steps
+                          *ngFor="let currentStep of group.currents"
+                          [amount]="group.amount"
+                          [current]="currentStep"
+                        />
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+
+                <div class="button-demo-controls">
+                  <div class="button-demo-icons">
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      [class.active]="isStepsDemoExpanded(demo.id)"
+                      (click)="toggleStepsDemoCode(demo.id)"
+                      aria-label="Toggle code"
+                    >
+                      &lt;/&gt;
+                    </button>
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      (click)="copyStepsDemoCode(demo)"
+                      aria-label="Copy code"
+                    >
+                      {{ copiedStepsDemoId() === demo.id ? 'Copied' : 'Copy' }}
+                    </button>
+                  </div>
+
+                  <span class="button-code-hint">TS</span>
+                </div>
+
+                <div class="button-code-wrapper" *ngIf="isStepsDemoExpanded(demo.id)">
+                  <div class="button-code-head">
+                    <span class="button-code-file">{{ getStepsCodeLanguageLabel(demo) }}</span>
+                    <span class="button-code-hint">{{ getStepsCodeHint() }}</span>
+                  </div>
+                  <pre class="button-code-block"><code [innerHTML]="getStepsDemoHighlightedCode(demo)"></code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-api-section" id="steps-api">
+              <h2>API</h2>
+              <h3 class="button-api-group-title">sportbook6vn-steps</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of stepsApiRows">
+                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="steps-variables">
+              <h2>Component Token</h2>
+              <div class="scale-block" *ngFor="let group of stepsVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table button-variable-table">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.rows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <ul class="button-variable-notes">
+                <li *ngFor="let note of stepsVariableNotes">{{ note }}</li>
+              </ul>
             </section>
           </ng-container>
 
@@ -3746,6 +4040,115 @@
             <button
               class="anchor-collapse-btn"
               type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'breadcrumb'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of breadcrumbDemoSections"
+                  [class.active]="activeBreadcrumbSection() === getBreadcrumbSectionId(demo.id)"
+                  [href]="'#' + getBreadcrumbSectionId(demo.id)"
+                  (click)="setActiveBreadcrumbSection(getBreadcrumbSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeBreadcrumbSection() === 'breadcrumb-api'"
+                  href="#breadcrumb-api"
+                  (click)="setActiveBreadcrumbSection('breadcrumb-api')"
+                >
+                  API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeBreadcrumbSection() === 'breadcrumb-variables'"
+                  href="#breadcrumb-variables"
+                  (click)="setActiveBreadcrumbSection('breadcrumb-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Pro Tip</span>
+                </div>
+                <p>
+                  Use <span class="mono">items</span> for real routes and
+                  <span class="mono">amount</span> only for deterministic preview states.
+                </p>
+              </div>
+            </aside>
+
+            <button
+              type="button"
+              class="anchor-collapse-btn"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'steps'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of stepsDemoSections"
+                  [class.active]="activeStepsSection() === getStepsSectionId(demo.id)"
+                  [href]="'#' + getStepsSectionId(demo.id)"
+                  (click)="setActiveStepsSection(getStepsSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeStepsSection() === 'steps-api'"
+                  href="#steps-api"
+                  (click)="setActiveStepsSection('steps-api')"
+                >
+                  API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeStepsSection() === 'steps-variables'"
+                  href="#steps-variables"
+                  (click)="setActiveStepsSection('steps-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Pro Tip</span>
+                </div>
+                <p>
+                  Use <span class="mono">current</span> as a zero-based index and keep each step title short.
+                </p>
+              </div>
+            </aside>
+
+            <button
+              type="button"
+              class="anchor-collapse-btn"
               (click)="toggleTocCollapsed()"
               [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
             >

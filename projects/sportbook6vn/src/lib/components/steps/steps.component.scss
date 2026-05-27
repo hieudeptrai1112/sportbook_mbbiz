@@ -1,0 +1,148 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.sportbook6vn-steps {
+  --sportbook6vn-steps-marker-size: 24px;
+  --sportbook6vn-steps-marker-bg: var(--sportbook6vn-color-steps-step-default, #6d83a7);
+  --sportbook6vn-steps-title-color: var(--sportbook6vn-color-steps-step-default, #6d83a7);
+  --sportbook6vn-steps-tail-color: var(--sportbook6vn-color-steps-line, #a3b7fd);
+
+  color: var(--sportbook6vn-steps-title-color);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--sportbook6vn-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  line-height: 24px;
+  width: min(100%, 218px);
+}
+
+.sportbook6vn-steps--size-badge {
+  --sportbook6vn-steps-marker-size: 20px;
+
+  width: auto;
+}
+
+.sportbook6vn-steps__item {
+  align-items: flex-start;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 20px;
+  color: var(--sportbook6vn-steps-title-color);
+  display: flex;
+  font: inherit;
+  gap: 16px;
+  margin: 0;
+  min-height: var(--sportbook6vn-steps-marker-size);
+  padding: 0;
+  position: relative;
+  text-align: left;
+  width: 100%;
+}
+
+.sportbook6vn-steps__item--finish,
+.sportbook6vn-steps__item--wait {
+  --sportbook6vn-steps-marker-bg: var(--sportbook6vn-color-steps-step-default, #6d83a7);
+  --sportbook6vn-steps-title-color: var(--sportbook6vn-color-steps-step-default, #6d83a7);
+}
+
+.sportbook6vn-steps__item--process {
+  --sportbook6vn-steps-marker-bg: var(--sportbook6vn-color-steps-step-active, #7b5fff);
+  --sportbook6vn-steps-title-color: var(--sportbook6vn-color-steps-step-active, #7b5fff);
+}
+
+.sportbook6vn-steps--size-badge .sportbook6vn-steps__item--wait {
+  --sportbook6vn-steps-marker-bg: var(--sportbook6vn-color-steps-step-next, #cadbe8);
+}
+
+.sportbook6vn-steps__item--clickable {
+  cursor: pointer;
+}
+
+.sportbook6vn-steps__item--disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.sportbook6vn-steps__item:focus-visible {
+  outline: 2px solid var(--sportbook6vn-color-steps-step-active, #7b5fff);
+  outline-offset: 3px;
+}
+
+.sportbook6vn-steps__marker-stack {
+  align-items: center;
+  display: flex;
+  flex: 0 0 var(--sportbook6vn-steps-marker-size);
+  flex-direction: column;
+  min-height: calc(var(--sportbook6vn-steps-marker-size) + 34px);
+}
+
+.sportbook6vn-steps__item--last .sportbook6vn-steps__marker-stack,
+.sportbook6vn-steps--size-badge .sportbook6vn-steps__marker-stack {
+  min-height: var(--sportbook6vn-steps-marker-size);
+}
+
+.sportbook6vn-steps__marker {
+  align-items: center;
+  background: var(--sportbook6vn-steps-marker-bg);
+  border-radius: 20px;
+  color: var(--sportbook6vn-color-steps-marker-text, #ffffff);
+  display: inline-flex;
+  flex: 0 0 var(--sportbook6vn-steps-marker-size);
+  font-size: 12px;
+  font-weight: 400;
+  height: var(--sportbook6vn-steps-marker-size);
+  justify-content: center;
+  letter-spacing: 0.25px;
+  line-height: 16px;
+  min-width: var(--sportbook6vn-steps-marker-size);
+  text-align: center;
+  width: var(--sportbook6vn-steps-marker-size);
+}
+
+.sportbook6vn-steps__tail {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--sportbook6vn-steps-tail-color) 0,
+    var(--sportbook6vn-steps-tail-color) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  display: block;
+  flex: 0 0 34px;
+  height: 34px;
+  width: 1px;
+}
+
+.sportbook6vn-steps__content {
+  color: inherit;
+  display: inline-flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sportbook6vn-steps--size-badge .sportbook6vn-steps__content,
+.sportbook6vn-steps--size-badge .sportbook6vn-steps__tail {
+  display: none;
+}
+
+.sportbook6vn-steps__title {
+  color: inherit;
+  display: block;
+  font: inherit;
+  overflow-wrap: anywhere;
+}
+
+.sportbook6vn-steps__description {
+  color: var(--sportbook6vn-color-text-secondary, #6d83a7);
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin-top: 2px;
+}

@@ -6,6 +6,7 @@ import {
   Sportbook6vnAffixLabelInputComponent,
   type Sportbook6vnAffixDropdownItem,
   Sportbook6vnButtonComponent,
+  Sportbook6vnBreadcrumbComponent,
   Sportbook6vnCheckboxComponent,
   Sportbook6vnCheckboxGroupComponent,
   type Sportbook6vnCheckboxGroupOption,
@@ -22,6 +23,7 @@ import {
   Sportbook6vnRadioGroupComponent,
   type Sportbook6vnRadioGroupOption,
   Sportbook6vnSearchInputComponent,
+  Sportbook6vnStepsComponent,
   Sportbook6vnTextareaComponent,
   type Sportbook6vnButtonSize,
   type Sportbook6vnButtonVariant,
@@ -119,6 +121,26 @@ import {
   type DatepickerVariableGroup,
 } from './datepicker-demos.data';
 import {
+  BREADCRUMB_API_ROWS,
+  BREADCRUMB_DEMO_SECTIONS,
+  BREADCRUMB_VARIABLE_GROUPS,
+  BREADCRUMB_VARIABLE_NOTES,
+  type BreadcrumbApiRow,
+  type BreadcrumbDemoSection,
+  type BreadcrumbVariableGroup,
+} from './breadcrumb-demos.data';
+import {
+  STEPS_API_ROWS,
+  STEPS_DEMO_SECTIONS,
+  STEPS_NUMBER_MATRIX,
+  STEPS_VARIABLE_GROUPS,
+  STEPS_VARIABLE_NOTES,
+  type StepsApiRow,
+  type StepsDemoSection,
+  type StepsNumberMatrixRow,
+  type StepsVariableGroup,
+} from './steps-demos.data';
+import {
   DEFAULT_THEME_BRAND,
   DEFAULT_THEME_ID,
   DEFAULT_THEME_MODE,
@@ -200,6 +222,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     Sportbook6vnAffixInputComponent,
     Sportbook6vnAffixLabelInputComponent,
     Sportbook6vnButtonComponent,
+    Sportbook6vnBreadcrumbComponent,
     Sportbook6vnCheckboxComponent,
     Sportbook6vnCheckboxGroupComponent,
     Sportbook6vnDatepickerComponent,
@@ -212,6 +235,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     Sportbook6vnRadioComponent,
     Sportbook6vnRadioGroupComponent,
     Sportbook6vnSearchInputComponent,
+    Sportbook6vnStepsComponent,
     Sportbook6vnTextareaComponent,
   ],
   templateUrl: './app.html',
@@ -232,6 +256,8 @@ export class App {
     | 'buttonMapping'
     | 'inputField'
     | 'inputTag'
+    | 'breadcrumb'
+    | 'steps'
     | 'dropdown'
     | 'radio'
     | 'datepicker'
@@ -296,6 +322,25 @@ export class App {
   );
   protected readonly expandedInputTagDemoIds = signal<string[]>([]);
   protected readonly copiedInputTagDemoId = signal<string | null>(null);
+  protected readonly breadcrumbDemoSections: BreadcrumbDemoSection[] = BREADCRUMB_DEMO_SECTIONS;
+  protected readonly breadcrumbApiRows: BreadcrumbApiRow[] = BREADCRUMB_API_ROWS;
+  protected readonly breadcrumbVariableGroups: BreadcrumbVariableGroup[] = BREADCRUMB_VARIABLE_GROUPS;
+  protected readonly breadcrumbVariableNotes = BREADCRUMB_VARIABLE_NOTES;
+  protected readonly activeBreadcrumbSection = signal(
+    this.getBreadcrumbSectionId(this.breadcrumbDemoSections[0]?.id ?? 'amount'),
+  );
+  protected readonly expandedBreadcrumbDemoIds = signal<string[]>([]);
+  protected readonly copiedBreadcrumbDemoId = signal<string | null>(null);
+  protected readonly stepsDemoSections: StepsDemoSection[] = STEPS_DEMO_SECTIONS;
+  protected readonly stepsNumberMatrix: StepsNumberMatrixRow[] = STEPS_NUMBER_MATRIX;
+  protected readonly stepsApiRows: StepsApiRow[] = STEPS_API_ROWS;
+  protected readonly stepsVariableGroups: StepsVariableGroup[] = STEPS_VARIABLE_GROUPS;
+  protected readonly stepsVariableNotes = STEPS_VARIABLE_NOTES;
+  protected readonly activeStepsSection = signal(
+    this.getStepsSectionId(this.stepsDemoSections[0]?.id ?? 'number'),
+  );
+  protected readonly expandedStepsDemoIds = signal<string[]>([]);
+  protected readonly copiedStepsDemoId = signal<string | null>(null);
   protected readonly dropdownDemoSections: DropdownDemoSection[] = DROPDOWN_DEMO_SECTIONS;
   protected readonly dropdownApiRows: DropdownApiRow[] = DROPDOWN_API_ROWS;
   protected readonly dropdownTagApiRows: DropdownApiRow[] = DROPDOWN_TAG_API_ROWS;
@@ -442,6 +487,8 @@ export class App {
       | 'buttonMapping'
       | 'inputField'
       | 'inputTag'
+      | 'breadcrumb'
+      | 'steps'
       | 'dropdown'
       | 'radio'
       | 'datepicker'
@@ -462,6 +509,10 @@ export class App {
       setTimeout(() => this.updateActiveInputSection(), 0);
     } else if (page === 'inputTag') {
       setTimeout(() => this.updateActiveInputTagSection(), 0);
+    } else if (page === 'breadcrumb') {
+      setTimeout(() => this.updateActiveBreadcrumbSection(), 0);
+    } else if (page === 'steps') {
+      setTimeout(() => this.updateActiveStepsSection(), 0);
     } else if (page === 'dropdown') {
       setTimeout(() => this.updateActiveDropdownSection(), 0);
     } else if (page === 'radio') {
@@ -1122,6 +1173,126 @@ export class App {
     }, 1200);
   }
 
+  protected setActiveBreadcrumbSection(sectionId: string) {
+    this.activeBreadcrumbSection.set(sectionId);
+  }
+
+  protected getBreadcrumbSectionId(sectionId: string): string {
+    return `breadcrumb-${sectionId}`;
+  }
+
+  protected isBreadcrumbDemoExpanded(sectionId: string): boolean {
+    return this.expandedBreadcrumbDemoIds().includes(sectionId);
+  }
+
+  protected toggleBreadcrumbDemoCode(sectionId: string) {
+    const next = new Set(this.expandedBreadcrumbDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedBreadcrumbDemoIds.set([...next]);
+  }
+
+  protected toggleAllBreadcrumbDemoCode() {
+    const expanded = this.expandedBreadcrumbDemoIds();
+    const allIds = this.breadcrumbDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedBreadcrumbDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllBreadcrumbDemoCodeExpanded(): boolean {
+    return this.expandedBreadcrumbDemoIds().length === this.breadcrumbDemoSections.length;
+  }
+
+  protected getBreadcrumbDemoCode(section: BreadcrumbDemoSection): string {
+    return section.snippetTs;
+  }
+
+  protected getBreadcrumbDemoHighlightedCode(section: BreadcrumbDemoSection): string {
+    return this.highlightTypeScriptSnippet(this.getBreadcrumbDemoCode(section));
+  }
+
+  protected getBreadcrumbCodeLanguageLabel(section: BreadcrumbDemoSection): string {
+    return `breadcrumb-${section.id}-demo.component.ts`;
+  }
+
+  protected getBreadcrumbCodeHint(): string {
+    return 'Angular standalone snippet';
+  }
+
+  protected async copyBreadcrumbDemoCode(section: BreadcrumbDemoSection) {
+    const code = this.getBreadcrumbDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedBreadcrumbDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedBreadcrumbDemoId() === section.id) {
+        this.copiedBreadcrumbDemoId.set(null);
+      }
+    }, 1200);
+  }
+
+  protected setActiveStepsSection(sectionId: string) {
+    this.activeStepsSection.set(sectionId);
+  }
+
+  protected getStepsSectionId(sectionId: string): string {
+    return `steps-${sectionId}`;
+  }
+
+  protected isStepsDemoExpanded(sectionId: string): boolean {
+    return this.expandedStepsDemoIds().includes(sectionId);
+  }
+
+  protected toggleStepsDemoCode(sectionId: string) {
+    const next = new Set(this.expandedStepsDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedStepsDemoIds.set([...next]);
+  }
+
+  protected toggleAllStepsDemoCode() {
+    const expanded = this.expandedStepsDemoIds();
+    const allIds = this.stepsDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedStepsDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllStepsDemoCodeExpanded(): boolean {
+    return this.expandedStepsDemoIds().length === this.stepsDemoSections.length;
+  }
+
+  protected getStepsDemoCode(section: StepsDemoSection): string {
+    return section.snippetTs;
+  }
+
+  protected getStepsDemoHighlightedCode(section: StepsDemoSection): string {
+    return this.highlightTypeScriptSnippet(this.getStepsDemoCode(section));
+  }
+
+  protected getStepsCodeLanguageLabel(section: StepsDemoSection): string {
+    return `steps-${section.id}-demo.component.ts`;
+  }
+
+  protected getStepsCodeHint(): string {
+    return 'Angular standalone snippet';
+  }
+
+  protected async copyStepsDemoCode(section: StepsDemoSection) {
+    const code = this.getStepsDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedStepsDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedStepsDemoId() === section.id) {
+        this.copiedStepsDemoId.set(null);
+      }
+    }, 1200);
+  }
+
   protected setActiveDropdownSection(sectionId: string) {
     this.activeDropdownSection.set(sectionId);
   }
@@ -1318,6 +1489,8 @@ export class App {
     this.updateActiveButtonMappingSection();
     this.updateActiveInputSection();
     this.updateActiveInputTagSection();
+    this.updateActiveBreadcrumbSection();
+    this.updateActiveStepsSection();
     this.updateActiveDropdownSection();
     this.updateActiveRadioSection();
     this.updateActiveDatepickerSection();
@@ -1451,6 +1624,56 @@ export class App {
     }
 
     this.activeInputTagSection.set(currentSection);
+  }
+
+  private updateActiveBreadcrumbSection() {
+    if (this.activePage() !== 'breadcrumb' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getBreadcrumbSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeBreadcrumbSection.set(currentSection);
+  }
+
+  private updateActiveStepsSection() {
+    if (this.activePage() !== 'steps' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getStepsSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeStepsSection.set(currentSection);
   }
 
   private updateActiveDropdownSection() {
@@ -1685,6 +1908,22 @@ export class App {
       ...this.inputTagDemoSections.map((section) => this.getInputTagSectionId(section.id)),
       'input-tag-api',
       'input-tag-variables',
+    ];
+  }
+
+  private getBreadcrumbSectionIds(): string[] {
+    return [
+      ...this.breadcrumbDemoSections.map((section) => this.getBreadcrumbSectionId(section.id)),
+      'breadcrumb-api',
+      'breadcrumb-variables',
+    ];
+  }
+
+  private getStepsSectionIds(): string[] {
+    return [
+      ...this.stepsDemoSections.map((section) => this.getStepsSectionId(section.id)),
+      'steps-api',
+      'steps-variables',
     ];
   }
 
@@ -2430,7 +2669,7 @@ export class InputDisabledDemoComponent {}`;
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|Sportbook6vnButtonComponent|Sportbook6vnInputComponent|Sportbook6vnAffixInputComponent|Sportbook6vnSearchInputComponent|Sportbook6vnPasswordInputComponent|Sportbook6vnTextareaComponent|Sportbook6vnFloatingLabelInputComponent|Sportbook6vnAffixLabelInputComponent|Sportbook6vnAffixDropdownItem|Sportbook6vnDropdownComponent|Sportbook6vnDropdownTagComponent|Sportbook6vnDropdownItem|Sportbook6vnInputTagComponent|Sportbook6vnInputTagValue|Sportbook6vnDatepickerComponent|Sportbook6vnDatepickerCell|Sportbook6vnDatepickerRangeValue|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
+      /\b(Component|Sportbook6vnButtonComponent|Sportbook6vnInputComponent|Sportbook6vnAffixInputComponent|Sportbook6vnSearchInputComponent|Sportbook6vnPasswordInputComponent|Sportbook6vnTextareaComponent|Sportbook6vnFloatingLabelInputComponent|Sportbook6vnAffixLabelInputComponent|Sportbook6vnAffixDropdownItem|Sportbook6vnDropdownComponent|Sportbook6vnDropdownTagComponent|Sportbook6vnDropdownItem|Sportbook6vnInputTagComponent|Sportbook6vnInputTagValue|Sportbook6vnDatepickerComponent|Sportbook6vnDatepickerCell|Sportbook6vnDatepickerRangeValue|Sportbook6vnBreadcrumbComponent|Sportbook6vnBreadcrumbItem|Sportbook6vnStepsComponent|Sportbook6vnStepItem|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');
