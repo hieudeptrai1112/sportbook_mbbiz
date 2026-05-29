@@ -133,11 +133,13 @@ import {
   STEPS_API_ROWS,
   STEPS_DEMO_SECTIONS,
   STEPS_NUMBER_MATRIX,
+  STEPS_VERTICAL_ITEMS,
   STEPS_VARIABLE_GROUPS,
   STEPS_VARIABLE_NOTES,
   type StepsApiRow,
   type StepsDemoSection,
   type StepsNumberMatrixRow,
+  type StepsVerticalItem,
   type StepsVariableGroup,
 } from './steps-demos.data';
 import {
@@ -333,6 +335,7 @@ export class App {
   protected readonly copiedBreadcrumbDemoId = signal<string | null>(null);
   protected readonly stepsDemoSections: StepsDemoSection[] = STEPS_DEMO_SECTIONS;
   protected readonly stepsNumberMatrix: StepsNumberMatrixRow[] = STEPS_NUMBER_MATRIX;
+  protected readonly stepsVerticalItems: StepsVerticalItem[] = STEPS_VERTICAL_ITEMS;
   protected readonly stepsApiRows: StepsApiRow[] = STEPS_API_ROWS;
   protected readonly stepsVariableGroups: StepsVariableGroup[] = STEPS_VARIABLE_GROUPS;
   protected readonly stepsVariableNotes = STEPS_VARIABLE_NOTES;

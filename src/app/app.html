@@ -1632,7 +1632,10 @@
               </div>
 
               <div class="button-demo-card core3-steps-card">
-                <div class="button-demo-preview core3-map-preview core3-steps-preview">
+                <div
+                  class="button-demo-preview core3-map-preview core3-steps-preview"
+                  [class.core3-steps-preview--vertical]="demo.variant === 'vertical'"
+                >
                   <ng-container [ngSwitch]="demo.variant">
                     <div *ngSwitchCase="'number'" class="core3-steps-matrix">
                       <div
@@ -1646,6 +1649,9 @@
                           [current]="currentStep"
                         />
                       </div>
+                    </div>
+                    <div *ngSwitchCase="'vertical'" class="core3-steps-vertical-demo">
+                      <sportbook6vn-steps [items]="stepsVerticalItems" [current]="1" />
                     </div>
                   </ng-container>
                 </div>

@@ -1,4 +1,4 @@
-export type StepsDemoVariant = 'number';
+export type StepsDemoVariant = 'number' | 'vertical';
 
 export interface StepsDescriptionPart {
   text?: string;
@@ -38,12 +38,23 @@ export interface StepsNumberMatrixRow {
   currents: number[];
 }
 
+export interface StepsVerticalItem {
+  title: string;
+  description: string;
+}
+
 export const STEPS_NUMBER_MATRIX: StepsNumberMatrixRow[] = [
   { amount: 2, currents: [0, 1] },
   { amount: 3, currents: [0, 1, 2] },
   { amount: 4, currents: [0, 1, 2, 3] },
   { amount: 5, currents: [0, 1, 2, 3, 4] },
   { amount: 6, currents: [0, 1, 2, 3, 4, 5] },
+];
+
+export const STEPS_VERTICAL_ITEMS: StepsVerticalItem[] = [
+  { title: 'Finished', description: 'This is a description.' },
+  { title: 'In Progress', description: 'This is a description.' },
+  { title: 'Waiting', description: 'This is a description.' },
 ];
 
 export const STEPS_DEMO_SECTIONS: StepsDemoSection[] = [
@@ -71,6 +82,31 @@ import { Sportbook6vnStepsComponent } from 'sportbook6vn';
   \`,
 })
 export class StepsNumberDemoComponent {}`,
+  },
+  {
+    id: 'vertical',
+    title: 'Vertical',
+    descriptionParts: [{ text: 'A simple step bar in the vertical direction.' }],
+    tags: ['selector=sportbook6vn-steps', 'variant=vertical', 'steps=3'],
+    variant: 'vertical',
+    snippetTs: `import { Component } from '@angular/core';
+import { Sportbook6vnStepItem, Sportbook6vnStepsComponent } from 'sportbook6vn';
+
+@Component({
+  selector: 'app-steps-vertical-demo',
+  standalone: true,
+  imports: [Sportbook6vnStepsComponent],
+  template: \`
+    <sportbook6vn-steps [items]="items" [current]="1" />
+  \`,
+})
+export class StepsVerticalDemoComponent {
+  readonly items: readonly Sportbook6vnStepItem[] = [
+    { title: 'Finished', description: 'This is a description.' },
+    { title: 'In Progress', description: 'This is a description.' },
+    { title: 'Waiting', description: 'This is a description.' },
+  ];
+}`,
   },
 ];
 
@@ -104,5 +140,5 @@ export const STEPS_VARIABLE_GROUPS: StepsVariableGroup[] = [
 
 export const STEPS_VARIABLE_NOTES = [
   'The component uses the same interaction model as a steps control while keeping Sportbook6VN DOM and styling scoped to sportbook6vn-steps.',
-  'This first page covers the numbered vertical variant only; later variants can be added as separate demo sections.',
+  'Vertical demos can use explicit items to show finished, active, and waiting content in one flow.',
 ];

@@ -8,7 +8,7 @@ describe('Sportbook6vnStepsComponent', () => {
   it('renders generated steps from amount and marks the current step', () => {
     @Component({
       imports: [Sportbook6vnStepsComponent],
-      template: `<sportbook6vn-steps [amount]="4" [current]="2" />`,
+      template: `<sportbook6vn-steps [amount]="4" [current]="0" />`,
     })
     class Sportbook6vnStepsAmountTestHostComponent {}
 
@@ -79,5 +79,33 @@ describe('Sportbook6vnStepsComponent', () => {
 
     expect(steps.classList).toContain('sportbook6vn-steps--size-badge');
     expect(content).not.toBeNull();
+  });
+
+  it('renders a vertical three-step flow with finish, process, and wait states', () => {
+    @Component({
+      imports: [Sportbook6vnStepsComponent],
+      template: `<sportbook6vn-steps [items]="items" [current]="1" />`,
+    })
+    class Sportbook6vnStepsVerticalTestHostComponent {
+      readonly items: readonly Sportbook6vnStepItem[] = [
+        { title: 'Finished', description: 'This is a description.' },
+        { title: 'In Progress', description: 'This is a description.' },
+        { title: 'Waiting', description: 'This is a description.' },
+      ];
+    }
+
+    const fixture = TestBed.createComponent(Sportbook6vnStepsVerticalTestHostComponent);
+    fixture.detectChanges();
+
+    const items = fixture.nativeElement.querySelectorAll('.sportbook6vn-steps__item');
+    const markers = fixture.nativeElement.querySelectorAll('.sportbook6vn-steps__marker');
+
+    expect(items.length).toBe(3);
+    expect(items[0].classList).toContain('sportbook6vn-steps__item--finish');
+    expect(items[1].classList).toContain('sportbook6vn-steps__item--process');
+    expect(items[2].classList).toContain('sportbook6vn-steps__item--wait');
+    expect(markers[0].querySelector('.sportbook6vn-steps__check')).not.toBeNull();
+    expect(markers[1].textContent.trim()).toBe('2');
+    expect(markers[2].textContent.trim()).toBe('3');
   });
 });

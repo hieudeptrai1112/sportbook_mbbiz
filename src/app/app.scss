@@ -1290,6 +1290,10 @@ sportbook6vn-button.button-doc-state-pressed
   overflow-x: auto;
 }
 
+.core3-steps-preview--vertical {
+  min-height: 360px;
+}
+
 .core3-steps-matrix {
   display: flex;
   flex-direction: column;
@@ -1303,6 +1307,10 @@ sportbook6vn-button.button-doc-state-pressed
   align-items: start;
   display: grid;
   gap: 56px;
+}
+
+.core3-steps-vertical-demo {
+  padding: 8px;
 }
 
 .core3-datepicker-card,

@@ -5,7 +5,9 @@
 
 .sportbook6vn-steps {
   --sportbook6vn-steps-marker-size: 24px;
+  --sportbook6vn-steps-marker-border: transparent;
   --sportbook6vn-steps-marker-bg: var(--sportbook6vn-color-steps-step-default, #6d83a7);
+  --sportbook6vn-steps-marker-color: var(--sportbook6vn-color-steps-marker-text, #ffffff);
   --sportbook6vn-steps-title-color: var(--sportbook6vn-color-steps-step-default, #6d83a7);
   --sportbook6vn-steps-tail-color: var(--sportbook6vn-color-steps-line, #a3b7fd);
 
@@ -44,19 +46,32 @@
   width: 100%;
 }
 
-.sportbook6vn-steps__item--finish,
+.sportbook6vn-steps__item--finish {
+  --sportbook6vn-steps-marker-bg: transparent;
+  --sportbook6vn-steps-marker-border: var(--sportbook6vn-color-steps-step-active, #7b5fff);
+  --sportbook6vn-steps-marker-color: var(--sportbook6vn-color-steps-step-active, #7b5fff);
+  --sportbook6vn-steps-tail-color: var(--sportbook6vn-color-steps-step-active, #7b5fff);
+  --sportbook6vn-steps-title-color: var(--sportbook6vn-color-steps-step-default, #6d83a7);
+}
+
 .sportbook6vn-steps__item--wait {
-  --sportbook6vn-steps-marker-bg: var(--sportbook6vn-color-steps-step-default, #6d83a7);
+  --sportbook6vn-steps-marker-bg: transparent;
+  --sportbook6vn-steps-marker-border: var(--sportbook6vn-color-steps-step-default, #6d83a7);
+  --sportbook6vn-steps-marker-color: var(--sportbook6vn-color-steps-step-default, #6d83a7);
   --sportbook6vn-steps-title-color: var(--sportbook6vn-color-steps-step-default, #6d83a7);
 }
 
 .sportbook6vn-steps__item--process {
+  --sportbook6vn-steps-marker-border: var(--sportbook6vn-color-steps-step-active, #7b5fff);
   --sportbook6vn-steps-marker-bg: var(--sportbook6vn-color-steps-step-active, #7b5fff);
+  --sportbook6vn-steps-marker-color: var(--sportbook6vn-color-steps-marker-text, #ffffff);
   --sportbook6vn-steps-title-color: var(--sportbook6vn-color-steps-step-active, #7b5fff);
 }
 
 .sportbook6vn-steps--size-badge .sportbook6vn-steps__item--wait {
   --sportbook6vn-steps-marker-bg: var(--sportbook6vn-color-steps-step-next, #cadbe8);
+  --sportbook6vn-steps-marker-border: var(--sportbook6vn-color-steps-step-next, #cadbe8);
+  --sportbook6vn-steps-marker-color: var(--sportbook6vn-color-steps-step-active, #7b5fff);
 }
 
 .sportbook6vn-steps__item--clickable {
@@ -89,8 +104,10 @@
 .sportbook6vn-steps__marker {
   align-items: center;
   background: var(--sportbook6vn-steps-marker-bg);
+  border: 1px solid var(--sportbook6vn-steps-marker-border);
   border-radius: 20px;
-  color: var(--sportbook6vn-color-steps-marker-text, #ffffff);
+  box-sizing: border-box;
+  color: var(--sportbook6vn-steps-marker-color);
   display: inline-flex;
   flex: 0 0 var(--sportbook6vn-steps-marker-size);
   font-size: 12px;
@@ -102,6 +119,16 @@
   min-width: var(--sportbook6vn-steps-marker-size);
   text-align: center;
   width: var(--sportbook6vn-steps-marker-size);
+}
+
+.sportbook6vn-steps__check {
+  border-bottom: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  display: block;
+  height: 11px;
+  margin-top: -2px;
+  transform: rotate(45deg);
+  width: 6px;
 }
 
 .sportbook6vn-steps__tail {
