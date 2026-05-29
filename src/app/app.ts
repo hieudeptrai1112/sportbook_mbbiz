@@ -139,6 +139,10 @@ import {
   type StepsVariableGroup,
 } from './steps-demos.data';
 import {
+  ILLUSTRATION_ASSETS,
+  type IllustrationAsset,
+} from './illustration-assets.data';
+import {
   DEFAULT_THEME_BRAND,
   DEFAULT_THEME_ID,
   DEFAULT_THEME_MODE,
@@ -259,6 +263,7 @@ export class App {
     | 'dropdown'
     | 'radio'
     | 'datepicker'
+    | 'illustration'
     | 'core3Mapping'
     | 'color'
     | 'tokens'
@@ -368,6 +373,10 @@ export class App {
   );
   protected readonly expandedDatepickerDemoIds = signal<string[]>([]);
   protected readonly copiedDatepickerDemoId = signal<string | null>(null);
+  protected readonly illustrationAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS;
+  protected readonly activeIllustrationSection = signal('illustration-usage');
+  protected readonly copiedIllustrationUrl = signal<string | null>(null);
+  protected readonly copiedIllustrationSnippet = signal<string | null>(null);
   protected readonly core3InputValue = signal('');
   protected readonly core3AffixPrefixValue = signal('');
   protected readonly core3SearchValue = signal('');
@@ -489,6 +498,7 @@ export class App {
       | 'dropdown'
       | 'radio'
       | 'datepicker'
+      | 'illustration'
       | 'core3Mapping'
       | 'color'
       | 'tokens'
@@ -516,6 +526,8 @@ export class App {
       setTimeout(() => this.updateActiveRadioSection(), 0);
     } else if (page === 'datepicker') {
       setTimeout(() => this.updateActiveDatepickerSection(), 0);
+    } else if (page === 'illustration') {
+      setTimeout(() => this.updateActiveIllustrationSection(), 0);
     }
   }
 
@@ -1470,6 +1482,34 @@ export class App {
     }, 1200);
   }
 
+  protected setActiveIllustrationSection(sectionId: string) {
+    this.activeIllustrationSection.set(sectionId);
+  }
+
+  protected getIllustrationSnippet(asset: IllustrationAsset): string {
+    return `<img src="${asset.src}" alt="${asset.alt}" />`;
+  }
+
+  protected async copyIllustrationAssetUrl(asset: IllustrationAsset) {
+    await this.writeTextToClipboard(asset.src);
+    this.copiedIllustrationUrl.set(asset.id);
+    setTimeout(() => {
+      if (this.copiedIllustrationUrl() === asset.id) {
+        this.copiedIllustrationUrl.set(null);
+      }
+    }, 1200);
+  }
+
+  protected async copyIllustrationAssetSnippet(asset: IllustrationAsset) {
+    await this.writeTextToClipboard(this.getIllustrationSnippet(asset));
+    this.copiedIllustrationSnippet.set(asset.id);
+    setTimeout(() => {
+      if (this.copiedIllustrationSnippet() === asset.id) {
+        this.copiedIllustrationSnippet.set(null);
+      }
+    }, 1200);
+  }
+
   protected setRadioGroupValue(value: string | number | null) {
     this.radioGroupValue.set(value);
   }
@@ -1491,6 +1531,7 @@ export class App {
     this.updateActiveDropdownSection();
     this.updateActiveRadioSection();
     this.updateActiveDatepickerSection();
+    this.updateActiveIllustrationSection();
   }
 
   private updateActiveTokenSection() {
@@ -1748,6 +1789,31 @@ export class App {
     this.activeDatepickerSection.set(currentSection);
   }
 
+  private updateActiveIllustrationSection() {
+    if (this.activePage() !== 'illustration' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getIllustrationSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeIllustrationSection.set(currentSection);
+  }
+
   private buildSemanticTokenGroups(): SemanticTokenGroup[] {
     const normalizeAlias = (alias: string) => alias.replace(/^color\/semantic\//, '');
     const orderPairs: Array<[string, readonly string[]]> = [
@@ -1946,6 +2012,10 @@ export class App {
       'datepicker-api',
       'datepicker-variables',
     ];
+  }
+
+  private getIllustrationSectionIds(): string[] {
+    return ['illustration-usage', 'illustration-assets', 'illustration-naming'];
   }
 
   protected getHighlightedTypeScriptSnippet(code: string): string {

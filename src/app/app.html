@@ -218,6 +218,14 @@
               <img src="/assets/figma/e1ce05d5-09c7-4fa2-a06f-d20037d6ae64.svg" alt="" />
               <span>Iconography</span>
             </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'illustration'"
+              (click)="setPage('illustration')"
+            >
+              <img src="/assets/figma/e1ce05d5-09c7-4fa2-a06f-d20037d6ae64.svg" alt="" />
+              <span>Illustration</span>
+            </div>
             <span class="sidebar-sublabel">Navigation</span>
             <div
               class="sidebar-link"
@@ -1717,6 +1725,112 @@
               <ul class="button-variable-notes">
                 <li *ngFor="let note of stepsVariableNotes">{{ note }}</li>
               </ul>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'illustration'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">General</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Illustration</h1>
+              <p class="lead">
+                Illustration collects approved PNG assets in one public folder so developers can copy
+                the asset URL or the exact image snippet from this page.
+              </p>
+            </div>
+
+            <section class="section illustration-usage-section" id="illustration-usage">
+              <h2>Usage</h2>
+              <div class="illustration-guideline-grid">
+                <article class="illustration-guideline-card">
+                  <span>Base path</span>
+                  <code>/assets/illustrations/a-illustration/</code>
+                  <p>All files are served from Angular public assets and can be referenced directly.</p>
+                </article>
+                <article class="illustration-guideline-card">
+                  <span>Format</span>
+                  <code>PNG / transparent background</code>
+                  <p>Keep the source ratio intact and resize with CSS instead of editing the files.</p>
+                </article>
+                <article class="illustration-guideline-card">
+                  <span>Alt text</span>
+                  <code>Describe the state</code>
+                  <p>Use an empty alt only when the illustration is decorative next to equivalent text.</p>
+                </article>
+              </div>
+
+              <div class="illustration-code-card">
+                <div class="button-code-head">
+                  <span class="button-code-file">example.html</span>
+                  <span class="button-code-hint">Direct asset usage</span>
+                </div>
+                <pre class="button-code-block"><code>&lt;img
+  src="/assets/illustrations/a-illustration/empty.png"
+  alt="Empty state"
+/&gt;</code></pre>
+              </div>
+            </section>
+
+            <section class="section illustration-library-section" id="illustration-assets">
+              <div class="illustration-section-head">
+                <h2>Asset Library</h2>
+                <span>{{ illustrationAssets.length }} PNG files</span>
+              </div>
+
+              <div class="illustration-grid">
+                <article class="illustration-card" *ngFor="let asset of illustrationAssets">
+                  <div class="illustration-thumb">
+                    <img [src]="asset.src" [alt]="asset.alt" loading="lazy" />
+                  </div>
+
+                  <div class="illustration-card-body">
+                    <div class="illustration-card-title">
+                      <h3>{{ asset.name }}</h3>
+                      <span>{{ asset.width }} x {{ asset.height }}</span>
+                    </div>
+                    <code class="illustration-path">{{ asset.src }}</code>
+                    <p>{{ asset.usage }}</p>
+                  </div>
+
+                  <div class="illustration-card-actions">
+                    <button
+                      class="button-icon-btn illustration-copy-btn"
+                      type="button"
+                      (click)="copyIllustrationAssetUrl(asset)"
+                    >
+                      {{ copiedIllustrationUrl() === asset.id ? 'Copied URL' : 'Copy URL' }}
+                    </button>
+                    <button
+                      class="button-icon-btn illustration-copy-btn"
+                      type="button"
+                      (click)="copyIllustrationAssetSnippet(asset)"
+                    >
+                      {{ copiedIllustrationSnippet() === asset.id ? 'Copied snippet' : 'Copy snippet' }}
+                    </button>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="section illustration-naming-section" id="illustration-naming">
+              <h2>Naming</h2>
+              <div class="button-api-table illustration-file-table">
+                <div class="button-api-row button-api-head">
+                  <span>Name</span>
+                  <span>File</span>
+                  <span>Snippet</span>
+                  <span>Size</span>
+                </div>
+                <div class="button-api-row" *ngFor="let asset of illustrationAssets">
+                  <span class="button-api-col-description">{{ asset.name }}</span>
+                  <code class="token-code">{{ asset.fileName }}</code>
+                  <code class="token-code">{{ getIllustrationSnippet(asset) }}</code>
+                  <code class="token-code">{{ asset.width }} x {{ asset.height }}</code>
+                </div>
+              </div>
             </section>
           </ng-container>
 
@@ -4295,6 +4409,59 @@
                 <p>
                   Use <span class="mono">Single Date</span> for one value and
                   <span class="mono">Date Range</span> when the product needs start/end selection.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'illustration'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  [class.active]="activeIllustrationSection() === 'illustration-usage'"
+                  href="#illustration-usage"
+                  (click)="setActiveIllustrationSection('illustration-usage')"
+                >
+                  Usage
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeIllustrationSection() === 'illustration-assets'"
+                  href="#illustration-assets"
+                  (click)="setActiveIllustrationSection('illustration-assets')"
+                >
+                  Asset Library
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeIllustrationSection() === 'illustration-naming'"
+                  href="#illustration-naming"
+                  (click)="setActiveIllustrationSection('illustration-naming')"
+                >
+                  Naming
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Pro Tip</span>
+                </div>
+                <p>
+                  Use <span class="mono">Copy URL</span> for markup already in place and
+                  <span class="mono">Copy snippet</span> when adding a new image.
                 </p>
               </div>
             </aside>

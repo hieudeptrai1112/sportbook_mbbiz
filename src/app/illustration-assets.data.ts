@@ -1,0 +1,145 @@
+export interface IllustrationAsset {
+  id: string;
+  name: string;
+  fileName: string;
+  src: string;
+  alt: string;
+  usage: string;
+  width: number;
+  height: number;
+}
+
+const ILLUSTRATION_BASE_PATH = '/assets/illustrations/a-illustration';
+
+export const ILLUSTRATION_ASSETS: IllustrationAsset[] = [
+  {
+    id: '404',
+    name: '404',
+    fileName: '404.png',
+    src: `${ILLUSTRATION_BASE_PATH}/404.png`,
+    alt: '404 illustration',
+    usage: 'Use for not-found or missing-page states.',
+    width: 796,
+    height: 784,
+  },
+  {
+    id: 'clock',
+    name: 'Clock',
+    fileName: 'clock.png',
+    src: `${ILLUSTRATION_BASE_PATH}/clock.png`,
+    alt: 'Clock illustration',
+    usage: 'Use for waiting, scheduled, or time-related empty states.',
+    width: 784,
+    height: 784,
+  },
+  {
+    id: 'confirm',
+    name: 'Confirm',
+    fileName: 'confirm.png',
+    src: `${ILLUSTRATION_BASE_PATH}/confirm.png`,
+    alt: 'Confirm illustration',
+    usage: 'Use for confirmation dialogs or review-before-submit states.',
+    width: 784,
+    height: 784,
+  },
+  {
+    id: 'delete',
+    name: 'Delete',
+    fileName: 'delete.png',
+    src: `${ILLUSTRATION_BASE_PATH}/delete.png`,
+    alt: 'Delete illustration',
+    usage: 'Use for delete confirmation or destructive action states.',
+    width: 784,
+    height: 784,
+  },
+  {
+    id: 'empty',
+    name: 'Empty',
+    fileName: 'empty.png',
+    src: `${ILLUSTRATION_BASE_PATH}/empty.png`,
+    alt: 'Empty illustration',
+    usage: 'Use when a list, table, or panel has no content.',
+    width: 784,
+    height: 784,
+  },
+  {
+    id: 'error',
+    name: 'Error',
+    fileName: 'error.png',
+    src: `${ILLUSTRATION_BASE_PATH}/error.png`,
+    alt: 'Error illustration',
+    usage: 'Use for failed operations or blocking error states.',
+    width: 784,
+    height: 784,
+  },
+  {
+    id: 'feedback',
+    name: 'Feedback',
+    fileName: 'feedback.png',
+    src: `${ILLUSTRATION_BASE_PATH}/feedback.png`,
+    alt: 'Feedback illustration',
+    usage: 'Use for feedback, survey, or user response states.',
+    width: 784,
+    height: 784,
+  },
+  {
+    id: 'notification',
+    name: 'Notification',
+    fileName: 'notification.png',
+    src: `${ILLUSTRATION_BASE_PATH}/notification.png`,
+    alt: 'Notification illustration',
+    usage: 'Use for notifications, alerts, or message center states.',
+    width: 784,
+    height: 784,
+  },
+  {
+    id: 'search',
+    name: 'Search',
+    fileName: 'search.png',
+    src: `${ILLUSTRATION_BASE_PATH}/search.png`,
+    alt: 'Search illustration',
+    usage: 'Use for search empty states or no-result screens.',
+    width: 784,
+    height: 784,
+  },
+  {
+    id: 'success',
+    name: 'Success',
+    fileName: 'success.png',
+    src: `${ILLUSTRATION_BASE_PATH}/success.png`,
+    alt: 'Success illustration',
+    usage: 'Use after successful submission, completion, or saved states.',
+    width: 784,
+    height: 784,
+  },
+  {
+    id: 'unable-to-load-data',
+    name: 'Unable To Load Data',
+    fileName: 'unable-to-load-data.png',
+    src: `${ILLUSTRATION_BASE_PATH}/unable-to-load-data.png`,
+    alt: 'Unable to load data illustration',
+    usage: 'Use when API data cannot be loaded or refreshed.',
+    width: 795,
+    height: 784,
+  },
+  {
+    id: 'upload',
+    name: 'Upload',
+    fileName: 'upload.png',
+    src: `${ILLUSTRATION_BASE_PATH}/upload.png`,
+    alt: 'Upload illustration',
+    usage: 'Use for upload entry points, upload empty states, or file import screens.',
+    width: 784,
+    height: 784,
+  },
+  {
+    id: 'warning',
+    name: 'Warning',
+    fileName: 'warning.png',
+    src: `${ILLUSTRATION_BASE_PATH}/warning.png`,
+    alt: 'Warning illustration',
+    usage: 'Use for caution, warning, or recoverable risk states.',
+    width: 784,
+    height: 784,
+  },
+];
