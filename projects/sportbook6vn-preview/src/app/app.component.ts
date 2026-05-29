@@ -20,6 +20,8 @@ import {
   Sportbook6vnSearchInputComponent,
   Sportbook6vnSwitchComponent,
   Sportbook6vnTextareaComponent,
+  Sportbook6vnUploadFileComponent,
+  Sportbook6vnUploadFileItem,
 } from 'sportbook6vn';
 
 @Component({
@@ -44,6 +46,7 @@ import {
     Sportbook6vnSearchInputComponent,
     Sportbook6vnSwitchComponent,
     Sportbook6vnTextareaComponent,
+    Sportbook6vnUploadFileComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -79,6 +82,51 @@ export class Sportbook6vnPreviewAppComponent {
     { id: 'gbp', label: 'GBP', flagCode: 'gbp' as const },
     { id: 'cad', label: 'CAD', flagCode: 'cad' as const },
     { id: 'thb', label: 'THB', flagCode: 'thb' as const },
+  ];
+
+  protected readonly uploadFilesDone: Sportbook6vnUploadFileItem[] = [
+    { uid: 'upload-done-1', name: 'Tên tệp tin.pdf', sizeLabel: '2 MB', fileKind: 'pdf' },
+    { uid: 'upload-done-2', name: 'Tên tệp tin.docx', sizeLabel: '2 MB', fileKind: 'docx' },
+    { uid: 'upload-done-3', name: 'Tên tệp tin.xlsx', sizeLabel: '2 MB', fileKind: 'xlsx' },
+  ];
+
+  protected readonly uploadFilesExpanded: Sportbook6vnUploadFileItem[] = [
+    { uid: 'upload-expanded-1', name: 'Tên tệp tin.pdf', sizeLabel: '2 MB', fileKind: 'pdf' },
+    { uid: 'upload-expanded-2', name: 'Tên tệp tin.docx', sizeLabel: '2 MB', fileKind: 'docx' },
+    { uid: 'upload-expanded-3', name: 'Tên tệp tin.xlsx', sizeLabel: '2 MB', fileKind: 'xlsx' },
+    { uid: 'upload-expanded-4', name: 'Tên tệp tin.jpg', sizeLabel: '2 MB', fileKind: 'jpg' },
+  ];
+
+  protected readonly uploadFilesLoading: Sportbook6vnUploadFileItem[] = [
+    { uid: 'upload-loading-1', name: 'Tên tệp tin.pdf', sizeLabel: '2 MB', fileKind: 'pdf', status: 'uploading', percent: 42 },
+    { uid: 'upload-loading-2', name: 'Tên tệp tin.xlsx', sizeLabel: '2 MB', fileKind: 'xlsx', status: 'uploading', percent: 86 },
+  ];
+
+  protected readonly uploadFilesError: Sportbook6vnUploadFileItem[] = [
+    {
+      uid: 'upload-error-1',
+      name: 'Tên tệp tin.xlsx',
+      sizeLabel: '2 MB',
+      fileKind: 'xlsx',
+      status: 'error',
+      errorMessage: 'File tải lên vượt quá dung lượng cho phép',
+    },
+    {
+      uid: 'upload-error-2',
+      name: 'Tên tệp tin.xml',
+      sizeLabel: '2 MB',
+      fileKind: 'xml',
+      status: 'error',
+      errorMessage: 'File tải lên không đúng định dạng. Vui lòng kiểm tra và tải lại',
+    },
+  ];
+
+  protected readonly uploadFileTypes: Sportbook6vnUploadFileItem[] = [
+    { uid: 'upload-type-xlsx', name: 'Tên tệp tin.xlsx', sizeLabel: '2 MB', fileKind: 'xlsx' },
+    { uid: 'upload-type-docx', name: 'Tên tệp tin.docx', sizeLabel: '2 MB', fileKind: 'docx' },
+    { uid: 'upload-type-pdf', name: 'Tên tệp tin.pdf', sizeLabel: '2 MB', fileKind: 'pdf' },
+    { uid: 'upload-type-jpg', name: 'Tên tệp tin.jpg', sizeLabel: '2 MB', fileKind: 'jpg' },
+    { uid: 'upload-type-xml', name: 'Tên tệp tin.xml', sizeLabel: '2 MB', fileKind: 'xml' },
   ];
 
   protected readonly basicInputValue = signal('Input text');

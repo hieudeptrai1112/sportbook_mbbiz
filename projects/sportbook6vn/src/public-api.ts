@@ -24,6 +24,8 @@ export * from './lib/components/breadcrumb/breadcrumb.component';
 export * from './lib/components/breadcrumb/breadcrumb.types';
 export * from './lib/components/steps/steps.component';
 export * from './lib/components/steps/steps.types';
+export * from './lib/components/upload-file/upload-file.component';
+export * from './lib/components/upload-file/upload-file.types';
 export * from './lib/components/checkbox/checkbox.component';
 export * from './lib/components/checkbox/checkbox-group.component';
 export * from './lib/components/radio/radio.component';

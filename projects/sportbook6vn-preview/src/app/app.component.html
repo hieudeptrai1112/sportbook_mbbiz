@@ -391,6 +391,88 @@
 
   <section class="sportbook6vn-preview-section">
     <div class="sportbook6vn-preview-section-heading">
+      <h2>Upload File / docs-ready draft</h2>
+      <p>
+        Aligned to Figma nodes <code>14201:41028</code>, <code>14201:38249</code>,
+        <code>14201:39723</code>, and <code>13737:1724</code>. Cases are split by upload entry,
+        file list state, status, and max-count behavior.
+      </p>
+    </div>
+
+    <div class="sportbook6vn-preview-doc-list">
+      <article class="sportbook6vn-preview-doc-card">
+        <div class="sportbook6vn-preview-doc-card__heading">
+          <h3>Basic Upload</h3>
+          <p>Default drag-and-drop upload entry with required label.</p>
+        </div>
+        <div class="sportbook6vn-preview-demo-frame sportbook6vn-preview-upload-frame">
+          <sportbook6vn-upload-file />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-doc-card">
+        <div class="sportbook6vn-preview-doc-card__heading">
+          <h3>Uploaded Files</h3>
+          <p>Collapsed and expanded file lists use the same upload entry.</p>
+        </div>
+        <div class="sportbook6vn-preview-demo-frame sportbook6vn-preview-upload-frame">
+          <div class="sportbook6vn-preview-upload-stack">
+            <sportbook6vn-upload-file [files]="uploadFilesDone" [expanded]="false" />
+            <sportbook6vn-upload-file [files]="uploadFilesExpanded" [expanded]="true" />
+          </div>
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-doc-card">
+        <div class="sportbook6vn-preview-doc-card__heading">
+          <h3>Loading</h3>
+          <p>Uploading file rows show the progress line from the file item state.</p>
+        </div>
+        <div class="sportbook6vn-preview-demo-frame sportbook6vn-preview-upload-frame">
+          <sportbook6vn-upload-file [files]="uploadFilesLoading" [expanded]="true" />
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-doc-card">
+        <div class="sportbook6vn-preview-doc-card__heading">
+          <h3>Status</h3>
+          <p>Error states cover both upload input validation and file-level failures.</p>
+        </div>
+        <div class="sportbook6vn-preview-demo-frame sportbook6vn-preview-upload-frame">
+          <div class="sportbook6vn-preview-upload-stack">
+            <sportbook6vn-upload-file errorMessage="Vui lòng tải lên thông tin" />
+            <sportbook6vn-upload-file [files]="uploadFilesError" [expanded]="true" />
+          </div>
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-doc-card">
+        <div class="sportbook6vn-preview-doc-card__heading">
+          <h3>Disabled</h3>
+          <p>Disabled and max-count states keep the upload entry visible but non-interactive.</p>
+        </div>
+        <div class="sportbook6vn-preview-demo-frame sportbook6vn-preview-upload-frame">
+          <div class="sportbook6vn-preview-upload-stack">
+            <sportbook6vn-upload-file [disabled]="true" />
+            <sportbook6vn-upload-file [files]="uploadFilesDone" [maxCount]="3" [expanded]="true" />
+          </div>
+        </div>
+      </article>
+
+      <article class="sportbook6vn-preview-doc-card">
+        <div class="sportbook6vn-preview-doc-card__heading">
+          <h3>File Types</h3>
+          <p>File item icon treatment for xlsx, docx, pdf, jpg, and xml.</p>
+        </div>
+        <div class="sportbook6vn-preview-demo-frame sportbook6vn-preview-upload-frame">
+          <sportbook6vn-upload-file [files]="uploadFileTypes" [expanded]="true" [showUploadArea]="false" />
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sportbook6vn-preview-section">
+    <div class="sportbook6vn-preview-section-heading">
       <h2>Selection controls</h2>
       <p>
         Aligned to Figma nodes <code>3800:179128</code> for checkbox, <code>3800:178451</code> for radio, and

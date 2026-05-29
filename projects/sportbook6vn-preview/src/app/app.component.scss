@@ -310,6 +310,17 @@
   line-height: 16px;
 }
 
+.sportbook6vn-preview-upload-frame {
+  align-items: flex-start;
+  overflow-x: auto;
+}
+
+.sportbook6vn-preview-upload-stack {
+  display: grid;
+  gap: 24px;
+  min-width: min(100%, 932px);
+}
+
 .sportbook6vn-preview-button-group {
   display: grid;
   gap: 16px;
