@@ -1,6 +1,12 @@
 import { Component, computed, input, output } from '@angular/core';
 
-import { Sportbook6vnStepItem, Sportbook6vnStepStatus, Sportbook6vnStepsDirection, Sportbook6vnStepsSize } from './steps.types';
+import {
+  Sportbook6vnStepItem,
+  Sportbook6vnStepStatus,
+  Sportbook6vnStepsDirection,
+  Sportbook6vnStepsInactiveMarker,
+  Sportbook6vnStepsSize,
+} from './steps.types';
 
 const MIN_STEPS = 1;
 const MAX_STEPS = 6;
@@ -17,6 +23,7 @@ export class Sportbook6vnStepsComponent {
   readonly startIndex = input(1);
   readonly generatedTitle = input('Text');
   readonly direction = input<Sportbook6vnStepsDirection>('vertical');
+  readonly inactiveMarker = input<Sportbook6vnStepsInactiveMarker>('filled');
   readonly size = input<Sportbook6vnStepsSize>('default');
   readonly ariaLabel = input('Steps');
   readonly clickable = input(false);
@@ -44,6 +51,7 @@ export class Sportbook6vnStepsComponent {
     [
       'sportbook6vn-steps',
       `sportbook6vn-steps--${this.direction()}`,
+      `sportbook6vn-steps--inactive-${this.inactiveMarker()}`,
       `sportbook6vn-steps--size-${this.size()}`,
     ].join(' '),
   );

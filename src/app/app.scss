@@ -1309,6 +1309,50 @@ sportbook6vn-button.button-doc-state-pressed
   gap: 56px;
 }
 
+.core3-steps-process-grid {
+  align-items: start;
+  display: grid;
+  gap: 64px;
+  grid-template-columns: repeat(4, 296px);
+  min-width: 1376px;
+  padding: 8px;
+}
+
+.core3-steps-process-card {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(189, 213, 228, 0.7);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 27px 28px 28px;
+  width: 296px;
+}
+
+.core3-steps-process-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.core3-steps-process-footer p {
+  color: #6d83a7;
+  font-family: var(--sportbook6vn-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin: 0;
+  text-align: center;
+}
+
+.core3-steps-process-button {
+  --sportbook6vn-color-button-secondary-default: #7b5fff;
+  --sportbook6vn-color-button-secondary-hover: #7b5fff;
+  --sportbook6vn-color-button-secondary-pressed: #7b5fff;
+
+  width: 100%;
+}
+
 .core3-steps-vertical-demo {
   padding: 8px;
 }

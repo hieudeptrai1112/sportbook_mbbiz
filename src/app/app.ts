@@ -133,12 +133,14 @@ import {
   STEPS_API_ROWS,
   STEPS_DEMO_SECTIONS,
   STEPS_NUMBER_MATRIX,
+  STEPS_NUMBER_PROCESS_CARDS,
   STEPS_VERTICAL_ITEMS,
   STEPS_VARIABLE_GROUPS,
   STEPS_VARIABLE_NOTES,
   type StepsApiRow,
   type StepsDemoSection,
   type StepsNumberMatrixRow,
+  type StepsNumberProcessCard,
   type StepsVerticalItem,
   type StepsVariableGroup,
 } from './steps-demos.data';
@@ -335,6 +337,7 @@ export class App {
   protected readonly copiedBreadcrumbDemoId = signal<string | null>(null);
   protected readonly stepsDemoSections: StepsDemoSection[] = STEPS_DEMO_SECTIONS;
   protected readonly stepsNumberMatrix: StepsNumberMatrixRow[] = STEPS_NUMBER_MATRIX;
+  protected readonly stepsNumberProcessCards: StepsNumberProcessCard[] = STEPS_NUMBER_PROCESS_CARDS;
   protected readonly stepsVerticalItems: StepsVerticalItem[] = STEPS_VERTICAL_ITEMS;
   protected readonly stepsApiRows: StepsApiRow[] = STEPS_API_ROWS;
   protected readonly stepsVariableGroups: StepsVariableGroup[] = STEPS_VARIABLE_GROUPS;
@@ -2672,7 +2675,7 @@ export class InputDisabledDemoComponent {}`;
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|Sportbook6vnButtonComponent|Sportbook6vnInputComponent|Sportbook6vnAffixInputComponent|Sportbook6vnSearchInputComponent|Sportbook6vnPasswordInputComponent|Sportbook6vnTextareaComponent|Sportbook6vnFloatingLabelInputComponent|Sportbook6vnAffixLabelInputComponent|Sportbook6vnAffixDropdownItem|Sportbook6vnDropdownComponent|Sportbook6vnDropdownTagComponent|Sportbook6vnDropdownItem|Sportbook6vnInputTagComponent|Sportbook6vnInputTagValue|Sportbook6vnDatepickerComponent|Sportbook6vnDatepickerCell|Sportbook6vnDatepickerRangeValue|Sportbook6vnBreadcrumbComponent|Sportbook6vnBreadcrumbItem|Sportbook6vnStepsComponent|Sportbook6vnStepItem|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
+      /\b(Component|Sportbook6vnButtonComponent|Sportbook6vnInputComponent|Sportbook6vnAffixInputComponent|Sportbook6vnSearchInputComponent|Sportbook6vnPasswordInputComponent|Sportbook6vnTextareaComponent|Sportbook6vnFloatingLabelInputComponent|Sportbook6vnAffixLabelInputComponent|Sportbook6vnAffixDropdownItem|Sportbook6vnDropdownComponent|Sportbook6vnDropdownTagComponent|Sportbook6vnDropdownItem|Sportbook6vnInputTagComponent|Sportbook6vnInputTagValue|Sportbook6vnDatepickerComponent|Sportbook6vnDatepickerCell|Sportbook6vnDatepickerRangeValue|Sportbook6vnBreadcrumbComponent|Sportbook6vnBreadcrumbItem|Sportbook6vnStepsComponent|Sportbook6vnStepItem|Sportbook6vnStepsInactiveMarker|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');

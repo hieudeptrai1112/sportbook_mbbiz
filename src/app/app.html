@@ -1650,8 +1650,29 @@
                         />
                       </div>
                     </div>
+                    <div *ngSwitchCase="'number-process'" class="core3-steps-process-grid">
+                      <section
+                        class="core3-steps-process-card"
+                        *ngFor="let card of stepsNumberProcessCards"
+                        [style.height.px]="card.height"
+                      >
+                        <sportbook6vn-steps [amount]="card.amount" [current]="0" />
+                        <div class="core3-steps-process-footer">
+                          <sportbook6vn-button
+                            class="core3-steps-process-button"
+                            variant="secondary"
+                            size="sm"
+                            shape="pill"
+                            [fullWidth]="true"
+                          >
+                            Lưu phương án
+                          </sportbook6vn-button>
+                          <p>Lưu lần cuối 16:23 hôm nay</p>
+                        </div>
+                      </section>
+                    </div>
                     <div *ngSwitchCase="'vertical'" class="core3-steps-vertical-demo">
-                      <sportbook6vn-steps [items]="stepsVerticalItems" [current]="1" />
+                      <sportbook6vn-steps [items]="stepsVerticalItems" [current]="1" inactiveMarker="outline" />
                     </div>
                   </ng-container>
                 </div>

@@ -55,10 +55,15 @@
 }
 
 .sportbook6vn-steps__item--wait {
-  --sportbook6vn-steps-marker-bg: transparent;
+  --sportbook6vn-steps-marker-bg: var(--sportbook6vn-color-steps-step-default, #6d83a7);
   --sportbook6vn-steps-marker-border: var(--sportbook6vn-color-steps-step-default, #6d83a7);
-  --sportbook6vn-steps-marker-color: var(--sportbook6vn-color-steps-step-default, #6d83a7);
+  --sportbook6vn-steps-marker-color: var(--sportbook6vn-color-steps-marker-text, #ffffff);
   --sportbook6vn-steps-title-color: var(--sportbook6vn-color-steps-step-default, #6d83a7);
+}
+
+.sportbook6vn-steps--inactive-outline .sportbook6vn-steps__item--wait {
+  --sportbook6vn-steps-marker-bg: transparent;
+  --sportbook6vn-steps-marker-color: var(--sportbook6vn-color-steps-step-default, #6d83a7);
 }
 
 .sportbook6vn-steps__item--process {
