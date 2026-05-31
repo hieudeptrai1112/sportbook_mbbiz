@@ -321,6 +321,28 @@
   min-width: min(100%, 932px);
 }
 
+.sportbook6vn-preview-item-file-grid {
+  align-items: flex-start;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(280px, 434px));
+}
+
+.sportbook6vn-preview-item-file-grid sportbook6vn-item-file {
+  width: 100%;
+}
+
+.sportbook6vn-preview-item-upload-grid {
+  align-items: flex-start;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(2, minmax(280px, 434px));
+}
+
+.sportbook6vn-preview-item-upload-grid sportbook6vn-item-upload {
+  width: 100%;
+}
+
 .sportbook6vn-preview-button-group {
   display: grid;
   gap: 16px;

@@ -1313,12 +1313,81 @@ sportbook6vn-button.button-doc-state-pressed
   min-height: 84px;
 }
 
+.upload-file-doc-section,
+.upload-file-demo-card,
+.upload-file-demo-preview {
+  overflow: visible;
+}
+
+.upload-file-section-title {
+  display: grid;
+  gap: 8px;
+}
+
+.upload-file-section-title span {
+  color: #536985;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.upload-file-demo-preview {
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 220px;
+  padding: 48px;
+}
+
+.upload-file-demo-frame,
+.upload-file-demo-stack,
+.upload-file-item-grid,
+.upload-file-item-upload-grid {
+  width: min(100%, 932px);
+}
+
+.upload-file-demo-frame--narrow {
+  width: min(100%, 434px);
+}
+
+.upload-file-demo-stack {
+  display: grid;
+  gap: 24px;
+}
+
+.upload-file-item-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+}
+
+.upload-file-item-upload-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+}
+
+.upload-file-item-grid sportbook6vn-item-file,
+.upload-file-item-upload-grid sportbook6vn-item-upload,
+.upload-file-demo-stack sportbook6vn-upload-file {
+  width: 100%;
+}
+
 @media (max-width: 1100px) {
   .core3-input-family,
   .core3-input-frame--grid,
   .core3-input-frame--three,
-  .core3-datepicker-family {
+  .core3-datepicker-family,
+  .upload-file-item-grid,
+  .upload-file-item-upload-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .upload-file-demo-preview {
+    padding: 24px;
   }
 }
 

@@ -17,6 +17,10 @@ import {
   Sportbook6vnFloatingLabelInputComponent,
   Sportbook6vnInputComponent,
   Sportbook6vnInputTagComponent,
+  Sportbook6vnItemFileComponent,
+  type Sportbook6vnItemFileErrorType,
+  type Sportbook6vnItemFileKind,
+  Sportbook6vnItemUploadComponent,
   type Sportbook6vnInputTagValue,
   Sportbook6vnPasswordInputComponent,
   Sportbook6vnRadioComponent,
@@ -25,6 +29,8 @@ import {
   Sportbook6vnSearchInputComponent,
   Sportbook6vnStepsComponent,
   Sportbook6vnTextareaComponent,
+  Sportbook6vnUploadFileComponent,
+  type Sportbook6vnUploadFileItem,
   type Sportbook6vnButtonSize,
   type Sportbook6vnButtonVariant,
 } from 'sportbook6vn';
@@ -143,6 +149,10 @@ import {
   type IllustrationAsset,
 } from './illustration-assets.data';
 import {
+  UPLOAD_FILE_DEMO_SECTIONS,
+  type UploadFileDemoSection,
+} from './upload-file-demos.data';
+import {
   DEFAULT_THEME_BRAND,
   DEFAULT_THEME_ID,
   DEFAULT_THEME_MODE,
@@ -233,12 +243,15 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     Sportbook6vnFloatingLabelInputComponent,
     Sportbook6vnInputComponent,
     Sportbook6vnInputTagComponent,
+    Sportbook6vnItemFileComponent,
+    Sportbook6vnItemUploadComponent,
     Sportbook6vnPasswordInputComponent,
     Sportbook6vnRadioComponent,
     Sportbook6vnRadioGroupComponent,
     Sportbook6vnSearchInputComponent,
     Sportbook6vnStepsComponent,
     Sportbook6vnTextareaComponent,
+    Sportbook6vnUploadFileComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -263,6 +276,7 @@ export class App {
     | 'dropdown'
     | 'radio'
     | 'datepicker'
+    | 'uploadFile'
     | 'illustration'
     | 'core3Mapping'
     | 'color'
@@ -373,6 +387,119 @@ export class App {
   );
   protected readonly expandedDatepickerDemoIds = signal<string[]>([]);
   protected readonly copiedDatepickerDemoId = signal<string | null>(null);
+  protected readonly uploadFileDemoSections: UploadFileDemoSection[] = UPLOAD_FILE_DEMO_SECTIONS;
+  protected readonly activeUploadFileSection = signal(
+    this.getUploadFileSectionId(this.uploadFileDemoSections[0]?.id ?? 'item-upload-default'),
+  );
+  protected readonly uploadFilesDone: Sportbook6vnUploadFileItem[] = [
+    { uid: 'docs-upload-done-1', name: 'Tên tệp tin.pdf', sizeLabel: '2 MB', fileKind: 'pdf' },
+    { uid: 'docs-upload-done-2', name: 'Tên tệp tin.docx', sizeLabel: '2 MB', fileKind: 'docx' },
+    { uid: 'docs-upload-done-3', name: 'Tên tệp tin.xlsx', sizeLabel: '2 MB', fileKind: 'xlsx' },
+  ];
+  protected readonly uploadFilesExpanded: Sportbook6vnUploadFileItem[] = [
+    { uid: 'docs-upload-expanded-1', name: 'Tên tệp tin.pdf', sizeLabel: '2 MB', fileKind: 'pdf' },
+    { uid: 'docs-upload-expanded-2', name: 'Tên tệp tin.docx', sizeLabel: '2 MB', fileKind: 'docx' },
+    { uid: 'docs-upload-expanded-3', name: 'Tên tệp tin.xlsx', sizeLabel: '2 MB', fileKind: 'xlsx' },
+    { uid: 'docs-upload-expanded-4', name: 'Tên tệp tin.jpg', sizeLabel: '2 MB', fileKind: 'jpg' },
+  ];
+  protected readonly uploadFilesLoading: Sportbook6vnUploadFileItem[] = [
+    {
+      uid: 'docs-upload-loading-1',
+      name: 'Tên tệp tin.pdf',
+      sizeLabel: '2 MB',
+      fileKind: 'pdf',
+      status: 'uploading',
+      percent: 42,
+    },
+    {
+      uid: 'docs-upload-loading-2',
+      name: 'Tên tệp tin.xlsx',
+      sizeLabel: '2 MB',
+      fileKind: 'xlsx',
+      status: 'uploading',
+      percent: 86,
+    },
+  ];
+  protected readonly uploadFilesError: Sportbook6vnUploadFileItem[] = [
+    {
+      uid: 'docs-upload-error-1',
+      name: 'Tên tệp tin.xlsx',
+      sizeLabel: '2 MB',
+      fileKind: 'xlsx',
+      status: 'error',
+      errorType: 'size',
+      errorMessage: 'File tải lên vượt quá dung lượng cho phép',
+    },
+    {
+      uid: 'docs-upload-error-2',
+      name: 'Tên tệp tin.xml',
+      sizeLabel: '2 MB',
+      fileKind: 'xml',
+      status: 'error',
+      errorType: 'format',
+      errorMessage: 'File tải lên không đúng định dạng. Vui lòng kiểm tra và tải lại',
+    },
+  ];
+  protected readonly uploadFileTypes: Sportbook6vnUploadFileItem[] = [
+    {
+      uid: 'docs-upload-type-xlsx',
+      name: 'Tên tệp tin.xlsx',
+      sizeLabel: '2 MB',
+      fileKind: 'xlsx',
+      downloadable: true,
+    },
+    {
+      uid: 'docs-upload-type-docx',
+      name: 'Tên tệp tin.docx',
+      sizeLabel: '2 MB',
+      fileKind: 'docx',
+      downloadable: true,
+    },
+    {
+      uid: 'docs-upload-type-pdf',
+      name: 'Tên tệp tin.pdf',
+      sizeLabel: '2 MB',
+      fileKind: 'pdf',
+      downloadable: true,
+    },
+    {
+      uid: 'docs-upload-type-jpg',
+      name: 'Tên tệp tin.jpg',
+      sizeLabel: '2 MB',
+      fileKind: 'jpg',
+      downloadable: true,
+    },
+    {
+      uid: 'docs-upload-type-xml',
+      name: 'Tên tệp tin.xml',
+      sizeLabel: '2 MB',
+      fileKind: 'xml',
+      downloadable: true,
+    },
+  ];
+  protected readonly itemFileKinds: { kind: Sportbook6vnItemFileKind; name: string }[] = [
+    { kind: 'xlsx', name: 'Tên tệp tin.xlsx' },
+    { kind: 'docx', name: 'Tên tệp tin.docx' },
+    { kind: 'pdf', name: 'Tên tệp tin.pdf' },
+    { kind: 'jpg', name: 'Tên tệp tin.jpg' },
+    { kind: 'xml', name: 'Tên tệp tin.xml' },
+  ];
+  protected readonly itemFileLoadingKinds = this.itemFileKinds.map((item, index) => ({
+    ...item,
+    percent: [72, 54, 38, 80, 46][index],
+  }));
+  protected readonly itemFileErrorCases: {
+    kind: Sportbook6vnItemFileKind;
+    name: string;
+    errorType: Sportbook6vnItemFileErrorType;
+  }[] = [
+    { kind: 'xlsx', name: 'Tên tệp tin.xlsx', errorType: 'size' },
+    { kind: 'pdf', name: 'Tên tệp tin.pdf', errorType: 'upload' },
+    { kind: 'error', name: 'Tên tệp tin.xml', errorType: 'format' },
+  ];
+  protected readonly downloadDocsUploadFile = (file: Sportbook6vnUploadFileItem): void => {
+    this.downloadDocsFile(file.name);
+  };
   protected readonly illustrationAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS;
   protected readonly activeIllustrationSection = signal('illustration-usage');
   protected readonly copiedIllustrationUrl = signal<string | null>(null);
@@ -498,6 +625,7 @@ export class App {
       | 'dropdown'
       | 'radio'
       | 'datepicker'
+      | 'uploadFile'
       | 'illustration'
       | 'core3Mapping'
       | 'color'
@@ -526,6 +654,8 @@ export class App {
       setTimeout(() => this.updateActiveRadioSection(), 0);
     } else if (page === 'datepicker') {
       setTimeout(() => this.updateActiveDatepickerSection(), 0);
+    } else if (page === 'uploadFile') {
+      setTimeout(() => this.updateActiveUploadFileSection(), 0);
     } else if (page === 'illustration') {
       setTimeout(() => this.updateActiveIllustrationSection(), 0);
     }
@@ -1326,6 +1456,14 @@ export class App {
     return `datepicker-${sectionId}`;
   }
 
+  protected setActiveUploadFileSection(sectionId: string) {
+    this.activeUploadFileSection.set(sectionId);
+  }
+
+  protected getUploadFileSectionId(sectionId: string): string {
+    return `upload-file-${sectionId}`;
+  }
+
   protected isDropdownDemoExpanded(sectionId: string): boolean {
     return this.expandedDropdownDemoIds().includes(sectionId);
   }
@@ -1518,6 +1656,29 @@ export class App {
     this.radioGroupVerticalValue.set(value);
   }
 
+  protected downloadDocsItemFile(file: { name: string }): void {
+    this.downloadDocsFile(file.name);
+  }
+
+  private downloadDocsFile(fileName: string): void {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    const blob = new Blob([`Sportbook6vn docs download: ${fileName}\n`], {
+      type: 'text/plain;charset=utf-8',
+    });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = fileName;
+    anchor.rel = 'noopener noreferrer';
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    URL.revokeObjectURL(url);
+  }
+
   @HostListener('window:scroll')
   @HostListener('window:resize')
   protected onViewportChange() {
@@ -1531,6 +1692,7 @@ export class App {
     this.updateActiveDropdownSection();
     this.updateActiveRadioSection();
     this.updateActiveDatepickerSection();
+    this.updateActiveUploadFileSection();
     this.updateActiveIllustrationSection();
   }
 
@@ -1789,6 +1951,31 @@ export class App {
     this.activeDatepickerSection.set(currentSection);
   }
 
+  private updateActiveUploadFileSection() {
+    if (this.activePage() !== 'uploadFile' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getUploadFileSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeUploadFileSection.set(currentSection);
+  }
+
   private updateActiveIllustrationSection() {
     if (this.activePage() !== 'illustration' || typeof document === 'undefined') {
       return;
@@ -2012,6 +2199,10 @@ export class App {
       'datepicker-api',
       'datepicker-variables',
     ];
+  }
+
+  private getUploadFileSectionIds(): string[] {
+    return this.uploadFileDemoSections.map((section) => this.getUploadFileSectionId(section.id));
   }
 
   private getIllustrationSectionIds(): string[] {

@@ -1,5 +1,8 @@
 import { Component, ElementRef, computed, effect, input, output, signal, viewChild } from '@angular/core';
 
+import { Sportbook6vnItemFileComponent } from '../item-file/item-file.component';
+import { Sportbook6vnItemUploadComponent } from '../item-upload/item-upload.component';
+import type { Sportbook6vnItemUploadState } from '../item-upload/item-upload.types';
 import {
   Sportbook6vnUploadFileChange,
   Sportbook6vnUploadFileChangeType,
@@ -14,6 +17,7 @@ const FILE_SIZE_UNITS = ['B', 'KB', 'MB', 'GB'] as const;
 
 @Component({
   selector: 'sportbook6vn-upload-file',
+  imports: [Sportbook6vnItemFileComponent, Sportbook6vnItemUploadComponent],
   templateUrl: './upload-file.component.html',
   styleUrl: './upload-file.component.scss',
 })
@@ -37,19 +41,20 @@ export class Sportbook6vnUploadFileComponent {
   readonly showUploadArea = input(true);
   readonly showRemove = input(true);
   readonly showDownload = input(false);
+  readonly downloadHandler = input<((file: Sportbook6vnUploadFileItem) => void) | null>(null);
   readonly fileInputId = input<string | null>(null);
 
   readonly filesChange = output<Sportbook6vnUploadFileItem[]>();
   readonly change = output<Sportbook6vnUploadFileChange>();
   readonly fileSelect = output<Sportbook6vnUploadFileItem[]>();
   readonly fileRemove = output<Sportbook6vnUploadFileItem>();
+  readonly fileDownload = output<Sportbook6vnUploadFileItem>();
   readonly expandChange = output<boolean>();
   readonly dataSourceClick = output<void>();
 
   private readonly fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
 
   protected readonly localFiles = signal<Sportbook6vnUploadFileItem[]>([]);
-  protected readonly dragActive = signal(false);
   protected readonly localExpanded = signal(false);
 
   constructor() {
@@ -68,7 +73,6 @@ export class Sportbook6vnUploadFileComponent {
       this.disabled() ? 'sportbook6vn-upload-file--disabled' : '',
       this.uploadAreaError() ? 'sportbook6vn-upload-file--error' : '',
       this.isUploadDisabled() ? 'sportbook6vn-upload-file--upload-disabled' : '',
-      this.dragActive() ? 'sportbook6vn-upload-file--drag-active' : '',
     ]
       .filter(Boolean)
       .join(' '),
@@ -110,6 +114,18 @@ export class Sportbook6vnUploadFileComponent {
     return this.multiple() && maxCount !== 1;
   });
 
+  protected readonly itemUploadState = computed<Sportbook6vnItemUploadState>(() => {
+    if (this.isUploadDisabled()) {
+      return 'disabled';
+    }
+
+    if (this.uploadAreaError()) {
+      return 'error';
+    }
+
+    return 'default';
+  });
+
   protected openFileDialog(event?: Event): void {
     event?.preventDefault();
     event?.stopPropagation();
@@ -128,30 +144,7 @@ export class Sportbook6vnUploadFileComponent {
     inputElement.value = '';
   }
 
-  protected onDragOver(event: DragEvent): void {
-    event.preventDefault();
-
-    if (this.isUploadDisabled()) {
-      return;
-    }
-
-    this.dragActive.set(true);
-  }
-
-  protected onDragLeave(event: DragEvent): void {
-    event.preventDefault();
-    this.dragActive.set(false);
-  }
-
-  protected onDrop(event: DragEvent): void {
-    event.preventDefault();
-    this.dragActive.set(false);
-
-    if (this.isUploadDisabled()) {
-      return;
-    }
-
-    const files = event.dataTransfer?.files ? Array.from(event.dataTransfer.files) : [];
+  protected onFileDrop(files: File[]): void {
     this.uploadFiles(files, 'drop');
   }
 
@@ -170,6 +163,21 @@ export class Sportbook6vnUploadFileComponent {
     this.change.emit({ file, fileList: nextFiles, type: 'remove' });
   }
 
+  protected downloadFile(file: Sportbook6vnUploadFileItem): void {
+    if (this.disabled() || file.disabled || !this.showDownload() || !file.downloadable) {
+      return;
+    }
+
+    const downloadHandler = this.downloadHandler();
+    if (typeof downloadHandler === 'function') {
+      downloadHandler(file);
+    } else if (file.url) {
+      window.open(file.url);
+    }
+
+    this.fileDownload.emit(file);
+  }
+
   protected toggleExpanded(event?: Event): void {
     event?.preventDefault();
     const nextExpanded = !this.localExpanded();
@@ -177,9 +185,9 @@ export class Sportbook6vnUploadFileComponent {
     this.expandChange.emit(nextExpanded);
   }
 
-  protected emitDataSourceClick(event: Event): void {
-    event.preventDefault();
-    event.stopPropagation();
+  protected emitDataSourceClick(event?: Event): void {
+    event?.preventDefault();
+    event?.stopPropagation();
 
     if (this.isUploadDisabled()) {
       return;
@@ -200,21 +208,6 @@ export class Sportbook6vnUploadFileComponent {
     return file.fileKind ?? this.resolveFileKind(file.name);
   }
 
-  protected fileNameBase(file: Sportbook6vnUploadFileItem): string {
-    const dotIndex = file.name.lastIndexOf('.');
-    return dotIndex > 0 ? file.name.slice(0, dotIndex) : file.name;
-  }
-
-  protected fileExtension(file: Sportbook6vnUploadFileItem): string {
-    const dotIndex = file.name.lastIndexOf('.');
-    if (dotIndex > 0 && dotIndex < file.name.length - 1) {
-      return file.name.slice(dotIndex);
-    }
-
-    const kind = this.fileKind(file);
-    return kind === 'file' ? '' : `.${kind}`;
-  }
-
   protected fileSizeLabel(file: Sportbook6vnUploadFileItem): string {
     if (file.sizeLabel) {
       return file.sizeLabel;
@@ -230,23 +223,6 @@ export class Sportbook6vnUploadFileComponent {
   protected progressValue(file: Sportbook6vnUploadFileItem): number {
     const value = file.percent ?? DEFAULT_PROGRESS;
     return Math.min(100, Math.max(0, Math.round(value)));
-  }
-
-  protected fileIconText(file: Sportbook6vnUploadFileItem): string {
-    const kind = this.fileKind(file);
-    if (kind === 'file') {
-      return '';
-    }
-
-    return kind === 'xlsx' ? 'XLS' : kind.toUpperCase();
-  }
-
-  protected fileItemClass(file: Sportbook6vnUploadFileItem): string {
-    return [
-      'sportbook6vn-upload-file__file',
-      `sportbook6vn-upload-file__file--${this.fileStatus(file)}`,
-      `sportbook6vn-upload-file__file--${this.fileKind(file)}`,
-    ].join(' ');
   }
 
   private uploadFiles(files: File[], type: Sportbook6vnUploadFileChangeType): void {

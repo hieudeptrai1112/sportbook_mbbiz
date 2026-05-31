@@ -13,6 +13,10 @@ import {
   Sportbook6vnInputComponent,
   Sportbook6vnInputTagComponent,
   Sportbook6vnInputTagValue,
+  Sportbook6vnItemFileComponent,
+  Sportbook6vnItemUploadComponent,
+  type Sportbook6vnItemFileErrorType,
+  type Sportbook6vnItemFileKind,
   Sportbook6vnModalComponent,
   Sportbook6vnPasswordInputComponent,
   Sportbook6vnRadioComponent,
@@ -39,6 +43,8 @@ import {
     Sportbook6vnFloatingLabelInputComponent,
     Sportbook6vnInputComponent,
     Sportbook6vnInputTagComponent,
+    Sportbook6vnItemFileComponent,
+    Sportbook6vnItemUploadComponent,
     Sportbook6vnModalComponent,
     Sportbook6vnPasswordInputComponent,
     Sportbook6vnRadioComponent,
@@ -109,6 +115,7 @@ export class Sportbook6vnPreviewAppComponent {
       sizeLabel: '2 MB',
       fileKind: 'xlsx',
       status: 'error',
+      errorType: 'size',
       errorMessage: 'File tải lên vượt quá dung lượng cho phép',
     },
     {
@@ -117,16 +124,40 @@ export class Sportbook6vnPreviewAppComponent {
       sizeLabel: '2 MB',
       fileKind: 'xml',
       status: 'error',
+      errorType: 'format',
       errorMessage: 'File tải lên không đúng định dạng. Vui lòng kiểm tra và tải lại',
     },
   ];
 
   protected readonly uploadFileTypes: Sportbook6vnUploadFileItem[] = [
-    { uid: 'upload-type-xlsx', name: 'Tên tệp tin.xlsx', sizeLabel: '2 MB', fileKind: 'xlsx' },
-    { uid: 'upload-type-docx', name: 'Tên tệp tin.docx', sizeLabel: '2 MB', fileKind: 'docx' },
-    { uid: 'upload-type-pdf', name: 'Tên tệp tin.pdf', sizeLabel: '2 MB', fileKind: 'pdf' },
-    { uid: 'upload-type-jpg', name: 'Tên tệp tin.jpg', sizeLabel: '2 MB', fileKind: 'jpg' },
-    { uid: 'upload-type-xml', name: 'Tên tệp tin.xml', sizeLabel: '2 MB', fileKind: 'xml' },
+    { uid: 'upload-type-xlsx', name: 'Tên tệp tin.xlsx', sizeLabel: '2 MB', fileKind: 'xlsx', downloadable: true },
+    { uid: 'upload-type-docx', name: 'Tên tệp tin.docx', sizeLabel: '2 MB', fileKind: 'docx', downloadable: true },
+    { uid: 'upload-type-pdf', name: 'Tên tệp tin.pdf', sizeLabel: '2 MB', fileKind: 'pdf', downloadable: true },
+    { uid: 'upload-type-jpg', name: 'Tên tệp tin.jpg', sizeLabel: '2 MB', fileKind: 'jpg', downloadable: true },
+    { uid: 'upload-type-xml', name: 'Tên tệp tin.xml', sizeLabel: '2 MB', fileKind: 'xml', downloadable: true },
+  ];
+
+  protected readonly itemFileKinds: { kind: Sportbook6vnItemFileKind; name: string }[] = [
+    { kind: 'xlsx', name: 'Tên tệp tin.xlsx' },
+    { kind: 'docx', name: 'Tên tệp tin.docx' },
+    { kind: 'pdf', name: 'Tên tệp tin.pdf' },
+    { kind: 'jpg', name: 'Tên tệp tin.jpg' },
+    { kind: 'xml', name: 'Tên tệp tin.xml' },
+  ];
+
+  protected readonly itemFileLoadingKinds = this.itemFileKinds.map((item, index) => ({
+    ...item,
+    percent: [72, 54, 38, 80, 46][index],
+  }));
+
+  protected readonly itemFileErrorCases: {
+    kind: Sportbook6vnItemFileKind;
+    name: string;
+    errorType: Sportbook6vnItemFileErrorType;
+  }[] = [
+    { kind: 'xlsx', name: 'Tên tệp tin.xlsx', errorType: 'size' },
+    { kind: 'pdf', name: 'Tên tệp tin.pdf', errorType: 'upload' },
+    { kind: 'error', name: 'Tên tệp tin.xml', errorType: 'format' },
   ];
 
   protected readonly basicInputValue = signal('Input text');
@@ -320,6 +351,14 @@ export class Sportbook6vnPreviewAppComponent {
   protected readonly inputTagOverflowRender = (count: number) => `${count} More`;
   protected readonly inputTagResponsiveOverflowRender = (count: number) => `+${count} More`;
 
+  protected readonly downloadPreviewUploadFile = (file: Sportbook6vnUploadFileItem): void => {
+    this.downloadPreviewFile(file.name);
+  };
+
+  protected downloadPreviewItemFile(file: { name: string }): void {
+    this.downloadPreviewFile(file.name);
+  }
+
   protected readonly inputTagRenderTone = ({ value, label }: { value: string; label: string }) => {
     const toneMap: Record<string, 'brand' | 'warning' | 'success'> = {
       arcoblue: 'brand',
@@ -332,6 +371,21 @@ export class Sportbook6vnPreviewAppComponent {
       tone: toneMap[value] ?? 'brand',
     };
   };
+
+  private downloadPreviewFile(fileName: string): void {
+    const blob = new Blob([`Sportbook6vn preview download: ${fileName}\n`], {
+      type: 'text/plain;charset=utf-8',
+    });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = fileName;
+    anchor.rel = 'noopener noreferrer';
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    URL.revokeObjectURL(url);
+  }
 
   protected readonly inputTagEmailValidate = (inputValue: string, tags: readonly Sportbook6vnInputTagValue[]) => {
     const candidate = inputValue.trim().toLowerCase();

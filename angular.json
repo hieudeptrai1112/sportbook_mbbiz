@@ -137,7 +137,12 @@
             "browser": "projects/sportbook6vn-preview/src/main.ts",
             "tsConfig": "tsconfig.sportbook6vn-preview.json",
             "inlineStyleLanguage": "scss",
-            "assets": [],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
             "styles": ["projects/sportbook6vn-preview/src/styles.scss"]
           },
           "configurations": {

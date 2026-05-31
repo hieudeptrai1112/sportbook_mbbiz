@@ -1,0 +1,40 @@
+<div [class]="itemClass()" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)">
+  <div class="sportbook6vn-item-upload__dropzone">
+    <span class="sportbook6vn-item-upload__content">
+      <img class="sportbook6vn-item-upload__illustration" [src]="illustrationSrc()" alt="" aria-hidden="true" />
+
+      <span class="sportbook6vn-item-upload__body">
+        <span class="sportbook6vn-item-upload__guide">{{ uploadText() }}</span>
+        <span class="sportbook6vn-item-upload__actions">
+          <button
+            type="button"
+            class="sportbook6vn-item-upload__link"
+            [disabled]="disabled()"
+            (click)="selectFile($event)"
+          >
+            {{ selectText() }}
+          </button>
+
+          @if (showDataSource()) {
+            <span class="sportbook6vn-item-upload__or">hoặc</span>
+            <button
+              type="button"
+              class="sportbook6vn-item-upload__link sportbook6vn-item-upload__link--small"
+              [disabled]="disabled()"
+              (click)="emitDataSourceClick($event)"
+            >
+              {{ dataSourceText() }}
+            </button>
+          }
+        </span>
+      </span>
+    </span>
+  </div>
+
+  @if (state() === 'error' && errorMessage()) {
+    <div class="sportbook6vn-item-upload__error-message">
+      <span class="sportbook6vn-item-upload__error-icon" aria-hidden="true">!</span>
+      <span>{{ errorMessage() }}</span>
+    </div>
+  }
+</div>

@@ -1,0 +1,55 @@
+<div [class]="itemClass()">
+  <div class="sportbook6vn-item-file__content">
+    <img class="sportbook6vn-item-file__icon" [src]="iconSrc()" [alt]="iconAlt()" />
+
+    <span class="sportbook6vn-item-file__meta">
+      <span class="sportbook6vn-item-file__name-row" [attr.title]="name()">
+        <span class="sportbook6vn-item-file__name">{{ displayNameBase() }}</span>
+        <span class="sportbook6vn-item-file__extension">{{ displayExtension() }}</span>
+      </span>
+
+      <span class="sportbook6vn-item-file__size">{{ sizeLabel() }}</span>
+
+      @if (status() === 'uploading') {
+        <span class="sportbook6vn-item-file__progress" aria-hidden="true">
+          <span class="sportbook6vn-item-file__progress-bar" [style.width.%]="progressWidth()"></span>
+        </span>
+      }
+
+      @if (resolvedErrorMessage()) {
+        <span class="sportbook6vn-item-file__error">{{ resolvedErrorMessage() }}</span>
+      }
+    </span>
+  </div>
+
+  @if (showDownload()) {
+    <button
+      type="button"
+      class="sportbook6vn-item-file__action sportbook6vn-item-file__action--download"
+      [disabled]="disabled()"
+      aria-label="Tải xuống tệp tin"
+      (click)="emitDownload($event)"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 4v10" />
+        <path d="M8 10l4 4 4-4" />
+        <path d="M5 19h14" />
+      </svg>
+    </button>
+  }
+
+  @if (showClose()) {
+    <button
+      type="button"
+      class="sportbook6vn-item-file__action sportbook6vn-item-file__action--remove"
+      [disabled]="disabled()"
+      aria-label="Xóa tệp tin"
+      (click)="emitRemove($event)"
+    >
+      <svg viewBox="0 0 20 20" aria-hidden="true">
+        <path d="M5.5 5.5L14.5 14.5" />
+        <path d="M14.5 5.5L5.5 14.5" />
+      </svg>
+    </button>
+  }
+</div>

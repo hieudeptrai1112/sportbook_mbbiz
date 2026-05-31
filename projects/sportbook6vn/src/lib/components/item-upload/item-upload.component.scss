@@ -1,0 +1,151 @@
+:host {
+  display: block;
+  max-width: 100%;
+  width: min(100%, 434px);
+}
+
+.sportbook6vn-item-upload {
+  --sportbook6vn-item-upload-primary: var(--sportbook6vn-color-brand-600, #141ed2);
+  --sportbook6vn-item-upload-primary-300: var(--sportbook6vn-color-brand-300, #a3b7fd);
+  --sportbook6vn-item-upload-text-guide: #6d83a7;
+  --sportbook6vn-item-upload-text-disabled: #9b9b9b;
+  --sportbook6vn-item-upload-error: #f00000;
+  --sportbook6vn-item-upload-error-text: #f34343;
+
+  color: var(--sportbook6vn-item-upload-text-guide);
+  display: grid;
+  font-family: var(--sportbook6vn-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  gap: 4px;
+  width: 100%;
+}
+
+.sportbook6vn-item-upload__dropzone {
+  align-items: center;
+  background: #ffffff;
+  border: 1px dashed var(--sportbook6vn-item-upload-primary-300);
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  min-height: 124px;
+  padding: 12px;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease;
+  width: 100%;
+}
+
+.sportbook6vn-item-upload--drag-active .sportbook6vn-item-upload__dropzone {
+  background: #f8fbff;
+  border-color: var(--sportbook6vn-item-upload-primary);
+}
+
+.sportbook6vn-item-upload--error .sportbook6vn-item-upload__dropzone {
+  border-color: var(--sportbook6vn-item-upload-error);
+}
+
+.sportbook6vn-item-upload--disabled .sportbook6vn-item-upload__dropzone {
+  background: #f3f3f3;
+  border-color: #cccccc;
+}
+
+.sportbook6vn-item-upload__content {
+  align-items: center;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  min-width: 0;
+}
+
+.sportbook6vn-item-upload__illustration {
+  display: block;
+  flex: 0 0 52px;
+  height: 52px;
+  object-fit: contain;
+  width: 52px;
+}
+
+.sportbook6vn-item-upload__body {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  min-width: 0;
+  width: 100%;
+}
+
+.sportbook6vn-item-upload__guide {
+  color: var(--sportbook6vn-item-upload-text-guide);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 16px;
+  text-align: center;
+  width: 100%;
+}
+
+.sportbook6vn-item-upload__actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.sportbook6vn-item-upload__link {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--sportbook6vn-item-upload-primary);
+  cursor: pointer;
+  font: 400 12px/16px var(--sportbook6vn-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  letter-spacing: 0.25px;
+  padding: 2px 0;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.sportbook6vn-item-upload__link--small,
+.sportbook6vn-item-upload__or {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sportbook6vn-item-upload__link:disabled {
+  color: var(--sportbook6vn-item-upload-text-disabled);
+  cursor: not-allowed;
+}
+
+.sportbook6vn-item-upload__or {
+  color: var(--sportbook6vn-item-upload-text-guide);
+}
+
+.sportbook6vn-item-upload__error-message {
+  align-items: center;
+  color: var(--sportbook6vn-item-upload-error-text);
+  display: flex;
+  font-size: 14px;
+  font-weight: 400;
+  gap: 4px;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  min-height: 20px;
+}
+
+.sportbook6vn-item-upload__error-icon {
+  align-items: center;
+  background: var(--sportbook6vn-item-upload-error);
+  border-radius: 50%;
+  color: #ffffff;
+  display: inline-flex;
+  flex: 0 0 16px;
+  font-size: 11px;
+  font-weight: 700;
+  height: 16px;
+  justify-content: center;
+  line-height: 16px;
+  width: 16px;
+}

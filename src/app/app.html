@@ -270,6 +270,14 @@
             </div>
             <div
               class="sidebar-link"
+              [class.active]="activePage() === 'uploadFile'"
+              (click)="setPage('uploadFile')"
+            >
+              <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
+              <span>Upload File</span>
+            </div>
+            <div
+              class="sidebar-link"
               [class.active]="activePage() === 'radio'"
               (click)="setPage('radio')"
             >
@@ -2719,6 +2727,139 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'uploadFile'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Entry</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Upload File</h1>
+              <p class="lead">
+                Upload File maps the approved preview cases for Item Upload, Item File, and Upload File
+                into one dedicated docs page. Snippet code, API docs, and component tokens are intentionally
+                handled later by the code workflow.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section upload-file-doc-section"
+              *ngFor="let demo of uploadFileDemoSections"
+              [attr.id]="getUploadFileSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <div class="upload-file-section-title">
+                  <span>{{ demo.group }}</span>
+                  <h2>{{ demo.title }}</h2>
+                </div>
+              </div>
+              <p class="button-demo-description button-demo-description--rich">
+                @for (part of demo.descriptionParts; track $index) {
+                  @if (part.code) {
+                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                  } @else {
+                    <span>{{ part.text }}</span>
+                  }
+                }
+              </p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card upload-file-demo-card">
+                <div class="button-demo-preview core3-map-preview upload-file-demo-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <div *ngSwitchCase="'itemUploadDefault'" class="upload-file-demo-frame upload-file-demo-frame--narrow">
+                      <sportbook6vn-item-upload />
+                    </div>
+
+                    <div *ngSwitchCase="'itemUploadStatus'" class="upload-file-item-upload-grid">
+                      <sportbook6vn-item-upload state="error" errorMessage="Error Message" />
+                      <sportbook6vn-item-upload state="disabled" />
+                    </div>
+
+                    <div *ngSwitchCase="'itemUploadDataSource'" class="upload-file-demo-frame upload-file-demo-frame--narrow">
+                      <sportbook6vn-item-upload [showDataSource]="true" />
+                    </div>
+
+                    <div *ngSwitchCase="'itemFileDefault'" class="upload-file-item-grid">
+                      <sportbook6vn-item-file
+                        *ngFor="let file of itemFileKinds"
+                        [name]="file.name"
+                        [fileKind]="file.kind"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'itemFileView'" class="upload-file-item-grid">
+                      <sportbook6vn-item-file
+                        *ngFor="let file of itemFileKinds"
+                        [name]="file.name"
+                        [fileKind]="file.kind"
+                        [showClose]="false"
+                        [showDownload]="true"
+                        (download)="downloadDocsItemFile(file)"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'itemFileLoading'" class="upload-file-item-grid">
+                      <sportbook6vn-item-file
+                        *ngFor="let file of itemFileLoadingKinds"
+                        [name]="file.name"
+                        [fileKind]="file.kind"
+                        status="uploading"
+                        [percent]="file.percent"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'itemFileError'" class="upload-file-item-grid">
+                      <sportbook6vn-item-file
+                        *ngFor="let file of itemFileErrorCases"
+                        [name]="file.name"
+                        [fileKind]="file.kind"
+                        status="error"
+                        [errorType]="file.errorType"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'uploadBasic'" class="upload-file-demo-stack">
+                      <sportbook6vn-upload-file />
+                    </div>
+
+                    <div *ngSwitchCase="'uploadUploaded'" class="upload-file-demo-stack">
+                      <sportbook6vn-upload-file [files]="uploadFilesDone" [expanded]="false" />
+                      <sportbook6vn-upload-file [files]="uploadFilesExpanded" [expanded]="true" />
+                    </div>
+
+                    <div *ngSwitchCase="'uploadLoading'" class="upload-file-demo-stack">
+                      <sportbook6vn-upload-file [files]="uploadFilesLoading" [expanded]="true" />
+                    </div>
+
+                    <div *ngSwitchCase="'uploadStatus'" class="upload-file-demo-stack">
+                      <sportbook6vn-upload-file errorMessage="Vui lòng tải lên thông tin" />
+                      <sportbook6vn-upload-file [files]="uploadFilesError" [expanded]="true" />
+                    </div>
+
+                    <div *ngSwitchCase="'uploadDisabled'" class="upload-file-demo-stack">
+                      <sportbook6vn-upload-file [disabled]="true" />
+                      <sportbook6vn-upload-file [files]="uploadFilesDone" [maxCount]="3" [expanded]="true" />
+                    </div>
+
+                    <div *ngSwitchCase="'uploadFileTypes'" class="upload-file-demo-stack">
+                      <sportbook6vn-upload-file
+                        [files]="uploadFileTypes"
+                        [expanded]="true"
+                        [showUploadArea]="false"
+                        [showRemove]="false"
+                        [showDownload]="true"
+                        [downloadHandler]="downloadDocsUploadFile"
+                      />
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'core3Mapping'">
             <div class="page-header">
               <div class="header-meta">
@@ -4409,6 +4550,44 @@
                 <p>
                   Use <span class="mono">Single Date</span> for one value and
                   <span class="mono">Date Range</span> when the product needs start/end selection.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'uploadFile'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of uploadFileDemoSections"
+                  [class.active]="activeUploadFileSection() === getUploadFileSectionId(demo.id)"
+                  [href]="'#' + getUploadFileSectionId(demo.id)"
+                  (click)="setActiveUploadFileSection(getUploadFileSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Mapping Note</span>
+                </div>
+                <p>
+                  This page is mapped from preview cases only. Use
+                  <span class="mono">code + Upload File</span> later for snippets, API, and tokens.
                 </p>
               </div>
             </aside>
