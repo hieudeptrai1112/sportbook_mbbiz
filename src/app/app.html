@@ -2736,15 +2736,14 @@
               </div>
               <h1>Upload File</h1>
               <p class="lead">
-                Upload File maps the approved preview cases for Item Upload, Item File, and Upload File
-                into one dedicated docs page. Snippet code, API docs, and component tokens are intentionally
-                handled later by the code workflow.
+                Upload File documents the approved preview cases for Item Upload, Item File, and Upload File,
+                including copyable Angular snippets, public API, and component token references.
               </p>
             </div>
 
             <section
               class="section button-demo-section upload-file-doc-section"
-              *ngFor="let demo of uploadFileDemoSections"
+              *ngFor="let demo of uploadFileDemoSections; let i = index"
               [attr.id]="getUploadFileSectionId(demo.id)"
             >
               <div class="button-demo-head">
@@ -2752,6 +2751,14 @@
                   <span>{{ demo.group }}</span>
                   <h2>{{ demo.title }}</h2>
                 </div>
+                <button
+                  *ngIf="i === 0"
+                  class="button-doc-toggle"
+                  type="button"
+                  (click)="toggleAllUploadFileDemoCode()"
+                >
+                  {{ areAllUploadFileDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                </button>
               </div>
               <p class="button-demo-description button-demo-description--rich">
                 @for (part of demo.descriptionParts; track $index) {
@@ -2856,7 +2863,140 @@
                     </div>
                   </ng-container>
                 </div>
+
+                <div class="button-demo-controls">
+                  <div class="button-demo-icons">
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      [class.active]="isUploadFileDemoExpanded(demo.id)"
+                      (click)="toggleUploadFileDemoCode(demo.id)"
+                      aria-label="Toggle code"
+                    >
+                      &lt;/&gt;
+                    </button>
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      (click)="copyUploadFileDemoCode(demo)"
+                      aria-label="Copy code"
+                    >
+                      {{ copiedUploadFileDemoId() === demo.id ? 'Copied' : 'Copy' }}
+                    </button>
+                  </div>
+
+                  <span class="button-code-hint">TS</span>
+                </div>
+
+                <div class="button-code-wrapper" *ngIf="isUploadFileDemoExpanded(demo.id)">
+                  <div class="button-code-head">
+                    <span class="button-code-file">{{ getUploadFileCodeLanguageLabel(demo) }}</span>
+                    <span class="button-code-hint">{{ getUploadFileCodeHint() }}</span>
+                  </div>
+                  <pre class="button-code-block"><code [innerHTML]="getUploadFileDemoHighlightedCode(demo)"></code></pre>
+                </div>
               </div>
+            </section>
+
+            <section class="section button-api-section" id="upload-file-api">
+              <h2>API</h2>
+              <p class="button-demo-description">
+                Upload File is composed from Item Upload and Item File, so the public API is split by selector.
+              </p>
+
+              <h3 class="button-api-group-title">sportbook6vn-item-upload</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of uploadFileItemUploadApiRows">
+                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                </div>
+              </div>
+
+              <h3 class="button-api-group-title">sportbook6vn-item-file</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of uploadFileItemFileApiRows">
+                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                </div>
+              </div>
+
+              <h3 class="button-api-group-title">sportbook6vn-upload-file</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of uploadFileApiRows">
+                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                </div>
+              </div>
+
+              <h3 class="button-api-group-title">Public types</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Type</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Shape</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of uploadFileTypeRows">
+                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="upload-file-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Component-scoped CSS variables are declared in Item Upload, Item File, and Upload File styles.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of uploadFileVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table button-variable-table">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.rows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <ul class="button-variable-notes">
+                <li *ngFor="let note of uploadFileVariableNotes">{{ note }}</li>
+              </ul>
             </section>
           </ng-container>
 
@@ -4578,16 +4718,32 @@
                 >
                   {{ demo.title }}
                 </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeUploadFileSection() === 'upload-file-api'"
+                  href="#upload-file-api"
+                  (click)="setActiveUploadFileSection('upload-file-api')"
+                >
+                  API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeUploadFileSection() === 'upload-file-variables'"
+                  href="#upload-file-variables"
+                  (click)="setActiveUploadFileSection('upload-file-variables')"
+                >
+                  Component Token
+                </a>
               </div>
 
               <div class="pro-tip">
                 <div class="pro-tip-title">
                   <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
-                  <span>Mapping Note</span>
+                  <span>Usage Note</span>
                 </div>
                 <p>
-                  This page is mapped from preview cases only. Use
-                  <span class="mono">code + Upload File</span> later for snippets, API, and tokens.
+                  Use the copied snippets with exported selectors from
+                  <span class="mono">sportbook6vn</span>.
                 </p>
               </div>
             </aside>

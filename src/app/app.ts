@@ -149,8 +149,16 @@ import {
   type IllustrationAsset,
 } from './illustration-assets.data';
 import {
+  UPLOAD_FILE_API_ROWS,
   UPLOAD_FILE_DEMO_SECTIONS,
+  UPLOAD_FILE_ITEM_FILE_API_ROWS,
+  UPLOAD_FILE_ITEM_UPLOAD_API_ROWS,
+  UPLOAD_FILE_TYPE_ROWS,
+  UPLOAD_FILE_VARIABLE_GROUPS,
+  UPLOAD_FILE_VARIABLE_NOTES,
+  type UploadFileApiRow,
   type UploadFileDemoSection,
+  type UploadFileVariableGroup,
 } from './upload-file-demos.data';
 import {
   DEFAULT_THEME_BRAND,
@@ -388,9 +396,17 @@ export class App {
   protected readonly expandedDatepickerDemoIds = signal<string[]>([]);
   protected readonly copiedDatepickerDemoId = signal<string | null>(null);
   protected readonly uploadFileDemoSections: UploadFileDemoSection[] = UPLOAD_FILE_DEMO_SECTIONS;
+  protected readonly uploadFileItemUploadApiRows: UploadFileApiRow[] = UPLOAD_FILE_ITEM_UPLOAD_API_ROWS;
+  protected readonly uploadFileItemFileApiRows: UploadFileApiRow[] = UPLOAD_FILE_ITEM_FILE_API_ROWS;
+  protected readonly uploadFileApiRows: UploadFileApiRow[] = UPLOAD_FILE_API_ROWS;
+  protected readonly uploadFileTypeRows: UploadFileApiRow[] = UPLOAD_FILE_TYPE_ROWS;
+  protected readonly uploadFileVariableGroups: UploadFileVariableGroup[] = UPLOAD_FILE_VARIABLE_GROUPS;
+  protected readonly uploadFileVariableNotes = UPLOAD_FILE_VARIABLE_NOTES;
   protected readonly activeUploadFileSection = signal(
     this.getUploadFileSectionId(this.uploadFileDemoSections[0]?.id ?? 'item-upload-default'),
   );
+  protected readonly expandedUploadFileDemoIds = signal<string[]>([]);
+  protected readonly copiedUploadFileDemoId = signal<string | null>(null);
   protected readonly uploadFilesDone: Sportbook6vnUploadFileItem[] = [
     { uid: 'docs-upload-done-1', name: 'Tên tệp tin.pdf', sizeLabel: '2 MB', fileKind: 'pdf' },
     { uid: 'docs-upload-done-2', name: 'Tên tệp tin.docx', sizeLabel: '2 MB', fileKind: 'docx' },
@@ -1620,6 +1636,58 @@ export class App {
     }, 1200);
   }
 
+  protected isUploadFileDemoExpanded(sectionId: string): boolean {
+    return this.expandedUploadFileDemoIds().includes(sectionId);
+  }
+
+  protected toggleUploadFileDemoCode(sectionId: string) {
+    const next = new Set(this.expandedUploadFileDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedUploadFileDemoIds.set([...next]);
+  }
+
+  protected toggleAllUploadFileDemoCode() {
+    const expanded = this.expandedUploadFileDemoIds();
+    const allIds = this.uploadFileDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedUploadFileDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllUploadFileDemoCodeExpanded(): boolean {
+    return this.expandedUploadFileDemoIds().length === this.uploadFileDemoSections.length;
+  }
+
+  protected getUploadFileDemoCode(section: UploadFileDemoSection): string {
+    return section.snippetTs;
+  }
+
+  protected getUploadFileDemoHighlightedCode(section: UploadFileDemoSection): string {
+    return this.highlightTypeScriptSnippet(this.getUploadFileDemoCode(section));
+  }
+
+  protected getUploadFileCodeLanguageLabel(section: UploadFileDemoSection): string {
+    return `upload-file-${section.id}-demo.component.ts`;
+  }
+
+  protected getUploadFileCodeHint(): string {
+    return 'Angular standalone snippet';
+  }
+
+  protected async copyUploadFileDemoCode(section: UploadFileDemoSection) {
+    const code = this.getUploadFileDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedUploadFileDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedUploadFileDemoId() === section.id) {
+        this.copiedUploadFileDemoId.set(null);
+      }
+    }, 1200);
+  }
+
   protected setActiveIllustrationSection(sectionId: string) {
     this.activeIllustrationSection.set(sectionId);
   }
@@ -2202,7 +2270,11 @@ export class App {
   }
 
   private getUploadFileSectionIds(): string[] {
-    return this.uploadFileDemoSections.map((section) => this.getUploadFileSectionId(section.id));
+    return [
+      ...this.uploadFileDemoSections.map((section) => this.getUploadFileSectionId(section.id)),
+      'upload-file-api',
+      'upload-file-variables',
+    ];
   }
 
   private getIllustrationSectionIds(): string[] {
