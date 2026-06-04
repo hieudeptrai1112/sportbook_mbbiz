@@ -8,7 +8,7 @@ describe('Sportbook6vnStepsComponent', () => {
   it('renders generated steps from amount and marks the current step', () => {
     @Component({
       imports: [Sportbook6vnStepsComponent],
-      template: `<sportbook6vn-steps [amount]="4" [current]="0" />`,
+      template: `<sportbook6vn-steps direction="vertical" [amount]="4" [current]="0" />`,
     })
     class Sportbook6vnStepsAmountTestHostComponent {}
 
@@ -67,7 +67,7 @@ describe('Sportbook6vnStepsComponent', () => {
   it('supports the compact badge marker size', () => {
     @Component({
       imports: [Sportbook6vnStepsComponent],
-      template: `<sportbook6vn-steps [amount]="3" size="badge" />`,
+      template: `<sportbook6vn-steps direction="vertical" [amount]="3" size="badge" />`,
     })
     class Sportbook6vnStepsBadgeTestHostComponent {}
 
@@ -84,7 +84,7 @@ describe('Sportbook6vnStepsComponent', () => {
   it('renders a basic three-step flow with the first step active', () => {
     @Component({
       imports: [Sportbook6vnStepsComponent],
-      template: `<sportbook6vn-steps [amount]="3" [current]="0" />`,
+      template: `<sportbook6vn-steps direction="vertical" [amount]="3" [current]="0" />`,
     })
     class Sportbook6vnStepsBasicTestHostComponent {}
 
@@ -101,5 +101,27 @@ describe('Sportbook6vnStepsComponent', () => {
     expect(markers[0].textContent.trim()).toBe('1');
     expect(markers[1].textContent.trim()).toBe('2');
     expect(markers[2].textContent.trim()).toBe('3');
+  });
+
+  it('renders horizontal progress-dot complete state when current reaches amount', () => {
+    @Component({
+      imports: [Sportbook6vnStepsComponent],
+      template: `<sportbook6vn-steps direction="horizontal" [amount]="4" [current]="4" />`,
+    })
+    class Sportbook6vnStepsHorizontalCompleteTestHostComponent {}
+
+    const fixture = TestBed.createComponent(Sportbook6vnStepsHorizontalCompleteTestHostComponent);
+    fixture.detectChanges();
+
+    const steps = fixture.nativeElement.querySelector('.sportbook6vn-steps');
+    const items = fixture.nativeElement.querySelectorAll('.sportbook6vn-steps__item');
+    const current = fixture.nativeElement.querySelector('[aria-current="step"]');
+
+    expect(steps.classList).toContain('sportbook6vn-steps--horizontal');
+    expect(steps.classList).toContain('sportbook6vn-steps--complete');
+    expect(current).toBeNull();
+    expect(
+      Array.from(items).every((item) => (item as HTMLElement).classList.contains('sportbook6vn-steps__item--finish')),
+    ).toBe(true);
   });
 });

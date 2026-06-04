@@ -286,6 +286,8 @@ export class App {
     | 'datepicker'
     | 'uploadFile'
     | 'illustration'
+    | 'pattern'
+    | 'installation'
     | 'core3Mapping'
     | 'color'
     | 'tokens'
@@ -517,6 +519,12 @@ export class App {
     this.downloadDocsFile(file.name);
   };
   protected readonly illustrationAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS;
+  protected readonly illustrationLibraryAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS.filter(
+    (asset) => !asset.id.startsWith('flag-'),
+  );
+  protected readonly flagIllustrationAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS.filter((asset) =>
+    asset.id.startsWith('flag-'),
+  );
   protected readonly activeIllustrationSection = signal('illustration-usage');
   protected readonly copiedIllustrationUrl = signal<string | null>(null);
   protected readonly copiedIllustrationSnippet = signal<string | null>(null);
@@ -643,6 +651,8 @@ export class App {
       | 'datepicker'
       | 'uploadFile'
       | 'illustration'
+      | 'pattern'
+      | 'installation'
       | 'core3Mapping'
       | 'color'
       | 'tokens'
@@ -2278,7 +2288,7 @@ export class App {
   }
 
   private getIllustrationSectionIds(): string[] {
-    return ['illustration-usage', 'illustration-assets', 'illustration-naming'];
+    return ['illustration-usage', 'illustration-assets', 'illustration-flags', 'illustration-naming'];
   }
 
   protected getHighlightedTypeScriptSnippet(code: string): string {

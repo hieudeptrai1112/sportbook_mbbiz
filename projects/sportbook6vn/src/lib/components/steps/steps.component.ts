@@ -21,7 +21,7 @@ export class Sportbook6vnStepsComponent {
   readonly current = input(0);
   readonly startIndex = input(1);
   readonly generatedTitle = input('Text');
-  readonly direction = input<Sportbook6vnStepsDirection>('vertical');
+  readonly direction = input<Sportbook6vnStepsDirection>('horizontal');
   readonly size = input<Sportbook6vnStepsSize>('default');
   readonly ariaLabel = input('Steps');
   readonly clickable = input(false);
@@ -45,12 +45,17 @@ export class Sportbook6vnStepsComponent {
     return Math.min(itemCount - 1, Math.max(0, Math.round(this.current())));
   });
 
+  protected readonly isComplete = computed(() => Math.round(this.current()) >= this.resolvedItems().length);
+
   protected readonly stepsClass = computed(() =>
     [
       'sportbook6vn-steps',
       `sportbook6vn-steps--${this.direction()}`,
       `sportbook6vn-steps--size-${this.size()}`,
-    ].join(' '),
+      this.isComplete() ? 'sportbook6vn-steps--complete' : '',
+    ]
+      .filter(Boolean)
+      .join(' '),
   );
 
   protected markerLabel(index: number): number {
@@ -60,6 +65,10 @@ export class Sportbook6vnStepsComponent {
   protected stepStatus(index: number, item: Sportbook6vnStepItem): Sportbook6vnStepStatus {
     if (item.status) {
       return item.status;
+    }
+
+    if (this.isComplete()) {
+      return 'finish';
     }
 
     const current = this.currentIndex();

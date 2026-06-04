@@ -126,7 +126,11 @@
             <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
             <span>Introduction</span>
           </div>
-          <div class="sidebar-link">
+          <div
+            class="sidebar-link"
+            [class.active]="activePage() === 'installation'"
+            (click)="setPage('installation')"
+          >
             <img src="/assets/figma/b9238733-6594-4666-b6ab-b199a6aca7e8.svg" alt="" />
             <span>Installation</span>
           </div>
@@ -290,6 +294,14 @@
             </div>
           </div>
         </div>
+
+        <div
+          class="sidebar-item sidebar-link sidebar-item-page"
+          [class.active]="activePage() === 'pattern'"
+          (click)="setPage('pattern')"
+        >
+          <span>Pattern</span>
+        </div>
       </div>
       <div class="sidebar-footer">
         <div class="sidebar-link">
@@ -308,6 +320,215 @@
             activePage() === 'tokens' || activePage() === 'spacing' || activePage() === 'typography'
           "
         >
+          <ng-container *ngIf="activePage() === 'installation'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Getting Started</span>
+                <span class="slash">/</span>
+                <span class="meta-version">Installation</span>
+              </div>
+              <h1>Installation</h1>
+              <p class="lead">
+                Install Sportbook6vn from npm, load the theme once, then import only the standalone
+                components needed by each Angular page.
+              </p>
+            </div>
+
+            <section class="section">
+              <h2>Install Package</h2>
+              <p>
+                The published npm package is
+                <span class="button-inline-code">sportbook6vn&#64;0.0.1</span>. Install it in the Angular
+                application that will consume the design system.
+              </p>
+              <div class="button-demo-card">
+                <pre
+                  style="margin: 0; padding: 20px; white-space: pre-wrap; font-family: 'IBM Plex Mono', 'Liberation Mono', monospace; font-size: 13px; line-height: 22px; color: #1e293b; background: #f7f8fa;"
+                ><code>npm install sportbook6vn</code></pre>
+              </div>
+              <p>
+                Sportbook6vn expects the host app to provide Angular and NG-Zorro. If the app does not
+                already include them, install the peer packages below.
+              </p>
+              <div class="button-demo-card">
+                <pre
+                  style="margin: 0; padding: 20px; white-space: pre-wrap; font-family: 'IBM Plex Mono', 'Liberation Mono', monospace; font-size: 13px; line-height: 22px; color: #1e293b; background: #f7f8fa;"
+                ><code>npm install &#64;angular/common@^21.2.0 &#64;angular/core@^21.2.0 &#64;angular/forms@^21.2.0 &#64;angular/platform-browser@^21.2.0 ng-zorro-antd@^21.2.2</code></pre>
+              </div>
+            </section>
+
+            <section class="section">
+              <h2>Load Theme</h2>
+              <p>
+                Import the Sportbook6vn theme files once in the consuming app global stylesheet. Place
+                these imports before product-level overrides.
+              </p>
+              <div class="button-demo-card">
+                <pre
+                  style="margin: 0; padding: 20px; white-space: pre-wrap; font-family: 'IBM Plex Mono', 'Liberation Mono', monospace; font-size: 13px; line-height: 22px; color: #1e293b; background: #f7f8fa;"
+                ><code>&#64;import 'sportbook6vn/theme.css';
+&#64;import 'sportbook6vn/zorro-bridge.less';</code></pre>
+              </div>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span>File</span>
+                  <span>Purpose</span>
+                  <span>Import Scope</span>
+                  <span>Required</span>
+                </div>
+                <div class="button-api-row">
+                  <span class="button-inline-code">theme.css</span>
+                  <span>Provides Sportbook6vn semantic tokens.</span>
+                  <span>Global stylesheet</span>
+                  <span>Yes</span>
+                </div>
+                <div class="button-api-row">
+                  <span class="button-inline-code">zorro-bridge.less</span>
+                  <span>Maps the supported token subset into NG-Zorro theme variables.</span>
+                  <span>Global stylesheet</span>
+                  <span>Yes</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="section">
+              <h2>Use Components</h2>
+              <p>
+                Import standalone components directly from
+                <span class="button-inline-code">sportbook6vn</span>. Keep imports local to the Angular
+                component that renders them so unused UI does not enter the page.
+              </p>
+              <div class="button-demo-card">
+                <pre
+                  style="margin: 0; padding: 20px; white-space: pre-wrap; font-family: 'IBM Plex Mono', 'Liberation Mono', monospace; font-size: 13px; line-height: 22px; color: #1e293b; background: #f7f8fa;"
+                ><code>import &#123; Component &#125; from '&#64;angular/core';
+import &#123; Sportbook6vnButtonComponent, Sportbook6vnInputComponent &#125; from 'sportbook6vn';
+
+&#64;Component(&#123;
+  selector: 'app-root',
+  imports: [Sportbook6vnButtonComponent, Sportbook6vnInputComponent],
+  template: `
+    &lt;sportbook6vn-button&gt;Submit&lt;/sportbook6vn-button&gt;
+    &lt;sportbook6vn-input label="Username" placeholder="Enter username" /&gt;
+  `,
+&#125;)
+export class AppComponent &#123;&#125;</code></pre>
+              </div>
+            </section>
+
+            <section class="section">
+              <h2>Available Components</h2>
+              <p>
+                The current npm package exports the standalone components below. Use the component pages
+                in this docs app for case-by-case examples and API details.
+              </p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code">Sportbook6vnButtonComponent</span>
+                <span class="button-inline-code">Sportbook6vnInputComponent</span>
+                <span class="button-inline-code">Sportbook6vnSearchInputComponent</span>
+                <span class="button-inline-code">Sportbook6vnPasswordInputComponent</span>
+                <span class="button-inline-code">Sportbook6vnTextareaComponent</span>
+                <span class="button-inline-code">Sportbook6vnFloatingLabelInputComponent</span>
+                <span class="button-inline-code">Sportbook6vnAffixInputComponent</span>
+                <span class="button-inline-code">Sportbook6vnAffixLabelInputComponent</span>
+                <span class="button-inline-code">Sportbook6vnInputTagComponent</span>
+                <span class="button-inline-code">Sportbook6vnDropdownComponent</span>
+                <span class="button-inline-code">Sportbook6vnDropdownTagComponent</span>
+                <span class="button-inline-code">Sportbook6vnDatepickerComponent</span>
+                <span class="button-inline-code">Sportbook6vnModalComponent</span>
+                <span class="button-inline-code">Sportbook6vnCheckboxComponent</span>
+                <span class="button-inline-code">Sportbook6vnCheckboxGroupComponent</span>
+                <span class="button-inline-code">Sportbook6vnRadioComponent</span>
+                <span class="button-inline-code">Sportbook6vnRadioGroupComponent</span>
+                <span class="button-inline-code">Sportbook6vnSwitchComponent</span>
+              </div>
+            </section>
+
+            <section class="section">
+              <h2>Checklist</h2>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span>Step</span>
+                  <span>What to check</span>
+                  <span>Expected result</span>
+                  <span>Status</span>
+                </div>
+                <div class="button-api-row">
+                  <span>1</span>
+                  <span>Package is installed from npm.</span>
+                  <span><span class="button-inline-code">sportbook6vn</span> resolves in imports.</span>
+                  <span>Required</span>
+                </div>
+                <div class="button-api-row">
+                  <span>2</span>
+                  <span>Theme imports are loaded once globally.</span>
+                  <span>Components use Sportbook6vn colors, radius, and NG-Zorro bridge variables.</span>
+                  <span>Required</span>
+                </div>
+                <div class="button-api-row">
+                  <span>3</span>
+                  <span>Standalone component imports are scoped to the page using them.</span>
+                  <span>The Angular template can render the selected component without wrapper code.</span>
+                  <span>Required</span>
+                </div>
+              </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'pattern'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Pattern</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Pattern</h1>
+              <p class="lead">
+                Pattern collects common UI compositions that are assembled from smaller Sportbook6vn components.
+                Use this page for reusable flows, larger interface blocks, and product-level combinations that
+                should stay consistent across screens.
+              </p>
+            </div>
+
+            <section class="section">
+              <h2>Scope</h2>
+              <p>
+                Add a pattern here when the UI is larger than one primitive component and needs shared behavior,
+                spacing, copy structure, or usage guidance across product screens.
+              </p>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span>Type</span>
+                  <span>Definition</span>
+                  <span>Output</span>
+                </div>
+                <div class="button-api-row">
+                  <span class="button-api-col-description">Common UI</span>
+                  <span>Reusable interface blocks used in more than one screen.</span>
+                  <span>Pattern page with layout, states, and source components.</span>
+                </div>
+                <div class="button-api-row">
+                  <span class="button-api-col-description">Composed component</span>
+                  <span>A larger component made from smaller Sportbook6vn components.</span>
+                  <span>Implementation notes and component dependency list.</span>
+                </div>
+                <div class="button-api-row">
+                  <span class="button-api-col-description">Flow fragment</span>
+                  <span>A repeatable part of a user flow, such as a form section or action area.</span>
+                  <span>Usage rules, responsive behavior, and interaction states.</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="section">
+              <h2>Pattern Library</h2>
+              <p>
+                No pattern entries have been added yet. When a pattern is created, place it here with its source
+                components, demo states, and implementation guidance.
+              </p>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'buttons'">
           <div class="page-header">
             <div class="header-meta">
@@ -1785,11 +2006,52 @@
             <section class="section illustration-library-section" id="illustration-assets">
               <div class="illustration-section-head">
                 <h2>Asset Library</h2>
-                <span>{{ illustrationAssets.length }} PNG files</span>
+                <span>{{ illustrationLibraryAssets.length }} PNG files</span>
               </div>
 
               <div class="illustration-grid">
-                <article class="illustration-card" *ngFor="let asset of illustrationAssets">
+                <article class="illustration-card" *ngFor="let asset of illustrationLibraryAssets">
+                  <div class="illustration-thumb">
+                    <img [src]="asset.src" [alt]="asset.alt" loading="lazy" />
+                  </div>
+
+                  <div class="illustration-card-body">
+                    <div class="illustration-card-title">
+                      <h3>{{ asset.name }}</h3>
+                      <span>{{ asset.width }} x {{ asset.height }}</span>
+                    </div>
+                    <code class="illustration-path">{{ asset.src }}</code>
+                    <p>{{ asset.usage }}</p>
+                  </div>
+
+                  <div class="illustration-card-actions">
+                    <button
+                      class="button-icon-btn illustration-copy-btn"
+                      type="button"
+                      (click)="copyIllustrationAssetUrl(asset)"
+                    >
+                      {{ copiedIllustrationUrl() === asset.id ? 'Copied URL' : 'Copy URL' }}
+                    </button>
+                    <button
+                      class="button-icon-btn illustration-copy-btn"
+                      type="button"
+                      (click)="copyIllustrationAssetSnippet(asset)"
+                    >
+                      {{ copiedIllustrationSnippet() === asset.id ? 'Copied snippet' : 'Copy snippet' }}
+                    </button>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="section illustration-flag-section" id="illustration-flags">
+              <div class="illustration-section-head">
+                <h2>Flag</h2>
+                <span>{{ flagIllustrationAssets.length }} PNG files</span>
+              </div>
+
+              <div class="illustration-grid illustration-grid--flags">
+                <article class="illustration-card" *ngFor="let asset of flagIllustrationAssets">
                   <div class="illustration-thumb">
                     <img [src]="asset.src" [alt]="asset.alt" loading="lazy" />
                   </div>
@@ -4778,6 +5040,14 @@
                   (click)="setActiveIllustrationSection('illustration-assets')"
                 >
                   Asset Library
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeIllustrationSection() === 'illustration-flags'"
+                  href="#illustration-flags"
+                  (click)="setActiveIllustrationSection('illustration-flags')"
+                >
+                  Flag
                 </a>
                 <a
                   class="toc-item"

@@ -1,0 +1,165 @@
+<div [class]="tableClass()" role="region" [attr.aria-label]="ariaLabel()">
+  <div class="sportbook6vn-table__viewport" [style.max-height]="maxHeight()">
+    <table class="sportbook6vn-table__native" [style.table-layout]="tableLayout()">
+      @if (showHeader()) {
+        <thead>
+          <tr>
+            @if (selectable()) {
+              <th class="sportbook6vn-table__header-cell sportbook6vn-table__header-cell--selection">
+                <sportbook6vn-checkbox
+                  [checked]="isAllSelected()"
+                  [indeterminate]="isIndeterminate()"
+                  aria-label="Chọn tất cả"
+                  (checkedChange)="toggleAll($event)"
+                />
+              </th>
+            }
+
+            @for (column of columns(); track trackColumn($index, column)) {
+              <th
+                [class]="headerCellClass(column)"
+                [style.width]="columnWidth(column)"
+                [style.min-width]="columnWidth(column)"
+              >
+                @if (column.sortable) {
+                  <button type="button" class="sportbook6vn-table__sort-button" (click)="toggleSort(column)">
+                    <span>{{ column.title }}</span>
+                    <span class="sportbook6vn-table__sort-icon" [attr.data-order]="sortOrder(column)" aria-hidden="true"></span>
+                  </button>
+                } @else {
+                  <span class="sportbook6vn-table__header-label">{{ column.title }}</span>
+                }
+              </th>
+            }
+          </tr>
+        </thead>
+      }
+
+      <tbody>
+        @if (loading()) {
+          <tr>
+            <td class="sportbook6vn-table__state" [attr.colspan]="columns().length + (selectable() ? 1 : 0)">
+              <span class="sportbook6vn-table__spinner" aria-hidden="true"></span>
+              <span>Đang tải</span>
+            </td>
+          </tr>
+        } @else if (pagedData().length === 0) {
+          <tr>
+            <td class="sportbook6vn-table__state" [attr.colspan]="columns().length + (selectable() ? 1 : 0)">
+              {{ emptyText() }}
+            </td>
+          </tr>
+        } @else {
+          @for (row of pagedData(); track trackRow($index, row); let rowIndex = $index) {
+            <tr [class]="rowClass(row, rowIndex)" (click)="emitRowClick(row, rowIndex)">
+              @if (selectable()) {
+                <td class="sportbook6vn-table__cell sportbook6vn-table__cell--selection" (click)="$event.stopPropagation()">
+                  <sportbook6vn-checkbox
+                    [checked]="localSelectedKeys().has(trackRow(rowIndex, row))"
+                    (checkedChange)="toggleRow(row, rowIndex, $event)"
+                  />
+                </td>
+              }
+
+              @for (column of columns(); track trackColumn($index, column)) {
+                <td
+                  [class]="bodyCellClass(column)"
+                  [style.width]="columnWidth(column)"
+                  [style.min-width]="columnWidth(column)"
+                  (click)="emitCellClick(row, column, rowIndex)"
+                >
+                  @switch (resolvedCellType(column)) {
+                    @case ('checkbox') {
+                      <sportbook6vn-checkbox
+                        [label]="checkboxLabel(row, column)"
+                        [checked]="checkboxChecked(row, column)"
+                        (checkedChange)="onCheckboxCellChange(row, column, rowIndex, $event)"
+                      />
+                    }
+                    @case ('status') {
+                      <span [class]="statusClass(row, column)">
+                        <span class="sportbook6vn-table-status__dot" aria-hidden="true"></span>
+                        <span class="sportbook6vn-table-status__label">{{ statusCell(row, column).label }}</span>
+                      </span>
+                    }
+                    @case ('file') {
+                      <img class="sportbook6vn-table-file" [src]="fileIconSrc(row, column)" [alt]="fileAlt(row, column)" />
+                    }
+                    @case ('alert') {
+                      <span class="sportbook6vn-table-alert" [attr.data-tone]="alertTone(row, column)" [attr.aria-label]="alertLabel(row, column)">
+                        !
+                      </span>
+                    }
+                    @case ('input') {
+                      <input
+                        class="sportbook6vn-table-input"
+                        type="text"
+                        [value]="inputCell(row, column).value ?? ''"
+                        [placeholder]="inputCell(row, column).placeholder ?? column.placeholder ?? 'Input text'"
+                        [disabled]="!!inputCell(row, column).disabled || !!column.disabled"
+                        (click)="$event.stopPropagation()"
+                        (input)="onInputCellChange(row, column, rowIndex, $event)"
+                      />
+                    }
+                    @case ('dropdown') {
+                      <select
+                        class="sportbook6vn-table-select"
+                        [value]="dropdownCell(row, column).value ?? ''"
+                        [disabled]="!!dropdownCell(row, column).disabled || !!column.disabled"
+                        (click)="$event.stopPropagation()"
+                        (change)="onDropdownCellChange(row, column, rowIndex, $event)"
+                      >
+                        <option value="">{{ dropdownCell(row, column).placeholder ?? column.placeholder ?? 'Lựa chọn' }}</option>
+                        @for (option of dropdownOptions(row, column); track option.value) {
+                          <option [value]="option.value" [disabled]="option.disabled">{{ option.label }}</option>
+                        }
+                      </select>
+                    }
+                    @case ('button') {
+                      <button
+                        type="button"
+                        class="sportbook6vn-table-action"
+                        [disabled]="!!actionCell(row, column).disabled || !!column.disabled"
+                        (click)="onActionCellClick(row, column, rowIndex, $event)"
+                      >
+                        {{ actionCell(row, column).label ?? 'Thao tác' }}
+                      </button>
+                    }
+                    @case ('icon') {
+                      <button
+                        type="button"
+                        class="sportbook6vn-table-icon-action"
+                        [attr.aria-label]="displayText(row, column) || 'Hành động'"
+                        (click)="onActionCellClick(row, column, rowIndex, $event)"
+                      >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M12 5c5 0 8 7 8 7s-3 7-8 7-8-7-8-7 3-7 8-7Z" />
+                          <path d="M12 9.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Z" />
+                        </svg>
+                      </button>
+                    }
+                    @default {
+                      <span class="sportbook6vn-table__cell-text">{{ displayText(row, column) }}</span>
+                    }
+                  }
+                </td>
+              }
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+
+  @if (showPagination() && !loading() && data().length > 0) {
+    <div class="sportbook6vn-table-pagination">
+      <span class="sportbook6vn-table-pagination__text">
+        Trang {{ resolvedPageIndex() }} / {{ totalPages() }}
+      </span>
+      <div class="sportbook6vn-table-pagination__actions">
+        <button type="button" [disabled]="!canPreviousPage()" (click)="previousPage()">Trước</button>
+        <button type="button" [disabled]="!canNextPage()" (click)="nextPage()">Sau</button>
+      </div>
+    </div>
+  }
+</div>

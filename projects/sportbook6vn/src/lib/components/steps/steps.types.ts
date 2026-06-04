@@ -1,4 +1,4 @@
-export type Sportbook6vnStepsDirection = 'vertical';
+export type Sportbook6vnStepsDirection = 'horizontal' | 'vertical';
 export type Sportbook6vnStepsSize = 'default' | 'badge';
 export type Sportbook6vnStepStatus = 'wait' | 'process' | 'finish';
 

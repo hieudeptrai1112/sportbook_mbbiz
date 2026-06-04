@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewEncapsulation, signal } from '@angular/core';
+import { Component, ViewEncapsulation, inject, signal } from '@angular/core';
 import {
   Sportbook6vnAffixInputComponent,
   Sportbook6vnAffixLabelInputComponent,
+  Sportbook6vnBadgeComponent,
+  type Sportbook6vnBadgeStatus,
   Sportbook6vnButtonComponent,
   Sportbook6vnCheckboxComponent,
   Sportbook6vnCheckboxGroupComponent,
@@ -17,12 +19,28 @@ import {
   Sportbook6vnItemUploadComponent,
   type Sportbook6vnItemFileErrorType,
   type Sportbook6vnItemFileKind,
+  Sportbook6vnMessageComponent,
+  Sportbook6vnMessageService,
+  type Sportbook6vnMessageType,
   Sportbook6vnModalComponent,
   Sportbook6vnPasswordInputComponent,
+  Sportbook6vnPaginationComponent,
+  type Sportbook6vnPaginationRangeFormatter,
+  type Sportbook6vnPaginationSummaryFormatter,
   Sportbook6vnRadioComponent,
   Sportbook6vnRadioGroupComponent,
   Sportbook6vnSearchInputComponent,
+  Sportbook6vnStepsComponent,
+  Sportbook6vnStatusComponent,
+  type Sportbook6vnStatusColor,
+  type Sportbook6vnStatusPreset,
   Sportbook6vnSwitchComponent,
+  Sportbook6vnTabComponent,
+  Sportbook6vnTableComponent,
+  type Sportbook6vnTableCellValueChange,
+  type Sportbook6vnTableColumn,
+  type Sportbook6vnTableRow,
+  type Sportbook6vnTabItem,
   Sportbook6vnTextareaComponent,
   Sportbook6vnUploadFileComponent,
   Sportbook6vnUploadFileItem,
@@ -34,6 +52,7 @@ import {
     CommonModule,
     Sportbook6vnAffixInputComponent,
     Sportbook6vnAffixLabelInputComponent,
+    Sportbook6vnBadgeComponent,
     Sportbook6vnButtonComponent,
     Sportbook6vnCheckboxComponent,
     Sportbook6vnCheckboxGroupComponent,
@@ -45,12 +64,18 @@ import {
     Sportbook6vnInputTagComponent,
     Sportbook6vnItemFileComponent,
     Sportbook6vnItemUploadComponent,
+    Sportbook6vnMessageComponent,
     Sportbook6vnModalComponent,
     Sportbook6vnPasswordInputComponent,
+    Sportbook6vnPaginationComponent,
     Sportbook6vnRadioComponent,
     Sportbook6vnRadioGroupComponent,
     Sportbook6vnSearchInputComponent,
+    Sportbook6vnStepsComponent,
+    Sportbook6vnStatusComponent,
     Sportbook6vnSwitchComponent,
+    Sportbook6vnTabComponent,
+    Sportbook6vnTableComponent,
     Sportbook6vnTextareaComponent,
     Sportbook6vnUploadFileComponent,
   ],
@@ -59,6 +84,223 @@ import {
   encapsulation: ViewEncapsulation.None,
 })
 export class Sportbook6vnPreviewAppComponent {
+  private readonly message = inject(Sportbook6vnMessageService);
+
+  protected readonly tableDefaultColumns: Sportbook6vnTableColumn[] = [
+    { key: 'accountType', title: 'Loại tài khoản', width: 170, sortable: true },
+    { key: 'file', title: 'File', type: 'file', width: 70 },
+    { key: 'status', title: 'Trạng thái', type: 'status', width: 145 },
+    { key: 'amount', title: 'Số tiền', type: 'money', width: 150 },
+    { key: 'action', title: 'Hành động', type: 'button', width: 124 },
+  ];
+
+  protected readonly tableDefaultRows: Sportbook6vnTableRow[] = [
+    {
+      id: 'account-1',
+      accountType: 'Tài khoản thanh toán',
+      file: { kind: 'xlsx', alt: 'Excel file' },
+      status: { label: 'Hoạt động', tone: 'success' },
+      amount: 1000000000,
+      action: { label: 'Chi tiết' },
+    },
+    {
+      id: 'account-2',
+      accountType: 'Tài khoản tiết kiệm',
+      file: { kind: 'docx', alt: 'Word file' },
+      status: { label: 'Hết hiệu lực', tone: 'error' },
+      amount: 52000000,
+      action: { label: 'Chi tiết' },
+    },
+    {
+      id: 'account-3',
+      accountType: 'Tài khoản vay',
+      file: { kind: 'pdf', alt: 'PDF file' },
+      status: { label: 'Hoạt động', tone: 'success' },
+      amount: 176500000,
+      action: { label: 'Chi tiết' },
+    },
+  ];
+
+  protected readonly tableColumnTypeOptions = [
+    { label: 'Lựa chọn', value: 'choice' },
+    { label: 'Đã duyệt', value: 'approved' },
+    { label: 'Chờ xử lý', value: 'pending' },
+  ];
+
+  protected readonly tableColumnTypeColumns: Sportbook6vnTableColumn[] = [
+    { key: 'checkbox', title: 'Text', type: 'checkbox', width: 110 },
+    { key: 'input', title: 'Hành động', type: 'input', width: 170, placeholder: 'Input text' },
+    {
+      key: 'dropdown',
+      title: 'Hành động',
+      type: 'dropdown',
+      width: 170,
+      placeholder: 'Lựa chọn',
+      options: this.tableColumnTypeOptions,
+    },
+    { key: 'alert', title: 'Cảnh báo', type: 'alert', width: 80 },
+    { key: 'icon', title: 'Xem', type: 'icon', width: 80 },
+    { key: 'moneyIn', title: 'Tiền vào', type: 'money-in', width: 150 },
+    { key: 'moneyOut', title: 'Tiền ra', type: 'money-out', width: 150 },
+  ];
+
+  protected readonly tableColumnTypeRows = signal<Sportbook6vnTableRow[]>([
+    {
+      id: 'column-type-1',
+      checkbox: { label: 'Text', value: false },
+      input: { value: '', placeholder: 'Input text' },
+      dropdown: { value: null, placeholder: 'Lựa chọn', options: this.tableColumnTypeOptions },
+      alert: { tone: 'warning', label: 'Cảnh báo' },
+      icon: 'Xem chi tiết',
+      moneyIn: 3000000,
+      moneyOut: 1200000,
+    },
+    {
+      id: 'column-type-2',
+      checkbox: { label: 'Text', value: true },
+      input: { value: 'Input text', placeholder: 'Input text' },
+      dropdown: { value: 'approved', placeholder: 'Lựa chọn', options: this.tableColumnTypeOptions },
+      alert: { tone: 'info', label: 'Thông tin' },
+      icon: 'Xem chi tiết',
+      moneyIn: 7500000,
+      moneyOut: 0,
+    },
+  ]);
+
+  protected readonly tableSelectedRowKeys = signal<string[]>(['account-2']);
+  protected readonly tablePaginationIndex = signal(1);
+  protected readonly paginationDropdownPage = signal(1);
+  protected readonly paginationMaximumPage = signal(10);
+  protected readonly paginationQuickPage = signal(23);
+  protected readonly paginationDropdownOpen = signal(true);
+  protected readonly paginationQuickSelectedRange: Sportbook6vnPaginationRangeFormatter = () =>
+    'Đã hiển thị 91 - 100 trên 18000 kết quả';
+  protected readonly paginationQuickDefaultRange: Sportbook6vnPaginationRangeFormatter = () =>
+    'Đã hiển thị 1 - 10 trên 18000 kết quả';
+  protected readonly paginationQuickMaximumRange: Sportbook6vnPaginationRangeFormatter = () =>
+    'Đã hiển thị 17990 - 18000 trên 18000 kết quả';
+  protected readonly paginationQuickSummary: Sportbook6vnPaginationSummaryFormatter = (summary) =>
+    `Trang ${new Intl.NumberFormat('vi-VN').format(summary.pageIndex)} / ${new Intl.NumberFormat('vi-VN').format(summary.pageCount)}`;
+
+  protected readonly messageCases: {
+    type: Extract<Sportbook6vnMessageType, 'inform' | 'warning' | 'error' | 'success'>;
+    content: string;
+  }[] = [
+    { type: 'inform', content: 'Informative inform.' },
+    { type: 'warning', content: 'Warning inform with dismiss button.' },
+    { type: 'error', content: 'Error inform with dismiss button.' },
+    { type: 'success', content: 'Success inform with dismiss button.' },
+  ];
+
+  protected readonly tabPillActiveIndex = signal(0);
+  protected readonly tabUnderlinedActiveIndex = signal(0);
+  protected readonly tabSmallActiveIndex = signal(0);
+  protected readonly tabDefaultItems: Sportbook6vnTabItem[] = [
+    { label: 'Text' },
+    { label: 'Text' },
+    { label: 'Text' },
+  ];
+  protected readonly tabCountItems: Sportbook6vnTabItem[] = [
+    { label: 'Text', count: 12 },
+    { label: 'Text' },
+    { label: 'Text', count: 12 },
+  ];
+  protected readonly tabDisabledItems: Sportbook6vnTabItem[] = [
+    { label: 'Text' },
+    { label: 'Text' },
+    { label: 'Text', disabled: true },
+  ];
+  protected readonly stepProgressStates = [0, 1, 2, 3, 4];
+
+  protected readonly badgeStatusCases: { status: Sportbook6vnBadgeStatus; label: string }[] = [
+    { status: 'invalid', label: 'Text' },
+    { status: 'overdue', label: 'Text' },
+    { status: 'unfinished', label: 'Text' },
+    { status: 'renew-loan', label: 'Text' },
+    { status: 'pending', label: 'Text' },
+    { status: 'completed', label: 'Text' },
+    { status: 'failed', label: 'Text' },
+  ];
+
+  protected readonly statusColorCases: { color: Sportbook6vnStatusColor; label: string }[] = [
+    { color: 'neutral', label: 'Text' },
+    { color: 'orange', label: 'Text' },
+    { color: 'blue', label: 'Text' },
+    { color: 'dark-blue', label: 'Text' },
+    { color: 'green', label: 'Text' },
+    { color: 'red', label: 'Text' },
+  ];
+
+  protected readonly statusPresetCases: { status: Sportbook6vnStatusPreset; label: string }[] = [
+    { status: 'invalid', label: 'Invalid' },
+    { status: 'overdue', label: 'Approve ASAP' },
+    { status: 'unfinished', label: 'Today' },
+    { status: 'renew-loan', label: 'Renew Loan' },
+    { status: 'pending', label: 'Processing' },
+    { status: 'completed', label: 'Completed' },
+    { status: 'failed', label: 'Failed Transfer' },
+  ];
+
+  protected showMessage(type: Sportbook6vnMessageType): void {
+    const content = this.messageCases.find((item) => item.type === type)?.content ?? 'Informative inform.';
+    this.message.create(type, content, {
+      closable: type !== 'inform',
+      duration: 5000,
+      top: 32,
+    });
+  }
+
+  protected clearMessages(): void {
+    this.message.remove();
+  }
+
+  protected setTableSelectedRowKeys(value: string[]): void {
+    this.tableSelectedRowKeys.set(value);
+  }
+
+  protected setTablePaginationIndex(value: number): void {
+    this.tablePaginationIndex.set(value);
+  }
+
+  protected setPaginationDropdownPage(value: number): void {
+    this.paginationDropdownPage.set(value);
+  }
+
+  protected setPaginationMaximumPage(value: number): void {
+    this.paginationMaximumPage.set(value);
+  }
+
+  protected setPaginationQuickPage(value: number): void {
+    this.paginationQuickPage.set(value);
+  }
+
+  protected setPaginationDropdownOpen(value: boolean): void {
+    this.paginationDropdownOpen.set(value);
+  }
+
+  protected updateTableCellValue(event: Sportbook6vnTableCellValueChange): void {
+    this.tableColumnTypeRows.update((rows) =>
+      rows.map((row, index) => {
+        const rowKey = String(row['id'] ?? index);
+        if (rowKey !== event.rowKey) {
+          return row;
+        }
+        const currentValue = row[event.column.key];
+        const currentObject = typeof currentValue === 'object' && currentValue !== null
+          ? (currentValue as Record<string, unknown>)
+          : {};
+
+        return {
+          ...row,
+          [event.column.key]: {
+            ...currentObject,
+            value: event.nextValue,
+          },
+        };
+      }),
+    );
+  }
+
   protected readonly checkboxGroupOptions = [
     { label: 'A', value: 'a' },
     { label: 'B', value: 'b' },

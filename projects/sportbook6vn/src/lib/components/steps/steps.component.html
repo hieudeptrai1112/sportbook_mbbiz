@@ -4,7 +4,7 @@
       [class]="stepClass(index, item, isLast)"
       [attr.role]="clickable() && !item.disabled ? 'button' : null"
       [attr.tabindex]="clickable() && !item.disabled ? 0 : null"
-      [attr.aria-current]="index === currentIndex() ? 'step' : null"
+      [attr.aria-current]="!isComplete() && index === currentIndex() ? 'step' : null"
       [attr.aria-disabled]="item.disabled || !clickable() ? 'true' : null"
       (click)="onStepClick(index, item)"
       (keydown.enter)="onStepClick(index, item)"
@@ -14,7 +14,7 @@
         <span class="sportbook6vn-steps__marker">
           @if (stepStatus(index, item) === 'finish') {
             <span class="sportbook6vn-steps__check"></span>
-          } @else {
+          } @else if (direction() === 'vertical') {
             {{ markerLabel(index) }}
           }
         </span>

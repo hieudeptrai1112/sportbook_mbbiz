@@ -28,6 +28,25 @@
   width: auto;
 }
 
+.sportbook6vn-steps--horizontal {
+  --sportbook6vn-steps-marker-size: 16px;
+  --sportbook6vn-steps-marker-bg: #cadbe8;
+  --sportbook6vn-steps-marker-border: #cadbe8;
+  --sportbook6vn-steps-marker-color: #ffffff;
+  --sportbook6vn-steps-title-color: #6d83a7;
+  --sportbook6vn-steps-tail-color: #a3b7fd;
+  --sportbook6vn-steps-primary-color: #141ed2;
+  --sportbook6vn-steps-text-color: #192d39;
+
+  align-items: flex-start;
+  flex-direction: row;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 16px;
+  width: min(100%, 648px);
+}
+
 .sportbook6vn-steps__item {
   align-items: flex-start;
   appearance: none;
@@ -68,6 +87,39 @@
   --sportbook6vn-steps-title-color: var(--sportbook6vn-color-steps-step-active, #7b5fff);
 }
 
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__item {
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  min-width: 0;
+  width: auto;
+}
+
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__item--finish {
+  --sportbook6vn-steps-marker-bg: var(--sportbook6vn-steps-primary-color);
+  --sportbook6vn-steps-marker-border: var(--sportbook6vn-steps-primary-color);
+  --sportbook6vn-steps-marker-color: #ffffff;
+  --sportbook6vn-steps-tail-color: var(--sportbook6vn-steps-primary-color);
+  --sportbook6vn-steps-title-color: var(--sportbook6vn-steps-text-color);
+}
+
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__item--process {
+  --sportbook6vn-steps-marker-bg: #ffffff;
+  --sportbook6vn-steps-marker-border: var(--sportbook6vn-steps-primary-color);
+  --sportbook6vn-steps-marker-color: transparent;
+  --sportbook6vn-steps-tail-color: #a3b7fd;
+  --sportbook6vn-steps-title-color: var(--sportbook6vn-steps-text-color);
+}
+
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__item--wait {
+  --sportbook6vn-steps-marker-bg: #cadbe8;
+  --sportbook6vn-steps-marker-border: #cadbe8;
+  --sportbook6vn-steps-marker-color: transparent;
+  --sportbook6vn-steps-tail-color: #a3b7fd;
+  --sportbook6vn-steps-title-color: #6d83a7;
+}
+
 .sportbook6vn-steps--size-badge .sportbook6vn-steps__item--wait {
   --sportbook6vn-steps-marker-bg: var(--sportbook6vn-color-steps-step-next, #cadbe8);
   --sportbook6vn-steps-marker-border: var(--sportbook6vn-color-steps-step-next, #cadbe8);
@@ -101,6 +153,13 @@
   min-height: var(--sportbook6vn-steps-marker-size);
 }
 
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__marker-stack {
+  flex: 0 0 auto;
+  flex-direction: row;
+  min-height: var(--sportbook6vn-steps-marker-size);
+  width: 100%;
+}
+
 .sportbook6vn-steps__marker {
   align-items: center;
   background: var(--sportbook6vn-steps-marker-bg);
@@ -121,6 +180,16 @@
   width: var(--sportbook6vn-steps-marker-size);
 }
 
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__marker {
+  border-width: 0;
+  font-size: 0;
+  letter-spacing: 0;
+}
+
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__item--process .sportbook6vn-steps__marker {
+  border-width: 2px;
+}
+
 .sportbook6vn-steps__check {
   border-bottom: 2px solid currentColor;
   border-right: 2px solid currentColor;
@@ -129,6 +198,12 @@
   margin-top: -2px;
   transform: rotate(45deg);
   width: 6px;
+}
+
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__check {
+  height: 7px;
+  margin-top: -1px;
+  width: 4px;
 }
 
 .sportbook6vn-steps__tail {
@@ -145,12 +220,32 @@
   width: 1px;
 }
 
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__tail {
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--sportbook6vn-steps-tail-color) 0,
+    var(--sportbook6vn-steps-tail-color) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  flex: 1 1 auto;
+  height: 1px;
+  min-width: 0;
+  width: auto;
+}
+
 .sportbook6vn-steps__content {
   color: inherit;
   display: inline-flex;
   flex: 1 1 auto;
   flex-direction: column;
   min-width: 0;
+}
+
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__content {
+  display: block;
+  flex: 0 1 auto;
+  width: 100%;
 }
 
 .sportbook6vn-steps--size-badge .sportbook6vn-steps__content,
@@ -163,6 +258,15 @@
   display: block;
   font: inherit;
   overflow-wrap: anywhere;
+}
+
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__title {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__item--wait .sportbook6vn-steps__title {
+  font-weight: 400;
 }
 
 .sportbook6vn-steps__description {
