@@ -122,7 +122,11 @@
           <span class="section-arrow" [class.open]="isGettingStartedOpen()">›</span>
         </div>
         <div class="sidebar-subgroup" [class.open]="isGettingStartedOpen()">
-          <div class="sidebar-link">
+          <div
+            class="sidebar-link"
+            [class.active]="activePage() === 'introduction'"
+            (click)="setPage('introduction')"
+          >
             <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
             <span>Introduction</span>
           </div>
@@ -320,6 +324,74 @@
             activePage() === 'tokens' || activePage() === 'spacing' || activePage() === 'typography'
           "
         >
+          <ng-container *ngIf="activePage() === 'introduction'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Getting Started</span>
+                <span class="slash">/</span>
+                <span class="meta-version">Introduction</span>
+              </div>
+              <h1>Introduction</h1>
+              <p class="lead">
+                Đây là trang web được tạo ra để designer không cần cầu cạnh dev khi thay đổi component nữa.
+              </p>
+            </div>
+
+            <section class="section button-demo-section">
+              <div
+                class="button-demo-card"
+                style="padding: 32px; display: flex; flex-direction: column; gap: 14px;"
+              >
+                <span class="button-inline-code" style="width: fit-content;">p/s</span>
+                <p
+                  style="margin: 0; color: #0f172a; font-size: 36px; line-height: 44px; font-weight: 700;"
+                >
+                  it's showtime
+                </p>
+              </div>
+            </section>
+
+            <section class="section button-demo-section">
+              <div class="button-demo-head">
+                <h2>Showtime Team</h2>
+              </div>
+              <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;"
+              >
+                <article class="button-demo-card" style="overflow: hidden;">
+                  <img
+                    src="/assets/introduction/lord-shen.jpg"
+                    alt="Lord Shen"
+                    style="display: block; width: 100%; height: 260px; object-fit: cover; object-position: center;"
+                  />
+                  <div style="padding: 24px; display: flex; flex-direction: column; gap: 8px;">
+                    <h3 style="margin: 0; color: #0f172a; font-size: 24px; line-height: 32px;">
+                      Lord Shen
+                    </h3>
+                    <p style="margin: 0; color: #4e5969; font-size: 16px; line-height: 24px;">
+                      Designer / Owner
+                    </p>
+                  </div>
+                </article>
+                <article class="button-demo-card" style="overflow: hidden;">
+                  <img
+                    src="/assets/introduction/po-the-fat-panda.jpg"
+                    alt="Po the Fat Panda"
+                    style="display: block; width: 100%; height: 260px; object-fit: cover; object-position: center;"
+                  />
+                  <div style="padding: 24px; display: flex; flex-direction: column; gap: 8px;">
+                    <h3 style="margin: 0; color: #0f172a; font-size: 24px; line-height: 32px;">
+                      Po the Fat Panda
+                    </h3>
+                    <p style="margin: 0; color: #4e5969; font-size: 16px; line-height: 24px;">
+                      Developer / Tech Consultant
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'installation'">
             <div class="page-header">
               <div class="header-meta">
@@ -334,143 +406,134 @@
               </p>
             </div>
 
-            <section class="section">
-              <h2>Install Package</h2>
-              <p>
-                The published npm package is
-                <span class="button-inline-code">sportbook6vn&#64;0.0.1</span>. Install it in the Angular
-                application that will consume the design system.
-              </p>
-              <div class="button-demo-card">
-                <pre
-                  style="margin: 0; padding: 20px; white-space: pre-wrap; font-family: 'IBM Plex Mono', 'Liberation Mono', monospace; font-size: 13px; line-height: 22px; color: #1e293b; background: #f7f8fa;"
-                ><code>npm install sportbook6vn</code></pre>
+            <section class="section button-demo-section" id="installation-install">
+              <div class="button-demo-head">
+                <h2>Install Package</h2>
               </div>
-              <p>
-                Sportbook6vn expects the host app to provide Angular and NG-Zorro. If the app does not
-                already include them, install the peer packages below.
+              <p class="button-demo-description">
+                The published package is <span class="button-inline-code">sportbook6vn&#64;0.0.1</span>.
+                Install it in the Angular application that consumes the component library.
               </p>
               <div class="button-demo-card">
+                <div
+                  class="button-demo-head"
+                  style="padding: 12px 16px; border-bottom: 1px solid rgba(195, 197, 217, 0.2); background: #ffffff;"
+                >
+                  <span class="button-inline-code">npm</span>
+                  <button
+                    class="button-doc-toggle"
+                    type="button"
+                    (click)="copyInstallationSnippet('install', installationInstallCommand)"
+                  >
+                    {{ copiedInstallationSnippet() === 'install' ? 'Copied' : 'Copy' }}
+                  </button>
+                </div>
                 <pre
                   style="margin: 0; padding: 20px; white-space: pre-wrap; font-family: 'IBM Plex Mono', 'Liberation Mono', monospace; font-size: 13px; line-height: 22px; color: #1e293b; background: #f7f8fa;"
-                ><code>npm install &#64;angular/common@^21.2.0 &#64;angular/core@^21.2.0 &#64;angular/forms@^21.2.0 &#64;angular/platform-browser@^21.2.0 ng-zorro-antd@^21.2.2</code></pre>
+                ><code>{{ installationInstallCommand }}</code></pre>
+              </div>
+              <p class="button-demo-description">
+                Angular and NG-Zorro are peer dependencies. Install them only when the host app does not
+                already provide compatible versions.
+              </p>
+              <div class="button-demo-card">
+                <div
+                  class="button-demo-head"
+                  style="padding: 12px 16px; border-bottom: 1px solid rgba(195, 197, 217, 0.2); background: #ffffff;"
+                >
+                  <span class="button-inline-code">peer dependencies</span>
+                  <button
+                    class="button-doc-toggle"
+                    type="button"
+                    (click)="copyInstallationSnippet('peer', installationPeerCommand)"
+                  >
+                    {{ copiedInstallationSnippet() === 'peer' ? 'Copied' : 'Copy' }}
+                  </button>
+                </div>
+                <pre
+                  style="margin: 0; padding: 20px; white-space: pre-wrap; font-family: 'IBM Plex Mono', 'Liberation Mono', monospace; font-size: 13px; line-height: 22px; color: #1e293b; background: #f7f8fa;"
+                ><code>{{ installationPeerCommand }}</code></pre>
               </div>
             </section>
 
-            <section class="section">
-              <h2>Load Theme</h2>
-              <p>
-                Import the Sportbook6vn theme files once in the consuming app global stylesheet. Place
-                these imports before product-level overrides.
+            <section class="section button-demo-section" id="installation-style">
+              <div class="button-demo-head">
+                <h2>Import Style</h2>
+              </div>
+              <p class="button-demo-description">
+                Load the Sportbook6vn tokens and NG-Zorro bridge once in the global stylesheet. Keep
+                product-level overrides after these imports.
               </p>
               <div class="button-demo-card">
+                <div
+                  class="button-demo-head"
+                  style="padding: 12px 16px; border-bottom: 1px solid rgba(195, 197, 217, 0.2); background: #ffffff;"
+                >
+                  <span class="button-inline-code">styles.scss</span>
+                  <button
+                    class="button-doc-toggle"
+                    type="button"
+                    (click)="copyInstallationSnippet('style', installationThemeCode)"
+                  >
+                    {{ copiedInstallationSnippet() === 'style' ? 'Copied' : 'Copy' }}
+                  </button>
+                </div>
                 <pre
                   style="margin: 0; padding: 20px; white-space: pre-wrap; font-family: 'IBM Plex Mono', 'Liberation Mono', monospace; font-size: 13px; line-height: 22px; color: #1e293b; background: #f7f8fa;"
-                ><code>&#64;import 'sportbook6vn/theme.css';
-&#64;import 'sportbook6vn/zorro-bridge.less';</code></pre>
+                ><code>{{ installationThemeCode }}</code></pre>
               </div>
-              <div class="button-api-table">
-                <div class="button-api-row button-api-head">
-                  <span>File</span>
-                  <span>Purpose</span>
-                  <span>Import Scope</span>
-                  <span>Required</span>
-                </div>
-                <div class="button-api-row">
-                  <span class="button-inline-code">theme.css</span>
-                  <span>Provides Sportbook6vn semantic tokens.</span>
-                  <span>Global stylesheet</span>
-                  <span>Yes</span>
-                </div>
-                <div class="button-api-row">
-                  <span class="button-inline-code">zorro-bridge.less</span>
-                  <span>Maps the supported token subset into NG-Zorro theme variables.</span>
-                  <span>Global stylesheet</span>
-                  <span>Yes</span>
-                </div>
+              <div class="button-demo-tags">
+                <span class="button-inline-code">theme.css</span>
+                <span class="button-inline-code">semantic tokens</span>
+                <span class="button-inline-code">zorro-bridge.less</span>
+                <span class="button-inline-code">NG-Zorro variables</span>
               </div>
             </section>
 
-            <section class="section">
-              <h2>Use Components</h2>
-              <p>
-                Import standalone components directly from
-                <span class="button-inline-code">sportbook6vn</span>. Keep imports local to the Angular
-                component that renders them so unused UI does not enter the page.
+            <section class="section button-demo-section" id="installation-usage">
+              <div class="button-demo-head">
+                <h2>Import Component</h2>
+              </div>
+              <p class="button-demo-description">
+                Sportbook6vn exports standalone Angular components. Import only the components used by the
+                current page or feature module.
               </p>
               <div class="button-demo-card">
+                <div
+                  class="button-demo-head"
+                  style="padding: 12px 16px; border-bottom: 1px solid rgba(195, 197, 217, 0.2); background: #ffffff;"
+                >
+                  <span class="button-inline-code">app.component.ts</span>
+                  <button
+                    class="button-doc-toggle"
+                    type="button"
+                    (click)="copyInstallationSnippet('usage', installationUsageCode)"
+                  >
+                    {{ copiedInstallationSnippet() === 'usage' ? 'Copied' : 'Copy' }}
+                  </button>
+                </div>
                 <pre
                   style="margin: 0; padding: 20px; white-space: pre-wrap; font-family: 'IBM Plex Mono', 'Liberation Mono', monospace; font-size: 13px; line-height: 22px; color: #1e293b; background: #f7f8fa;"
-                ><code>import &#123; Component &#125; from '&#64;angular/core';
-import &#123; Sportbook6vnButtonComponent, Sportbook6vnInputComponent &#125; from 'sportbook6vn';
-
-&#64;Component(&#123;
-  selector: 'app-root',
-  imports: [Sportbook6vnButtonComponent, Sportbook6vnInputComponent],
-  template: `
-    &lt;sportbook6vn-button&gt;Submit&lt;/sportbook6vn-button&gt;
-    &lt;sportbook6vn-input label="Username" placeholder="Enter username" /&gt;
-  `,
-&#125;)
-export class AppComponent &#123;&#125;</code></pre>
+                ><code>{{ installationUsageCode }}</code></pre>
               </div>
             </section>
 
-            <section class="section">
-              <h2>Available Components</h2>
-              <p>
-                The current npm package exports the standalone components below. Use the component pages
-                in this docs app for case-by-case examples and API details.
+            <section class="section button-demo-section" id="installation-next">
+              <div class="button-demo-head">
+                <h2>Next Step</h2>
+              </div>
+              <p class="button-demo-description">
+                Open the target component page, choose the matching case, and copy the snippet from that page.
+                Keep implementation imports from <span class="button-inline-code">sportbook6vn</span> so the
+                app stays on one source of truth.
               </p>
               <div class="button-demo-tags">
                 <span class="button-inline-code">Sportbook6vnButtonComponent</span>
                 <span class="button-inline-code">Sportbook6vnInputComponent</span>
-                <span class="button-inline-code">Sportbook6vnSearchInputComponent</span>
-                <span class="button-inline-code">Sportbook6vnPasswordInputComponent</span>
-                <span class="button-inline-code">Sportbook6vnTextareaComponent</span>
-                <span class="button-inline-code">Sportbook6vnFloatingLabelInputComponent</span>
-                <span class="button-inline-code">Sportbook6vnAffixInputComponent</span>
-                <span class="button-inline-code">Sportbook6vnAffixLabelInputComponent</span>
-                <span class="button-inline-code">Sportbook6vnInputTagComponent</span>
-                <span class="button-inline-code">Sportbook6vnDropdownComponent</span>
-                <span class="button-inline-code">Sportbook6vnDropdownTagComponent</span>
                 <span class="button-inline-code">Sportbook6vnDatepickerComponent</span>
-                <span class="button-inline-code">Sportbook6vnModalComponent</span>
-                <span class="button-inline-code">Sportbook6vnCheckboxComponent</span>
-                <span class="button-inline-code">Sportbook6vnCheckboxGroupComponent</span>
-                <span class="button-inline-code">Sportbook6vnRadioComponent</span>
-                <span class="button-inline-code">Sportbook6vnRadioGroupComponent</span>
-                <span class="button-inline-code">Sportbook6vnSwitchComponent</span>
-              </div>
-            </section>
-
-            <section class="section">
-              <h2>Checklist</h2>
-              <div class="button-api-table">
-                <div class="button-api-row button-api-head">
-                  <span>Step</span>
-                  <span>What to check</span>
-                  <span>Expected result</span>
-                  <span>Status</span>
-                </div>
-                <div class="button-api-row">
-                  <span>1</span>
-                  <span>Package is installed from npm.</span>
-                  <span><span class="button-inline-code">sportbook6vn</span> resolves in imports.</span>
-                  <span>Required</span>
-                </div>
-                <div class="button-api-row">
-                  <span>2</span>
-                  <span>Theme imports are loaded once globally.</span>
-                  <span>Components use Sportbook6vn colors, radius, and NG-Zorro bridge variables.</span>
-                  <span>Required</span>
-                </div>
-                <div class="button-api-row">
-                  <span>3</span>
-                  <span>Standalone component imports are scoped to the page using them.</span>
-                  <span>The Angular template can render the selected component without wrapper code.</span>
-                  <span>Required</span>
-                </div>
+                <span class="button-inline-code">Sportbook6vnDropdownComponent</span>
+                <span class="button-inline-code">Sportbook6vnUploadFileComponent</span>
+                <span class="button-inline-code">Sportbook6vnStepsComponent</span>
               </div>
             </section>
           </ng-container>
@@ -4368,6 +4431,66 @@ export class AppComponent &#123;&#125;</code></pre>
             </section>
           </ng-container>
         </div>
+
+        <ng-container *ngIf="activePage() === 'installation'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  [class.active]="activeInstallationSection() === 'installation-install'"
+                  href="#installation-install"
+                  (click)="setActiveInstallationSection('installation-install')"
+                >
+                  Install Package
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeInstallationSection() === 'installation-style'"
+                  href="#installation-style"
+                  (click)="setActiveInstallationSection('installation-style')"
+                >
+                  Import Style
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeInstallationSection() === 'installation-usage'"
+                  href="#installation-usage"
+                  (click)="setActiveInstallationSection('installation-usage')"
+                >
+                  Import Component
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeInstallationSection() === 'installation-next'"
+                  href="#installation-next"
+                  (click)="setActiveInstallationSection('installation-next')"
+                >
+                  Next Step
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Pro Tip</span>
+                </div>
+                <p>
+                  Use the component page snippets after installing the package and global theme once.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
 
         <ng-container *ngIf="activePage() === 'buttons'">
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">

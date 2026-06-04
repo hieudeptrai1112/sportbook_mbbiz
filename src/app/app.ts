@@ -287,6 +287,7 @@ export class App {
     | 'uploadFile'
     | 'illustration'
     | 'pattern'
+    | 'introduction'
     | 'installation'
     | 'core3Mapping'
     | 'color'
@@ -409,6 +410,25 @@ export class App {
   );
   protected readonly expandedUploadFileDemoIds = signal<string[]>([]);
   protected readonly copiedUploadFileDemoId = signal<string | null>(null);
+  protected readonly activeInstallationSection = signal('installation-install');
+  protected readonly copiedInstallationSnippet = signal<string | null>(null);
+  protected readonly installationInstallCommand = 'npm install sportbook6vn';
+  protected readonly installationPeerCommand =
+    'npm install @angular/common@^21.2.0 @angular/core@^21.2.0 @angular/forms@^21.2.0 @angular/platform-browser@^21.2.0 ng-zorro-antd@^21.2.2';
+  protected readonly installationThemeCode = `@import 'sportbook6vn/theme.css';
+@import 'sportbook6vn/zorro-bridge.less';`;
+  protected readonly installationUsageCode = `import { Component } from '@angular/core';
+import { Sportbook6vnButtonComponent, Sportbook6vnInputComponent } from 'sportbook6vn';
+
+@Component({
+  selector: 'app-root',
+  imports: [Sportbook6vnButtonComponent, Sportbook6vnInputComponent],
+  template: \`
+    <sportbook6vn-button>Submit</sportbook6vn-button>
+    <sportbook6vn-input label="Username" placeholder="Enter username" />
+  \`,
+})
+export class AppComponent {}`;
   protected readonly uploadFilesDone: Sportbook6vnUploadFileItem[] = [
     { uid: 'docs-upload-done-1', name: 'Tên tệp tin.pdf', sizeLabel: '2 MB', fileKind: 'pdf' },
     { uid: 'docs-upload-done-2', name: 'Tên tệp tin.docx', sizeLabel: '2 MB', fileKind: 'docx' },
@@ -652,6 +672,7 @@ export class App {
       | 'uploadFile'
       | 'illustration'
       | 'pattern'
+      | 'introduction'
       | 'installation'
       | 'core3Mapping'
       | 'color'
@@ -684,6 +705,8 @@ export class App {
       setTimeout(() => this.updateActiveUploadFileSection(), 0);
     } else if (page === 'illustration') {
       setTimeout(() => this.updateActiveIllustrationSection(), 0);
+    } else if (page === 'installation') {
+      setTimeout(() => this.updateActiveInstallationSection(), 0);
     }
   }
 
@@ -719,6 +742,10 @@ export class App {
 
   protected setActiveInputSection(sectionId: string) {
     this.activeInputSection.set(sectionId);
+  }
+
+  protected setActiveInstallationSection(sectionId: string) {
+    this.activeInstallationSection.set(sectionId);
   }
 
   protected getButtonVariant(action: ButtonDemoAction): Sportbook6vnButtonVariant {
@@ -1698,6 +1725,16 @@ export class App {
     }, 1200);
   }
 
+  protected async copyInstallationSnippet(snippetId: string, code: string) {
+    await this.writeTextToClipboard(code);
+    this.copiedInstallationSnippet.set(snippetId);
+    setTimeout(() => {
+      if (this.copiedInstallationSnippet() === snippetId) {
+        this.copiedInstallationSnippet.set(null);
+      }
+    }, 1200);
+  }
+
   protected setActiveIllustrationSection(sectionId: string) {
     this.activeIllustrationSection.set(sectionId);
   }
@@ -1772,6 +1809,7 @@ export class App {
     this.updateActiveDatepickerSection();
     this.updateActiveUploadFileSection();
     this.updateActiveIllustrationSection();
+    this.updateActiveInstallationSection();
   }
 
   private updateActiveTokenSection() {
@@ -2079,6 +2117,31 @@ export class App {
     this.activeIllustrationSection.set(currentSection);
   }
 
+  private updateActiveInstallationSection() {
+    if (this.activePage() !== 'installation' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getInstallationSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeInstallationSection.set(currentSection);
+  }
+
   private buildSemanticTokenGroups(): SemanticTokenGroup[] {
     const normalizeAlias = (alias: string) => alias.replace(/^color\/semantic\//, '');
     const orderPairs: Array<[string, readonly string[]]> = [
@@ -2289,6 +2352,10 @@ export class App {
 
   private getIllustrationSectionIds(): string[] {
     return ['illustration-usage', 'illustration-assets', 'illustration-flags', 'illustration-naming'];
+  }
+
+  private getInstallationSectionIds(): string[] {
+    return ['installation-install', 'installation-style', 'installation-usage', 'installation-next'];
   }
 
   protected getHighlightedTypeScriptSnippet(code: string): string {
