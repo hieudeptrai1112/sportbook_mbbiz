@@ -177,21 +177,42 @@
 
 .sportbook6vn-button--variant-secondary.ant-btn-default {
   background: var(--sportbook6vn-color-surface-secondary, #ffffff);
-  border-color: var(--sportbook6vn-color-button-secondary-default, #7b5fff);
-  color: var(--sportbook6vn-color-button-secondary-default, #7b5fff);
 }
 
-.sportbook6vn-button--variant-secondary.ant-btn-default:hover:not(:disabled) {
+.sportbook6vn-button--variant-secondary.sportbook6vn-button--shape-rectangle.ant-btn-default {
+  border-color: var(--sportbook6vn-color-button-secondary-default, #141ed2);
+  color: var(--sportbook6vn-color-button-secondary-default, #141ed2);
+}
+
+.sportbook6vn-button--variant-secondary.sportbook6vn-button--shape-pill.ant-btn-default {
+  border-color: var(--sportbook6vn-color-button-pill-secondary-default, #7b5fff);
+  color: var(--sportbook6vn-color-button-pill-secondary-default, #7b5fff);
+}
+
+.sportbook6vn-button--variant-secondary.sportbook6vn-button--shape-rectangle.ant-btn-default:hover:not(:disabled) {
   background: var(--sportbook6vn-color-surface-secondary, #ffffff);
-  border-color: var(--sportbook6vn-color-button-secondary-hover, #9781ff);
-  color: var(--sportbook6vn-color-button-secondary-hover, #9781ff);
+  border-color: var(--sportbook6vn-color-button-secondary-hover, #5f7eeb);
+  color: var(--sportbook6vn-color-button-secondary-hover, #5f7eeb);
   opacity: 0.7;
 }
 
-.sportbook6vn-button--variant-secondary.ant-btn-default:active:not(:disabled) {
+.sportbook6vn-button--variant-secondary.sportbook6vn-button--shape-pill.ant-btn-default:hover:not(:disabled) {
   background: var(--sportbook6vn-color-surface-secondary, #ffffff);
-  border-color: var(--sportbook6vn-color-button-secondary-pressed, #bbadff);
-  color: var(--sportbook6vn-color-button-secondary-pressed, #bbadff);
+  border-color: var(--sportbook6vn-color-button-pill-secondary-hover, #9781ff);
+  color: var(--sportbook6vn-color-button-pill-secondary-hover, #9781ff);
+  opacity: 0.7;
+}
+
+.sportbook6vn-button--variant-secondary.sportbook6vn-button--shape-rectangle.ant-btn-default:active:not(:disabled) {
+  background: var(--sportbook6vn-color-surface-secondary, #ffffff);
+  border-color: var(--sportbook6vn-color-button-secondary-pressed, #a3b7fd);
+  color: var(--sportbook6vn-color-button-secondary-pressed, #a3b7fd);
+}
+
+.sportbook6vn-button--variant-secondary.sportbook6vn-button--shape-pill.ant-btn-default:active:not(:disabled) {
+  background: var(--sportbook6vn-color-surface-secondary, #ffffff);
+  border-color: var(--sportbook6vn-color-button-pill-secondary-pressed, #bbadff);
+  color: var(--sportbook6vn-color-button-pill-secondary-pressed, #bbadff);
 }
 
 .sportbook6vn-button.ant-btn:disabled {
