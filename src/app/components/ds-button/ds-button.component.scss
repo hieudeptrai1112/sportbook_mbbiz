@@ -127,23 +127,23 @@
 }
 
 .ds-button--shape-pill.ds-button--tone-primary.ds-button--state-default {
-  background: var(--color-semantic-background-brand-primary1, #141ed2);
+  background: var(--color-semantic-background-brand-secondary1, #7b5fff);
   color: var(--color-semantic-text-brand-on-primary, #ffffff);
 }
 
 .ds-button--shape-pill.ds-button--tone-primary.ds-button--state-hover {
-  background: var(--color-semantic-background-brand-primary2, #5f7eeb);
+  background: var(--color-semantic-background-brand-secondary2, #9781ff);
   color: var(--color-semantic-text-brand-on-primary, #ffffff);
 }
 
 .ds-button--shape-pill.ds-button--tone-primary.ds-button--state-pressed {
-  background: var(--color-semantic-background-brand-primary3, #a3b7fd);
+  background: var(--color-semantic-background-brand-secondary3, #bbadff);
   color: var(--color-semantic-text-brand-on-primary, #ffffff);
 }
 
 .ds-button--shape-pill.ds-button--tone-primary.ds-button--state-disabled {
-  background: var(--color-semantic-background-brand-primary4, #dae4ff);
-  color: var(--color-semantic-text-disable3, #f3f3f3);
+  background: var(--color-semantic-background-brand-secondary4, #dbd3ff);
+  color: var(--color-semantic-text-brand-on-primary, #ffffff);
   cursor: not-allowed;
 }
 
@@ -152,18 +152,18 @@
 }
 
 .ds-button--tone-secondary.ds-button--state-default {
-  border-color: var(--color-semantic-border-brand-primary1, #141ed2);
-  color: var(--color-semantic-text-brand-primary1, #141ed2);
+  border-color: var(--color-semantic-border-brand-secondary1, #7b5fff);
+  color: var(--color-semantic-text-brand-secondary1, #7b5fff);
 }
 
 .ds-button--tone-secondary.ds-button--state-hover {
-  border-color: var(--color-semantic-border-brand-primary2, #5f7eeb);
-  color: var(--color-semantic-text-brand-primary2, #5f7eeb);
+  border-color: var(--color-semantic-border-brand-secondary2, #9781ff);
+  color: var(--color-semantic-text-brand-secondary2, #9781ff);
 }
 
 .ds-button--tone-secondary.ds-button--state-pressed {
-  border-color: var(--color-semantic-border-brand-primary3, #a3b7fd);
-  color: var(--color-semantic-text-brand-primary3, #a3b7fd);
+  border-color: var(--color-semantic-border-brand-secondary3, #bbadff);
+  color: var(--color-semantic-text-brand-secondary3, #bbadff);
 }
 
 .ds-button--shape-rectangle.ds-button--tone-secondary.ds-button--state-disabled {
@@ -173,8 +173,8 @@
 }
 
 .ds-button--shape-pill.ds-button--tone-secondary.ds-button--state-disabled {
-  border-color: var(--color-semantic-border-brand-primary4, #dae4ff);
-  color: var(--color-semantic-text-brand-primary4, #dae4ff);
+  border-color: var(--color-semantic-border-brand-secondary4, #dbd3ff);
+  color: var(--color-semantic-text-brand-secondary4, #dbd3ff);
   cursor: not-allowed;
 }
 
@@ -199,21 +199,21 @@
 }
 
 .ds-button--shape-pill.ds-button--state-default.ds-button--tone-primary:not(:disabled):hover {
-  background: var(--color-semantic-background-brand-primary2, #5f7eeb);
+  background: var(--color-semantic-background-brand-secondary2, #9781ff);
 }
 
 .ds-button--shape-pill.ds-button--state-default.ds-button--tone-primary:not(:disabled):active {
-  background: var(--color-semantic-background-brand-primary3, #a3b7fd);
+  background: var(--color-semantic-background-brand-secondary3, #bbadff);
 }
 
 .ds-button--state-default.ds-button--tone-secondary:not(:disabled):hover {
-  border-color: var(--color-semantic-border-brand-primary2, #5f7eeb);
-  color: var(--color-semantic-text-brand-primary2, #5f7eeb);
+  border-color: var(--color-semantic-border-brand-secondary2, #9781ff);
+  color: var(--color-semantic-text-brand-secondary2, #9781ff);
 }
 
 .ds-button--state-default.ds-button--tone-secondary:not(:disabled):active {
-  border-color: var(--color-semantic-border-brand-primary3, #a3b7fd);
-  color: var(--color-semantic-text-brand-primary3, #a3b7fd);
+  border-color: var(--color-semantic-border-brand-secondary3, #bbadff);
+  color: var(--color-semantic-text-brand-secondary3, #bbadff);
 }
 
 :host-context(.theme-dark) .ds-button--tone-secondary {
