@@ -164,34 +164,34 @@
 }
 
 .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary {
-  background: var(--sportbook6vn-color-brand-600, #141ed2);
+  background: var(--sportbook6vn-color-action-pill-primary-default, #7b5fff);
 }
 
 .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary:hover:not(:disabled) {
-  background: var(--sportbook6vn-color-action-pill-primary-hover, #5f7eeb);
+  background: var(--sportbook6vn-color-action-pill-primary-hover, #9781ff);
 }
 
 .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary:active:not(:disabled) {
-  background: var(--sportbook6vn-color-action-pill-primary-active, #a3b7fd);
+  background: var(--sportbook6vn-color-action-pill-primary-active, #bbadff);
 }
 
 .sportbook6vn-button--variant-secondary.ant-btn-default {
   background: var(--sportbook6vn-color-surface-secondary, #ffffff);
-  border-color: var(--sportbook6vn-color-button-secondary-default, #141ed2);
-  color: var(--sportbook6vn-color-button-secondary-default, #141ed2);
+  border-color: var(--sportbook6vn-color-button-secondary-default, #7b5fff);
+  color: var(--sportbook6vn-color-button-secondary-default, #7b5fff);
 }
 
 .sportbook6vn-button--variant-secondary.ant-btn-default:hover:not(:disabled) {
   background: var(--sportbook6vn-color-surface-secondary, #ffffff);
-  border-color: var(--sportbook6vn-color-button-secondary-hover, #5f7eeb);
-  color: var(--sportbook6vn-color-button-secondary-hover, #5f7eeb);
+  border-color: var(--sportbook6vn-color-button-secondary-hover, #9781ff);
+  color: var(--sportbook6vn-color-button-secondary-hover, #9781ff);
   opacity: 0.7;
 }
 
 .sportbook6vn-button--variant-secondary.ant-btn-default:active:not(:disabled) {
   background: var(--sportbook6vn-color-surface-secondary, #ffffff);
-  border-color: var(--sportbook6vn-color-button-secondary-pressed, #a3b7fd);
-  color: var(--sportbook6vn-color-button-secondary-pressed, #a3b7fd);
+  border-color: var(--sportbook6vn-color-button-secondary-pressed, #bbadff);
+  color: var(--sportbook6vn-color-button-secondary-pressed, #bbadff);
 }
 
 .sportbook6vn-button.ant-btn:disabled {
@@ -206,7 +206,8 @@
 }
 
 .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary:disabled {
-  background: var(--sportbook6vn-color-action-pill-primary-disabled, #dae4ff);
+  background: var(--sportbook6vn-color-action-pill-primary-disabled, #dbd3ff);
+  color: var(--sportbook6vn-color-text-on-brand, #ffffff);
 }
 
 .sportbook6vn-button--variant-secondary.sportbook6vn-button--shape-rectangle.ant-btn-default:disabled {
@@ -217,8 +218,8 @@
 
 .sportbook6vn-button--variant-secondary.sportbook6vn-button--shape-pill.ant-btn-default:disabled {
   background: var(--sportbook6vn-color-surface-secondary, #ffffff);
-  border-color: var(--sportbook6vn-color-button-secondary-disabled-pill, #dae4ff);
-  color: var(--sportbook6vn-color-button-secondary-disabled-pill, #dae4ff);
+  border-color: var(--sportbook6vn-color-button-secondary-disabled-pill, #dbd3ff);
+  color: var(--sportbook6vn-color-button-secondary-disabled-pill, #dbd3ff);
 }
 
 .sportbook6vn-button.ant-btn:focus-visible {
