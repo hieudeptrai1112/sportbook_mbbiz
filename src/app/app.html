@@ -210,14 +210,6 @@
               <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
               <span>Input Field</span>
             </div>
-            <div
-              class="sidebar-link"
-              [class.active]="activePage() === 'core3Mapping'"
-              (click)="setPage('core3Mapping')"
-            >
-              <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
-              <span>Core-3 Mapping</span>
-            </div>
             <div class="sidebar-link">
               <img src="/assets/figma/b9238733-6594-4666-b6ab-b199a6aca7e8.svg" alt="" />
               <span>Typography</span>
@@ -292,7 +284,11 @@
               <img src="/assets/figma/3e20b364-afaa-44e7-9d9d-1a4bbf8611cc.svg" alt="" />
               <span>Radio</span>
             </div>
-            <div class="sidebar-link">
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'checkbox'"
+              (click)="setPage('checkbox')"
+            >
               <img src="/assets/figma/3e20b364-afaa-44e7-9d9d-1a4bbf8611cc.svg" alt="" />
               <span>Checkbox</span>
             </div>
@@ -2550,8 +2546,8 @@
               </div>
               <h1>Radio</h1>
               <p class="lead">
-                Radio lets users choose one option from a set. This page is split from Core-3 Mapping
-                and keeps the approved preview states as the source of truth.
+                Radio lets users choose one option from a set and keeps the approved preview states
+                as the source of truth.
               </p>
             </div>
 
@@ -3325,565 +3321,146 @@
             </section>
           </ng-container>
 
-          <ng-container *ngIf="activePage() === 'core3Mapping'">
+          <ng-container *ngIf="activePage() === 'checkbox'">
             <div class="page-header">
               <div class="header-meta">
-                <span class="badge">Integration</span>
+                <span class="badge">Data Entry</span>
                 <span class="slash">/</span>
-                <span class="meta-version">core-3</span>
+                <span class="meta-version">v2.4.0</span>
               </div>
-              <h1>Core-3 Mapping</h1>
+              <h1>Checkbox</h1>
               <p class="lead">
-                Bản tổng hợp trạng thái mapping từ preview sang app chính. Các component đã tách
-                sang trang docs riêng sẽ chỉ còn được ghi nhận tại đây để tránh duplicate nội dung.
+                Checkbox lets users select one or many options. This page keeps the approved preview cases
+                for <span class="button-inline-code">sportbook6vn-checkbox</span> and
+                <span class="button-inline-code">sportbook6vn-checkbox-group</span> in one dedicated component tab.
               </p>
             </div>
 
-            <section class="section button-demo-section">
-              <div class="button-demo-head" id="core3-input-family-mapping">
+            <section class="section button-demo-section" id="checkbox-basic">
+              <div class="button-demo-head">
                 <div>
-                  <h2>Input Family Mapping</h2>
-                  <p>
-                    Đã tách sang tab <span class="button-inline-code">Input Field</span> theo cấu trúc
-                    component docs riêng. Input Tag vẫn giữ ngoài Input family để mapping thành trang docs
-                    độc lập.
-                  </p>
+                  <h2>Basic</h2>
+                  <p>There are unchecked, checked, and indeterminate checkbox states.</p>
                   <div class="button-demo-tags">
-                    <span>source=preview</span>
-                    <span>component=input-family</span>
-                    <span>target=Input Field</span>
-                    <span>excludes=input-tag</span>
+                    <span>selector=sportbook6vn-checkbox</span>
+                    <span>state=default/checked/indeterminate</span>
                   </div>
                 </div>
               </div>
 
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
-                  <div class="doc-list-card">
-                    <h3>Moved to component docs</h3>
-                    <ul>
-                      <li>
-                        Use <span class="button-inline-code">Input Field</span> for the full docs page,
-                        API, status contract, and component token references.
-                      </li>
-                      <li>
-                        Keep this Core-3 tab as a mapping index only, not as a second source of truth.
-                      </li>
-                      <li>
-                        Map <span class="button-inline-code">Input Tag</span> separately after its preview
-                        draft is approved.
-                      </li>
-                    </ul>
+                  <div class="core3-map-row">
+                    <sportbook6vn-checkbox label="Checkbox" />
+                    <sportbook6vn-checkbox label="Checked" [defaultChecked]="true" />
+                    <sportbook6vn-checkbox label="Indeterminate" [defaultIndeterminate]="true" />
                   </div>
                 </div>
               </div>
             </section>
 
-            <section class="section button-demo-section" id="core3-input-tag-mapping">
+            <section class="section button-demo-section" id="checkbox-disabled">
               <div class="button-demo-head">
                 <div>
-                  <h2>Input Tag Mapping</h2>
-                  <p>
-                    Đã tách sang tab <span class="button-inline-code">Input Tag</span> theo cấu trúc
-                    component docs riêng. Core-3 Mapping chỉ giữ lại trạng thái để tránh duplicate source of
-                    truth.
-                  </p>
+                  <h2>Disabled</h2>
+                  <p>Disabled checkboxes keep visual state but block selection.</p>
                   <div class="button-demo-tags">
-                    <span>source=preview</span>
-                    <span>component=input-tag</span>
-                    <span>target=Input Tag</span>
-                    <span>status=split</span>
+                    <span>selector=sportbook6vn-checkbox</span>
+                    <span>disabled=true</span>
                   </div>
                 </div>
               </div>
 
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
-                  <div class="doc-list-card">
-                    <h3>Moved to component docs</h3>
-                    <ul>
-                      <li>
-                        Use <span class="button-inline-code">Input Tag</span> for interactive, overflow,
-                        render tag, validation, error, disabled, API, and component token docs.
-                      </li>
-                      <li>
-                        Keep this Core-3 tab as the mapping index only.
-                      </li>
-                    </ul>
+                  <div class="core3-map-row">
+                    <sportbook6vn-checkbox label="Disabled" [disabled]="true" />
+                    <sportbook6vn-checkbox label="Disabled checked" [defaultChecked]="true" [disabled]="true" />
+                    <sportbook6vn-checkbox
+                      label="Disabled indeterminate"
+                      [defaultIndeterminate]="true"
+                      [disabled]="true"
+                    />
                   </div>
                 </div>
               </div>
             </section>
 
-            <section class="section button-demo-section" id="core3-dropdown-family-mapping">
+            <section class="section button-demo-section" id="checkbox-group">
               <div class="button-demo-head">
                 <div>
-                  <h2>Dropdown Family Mapping</h2>
-                  <p>
-                    Đã tách sang tab <span class="button-inline-code">Dropdown</span> theo cấu trúc
-                    component docs riêng. Core-3 Mapping chỉ giữ trạng thái để tránh duplicate source of truth.
-                  </p>
+                  <h2>Checkbox Group</h2>
+                  <p>Checkbox group allows multiple selected options in a horizontal layout.</p>
                   <div class="button-demo-tags">
-                    <span>source=preview</span>
-                    <span>component=dropdown-family</span>
-                    <span>target=Dropdown</span>
-                    <span>status=split</span>
+                    <span>selector=sportbook6vn-checkbox-group</span>
+                    <span>direction=horizontal</span>
                   </div>
                 </div>
               </div>
 
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
-                  <div class="doc-list-card">
-                    <h3>Moved to component docs</h3>
-                    <ul>
-                      <li>
-                        Use <span class="button-inline-code">Dropdown</span> for single select,
-                        multiple select, tag select, inside label, searchable droplist, tag droplist,
-                        status, disabled, empty states, API, and component token docs.
-                      </li>
-                      <li>Keep this Core-3 tab as the mapping index only.</li>
-                    </ul>
+                  <sportbook6vn-checkbox-group
+                    [options]="core3CheckboxGroupOptions"
+                    [value]="core3CheckboxGroupValues()"
+                    (valueChange)="setCore3CheckboxGroupValues($event)"
+                  />
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-demo-section" id="checkbox-select-all">
+              <div class="button-demo-head">
+                <div>
+                  <h2>Select All</h2>
+                  <p>Select all becomes indeterminate when only part of the group is selected.</p>
+                  <div class="button-demo-tags">
+                    <span>selector=sportbook6vn-checkbox</span>
+                    <span>indeterminate=true</span>
+                    <span>group=valueChange</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-demo-card">
+                <div class="button-demo-preview core3-map-preview">
+                  <div class="core3-input-demo-stack">
+                    <sportbook6vn-checkbox
+                      label="Select all"
+                      [checked]="core3CheckboxSelectAllChecked()"
+                      [indeterminate]="core3CheckboxSelectAllIndeterminate()"
+                      (checkedChange)="setCore3CheckboxSelectAll($event)"
+                    />
+                    <sportbook6vn-checkbox-group
+                      [options]="core3CheckboxGroupOptions"
+                      [value]="core3CheckboxSelectAllValues()"
+                      (valueChange)="setCore3CheckboxSelectAllValues($event)"
+                    />
                   </div>
                 </div>
               </div>
             </section>
 
-            <section class="section button-demo-section" id="core3-radio-mapping">
+            <section class="section button-demo-section" id="checkbox-vertical-group">
               <div class="button-demo-head">
                 <div>
-                  <h2>Radio Mapping</h2>
-                  <p>
-                    Đã tách sang tab <span class="button-inline-code">Radio</span> theo cấu trúc
-                    component docs riêng. Core-3 Mapping chỉ giữ lại trạng thái để tránh duplicate source
-                    of truth.
-                  </p>
+                  <h2>Vertical Checkbox Group</h2>
+                  <p>Vertical group keeps the same multi-select behavior with stacked options.</p>
                   <div class="button-demo-tags">
-                    <span>source=preview</span>
-                    <span>component=radio</span>
-                    <span>target=Radio</span>
-                    <span>status=split</span>
+                    <span>selector=sportbook6vn-checkbox-group</span>
+                    <span>direction=vertical</span>
                   </div>
                 </div>
               </div>
 
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
-                  <div class="doc-list-card">
-                    <h3>Moved to component docs</h3>
-                    <ul>
-                      <li>
-                        Use <span class="button-inline-code">Radio</span> for basic, disabled, group,
-                        vertical group, API, and component token docs.
-                      </li>
-                      <li>Keep this Core-3 tab as the mapping index only.</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section class="section button-demo-section" id="core3-checkbox-mapping">
-              <div class="button-demo-head">
-                <div>
-                  <h2>Checkbox Mapping</h2>
-                  <p>
-                    Mapping 1:1 từ preview cho
-                    <span class="button-inline-code">sportbook6vn-checkbox</span> và
-                    <span class="button-inline-code">sportbook6vn-checkbox-group</span>, gồm basic,
-                    disabled, group, select all với indeterminate, và vertical group.
-                  </p>
-                  <div class="button-demo-tags">
-                    <span>source=preview</span>
-                    <span>component=checkbox</span>
-                    <span>target=Core-3 Mapping</span>
-                    <span>status=mapped</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="button-demo-card">
-                <div class="button-demo-preview core3-map-preview">
-                  <div class="core3-input-family">
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Basic</h3>
-                        <p>There are unchecked, checked, and indeterminate checkbox states.</p>
-                      </div>
-                      <div class="core3-map-row">
-                        <sportbook6vn-checkbox label="Checkbox" />
-                        <sportbook6vn-checkbox label="Checked" [defaultChecked]="true" />
-                        <sportbook6vn-checkbox label="Indeterminate" [defaultIndeterminate]="true" />
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Disabled</h3>
-                        <p>Disabled checkboxes keep visual state but block selection.</p>
-                      </div>
-                      <div class="core3-map-row">
-                        <sportbook6vn-checkbox label="Disabled" [disabled]="true" />
-                        <sportbook6vn-checkbox label="Disabled checked" [defaultChecked]="true" [disabled]="true" />
-                        <sportbook6vn-checkbox
-                          label="Disabled indeterminate"
-                          [defaultIndeterminate]="true"
-                          [disabled]="true"
-                        />
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Checkbox Group</h3>
-                        <p>Checkbox group allows multiple selected options in a horizontal layout.</p>
-                      </div>
-                      <sportbook6vn-checkbox-group
-                        [options]="core3CheckboxGroupOptions"
-                        [value]="core3CheckboxGroupValues()"
-                        (valueChange)="setCore3CheckboxGroupValues($event)"
-                      />
-                    </div>
-
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Select All</h3>
-                        <p>Select all becomes indeterminate when only part of the group is selected.</p>
-                      </div>
-                      <div class="core3-input-demo-stack">
-                        <sportbook6vn-checkbox
-                          label="Select all"
-                          [checked]="core3CheckboxSelectAllChecked()"
-                          [indeterminate]="core3CheckboxSelectAllIndeterminate()"
-                          (checkedChange)="setCore3CheckboxSelectAll($event)"
-                        />
-                        <sportbook6vn-checkbox-group
-                          [options]="core3CheckboxGroupOptions"
-                          [value]="core3CheckboxSelectAllValues()"
-                          (valueChange)="setCore3CheckboxSelectAllValues($event)"
-                        />
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case core3-input-case--wide">
-                      <div class="core3-input-case__head">
-                        <h3>Vertical Checkbox Group</h3>
-                        <p>Vertical group keeps the same multi-select behavior with stacked options.</p>
-                      </div>
-                      <sportbook6vn-checkbox-group
-                        direction="vertical"
-                        [options]="core3CheckboxGroupOptions"
-                        [value]="core3CheckboxGroupVerticalValues()"
-                        (valueChange)="setCore3CheckboxGroupVerticalValues($event)"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section class="section button-demo-section" id="core3-datepicker-mapping">
-              <div class="button-demo-head">
-                <div>
-                  <h2>Date Picker Mapping</h2>
-                  <p>
-                    Đã tách sang tab <span class="button-inline-code">Date Picker</span> theo cấu trúc
-                    component docs riêng. Core-3 Mapping chỉ giữ lại trạng thái để tránh duplicate source
-                    of truth.
-                  </p>
-                  <div class="button-demo-tags">
-                    <span>source=preview</span>
-                    <span>component=datepicker</span>
-                    <span>target=Date Picker</span>
-                    <span>status=split</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="button-demo-card">
-                <div class="button-demo-preview core3-map-preview">
-                  <div class="doc-list-card">
-                    <h3>Moved to component docs</h3>
-                    <ul>
-                      <li>
-                        Use <span class="button-inline-code">Date Picker</span> for single date,
-                        date + time, interest, month, year, range, status, API, and component token docs.
-                      </li>
-                      <li>Keep this Core-3 tab as the mapping index only.</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section
-              *ngIf="false"
-              class="section button-demo-section"
-              id="core3-dropdown-family-mapping-archive"
-            >
-              <div class="button-demo-head">
-                <div>
-                  <h2>Dropdown Family Mapping</h2>
-                  <p>
-                    Mapping 1:1 từ preview cho component
-                    <span class="button-inline-code">sportbook6vn-dropdown</span> và
-                    <span class="button-inline-code">sportbook6vn-dropdown-tag</span>. Các trigger giữ trạng
-                    thái đóng/default; droplist chỉ xuất hiện khi user tương tác thật.
-                  </p>
-                  <div class="button-demo-tags">
-                    <span>source=preview</span>
-                    <span>component=dropdown-family</span>
-                    <span>target=Core-3 Mapping</span>
-                    <span>status=mapped</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="button-demo-card">
-                <div class="button-demo-preview core3-map-preview">
-                  <div class="core3-input-family">
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Basic Select</h3>
-                        <p>Closed single select: empty placeholder and selected value.</p>
-                      </div>
-                      <div class="core3-input-frame core3-input-frame--grid">
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Empty</span>
-                          <sportbook6vn-dropdown placeholder="Lựa chọn" [items]="core3DropdownItems" />
-                        </div>
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Selected value</span>
-                          <sportbook6vn-dropdown
-                            placeholder="Lựa chọn"
-                            value="option-1"
-                            [items]="core3DropdownItems"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Multiple Select</h3>
-                        <p>Closed multiple select: empty placeholder and selected value summary.</p>
-                      </div>
-                      <div class="core3-input-frame core3-input-frame--grid">
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Empty</span>
-                          <sportbook6vn-dropdown
-                            placeholder="Lựa chọn"
-                            mode="multiple"
-                            [items]="core3DropdownItems"
-                          />
-                        </div>
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Selected values</span>
-                          <sportbook6vn-dropdown
-                            placeholder="Lựa chọn"
-                            mode="multiple"
-                            [items]="core3DropdownItems"
-                            [values]="['option-1', 'option-2', 'option-3']"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case core3-input-case--wide">
-                      <div class="core3-input-case__head">
-                        <h3>Tag Select</h3>
-                        <p>Tag trigger variants: empty, selected tags, and overflow indicator.</p>
-                      </div>
-                      <div class="core3-input-frame core3-input-frame--grid core3-input-frame--three">
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Empty</span>
-                          <sportbook6vn-dropdown-tag placeholder="Lựa chọn" [items]="core3DropdownItems" />
-                        </div>
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Selected tags</span>
-                          <sportbook6vn-dropdown-tag
-                            placeholder="Lựa chọn"
-                            [items]="core3DropdownItems"
-                            [values]="['option-1', 'option-2']"
-                          />
-                        </div>
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Overflow +N</span>
-                          <sportbook6vn-dropdown-tag
-                            placeholder="Lựa chọn"
-                            [items]="core3DropdownItems"
-                            [values]="['option-1', 'option-2', 'option-3', 'option-4']"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Inside Label</h3>
-                        <p>Figma-specific label inside the trigger, without outside title.</p>
-                      </div>
-                      <div class="core3-input-frame core3-input-frame--grid">
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Single</span>
-                          <sportbook6vn-dropdown
-                            title="Title"
-                            labelMode="inside"
-                            placeholder="Lựa chọn"
-                            value="option-1"
-                            [items]="core3DropdownItems"
-                          />
-                        </div>
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Multiple</span>
-                          <sportbook6vn-dropdown
-                            title="Title"
-                            labelMode="inside"
-                            placeholder="Lựa chọn"
-                            mode="multiple"
-                            [items]="core3DropdownItems"
-                            [values]="['option-1', 'option-2']"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case">
-                      <div class="core3-input-case__head">
-                        <h3>Searchable Droplist</h3>
-                        <p>More than five options enables search when the user opens the trigger.</p>
-                      </div>
-                      <div class="core3-input-frame core3-input-frame--grid">
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Single</span>
-                          <sportbook6vn-dropdown
-                            placeholder="Lựa chọn"
-                            [items]="core3DropdownItems"
-                          />
-                        </div>
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Multiple</span>
-                          <sportbook6vn-dropdown
-                            placeholder="Lựa chọn"
-                            mode="multiple"
-                            [items]="core3DropdownItems"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case core3-input-case--wide">
-                      <div class="core3-input-case__head">
-                        <h3>Status</h3>
-                        <p>Error state for single, multiple, and tag select triggers.</p>
-                      </div>
-                      <div class="core3-input-frame core3-input-frame--grid core3-input-frame--three">
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Single error</span>
-                          <sportbook6vn-dropdown
-                            placeholder="Lựa chọn"
-                            status="error"
-                            [items]="core3DropdownItems"
-                          />
-                        </div>
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Multiple error</span>
-                          <sportbook6vn-dropdown
-                            placeholder="Lựa chọn"
-                            mode="multiple"
-                            status="error"
-                            [items]="core3DropdownItems"
-                            [values]="['option-1', 'option-2']"
-                          />
-                        </div>
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Tag error</span>
-                          <sportbook6vn-dropdown-tag
-                            placeholder="Lựa chọn"
-                            status="error"
-                            [items]="core3DropdownItems"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case core3-input-case--wide">
-                      <div class="core3-input-case__head">
-                        <h3>Disabled</h3>
-                        <p>Disabled state for the supported select trigger variants.</p>
-                      </div>
-                      <div class="core3-input-frame core3-input-frame--grid core3-input-frame--three">
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Single</span>
-                          <sportbook6vn-dropdown
-                            placeholder="Lựa chọn"
-                            [items]="core3DropdownItems"
-                            [disabled]="true"
-                          />
-                        </div>
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Multiple</span>
-                          <sportbook6vn-dropdown
-                            placeholder="Lựa chọn"
-                            mode="multiple"
-                            [items]="core3DropdownItems"
-                            [disabled]="true"
-                            [values]="['option-1', 'option-2']"
-                          />
-                        </div>
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Tag</span>
-                          <sportbook6vn-dropdown-tag
-                            placeholder="Lựa chọn"
-                            [items]="core3DropdownItems"
-                            [values]="['option-1', 'option-2', 'option-3', 'option-4']"
-                            [disabled]="true"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="core3-input-case core3-input-case--wide">
-                      <div class="core3-input-case__head">
-                        <h3>Empty States</h3>
-                        <p>Closed triggers for empty-state scenarios; state content appears on open.</p>
-                      </div>
-                      <div class="core3-input-frame core3-input-frame--grid core3-input-frame--three">
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">No data</span>
-                          <sportbook6vn-dropdown
-                            placeholder="Lựa chọn"
-                            [items]="core3DropdownEmptyItems"
-                            emptyState="no-data"
-                          />
-                        </div>
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Search no data</span>
-                          <sportbook6vn-dropdown
-                            placeholder="Lựa chọn"
-                            [items]="core3DropdownItems"
-                            emptyState="search-no-data"
-                          />
-                        </div>
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">API error</span>
-                          <sportbook6vn-dropdown
-                            placeholder="Lựa chọn"
-                            [items]="core3DropdownItems"
-                            emptyState="api-error"
-                          />
-                        </div>
-                        <div class="core3-input-demo-stack">
-                          <span class="core3-map-button-row-label">Loading</span>
-                          <sportbook6vn-dropdown
-                            placeholder="Lựa chọn"
-                            [items]="core3DropdownItems"
-                            emptyState="loading"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <sportbook6vn-checkbox-group
+                    direction="vertical"
+                    [options]="core3CheckboxGroupOptions"
+                    [value]="core3CheckboxGroupVerticalValues()"
+                    (valueChange)="setCore3CheckboxGroupVerticalValues($event)"
+                  />
                 </div>
               </div>
             </section>
@@ -5204,17 +4781,16 @@
           </div>
         </ng-container>
 
-        <ng-container *ngIf="activePage() === 'core3Mapping'">
+        <ng-container *ngIf="activePage() === 'checkbox'">
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
               <span class="toc-label">On This Page</span>
               <div class="toc-list">
-                <a class="toc-item" href="#core3-input-family-mapping">Input family mapping</a>
-                <a class="toc-item" href="#core3-input-tag-mapping">Input tag mapping</a>
-                <a class="toc-item" href="#core3-dropdown-family-mapping">Dropdown family mapping</a>
-                <a class="toc-item" href="#core3-radio-mapping">Radio mapping</a>
-                <a class="toc-item" href="#core3-checkbox-mapping">Checkbox mapping</a>
-                <a class="toc-item" href="#core3-datepicker-mapping">Date picker mapping</a>
+                <a class="toc-item" href="#checkbox-basic">Basic</a>
+                <a class="toc-item" href="#checkbox-disabled">Disabled</a>
+                <a class="toc-item" href="#checkbox-group">Checkbox Group</a>
+                <a class="toc-item" href="#checkbox-select-all">Select All</a>
+                <a class="toc-item" href="#checkbox-vertical-group">Vertical Checkbox Group</a>
               </div>
 
               <div class="pro-tip">
@@ -5223,8 +4799,8 @@
                   <span>Pro Tip</span>
                 </div>
                 <p>
-                  Đây là tab mapping tổng hợp. Mỗi component đã chốt từ preview sẽ được đưa vào đây
-                  trước khi tách sang trang docs riêng.
+                  Use <span class="mono">Checkbox Group</span> when multiple options may be selected;
+                  use <span class="mono">Radio</span> when exactly one option is allowed.
                 </p>
               </div>
             </aside>
