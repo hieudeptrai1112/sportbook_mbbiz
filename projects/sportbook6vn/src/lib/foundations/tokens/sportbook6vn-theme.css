@@ -27,7 +27,7 @@
   --sportbook6vn-color-button-pill-secondary-hover: #9781ff;
   --sportbook6vn-color-button-pill-secondary-pressed: #bbadff;
   --sportbook6vn-color-button-secondary-disabled-pill: #dbd3ff;
-  --sportbook6vn-color-dropdown-border-default: #dae4ff;
+  --sportbook6vn-color-dropdown-border-default: var(--sportbook6vn-color-brand-300);
   --sportbook6vn-color-dropdown-border-active: #52dddd;
   --sportbook6vn-color-dropdown-border-error: #f00000;
   --sportbook6vn-color-dropdown-border-disabled: #cccccc;
