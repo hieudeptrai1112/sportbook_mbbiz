@@ -301,6 +301,14 @@
               <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
               <span>Table</span>
             </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'pagination'"
+              (click)="setPage('pagination')"
+            >
+              <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+              <span>Pagination</span>
+            </div>
           </div>
         </div>
 
@@ -3559,6 +3567,286 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'pagination'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Display</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Pagination</h1>
+              <p class="lead">
+                Pagination maps the approved preview cases into a dedicated docs tab: page list,
+                jumper states, boundary states, disabled state, and over-100 quick jumper.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of paginationDemoSections; let i = index"
+              [attr.id]="getPaginationSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+                <button
+                  *ngIf="i === 0"
+                  class="button-doc-toggle"
+                  type="button"
+                  (click)="toggleAllPaginationDemoCode()"
+                >
+                  {{ areAllPaginationDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                </button>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card" style="overflow: visible;">
+                <div
+                  class="button-demo-preview"
+                  [style.min-height]="demo.variant === 'dropdown-open' ? '340px' : '148px'"
+                  style="align-items: flex-start; justify-content: flex-start; overflow-x: auto; padding: 40px;"
+                >
+                  <ng-container [ngSwitch]="demo.variant">
+                    <div
+                      *ngSwitchCase="'default'"
+                      style="min-width: 805px; width: 805px;"
+                    >
+                      <sportbook6vn-pagination
+                        ariaLabel="Default pagination docs demo"
+                        [total]="100"
+                        [pageIndex]="1"
+                      />
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'active-border'"
+                      style="min-width: 805px; width: 805px;"
+                    >
+                      <sportbook6vn-pagination
+                        ariaLabel="Active border pagination docs demo"
+                        [total]="100"
+                        [pageIndex]="1"
+                        [jumpActive]="true"
+                      />
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'dropdown-open'"
+                      style="min-width: 805px; width: 805px;"
+                    >
+                      <sportbook6vn-pagination
+                        ariaLabel="Open dropdown pagination docs demo"
+                        [total]="100"
+                        [pageIndex]="paginationDocsDropdownPage()"
+                        [openJump]="paginationDocsDropdownOpen()"
+                        (pageIndexChange)="setPaginationDocsDropdownPage($event)"
+                        (openJumpChange)="setPaginationDocsDropdownOpen($event)"
+                      />
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'boundary'"
+                      style="min-width: 805px; width: 805px;"
+                    >
+                      <sportbook6vn-pagination
+                        ariaLabel="Boundary pagination docs demo"
+                        [total]="100"
+                        [pageIndex]="paginationDocsBoundaryPage()"
+                        (pageIndexChange)="setPaginationDocsBoundaryPage($event)"
+                      />
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'disabled'"
+                      style="min-width: 805px; width: 805px;"
+                    >
+                      <sportbook6vn-pagination
+                        ariaLabel="Disabled pagination docs demo"
+                        [total]="10"
+                        [pageIndex]="1"
+                        [disabled]="true"
+                      />
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'quick-selected'"
+                      style="min-width: 811px; width: 811px;"
+                    >
+                      <sportbook6vn-pagination
+                        ariaLabel="Quick selected pagination docs demo"
+                        mode="quick-jumper"
+                        [total]="18000"
+                        [pageCount]="18000"
+                        [pageIndex]="paginationDocsQuickPage()"
+                        [quickJumpValue]="23"
+                        [rangeFormatter]="paginationQuickSelectedRange"
+                        [summaryFormatter]="paginationQuickSummary"
+                        (pageIndexChange)="setPaginationDocsQuickPage($event)"
+                      />
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'quick-default'"
+                      style="min-width: 811px; width: 811px;"
+                    >
+                      <sportbook6vn-pagination
+                        ariaLabel="Quick default pagination docs demo"
+                        mode="quick-jumper"
+                        [total]="18000"
+                        [pageCount]="18000"
+                        [pageIndex]="1"
+                        [rangeFormatter]="paginationQuickDefaultRange"
+                        [summaryFormatter]="paginationQuickSummary"
+                      />
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'quick-maximum'"
+                      style="min-width: 811px; width: 811px;"
+                    >
+                      <sportbook6vn-pagination
+                        ariaLabel="Quick maximum pagination docs demo"
+                        mode="quick-jumper"
+                        [total]="18000"
+                        [pageCount]="18000"
+                        [pageIndex]="18000"
+                        [rangeFormatter]="paginationQuickMaximumRange"
+                        [summaryFormatter]="paginationQuickSummary"
+                      />
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'quick-input-active'"
+                      style="min-width: 811px; width: 811px;"
+                    >
+                      <sportbook6vn-pagination
+                        ariaLabel="Quick input active pagination docs demo"
+                        mode="quick-jumper"
+                        [total]="18000"
+                        [pageCount]="18000"
+                        [pageIndex]="23"
+                        [quickInputActive]="true"
+                        [rangeFormatter]="paginationQuickSelectedRange"
+                        [summaryFormatter]="paginationQuickSummary"
+                      />
+                    </div>
+                  </ng-container>
+                </div>
+
+                <div class="button-demo-controls">
+                  <div class="button-demo-icons">
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      [class.active]="isPaginationDemoExpanded(demo.id)"
+                      (click)="togglePaginationDemoCode(demo.id)"
+                      aria-label="Toggle code"
+                    >
+                      &lt;/&gt;
+                    </button>
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      (click)="copyPaginationDemoCode(demo)"
+                      aria-label="Copy code"
+                    >
+                      {{ copiedPaginationDemoId() === demo.id ? 'Copied' : 'Copy' }}
+                    </button>
+                  </div>
+
+                  <span class="button-code-hint">TS</span>
+                </div>
+
+                <div class="button-code-wrapper" *ngIf="isPaginationDemoExpanded(demo.id)">
+                  <div class="button-code-head">
+                    <span class="button-code-file">{{ getPaginationCodeLanguageLabel(demo) }}</span>
+                    <span class="button-code-hint">{{ getPaginationCodeHint() }}</span>
+                  </div>
+                  <pre class="button-code-block"><code [innerHTML]="getPaginationDemoHighlightedCode(demo)"></code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-api-section" id="pagination-api">
+              <h2>API</h2>
+              <h3 class="button-api-group-title">sportbook6vn-pagination inputs</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of paginationApiRows">
+                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                </div>
+              </div>
+
+              <h3 class="button-api-group-title">sportbook6vn-pagination outputs</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Event</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of paginationOutputRows">
+                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                </div>
+              </div>
+
+              <h3 class="button-api-group-title">Types</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Name</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of paginationTypeRows">
+                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="pagination-variables">
+              <h2>Component Token</h2>
+              <div class="scale-block" *ngFor="let group of paginationVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table button-variable-table">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.rows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <ul class="button-variable-notes">
+                <li *ngFor="let note of paginationVariableNotes">{{ note }}</li>
+              </ul>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'checkbox'">
             <div class="page-header">
               <div class="header-meta">
@@ -4769,6 +5057,49 @@
                   [class.active]="activeTableSection() === 'table-variables'"
                   href="#table-variables"
                   (click)="setActiveTableSection('table-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'pagination'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of paginationDemoSections"
+                  [class.active]="activePaginationSection() === getPaginationSectionId(demo.id)"
+                  [href]="'#' + getPaginationSectionId(demo.id)"
+                  (click)="setActivePaginationSection(getPaginationSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activePaginationSection() === 'pagination-api'"
+                  href="#pagination-api"
+                  (click)="setActivePaginationSection('pagination-api')"
+                >
+                  API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activePaginationSection() === 'pagination-variables'"
+                  href="#pagination-variables"
+                  (click)="setActivePaginationSection('pagination-variables')"
                 >
                   Component Token
                 </a>

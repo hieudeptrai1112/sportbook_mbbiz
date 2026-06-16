@@ -23,6 +23,9 @@ import {
   Sportbook6vnItemUploadComponent,
   type Sportbook6vnInputTagValue,
   Sportbook6vnPasswordInputComponent,
+  Sportbook6vnPaginationComponent,
+  type Sportbook6vnPaginationRangeFormatter,
+  type Sportbook6vnPaginationSummaryFormatter,
   Sportbook6vnRadioComponent,
   Sportbook6vnRadioGroupComponent,
   type Sportbook6vnRadioGroupOption,
@@ -160,6 +163,17 @@ import {
   type TableVariableGroup,
 } from './table-demos.data';
 import {
+  PAGINATION_API_ROWS,
+  PAGINATION_DEMO_SECTIONS,
+  PAGINATION_OUTPUT_ROWS,
+  PAGINATION_TYPE_ROWS,
+  PAGINATION_VARIABLE_GROUPS,
+  PAGINATION_VARIABLE_NOTES,
+  type PaginationApiRow,
+  type PaginationDemoSection,
+  type PaginationVariableGroup,
+} from './pagination-demos.data';
+import {
   ILLUSTRATION_ASSETS,
   type IllustrationAsset,
 } from './illustration-assets.data';
@@ -269,6 +283,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     Sportbook6vnItemFileComponent,
     Sportbook6vnItemUploadComponent,
     Sportbook6vnPasswordInputComponent,
+    Sportbook6vnPaginationComponent,
     Sportbook6vnRadioComponent,
     Sportbook6vnRadioGroupComponent,
     Sportbook6vnSearchInputComponent,
@@ -301,6 +316,7 @@ export class App {
     | 'radio'
     | 'checkbox'
     | 'table'
+    | 'pagination'
     | 'datepicker'
     | 'uploadFile'
     | 'illustration'
@@ -396,6 +412,17 @@ export class App {
   );
   protected readonly expandedTableDemoIds = signal<string[]>([]);
   protected readonly copiedTableDemoId = signal<string | null>(null);
+  protected readonly paginationDemoSections: PaginationDemoSection[] = PAGINATION_DEMO_SECTIONS;
+  protected readonly paginationApiRows: PaginationApiRow[] = PAGINATION_API_ROWS;
+  protected readonly paginationOutputRows: PaginationApiRow[] = PAGINATION_OUTPUT_ROWS;
+  protected readonly paginationTypeRows: PaginationApiRow[] = PAGINATION_TYPE_ROWS;
+  protected readonly paginationVariableGroups: PaginationVariableGroup[] = PAGINATION_VARIABLE_GROUPS;
+  protected readonly paginationVariableNotes = PAGINATION_VARIABLE_NOTES;
+  protected readonly activePaginationSection = signal(
+    this.getPaginationSectionId(this.paginationDemoSections[0]?.id ?? 'default'),
+  );
+  protected readonly expandedPaginationDemoIds = signal<string[]>([]);
+  protected readonly copiedPaginationDemoId = signal<string | null>(null);
   protected readonly dropdownDemoSections: DropdownDemoSection[] = DROPDOWN_DEMO_SECTIONS;
   protected readonly dropdownApiRows: DropdownApiRow[] = DROPDOWN_API_ROWS;
   protected readonly dropdownTagApiRows: DropdownApiRow[] = DROPDOWN_TAG_API_ROWS;
@@ -688,6 +715,18 @@ export class AppComponent {}`;
   }));
   protected readonly tableSelectedRowKeys = signal<string[]>(['selection-2']);
   protected readonly tablePaginationIndex = signal(1);
+  protected readonly paginationDocsDropdownPage = signal(1);
+  protected readonly paginationDocsBoundaryPage = signal(10);
+  protected readonly paginationDocsQuickPage = signal(23);
+  protected readonly paginationDocsDropdownOpen = signal(true);
+  protected readonly paginationQuickSelectedRange: Sportbook6vnPaginationRangeFormatter = () =>
+    'Đã hiển thị 91 - 100 trên 18000 kết quả';
+  protected readonly paginationQuickDefaultRange: Sportbook6vnPaginationRangeFormatter = () =>
+    'Đã hiển thị 1 - 10 trên 18000 kết quả';
+  protected readonly paginationQuickMaximumRange: Sportbook6vnPaginationRangeFormatter = () =>
+    'Đã hiển thị 17990 - 18000 trên 18000 kết quả';
+  protected readonly paginationQuickSummary: Sportbook6vnPaginationSummaryFormatter = (summary) =>
+    `Trang ${new Intl.NumberFormat('vi-VN').format(summary.pageIndex)} / ${new Intl.NumberFormat('vi-VN').format(summary.pageCount)}`;
   protected readonly downloadDocsUploadFile = (file: Sportbook6vnUploadFileItem): void => {
     this.downloadDocsFile(file.name);
   };
@@ -823,6 +862,7 @@ export class AppComponent {}`;
       | 'radio'
       | 'checkbox'
       | 'table'
+      | 'pagination'
       | 'datepicker'
       | 'uploadFile'
       | 'illustration'
@@ -851,6 +891,8 @@ export class AppComponent {}`;
       setTimeout(() => this.updateActiveStepsSection(), 0);
     } else if (page === 'table') {
       setTimeout(() => this.updateActiveTableSection(), 0);
+    } else if (page === 'pagination') {
+      setTimeout(() => this.updateActivePaginationSection(), 0);
     } else if (page === 'dropdown') {
       setTimeout(() => this.updateActiveDropdownSection(), 0);
     } else if (page === 'radio') {
@@ -1597,6 +1639,66 @@ export class AppComponent {}`;
     return `table-${sectionId}`;
   }
 
+  protected setActivePaginationSection(sectionId: string) {
+    this.activePaginationSection.set(sectionId);
+  }
+
+  protected getPaginationSectionId(sectionId: string): string {
+    return `pagination-${sectionId}`;
+  }
+
+  protected isPaginationDemoExpanded(sectionId: string): boolean {
+    return this.expandedPaginationDemoIds().includes(sectionId);
+  }
+
+  protected togglePaginationDemoCode(sectionId: string) {
+    const next = new Set(this.expandedPaginationDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedPaginationDemoIds.set([...next]);
+  }
+
+  protected toggleAllPaginationDemoCode() {
+    const expanded = this.expandedPaginationDemoIds();
+    const allIds = this.paginationDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedPaginationDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllPaginationDemoCodeExpanded(): boolean {
+    return this.expandedPaginationDemoIds().length === this.paginationDemoSections.length;
+  }
+
+  protected getPaginationDemoCode(section: PaginationDemoSection): string {
+    return section.snippetTs;
+  }
+
+  protected getPaginationDemoHighlightedCode(section: PaginationDemoSection): string {
+    return this.highlightTypeScriptSnippet(this.getPaginationDemoCode(section));
+  }
+
+  protected getPaginationCodeLanguageLabel(section: PaginationDemoSection): string {
+    return `pagination-${section.id}-demo.component.ts`;
+  }
+
+  protected getPaginationCodeHint(): string {
+    return 'Angular standalone snippet';
+  }
+
+  protected async copyPaginationDemoCode(section: PaginationDemoSection) {
+    const code = this.getPaginationDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedPaginationDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedPaginationDemoId() === section.id) {
+        this.copiedPaginationDemoId.set(null);
+      }
+    }, 1200);
+  }
+
   protected isTableDemoExpanded(sectionId: string): boolean {
     return this.expandedTableDemoIds().includes(sectionId);
   }
@@ -1995,6 +2097,22 @@ export class AppComponent {}`;
     this.tablePaginationIndex.set(value);
   }
 
+  protected setPaginationDocsDropdownPage(value: number): void {
+    this.paginationDocsDropdownPage.set(value);
+  }
+
+  protected setPaginationDocsBoundaryPage(value: number): void {
+    this.paginationDocsBoundaryPage.set(value);
+  }
+
+  protected setPaginationDocsQuickPage(value: number): void {
+    this.paginationDocsQuickPage.set(value);
+  }
+
+  protected setPaginationDocsDropdownOpen(value: boolean): void {
+    this.paginationDocsDropdownOpen.set(value);
+  }
+
   protected updateTableAllColumnCellValue(event: Sportbook6vnTableCellValueChange): void {
     this.updateTableRows(this.tableAllColumnRows, event);
   }
@@ -2112,6 +2230,7 @@ export class AppComponent {}`;
     this.updateActiveBreadcrumbSection();
     this.updateActiveStepsSection();
     this.updateActiveTableSection();
+    this.updateActivePaginationSection();
     this.updateActiveDropdownSection();
     this.updateActiveRadioSection();
     this.updateActiveDatepickerSection();
@@ -2323,6 +2442,31 @@ export class AppComponent {}`;
     }
 
     this.activeTableSection.set(currentSection);
+  }
+
+  private updateActivePaginationSection() {
+    if (this.activePage() !== 'pagination' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getPaginationSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activePaginationSection.set(currentSection);
   }
 
   private updateActiveDropdownSection() {
@@ -2656,6 +2800,14 @@ export class AppComponent {}`;
       ...this.tableDemoSections.map((section) => this.getTableSectionId(section.id)),
       'table-api',
       'table-variables',
+    ];
+  }
+
+  private getPaginationSectionIds(): string[] {
+    return [
+      ...this.paginationDemoSections.map((section) => this.getPaginationSectionId(section.id)),
+      'pagination-api',
+      'pagination-variables',
     ];
   }
 
