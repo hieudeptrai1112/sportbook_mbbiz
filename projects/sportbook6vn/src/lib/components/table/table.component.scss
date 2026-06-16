@@ -11,7 +11,7 @@
 }
 
 .sportbook6vn-table__viewport {
-  border: 1px solid var(--sportbook6vn-color-table-line);
+  border: 1px solid var(--sportbook6vn-color-table-outer-border, var(--sportbook6vn-color-table-line));
   border-radius: var(--sportbook6vn-radius-md);
   max-width: 100%;
   overflow: auto;
@@ -141,6 +141,54 @@
   vertical-align: top;
 }
 
+.sportbook6vn-table__header-cell.sportbook6vn-table__header-cell--center,
+.sportbook6vn-table__cell.sportbook6vn-table__cell--center {
+  text-align: center;
+}
+
+.sportbook6vn-table__header-cell.sportbook6vn-table__header-cell--right,
+.sportbook6vn-table__cell.sportbook6vn-table__cell--right {
+  text-align: right;
+}
+
+.sportbook6vn-table__header-cell--fixed-right,
+.sportbook6vn-table__cell--fixed-right {
+  overflow: visible;
+  position: sticky;
+  right: 0;
+}
+
+.sportbook6vn-table__header-cell--fixed-right {
+  z-index: 3;
+}
+
+.sportbook6vn-table__cell--fixed-right {
+  z-index: 2;
+}
+
+.sportbook6vn-table__header-cell--fixed-right::before,
+.sportbook6vn-table__cell--fixed-right::before {
+  box-shadow: -2px 0 4px 0 rgba(74, 125, 255, 0.2);
+  content: "";
+  inset: 0 auto 0 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 160ms ease;
+  width: 1px;
+  z-index: 1;
+}
+
+.sportbook6vn-table__viewport--ping-right .sportbook6vn-table__header-cell--fixed-right::before,
+.sportbook6vn-table__viewport--ping-right .sportbook6vn-table__cell--fixed-right::before {
+  opacity: 1;
+}
+
+.sportbook6vn-table__header-cell--right .sportbook6vn-table__header-label,
+.sportbook6vn-table__cell--right .sportbook6vn-table__cell-text {
+  text-align: right;
+}
+
 .sportbook6vn-table--compact .sportbook6vn-table__cell {
   height: 52px;
   max-height: 52px;
@@ -157,14 +205,82 @@
   white-space: nowrap;
 }
 
+.sportbook6vn-table__header-cell--checkbox,
+.sportbook6vn-table__cell--checkbox {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.sportbook6vn-table__cell--checkbox {
+  vertical-align: top;
+}
+
+.sportbook6vn-table__cell--checkbox {
+  overflow: visible;
+}
+
+.sportbook6vn-table-checkbox-header-control,
+.sportbook6vn-table-checkbox-control {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.sportbook6vn-table-checkbox-header-control {
+  align-items: center;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+:host ::ng-deep .sportbook6vn-table-checkbox-header-control .sportbook6vn-checkbox {
+  align-items: center;
+  height: 20px;
+}
+
+:host ::ng-deep .sportbook6vn-table-checkbox-header-control .sportbook6vn-checkbox__control {
+  align-self: center;
+}
+
+:host ::ng-deep .sportbook6vn-table-checkbox-header-control .sportbook6vn-checkbox,
+:host ::ng-deep .sportbook6vn-table-checkbox-control .sportbook6vn-checkbox {
+  gap: 12px;
+  padding: 0;
+}
+
+:host ::ng-deep .sportbook6vn-table-checkbox-header-control .sportbook6vn-checkbox__label,
+:host ::ng-deep .sportbook6vn-table-checkbox-control .sportbook6vn-checkbox__label {
+  color: var(--sportbook6vn-color-table-text);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .sportbook6vn-table-checkbox-control .sportbook6vn-checkbox__label {
+  font-weight: 400;
+}
+
 .sportbook6vn-table__cell--money-in .sportbook6vn-table__cell-text {
   color: var(--sportbook6vn-color-table-success);
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .sportbook6vn-table__cell--money-out .sportbook6vn-table__cell-text {
   color: var(--sportbook6vn-color-table-error);
-  font-weight: 600;
+  font-weight: 400;
+}
+
+.sportbook6vn-table__cell--reference-number .sportbook6vn-table__cell-text,
+.sportbook6vn-table__cell--payment-code .sportbook6vn-table__cell-text {
+  color: var(--sportbook6vn-color-table-action);
+}
+
+.sportbook6vn-table-button-link {
+  display: inline-flex;
+  max-width: 100%;
 }
 
 .sportbook6vn-table__cell-text {
@@ -231,6 +347,29 @@
   width: 24px;
 }
 
+.sportbook6vn-table-currency {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+  max-width: 100%;
+}
+
+.sportbook6vn-table-currency__flag,
+.sportbook6vn-table-remind {
+  display: inline-block;
+  height: 24px;
+  object-fit: contain;
+  width: 24px;
+}
+
+.sportbook6vn-table-currency__code {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .sportbook6vn-table-alert {
   align-items: center;
   border: 1px solid currentColor;
@@ -251,6 +390,40 @@
 
 .sportbook6vn-table-alert[data-tone="info"] {
   color: var(--sportbook6vn-color-table-action);
+}
+
+.sportbook6vn-table__cell--input,
+.sportbook6vn-table__cell--dropdown {
+  overflow: visible;
+  padding-bottom: 12px;
+  padding-top: 12px;
+}
+
+.sportbook6vn-table__cell--button {
+  overflow: visible;
+  vertical-align: top;
+}
+
+.sportbook6vn-table-input-control,
+.sportbook6vn-table-dropdown-control {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+}
+
+:host ::ng-deep .sportbook6vn-table-input-control .sportbook6vn-input,
+:host ::ng-deep .sportbook6vn-table-dropdown-control .sportbook6vn-dropdown {
+  width: 100%;
+}
+
+:host ::ng-deep .sportbook6vn-table-input-control .sportbook6vn-input {
+  --sportbook6vn-input-height: 40px;
+  --sportbook6vn-input-padding-x: 12px;
+}
+
+:host ::ng-deep .sportbook6vn-table-dropdown-control .sportbook6vn-dropdown__field {
+  min-height: 40px;
+  padding: 9px 12px;
 }
 
 .sportbook6vn-table-input,
@@ -307,6 +480,19 @@
   padding: 0;
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+.sportbook6vn-table-button-action {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.sportbook6vn-table-icon-actions {
+  align-items: center;
+  display: inline-flex;
+  gap: 16px;
+  justify-content: flex-end;
+  max-width: 100%;
 }
 
 .sportbook6vn-table-icon-action {
@@ -367,33 +553,8 @@
 }
 
 .sportbook6vn-table-pagination {
-  align-items: center;
-  color: var(--sportbook6vn-color-table-muted);
-  display: flex;
-  font-size: 14px;
-  justify-content: flex-end;
-  line-height: 20px;
-}
-
-.sportbook6vn-table-pagination__actions {
-  display: flex;
-  gap: 8px;
-  margin-left: 12px;
-}
-
-.sportbook6vn-table-pagination button {
-  background: var(--sportbook6vn-color-table-control-bg);
-  border: 1px solid var(--sportbook6vn-color-table-control-border);
-  border-radius: var(--sportbook6vn-radius-md);
-  color: var(--sportbook6vn-color-table-action);
-  cursor: pointer;
-  font: inherit;
-  padding: 4px 10px;
-}
-
-.sportbook6vn-table-pagination button:disabled {
-  color: var(--sportbook6vn-color-table-disabled);
-  cursor: not-allowed;
+  display: block;
+  margin-top: 24px;
 }
 
 @keyframes sportbook6vn-table-spin {

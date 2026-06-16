@@ -293,6 +293,16 @@ export const ILLUSTRATION_ASSETS: IllustrationAsset[] = [
     height: 784,
   },
   {
+    id: 'remind',
+    name: 'Remind',
+    fileName: 'remind.png',
+    src: `${ILLUSTRATION_BASE_PATH}/remind.png`,
+    alt: 'Remind illustration',
+    usage: 'Use for reminder status, reminder labels, or remind table columns.',
+    width: 96,
+    height: 96,
+  },
+  {
     id: 'search',
     name: 'Search',
     fileName: 'search.png',

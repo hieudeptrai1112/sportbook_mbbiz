@@ -292,6 +292,15 @@
               <img src="/assets/figma/3e20b364-afaa-44e7-9d9d-1a4bbf8611cc.svg" alt="" />
               <span>Checkbox</span>
             </div>
+            <span class="sidebar-sublabel">Data Display</span>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'table'"
+              (click)="setPage('table')"
+            >
+              <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+              <span>Table</span>
+            </div>
           </div>
         </div>
 
@@ -3321,6 +3330,235 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'table'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Display</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Table</h1>
+              <p class="lead">
+                Table maps the approved sportbook6vn preview cases into a dedicated docs tab: basic rows,
+                all column types, fixed right icon column, default data rows, selection with pagination,
+                loading, and empty states.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section table-doc-section"
+              *ngFor="let demo of tableDemoSections; let i = index"
+              [attr.id]="getTableSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+                <button
+                  *ngIf="i === 0"
+                  class="button-doc-toggle"
+                  type="button"
+                  (click)="toggleAllTableDemoCode()"
+                >
+                  {{ areAllTableDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                </button>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card table-demo-card" style="overflow: visible;">
+                <div
+                  class="button-demo-preview table-demo-preview"
+                  style="align-items: flex-start; justify-content: flex-start; min-height: 180px; overflow: visible; padding: 32px;"
+                >
+                  <ng-container [ngSwitch]="demo.variant">
+                    <div
+                      *ngSwitchCase="'basic'"
+                      class="table-demo-stage table-demo-stage--figma"
+                      style="flex: 0 0 850px; max-width: 850px; overflow: hidden; width: 850px;"
+                    >
+                      <sportbook6vn-table
+                        ariaLabel="Basic table docs demo"
+                        [columns]="tablePrimitiveColumns"
+                        [data]="tablePrimitiveRows"
+                        [tableLayout]="'fixed'"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'all-columns'" class="table-demo-stage" style="width: 100%;">
+                      <sportbook6vn-table
+                        ariaLabel="All table columns docs demo"
+                        [columns]="tableColumnTypeColumns"
+                        [data]="tableAllColumnRows()"
+                        [tableLayout]="'fixed'"
+                        (cellValueChange)="updateTableAllColumnCellValue($event)"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'fixed-right-icon'" class="table-demo-stage" style="width: 100%;">
+                      <sportbook6vn-table
+                        ariaLabel="Fixed right icon column docs demo"
+                        [columns]="tableFixedRightIconColumns"
+                        [data]="tableFixedRightIconRows"
+                        [tableLayout]="'fixed'"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'default'" class="table-demo-stage" style="width: 100%;">
+                      <sportbook6vn-table
+                        ariaLabel="Default table docs demo"
+                        [columns]="tableDefaultColumns"
+                        [data]="tableDefaultRows"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'selection-pagination'" class="table-demo-stage" style="width: 100%;">
+                      <sportbook6vn-table
+                        ariaLabel="Selection and pagination table docs demo"
+                        [columns]="tableSelectionColumns"
+                        [data]="tableSelectionRows()"
+                        [selectedRowKeys]="tableSelectedRowKeys()"
+                        [showPagination]="true"
+                        [pageSize]="2"
+                        [pageIndex]="tablePaginationIndex()"
+                        (cellValueChange)="updateTableSelectionCellValue($event)"
+                        (pageIndexChange)="setTablePaginationIndex($event)"
+                      />
+                    </div>
+
+                    <div
+                      *ngSwitchCase="'state'"
+                      class="table-demo-state-pair"
+                      style="display: grid; gap: 24px; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%;"
+                    >
+                      <sportbook6vn-table
+                        ariaLabel="Loading table docs demo"
+                        [columns]="tableDefaultColumns"
+                        [data]="tableDefaultRows"
+                        [loading]="true"
+                      />
+                      <sportbook6vn-table
+                        ariaLabel="Empty table docs demo"
+                        [columns]="tableDefaultColumns"
+                        [data]="[]"
+                        emptyText="Không có dữ liệu"
+                      />
+                    </div>
+                  </ng-container>
+                </div>
+
+                <div class="button-demo-controls">
+                  <div class="button-demo-icons">
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      [class.active]="isTableDemoExpanded(demo.id)"
+                      (click)="toggleTableDemoCode(demo.id)"
+                      aria-label="Toggle code"
+                    >
+                      &lt;/&gt;
+                    </button>
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      (click)="copyTableDemoCode(demo)"
+                      aria-label="Copy code"
+                    >
+                      {{ copiedTableDemoId() === demo.id ? 'Copied' : 'Copy' }}
+                    </button>
+                  </div>
+
+                  <span class="button-code-hint">TS</span>
+                </div>
+
+                <div class="button-code-wrapper" *ngIf="isTableDemoExpanded(demo.id)">
+                  <div class="button-code-head">
+                    <span class="button-code-file">{{ getTableCodeLanguageLabel(demo) }}</span>
+                    <span class="button-code-hint">{{ getTableCodeHint() }}</span>
+                  </div>
+                  <pre class="button-code-block"><code [innerHTML]="getTableDemoHighlightedCode(demo)"></code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-api-section" id="table-api">
+              <h2>API</h2>
+              <h3 class="button-api-group-title">sportbook6vn-table inputs</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of tableApiRows">
+                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                </div>
+              </div>
+
+              <h3 class="button-api-group-title">sportbook6vn-table outputs</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Event</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of tableOutputRows">
+                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                </div>
+              </div>
+
+              <h3 class="button-api-group-title">Types</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Name</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of tableTypeRows">
+                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="table-variables">
+              <h2>Component Token</h2>
+              <div class="scale-block" *ngFor="let group of tableVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table button-variable-table">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.rows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <ul class="button-variable-notes">
+                <li *ngFor="let note of tableVariableNotes">{{ note }}</li>
+              </ul>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'checkbox'">
             <div class="page-header">
               <div class="header-meta">
@@ -4496,6 +4734,49 @@
             <button
               type="button"
               class="anchor-collapse-btn"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'table'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of tableDemoSections"
+                  [class.active]="activeTableSection() === getTableSectionId(demo.id)"
+                  [href]="'#' + getTableSectionId(demo.id)"
+                  (click)="setActiveTableSection(getTableSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeTableSection() === 'table-api'"
+                  href="#table-api"
+                  (click)="setActiveTableSection('table-api')"
+                >
+                  API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeTableSection() === 'table-variables'"
+                  href="#table-variables"
+                  (click)="setActiveTableSection('table-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
               (click)="toggleTocCollapsed()"
               [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
             >

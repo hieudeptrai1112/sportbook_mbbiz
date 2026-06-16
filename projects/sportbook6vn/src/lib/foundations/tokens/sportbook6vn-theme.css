@@ -27,6 +27,10 @@
   --sportbook6vn-color-button-pill-secondary-hover: #9781ff;
   --sportbook6vn-color-button-pill-secondary-pressed: #bbadff;
   --sportbook6vn-color-button-secondary-disabled-pill: #dbd3ff;
+  --sportbook6vn-color-button-link-default: #141ed2;
+  --sportbook6vn-color-button-link-hover: #5f7eeb;
+  --sportbook6vn-color-button-link-pressed: #a3b7fd;
+  --sportbook6vn-color-button-link-disabled: #9b9b9b;
   --sportbook6vn-color-dropdown-border-default: var(--sportbook6vn-color-brand-300);
   --sportbook6vn-color-dropdown-border-active: #52dddd;
   --sportbook6vn-color-dropdown-border-error: #f00000;
@@ -121,6 +125,7 @@
   --sportbook6vn-color-table-control-border: #a3b7fd;
   --sportbook6vn-color-table-focus: #52dddd;
   --sportbook6vn-color-table-action: #141ed2;
+  --sportbook6vn-color-table-outer-border: #a3b7fd;
   --sportbook6vn-color-table-sort-muted: #9bafc8;
   --sportbook6vn-color-table-success: #00ad68;
   --sportbook6vn-color-table-error: #f00000;

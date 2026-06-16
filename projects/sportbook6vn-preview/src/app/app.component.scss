@@ -88,6 +88,10 @@
   margin: 0;
 }
 
+.sportbook6vn-preview-card--wide {
+  grid-column: 1 / -1;
+}
+
 .sportbook6vn-preview-input-state-strip {
   display: grid;
   gap: 12px;
@@ -174,6 +178,32 @@
   max-width: 100%;
   overflow: visible;
   width: 100%;
+}
+
+.sportbook6vn-preview-table-stage--figma {
+  flex: 0 0 850px;
+  inline-size: 850px;
+  max-inline-size: 850px;
+  overflow: hidden;
+}
+
+.sportbook6vn-preview-table-stage--figma sportbook6vn-table {
+  display: block;
+  inline-size: 850px;
+  max-inline-size: 850px;
+  min-inline-size: 850px;
+}
+
+.sportbook6vn-preview-table-stage--figma .sportbook6vn-table,
+.sportbook6vn-preview-table-stage--figma .sportbook6vn-table__viewport,
+.sportbook6vn-preview-table-stage--figma .sportbook6vn-table__native {
+  inline-size: 850px;
+  max-inline-size: 850px;
+  min-inline-size: 850px;
+}
+
+.sportbook6vn-preview-table-stage--figma .sportbook6vn-table__viewport {
+  overflow: hidden;
 }
 
 .sportbook6vn-preview-state-pair {
@@ -517,6 +547,23 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+.sportbook6vn-preview-button-link-matrix {
+  align-items: center;
+  display: grid;
+  gap: 28px 64px;
+  grid-template-columns: 96px repeat(4, minmax(72px, max-content));
+  justify-content: start;
+  padding: 24px 16px;
+}
+
+.sportbook6vn-preview-button-link-heading {
+  color: #516682;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .sportbook6vn-preview-button-add-icon {

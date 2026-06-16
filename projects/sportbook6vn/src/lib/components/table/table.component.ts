@@ -1,12 +1,39 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, input, output, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  ViewChild,
+  computed,
+  effect,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 
+import { Sportbook6vnButtonComponent } from '../button/button.component';
+import type {
+  Sportbook6vnButtonShape,
+  Sportbook6vnButtonSize,
+  Sportbook6vnButtonVariant,
+} from '../button/button.types';
+import { Sportbook6vnButtonLinkComponent } from '../button-link/button-link.component';
 import { Sportbook6vnCheckboxComponent } from '../checkbox/checkbox.component';
+import { Sportbook6vnDropdownComponent } from '../dropdown/dropdown.component';
+import type { Sportbook6vnDropdownItem } from '../dropdown/dropdown.types';
+import { Sportbook6vnInputComponent } from '../input/input.component';
+import { Sportbook6vnPaginationComponent } from '../pagination/pagination.component';
 import {
   SPORTBOOK6VN_ITEM_FILE_ILLUSTRATION_BASE_PATH,
   SPORTBOOK6VN_ITEM_FILE_ILLUSTRATION_FILES,
 } from '../item-file/item-file.assets';
 import type { Sportbook6vnItemFileKind } from '../item-file/item-file.types';
+import {
+  SPORTBOOK6VN_TABLE_CURRENCY_FLAG_FILES,
+  SPORTBOOK6VN_TABLE_ILLUSTRATION_BASE_PATH,
+  SPORTBOOK6VN_TABLE_REMIND_FILE,
+} from './table.assets';
 import type {
   Sportbook6vnTableActionCell,
   Sportbook6vnTableAlertCell,
@@ -16,10 +43,15 @@ import type {
   Sportbook6vnTableCellValue,
   Sportbook6vnTableCellValueChange,
   Sportbook6vnTableColumn,
+  Sportbook6vnTableCurrencyCell,
   Sportbook6vnTableDropdownCell,
   Sportbook6vnTableFileCell,
+  Sportbook6vnTableIconAction,
+  Sportbook6vnTableIconCell,
+  Sportbook6vnTableIconName,
   Sportbook6vnTableInputCell,
   Sportbook6vnTableOption,
+  Sportbook6vnTableRemindCell,
   Sportbook6vnTableRow,
   Sportbook6vnTableRowEvent,
   Sportbook6vnTableSize,
@@ -34,11 +66,19 @@ const DEFAULT_PAGE_SIZE = 10;
 
 @Component({
   selector: 'sportbook6vn-table',
-  imports: [CommonModule, Sportbook6vnCheckboxComponent],
+  imports: [
+    CommonModule,
+    Sportbook6vnButtonComponent,
+    Sportbook6vnButtonLinkComponent,
+    Sportbook6vnCheckboxComponent,
+    Sportbook6vnDropdownComponent,
+    Sportbook6vnInputComponent,
+    Sportbook6vnPaginationComponent,
+  ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
-export class Sportbook6vnTableComponent {
+export class Sportbook6vnTableComponent implements AfterViewInit {
   readonly columns = input<readonly Sportbook6vnTableColumn[]>([]);
   readonly data = input<readonly Sportbook6vnTableRow[]>([]);
   readonly rowKey = input('id');
@@ -55,6 +95,7 @@ export class Sportbook6vnTableComponent {
   readonly tableLayout = input<'auto' | 'fixed'>('auto');
   readonly maxHeight = input<string | null>(null);
   readonly illustrationBasePath = input(SPORTBOOK6VN_ITEM_FILE_ILLUSTRATION_BASE_PATH);
+  readonly tableIllustrationBasePath = input(SPORTBOOK6VN_TABLE_ILLUSTRATION_BASE_PATH);
 
   readonly selectedRowKeysChange = output<string[]>();
   readonly rowClick = output<Sportbook6vnTableRowEvent>();
@@ -66,6 +107,9 @@ export class Sportbook6vnTableComponent {
   protected readonly localSelectedKeys = signal<Set<string>>(new Set());
   protected readonly localPageIndex = signal(1);
   protected readonly activeSort = signal<{ key: string; order: Sportbook6vnTableSortOrder } | null>(null);
+  protected readonly showFixedRightShadow = signal(false);
+
+  @ViewChild('viewport') private readonly viewport?: ElementRef<HTMLElement>;
 
   constructor() {
     effect(() => {
@@ -76,6 +120,21 @@ export class Sportbook6vnTableComponent {
       const pageIndex = Math.max(1, Math.round(this.pageIndex()));
       this.localPageIndex.set(pageIndex);
     });
+
+    effect(() => {
+      this.columns();
+      this.pagedData();
+      this.scheduleFixedRightShadowUpdate();
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.scheduleFixedRightShadowUpdate();
+  }
+
+  @HostListener('window:resize')
+  protected onWindowResize(): void {
+    this.scheduleFixedRightShadowUpdate();
   }
 
   protected readonly tableClass = computed(() =>
@@ -170,10 +229,12 @@ export class Sportbook6vnTableComponent {
   }
 
   protected headerCellClass(column: Sportbook6vnTableColumn): string {
-    const align = column.headerAlign ?? column.align ?? this.defaultAlign(column);
+    const align = this.resolvedAlign(column, 'header');
     return [
       'sportbook6vn-table__header-cell',
       `sportbook6vn-table__header-cell--${align}`,
+      `sportbook6vn-table__header-cell--${this.resolvedCellType(column)}`,
+      column.fixed ? `sportbook6vn-table__header-cell--fixed-${column.fixed}` : '',
       column.sortable ? 'sportbook6vn-table__header-cell--sortable' : '',
       this.activeSort()?.key === column.key && this.activeSort()?.order
         ? 'sportbook6vn-table__header-cell--sorted'
@@ -185,14 +246,19 @@ export class Sportbook6vnTableComponent {
 
   protected bodyCellClass(column: Sportbook6vnTableColumn): string {
     const type = this.resolvedCellType(column);
-    const align = column.align ?? this.defaultAlign(column);
+    const align = this.resolvedAlign(column, 'body');
     return [
       'sportbook6vn-table__cell',
       `sportbook6vn-table__cell--${align}`,
       `sportbook6vn-table__cell--${type}`,
+      column.fixed ? `sportbook6vn-table__cell--fixed-${column.fixed}` : '',
     ]
       .filter(Boolean)
       .join(' ');
+  }
+
+  protected onViewportScroll(event: Event): void {
+    this.updateFixedRightShadow(event.currentTarget as HTMLElement);
   }
 
   protected rowClass(row: Sportbook6vnTableRow, index: number): string {
@@ -204,6 +270,28 @@ export class Sportbook6vnTableComponent {
       .join(' ');
   }
 
+  private scheduleFixedRightShadowUpdate(): void {
+    if (typeof requestAnimationFrame === 'function') {
+      requestAnimationFrame(() => this.updateFixedRightShadow());
+      return;
+    }
+
+    queueMicrotask(() => this.updateFixedRightShadow());
+  }
+
+  private updateFixedRightShadow(viewport = this.viewport?.nativeElement): void {
+    if (!viewport) {
+      this.showFixedRightShadow.set(false);
+      return;
+    }
+
+    const hasFixedRightColumn = this.columns().some((column) => column.fixed === 'right');
+    const maxScrollLeft = viewport.scrollWidth - viewport.clientWidth;
+    const isScrollable = maxScrollLeft > 1;
+    const isAwayFromRightEdge = viewport.scrollLeft < maxScrollLeft - 1;
+    this.showFixedRightShadow.set(hasFixedRightColumn && isScrollable && isAwayFromRightEdge);
+  }
+
   protected displayText(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): string {
     const value = this.cellValue(row, column);
     const type = this.resolvedCellType(column);
@@ -212,7 +300,15 @@ export class Sportbook6vnTableComponent {
       return column.placeholder ?? '';
     }
 
-    if (type === 'money' || type === 'money-in' || type === 'money-out' || type === 'currency') {
+    if (type === 'money-in') {
+      return this.formatSignedMoney(value, '+');
+    }
+
+    if (type === 'money-out') {
+      return this.formatSignedMoney(value, '-');
+    }
+
+    if (type === 'money' || type === 'currency') {
       return this.formatMoney(value);
     }
 
@@ -269,6 +365,68 @@ export class Sportbook6vnTableComponent {
     return `${kind.toUpperCase()} file`;
   }
 
+  protected currencyLabel(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): string {
+    const value = this.cellValue(row, column);
+    if (this.isObject(value)) {
+      const currency = value as Sportbook6vnTableCurrencyCell;
+      return String(currency.label ?? currency.code ?? 'VND');
+    }
+
+    if (value === null || value === undefined || value === '') {
+      return 'VND';
+    }
+
+    return String(value);
+  }
+
+  protected currencyFlagSrc(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): string {
+    const value = this.cellValue(row, column);
+    if (this.isObject(value)) {
+      const currency = value as Sportbook6vnTableCurrencyCell;
+      if (currency.flagSrc) {
+        return currency.flagSrc;
+      }
+    }
+
+    const code = this.currencyLabel(row, column).trim().toUpperCase();
+    const fileName = SPORTBOOK6VN_TABLE_CURRENCY_FLAG_FILES[code] ?? SPORTBOOK6VN_TABLE_CURRENCY_FLAG_FILES['VND'];
+    return `${this.tableAssetBasePath()}/${fileName}`;
+  }
+
+  protected currencyFlagAlt(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): string {
+    const value = this.cellValue(row, column);
+    if (this.isObject(value)) {
+      const currency = value as Sportbook6vnTableCurrencyCell;
+      if (currency.flagAlt) {
+        return currency.flagAlt;
+      }
+    }
+
+    return `${this.currencyLabel(row, column)} flag`;
+  }
+
+  protected remindIconSrc(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): string {
+    const value = this.cellValue(row, column);
+    if (this.isObject(value)) {
+      const remind = value as Sportbook6vnTableRemindCell;
+      if (remind.iconSrc) {
+        return remind.iconSrc;
+      }
+    }
+
+    return `${this.tableAssetBasePath()}/${SPORTBOOK6VN_TABLE_REMIND_FILE}`;
+  }
+
+  protected remindAlt(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): string {
+    const value = this.cellValue(row, column);
+    if (this.isObject(value)) {
+      const remind = value as Sportbook6vnTableRemindCell;
+      return String(remind.alt ?? remind.label ?? 'Remind');
+    }
+
+    return 'Remind';
+  }
+
   protected checkboxLabel(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): string | null {
     const value = this.cellValue(row, column);
     if (this.isObject(value) && 'label' in value && value.label !== undefined) {
@@ -291,6 +449,17 @@ export class Sportbook6vnTableComponent {
     return false;
   }
 
+  protected isCheckboxColumnAllSelected(column: Sportbook6vnTableColumn): boolean {
+    const rows = this.pagedData();
+    return rows.length > 0 && rows.every((row) => this.checkboxChecked(row, column));
+  }
+
+  protected isCheckboxColumnIndeterminate(column: Sportbook6vnTableColumn): boolean {
+    const rows = this.pagedData();
+    const selectedCount = rows.filter((row) => this.checkboxChecked(row, column)).length;
+    return selectedCount > 0 && selectedCount < rows.length;
+  }
+
   protected inputCell(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): Sportbook6vnTableInputCell {
     const value = this.cellValue(row, column);
     if (this.isObject(value)) {
@@ -301,6 +470,11 @@ export class Sportbook6vnTableComponent {
       value: value === null || value === undefined ? '' : String(value),
       placeholder: column.placeholder ?? 'Input text',
     };
+  }
+
+  protected inputValue(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): string {
+    const value = this.inputCell(row, column).value;
+    return value === null || value === undefined ? '' : String(value);
   }
 
   protected dropdownCell(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): Sportbook6vnTableDropdownCell {
@@ -320,6 +494,19 @@ export class Sportbook6vnTableComponent {
     return this.dropdownCell(row, column).options ?? column.options ?? [];
   }
 
+  protected dropdownItems(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): Sportbook6vnDropdownItem[] {
+    return this.dropdownOptions(row, column).map((option) => ({
+      id: String(option.value),
+      label: option.label,
+      disabled: option.disabled,
+    }));
+  }
+
+  protected dropdownValue(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): string | null {
+    const value = this.dropdownCell(row, column).value;
+    return value === null || value === undefined || value === '' ? null : String(value);
+  }
+
   protected actionCell(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): Sportbook6vnTableActionCell {
     const value = this.cellValue(row, column);
     if (this.isObject(value)) {
@@ -327,6 +514,23 @@ export class Sportbook6vnTableComponent {
     }
 
     return { label: this.displayText(row, column) || 'Thao tác' };
+  }
+
+  protected shouldRenderButtonComponent(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): boolean {
+    const cell = this.actionCell(row, column);
+    return !!cell.variant || !!cell.size || !!cell.shape || !!column.buttonVariant || !!column.buttonSize || !!column.buttonShape;
+  }
+
+  protected actionButtonVariant(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): Sportbook6vnButtonVariant {
+    return this.actionCell(row, column).variant ?? column.buttonVariant ?? 'secondary';
+  }
+
+  protected actionButtonSize(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): Sportbook6vnButtonSize {
+    return this.actionCell(row, column).size ?? column.buttonSize ?? 'md';
+  }
+
+  protected actionButtonShape(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): Sportbook6vnButtonShape {
+    return this.actionCell(row, column).shape ?? column.buttonShape ?? 'rectangle';
   }
 
   protected alertTone(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): Sportbook6vnTableAlertTone {
@@ -346,6 +550,48 @@ export class Sportbook6vnTableComponent {
     }
 
     return 'Cảnh báo';
+  }
+
+  protected iconActions(row: Sportbook6vnTableRow, column: Sportbook6vnTableColumn): readonly Sportbook6vnTableIconAction[] {
+    const value = this.cellValue(row, column);
+    if (this.isObject(value)) {
+      const iconCell = value as Sportbook6vnTableIconCell;
+      if (Array.isArray(iconCell.icons) && iconCell.icons.length > 0) {
+        return iconCell.icons;
+      }
+
+      return [
+        {
+          icon: iconCell.icon ?? 'trash',
+          label: iconCell.label ?? 'Hành động',
+          value: iconCell.value,
+          disabled: iconCell.disabled,
+        },
+      ];
+    }
+
+    return [
+      {
+        icon: 'trash',
+        label: this.displayText(row, column) || 'Hành động',
+      },
+    ];
+  }
+
+  protected iconActionName(action: Sportbook6vnTableIconAction): Sportbook6vnTableIconName {
+    return action.icon ?? 'trash';
+  }
+
+  protected iconActionLabel(action: Sportbook6vnTableIconAction): string {
+    return action.label ?? 'Hành động';
+  }
+
+  protected iconActionDisabled(action: Sportbook6vnTableIconAction, column: Sportbook6vnTableColumn): boolean {
+    return !!action.disabled || !!column.disabled;
+  }
+
+  protected trackIconAction(index: number, action: Sportbook6vnTableIconAction): string {
+    return `${action.value ?? action.label ?? action.icon ?? 'icon'}-${index}`;
   }
 
   protected sortOrder(column: Sportbook6vnTableColumn): Sportbook6vnTableSortOrder {
@@ -393,6 +639,12 @@ export class Sportbook6vnTableComponent {
     this.emitSelectedKeys(next);
   }
 
+  protected toggleCheckboxColumn(column: Sportbook6vnTableColumn, checked: boolean): void {
+    this.pagedData().forEach((row, rowIndex) => {
+      this.emitCellValueChange(row, column, rowIndex, checked);
+    });
+  }
+
   protected emitRowClick(row: Sportbook6vnTableRow, rowIndex: number): void {
     this.rowClick.emit({
       row,
@@ -420,24 +672,22 @@ export class Sportbook6vnTableComponent {
     this.emitCellValueChange(row, column, rowIndex, checked);
   }
 
-  protected onInputCellChange(
+  protected onInputCellValueChange(
     row: Sportbook6vnTableRow,
     column: Sportbook6vnTableColumn,
     rowIndex: number,
-    event: Event,
+    nextValue: string,
   ): void {
-    const target = event.target as HTMLInputElement;
-    this.emitCellValueChange(row, column, rowIndex, target.value);
+    this.emitCellValueChange(row, column, rowIndex, nextValue);
   }
 
-  protected onDropdownCellChange(
+  protected onDropdownCellValueChange(
     row: Sportbook6vnTableRow,
     column: Sportbook6vnTableColumn,
     rowIndex: number,
-    event: Event,
+    nextValue: string | null,
   ): void {
-    const target = event.target as HTMLSelectElement;
-    this.emitCellValueChange(row, column, rowIndex, target.value || null);
+    this.emitCellValueChange(row, column, rowIndex, nextValue);
   }
 
   protected onActionCellClick(
@@ -492,13 +742,13 @@ export class Sportbook6vnTableComponent {
     });
   }
 
-  private setPage(pageIndex: number): void {
+  protected setPage(pageIndex: number): void {
     const next = Math.min(this.totalPages(), Math.max(1, pageIndex));
     this.localPageIndex.set(next);
     this.pageIndexChange.emit(next);
   }
 
-  private resolvedPageSize(): number {
+  protected resolvedPageSize(): number {
     return Math.max(1, Math.round(this.pageSize()));
   }
 
@@ -531,15 +781,42 @@ export class Sportbook6vnTableComponent {
 
   private defaultAlign(column: Sportbook6vnTableColumn): 'left' | 'center' | 'right' {
     const type = this.resolvedCellType(column);
-    if (type === 'number' || type === 'currency' || type === 'money' || type === 'money-in' || type === 'money-out') {
+    if (type === 'money' || type === 'money-in' || type === 'money-out') {
       return 'right';
     }
 
-    if (type === 'file' || type === 'alert' || type === 'icon') {
-      return 'center';
+    if (type === 'icon' || type === 'remind') {
+      return 'right';
     }
 
     return 'left';
+  }
+
+  private resolvedAlign(column: Sportbook6vnTableColumn, target: 'header' | 'body'): 'left' | 'center' | 'right' {
+    const forcedAlign = this.forcedTypeAlign(this.resolvedCellType(column));
+    if (forcedAlign) {
+      return forcedAlign;
+    }
+
+    return target === 'header'
+      ? column.headerAlign ?? column.align ?? this.defaultAlign(column)
+      : column.align ?? this.defaultAlign(column);
+  }
+
+  private forcedTypeAlign(type: Sportbook6vnTableCellType): 'left' | 'right' | null {
+    if (type === 'money' || type === 'money-in' || type === 'money-out' || type === 'remind') {
+      return 'right';
+    }
+
+    if (type === 'number' || type === 'currency' || type === 'file' || type === 'text') {
+      return 'left';
+    }
+
+    return null;
+  }
+
+  private tableAssetBasePath(): string {
+    return this.tableIllustrationBasePath().replace(/\/$/, '');
   }
 
   private formatMoney(value: Sportbook6vnTableCellValue): string {
@@ -550,6 +827,17 @@ export class Sportbook6vnTableComponent {
     }
 
     return String(rawValue ?? '');
+  }
+
+  private formatSignedMoney(value: Sportbook6vnTableCellValue, sign: '+' | '-'): string {
+    const rawValue = this.isObject(value) && 'value' in value ? value.value : value;
+    const numeric = typeof rawValue === 'number' ? rawValue : Number(String(rawValue).replace(/,/g, ''));
+    if (Number.isFinite(numeric)) {
+      return `${sign}${new Intl.NumberFormat('en-US').format(Math.abs(numeric))}`;
+    }
+
+    const text = String(rawValue ?? '').replace(/^[+-]/, '');
+    return text ? `${sign}${text}` : '';
   }
 
   private fileKind(value: Sportbook6vnTableCellValue): Sportbook6vnItemFileKind {

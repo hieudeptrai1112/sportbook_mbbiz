@@ -1,0 +1,22 @@
+@if (shouldRenderAnchor()) {
+  <a
+    [class]="linkClass()"
+    [attr.href]="href()"
+    [attr.target]="target()"
+    [attr.rel]="resolvedRel()"
+    [attr.aria-label]="ariaLabel()"
+    (click)="onClick($event)"
+  >
+    <ng-content />
+  </a>
+} @else {
+  <button
+    [class]="linkClass()"
+    [attr.type]="type()"
+    [attr.aria-label]="ariaLabel()"
+    [disabled]="disabled()"
+    (click)="onClick($event)"
+  >
+    <ng-content />
+  </button>
+}

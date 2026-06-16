@@ -1,0 +1,74 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.sportbook6vn-button-link {
+  -webkit-appearance: none;
+  appearance: none;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--sportbook6vn-color-button-link-default, #141ed2);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--sportbook6vn-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  font-weight: 400;
+  justify-content: center;
+  margin: 0;
+  max-width: 100%;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  text-decoration-line: underline;
+  text-decoration-skip-ink: none;
+  text-underline-position: from-font;
+  transition: color 140ms ease;
+  white-space: nowrap;
+  word-break: break-word;
+}
+
+.sportbook6vn-button-link--lg {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 24px;
+}
+
+.sportbook6vn-button-link--md {
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+}
+
+.sportbook6vn-button-link--sm {
+  font-size: 12px;
+  letter-spacing: 0.25px;
+  line-height: 16px;
+  padding-block: 2px;
+}
+
+.sportbook6vn-button-link:hover:not(.sportbook6vn-button-link--disabled) {
+  color: var(--sportbook6vn-color-button-link-hover, #5f7eeb);
+}
+
+.sportbook6vn-button-link:active:not(.sportbook6vn-button-link--disabled) {
+  color: var(--sportbook6vn-color-button-link-pressed, #a3b7fd);
+}
+
+.sportbook6vn-button-link--disabled,
+.sportbook6vn-button-link:disabled {
+  color: var(--sportbook6vn-color-button-link-disabled, #9b9b9b);
+  cursor: not-allowed;
+}
+
+.sportbook6vn-button-link:focus-visible {
+  outline: none;
+}
+
+:host(.sportbook6vn-button-link-preview-hover) .sportbook6vn-button-link:not(.sportbook6vn-button-link--disabled) {
+  color: var(--sportbook6vn-color-button-link-hover, #5f7eeb);
+}
+
+:host(.sportbook6vn-button-link-preview-pressed) .sportbook6vn-button-link:not(.sportbook6vn-button-link--disabled) {
+  color: var(--sportbook6vn-color-button-link-pressed, #a3b7fd);
+}

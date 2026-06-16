@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewEncapsulation, inject, signal } from '@angular/core';
+import { Component, ViewEncapsulation, inject, signal, type WritableSignal } from '@angular/core';
 import {
   Sportbook6vnAffixInputComponent,
   Sportbook6vnAffixLabelInputComponent,
   Sportbook6vnBadgeComponent,
   type Sportbook6vnBadgeStatus,
   Sportbook6vnButtonComponent,
+  Sportbook6vnButtonLinkComponent,
   Sportbook6vnCheckboxComponent,
   Sportbook6vnCheckboxGroupComponent,
   Sportbook6vnDatepickerComponent,
@@ -54,6 +55,7 @@ import {
     Sportbook6vnAffixLabelInputComponent,
     Sportbook6vnBadgeComponent,
     Sportbook6vnButtonComponent,
+    Sportbook6vnButtonLinkComponent,
     Sportbook6vnCheckboxComponent,
     Sportbook6vnCheckboxGroupComponent,
     Sportbook6vnDatepickerComponent,
@@ -85,10 +87,27 @@ import {
 })
 export class Sportbook6vnPreviewAppComponent {
   private readonly message = inject(Sportbook6vnMessageService);
+  private readonly tableColumnFileKinds: Sportbook6vnItemFileKind[] = ['xlsx', 'docx', 'pdf', 'jpg', 'xml'];
+  private readonly tableColumnStatusTones = ['success', 'error', 'warning', 'neutral', 'info'] as const;
+
+  protected readonly tablePrimitiveColumns: Sportbook6vnTableColumn[] = Array.from({ length: 5 }, (_, index) => ({
+    key: `column${index + 1}`,
+    title: 'Title',
+    width: 170,
+  }));
+
+  protected readonly tablePrimitiveRows: Sportbook6vnTableRow[] = Array.from({ length: 4 }, (_, rowIndex) => ({
+    id: `table-row-${rowIndex + 1}`,
+    column1: 'Text',
+    column2: 'Text',
+    column3: 'Text',
+    column4: 'Text',
+    column5: 'Text',
+  }));
 
   protected readonly tableDefaultColumns: Sportbook6vnTableColumn[] = [
-    { key: 'accountType', title: 'Loại tài khoản', width: 170, sortable: true },
-    { key: 'file', title: 'File', type: 'file', width: 70 },
+    { key: 'accountType', title: 'Loại tài khoản', width: 150, sortable: true },
+    { key: 'file', title: 'File', type: 'file', width: 100 },
     { key: 'status', title: 'Trạng thái', type: 'status', width: 145 },
     { key: 'amount', title: 'Số tiền', type: 'money', width: 150 },
     { key: 'action', title: 'Hành động', type: 'button', width: 124 },
@@ -121,14 +140,33 @@ export class Sportbook6vnPreviewAppComponent {
     },
   ];
 
-  protected readonly tableColumnTypeOptions = [
-    { label: 'Lựa chọn', value: 'choice' },
-    { label: 'Đã duyệt', value: 'approved' },
-    { label: 'Chờ xử lý', value: 'pending' },
+  protected readonly tableSelectionColumns: Sportbook6vnTableColumn[] = [
+    { key: 'selected', title: 'Title', type: 'checkbox', width: 132 },
+    ...this.tableDefaultColumns,
   ];
 
+  protected readonly tableSelectionRows = signal<Sportbook6vnTableRow[]>(
+    this.tableDefaultRows.map((row, index) => ({
+      ...row,
+      id: `selection-${index + 1}`,
+      selected: { label: 'Text', value: index === 1 },
+    })),
+  );
+
   protected readonly tableColumnTypeColumns: Sportbook6vnTableColumn[] = [
-    { key: 'checkbox', title: 'Text', type: 'checkbox', width: 110 },
+    { key: 'checkbox', title: 'Title', type: 'checkbox', width: 100 },
+    { key: 'number', title: 'STT', type: 'number', width: 48 },
+    { key: 'time', title: 'Ngày/Giờ', type: 'time', width: 134 },
+    { key: 'referenceNumber', title: 'Số tham chiếu', type: 'reference-number', width: 160 },
+    { key: 'paymentCode', title: 'Mã giao dịch', type: 'payment-code', width: 136 },
+    { key: 'icon', title: 'Hành động', type: 'icon', width: 124 },
+    { key: 'text', title: 'Loại tài khoản', width: 150 },
+    { key: 'money', title: 'Số tiền', type: 'money', width: 150 },
+    { key: 'moneyOut', title: 'Số tiền', type: 'money-out', width: 150 },
+    { key: 'moneyIn', title: 'Số tiền', type: 'money-in', width: 150 },
+    { key: 'currency', title: 'Loại tiền', type: 'currency', width: 104 },
+    { key: 'file', title: 'File', type: 'file', width: 100 },
+    { key: 'status', title: 'Trạng thái', type: 'status', width: 145 },
     { key: 'input', title: 'Hành động', type: 'input', width: 170, placeholder: 'Input text' },
     {
       key: 'dropdown',
@@ -136,38 +174,54 @@ export class Sportbook6vnPreviewAppComponent {
       type: 'dropdown',
       width: 170,
       placeholder: 'Lựa chọn',
-      options: this.tableColumnTypeOptions,
+      options: [
+        { label: 'Tuỳ chọn 1', value: 'option-1' },
+        { label: 'Tuỳ chọn 2', value: 'option-2' },
+      ],
     },
-    { key: 'alert', title: 'Cảnh báo', type: 'alert', width: 80 },
-    { key: 'icon', title: 'Xem', type: 'icon', width: 80 },
-    { key: 'moneyIn', title: 'Tiền vào', type: 'money-in', width: 150 },
-    { key: 'moneyOut', title: 'Tiền ra', type: 'money-out', width: 150 },
+    {
+      key: 'pillAction',
+      title: 'Hành động',
+      type: 'button',
+      width: 150,
+      align: 'left',
+      headerAlign: 'left',
+      buttonVariant: 'secondary',
+      buttonShape: 'pill',
+      buttonSize: 'md',
+    },
+    { key: 'remind', title: '', type: 'remind', width: 56 },
   ];
 
-  protected readonly tableColumnTypeRows = signal<Sportbook6vnTableRow[]>([
-    {
-      id: 'column-type-1',
-      checkbox: { label: 'Text', value: false },
-      input: { value: '', placeholder: 'Input text' },
-      dropdown: { value: null, placeholder: 'Lựa chọn', options: this.tableColumnTypeOptions },
-      alert: { tone: 'warning', label: 'Cảnh báo' },
-      icon: 'Xem chi tiết',
-      moneyIn: 3000000,
-      moneyOut: 1200000,
-    },
-    {
-      id: 'column-type-2',
-      checkbox: { label: 'Text', value: true },
-      input: { value: 'Input text', placeholder: 'Input text' },
-      dropdown: { value: 'approved', placeholder: 'Lựa chọn', options: this.tableColumnTypeOptions },
-      alert: { tone: 'info', label: 'Thông tin' },
-      icon: 'Xem chi tiết',
-      moneyIn: 7500000,
-      moneyOut: 0,
-    },
-  ]);
+  protected readonly tableAllColumnRows = signal<Sportbook6vnTableRow[]>(
+    Array.from({ length: 5 }, (_, index) => this.createTableAllColumnRow(index)),
+  );
 
-  protected readonly tableSelectedRowKeys = signal<string[]>(['account-2']);
+  protected readonly tableFixedRightIconColumns: Sportbook6vnTableColumn[] = [
+    { key: 'checkbox', title: 'Title', type: 'checkbox', width: 100 },
+    { key: 'number', title: 'STT', type: 'number', width: 60 },
+    { key: 'time', title: 'Ngày/Giờ', type: 'time', width: 150 },
+    { key: 'referenceNumber', title: 'Số tham chiếu', type: 'reference-number', width: 170 },
+    { key: 'paymentCode', title: 'Mã giao dịch', type: 'payment-code', width: 160 },
+    { key: 'text', title: 'Loại tài khoản', width: 170 },
+    { key: 'money', title: 'Số tiền', type: 'money', width: 160 },
+    { key: 'moneyOut', title: 'Số tiền', type: 'money-out', width: 160 },
+    { key: 'moneyIn', title: 'Số tiền', type: 'money-in', width: 160 },
+    { key: 'currency', title: 'Loại tiền', type: 'currency', width: 120 },
+    { key: 'file', title: 'File', type: 'file', width: 100 },
+    { key: 'status', title: 'Trạng thái', type: 'status', width: 150 },
+    { key: 'icon', title: 'Hành động', type: 'icon', width: 104, fixed: 'right' },
+  ];
+
+  protected readonly tableFixedRightIconRows: Sportbook6vnTableRow[] = Array.from({ length: 5 }, (_, index) => ({
+    ...this.createTableAllColumnRow(index),
+    id: `fixed-right-icon-${index + 1}`,
+    icon: {
+      icons: [{ icon: 'trash', label: `Xóa dòng ${index + 1}` }],
+    },
+  }));
+
+  protected readonly tableSelectedRowKeys = signal<string[]>(['selection-2']);
   protected readonly tablePaginationIndex = signal(1);
   protected readonly paginationDropdownPage = signal(1);
   protected readonly paginationMaximumPage = signal(10);
@@ -254,10 +308,6 @@ export class Sportbook6vnPreviewAppComponent {
     this.message.remove();
   }
 
-  protected setTableSelectedRowKeys(value: string[]): void {
-    this.tableSelectedRowKeys.set(value);
-  }
-
   protected setTablePaginationIndex(value: number): void {
     this.tablePaginationIndex.set(value);
   }
@@ -278,27 +328,13 @@ export class Sportbook6vnPreviewAppComponent {
     this.paginationDropdownOpen.set(value);
   }
 
-  protected updateTableCellValue(event: Sportbook6vnTableCellValueChange): void {
-    this.tableColumnTypeRows.update((rows) =>
-      rows.map((row, index) => {
-        const rowKey = String(row['id'] ?? index);
-        if (rowKey !== event.rowKey) {
-          return row;
-        }
-        const currentValue = row[event.column.key];
-        const currentObject = typeof currentValue === 'object' && currentValue !== null
-          ? (currentValue as Record<string, unknown>)
-          : {};
+  protected updateTableAllColumnCellValue(event: Sportbook6vnTableCellValueChange): void {
+    this.updateTableRows(this.tableAllColumnRows, event);
+  }
 
-        return {
-          ...row,
-          [event.column.key]: {
-            ...currentObject,
-            value: event.nextValue,
-          },
-        };
-      }),
-    );
+  protected updateTableSelectionCellValue(event: Sportbook6vnTableCellValueChange): void {
+    this.updateTableRows(this.tableSelectionRows, event);
+    this.syncTableSelectionKeys();
   }
 
   protected readonly checkboxGroupOptions = [
@@ -599,6 +635,83 @@ export class Sportbook6vnPreviewAppComponent {
 
   protected downloadPreviewItemFile(file: { name: string }): void {
     this.downloadPreviewFile(file.name);
+  }
+
+  private createTableAllColumnRow(index: number): Sportbook6vnTableRow {
+    const fileKind = this.tableColumnFileKinds[index % this.tableColumnFileKinds.length];
+    const statusTone = this.tableColumnStatusTones[index % this.tableColumnStatusTones.length];
+
+    return {
+      id: `all-column-${index + 1}`,
+      currency: 'VND',
+      file: { kind: fileKind, alt: `${fileKind.toUpperCase()} file` },
+      remind: { alt: 'Remind' },
+      checkbox: { label: 'Text', value: index === 0 },
+      number: index + 1,
+      time: '10/07/2024 16:00',
+      referenceNumber: '619835274089',
+      paymentCode: 'FT890123456789',
+      icon: {
+        icons: [
+          { icon: 'trash', label: `Xóa dòng ${index + 1}` },
+          { icon: 'trash', label: `Xóa dòng ${index + 1}` },
+          { icon: 'trash', label: `Xóa dòng ${index + 1}` },
+        ],
+      },
+      pillAction: { label: 'Text', variant: 'secondary', shape: 'pill', size: 'md' },
+      text: 'Tài khoản thanh toán',
+      money: 1000000000,
+      moneyOut: 1000000000,
+      moneyIn: 1000000000,
+      status: { label: 'Text', tone: statusTone },
+      input: { placeholder: 'Input text' },
+      dropdown: {
+        value: null,
+        placeholder: 'Lựa chọn',
+        options: [
+          { label: 'Tuỳ chọn 1', value: 'option-1' },
+          { label: 'Tuỳ chọn 2', value: 'option-2' },
+        ],
+      },
+    };
+  }
+
+  private updateTableRows(
+    rowsSignal: WritableSignal<Sportbook6vnTableRow[]>,
+    event: Sportbook6vnTableCellValueChange,
+  ): void {
+    rowsSignal.update((rows) =>
+      rows.map((row, index) => {
+        const rowKey = String(row['id'] ?? index);
+        if (rowKey !== event.rowKey) {
+          return row;
+        }
+
+        const currentValue = row[event.column.key];
+        const currentObject = typeof currentValue === 'object' && currentValue !== null
+          ? (currentValue as Record<string, unknown>)
+          : {};
+
+        return {
+          ...row,
+          [event.column.key]: {
+            ...currentObject,
+            value: event.nextValue,
+          },
+        };
+      }),
+    );
+  }
+
+  private syncTableSelectionKeys(): void {
+    const selectedKeys = this.tableSelectionRows()
+      .filter((row) => {
+        const selected = row['selected'];
+        return typeof selected === 'object' && selected !== null && 'value' in selected && !!selected.value;
+      })
+      .map((row, index) => String(row['id'] ?? index));
+
+    this.tableSelectedRowKeys.set(selectedKeys);
   }
 
   protected readonly inputTagRenderTone = ({ value, label }: { value: string; label: string }) => {

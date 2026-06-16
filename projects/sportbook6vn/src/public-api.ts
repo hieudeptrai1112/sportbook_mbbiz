@@ -4,6 +4,8 @@
 
 export * from './lib/components/button/button.component';
 export * from './lib/components/button/button.types';
+export * from './lib/components/button-link/button-link.component';
+export * from './lib/components/button-link/button-link.types';
 export * from './lib/components/input/input.component';
 export * from './lib/components/input/input.types';
 export * from './lib/components/affix-input/affix-input.component';

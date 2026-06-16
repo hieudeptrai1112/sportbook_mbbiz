@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, computed, signal } from '@angular/core';
+import { Component, HostListener, computed, signal, type WritableSignal } from '@angular/core';
 import type { DsInputPasswordState } from './components/ds-input-password/ds-input-password.component';
 import {
   Sportbook6vnAffixInputComponent,
@@ -28,6 +28,10 @@ import {
   type Sportbook6vnRadioGroupOption,
   Sportbook6vnSearchInputComponent,
   Sportbook6vnStepsComponent,
+  Sportbook6vnTableComponent,
+  type Sportbook6vnTableCellValueChange,
+  type Sportbook6vnTableColumn,
+  type Sportbook6vnTableRow,
   Sportbook6vnTextareaComponent,
   Sportbook6vnUploadFileComponent,
   type Sportbook6vnUploadFileItem,
@@ -145,6 +149,17 @@ import {
   type StepsVariableGroup,
 } from './steps-demos.data';
 import {
+  TABLE_API_ROWS,
+  TABLE_DEMO_SECTIONS,
+  TABLE_OUTPUT_ROWS,
+  TABLE_TYPE_ROWS,
+  TABLE_VARIABLE_GROUPS,
+  TABLE_VARIABLE_NOTES,
+  type TableApiRow,
+  type TableDemoSection,
+  type TableVariableGroup,
+} from './table-demos.data';
+import {
   ILLUSTRATION_ASSETS,
   type IllustrationAsset,
 } from './illustration-assets.data';
@@ -258,6 +273,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     Sportbook6vnRadioGroupComponent,
     Sportbook6vnSearchInputComponent,
     Sportbook6vnStepsComponent,
+    Sportbook6vnTableComponent,
     Sportbook6vnTextareaComponent,
     Sportbook6vnUploadFileComponent,
   ],
@@ -284,6 +300,7 @@ export class App {
     | 'dropdown'
     | 'radio'
     | 'checkbox'
+    | 'table'
     | 'datepicker'
     | 'uploadFile'
     | 'illustration'
@@ -368,6 +385,17 @@ export class App {
   );
   protected readonly expandedStepsDemoIds = signal<string[]>([]);
   protected readonly copiedStepsDemoId = signal<string | null>(null);
+  protected readonly tableDemoSections: TableDemoSection[] = TABLE_DEMO_SECTIONS;
+  protected readonly tableApiRows: TableApiRow[] = TABLE_API_ROWS;
+  protected readonly tableOutputRows: TableApiRow[] = TABLE_OUTPUT_ROWS;
+  protected readonly tableTypeRows: TableApiRow[] = TABLE_TYPE_ROWS;
+  protected readonly tableVariableGroups: TableVariableGroup[] = TABLE_VARIABLE_GROUPS;
+  protected readonly tableVariableNotes = TABLE_VARIABLE_NOTES;
+  protected readonly activeTableSection = signal(
+    this.getTableSectionId(this.tableDemoSections[0]?.id ?? 'basic'),
+  );
+  protected readonly expandedTableDemoIds = signal<string[]>([]);
+  protected readonly copiedTableDemoId = signal<string | null>(null);
   protected readonly dropdownDemoSections: DropdownDemoSection[] = DROPDOWN_DEMO_SECTIONS;
   protected readonly dropdownApiRows: DropdownApiRow[] = DROPDOWN_API_ROWS;
   protected readonly dropdownTagApiRows: DropdownApiRow[] = DROPDOWN_TAG_API_ROWS;
@@ -535,6 +563,131 @@ export class AppComponent {}`;
     { kind: 'pdf', name: 'Tên tệp tin.pdf', errorType: 'upload' },
     { kind: 'error', name: 'Tên tệp tin.xml', errorType: 'format' },
   ];
+  private readonly tableColumnFileKinds: Sportbook6vnItemFileKind[] = ['xlsx', 'docx', 'pdf', 'jpg', 'xml'];
+  private readonly tableColumnStatusTones = ['success', 'error', 'warning', 'neutral', 'info'] as const;
+  protected readonly tablePrimitiveColumns: Sportbook6vnTableColumn[] = Array.from({ length: 5 }, (_, index) => ({
+    key: `column${index + 1}`,
+    title: 'Title',
+    width: 170,
+  }));
+  protected readonly tablePrimitiveRows: Sportbook6vnTableRow[] = Array.from({ length: 4 }, (_, rowIndex) => ({
+    id: `table-row-${rowIndex + 1}`,
+    column1: 'Text',
+    column2: 'Text',
+    column3: 'Text',
+    column4: 'Text',
+    column5: 'Text',
+  }));
+  protected readonly tableDefaultColumns: Sportbook6vnTableColumn[] = [
+    { key: 'accountType', title: 'Loại tài khoản', width: 150, sortable: true },
+    { key: 'file', title: 'File', type: 'file', width: 100 },
+    { key: 'status', title: 'Trạng thái', type: 'status', width: 145 },
+    { key: 'amount', title: 'Số tiền', type: 'money', width: 150 },
+    { key: 'action', title: 'Hành động', type: 'button', width: 124 },
+  ];
+  protected readonly tableDefaultRows: Sportbook6vnTableRow[] = [
+    {
+      id: 'account-1',
+      accountType: 'Tài khoản thanh toán',
+      file: { kind: 'xlsx', alt: 'Excel file' },
+      status: { label: 'Hoạt động', tone: 'success' },
+      amount: 1000000000,
+      action: { label: 'Chi tiết' },
+    },
+    {
+      id: 'account-2',
+      accountType: 'Tài khoản tiết kiệm',
+      file: { kind: 'docx', alt: 'Word file' },
+      status: { label: 'Hết hiệu lực', tone: 'error' },
+      amount: 52000000,
+      action: { label: 'Chi tiết' },
+    },
+    {
+      id: 'account-3',
+      accountType: 'Tài khoản vay',
+      file: { kind: 'pdf', alt: 'PDF file' },
+      status: { label: 'Hoạt động', tone: 'success' },
+      amount: 176500000,
+      action: { label: 'Chi tiết' },
+    },
+  ];
+  protected readonly tableSelectionColumns: Sportbook6vnTableColumn[] = [
+    { key: 'selected', title: 'Title', type: 'checkbox', width: 132 },
+    ...this.tableDefaultColumns,
+  ];
+  protected readonly tableSelectionRows = signal<Sportbook6vnTableRow[]>(
+    this.tableDefaultRows.map((row, index) => ({
+      ...row,
+      id: `selection-${index + 1}`,
+      selected: { label: 'Text', value: index === 1 },
+    })),
+  );
+  protected readonly tableColumnTypeColumns: Sportbook6vnTableColumn[] = [
+    { key: 'checkbox', title: 'Title', type: 'checkbox', width: 100 },
+    { key: 'number', title: 'STT', type: 'number', width: 48 },
+    { key: 'time', title: 'Ngày/Giờ', type: 'time', width: 134 },
+    { key: 'referenceNumber', title: 'Số tham chiếu', type: 'reference-number', width: 160 },
+    { key: 'paymentCode', title: 'Mã giao dịch', type: 'payment-code', width: 136 },
+    { key: 'icon', title: 'Hành động', type: 'icon', width: 124 },
+    { key: 'text', title: 'Loại tài khoản', width: 150 },
+    { key: 'money', title: 'Số tiền', type: 'money', width: 150 },
+    { key: 'moneyOut', title: 'Số tiền', type: 'money-out', width: 150 },
+    { key: 'moneyIn', title: 'Số tiền', type: 'money-in', width: 150 },
+    { key: 'currency', title: 'Loại tiền', type: 'currency', width: 104 },
+    { key: 'file', title: 'File', type: 'file', width: 100 },
+    { key: 'status', title: 'Trạng thái', type: 'status', width: 145 },
+    { key: 'input', title: 'Hành động', type: 'input', width: 170, placeholder: 'Input text' },
+    {
+      key: 'dropdown',
+      title: 'Hành động',
+      type: 'dropdown',
+      width: 170,
+      placeholder: 'Lựa chọn',
+      options: [
+        { label: 'Tuỳ chọn 1', value: 'option-1' },
+        { label: 'Tuỳ chọn 2', value: 'option-2' },
+      ],
+    },
+    {
+      key: 'pillAction',
+      title: 'Hành động',
+      type: 'button',
+      width: 150,
+      align: 'left',
+      headerAlign: 'left',
+      buttonVariant: 'secondary',
+      buttonShape: 'pill',
+      buttonSize: 'md',
+    },
+    { key: 'remind', title: '', type: 'remind', width: 56 },
+  ];
+  protected readonly tableAllColumnRows = signal<Sportbook6vnTableRow[]>(
+    Array.from({ length: 5 }, (_, index) => this.createTableAllColumnRow(index)),
+  );
+  protected readonly tableFixedRightIconColumns: Sportbook6vnTableColumn[] = [
+    { key: 'checkbox', title: 'Title', type: 'checkbox', width: 100 },
+    { key: 'number', title: 'STT', type: 'number', width: 60 },
+    { key: 'time', title: 'Ngày/Giờ', type: 'time', width: 150 },
+    { key: 'referenceNumber', title: 'Số tham chiếu', type: 'reference-number', width: 170 },
+    { key: 'paymentCode', title: 'Mã giao dịch', type: 'payment-code', width: 160 },
+    { key: 'text', title: 'Loại tài khoản', width: 170 },
+    { key: 'money', title: 'Số tiền', type: 'money', width: 160 },
+    { key: 'moneyOut', title: 'Số tiền', type: 'money-out', width: 160 },
+    { key: 'moneyIn', title: 'Số tiền', type: 'money-in', width: 160 },
+    { key: 'currency', title: 'Loại tiền', type: 'currency', width: 120 },
+    { key: 'file', title: 'File', type: 'file', width: 100 },
+    { key: 'status', title: 'Trạng thái', type: 'status', width: 150 },
+    { key: 'icon', title: 'Hành động', type: 'icon', width: 104, fixed: 'right' },
+  ];
+  protected readonly tableFixedRightIconRows: Sportbook6vnTableRow[] = Array.from({ length: 5 }, (_, index) => ({
+    ...this.createTableAllColumnRow(index),
+    id: `fixed-right-icon-${index + 1}`,
+    icon: {
+      icons: [{ icon: 'trash', label: `Xóa dòng ${index + 1}` }],
+    },
+  }));
+  protected readonly tableSelectedRowKeys = signal<string[]>(['selection-2']);
+  protected readonly tablePaginationIndex = signal(1);
   protected readonly downloadDocsUploadFile = (file: Sportbook6vnUploadFileItem): void => {
     this.downloadDocsFile(file.name);
   };
@@ -669,6 +822,7 @@ export class AppComponent {}`;
       | 'dropdown'
       | 'radio'
       | 'checkbox'
+      | 'table'
       | 'datepicker'
       | 'uploadFile'
       | 'illustration'
@@ -695,6 +849,8 @@ export class AppComponent {}`;
       setTimeout(() => this.updateActiveBreadcrumbSection(), 0);
     } else if (page === 'steps') {
       setTimeout(() => this.updateActiveStepsSection(), 0);
+    } else if (page === 'table') {
+      setTimeout(() => this.updateActiveTableSection(), 0);
     } else if (page === 'dropdown') {
       setTimeout(() => this.updateActiveDropdownSection(), 0);
     } else if (page === 'radio') {
@@ -1433,6 +1589,66 @@ export class AppComponent {}`;
     return `steps-${sectionId}`;
   }
 
+  protected setActiveTableSection(sectionId: string) {
+    this.activeTableSection.set(sectionId);
+  }
+
+  protected getTableSectionId(sectionId: string): string {
+    return `table-${sectionId}`;
+  }
+
+  protected isTableDemoExpanded(sectionId: string): boolean {
+    return this.expandedTableDemoIds().includes(sectionId);
+  }
+
+  protected toggleTableDemoCode(sectionId: string) {
+    const next = new Set(this.expandedTableDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedTableDemoIds.set([...next]);
+  }
+
+  protected toggleAllTableDemoCode() {
+    const expanded = this.expandedTableDemoIds();
+    const allIds = this.tableDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedTableDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllTableDemoCodeExpanded(): boolean {
+    return this.expandedTableDemoIds().length === this.tableDemoSections.length;
+  }
+
+  protected getTableDemoCode(section: TableDemoSection): string {
+    return section.snippetTs;
+  }
+
+  protected getTableDemoHighlightedCode(section: TableDemoSection): string {
+    return this.highlightTypeScriptSnippet(this.getTableDemoCode(section));
+  }
+
+  protected getTableCodeLanguageLabel(section: TableDemoSection): string {
+    return `table-${section.id}-demo.component.ts`;
+  }
+
+  protected getTableCodeHint(): string {
+    return 'Angular standalone snippet';
+  }
+
+  protected async copyTableDemoCode(section: TableDemoSection) {
+    const code = this.getTableDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedTableDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedTableDemoId() === section.id) {
+        this.copiedTableDemoId.set(null);
+      }
+    }, 1200);
+  }
+
   protected isStepsDemoExpanded(sectionId: string): boolean {
     return this.expandedStepsDemoIds().includes(sectionId);
   }
@@ -1775,6 +1991,97 @@ export class AppComponent {}`;
     this.downloadDocsFile(file.name);
   }
 
+  protected setTablePaginationIndex(value: number): void {
+    this.tablePaginationIndex.set(value);
+  }
+
+  protected updateTableAllColumnCellValue(event: Sportbook6vnTableCellValueChange): void {
+    this.updateTableRows(this.tableAllColumnRows, event);
+  }
+
+  protected updateTableSelectionCellValue(event: Sportbook6vnTableCellValueChange): void {
+    this.updateTableRows(this.tableSelectionRows, event);
+    this.syncTableSelectionKeys();
+  }
+
+  private createTableAllColumnRow(index: number): Sportbook6vnTableRow {
+    const fileKind = this.tableColumnFileKinds[index % this.tableColumnFileKinds.length];
+    const statusTone = this.tableColumnStatusTones[index % this.tableColumnStatusTones.length];
+
+    return {
+      id: `all-column-${index + 1}`,
+      currency: 'VND',
+      file: { kind: fileKind, alt: `${fileKind.toUpperCase()} file` },
+      remind: { alt: 'Remind' },
+      checkbox: { label: 'Text', value: index === 0 },
+      number: index + 1,
+      time: '10/07/2024 16:00',
+      referenceNumber: '619835274089',
+      paymentCode: 'FT890123456789',
+      icon: {
+        icons: [
+          { icon: 'trash', label: `Xóa dòng ${index + 1}` },
+          { icon: 'trash', label: `Xóa dòng ${index + 1}` },
+          { icon: 'trash', label: `Xóa dòng ${index + 1}` },
+        ],
+      },
+      pillAction: { label: 'Text', variant: 'secondary', shape: 'pill', size: 'md' },
+      text: 'Tài khoản thanh toán',
+      money: 1000000000,
+      moneyOut: 1000000000,
+      moneyIn: 1000000000,
+      status: { label: 'Text', tone: statusTone },
+      input: { placeholder: 'Input text' },
+      dropdown: {
+        value: null,
+        placeholder: 'Lựa chọn',
+        options: [
+          { label: 'Tuỳ chọn 1', value: 'option-1' },
+          { label: 'Tuỳ chọn 2', value: 'option-2' },
+        ],
+      },
+    };
+  }
+
+  private updateTableRows(
+    rowsSignal: WritableSignal<Sportbook6vnTableRow[]>,
+    event: Sportbook6vnTableCellValueChange,
+  ): void {
+    rowsSignal.update((rows) =>
+      rows.map((row, index) => {
+        const rowKey = String(row['id'] ?? index);
+        if (rowKey !== event.rowKey) {
+          return row;
+        }
+
+        const currentValue = row[event.column.key];
+        const currentObject =
+          typeof currentValue === 'object' && currentValue !== null
+            ? (currentValue as Record<string, unknown>)
+            : {};
+
+        return {
+          ...row,
+          [event.column.key]: {
+            ...currentObject,
+            value: event.nextValue,
+          },
+        };
+      }),
+    );
+  }
+
+  private syncTableSelectionKeys(): void {
+    const selectedKeys = this.tableSelectionRows()
+      .filter((row) => {
+        const selected = row['selected'];
+        return typeof selected === 'object' && selected !== null && 'value' in selected && !!selected.value;
+      })
+      .map((row, index) => String(row['id'] ?? index));
+
+    this.tableSelectedRowKeys.set(selectedKeys);
+  }
+
   private downloadDocsFile(fileName: string): void {
     if (typeof document === 'undefined') {
       return;
@@ -1804,6 +2111,7 @@ export class AppComponent {}`;
     this.updateActiveInputTagSection();
     this.updateActiveBreadcrumbSection();
     this.updateActiveStepsSection();
+    this.updateActiveTableSection();
     this.updateActiveDropdownSection();
     this.updateActiveRadioSection();
     this.updateActiveDatepickerSection();
@@ -1990,6 +2298,31 @@ export class AppComponent {}`;
     }
 
     this.activeStepsSection.set(currentSection);
+  }
+
+  private updateActiveTableSection() {
+    if (this.activePage() !== 'table' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getTableSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeTableSection.set(currentSection);
   }
 
   private updateActiveDropdownSection() {
@@ -2315,6 +2648,14 @@ export class AppComponent {}`;
       ...this.stepsDemoSections.map((section) => this.getStepsSectionId(section.id)),
       'steps-api',
       'steps-variables',
+    ];
+  }
+
+  private getTableSectionIds(): string[] {
+    return [
+      ...this.tableDemoSections.map((section) => this.getTableSectionId(section.id)),
+      'table-api',
+      'table-variables',
     ];
   }
 
