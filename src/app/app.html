@@ -365,15 +365,10 @@
     </aside>
 
     <main class="main">
-      <div
-        class="main-inner"
-        [class.toc-collapsed]="isTocCollapsed() || activePage() === 'footerPattern'"
-        [class.main-inner-pattern]="activePage() === 'footerPattern'"
-      >
+      <div class="main-inner" [class.toc-collapsed]="isTocCollapsed()">
         <div
           class="content"
           [class.content-color]="activePage() === 'color'"
-          [class.content-pattern]="activePage() === 'footerPattern'"
           [class.content-tokens]="
             activePage() === 'tokens' || activePage() === 'spacing' || activePage() === 'typography'
           "
@@ -686,90 +681,68 @@
               </p>
             </div>
 
-            <section class="section">
-              <h2>Component</h2>
-              <article class="button-demo-card footer-pattern-card footer-pattern-figma-card">
-                <div class="footer-pattern-hero">
-                  <div class="footer-pattern-brand">
-                    <span class="footer-pattern-brand-mark">✦</span>
-                    <span class="footer-pattern-brand-name">MBBank</span>
+            <section
+              class="section button-demo-section footer-pattern-section"
+              *ngFor="let variant of footerPatternVariants"
+              [attr.id]="getFooterPatternSectionId(variant.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ variant.countLabel }}</h2>
+              </div>
+              <p class="button-demo-description">{{ variant.description }}</p>
+              <p class="button-demo-description footer-pattern-note">{{ variant.usage }}</p>
+
+              <article class="button-demo-card footer-pattern-demo-card">
+                <div class="footer-pattern-demo-preview">
+                  <div class="footer-pattern-row-label">
+                    <span class="footer-pattern-row-index">{{ variant.figmaType }}</span>
+                    <span>{{ variant.countLabel }}</span>
                   </div>
-                  <h3>Footer</h3>
-                </div>
 
-                <div class="footer-pattern-stage">
-                  <div class="footer-pattern-stage-board">
-                    <section class="footer-pattern-row" *ngFor="let variant of footerPatternVariants">
-                      <div class="footer-pattern-row-label">
-                        <span class="footer-pattern-row-index">{{ variant.figmaType }}</span>
-                        <span>{{ variant.countLabel }}</span>
+                  <div class="footer-pattern-row-shell footer-pattern-row-shell--case">
+                    <div
+                      class="footer-pattern-overflow-menu footer-pattern-overflow-menu--panel"
+                      *ngIf="
+                        variant.id === 'typeMore' &&
+                        variant.overflowMenuItems?.length &&
+                        isFooterPatternOverflowOpen(variant.id)
+                      "
+                      (click)="$event.stopPropagation()"
+                    >
+                      <div
+                        class="footer-pattern-overflow-item"
+                        *ngFor="let item of variant.overflowMenuItems"
+                      >
+                        {{ item }}
                       </div>
+                    </div>
 
-                      <div class="footer-pattern-row-shell">
-                        <div
-                          class="footer-pattern-overflow"
-                          *ngIf="variant.id === 'typeMore' && variant.overflowMenuItems?.length"
+                    <ng-container *ngFor="let action of variant.actions">
+                      <div
+                        class="footer-pattern-action"
+                        [class.footer-pattern-action--compact]="action.width === 'compact'"
+                        [class.footer-pattern-action--wide]="action.width === 'wide'"
+                        [class.footer-pattern-action--trigger]="
+                          variant.id === 'typeMore' && action.label === 'Thao tác khác'
+                        "
+                        (click)="
+                          variant.id === 'typeMore' && action.label === 'Thao tác khác'
+                            ? toggleFooterPatternOverflow(variant.id, $event)
+                            : null
+                        "
+                      >
+                        <sportbook6vn-button
+                          [variant]="action.variant"
+                          size="lg"
+                          [fullWidth]="true"
                         >
-                          <div class="footer-pattern-overflow-menu">
-                            <div
-                              class="footer-pattern-overflow-item"
-                              *ngFor="let item of variant.overflowMenuItems"
-                            >
-                              {{ item }}
-                            </div>
-                          </div>
-                        </div>
-
-                        <ng-container *ngFor="let action of variant.actions">
-                          <div
-                            class="footer-pattern-action"
-                            [class.footer-pattern-action--compact]="action.width === 'compact'"
-                            [class.footer-pattern-action--wide]="action.width === 'wide'"
-                          >
-                            <sportbook6vn-button
-                              [variant]="action.variant"
-                              size="lg"
-                              [fullWidth]="true"
-                            >
-                              {{ action.label }}
-                            </sportbook6vn-button>
-                          </div>
-                        </ng-container>
+                          {{ action.label }}
+                        </sportbook6vn-button>
                       </div>
-                    </section>
+                    </ng-container>
                   </div>
                 </div>
               </article>
-            </section>
-
-            <section class="section">
-              <h2>Usage Mapping</h2>
-              <p>
-                Preview bên trên giữ đúng visual specimen của Figma nên vẫn dùng placeholder
-                `Text`. Mapping nghiệp vụ được tách riêng ở đây để không làm sai visual source.
-              </p>
-              <div class="button-api-table">
-                <div class="button-api-row button-api-head">
-                  <span>Variant</span>
-                  <span>Business note from Figma</span>
-                  <span>Preview rule</span>
-                </div>
-                <div class="button-api-row" *ngFor="let variant of footerPatternVariants">
-                  <span class="button-api-col-description">{{ variant.title }}</span>
-                  <span>{{ variant.description }}</span>
-                  <span>{{ variant.usage }}</span>
-                </div>
-              </div>
-
-              <div class="button-code-wrapper footer-pattern-code">
-                <div class="button-code-head">
-                  <span class="button-code-file">Footer pattern template</span>
-                  <span class="button-code-hint"
-                    >Angular template using the shared button component</span
-                  >
-                </div>
-                <pre class="button-code-block"><code>{{ footerPatternImplementationSnippet }}</code></pre>
-              </div>
             </section>
           </ng-container>
 
@@ -5393,6 +5366,47 @@
                 <p>
                   Use the component page snippets after installing the package and global theme
                   once.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'footerPattern'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let variant of footerPatternVariants"
+                  [class.active]="
+                    activeFooterPatternSection() === getFooterPatternSectionId(variant.id)
+                  "
+                  [href]="'#' + getFooterPatternSectionId(variant.id)"
+                  (click)="setActiveFooterPatternSection(getFooterPatternSectionId(variant.id))"
+                >
+                  {{ variant.countLabel }}
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Usage Note</span>
+                </div>
+                <p>
+                  Case <span class="mono">&gt;4 button</span> giữ button
+                  <span class="mono">Thao tác khác</span> để bật menu overflow thay vì dàn thêm
+                  action ngang hàng.
                 </p>
               </div>
             </aside>

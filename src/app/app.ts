@@ -225,9 +225,8 @@ import {
   type ThemeMode,
 } from './semantic-theme-modes.data';
 import {
-  FOOTER_PATTERN_DEPENDENCIES,
-  FOOTER_PATTERN_IMPLEMENTATION_SNIPPET,
   FOOTER_PATTERN_VARIANTS,
+  type FooterPatternVariant,
 } from './pattern-demos.data';
 
 interface SemanticTokenGroup {
@@ -370,8 +369,10 @@ export class App {
   protected readonly copiedSemanticAlias = signal<string | null>(null);
   protected readonly isTocCollapsed = signal(false);
   protected readonly footerPatternVariants = FOOTER_PATTERN_VARIANTS;
-  protected readonly footerPatternDependencies = FOOTER_PATTERN_DEPENDENCIES;
-  protected readonly footerPatternImplementationSnippet = FOOTER_PATTERN_IMPLEMENTATION_SNIPPET;
+  protected readonly activeFooterPatternSection = signal(
+    this.getFooterPatternSectionId(this.footerPatternVariants[0]?.id ?? 'type1'),
+  );
+  protected readonly openFooterPatternOverflowId = signal<FooterPatternVariant['id'] | null>(null);
   protected readonly spacingScaleRows: NumericScaleRow[] = SPACING_SCALE_ROWS;
   protected readonly radiusScaleRows: NumericScaleRow[] = RADIUS_SCALE_ROWS;
   protected readonly typographyScaleGroups: TypographyScaleGroup[] = TYPOGRAPHY_SCALE_GROUPS;
@@ -877,11 +878,14 @@ export class AppComponent {}`;
       | 'typography',
   ) {
     this.activePage.set(page);
+    this.openFooterPatternOverflowId.set(null);
     if (page === 'footerPattern') {
       this.isPatternOpen.set(true);
     }
     if (page === 'tokens' || page === 'spacing' || page === 'typography') {
       setTimeout(() => this.updateActiveTokenSection(), 0);
+    } else if (page === 'footerPattern') {
+      setTimeout(() => this.updateActiveFooterPatternSection(), 0);
     } else if (page === 'buttons') {
       setTimeout(() => this.updateActiveButtonSection(), 0);
     } else if (page === 'buttonMapping') {
@@ -941,12 +945,20 @@ export class AppComponent {}`;
     return `typography-${title.toLowerCase().replace(/\s+/g, '-')}`;
   }
 
+  protected getFooterPatternSectionId(sectionId: FooterPatternVariant['id']): string {
+    return `footer-pattern-${sectionId}`;
+  }
+
   protected setActiveTokenSection(sectionId: string) {
     this.activeTokenSection.set(sectionId);
   }
 
   protected setActiveButtonSection(sectionId: string) {
     this.activeButtonSection.set(sectionId);
+  }
+
+  protected setActiveFooterPatternSection(sectionId: string) {
+    this.activeFooterPatternSection.set(sectionId);
   }
 
   protected setActiveButtonMappingSection(sectionId: string) {
@@ -959,6 +971,15 @@ export class AppComponent {}`;
 
   protected setActiveInstallationSection(sectionId: string) {
     this.activeInstallationSection.set(sectionId);
+  }
+
+  protected toggleFooterPatternOverflow(variantId: FooterPatternVariant['id'], event?: Event) {
+    event?.stopPropagation();
+    this.openFooterPatternOverflowId.update((current) => (current === variantId ? null : variantId));
+  }
+
+  protected isFooterPatternOverflowOpen(variantId: FooterPatternVariant['id']): boolean {
+    return this.openFooterPatternOverflowId() === variantId;
   }
 
   protected getButtonVariant(action: ButtonDemoAction): Sportbook6vnButtonVariant {
@@ -2264,6 +2285,7 @@ export class AppComponent {}`;
   @HostListener('window:resize')
   protected onViewportChange() {
     this.updateActiveTokenSection();
+    this.updateActiveFooterPatternSection();
     this.updateActiveButtonSection();
     this.updateActiveButtonMappingSection();
     this.updateActiveInputSection();
@@ -2282,6 +2304,13 @@ export class AppComponent {}`;
     this.updateActiveIconographySection();
     this.updateActiveIllustrationSection();
     this.updateActiveInstallationSection();
+  }
+
+  @HostListener('document:click')
+  protected onDocumentClick() {
+    if (this.openFooterPatternOverflowId()) {
+      this.openFooterPatternOverflowId.set(null);
+    }
   }
 
   private updateActiveTokenSection() {
@@ -2312,6 +2341,31 @@ export class AppComponent {}`;
     }
 
     this.activeTokenSection.set(currentSection);
+  }
+
+  private updateActiveFooterPatternSection() {
+    if (this.activePage() !== 'footerPattern' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getFooterPatternSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeFooterPatternSection.set(currentSection);
   }
 
   private updateActiveButtonSection() {
@@ -2887,6 +2941,10 @@ export class AppComponent {}`;
       'button-api',
       'button-variables',
     ];
+  }
+
+  private getFooterPatternSectionIds(): string[] {
+    return this.footerPatternVariants.map((variant) => this.getFooterPatternSectionId(variant.id));
   }
 
   private getButtonMappingSectionIds(): string[] {
