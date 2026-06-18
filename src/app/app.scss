@@ -1146,11 +1146,17 @@
 }
 
 .footer-pattern-action--compact {
-  width: 128px;
+  width: clamp(104px, 18%, 184px);
 }
 
 .footer-pattern-action--wide {
-  width: min(316px, 100%);
+  width: clamp(220px, 30%, 456px);
+}
+
+.footer-pattern-action--trigger {
+  cursor: pointer;
+  position: relative;
+  width: clamp(156px, 22%, 216px);
 }
 
 .footer-pattern-overflow {
@@ -1177,9 +1183,10 @@
 }
 
 .footer-pattern-overflow-menu--panel {
-  bottom: calc(100% - 8px);
-  left: 24px;
-  width: min(450px, calc(100% - 48px));
+  bottom: calc(100% + 8px);
+  left: 0;
+  width: 324px;
+  max-width: min(324px, calc(100vw - 64px));
 }
 
 .footer-pattern-overflow-item {

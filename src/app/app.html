@@ -700,23 +700,6 @@
                   </div>
 
                   <div class="footer-pattern-row-shell footer-pattern-row-shell--case">
-                    <div
-                      class="footer-pattern-overflow-menu footer-pattern-overflow-menu--panel"
-                      *ngIf="
-                        variant.id === 'typeMore' &&
-                        variant.overflowMenuItems?.length &&
-                        isFooterPatternOverflowOpen(variant.id)
-                      "
-                      (click)="$event.stopPropagation()"
-                    >
-                      <div
-                        class="footer-pattern-overflow-item"
-                        *ngFor="let item of variant.overflowMenuItems"
-                      >
-                        {{ item }}
-                      </div>
-                    </div>
-
                     <ng-container *ngFor="let action of variant.actions">
                       <div
                         class="footer-pattern-action"
@@ -731,6 +714,24 @@
                             : null
                         "
                       >
+                        <div
+                          class="footer-pattern-overflow-menu footer-pattern-overflow-menu--panel"
+                          *ngIf="
+                            variant.id === 'typeMore' &&
+                            action.label === 'Thao tác khác' &&
+                            variant.overflowMenuItems?.length &&
+                            isFooterPatternOverflowOpen(variant.id)
+                          "
+                          (click)="$event.stopPropagation()"
+                        >
+                          <div
+                            class="footer-pattern-overflow-item"
+                            *ngFor="let item of variant.overflowMenuItems"
+                          >
+                            {{ item }}
+                          </div>
+                        </div>
+
                         <sportbook6vn-button
                           [variant]="action.variant"
                           size="lg"
