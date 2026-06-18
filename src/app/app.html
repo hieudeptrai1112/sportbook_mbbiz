@@ -365,10 +365,15 @@
     </aside>
 
     <main class="main">
-      <div class="main-inner" [class.toc-collapsed]="isTocCollapsed()">
+      <div
+        class="main-inner"
+        [class.toc-collapsed]="isTocCollapsed() || activePage() === 'footerPattern'"
+        [class.main-inner-pattern]="activePage() === 'footerPattern'"
+      >
         <div
           class="content"
           [class.content-color]="activePage() === 'color'"
+          [class.content-pattern]="activePage() === 'footerPattern'"
           [class.content-tokens]="
             activePage() === 'tokens' || activePage() === 'spacing' || activePage() === 'typography'
           "
@@ -682,164 +687,86 @@
             </div>
 
             <section class="section">
-              <h2>Scope</h2>
-              <p>
-                Add a pattern here when the UI is larger than one primitive component and needs
-                shared behavior, spacing, copy structure, or usage guidance across product screens.
-              </p>
-              <div class="button-api-table">
-                <div class="button-api-row button-api-head">
-                  <span>Type</span>
-                  <span>Definition</span>
-                  <span>Output</span>
-                </div>
-                <div class="button-api-row">
-                  <span class="button-api-col-description">Common UI</span>
-                  <span>Reusable interface blocks used in more than one screen.</span>
-                  <span>Pattern page with layout, states, and source components.</span>
-                </div>
-                <div class="button-api-row">
-                  <span class="button-api-col-description">Composed component</span>
-                  <span>A larger component made from smaller Sportbook6vn components.</span>
-                  <span>Implementation notes and component dependency list.</span>
-                </div>
-                <div class="button-api-row">
-                  <span class="button-api-col-description">Flow fragment</span>
-                  <span
-                    >A repeatable part of a user flow, such as a form section or action area.</span
-                  >
-                  <span>Usage rules, responsive behavior, and interaction states.</span>
-                </div>
-              </div>
-            </section>
-
-            <section class="section">
-              <h2>Pattern Library</h2>
-              <p>
-                Footer là pattern đầu tiên trong thư viện này. Nó gom logic số lượng action,
-                thứ bậc secondary/primary, và quy tắc overflow vào cùng một khối để các màn hình
-                dùng chung không tự dựng footer riêng.
-              </p>
-              <div class="button-demo-tags">
-                <span class="button-inline-code" *ngFor="let dependency of footerPatternDependencies">
-                  {{ dependency }}
-                </span>
-                <span class="button-inline-code">Figma / Footer</span>
-              </div>
-              <article class="button-demo-card footer-pattern-card">
-                <div class="footer-pattern-summary">
-                  <div class="footer-pattern-summary-item">
-                    <span class="footer-pattern-summary-label">Source of truth</span>
-                    <span>Pattern page + Figma Footer variants</span>
+              <h2>Component</h2>
+              <article class="button-demo-card footer-pattern-card footer-pattern-figma-card">
+                <div class="footer-pattern-hero">
+                  <div class="footer-pattern-brand">
+                    <span class="footer-pattern-brand-mark">✦</span>
+                    <span class="footer-pattern-brand-name">MBBank</span>
                   </div>
-                  <div class="footer-pattern-summary-item">
-                    <span class="footer-pattern-summary-label">Action component</span>
-                    <span>Toàn bộ action dùng `sportbook6vn-button`</span>
-                  </div>
-                  <div class="footer-pattern-summary-item">
-                    <span class="footer-pattern-summary-label">Overflow rule</span>
-                    <span>>4 action thì dồn phần dư vào trigger `Thao tác khác`</span>
-                  </div>
+                  <h3>Footer</h3>
                 </div>
 
-                <div class="footer-pattern-variant-list">
-                  <section class="footer-pattern-variant" *ngFor="let variant of footerPatternVariants">
-                    <div class="footer-pattern-variant-head">
-                      <div>
-                        <h3>{{ variant.title }}</h3>
-                        <p class="footer-pattern-variant-description">{{ variant.description }}</p>
+                <div class="footer-pattern-stage">
+                  <div class="footer-pattern-stage-board">
+                    <section class="footer-pattern-row" *ngFor="let variant of footerPatternVariants">
+                      <div class="footer-pattern-row-label">
+                        <span class="footer-pattern-row-index">{{ variant.figmaType }}</span>
+                        <span>{{ variant.countLabel }}</span>
                       </div>
-                      <span class="footer-pattern-variant-badge">Type={{ variant.figmaType }}</span>
-                    </div>
 
-                    <p class="footer-pattern-variant-usage">{{ variant.usage }}</p>
-
-                    <div class="button-demo-tags" *ngIf="variant.approvedPairs?.length">
-                      <span class="button-inline-code" *ngFor="let pair of variant.approvedPairs">
-                        {{ pair }}
-                      </span>
-                    </div>
-
-                    <p class="footer-pattern-placeholder-note" *ngIf="variant.placeholderNote">
-                      {{ variant.placeholderNote }}
-                    </p>
-
-                    <div class="footer-pattern-shell">
-                      <div
-                        class="footer-pattern-overflow"
-                        *ngIf="variant.id === 'typeMore' && variant.overflowMenuItems?.length"
-                      >
-                        <div class="footer-pattern-overflow-menu">
-                          <div
-                            class="footer-pattern-overflow-item"
-                            *ngFor="let item of variant.overflowMenuItems"
-                          >
-                            {{ item }}
+                      <div class="footer-pattern-row-shell">
+                        <div
+                          class="footer-pattern-overflow"
+                          *ngIf="variant.id === 'typeMore' && variant.overflowMenuItems?.length"
+                        >
+                          <div class="footer-pattern-overflow-menu">
+                            <div
+                              class="footer-pattern-overflow-item"
+                              *ngFor="let item of variant.overflowMenuItems"
+                            >
+                              {{ item }}
+                            </div>
                           </div>
                         </div>
-                        <div class="footer-pattern-action footer-pattern-action--compact">
-                          <sportbook6vn-button variant="secondary" size="lg" [fullWidth]="true">
-                            {{ variant.actions[0].label }}
-                          </sportbook6vn-button>
-                        </div>
-                      </div>
 
-                      <ng-container *ngFor="let action of variant.actions; let actionIndex = index">
-                        <div
-                          class="footer-pattern-action"
-                          [class.footer-pattern-action--compact]="action.width === 'compact'"
-                          [class.footer-pattern-action--wide]="action.width === 'wide'"
-                          *ngIf="!(variant.id === 'typeMore' && actionIndex === 0)"
-                        >
-                          <sportbook6vn-button
-                            [variant]="action.variant"
-                            size="lg"
-                            [fullWidth]="true"
+                        <ng-container *ngFor="let action of variant.actions">
+                          <div
+                            class="footer-pattern-action"
+                            [class.footer-pattern-action--compact]="action.width === 'compact'"
+                            [class.footer-pattern-action--wide]="action.width === 'wide'"
                           >
-                            {{ action.label }}
-                          </sportbook6vn-button>
-                        </div>
-                      </ng-container>
-                    </div>
-                  </section>
+                            <sportbook6vn-button
+                              [variant]="action.variant"
+                              size="lg"
+                              [fullWidth]="true"
+                            >
+                              {{ action.label }}
+                            </sportbook6vn-button>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </section>
+                  </div>
                 </div>
               </article>
             </section>
 
             <section class="section">
-              <h2>Implementation Guidance</h2>
+              <h2>Usage Mapping</h2>
               <p>
-                Footer này nên ở nhóm Pattern vì nó điều phối nhiều button cùng lúc. Mỗi screen chỉ
-                truyền đúng bộ action cần dùng thay vì tự quyết định lại spacing, độ ưu tiên, hoặc
-                overflow.
+                Preview bên trên giữ đúng visual specimen của Figma nên vẫn dùng placeholder
+                `Text`. Mapping nghiệp vụ được tách riêng ở đây để không làm sai visual source.
               </p>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
-                  <span>Rule</span>
-                  <span>Reason</span>
-                  <span>Current decision</span>
+                  <span>Variant</span>
+                  <span>Business note from Figma</span>
+                  <span>Preview rule</span>
                 </div>
-                <div class="button-api-row">
-                  <span class="button-api-col-description">Button source</span>
-                  <span>Tránh lệch style, token và interaction giữa docs với product screens.</span>
-                  <span>Dùng `sportbook6vn-button` cho tất cả action.</span>
-                </div>
-                <div class="button-api-row">
-                  <span class="button-api-col-description">Action priority</span>
-                  <span>Primary luôn là hành động chốt; các action còn lại giữ secondary.</span>
-                  <span>Layout bám đúng 1 / 2 / 3 / 4 / &gt;4 variant của Figma.</span>
-                </div>
-                <div class="button-api-row">
-                  <span class="button-api-col-description">Overflow</span>
-                  <span>Khi action vượt quá bốn, không dàn ngang thêm button mới.</span>
-                  <span>Dùng trigger `Thao tác khác` và menu overflow.</span>
+                <div class="button-api-row" *ngFor="let variant of footerPatternVariants">
+                  <span class="button-api-col-description">{{ variant.title }}</span>
+                  <span>{{ variant.description }}</span>
+                  <span>{{ variant.usage }}</span>
                 </div>
               </div>
 
               <div class="button-code-wrapper footer-pattern-code">
                 <div class="button-code-head">
                   <span class="button-code-file">Footer pattern template</span>
-                  <span class="button-code-hint">Angular template using the shared button component</span>
+                  <span class="button-code-hint"
+                    >Angular template using the shared button component</span
+                  >
                 </div>
                 <pre class="button-code-block"><code>{{ footerPatternImplementationSnippet }}</code></pre>
               </div>
