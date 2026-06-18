@@ -4,6 +4,8 @@ import type { DsInputPasswordState } from './components/ds-input-password/ds-inp
 import {
   Sportbook6vnAffixInputComponent,
   Sportbook6vnAffixLabelInputComponent,
+  Sportbook6vnBadgeComponent,
+  type Sportbook6vnBadgeStatus,
   type Sportbook6vnAffixDropdownItem,
   Sportbook6vnButtonComponent,
   Sportbook6vnBreadcrumbComponent,
@@ -31,6 +33,10 @@ import {
   type Sportbook6vnRadioGroupOption,
   Sportbook6vnSearchInputComponent,
   Sportbook6vnStepsComponent,
+  Sportbook6vnStatusComponent,
+  type Sportbook6vnStatusColor,
+  Sportbook6vnTabComponent,
+  type Sportbook6vnTabItem,
   Sportbook6vnTableComponent,
   type Sportbook6vnTableCellValueChange,
   type Sportbook6vnTableColumn,
@@ -69,6 +75,7 @@ import {
   type ButtonSemanticBindingGroup,
   type ButtonVariableGroup,
 } from './button-demos.data';
+import { BADGE_DEMO_SECTIONS, type BadgeDemoSection } from './badge-demos.data';
 import {
   BUTTON_MAPPING_API_ROWS,
   BUTTON_MAPPING_DEMO_SECTIONS,
@@ -151,6 +158,8 @@ import {
   type StepsDemoSection,
   type StepsVariableGroup,
 } from './steps-demos.data';
+import { STATUS_DEMO_SECTIONS, type StatusDemoSection } from './status-demos.data';
+import { TAB_DEMO_SECTIONS, type TabDemoSection } from './tab-demos.data';
 import {
   TABLE_API_ROWS,
   TABLE_DEMO_SECTIONS,
@@ -173,10 +182,8 @@ import {
   type PaginationDemoSection,
   type PaginationVariableGroup,
 } from './pagination-demos.data';
-import {
-  ILLUSTRATION_ASSETS,
-  type IllustrationAsset,
-} from './illustration-assets.data';
+import { ILLUSTRATION_ASSETS, type IllustrationAsset } from './illustration-assets.data';
+import { ICON_ASSETS, type IconAsset } from './icon-assets.data';
 import {
   UPLOAD_FILE_API_ROWS,
   UPLOAD_FILE_DEMO_SECTIONS,
@@ -270,6 +277,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     CommonModule,
     Sportbook6vnAffixInputComponent,
     Sportbook6vnAffixLabelInputComponent,
+    Sportbook6vnBadgeComponent,
     Sportbook6vnButtonComponent,
     Sportbook6vnBreadcrumbComponent,
     Sportbook6vnCheckboxComponent,
@@ -288,6 +296,8 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     Sportbook6vnRadioGroupComponent,
     Sportbook6vnSearchInputComponent,
     Sportbook6vnStepsComponent,
+    Sportbook6vnStatusComponent,
+    Sportbook6vnTabComponent,
     Sportbook6vnTableComponent,
     Sportbook6vnTextareaComponent,
     Sportbook6vnUploadFileComponent,
@@ -306,19 +316,23 @@ export class App {
   protected readonly isDesignTokensOpen = signal(false);
   protected readonly isComponentsOpen = signal(true);
   protected readonly activePage = signal<
-    'buttons'
+    | 'buttons'
     | 'buttonMapping'
     | 'inputField'
     | 'inputTag'
     | 'breadcrumb'
     | 'steps'
+    | 'tab'
     | 'dropdown'
     | 'radio'
     | 'checkbox'
+    | 'badge'
+    | 'status'
     | 'table'
     | 'pagination'
     | 'datepicker'
     | 'uploadFile'
+    | 'iconography'
     | 'illustration'
     | 'pattern'
     | 'introduction'
@@ -331,7 +345,9 @@ export class App {
   protected readonly semanticTokenMappings = SEMANTIC_COLOR_TOKEN_MAPPINGS;
   protected readonly semanticTokenGroups = this.buildSemanticTokenGroups();
   protected readonly activeTokenSection = signal(
-    this.semanticTokenGroups.length > 0 ? this.getTokenSectionId(this.semanticTokenGroups[0].category) : '',
+    this.semanticTokenGroups.length > 0
+      ? this.getTokenSectionId(this.semanticTokenGroups[0].category)
+      : '',
   );
   protected readonly colorTokenMode = signal<ThemeMode>(DEFAULT_THEME_MODE);
   protected readonly copiedSemanticAlias = signal<string | null>(null);
@@ -340,7 +356,8 @@ export class App {
   protected readonly radiusScaleRows: NumericScaleRow[] = RADIUS_SCALE_ROWS;
   protected readonly typographyScaleGroups: TypographyScaleGroup[] = TYPOGRAPHY_SCALE_GROUPS;
   protected readonly buttonDemoSections: ButtonDemoSection[] = BUTTON_DEMO_SECTIONS;
-  protected readonly buttonMappingDemoSections: ButtonMappingDemoSection[] = BUTTON_MAPPING_DEMO_SECTIONS;
+  protected readonly buttonMappingDemoSections: ButtonMappingDemoSection[] =
+    BUTTON_MAPPING_DEMO_SECTIONS;
   protected readonly buttonMappingApiRows: ButtonMappingApiRow[] = BUTTON_MAPPING_API_ROWS;
   protected readonly buttonApiRows: ButtonApiRow[] = BUTTON_API_ROWS;
   protected readonly buttonSemanticBindingGroups: ResolvedButtonSemanticBindingGroup[] =
@@ -385,7 +402,8 @@ export class App {
   protected readonly copiedInputTagDemoId = signal<string | null>(null);
   protected readonly breadcrumbDemoSections: BreadcrumbDemoSection[] = BREADCRUMB_DEMO_SECTIONS;
   protected readonly breadcrumbApiRows: BreadcrumbApiRow[] = BREADCRUMB_API_ROWS;
-  protected readonly breadcrumbVariableGroups: BreadcrumbVariableGroup[] = BREADCRUMB_VARIABLE_GROUPS;
+  protected readonly breadcrumbVariableGroups: BreadcrumbVariableGroup[] =
+    BREADCRUMB_VARIABLE_GROUPS;
   protected readonly breadcrumbVariableNotes = BREADCRUMB_VARIABLE_NOTES;
   protected readonly activeBreadcrumbSection = signal(
     this.getBreadcrumbSectionId(this.breadcrumbDemoSections[0]?.id ?? 'amount'),
@@ -401,6 +419,53 @@ export class App {
   );
   protected readonly expandedStepsDemoIds = signal<string[]>([]);
   protected readonly copiedStepsDemoId = signal<string | null>(null);
+  protected readonly tabDemoSections: TabDemoSection[] = TAB_DEMO_SECTIONS;
+  protected readonly activeTabSection = signal(
+    this.getTabSectionId(this.tabDemoSections[0]?.id ?? 'default'),
+  );
+  protected readonly tabPillActiveIndex = signal(0);
+  protected readonly tabUnderlinedActiveIndex = signal(0);
+  protected readonly tabSmallActiveIndex = signal(0);
+  protected readonly tabDefaultItems: Sportbook6vnTabItem[] = [
+    { label: 'Text' },
+    { label: 'Text' },
+    { label: 'Text' },
+  ];
+  protected readonly tabCountItems: Sportbook6vnTabItem[] = [
+    { label: 'Text', count: 12 },
+    { label: 'Text' },
+    { label: 'Text', count: 12 },
+  ];
+  protected readonly tabDisabledItems: Sportbook6vnTabItem[] = [
+    { label: 'Text' },
+    { label: 'Text' },
+    { label: 'Text', disabled: true },
+  ];
+  protected readonly badgeDemoSections: BadgeDemoSection[] = BADGE_DEMO_SECTIONS;
+  protected readonly activeBadgeSection = signal(
+    this.getBadgeSectionId(this.badgeDemoSections[0]?.id ?? 'default'),
+  );
+  protected readonly badgeStatusCases: { status: Sportbook6vnBadgeStatus; label: string }[] = [
+    { status: 'invalid', label: 'Text' },
+    { status: 'overdue', label: 'Text' },
+    { status: 'unfinished', label: 'Text' },
+    { status: 'renew-loan', label: 'Text' },
+    { status: 'pending', label: 'Text' },
+    { status: 'completed', label: 'Text' },
+    { status: 'failed', label: 'Text' },
+  ];
+  protected readonly statusDemoSections: StatusDemoSection[] = STATUS_DEMO_SECTIONS;
+  protected readonly activeStatusSection = signal(
+    this.getStatusSectionId(this.statusDemoSections[0]?.id ?? 'default'),
+  );
+  protected readonly statusColorCases: { color: Sportbook6vnStatusColor; label: string }[] = [
+    { color: 'neutral', label: 'Text' },
+    { color: 'orange', label: 'Text' },
+    { color: 'blue', label: 'Text' },
+    { color: 'dark-blue', label: 'Text' },
+    { color: 'green', label: 'Text' },
+    { color: 'red', label: 'Text' },
+  ];
   protected readonly tableDemoSections: TableDemoSection[] = TABLE_DEMO_SECTIONS;
   protected readonly tableApiRows: TableApiRow[] = TABLE_API_ROWS;
   protected readonly tableOutputRows: TableApiRow[] = TABLE_OUTPUT_ROWS;
@@ -416,7 +481,8 @@ export class App {
   protected readonly paginationApiRows: PaginationApiRow[] = PAGINATION_API_ROWS;
   protected readonly paginationOutputRows: PaginationApiRow[] = PAGINATION_OUTPUT_ROWS;
   protected readonly paginationTypeRows: PaginationApiRow[] = PAGINATION_TYPE_ROWS;
-  protected readonly paginationVariableGroups: PaginationVariableGroup[] = PAGINATION_VARIABLE_GROUPS;
+  protected readonly paginationVariableGroups: PaginationVariableGroup[] =
+    PAGINATION_VARIABLE_GROUPS;
   protected readonly paginationVariableNotes = PAGINATION_VARIABLE_NOTES;
   protected readonly activePaginationSection = signal(
     this.getPaginationSectionId(this.paginationDemoSections[0]?.id ?? 'default'),
@@ -446,7 +512,8 @@ export class App {
   protected readonly datepickerDemoSections: DatepickerDemoSection[] = DATEPICKER_DEMO_SECTIONS;
   protected readonly datepickerApiRows: DatepickerApiRow[] = DATEPICKER_API_ROWS;
   protected readonly datepickerOutputRows: DatepickerApiRow[] = DATEPICKER_OUTPUT_ROWS;
-  protected readonly datepickerVariableGroups: DatepickerVariableGroup[] = DATEPICKER_VARIABLE_GROUPS;
+  protected readonly datepickerVariableGroups: DatepickerVariableGroup[] =
+    DATEPICKER_VARIABLE_GROUPS;
   protected readonly datepickerVariableNotes = DATEPICKER_VARIABLE_NOTES;
   protected readonly activeDatepickerSection = signal(
     this.getDatepickerSectionId(this.datepickerDemoSections[0]?.id ?? 'single-date'),
@@ -454,11 +521,13 @@ export class App {
   protected readonly expandedDatepickerDemoIds = signal<string[]>([]);
   protected readonly copiedDatepickerDemoId = signal<string | null>(null);
   protected readonly uploadFileDemoSections: UploadFileDemoSection[] = UPLOAD_FILE_DEMO_SECTIONS;
-  protected readonly uploadFileItemUploadApiRows: UploadFileApiRow[] = UPLOAD_FILE_ITEM_UPLOAD_API_ROWS;
+  protected readonly uploadFileItemUploadApiRows: UploadFileApiRow[] =
+    UPLOAD_FILE_ITEM_UPLOAD_API_ROWS;
   protected readonly uploadFileItemFileApiRows: UploadFileApiRow[] = UPLOAD_FILE_ITEM_FILE_API_ROWS;
   protected readonly uploadFileApiRows: UploadFileApiRow[] = UPLOAD_FILE_API_ROWS;
   protected readonly uploadFileTypeRows: UploadFileApiRow[] = UPLOAD_FILE_TYPE_ROWS;
-  protected readonly uploadFileVariableGroups: UploadFileVariableGroup[] = UPLOAD_FILE_VARIABLE_GROUPS;
+  protected readonly uploadFileVariableGroups: UploadFileVariableGroup[] =
+    UPLOAD_FILE_VARIABLE_GROUPS;
   protected readonly uploadFileVariableNotes = UPLOAD_FILE_VARIABLE_NOTES;
   protected readonly activeUploadFileSection = signal(
     this.getUploadFileSectionId(this.uploadFileDemoSections[0]?.id ?? 'item-upload-default'),
@@ -491,8 +560,18 @@ export class AppComponent {}`;
   ];
   protected readonly uploadFilesExpanded: Sportbook6vnUploadFileItem[] = [
     { uid: 'docs-upload-expanded-1', name: 'Tên tệp tin.pdf', sizeLabel: '2 MB', fileKind: 'pdf' },
-    { uid: 'docs-upload-expanded-2', name: 'Tên tệp tin.docx', sizeLabel: '2 MB', fileKind: 'docx' },
-    { uid: 'docs-upload-expanded-3', name: 'Tên tệp tin.xlsx', sizeLabel: '2 MB', fileKind: 'xlsx' },
+    {
+      uid: 'docs-upload-expanded-2',
+      name: 'Tên tệp tin.docx',
+      sizeLabel: '2 MB',
+      fileKind: 'docx',
+    },
+    {
+      uid: 'docs-upload-expanded-3',
+      name: 'Tên tệp tin.xlsx',
+      sizeLabel: '2 MB',
+      fileKind: 'xlsx',
+    },
     { uid: 'docs-upload-expanded-4', name: 'Tên tệp tin.jpg', sizeLabel: '2 MB', fileKind: 'jpg' },
   ];
   protected readonly uploadFilesLoading: Sportbook6vnUploadFileItem[] = [
@@ -590,21 +669,39 @@ export class AppComponent {}`;
     { kind: 'pdf', name: 'Tên tệp tin.pdf', errorType: 'upload' },
     { kind: 'error', name: 'Tên tệp tin.xml', errorType: 'format' },
   ];
-  private readonly tableColumnFileKinds: Sportbook6vnItemFileKind[] = ['xlsx', 'docx', 'pdf', 'jpg', 'xml'];
-  private readonly tableColumnStatusTones = ['success', 'error', 'warning', 'neutral', 'info'] as const;
-  protected readonly tablePrimitiveColumns: Sportbook6vnTableColumn[] = Array.from({ length: 5 }, (_, index) => ({
-    key: `column${index + 1}`,
-    title: 'Title',
-    width: 170,
-  }));
-  protected readonly tablePrimitiveRows: Sportbook6vnTableRow[] = Array.from({ length: 4 }, (_, rowIndex) => ({
-    id: `table-row-${rowIndex + 1}`,
-    column1: 'Text',
-    column2: 'Text',
-    column3: 'Text',
-    column4: 'Text',
-    column5: 'Text',
-  }));
+  private readonly tableColumnFileKinds: Sportbook6vnItemFileKind[] = [
+    'xlsx',
+    'docx',
+    'pdf',
+    'jpg',
+    'xml',
+  ];
+  private readonly tableColumnStatusTones = [
+    'success',
+    'error',
+    'warning',
+    'neutral',
+    'info',
+  ] as const;
+  protected readonly tablePrimitiveColumns: Sportbook6vnTableColumn[] = Array.from(
+    { length: 5 },
+    (_, index) => ({
+      key: `column${index + 1}`,
+      title: 'Title',
+      width: 170,
+    }),
+  );
+  protected readonly tablePrimitiveRows: Sportbook6vnTableRow[] = Array.from(
+    { length: 4 },
+    (_, rowIndex) => ({
+      id: `table-row-${rowIndex + 1}`,
+      column1: 'Text',
+      column2: 'Text',
+      column3: 'Text',
+      column4: 'Text',
+      column5: 'Text',
+    }),
+  );
   protected readonly tableDefaultColumns: Sportbook6vnTableColumn[] = [
     { key: 'accountType', title: 'Loại tài khoản', width: 150, sortable: true },
     { key: 'file', title: 'File', type: 'file', width: 100 },
@@ -706,13 +803,16 @@ export class AppComponent {}`;
     { key: 'status', title: 'Trạng thái', type: 'status', width: 150 },
     { key: 'icon', title: 'Hành động', type: 'icon', width: 104, fixed: 'right' },
   ];
-  protected readonly tableFixedRightIconRows: Sportbook6vnTableRow[] = Array.from({ length: 5 }, (_, index) => ({
-    ...this.createTableAllColumnRow(index),
-    id: `fixed-right-icon-${index + 1}`,
-    icon: {
-      icons: [{ icon: 'trash', label: `Xóa dòng ${index + 1}` }],
-    },
-  }));
+  protected readonly tableFixedRightIconRows: Sportbook6vnTableRow[] = Array.from(
+    { length: 5 },
+    (_, index) => ({
+      ...this.createTableAllColumnRow(index),
+      id: `fixed-right-icon-${index + 1}`,
+      icon: {
+        icons: [{ icon: 'trash', label: `Xóa dòng ${index + 1}` }],
+      },
+    }),
+  );
   protected readonly tableSelectedRowKeys = signal<string[]>(['selection-2']);
   protected readonly tablePaginationIndex = signal(1);
   protected readonly paginationDocsDropdownPage = signal(1);
@@ -730,12 +830,16 @@ export class AppComponent {}`;
   protected readonly downloadDocsUploadFile = (file: Sportbook6vnUploadFileItem): void => {
     this.downloadDocsFile(file.name);
   };
+  protected readonly iconAssets: IconAsset[] = ICON_ASSETS;
+  protected readonly activeIconographySection = signal('iconography-usage');
+  protected readonly copiedIconAssetUrl = signal<string | null>(null);
+  protected readonly copiedIconAssetSnippet = signal<string | null>(null);
   protected readonly illustrationAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS;
   protected readonly illustrationLibraryAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS.filter(
     (asset) => !asset.id.startsWith('flag-'),
   );
-  protected readonly flagIllustrationAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS.filter((asset) =>
-    asset.id.startsWith('flag-'),
+  protected readonly flagIllustrationAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS.filter(
+    (asset) => asset.id.startsWith('flag-'),
   );
   protected readonly activeIllustrationSection = signal('illustration-usage');
   protected readonly copiedIllustrationUrl = signal<string | null>(null);
@@ -795,7 +899,9 @@ export class AppComponent {}`;
   protected readonly core3CheckboxGroupValues = signal<(string | number)[]>(['a']);
   protected readonly core3CheckboxGroupVerticalValues = signal<(string | number)[]>(['a']);
   protected readonly core3CheckboxSelectAllValues = signal<(string | number)[]>(['a']);
-  protected readonly core3CheckboxAllValues = this.core3CheckboxGroupOptions.map((option) => option.value);
+  protected readonly core3CheckboxAllValues = this.core3CheckboxGroupOptions.map(
+    (option) => option.value,
+  );
   protected readonly core3CheckboxSelectAllChecked = computed(
     () => this.core3CheckboxSelectAllValues().length === this.core3CheckboxAllValues.length,
   );
@@ -822,7 +928,9 @@ export class AppComponent {}`;
   }
 
   protected get darkTokenOverrideCount(): number {
-    const valueOverrides = Object.keys(SEMANTIC_THEME_ALIAS_OVERRIDES[this.activeThemeBrand()].dark);
+    const valueOverrides = Object.keys(
+      SEMANTIC_THEME_ALIAS_OVERRIDES[this.activeThemeBrand()].dark,
+    );
     const primitiveOverrides = Object.keys(
       SEMANTIC_THEME_ALIAS_PRIMITIVE_OVERRIDES[this.activeThemeBrand()].dark,
     );
@@ -858,13 +966,17 @@ export class AppComponent {}`;
       | 'inputTag'
       | 'breadcrumb'
       | 'steps'
+      | 'tab'
       | 'dropdown'
       | 'radio'
       | 'checkbox'
+      | 'badge'
+      | 'status'
       | 'table'
       | 'pagination'
       | 'datepicker'
       | 'uploadFile'
+      | 'iconography'
       | 'illustration'
       | 'pattern'
       | 'introduction'
@@ -889,6 +1001,12 @@ export class AppComponent {}`;
       setTimeout(() => this.updateActiveBreadcrumbSection(), 0);
     } else if (page === 'steps') {
       setTimeout(() => this.updateActiveStepsSection(), 0);
+    } else if (page === 'tab') {
+      setTimeout(() => this.updateActiveTabSection(), 0);
+    } else if (page === 'badge') {
+      setTimeout(() => this.updateActiveBadgeSection(), 0);
+    } else if (page === 'status') {
+      setTimeout(() => this.updateActiveStatusSection(), 0);
     } else if (page === 'table') {
       setTimeout(() => this.updateActiveTableSection(), 0);
     } else if (page === 'pagination') {
@@ -901,6 +1019,8 @@ export class AppComponent {}`;
       setTimeout(() => this.updateActiveDatepickerSection(), 0);
     } else if (page === 'uploadFile') {
       setTimeout(() => this.updateActiveUploadFileSection(), 0);
+    } else if (page === 'iconography') {
+      setTimeout(() => this.updateActiveIconographySection(), 0);
     } else if (page === 'illustration') {
       setTimeout(() => this.updateActiveIllustrationSection(), 0);
     } else if (page === 'installation') {
@@ -961,7 +1081,9 @@ export class AppComponent {}`;
     }
   }
 
-  protected getButtonDocState(action: ButtonDemoAction): 'default' | 'hover' | 'pressed' | 'disabled' {
+  protected getButtonDocState(
+    action: ButtonDemoAction,
+  ): 'default' | 'hover' | 'pressed' | 'disabled' {
     return action.state ?? 'default';
   }
 
@@ -1088,7 +1210,13 @@ export class AppComponent {}`;
 
   protected readonly core3InputTagResponsiveOverflowRender = (count: number) => `+${count} More`;
 
-  protected readonly core3InputTagRenderTone = ({ value, label }: { value: string; label: string }) => {
+  protected readonly core3InputTagRenderTone = ({
+    value,
+    label,
+  }: {
+    value: string;
+    label: string;
+  }) => {
     const toneMap: Record<string, 'brand' | 'warning' | 'success'> = {
       arcoblue: 'brand',
       orange: 'warning',
@@ -1151,7 +1279,7 @@ export class AppComponent {}`;
     const brand = this.activeThemeBrand();
     return Boolean(
       SEMANTIC_THEME_ALIAS_OVERRIDES[brand].dark[token.alias] ||
-        SEMANTIC_THEME_ALIAS_PRIMITIVE_OVERRIDES[brand].dark[token.alias],
+      SEMANTIC_THEME_ALIAS_PRIMITIVE_OVERRIDES[brand].dark[token.alias],
     );
   }
 
@@ -1631,6 +1759,30 @@ export class AppComponent {}`;
     return `steps-${sectionId}`;
   }
 
+  protected setActiveTabSection(sectionId: string) {
+    this.activeTabSection.set(sectionId);
+  }
+
+  protected getTabSectionId(sectionId: string): string {
+    return `tab-${sectionId}`;
+  }
+
+  protected setActiveBadgeSection(sectionId: string) {
+    this.activeBadgeSection.set(sectionId);
+  }
+
+  protected getBadgeSectionId(sectionId: string): string {
+    return `badge-${sectionId}`;
+  }
+
+  protected setActiveStatusSection(sectionId: string) {
+    this.activeStatusSection.set(sectionId);
+  }
+
+  protected getStatusSectionId(sectionId: string): string {
+    return `status-${sectionId}`;
+  }
+
   protected setActiveTableSection(sectionId: string) {
     this.activeTableSection.set(sectionId);
   }
@@ -2057,6 +2209,34 @@ export class AppComponent {}`;
     this.activeIllustrationSection.set(sectionId);
   }
 
+  protected setActiveIconographySection(sectionId: string) {
+    this.activeIconographySection.set(sectionId);
+  }
+
+  protected getIconAssetSnippet(asset: IconAsset): string {
+    return `<img src="${asset.src}" alt="${asset.alt}" />`;
+  }
+
+  protected async copyIconAssetUrl(asset: IconAsset) {
+    await this.writeTextToClipboard(asset.src);
+    this.copiedIconAssetUrl.set(asset.id);
+    setTimeout(() => {
+      if (this.copiedIconAssetUrl() === asset.id) {
+        this.copiedIconAssetUrl.set(null);
+      }
+    }, 1200);
+  }
+
+  protected async copyIconAssetSnippet(asset: IconAsset) {
+    await this.writeTextToClipboard(this.getIconAssetSnippet(asset));
+    this.copiedIconAssetSnippet.set(asset.id);
+    setTimeout(() => {
+      if (this.copiedIconAssetSnippet() === asset.id) {
+        this.copiedIconAssetSnippet.set(null);
+      }
+    }, 1200);
+  }
+
   protected getIllustrationSnippet(asset: IllustrationAsset): string {
     return `<img src="${asset.src}" alt="${asset.alt}" />`;
   }
@@ -2193,7 +2373,12 @@ export class AppComponent {}`;
     const selectedKeys = this.tableSelectionRows()
       .filter((row) => {
         const selected = row['selected'];
-        return typeof selected === 'object' && selected !== null && 'value' in selected && !!selected.value;
+        return (
+          typeof selected === 'object' &&
+          selected !== null &&
+          'value' in selected &&
+          !!selected.value
+        );
       })
       .map((row, index) => String(row['id'] ?? index));
 
@@ -2229,12 +2414,16 @@ export class AppComponent {}`;
     this.updateActiveInputTagSection();
     this.updateActiveBreadcrumbSection();
     this.updateActiveStepsSection();
+    this.updateActiveTabSection();
+    this.updateActiveBadgeSection();
+    this.updateActiveStatusSection();
     this.updateActiveTableSection();
     this.updateActivePaginationSection();
     this.updateActiveDropdownSection();
     this.updateActiveRadioSection();
     this.updateActiveDatepickerSection();
     this.updateActiveUploadFileSection();
+    this.updateActiveIconographySection();
     this.updateActiveIllustrationSection();
     this.updateActiveInstallationSection();
   }
@@ -2419,6 +2608,81 @@ export class AppComponent {}`;
     this.activeStepsSection.set(currentSection);
   }
 
+  private updateActiveTabSection() {
+    if (this.activePage() !== 'tab' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getTabSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeTabSection.set(currentSection);
+  }
+
+  private updateActiveBadgeSection() {
+    if (this.activePage() !== 'badge' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getBadgeSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeBadgeSection.set(currentSection);
+  }
+
+  private updateActiveStatusSection() {
+    if (this.activePage() !== 'status' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getStatusSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeStatusSection.set(currentSection);
+  }
+
   private updateActiveTableSection() {
     if (this.activePage() !== 'table' || typeof document === 'undefined') {
       return;
@@ -2594,6 +2858,31 @@ export class AppComponent {}`;
     this.activeIllustrationSection.set(currentSection);
   }
 
+  private updateActiveIconographySection() {
+    if (this.activePage() !== 'iconography' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getIconographySectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeIconographySection.set(currentSection);
+  }
+
   private updateActiveInstallationSection() {
     if (this.activePage() !== 'installation' || typeof document === 'undefined') {
       return;
@@ -2746,7 +3035,9 @@ export class AppComponent {}`;
 
   private getButtonMappingSectionIds(): string[] {
     return [
-      ...this.buttonMappingDemoSections.map((section) => this.getButtonMappingSectionId(section.id)),
+      ...this.buttonMappingDemoSections.map((section) =>
+        this.getButtonMappingSectionId(section.id),
+      ),
       'button-mapping-api',
       'button-mapping-variables',
     ];
@@ -2793,6 +3084,18 @@ export class AppComponent {}`;
       'steps-api',
       'steps-variables',
     ];
+  }
+
+  private getTabSectionIds(): string[] {
+    return this.tabDemoSections.map((section) => this.getTabSectionId(section.id));
+  }
+
+  private getBadgeSectionIds(): string[] {
+    return this.badgeDemoSections.map((section) => this.getBadgeSectionId(section.id));
+  }
+
+  private getStatusSectionIds(): string[] {
+    return this.statusDemoSections.map((section) => this.getStatusSectionId(section.id));
   }
 
   private getTableSectionIds(): string[] {
@@ -2844,11 +3147,25 @@ export class AppComponent {}`;
   }
 
   private getIllustrationSectionIds(): string[] {
-    return ['illustration-usage', 'illustration-assets', 'illustration-flags', 'illustration-naming'];
+    return [
+      'illustration-usage',
+      'illustration-assets',
+      'illustration-flags',
+      'illustration-naming',
+    ];
+  }
+
+  private getIconographySectionIds(): string[] {
+    return ['iconography-usage', 'iconography-assets', 'iconography-naming'];
   }
 
   private getInstallationSectionIds(): string[] {
-    return ['installation-install', 'installation-style', 'installation-usage', 'installation-next'];
+    return [
+      'installation-install',
+      'installation-style',
+      'installation-usage',
+      'installation-next',
+    ];
   }
 
   protected getHighlightedTypeScriptSnippet(code: string): string {
@@ -3061,65 +3378,65 @@ ${actionRows}
         ? 'DsInputAffixComponent'
         : isAffixLabel
           ? 'DsInputAffixLabelComponent'
-        : isSearch
-          ? 'DsInputSearchComponent'
-      : isPassword
-        ? 'DsInputPasswordComponent'
-        : isFloatingLabel
-          ? 'DsInputFloatingLabelComponent'
-          : 'DsInputBasicComponent';
+          : isSearch
+            ? 'DsInputSearchComponent'
+            : isPassword
+              ? 'DsInputPasswordComponent'
+              : isFloatingLabel
+                ? 'DsInputFloatingLabelComponent'
+                : 'DsInputBasicComponent';
     const componentSelector = isTextArea
       ? 'app-ds-text-area'
       : isAffix
         ? 'app-ds-input-affix'
         : isAffixLabel
           ? 'app-ds-input-affix-label'
-        : isSearch
-          ? 'app-ds-input-search'
-      : isPassword
-        ? 'app-ds-input-password'
-        : isFloatingLabel
-          ? 'app-ds-input-floating-label'
-          : 'app-ds-input-basic';
+          : isSearch
+            ? 'app-ds-input-search'
+            : isPassword
+              ? 'app-ds-input-password'
+              : isFloatingLabel
+                ? 'app-ds-input-floating-label'
+                : 'app-ds-input-basic';
     const componentImportPath = isTextArea
       ? './components/ds-text-area/ds-text-area.component'
       : isAffix
         ? './components/ds-input-affix/ds-input-affix.component'
         : isAffixLabel
           ? './components/ds-input-affix-label/ds-input-affix-label.component'
-        : isSearch
-          ? './components/ds-input-search/ds-input-search.component'
-      : isPassword
-        ? './components/ds-input-password/ds-input-password.component'
-        : isFloatingLabel
-          ? './components/ds-input-floating-label/ds-input-floating-label.component'
-          : './components/ds-input-basic/ds-input-basic.component';
+          : isSearch
+            ? './components/ds-input-search/ds-input-search.component'
+            : isPassword
+              ? './components/ds-input-password/ds-input-password.component'
+              : isFloatingLabel
+                ? './components/ds-input-floating-label/ds-input-floating-label.component'
+                : './components/ds-input-basic/ds-input-basic.component';
     const componentDemoName = isTextArea
       ? 'TextareaDemoComponent'
       : isAffix
         ? 'InputAffixDemoComponent'
         : isAffixLabel
           ? 'InputAffixLabelDemoComponent'
-        : isSearch
-          ? 'InputSearchDemoComponent'
-      : isPassword
-        ? 'InputPasswordDemoComponent'
-        : isFloatingLabel
-          ? 'InputFloatingLabelDemoComponent'
-          : 'InputBasicDemoComponent';
+          : isSearch
+            ? 'InputSearchDemoComponent'
+            : isPassword
+              ? 'InputPasswordDemoComponent'
+              : isFloatingLabel
+                ? 'InputFloatingLabelDemoComponent'
+                : 'InputBasicDemoComponent';
     const componentDemoSelector = isTextArea
       ? 'app-textarea-demo'
       : isAffix
         ? 'app-input-affix-demo'
         : isAffixLabel
           ? 'app-input-affix-label-demo'
-        : isSearch
-          ? 'app-input-search-demo'
-      : isPassword
-        ? 'app-input-password-demo'
-        : isFloatingLabel
-          ? 'app-input-floating-label-demo'
-          : 'app-input-basic-demo';
+          : isSearch
+            ? 'app-input-search-demo'
+            : isPassword
+              ? 'app-input-password-demo'
+              : isFloatingLabel
+                ? 'app-input-floating-label-demo'
+                : 'app-input-basic-demo';
     const defaultPlaceholder =
       isTextArea || isFloatingLabel || isSearch || isAffix || isAffixLabel
         ? 'Input text'
@@ -3176,15 +3493,13 @@ import { ${componentClass} } from '${componentImportPath}';
         *ngFor="let action of actions"
         [value]="action.value"
         [state]="action.state"${
-          isPassword || isFloatingLabel ? "\n        [title]=\"action.title ?? 'Title'\"" : ''
-        }${
-          isPassword ? "\n        [contentMode]=\"action.contentMode ?? 'hide'\"" : ''
-        }${
-          isAffix ? "\n        [affixMode]=\"action.affixMode ?? 'prefix'\"" : ''
-        }${
-          isAffixLabel ? "\n        [labelMode]=\"action.labelMode ?? 'front'\"" : ''
-        }${
-          !isPassword ? `\n        [placeholder]="action.placeholder ?? '${defaultPlaceholder}'"` : ''
+          isPassword || isFloatingLabel ? '\n        [title]="action.title ?? \'Title\'"' : ''
+        }${isPassword ? '\n        [contentMode]="action.contentMode ?? \'hide\'"' : ''}${
+          isAffix ? '\n        [affixMode]="action.affixMode ?? \'prefix\'"' : ''
+        }${isAffixLabel ? '\n        [labelMode]="action.labelMode ?? \'front\'"' : ''}${
+          !isPassword
+            ? `\n        [placeholder]="action.placeholder ?? '${defaultPlaceholder}'"`
+            : ''
         }
         [width]="action.width ?? ${defaultWidth}"${
           isTextArea ? '\n        [maxLength]="action.maxLength ?? 100"' : ''
@@ -3557,12 +3872,7 @@ export class InputDisabledDemoComponent {}`;
       );
       return key;
     });
-    escaped = this.captureToken(
-      escaped,
-      /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g,
-      'string',
-      stash,
-    );
+    escaped = this.captureToken(escaped, /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g, 'string', stash);
 
     escaped = escaped.replace(
       /\b(import|from|const|readonly|interface|type|export|class|return|true|false)\b/g,
@@ -3581,7 +3891,12 @@ export class InputDisabledDemoComponent {}`;
     return this.restoreCapturedTokens(escaped, stash);
   }
 
-  private captureToken(source: string, pattern: RegExp, className: string, stash: string[]): string {
+  private captureToken(
+    source: string,
+    pattern: RegExp,
+    className: string,
+    stash: string[],
+  ): string {
     return source.replace(pattern, (match) => {
       const key = `__code_token_${stash.length}__`;
       stash.push(`<span class="code-token ${className}">${match}</span>`);

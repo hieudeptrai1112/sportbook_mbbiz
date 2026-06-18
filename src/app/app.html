@@ -19,10 +19,7 @@
       <div class="top-right">
         <div class="version-pill">
           <span>v2.4.0</span>
-          <img
-            src="/assets/figma/1c2728dc-ef07-4602-a150-6a73f4cd1729.svg"
-            alt="Expand"
-          />
+          <img src="/assets/figma/1c2728dc-ef07-4602-a150-6a73f4cd1729.svg" alt="Expand" />
         </div>
         <div class="top-divider"></div>
         <div class="lang-menu" [class.open]="isLangOpen()">
@@ -214,7 +211,11 @@
               <img src="/assets/figma/b9238733-6594-4666-b6ab-b199a6aca7e8.svg" alt="" />
               <span>Typography</span>
             </div>
-            <div class="sidebar-link">
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'iconography'"
+              (click)="setPage('iconography')"
+            >
               <img src="/assets/figma/e1ce05d5-09c7-4fa2-a06f-d20037d6ae64.svg" alt="" />
               <span>Iconography</span>
             </div>
@@ -242,6 +243,14 @@
             >
               <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
               <span>Steps</span>
+            </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'tab'"
+              (click)="setPage('tab')"
+            >
+              <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
+              <span>Tab</span>
             </div>
             <div
               class="sidebar-link"
@@ -295,6 +304,22 @@
             <span class="sidebar-sublabel">Data Display</span>
             <div
               class="sidebar-link"
+              [class.active]="activePage() === 'badge'"
+              (click)="setPage('badge')"
+            >
+              <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+              <span>Badge</span>
+            </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'status'"
+              (click)="setPage('status')"
+            >
+              <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+              <span>Status</span>
+            </div>
+            <div
+              class="sidebar-link"
               [class.active]="activePage() === 'table'"
               (click)="setPage('table')"
             >
@@ -346,18 +371,25 @@
               </div>
               <h1>Introduction</h1>
               <p class="lead">
-                Đây là trang web được tạo ra để designer không cần cầu cạnh dev khi thay đổi component nữa.
+                Đây là trang web được tạo ra để designer không cần cầu cạnh dev khi thay đổi
+                component nữa.
               </p>
             </div>
 
             <section class="section button-demo-section">
               <div
                 class="button-demo-card"
-                style="padding: 32px; display: flex; flex-direction: column; gap: 14px;"
+                style="padding: 32px; display: flex; flex-direction: column; gap: 14px"
               >
-                <span class="button-inline-code" style="width: fit-content;">p/s</span>
+                <span class="button-inline-code" style="width: fit-content">p/s</span>
                 <p
-                  style="margin: 0; color: #0f172a; font-size: 36px; line-height: 44px; font-weight: 700;"
+                  style="
+                    margin: 0;
+                    color: #0f172a;
+                    font-size: 36px;
+                    line-height: 44px;
+                    font-weight: 700;
+                  "
                 >
                   it's showtime
                 </p>
@@ -369,34 +401,50 @@
                 <h2>Showtime Team</h2>
               </div>
               <div
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;"
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                  gap: 24px;
+                "
               >
-                <article class="button-demo-card" style="overflow: hidden;">
+                <article class="button-demo-card" style="overflow: hidden">
                   <img
                     src="/assets/introduction/lord-shen.jpg"
                     alt="Lord Shen"
-                    style="display: block; width: 100%; height: 260px; object-fit: cover; object-position: center;"
+                    style="
+                      display: block;
+                      width: 100%;
+                      height: 260px;
+                      object-fit: cover;
+                      object-position: center;
+                    "
                   />
-                  <div style="padding: 24px; display: flex; flex-direction: column; gap: 8px;">
-                    <h3 style="margin: 0; color: #0f172a; font-size: 24px; line-height: 32px;">
+                  <div style="padding: 24px; display: flex; flex-direction: column; gap: 8px">
+                    <h3 style="margin: 0; color: #0f172a; font-size: 24px; line-height: 32px">
                       Lord Shen
                     </h3>
-                    <p style="margin: 0; color: #4e5969; font-size: 16px; line-height: 24px;">
+                    <p style="margin: 0; color: #4e5969; font-size: 16px; line-height: 24px">
                       Designer / Owner
                     </p>
                   </div>
                 </article>
-                <article class="button-demo-card" style="overflow: hidden;">
+                <article class="button-demo-card" style="overflow: hidden">
                   <img
                     src="/assets/introduction/po-the-fat-panda.jpg"
                     alt="Po the Fat Panda"
-                    style="display: block; width: 100%; height: 260px; object-fit: cover; object-position: center;"
+                    style="
+                      display: block;
+                      width: 100%;
+                      height: 260px;
+                      object-fit: cover;
+                      object-position: center;
+                    "
                   />
-                  <div style="padding: 24px; display: flex; flex-direction: column; gap: 8px;">
-                    <h3 style="margin: 0; color: #0f172a; font-size: 24px; line-height: 32px;">
+                  <div style="padding: 24px; display: flex; flex-direction: column; gap: 8px">
+                    <h3 style="margin: 0; color: #0f172a; font-size: 24px; line-height: 32px">
                       Po the Fat Panda
                     </h3>
-                    <p style="margin: 0; color: #4e5969; font-size: 16px; line-height: 24px;">
+                    <p style="margin: 0; color: #4e5969; font-size: 16px; line-height: 24px">
                       Developer / Tech Consultant
                     </p>
                   </div>
@@ -424,13 +472,18 @@
                 <h2>Install Package</h2>
               </div>
               <p class="button-demo-description">
-                The published package is <span class="button-inline-code">sportbook6vn&#64;0.0.1</span>.
-                Install it in the Angular application that consumes the component library.
+                The published package is
+                <span class="button-inline-code">sportbook6vn&#64;0.0.1</span>. Install it in the
+                Angular application that consumes the component library.
               </p>
               <div class="button-demo-card">
                 <div
                   class="button-demo-head"
-                  style="padding: 12px 16px; border-bottom: 1px solid rgba(195, 197, 217, 0.2); background: #ffffff;"
+                  style="
+                    padding: 12px 16px;
+                    border-bottom: 1px solid rgba(195, 197, 217, 0.2);
+                    background: #ffffff;
+                  "
                 >
                   <span class="button-inline-code">npm</span>
                   <button
@@ -442,17 +495,30 @@
                   </button>
                 </div>
                 <pre
-                  style="margin: 0; padding: 20px; white-space: pre-wrap; font-family: 'IBM Plex Mono', 'Liberation Mono', monospace; font-size: 13px; line-height: 22px; color: #1e293b; background: #f7f8fa;"
+                  style="
+                    margin: 0;
+                    padding: 20px;
+                    white-space: pre-wrap;
+                    font-family: 'IBM Plex Mono', 'Liberation Mono', monospace;
+                    font-size: 13px;
+                    line-height: 22px;
+                    color: #1e293b;
+                    background: #f7f8fa;
+                  "
                 ><code>{{ installationInstallCommand }}</code></pre>
               </div>
               <p class="button-demo-description">
-                Angular and NG-Zorro are peer dependencies. Install them only when the host app does not
-                already provide compatible versions.
+                Angular and NG-Zorro are peer dependencies. Install them only when the host app does
+                not already provide compatible versions.
               </p>
               <div class="button-demo-card">
                 <div
                   class="button-demo-head"
-                  style="padding: 12px 16px; border-bottom: 1px solid rgba(195, 197, 217, 0.2); background: #ffffff;"
+                  style="
+                    padding: 12px 16px;
+                    border-bottom: 1px solid rgba(195, 197, 217, 0.2);
+                    background: #ffffff;
+                  "
                 >
                   <span class="button-inline-code">peer dependencies</span>
                   <button
@@ -464,7 +530,16 @@
                   </button>
                 </div>
                 <pre
-                  style="margin: 0; padding: 20px; white-space: pre-wrap; font-family: 'IBM Plex Mono', 'Liberation Mono', monospace; font-size: 13px; line-height: 22px; color: #1e293b; background: #f7f8fa;"
+                  style="
+                    margin: 0;
+                    padding: 20px;
+                    white-space: pre-wrap;
+                    font-family: 'IBM Plex Mono', 'Liberation Mono', monospace;
+                    font-size: 13px;
+                    line-height: 22px;
+                    color: #1e293b;
+                    background: #f7f8fa;
+                  "
                 ><code>{{ installationPeerCommand }}</code></pre>
               </div>
             </section>
@@ -480,7 +555,11 @@
               <div class="button-demo-card">
                 <div
                   class="button-demo-head"
-                  style="padding: 12px 16px; border-bottom: 1px solid rgba(195, 197, 217, 0.2); background: #ffffff;"
+                  style="
+                    padding: 12px 16px;
+                    border-bottom: 1px solid rgba(195, 197, 217, 0.2);
+                    background: #ffffff;
+                  "
                 >
                   <span class="button-inline-code">styles.scss</span>
                   <button
@@ -492,7 +571,16 @@
                   </button>
                 </div>
                 <pre
-                  style="margin: 0; padding: 20px; white-space: pre-wrap; font-family: 'IBM Plex Mono', 'Liberation Mono', monospace; font-size: 13px; line-height: 22px; color: #1e293b; background: #f7f8fa;"
+                  style="
+                    margin: 0;
+                    padding: 20px;
+                    white-space: pre-wrap;
+                    font-family: 'IBM Plex Mono', 'Liberation Mono', monospace;
+                    font-size: 13px;
+                    line-height: 22px;
+                    color: #1e293b;
+                    background: #f7f8fa;
+                  "
                 ><code>{{ installationThemeCode }}</code></pre>
               </div>
               <div class="button-demo-tags">
@@ -508,13 +596,17 @@
                 <h2>Import Component</h2>
               </div>
               <p class="button-demo-description">
-                Sportbook6vn exports standalone Angular components. Import only the components used by the
-                current page or feature module.
+                Sportbook6vn exports standalone Angular components. Import only the components used
+                by the current page or feature module.
               </p>
               <div class="button-demo-card">
                 <div
                   class="button-demo-head"
-                  style="padding: 12px 16px; border-bottom: 1px solid rgba(195, 197, 217, 0.2); background: #ffffff;"
+                  style="
+                    padding: 12px 16px;
+                    border-bottom: 1px solid rgba(195, 197, 217, 0.2);
+                    background: #ffffff;
+                  "
                 >
                   <span class="button-inline-code">app.component.ts</span>
                   <button
@@ -526,7 +618,16 @@
                   </button>
                 </div>
                 <pre
-                  style="margin: 0; padding: 20px; white-space: pre-wrap; font-family: 'IBM Plex Mono', 'Liberation Mono', monospace; font-size: 13px; line-height: 22px; color: #1e293b; background: #f7f8fa;"
+                  style="
+                    margin: 0;
+                    padding: 20px;
+                    white-space: pre-wrap;
+                    font-family: 'IBM Plex Mono', 'Liberation Mono', monospace;
+                    font-size: 13px;
+                    line-height: 22px;
+                    color: #1e293b;
+                    background: #f7f8fa;
+                  "
                 ><code>{{ installationUsageCode }}</code></pre>
               </div>
             </section>
@@ -536,9 +637,10 @@
                 <h2>Next Step</h2>
               </div>
               <p class="button-demo-description">
-                Open the target component page, choose the matching case, and copy the snippet from that page.
-                Keep implementation imports from <span class="button-inline-code">sportbook6vn</span> so the
-                app stays on one source of truth.
+                Open the target component page, choose the matching case, and copy the snippet from
+                that page. Keep implementation imports from
+                <span class="button-inline-code">sportbook6vn</span> so the app stays on one source
+                of truth.
               </p>
               <div class="button-demo-tags">
                 <span class="button-inline-code">Sportbook6vnButtonComponent</span>
@@ -560,17 +662,17 @@
               </div>
               <h1>Pattern</h1>
               <p class="lead">
-                Pattern collects common UI compositions that are assembled from smaller Sportbook6vn components.
-                Use this page for reusable flows, larger interface blocks, and product-level combinations that
-                should stay consistent across screens.
+                Pattern collects common UI compositions that are assembled from smaller Sportbook6vn
+                components. Use this page for reusable flows, larger interface blocks, and
+                product-level combinations that should stay consistent across screens.
               </p>
             </div>
 
             <section class="section">
               <h2>Scope</h2>
               <p>
-                Add a pattern here when the UI is larger than one primitive component and needs shared behavior,
-                spacing, copy structure, or usage guidance across product screens.
+                Add a pattern here when the UI is larger than one primitive component and needs
+                shared behavior, spacing, copy structure, or usage guidance across product screens.
               </p>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
@@ -590,7 +692,9 @@
                 </div>
                 <div class="button-api-row">
                   <span class="button-api-col-description">Flow fragment</span>
-                  <span>A repeatable part of a user flow, such as a form section or action area.</span>
+                  <span
+                    >A repeatable part of a user flow, such as a form section or action area.</span
+                  >
                   <span>Usage rules, responsive behavior, and interaction states.</span>
                 </div>
               </div>
@@ -599,214 +703,30 @@
             <section class="section">
               <h2>Pattern Library</h2>
               <p>
-                No pattern entries have been added yet. When a pattern is created, place it here with its source
-                components, demo states, and implementation guidance.
+                No pattern entries have been added yet. When a pattern is created, place it here
+                with its source components, demo states, and implementation guidance.
               </p>
             </section>
           </ng-container>
 
           <ng-container *ngIf="activePage() === 'buttons'">
-          <div class="page-header">
-            <div class="header-meta">
-              <span class="badge">General</span>
-              <span class="slash">/</span>
-              <span class="meta-version">v2.4.0</span>
-            </div>
-            <h1>Button</h1>
-            <p class="lead">
-              Buttons allow users to take actions with a single tap. This page uses the approved
-              preview structure: Basic, Size, Shape, With icon, and Disabled.
-            </p>
-          </div>
-
-          <section
-            class="section button-demo-section"
-            *ngFor="let demo of buttonMappingDemoSections; let i = index"
-            [attr.id]="getButtonSectionId(demo.id)"
-          >
-            <div class="button-demo-head">
-              <h2>{{ demo.title }}</h2>
-              <button
-                *ngIf="i === 0"
-                class="button-doc-toggle"
-                type="button"
-                (click)="toggleAllButtonMappingDemoCode()"
-              >
-                {{ areAllButtonMappingDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
-              </button>
-            </div>
-            <p class="button-demo-description button-demo-description--rich">
-              @for (part of demo.descriptionParts; track $index) {
-                @if (part.code) {
-                  <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
-                } @else {
-                  <span>{{ part.text }}</span>
-                }
-              }
-            </p>
-            <div class="button-demo-tags">
-              <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
-            </div>
-
-            <div class="button-demo-card">
-              <div class="button-demo-preview core3-map-preview">
-                <div class="core3-map-col core3-map-col--button">
-                  <div class="core3-map-button-row" *ngFor="let group of demo.groups">
-                    <span class="core3-map-button-row-label">{{ group.label }}</span>
-                    <div class="core3-map-row">
-                      <sportbook6vn-button
-                        *ngFor="let action of group.actions"
-                        [shape]="action.shape"
-                        [variant]="action.variant"
-                        [size]="action.size"
-                        [disabled]="action.disabled ?? false"
-                      >
-                        @if (action.showStartIcon ?? false) {
-                          <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
-                        }
-                        {{ action.label }}
-                      </sportbook6vn-button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="button-demo-controls">
-                <div class="button-demo-icons">
-                  <button
-                    type="button"
-                    class="button-icon-btn"
-                    [class.active]="isButtonMappingDemoExpanded(demo.id)"
-                    (click)="toggleButtonMappingDemoCode(demo.id)"
-                    aria-label="Toggle code"
-                  >
-                    &lt;/&gt;
-                  </button>
-                  <button
-                    type="button"
-                    class="button-icon-btn"
-                    (click)="copyButtonMappingDemoCode(demo)"
-                    aria-label="Copy code"
-                  >
-                    {{ copiedButtonMappingDemoId() === demo.id ? 'Copied' : 'Copy' }}
-                  </button>
-                </div>
-
-                <span class="button-code-hint">TS</span>
-              </div>
-
-              <div class="button-code-wrapper" *ngIf="isButtonMappingDemoExpanded(demo.id)">
-                <div class="button-code-head">
-                  <span class="button-code-file">{{ getButtonMappingCodeLanguageLabel() }}</span>
-                  <span class="button-code-hint">{{ getButtonMappingCodeHint() }}</span>
-                </div>
-                <pre class="button-code-block"><code [innerHTML]="getButtonMappingDemoHighlightedCode(demo)"></code></pre>
-              </div>
-            </div>
-          </section>
-
-          <section class="section button-api-section" id="button-api">
-            <h2>API</h2>
-            <h3 class="button-api-group-title">sportbook6vn-button</h3>
-            <div class="button-api-table">
-              <div class="button-api-row button-api-head">
-                <span class="button-api-col button-api-col-property">Property</span>
-                <span class="button-api-col button-api-col-description">Description</span>
-                <span class="button-api-col button-api-col-type">Type</span>
-                <span class="button-api-col button-api-col-default">Default</span>
-              </div>
-              <div class="button-api-row" *ngFor="let row of buttonMappingApiRows">
-                <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
-                <span class="button-api-col button-api-col-description">{{ row.description }}</span>
-                <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
-                <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
-              </div>
-            </div>
-          </section>
-
-          <section class="section button-variables-section" id="button-variables">
-            <h2>Component Token</h2>
-            <p class="button-demo-description">
-              Button color variables are mapped to existing semantic aliases so implementation
-              stays consistent with the Design Tokens source of truth.
-            </p>
-
-            <div class="scale-block" *ngFor="let group of buttonSemanticBindingGroups">
-              <h3>{{ group.title }}</h3>
-              <p class="scale-note">{{ group.description }}</p>
-              <div class="token-table button-semantic-table">
-                <div class="token-row token-head">
-                  <span>Component Token</span>
-                  <span>Alias Token</span>
-                  <span>Description</span>
-                </div>
-                <div class="token-row" *ngFor="let row of group.rows">
-                  <div class="token-alias-cell" [class.na]="row.semanticValue === 'N/A'">
-                    <span
-                      class="token-swatch"
-                      [style.background]="row.semanticValue === 'N/A' ? '#E2E8F0' : row.semanticValue"
-                    ></span>
-                    <code class="token-code">{{ row.componentToken }}</code>
-                  </div>
-                  <code class="token-code">{{ row.semanticAlias }}</code>
-                  <span class="token-description">{{ row.description }}</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="button-variable-subsection">
-              <h3>Layout & Typography Specs</h3>
-              <p class="scale-note">
-                Non-color variables used by Button sizing, spacing, radius, and text styles.
-              </p>
-              <div class="scale-block" *ngFor="let group of buttonVariableGroups">
-                <h4>{{ group.title }}</h4>
-                <div class="token-table button-variable-table">
-                  <div class="token-row token-head">
-                    <span>Token note</span>
-                    <span>Value</span>
-                    <span>Applied To</span>
-                  </div>
-                  <div class="token-row" *ngFor="let row of group.rows">
-                    <div class="token-note-cell">
-                      <code class="token-code">{{ row.token }}</code>
-                      <span class="token-description">{{ row.notes }}</span>
-                    </div>
-                    <code class="token-code">{{ row.value }}</code>
-                    <span>{{ row.appliesTo }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="button-variable-notes">
-              <h3>Normalization Notes</h3>
-              <ul>
-                <li *ngFor="let note of buttonVariableNotes">{{ note }}</li>
-              </ul>
-            </div>
-          </section>
-          </ng-container>
-
-          <ng-container *ngIf="activePage() === 'buttonMapping'">
             <div class="page-header">
               <div class="header-meta">
-                <span class="badge">Integration</span>
+                <span class="badge">General</span>
                 <span class="slash">/</span>
-                <span class="meta-version">core-3</span>
+                <span class="meta-version">v2.4.0</span>
               </div>
-              <h1>Button Mapping</h1>
+              <h1>Button</h1>
               <p class="lead">
-                Bản tách riêng cho component <span class="button-inline-code">sportbook6vn-button</span>,
-                map 1:1 từ preview sang app docs theo cấu trúc use-case-first: Basic, Size, Shape,
-                With icon, Disabled.
+                Buttons allow users to take actions with a single tap. This page uses the approved
+                preview structure: Basic, Size, Shape, With icon, and Disabled.
               </p>
             </div>
 
             <section
               class="section button-demo-section"
               *ngFor="let demo of buttonMappingDemoSections; let i = index"
-              [attr.id]="getButtonMappingSectionId(demo.id)"
+              [attr.id]="getButtonSectionId(demo.id)"
             >
               <div class="button-demo-head">
                 <h2>{{ demo.title }}</h2>
@@ -816,13 +736,17 @@
                   type="button"
                   (click)="toggleAllButtonMappingDemoCode()"
                 >
-                  {{ areAllButtonMappingDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                  {{
+                    areAllButtonMappingDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code'
+                  }}
                 </button>
               </div>
               <p class="button-demo-description button-demo-description--rich">
                 @for (part of demo.descriptionParts; track $index) {
                   @if (part.code) {
-                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                    <span class="button-inline-code button-inline-code--description">{{
+                      part.code
+                    }}</span>
                   } @else {
                     <span>{{ part.text }}</span>
                   }
@@ -846,7 +770,11 @@
                           [disabled]="action.disabled ?? false"
                         >
                           @if (action.showStartIcon ?? false) {
-                            <span sportbook6vnButtonStartIcon aria-hidden="true" class="core3-map-button-add-icon"></span>
+                            <span
+                              sportbook6vnButtonStartIcon
+                              aria-hidden="true"
+                              class="core3-map-button-add-icon"
+                            ></span>
                           }
                           {{ action.label }}
                         </sportbook6vn-button>
@@ -884,7 +812,211 @@
                     <span class="button-code-file">{{ getButtonMappingCodeLanguageLabel() }}</span>
                     <span class="button-code-hint">{{ getButtonMappingCodeHint() }}</span>
                   </div>
-                  <pre class="button-code-block"><code [innerHTML]="getButtonMappingDemoHighlightedCode(demo)"></code></pre>
+                  <pre
+                    class="button-code-block"
+                  ><code [innerHTML]="getButtonMappingDemoHighlightedCode(demo)"></code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-api-section" id="button-api">
+              <h2>API</h2>
+              <h3 class="button-api-group-title">sportbook6vn-button</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of buttonMappingApiRows">
+                  <code class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</code>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
+                  <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</code>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="button-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Button color variables are mapped to existing semantic aliases so implementation
+                stays consistent with the Design Tokens source of truth.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of buttonSemanticBindingGroups">
+                <h3>{{ group.title }}</h3>
+                <p class="scale-note">{{ group.description }}</p>
+                <div class="token-table button-semantic-table">
+                  <div class="token-row token-head">
+                    <span>Component Token</span>
+                    <span>Alias Token</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.rows">
+                    <div class="token-alias-cell" [class.na]="row.semanticValue === 'N/A'">
+                      <span
+                        class="token-swatch"
+                        [style.background]="
+                          row.semanticValue === 'N/A' ? '#E2E8F0' : row.semanticValue
+                        "
+                      ></span>
+                      <code class="token-code">{{ row.componentToken }}</code>
+                    </div>
+                    <code class="token-code">{{ row.semanticAlias }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-subsection">
+                <h3>Layout & Typography Specs</h3>
+                <p class="scale-note">
+                  Non-color variables used by Button sizing, spacing, radius, and text styles.
+                </p>
+                <div class="scale-block" *ngFor="let group of buttonVariableGroups">
+                  <h4>{{ group.title }}</h4>
+                  <div class="token-table button-variable-table">
+                    <div class="token-row token-head">
+                      <span>Token note</span>
+                      <span>Value</span>
+                      <span>Applied To</span>
+                    </div>
+                    <div class="token-row" *ngFor="let row of group.rows">
+                      <div class="token-note-cell">
+                        <code class="token-code">{{ row.token }}</code>
+                        <span class="token-description">{{ row.notes }}</span>
+                      </div>
+                      <code class="token-code">{{ row.value }}</code>
+                      <span>{{ row.appliesTo }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of buttonVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'buttonMapping'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Integration</span>
+                <span class="slash">/</span>
+                <span class="meta-version">core-3</span>
+              </div>
+              <h1>Button Mapping</h1>
+              <p class="lead">
+                Bản tách riêng cho component
+                <span class="button-inline-code">sportbook6vn-button</span>, map 1:1 từ preview sang
+                app docs theo cấu trúc use-case-first: Basic, Size, Shape, With icon, Disabled.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of buttonMappingDemoSections; let i = index"
+              [attr.id]="getButtonMappingSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+                <button
+                  *ngIf="i === 0"
+                  class="button-doc-toggle"
+                  type="button"
+                  (click)="toggleAllButtonMappingDemoCode()"
+                >
+                  {{
+                    areAllButtonMappingDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code'
+                  }}
+                </button>
+              </div>
+              <p class="button-demo-description button-demo-description--rich">
+                @for (part of demo.descriptionParts; track $index) {
+                  @if (part.code) {
+                    <span class="button-inline-code button-inline-code--description">{{
+                      part.code
+                    }}</span>
+                  } @else {
+                    <span>{{ part.text }}</span>
+                  }
+                }
+              </p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card">
+                <div class="button-demo-preview core3-map-preview">
+                  <div class="core3-map-col core3-map-col--button">
+                    <div class="core3-map-button-row" *ngFor="let group of demo.groups">
+                      <span class="core3-map-button-row-label">{{ group.label }}</span>
+                      <div class="core3-map-row">
+                        <sportbook6vn-button
+                          *ngFor="let action of group.actions"
+                          [shape]="action.shape"
+                          [variant]="action.variant"
+                          [size]="action.size"
+                          [disabled]="action.disabled ?? false"
+                        >
+                          @if (action.showStartIcon ?? false) {
+                            <span
+                              sportbook6vnButtonStartIcon
+                              aria-hidden="true"
+                              class="core3-map-button-add-icon"
+                            ></span>
+                          }
+                          {{ action.label }}
+                        </sportbook6vn-button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="button-demo-controls">
+                  <div class="button-demo-icons">
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      [class.active]="isButtonMappingDemoExpanded(demo.id)"
+                      (click)="toggleButtonMappingDemoCode(demo.id)"
+                      aria-label="Toggle code"
+                    >
+                      &lt;/&gt;
+                    </button>
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      (click)="copyButtonMappingDemoCode(demo)"
+                      aria-label="Copy code"
+                    >
+                      {{ copiedButtonMappingDemoId() === demo.id ? 'Copied' : 'Copy' }}
+                    </button>
+                  </div>
+
+                  <span class="button-code-hint">TS</span>
+                </div>
+
+                <div class="button-code-wrapper" *ngIf="isButtonMappingDemoExpanded(demo.id)">
+                  <div class="button-code-head">
+                    <span class="button-code-file">{{ getButtonMappingCodeLanguageLabel() }}</span>
+                    <span class="button-code-hint">{{ getButtonMappingCodeHint() }}</span>
+                  </div>
+                  <pre
+                    class="button-code-block"
+                  ><code [innerHTML]="getButtonMappingDemoHighlightedCode(demo)"></code></pre>
                 </div>
               </div>
             </section>
@@ -900,10 +1032,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of buttonMappingApiRows">
-                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</code>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
-                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</code>
                 </div>
               </div>
             </section>
@@ -928,7 +1066,9 @@
                     <div class="token-alias-cell" [class.na]="row.semanticValue === 'N/A'">
                       <span
                         class="token-swatch"
-                        [style.background]="row.semanticValue === 'N/A' ? '#E2E8F0' : row.semanticValue"
+                        [style.background]="
+                          row.semanticValue === 'N/A' ? '#E2E8F0' : row.semanticValue
+                        "
                       ></span>
                       <code class="token-code">{{ row.componentToken }}</code>
                     </div>
@@ -982,8 +1122,9 @@
               <h1>Input Field</h1>
               <p class="lead">
                 Real Sportbook6vn input components mapped 1:1 from the approved preview
-                <span class="button-inline-code">Input family / docs-ready draft</span>. Input Tag is
-                intentionally excluded because it has independent tag creation and validation behavior.
+                <span class="button-inline-code">Input family / docs-ready draft</span>. Input Tag
+                is intentionally excluded because it has independent tag creation and validation
+                behavior.
               </p>
             </div>
 
@@ -1014,10 +1155,14 @@
 
               <div class="button-code-wrapper" *ngIf="isInputDocsDemoExpanded(sectionId)">
                 <div class="button-code-head">
-                  <span class="button-code-file">{{ getInputDocsCodeLanguageLabel(sectionId) }}</span>
+                  <span class="button-code-file">{{
+                    getInputDocsCodeLanguageLabel(sectionId)
+                  }}</span>
                   <span class="button-code-hint">{{ getInputDocsCodeHint() }}</span>
                 </div>
-                <pre class="button-code-block"><code [innerHTML]="getInputDocsDemoHighlightedCode(sectionId)"></code></pre>
+                <pre
+                  class="button-code-block"
+                ><code [innerHTML]="getInputDocsDemoHighlightedCode(sectionId)"></code></pre>
               </div>
             </ng-template>
 
@@ -1036,8 +1181,8 @@
                 Baseline text entry with real
                 <span class="button-inline-code button-inline-code--description">hover</span>,
                 <span class="button-inline-code button-inline-code--description">focus</span>,
-                <span class="button-inline-code button-inline-code--description">typing</span>,
-                and <span class="button-inline-code button-inline-code--description">filled</span>
+                <span class="button-inline-code button-inline-code--description">typing</span>, and
+                <span class="button-inline-code button-inline-code--description">filled</span>
                 behavior from the component runtime.
               </p>
               <div class="button-demo-tags">
@@ -1058,7 +1203,10 @@
                   </div>
                 </div>
                 <ng-container
-                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-basic-text' }"
+                  *ngTemplateOutlet="
+                    inputDocsSnippetControls;
+                    context: { sectionId: 'input-basic-text' }
+                  "
                 ></ng-container>
               </div>
             </section>
@@ -1090,7 +1238,10 @@
                   </div>
                 </div>
                 <ng-container
-                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-affix-prefix' }"
+                  *ngTemplateOutlet="
+                    inputDocsSnippetControls;
+                    context: { sectionId: 'input-affix-prefix' }
+                  "
                 ></ng-container>
               </div>
             </section>
@@ -1102,7 +1253,8 @@
               <p class="button-demo-description">
                 Text input with both
                 <span class="button-inline-code button-inline-code--description">prefixText</span>
-                and <span class="button-inline-code button-inline-code--description">suffixText</span>
+                and
+                <span class="button-inline-code button-inline-code--description">suffixText</span>
                 slots.
               </p>
               <div class="button-demo-tags">
@@ -1122,7 +1274,10 @@
                   </div>
                 </div>
                 <ng-container
-                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-affix-both' }"
+                  *ngTemplateOutlet="
+                    inputDocsSnippetControls;
+                    context: { sectionId: 'input-affix-both' }
+                  "
                 ></ng-container>
               </div>
             </section>
@@ -1153,7 +1308,10 @@
                   </div>
                 </div>
                 <ng-container
-                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-search' }"
+                  *ngTemplateOutlet="
+                    inputDocsSnippetControls;
+                    context: { sectionId: 'input-search' }
+                  "
                 ></ng-container>
               </div>
             </section>
@@ -1184,7 +1342,10 @@
                   </div>
                 </div>
                 <ng-container
-                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-password' }"
+                  *ngTemplateOutlet="
+                    inputDocsSnippetControls;
+                    context: { sectionId: 'input-password' }
+                  "
                 ></ng-container>
               </div>
             </section>
@@ -1217,7 +1378,10 @@
                   </div>
                 </div>
                 <ng-container
-                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-textarea' }"
+                  *ngTemplateOutlet="
+                    inputDocsSnippetControls;
+                    context: { sectionId: 'input-textarea' }
+                  "
                 ></ng-container>
               </div>
             </section>
@@ -1237,7 +1401,9 @@
               </div>
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
-                  <div class="core3-input-frame core3-input-frame--compact core3-input-frame--intrinsic">
+                  <div
+                    class="core3-input-frame core3-input-frame--compact core3-input-frame--intrinsic"
+                  >
                     <sportbook6vn-floating-label-input
                       inputId="input-doc-floating-label"
                       label="Title"
@@ -1248,7 +1414,10 @@
                   </div>
                 </div>
                 <ng-container
-                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-floating-label' }"
+                  *ngTemplateOutlet="
+                    inputDocsSnippetControls;
+                    context: { sectionId: 'input-floating-label' }
+                  "
                 ></ng-container>
               </div>
             </section>
@@ -1258,8 +1427,8 @@
                 <h2>Affix Label Input</h2>
               </div>
               <p class="button-demo-description">
-                Currency selector inside the input shell. The demo keeps the trigger default; droplist
-                interaction is verified from the component itself.
+                Currency selector inside the input shell. The demo keeps the trigger default;
+                droplist interaction is verified from the component itself.
               </p>
               <div class="button-demo-tags">
                 <span class="button-inline-code">selector=sportbook6vn-affix-label-input</span>
@@ -1294,7 +1463,10 @@
                   </div>
                 </div>
                 <ng-container
-                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-affix-label' }"
+                  *ngTemplateOutlet="
+                    inputDocsSnippetControls;
+                    context: { sectionId: 'input-affix-label' }
+                  "
                 ></ng-container>
               </div>
             </section>
@@ -1305,7 +1477,9 @@
               </div>
               <p class="button-demo-description">
                 Error states are grouped once with
-                <span class="button-inline-code button-inline-code--description">status="error"</span>
+                <span class="button-inline-code button-inline-code--description"
+                  >status="error"</span
+                >
                 instead of repeating error inside every basic use case.
               </p>
               <div class="button-demo-tags">
@@ -1317,7 +1491,11 @@
                   <div class="core3-input-frame core3-input-frame--grid core3-input-frame--three">
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Input</span>
-                      <sportbook6vn-input inputId="input-doc-input-error" placeholder="Input text" status="error" />
+                      <sportbook6vn-input
+                        inputId="input-doc-input-error"
+                        placeholder="Input text"
+                        status="error"
+                      />
                     </div>
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Search</span>
@@ -1329,7 +1507,10 @@
                     </div>
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Password</span>
-                      <sportbook6vn-password-input inputId="input-doc-password-error" status="error" />
+                      <sportbook6vn-password-input
+                        inputId="input-doc-password-error"
+                        status="error"
+                      />
                     </div>
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Textarea</span>
@@ -1353,7 +1534,10 @@
                   </div>
                 </div>
                 <ng-container
-                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-status' }"
+                  *ngTemplateOutlet="
+                    inputDocsSnippetControls;
+                    context: { sectionId: 'input-status' }
+                  "
                 ></ng-container>
               </div>
             </section>
@@ -1364,7 +1548,9 @@
               </div>
               <p class="button-demo-description">
                 Disabled states are grouped once with
-                <span class="button-inline-code button-inline-code--description">disabled=true</span>
+                <span class="button-inline-code button-inline-code--description"
+                  >disabled=true</span
+                >
                 so app logic has one lock-state reference.
               </p>
               <div class="button-demo-tags">
@@ -1392,7 +1578,10 @@
                     </div>
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Password</span>
-                      <sportbook6vn-password-input inputId="input-doc-password-disabled" [disabled]="true" />
+                      <sportbook6vn-password-input
+                        inputId="input-doc-password-disabled"
+                        [disabled]="true"
+                      />
                     </div>
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Textarea</span>
@@ -1416,7 +1605,10 @@
                   </div>
                 </div>
                 <ng-container
-                  *ngTemplateOutlet="inputDocsSnippetControls; context: { sectionId: 'input-disabled' }"
+                  *ngTemplateOutlet="
+                    inputDocsSnippetControls;
+                    context: { sectionId: 'input-disabled' }
+                  "
                 ></ng-container>
               </div>
             </section>
@@ -1426,8 +1618,8 @@
               <h3 class="button-api-group-title">Input / Basic</h3>
               <p class="button-demo-description">
                 Public props for the current docs component. Use the
-                <span class="button-inline-code">State / Status Contract</span> section below to map runtime
-                business status to deterministic visual states.
+                <span class="button-inline-code">State / Status Contract</span> section below to map
+                runtime business status to deterministic visual states.
               </p>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
@@ -1437,10 +1629,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of inputApiRows">
-                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</code>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
-                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</code>
                 </div>
               </div>
             </section>
@@ -1455,9 +1653,13 @@
                   <span class="button-api-col button-api-col-default">Notes</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of inputStateContractRows">
-                  <code class="token-code button-api-col button-api-col-property">{{ row.key }}</code>
+                  <code class="token-code button-api-col button-api-col-property">{{
+                    row.key
+                  }}</code>
                   <span class="button-api-col button-api-col-description">{{ row.role }}</span>
-                  <code class="token-code button-api-col button-api-col-type">{{ row.values }}</code>
+                  <code class="token-code button-api-col button-api-col-type">{{
+                    row.values
+                  }}</code>
                   <span class="button-api-col button-api-col-default">{{ row.notes }}</span>
                 </div>
               </div>
@@ -1474,7 +1676,9 @@
                   <span class="button-code-file">input-state-contract.ts</span>
                   <span class="button-code-hint">Reference mapping</span>
                 </div>
-                <pre class="button-code-block"><code [innerHTML]="getHighlightedTypeScriptSnippet(inputStateContractSnippet)"></code></pre>
+                <pre
+                  class="button-code-block"
+                ><code [innerHTML]="getHighlightedTypeScriptSnippet(inputStateContractSnippet)"></code></pre>
               </div>
             </section>
 
@@ -1507,7 +1711,9 @@
                     <div class="token-alias-cell" [class.na]="row.semanticValue === 'N/A'">
                       <span
                         class="token-swatch"
-                        [style.background]="row.semanticValue === 'N/A' ? '#E2E8F0' : row.semanticValue"
+                        [style.background]="
+                          row.semanticValue === 'N/A' ? '#E2E8F0' : row.semanticValue
+                        "
                       ></span>
                       <code class="token-code">{{ row.componentToken }}</code>
                     </div>
@@ -1561,8 +1767,9 @@
               </div>
               <h1>Input Tag</h1>
               <p class="lead">
-                Input Tag creates removable values from typed text. This page is split from Input Field
-                because tag creation, overflow, custom rendering, and validation are independent behaviors.
+                Input Tag creates removable values from typed text. This page is split from Input
+                Field because tag creation, overflow, custom rendering, and validation are
+                independent behaviors.
               </p>
             </div>
 
@@ -1585,7 +1792,9 @@
               <p class="button-demo-description button-demo-description--rich">
                 @for (part of demo.descriptionParts; track $index) {
                   @if (part.code) {
-                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                    <span class="button-inline-code button-inline-code--description">{{
+                      part.code
+                    }}</span>
                   } @else {
                     <span>{{ part.text }}</span>
                   }
@@ -1611,7 +1820,10 @@
                       />
                     </div>
 
-                    <div *ngSwitchCase="'overflow'" class="core3-input-frame core3-input-frame--grid">
+                    <div
+                      *ngSwitchCase="'overflow'"
+                      class="core3-input-frame core3-input-frame--grid"
+                    >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Max tag count</span>
                         <sportbook6vn-input-tag
@@ -1627,7 +1839,10 @@
                           inputId="input-tag-docs-responsive"
                           placeholder=""
                           [tags]="['label 1', 'label 2', 'label 3', 'label 4', 'label 5']"
-                          [maxTagCount]="{ count: 1, render: core3InputTagResponsiveOverflowRender }"
+                          [maxTagCount]="{
+                            count: 1,
+                            render: core3InputTagResponsiveOverflowRender,
+                          }"
                         />
                       </div>
                     </div>
@@ -1703,7 +1918,9 @@
                     <span class="button-code-file">{{ getInputTagCodeLanguageLabel(demo) }}</span>
                     <span class="button-code-hint">{{ getInputTagCodeHint() }}</span>
                   </div>
-                  <pre class="button-code-block"><code [innerHTML]="getInputTagDemoHighlightedCode(demo)"></code></pre>
+                  <pre
+                    class="button-code-block"
+                  ><code [innerHTML]="getInputTagDemoHighlightedCode(demo)"></code></pre>
                 </div>
               </div>
             </section>
@@ -1719,10 +1936,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of inputTagApiRows">
-                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</code>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
-                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</code>
                 </div>
               </div>
             </section>
@@ -1794,7 +2017,9 @@
               <p class="button-demo-description button-demo-description--rich">
                 @for (part of demo.descriptionParts; track $index) {
                   @if (part.code) {
-                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                    <span class="button-inline-code button-inline-code--description">{{
+                      part.code
+                    }}</span>
                   } @else {
                     <span>{{ part.text }}</span>
                   }
@@ -1850,7 +2075,9 @@
                     <span class="button-code-file">{{ getBreadcrumbCodeLanguageLabel(demo) }}</span>
                     <span class="button-code-hint">{{ getBreadcrumbCodeHint() }}</span>
                   </div>
-                  <pre class="button-code-block"><code [innerHTML]="getBreadcrumbDemoHighlightedCode(demo)"></code></pre>
+                  <pre
+                    class="button-code-block"
+                  ><code [innerHTML]="getBreadcrumbDemoHighlightedCode(demo)"></code></pre>
                 </div>
               </div>
             </section>
@@ -1866,10 +2093,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of breadcrumbApiRows">
-                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</span>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
-                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</span>
                 </div>
               </div>
             </section>
@@ -1934,7 +2167,9 @@
               <p class="button-demo-description button-demo-description--rich">
                 @for (part of demo.descriptionParts; track $index) {
                   @if (part.code) {
-                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                    <span class="button-inline-code button-inline-code--description">{{
+                      part.code
+                    }}</span>
                   } @else {
                     <span>{{ part.text }}</span>
                   }
@@ -1982,7 +2217,9 @@
                     <span class="button-code-file">{{ getStepsCodeLanguageLabel(demo) }}</span>
                     <span class="button-code-hint">{{ getStepsCodeHint() }}</span>
                   </div>
-                  <pre class="button-code-block"><code [innerHTML]="getStepsDemoHighlightedCode(demo)"></code></pre>
+                  <pre
+                    class="button-code-block"
+                  ><code [innerHTML]="getStepsDemoHighlightedCode(demo)"></code></pre>
                 </div>
               </div>
             </section>
@@ -1998,10 +2235,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of stepsApiRows">
-                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</span>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
-                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</span>
                 </div>
               </div>
             </section>
@@ -2033,6 +2276,199 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'tab'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Navigation</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Tab</h1>
+              <p class="lead">
+                Tab maps the approved preview cases into a dedicated docs page: pill, underlined,
+                small size, disabled item, and count display.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of tabDemoSections"
+              [attr.id]="getTabSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card core3-tab-card">
+                <div class="button-demo-preview core3-map-preview core3-tab-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <sportbook6vn-tab
+                      *ngSwitchCase="'default'"
+                      [items]="tabDefaultItems"
+                      [activeIndex]="tabPillActiveIndex()"
+                      (indexChange)="tabPillActiveIndex.set($event)"
+                    />
+
+                    <div *ngSwitchCase="'type'" class="core3-tab-stack">
+                      <sportbook6vn-tab
+                        [items]="tabDefaultItems"
+                        [activeIndex]="tabPillActiveIndex()"
+                        (indexChange)="tabPillActiveIndex.set($event)"
+                      />
+                      <sportbook6vn-tab
+                        variant="underlined"
+                        [items]="tabDefaultItems"
+                        [activeIndex]="tabUnderlinedActiveIndex()"
+                        (indexChange)="tabUnderlinedActiveIndex.set($event)"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'size'" class="core3-tab-stack">
+                      <sportbook6vn-tab
+                        size="small"
+                        [items]="tabDefaultItems"
+                        [activeIndex]="tabSmallActiveIndex()"
+                        (indexChange)="tabSmallActiveIndex.set($event)"
+                      />
+                      <sportbook6vn-tab
+                        variant="underlined"
+                        size="small"
+                        [items]="tabDefaultItems"
+                        [activeIndex]="tabSmallActiveIndex()"
+                        (indexChange)="tabSmallActiveIndex.set($event)"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'disabled-count'" class="core3-tab-stack">
+                      <sportbook6vn-tab [items]="tabDisabledItems" [activeIndex]="2" />
+                      <sportbook6vn-tab variant="underlined" [items]="tabCountItems" />
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'iconography'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">General</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Iconography</h1>
+              <p class="lead">
+                Iconography is the asset registry for the icons currently served from
+                <span class="mono">/assets/figma</span>. Developers can inspect each file and copy
+                its public URL or image snippet.
+              </p>
+            </div>
+
+            <section class="section iconography-usage-section" id="iconography-usage">
+              <h2>Usage</h2>
+              <div class="illustration-guideline-grid">
+                <article class="illustration-guideline-card">
+                  <span>Base path</span>
+                  <code>/assets/figma/</code>
+                  <p>Use the exported file directly from the Angular public asset folder.</p>
+                </article>
+                <article class="illustration-guideline-card">
+                  <span>Format</span>
+                  <code>SVG first</code>
+                  <p>Use the PNG entry only when the source icon is available as a raster asset.</p>
+                </article>
+                <article class="illustration-guideline-card">
+                  <span>Reference</span>
+                  <code>Copy URL / Copy snippet</code>
+                  <p>Copy the exact registered path to avoid duplicate or renamed local assets.</p>
+                </article>
+              </div>
+
+              <div class="illustration-code-card">
+                <div class="button-code-head">
+                  <span class="button-code-file">example.html</span>
+                  <span class="button-code-hint">Registered search icon</span>
+                </div>
+                <pre class="button-code-block"><code>&lt;img
+  src="/assets/figma/a4bec56f-e50e-413d-917b-016797d3ae81.svg"
+  alt="Search icon"
+/&gt;</code></pre>
+              </div>
+            </section>
+
+            <section class="section iconography-library-section" id="iconography-assets">
+              <div class="illustration-section-head">
+                <h2>Asset Library</h2>
+                <span>{{ iconAssets.length }} files</span>
+              </div>
+
+              <div class="iconography-grid">
+                <article
+                  class="illustration-card iconography-card"
+                  *ngFor="let asset of iconAssets"
+                >
+                  <div class="illustration-thumb iconography-thumb">
+                    <img [src]="asset.src" [alt]="asset.alt" loading="lazy" />
+                  </div>
+
+                  <div class="illustration-card-body">
+                    <div class="illustration-card-title">
+                      <h3>{{ asset.name }}</h3>
+                      <span>{{ asset.format }} · {{ asset.size }}</span>
+                    </div>
+                    <code class="illustration-path">{{ asset.src }}</code>
+                    <p>{{ asset.usage }}</p>
+                  </div>
+
+                  <div class="illustration-card-actions">
+                    <button
+                      class="button-icon-btn illustration-copy-btn"
+                      type="button"
+                      (click)="copyIconAssetUrl(asset)"
+                    >
+                      {{ copiedIconAssetUrl() === asset.id ? 'Copied URL' : 'Copy URL' }}
+                    </button>
+                    <button
+                      class="button-icon-btn illustration-copy-btn"
+                      type="button"
+                      (click)="copyIconAssetSnippet(asset)"
+                    >
+                      {{
+                        copiedIconAssetSnippet() === asset.id ? 'Copied snippet' : 'Copy snippet'
+                      }}
+                    </button>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="section iconography-naming-section" id="iconography-naming">
+              <h2>Naming</h2>
+              <div class="button-api-table iconography-file-table">
+                <div class="button-api-row button-api-head">
+                  <span>Name</span>
+                  <span>File</span>
+                  <span>Format</span>
+                  <span>Size</span>
+                  <span>Snippet</span>
+                  <span>Usage</span>
+                </div>
+                <div class="button-api-row" *ngFor="let asset of iconAssets">
+                  <span class="button-api-col-description">{{ asset.name }}</span>
+                  <code class="token-code">{{ asset.fileName }}</code>
+                  <code class="token-code">{{ asset.format }}</code>
+                  <code class="token-code">{{ asset.size }}</code>
+                  <code class="token-code">{{ getIconAssetSnippet(asset) }}</code>
+                  <span class="button-api-col-description">{{ asset.usage }}</span>
+                </div>
+              </div>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'illustration'">
             <div class="page-header">
               <div class="header-meta">
@@ -2042,8 +2478,8 @@
               </div>
               <h1>Illustration</h1>
               <p class="lead">
-                Illustration collects approved PNG assets in one public folder so developers can copy
-                the asset URL or the exact image snippet from this page.
+                Illustration collects approved PNG assets in one public folder so developers can
+                copy the asset URL or the exact image snippet from this page.
               </p>
             </div>
 
@@ -2053,17 +2489,24 @@
                 <article class="illustration-guideline-card">
                   <span>Base path</span>
                   <code>/assets/illustrations/a-illustration/</code>
-                  <p>All files are served from Angular public assets and can be referenced directly.</p>
+                  <p>
+                    All files are served from Angular public assets and can be referenced directly.
+                  </p>
                 </article>
                 <article class="illustration-guideline-card">
                   <span>Format</span>
                   <code>PNG / transparent background</code>
-                  <p>Keep the source ratio intact and resize with CSS instead of editing the files.</p>
+                  <p>
+                    Keep the source ratio intact and resize with CSS instead of editing the files.
+                  </p>
                 </article>
                 <article class="illustration-guideline-card">
                   <span>Alt text</span>
                   <code>Describe the state</code>
-                  <p>Use an empty alt only when the illustration is decorative next to equivalent text.</p>
+                  <p>
+                    Use an empty alt only when the illustration is decorative next to equivalent
+                    text.
+                  </p>
                 </article>
               </div>
 
@@ -2113,7 +2556,9 @@
                       type="button"
                       (click)="copyIllustrationAssetSnippet(asset)"
                     >
-                      {{ copiedIllustrationSnippet() === asset.id ? 'Copied snippet' : 'Copy snippet' }}
+                      {{
+                        copiedIllustrationSnippet() === asset.id ? 'Copied snippet' : 'Copy snippet'
+                      }}
                     </button>
                   </div>
                 </article>
@@ -2154,7 +2599,9 @@
                       type="button"
                       (click)="copyIllustrationAssetSnippet(asset)"
                     >
-                      {{ copiedIllustrationSnippet() === asset.id ? 'Copied snippet' : 'Copy snippet' }}
+                      {{
+                        copiedIllustrationSnippet() === asset.id ? 'Copied snippet' : 'Copy snippet'
+                      }}
                     </button>
                   </div>
                 </article>
@@ -2189,8 +2636,8 @@
               </div>
               <h1>Dropdown</h1>
               <p class="lead">
-                Dropdown covers single select, multiple select, tag select, searchable droplist, status,
-                disabled, and empty-state behavior from the approved preview.
+                Dropdown covers single select, multiple select, tag select, searchable droplist,
+                status, disabled, and empty-state behavior from the approved preview.
               </p>
             </div>
 
@@ -2213,7 +2660,9 @@
               <p class="button-demo-description button-demo-description--rich">
                 @for (part of demo.descriptionParts; track $index) {
                   @if (part.code) {
-                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                    <span class="button-inline-code button-inline-code--description">{{
+                      part.code
+                    }}</span>
                   } @else {
                     <span>{{ part.text }}</span>
                   }
@@ -2233,11 +2682,19 @@
                     <div
                       *ngSwitchCase="'basic'"
                       class="core3-input-frame core3-input-frame--grid"
-                      style="align-items: flex-start; overflow: visible; width: 720px; max-width: 100%"
+                      style="
+                        align-items: flex-start;
+                        overflow: visible;
+                        width: 720px;
+                        max-width: 100%;
+                      "
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Default / click to open</span>
-                        <sportbook6vn-dropdown placeholder="Lựa chọn" [items]="core3DropdownBasicItems" />
+                        <sportbook6vn-dropdown
+                          placeholder="Lựa chọn"
+                          [items]="core3DropdownBasicItems"
+                        />
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Selected value</span>
@@ -2249,7 +2706,10 @@
                       </div>
                     </div>
 
-                    <div *ngSwitchCase="'multiple'" class="core3-input-frame core3-input-frame--grid">
+                    <div
+                      *ngSwitchCase="'multiple'"
+                      class="core3-input-frame core3-input-frame--grid"
+                    >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Empty</span>
                         <sportbook6vn-dropdown
@@ -2275,7 +2735,10 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Empty</span>
-                        <sportbook6vn-dropdown-tag placeholder="Lựa chọn" [items]="core3DropdownItems" />
+                        <sportbook6vn-dropdown-tag
+                          placeholder="Lựa chọn"
+                          [items]="core3DropdownItems"
+                        />
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Selected tags</span>
@@ -2295,7 +2758,10 @@
                       </div>
                     </div>
 
-                    <div *ngSwitchCase="'insideLabel'" class="core3-input-frame core3-input-frame--grid">
+                    <div
+                      *ngSwitchCase="'insideLabel'"
+                      class="core3-input-frame core3-input-frame--grid"
+                    >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Single</span>
                         <sportbook6vn-dropdown
@@ -2322,7 +2788,12 @@
                     <div
                       *ngSwitchCase="'searchable'"
                       class="core3-input-frame core3-input-frame--grid"
-                      style="align-items: flex-start; overflow: visible; width: 720px; max-width: 100%"
+                      style="
+                        align-items: flex-start;
+                        overflow: visible;
+                        width: 720px;
+                        max-width: 100%;
+                      "
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Single</span>
@@ -2480,7 +2951,9 @@
                     <span class="button-code-file">{{ getDropdownCodeLanguageLabel(demo) }}</span>
                     <span class="button-code-hint">{{ getDropdownCodeHint() }}</span>
                   </div>
-                  <pre class="button-code-block"><code [innerHTML]="getDropdownDemoHighlightedCode(demo)"></code></pre>
+                  <pre
+                    class="button-code-block"
+                  ><code [innerHTML]="getDropdownDemoHighlightedCode(demo)"></code></pre>
                 </div>
               </div>
             </section>
@@ -2496,10 +2969,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of dropdownApiRows">
-                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</code>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
-                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</code>
                 </div>
               </div>
 
@@ -2512,10 +2991,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of dropdownTagApiRows">
-                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</code>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
-                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</code>
                 </div>
               </div>
             </section>
@@ -2587,7 +3072,9 @@
               <p class="button-demo-description button-demo-description--rich">
                 @for (part of demo.descriptionParts; track $index) {
                   @if (part.code) {
-                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                    <span class="button-inline-code button-inline-code--description">{{
+                      part.code
+                    }}</span>
                   } @else {
                     <span>{{ part.text }}</span>
                   }
@@ -2668,7 +3155,9 @@
                     <span class="button-code-file">{{ getRadioCodeLanguageLabel(demo) }}</span>
                     <span class="button-code-hint">{{ getRadioCodeHint() }}</span>
                   </div>
-                  <pre class="button-code-block"><code [innerHTML]="getRadioDemoHighlightedCode(demo)"></code></pre>
+                  <pre
+                    class="button-code-block"
+                  ><code [innerHTML]="getRadioDemoHighlightedCode(demo)"></code></pre>
                 </div>
               </div>
             </section>
@@ -2688,10 +3177,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of radioApiRows">
-                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</code>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
-                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</code>
                 </div>
               </div>
 
@@ -2704,10 +3199,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of radioGroupApiRows">
-                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</code>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
-                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</code>
                 </div>
               </div>
             </section>
@@ -2755,8 +3256,8 @@
               </div>
               <h1>Date Picker</h1>
               <p class="lead">
-                Date Picker covers single date, date + time, interest, month, year, range, range + time,
-                status, and disabled states from the approved preview.
+                Date Picker covers single date, date + time, interest, month, year, range, range +
+                time, status, and disabled states from the approved preview.
               </p>
             </div>
 
@@ -2779,7 +3280,9 @@
               <p class="button-demo-description button-demo-description--rich">
                 @for (part of demo.descriptionParts; track $index) {
                   @if (part.code) {
-                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                    <span class="button-inline-code button-inline-code--description">{{
+                      part.code
+                    }}</span>
                   } @else {
                     <span>{{ part.text }}</span>
                   }
@@ -2808,7 +3311,11 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Date + time</span>
-                        <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" [showTime]="true" />
+                        <sportbook6vn-datepicker
+                          field="input"
+                          placeholder="Chọn ngày"
+                          [showTime]="true"
+                        />
                       </div>
                     </div>
 
@@ -2928,11 +3435,19 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Single error</span>
-                        <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" status="error" />
+                        <sportbook6vn-datepicker
+                          field="input"
+                          placeholder="Chọn ngày"
+                          status="error"
+                        />
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Single disabled</span>
-                        <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" [disabled]="true" />
+                        <sportbook6vn-datepicker
+                          field="input"
+                          placeholder="Chọn ngày"
+                          [disabled]="true"
+                        />
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Range error</span>
@@ -2987,7 +3502,9 @@
                     <span class="button-code-file">{{ getDatepickerCodeLanguageLabel(demo) }}</span>
                     <span class="button-code-hint">{{ getDatepickerCodeHint() }}</span>
                   </div>
-                  <pre class="button-code-block"><code [innerHTML]="getDatepickerDemoHighlightedCode(demo)"></code></pre>
+                  <pre
+                    class="button-code-block"
+                  ><code [innerHTML]="getDatepickerDemoHighlightedCode(demo)"></code></pre>
                 </div>
               </div>
             </section>
@@ -2995,7 +3512,8 @@
             <section class="section button-api-section" id="datepicker-api">
               <h2>API</h2>
               <p class="button-demo-description">
-                Date Picker exposes controlled values, open state, range selection, and custom cell arrays.
+                Date Picker exposes controlled values, open state, range selection, and custom cell
+                arrays.
               </p>
 
               <h3 class="button-api-group-title">sportbook6vn-datepicker inputs</h3>
@@ -3007,10 +3525,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of datepickerApiRows">
-                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</code>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
-                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</code>
                 </div>
               </div>
 
@@ -3023,10 +3547,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of datepickerOutputRows">
-                  <code class="token-code button-api-col button-api-col-property">{{ row.property }}</code>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <code class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</code>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
-                  <code class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</code>
                 </div>
               </div>
             </section>
@@ -3034,7 +3564,8 @@
             <section class="section button-variables-section" id="datepicker-variables">
               <h2>Component Token</h2>
               <p class="button-demo-description">
-                Date Picker uses the same DS color aliases as Input plus panel-specific selection and range tokens.
+                Date Picker uses the same DS color aliases as Input plus panel-specific selection
+                and range tokens.
               </p>
 
               <div class="scale-block" *ngFor="let group of datepickerVariableGroups">
@@ -3074,8 +3605,9 @@
               </div>
               <h1>Upload File</h1>
               <p class="lead">
-                Upload File documents the approved preview cases for Item Upload, Item File, and Upload File,
-                including copyable Angular snippets, public API, and component token references.
+                Upload File documents the approved preview cases for Item Upload, Item File, and
+                Upload File, including copyable Angular snippets, public API, and component token
+                references.
               </p>
             </div>
 
@@ -3101,7 +3633,9 @@
               <p class="button-demo-description button-demo-description--rich">
                 @for (part of demo.descriptionParts; track $index) {
                   @if (part.code) {
-                    <span class="button-inline-code button-inline-code--description">{{ part.code }}</span>
+                    <span class="button-inline-code button-inline-code--description">{{
+                      part.code
+                    }}</span>
                   } @else {
                     <span>{{ part.text }}</span>
                   }
@@ -3114,7 +3648,10 @@
               <div class="button-demo-card upload-file-demo-card">
                 <div class="button-demo-preview core3-map-preview upload-file-demo-preview">
                   <ng-container [ngSwitch]="demo.variant">
-                    <div *ngSwitchCase="'itemUploadDefault'" class="upload-file-demo-frame upload-file-demo-frame--narrow">
+                    <div
+                      *ngSwitchCase="'itemUploadDefault'"
+                      class="upload-file-demo-frame upload-file-demo-frame--narrow"
+                    >
                       <sportbook6vn-item-upload />
                     </div>
 
@@ -3123,7 +3660,10 @@
                       <sportbook6vn-item-upload state="disabled" />
                     </div>
 
-                    <div *ngSwitchCase="'itemUploadDataSource'" class="upload-file-demo-frame upload-file-demo-frame--narrow">
+                    <div
+                      *ngSwitchCase="'itemUploadDataSource'"
+                      class="upload-file-demo-frame upload-file-demo-frame--narrow"
+                    >
                       <sportbook6vn-item-upload [showDataSource]="true" />
                     </div>
 
@@ -3186,7 +3726,11 @@
 
                     <div *ngSwitchCase="'uploadDisabled'" class="upload-file-demo-stack">
                       <sportbook6vn-upload-file [disabled]="true" />
-                      <sportbook6vn-upload-file [files]="uploadFilesDone" [maxCount]="3" [expanded]="true" />
+                      <sportbook6vn-upload-file
+                        [files]="uploadFilesDone"
+                        [maxCount]="3"
+                        [expanded]="true"
+                      />
                     </div>
 
                     <div *ngSwitchCase="'uploadFileTypes'" class="upload-file-demo-stack">
@@ -3231,7 +3775,9 @@
                     <span class="button-code-file">{{ getUploadFileCodeLanguageLabel(demo) }}</span>
                     <span class="button-code-hint">{{ getUploadFileCodeHint() }}</span>
                   </div>
-                  <pre class="button-code-block"><code [innerHTML]="getUploadFileDemoHighlightedCode(demo)"></code></pre>
+                  <pre
+                    class="button-code-block"
+                  ><code [innerHTML]="getUploadFileDemoHighlightedCode(demo)"></code></pre>
                 </div>
               </div>
             </section>
@@ -3239,7 +3785,8 @@
             <section class="section button-api-section" id="upload-file-api">
               <h2>API</h2>
               <p class="button-demo-description">
-                Upload File is composed from Item Upload and Item File, so the public API is split by selector.
+                Upload File is composed from Item Upload and Item File, so the public API is split
+                by selector.
               </p>
 
               <h3 class="button-api-group-title">sportbook6vn-item-upload</h3>
@@ -3251,10 +3798,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of uploadFileItemUploadApiRows">
-                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</span>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
-                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</span>
                 </div>
               </div>
 
@@ -3267,10 +3820,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of uploadFileItemFileApiRows">
-                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</span>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
-                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</span>
                 </div>
               </div>
 
@@ -3283,10 +3842,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of uploadFileApiRows">
-                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</span>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
-                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</span>
                 </div>
               </div>
 
@@ -3299,10 +3864,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of uploadFileTypeRows">
-                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</span>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
-                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</span>
                 </div>
               </div>
             </section>
@@ -3310,7 +3881,8 @@
             <section class="section button-variables-section" id="upload-file-variables">
               <h2>Component Token</h2>
               <p class="button-demo-description">
-                Component-scoped CSS variables are declared in Item Upload, Item File, and Upload File styles.
+                Component-scoped CSS variables are declared in Item Upload, Item File, and Upload
+                File styles.
               </p>
 
               <div class="scale-block" *ngFor="let group of uploadFileVariableGroups">
@@ -3338,6 +3910,106 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'badge'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Display</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Badge</h1>
+              <p class="lead">
+                Badge renders compact status pills from the approved preview cases: default, status
+                presets, and optional description.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of badgeDemoSections"
+              [attr.id]="getBadgeSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card core3-badge-card">
+                <div class="button-demo-preview core3-map-preview core3-badge-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <sportbook6vn-badge *ngSwitchCase="'default'" />
+
+                    <div *ngSwitchCase="'status'" class="core3-badge-strip">
+                      <sportbook6vn-badge
+                        *ngFor="let item of badgeStatusCases"
+                        [status]="item.status"
+                        [label]="item.label"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'description'" class="core3-badge-grid">
+                      <sportbook6vn-badge
+                        *ngFor="let item of badgeStatusCases"
+                        [status]="item.status"
+                        [label]="item.label"
+                        description="Text"
+                        [showDescription]="true"
+                      />
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'status'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Display</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Status</h1>
+              <p class="lead">
+                Status renders a compact dot with text for invalid, overdue, processing, completed,
+                and failed states.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of statusDemoSections"
+              [attr.id]="getStatusSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card core3-status-card">
+                <div class="button-demo-preview core3-map-preview core3-status-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <sportbook6vn-status *ngSwitchCase="'default'" />
+
+                    <div *ngSwitchCase="'colors'" class="core3-status-strip">
+                      <sportbook6vn-status
+                        *ngFor="let item of statusColorCases"
+                        [color]="item.color"
+                        [label]="item.label"
+                      />
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'table'">
             <div class="page-header">
               <div class="header-meta">
@@ -3347,9 +4019,9 @@
               </div>
               <h1>Table</h1>
               <p class="lead">
-                Table maps the approved sportbook6vn preview cases into a dedicated docs tab: basic rows,
-                all column types, fixed right icon column, default data rows, selection with pagination,
-                loading, and empty states.
+                Table maps the approved sportbook6vn preview cases into a dedicated docs tab: basic
+                rows, all column types, fixed right icon column, default data rows, selection with
+                pagination, loading, and empty states.
               </p>
             </div>
 
@@ -3374,16 +4046,22 @@
                 <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
               </div>
 
-              <div class="button-demo-card table-demo-card" style="overflow: visible;">
+              <div class="button-demo-card table-demo-card" style="overflow: visible">
                 <div
                   class="button-demo-preview table-demo-preview"
-                  style="align-items: flex-start; justify-content: flex-start; min-height: 180px; overflow: visible; padding: 32px;"
+                  style="
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    min-height: 180px;
+                    overflow: visible;
+                    padding: 32px;
+                  "
                 >
                   <ng-container [ngSwitch]="demo.variant">
                     <div
                       *ngSwitchCase="'basic'"
                       class="table-demo-stage table-demo-stage--figma"
-                      style="flex: 0 0 850px; max-width: 850px; overflow: hidden; width: 850px;"
+                      style="flex: 0 0 850px; max-width: 850px; overflow: hidden; width: 850px"
                     >
                       <sportbook6vn-table
                         ariaLabel="Basic table docs demo"
@@ -3393,7 +4071,7 @@
                       />
                     </div>
 
-                    <div *ngSwitchCase="'all-columns'" class="table-demo-stage" style="width: 100%;">
+                    <div *ngSwitchCase="'all-columns'" class="table-demo-stage" style="width: 100%">
                       <sportbook6vn-table
                         ariaLabel="All table columns docs demo"
                         [columns]="tableColumnTypeColumns"
@@ -3403,7 +4081,11 @@
                       />
                     </div>
 
-                    <div *ngSwitchCase="'fixed-right-icon'" class="table-demo-stage" style="width: 100%;">
+                    <div
+                      *ngSwitchCase="'fixed-right-icon'"
+                      class="table-demo-stage"
+                      style="width: 100%"
+                    >
                       <sportbook6vn-table
                         ariaLabel="Fixed right icon column docs demo"
                         [columns]="tableFixedRightIconColumns"
@@ -3412,7 +4094,7 @@
                       />
                     </div>
 
-                    <div *ngSwitchCase="'default'" class="table-demo-stage" style="width: 100%;">
+                    <div *ngSwitchCase="'default'" class="table-demo-stage" style="width: 100%">
                       <sportbook6vn-table
                         ariaLabel="Default table docs demo"
                         [columns]="tableDefaultColumns"
@@ -3420,7 +4102,11 @@
                       />
                     </div>
 
-                    <div *ngSwitchCase="'selection-pagination'" class="table-demo-stage" style="width: 100%;">
+                    <div
+                      *ngSwitchCase="'selection-pagination'"
+                      class="table-demo-stage"
+                      style="width: 100%"
+                    >
                       <sportbook6vn-table
                         ariaLabel="Selection and pagination table docs demo"
                         [columns]="tableSelectionColumns"
@@ -3437,7 +4123,12 @@
                     <div
                       *ngSwitchCase="'state'"
                       class="table-demo-state-pair"
-                      style="display: grid; gap: 24px; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%;"
+                      style="
+                        display: grid;
+                        gap: 24px;
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                        width: 100%;
+                      "
                     >
                       <sportbook6vn-table
                         ariaLabel="Loading table docs demo"
@@ -3484,7 +4175,9 @@
                     <span class="button-code-file">{{ getTableCodeLanguageLabel(demo) }}</span>
                     <span class="button-code-hint">{{ getTableCodeHint() }}</span>
                   </div>
-                  <pre class="button-code-block"><code [innerHTML]="getTableDemoHighlightedCode(demo)"></code></pre>
+                  <pre
+                    class="button-code-block"
+                  ><code [innerHTML]="getTableDemoHighlightedCode(demo)"></code></pre>
                 </div>
               </div>
             </section>
@@ -3500,10 +4193,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of tableApiRows">
-                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</span>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
-                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</span>
                 </div>
               </div>
 
@@ -3516,10 +4215,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of tableOutputRows">
-                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</span>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
-                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</span>
                 </div>
               </div>
 
@@ -3532,10 +4237,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of tableTypeRows">
-                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</span>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
-                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</span>
                 </div>
               </div>
             </section>
@@ -3602,17 +4313,19 @@
                 <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
               </div>
 
-              <div class="button-demo-card" style="overflow: visible;">
+              <div class="button-demo-card" style="overflow: visible">
                 <div
                   class="button-demo-preview"
                   [style.min-height]="demo.variant === 'dropdown-open' ? '340px' : '148px'"
-                  style="align-items: flex-start; justify-content: flex-start; overflow-x: auto; padding: 40px;"
+                  style="
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    overflow-x: auto;
+                    padding: 40px;
+                  "
                 >
                   <ng-container [ngSwitch]="demo.variant">
-                    <div
-                      *ngSwitchCase="'default'"
-                      style="min-width: 805px; width: 805px;"
-                    >
+                    <div *ngSwitchCase="'default'" style="min-width: 805px; width: 805px">
                       <sportbook6vn-pagination
                         ariaLabel="Default pagination docs demo"
                         [total]="100"
@@ -3620,10 +4333,7 @@
                       />
                     </div>
 
-                    <div
-                      *ngSwitchCase="'active-border'"
-                      style="min-width: 805px; width: 805px;"
-                    >
+                    <div *ngSwitchCase="'active-border'" style="min-width: 805px; width: 805px">
                       <sportbook6vn-pagination
                         ariaLabel="Active border pagination docs demo"
                         [total]="100"
@@ -3632,10 +4342,7 @@
                       />
                     </div>
 
-                    <div
-                      *ngSwitchCase="'dropdown-open'"
-                      style="min-width: 805px; width: 805px;"
-                    >
+                    <div *ngSwitchCase="'dropdown-open'" style="min-width: 805px; width: 805px">
                       <sportbook6vn-pagination
                         ariaLabel="Open dropdown pagination docs demo"
                         [total]="100"
@@ -3646,10 +4353,7 @@
                       />
                     </div>
 
-                    <div
-                      *ngSwitchCase="'boundary'"
-                      style="min-width: 805px; width: 805px;"
-                    >
+                    <div *ngSwitchCase="'boundary'" style="min-width: 805px; width: 805px">
                       <sportbook6vn-pagination
                         ariaLabel="Boundary pagination docs demo"
                         [total]="100"
@@ -3658,10 +4362,7 @@
                       />
                     </div>
 
-                    <div
-                      *ngSwitchCase="'disabled'"
-                      style="min-width: 805px; width: 805px;"
-                    >
+                    <div *ngSwitchCase="'disabled'" style="min-width: 805px; width: 805px">
                       <sportbook6vn-pagination
                         ariaLabel="Disabled pagination docs demo"
                         [total]="10"
@@ -3670,10 +4371,7 @@
                       />
                     </div>
 
-                    <div
-                      *ngSwitchCase="'quick-selected'"
-                      style="min-width: 811px; width: 811px;"
-                    >
+                    <div *ngSwitchCase="'quick-selected'" style="min-width: 811px; width: 811px">
                       <sportbook6vn-pagination
                         ariaLabel="Quick selected pagination docs demo"
                         mode="quick-jumper"
@@ -3687,10 +4385,7 @@
                       />
                     </div>
 
-                    <div
-                      *ngSwitchCase="'quick-default'"
-                      style="min-width: 811px; width: 811px;"
-                    >
+                    <div *ngSwitchCase="'quick-default'" style="min-width: 811px; width: 811px">
                       <sportbook6vn-pagination
                         ariaLabel="Quick default pagination docs demo"
                         mode="quick-jumper"
@@ -3702,10 +4397,7 @@
                       />
                     </div>
 
-                    <div
-                      *ngSwitchCase="'quick-maximum'"
-                      style="min-width: 811px; width: 811px;"
-                    >
+                    <div *ngSwitchCase="'quick-maximum'" style="min-width: 811px; width: 811px">
                       <sportbook6vn-pagination
                         ariaLabel="Quick maximum pagination docs demo"
                         mode="quick-jumper"
@@ -3719,7 +4411,7 @@
 
                     <div
                       *ngSwitchCase="'quick-input-active'"
-                      style="min-width: 811px; width: 811px;"
+                      style="min-width: 811px; width: 811px"
                     >
                       <sportbook6vn-pagination
                         ariaLabel="Quick input active pagination docs demo"
@@ -3764,7 +4456,9 @@
                     <span class="button-code-file">{{ getPaginationCodeLanguageLabel(demo) }}</span>
                     <span class="button-code-hint">{{ getPaginationCodeHint() }}</span>
                   </div>
-                  <pre class="button-code-block"><code [innerHTML]="getPaginationDemoHighlightedCode(demo)"></code></pre>
+                  <pre
+                    class="button-code-block"
+                  ><code [innerHTML]="getPaginationDemoHighlightedCode(demo)"></code></pre>
                 </div>
               </div>
             </section>
@@ -3780,10 +4474,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of paginationApiRows">
-                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</span>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
-                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</span>
                 </div>
               </div>
 
@@ -3796,10 +4496,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of paginationOutputRows">
-                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</span>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
-                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</span>
                 </div>
               </div>
 
@@ -3812,10 +4518,16 @@
                   <span class="button-api-col button-api-col-default">Default</span>
                 </div>
                 <div class="button-api-row" *ngFor="let row of paginationTypeRows">
-                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
-                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</span>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
                   <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
-                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</span>
                 </div>
               </div>
             </section>
@@ -3856,9 +4568,10 @@
               </div>
               <h1>Checkbox</h1>
               <p class="lead">
-                Checkbox lets users select one or many options. This page keeps the approved preview cases
-                for <span class="button-inline-code">sportbook6vn-checkbox</span> and
-                <span class="button-inline-code">sportbook6vn-checkbox-group</span> in one dedicated component tab.
+                Checkbox lets users select one or many options. This page keeps the approved preview
+                cases for <span class="button-inline-code">sportbook6vn-checkbox</span> and
+                <span class="button-inline-code">sportbook6vn-checkbox-group</span> in one dedicated
+                component tab.
               </p>
             </div>
 
@@ -3901,7 +4614,11 @@
                 <div class="button-demo-preview core3-map-preview">
                   <div class="core3-map-row">
                     <sportbook6vn-checkbox label="Disabled" [disabled]="true" />
-                    <sportbook6vn-checkbox label="Disabled checked" [defaultChecked]="true" [disabled]="true" />
+                    <sportbook6vn-checkbox
+                      label="Disabled checked"
+                      [defaultChecked]="true"
+                      [disabled]="true"
+                    />
                     <sportbook6vn-checkbox
                       label="Disabled indeterminate"
                       [defaultIndeterminate]="true"
@@ -4013,368 +4730,393 @@
               <div class="palette-grid">
                 <div class="palette-column">
                   <h3>Blue</h3>
-                  <div class="swatch" style="--swatch:#E9EFFF;">
+                  <div class="swatch" style="--swatch: #e9efff">
                     <span>blue-1</span><span class="value">#E9EFFF</span>
                   </div>
-                  <div class="swatch" style="--swatch:#DAE4FF;">
+                  <div class="swatch" style="--swatch: #dae4ff">
                     <span>blue-2</span><span class="value">#DAE4FF</span>
                   </div>
-                  <div class="swatch" style="--swatch:#A3B7FD;">
+                  <div class="swatch" style="--swatch: #a3b7fd">
                     <span>blue-3</span><span class="value">#A3B7FD</span>
                   </div>
-                  <div class="swatch" style="--swatch:#5F7EEB;">
+                  <div class="swatch" style="--swatch: #5f7eeb">
                     <span>blue-4</span><span class="value">#5F7EEB</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#141ED2;">
+                  <div class="swatch dark" style="--swatch: #141ed2">
                     <span>blue-5</span><span class="value">#141ED2</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#121BBB;">
+                  <div class="swatch dark" style="--swatch: #121bbb">
                     <span>blue-6</span><span class="value">#121BBB</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#0E16AB;">
+                  <div class="swatch dark" style="--swatch: #0e16ab">
                     <span>blue-7</span><span class="value">#0E16AB</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#09129B;">
+                  <div class="swatch dark" style="--swatch: #09129b">
                     <span>blue-8</span><span class="value">#09129B</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#050D8C;">
+                  <div class="swatch dark" style="--swatch: #050d8c">
                     <span>blue-9</span><span class="value">#050D8C</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#00087C;">
+                  <div class="swatch dark" style="--swatch: #00087c">
                     <span>blue-10</span><span class="value">#00087C</span>
                   </div>
                 </div>
 
                 <div class="palette-column">
                   <h3>Purple</h3>
-                  <div class="swatch" style="--swatch:#F2EBFF;">
+                  <div class="swatch" style="--swatch: #f2ebff">
                     <span>purple-1</span><span class="value">#F2EBFF</span>
                   </div>
-                  <div class="swatch" style="--swatch:#DBD3FF;">
+                  <div class="swatch" style="--swatch: #dbd3ff">
                     <span>purple-2</span><span class="value">#DBD3FF</span>
                   </div>
-                  <div class="swatch" style="--swatch:#BBADFF;">
+                  <div class="swatch" style="--swatch: #bbadff">
                     <span>purple-3</span><span class="value">#BBADFF</span>
                   </div>
-                  <div class="swatch" style="--swatch:#9781FF;">
+                  <div class="swatch" style="--swatch: #9781ff">
                     <span>purple-4</span><span class="value">#9781FF</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#7B5FFF;">
+                  <div class="swatch dark" style="--swatch: #7b5fff">
                     <span>purple-5</span><span class="value">#7B5FFF</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#6150E1;">
+                  <div class="swatch dark" style="--swatch: #6150e1">
                     <span>purple-6</span><span class="value">#6150E1</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#5348D3;">
+                  <div class="swatch dark" style="--swatch: #5348d3">
                     <span>purple-7</span><span class="value">#5348D3</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#4641C4;">
+                  <div class="swatch dark" style="--swatch: #4641c4">
                     <span>purple-8</span><span class="value">#4641C4</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#3939B5;">
+                  <div class="swatch dark" style="--swatch: #3939b5">
                     <span>purple-9</span><span class="value">#3939B5</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#393999;">
+                  <div class="swatch dark" style="--swatch: #393999">
                     <span>purple-10</span><span class="value">#393999</span>
                   </div>
                 </div>
 
                 <div class="palette-column">
                   <h3>Light Blue</h3>
-                  <div class="swatch" style="--swatch:#DEF5FF;">
+                  <div class="swatch" style="--swatch: #def5ff">
                     <span>lightblue-1</span><span class="value">#DEF5FF</span>
                   </div>
-                  <div class="swatch" style="--swatch:#BDE8FF;">
+                  <div class="swatch" style="--swatch: #bde8ff">
                     <span>lightblue-2</span><span class="value">#BDE8FF</span>
                   </div>
-                  <div class="swatch" style="--swatch:#75CEFF;">
+                  <div class="swatch" style="--swatch: #75ceff">
                     <span>lightblue-3</span><span class="value">#75CEFF</span>
                   </div>
-                  <div class="swatch" style="--swatch:#00A5FF;">
+                  <div class="swatch" style="--swatch: #00a5ff">
                     <span>lightblue-4</span><span class="value">#00A5FF</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#0075FF;">
+                  <div class="swatch dark" style="--swatch: #0075ff">
                     <span>lightblue-5</span><span class="value">#0075FF</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#006AE5;">
+                  <div class="swatch dark" style="--swatch: #006ae5">
                     <span>lightblue-6</span><span class="value">#006AE5</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#005FCB;">
+                  <div class="swatch dark" style="--swatch: #005fcb">
                     <span>lightblue-7</span><span class="value">#005FCB</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#0054B0;">
+                  <div class="swatch dark" style="--swatch: #0054b0">
                     <span>lightblue-8</span><span class="value">#0054B0</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#004996;">
+                  <div class="swatch dark" style="--swatch: #004996">
                     <span>lightblue-9</span><span class="value">#004996</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#003E7C;">
+                  <div class="swatch dark" style="--swatch: #003e7c">
                     <span>lightblue-10</span><span class="value">#003E7C</span>
                   </div>
                 </div>
 
                 <div class="palette-column">
                   <h3>Dark Blue</h3>
-                  <div class="swatch" style="--swatch:#FAFDFF;">
+                  <div class="swatch" style="--swatch: #fafdff">
                     <span>darkblue-1</span><span class="value">#FAFDFF</span>
                   </div>
-                  <div class="swatch" style="--swatch:#ECF5FA;">
+                  <div class="swatch" style="--swatch: #ecf5fa">
                     <span>darkblue-2</span><span class="value">#ECF5FA</span>
                   </div>
-                  <div class="swatch" style="--swatch:#CADBE8;">
+                  <div class="swatch" style="--swatch: #cadbe8">
                     <span>darkblue-3</span><span class="value">#CADBE8</span>
                   </div>
-                  <div class="swatch" style="--swatch:#9BAFC8;">
+                  <div class="swatch" style="--swatch: #9bafc8">
                     <span>darkblue-4</span><span class="value">#9BAFC8</span>
                   </div>
-                  <div class="swatch" style="--swatch:#6D83A7;">
+                  <div class="swatch" style="--swatch: #6d83a7">
                     <span>darkblue-5</span><span class="value">#6D83A7</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#516682;">
+                  <div class="swatch dark" style="--swatch: #516682">
                     <span>darkblue-6</span><span class="value">#516682</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#435870;">
+                  <div class="swatch dark" style="--swatch: #435870">
                     <span>darkblue-7</span><span class="value">#435870</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#354A5E;">
+                  <div class="swatch dark" style="--swatch: #354a5e">
                     <span>darkblue-8</span><span class="value">#354A5E</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#273B4B;">
+                  <div class="swatch dark" style="--swatch: #273b4b">
                     <span>darkblue-9</span><span class="value">#273B4B</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#192D39;">
+                  <div class="swatch dark" style="--swatch: #192d39">
                     <span>darkblue-10</span><span class="value">#192D39</span>
                   </div>
                 </div>
 
                 <div class="palette-column">
                   <h3>Turquoise</h3>
-                  <div class="swatch" style="--swatch:#E7FEFE;">
+                  <div class="swatch" style="--swatch: #e7fefe">
                     <span>turquoise-1</span><span class="value">#E7FEFE</span>
                   </div>
-                  <div class="swatch" style="--swatch:#D4FBFB;">
+                  <div class="swatch" style="--swatch: #d4fbfb">
                     <span>turquoise-2</span><span class="value">#D4FBFB</span>
                   </div>
-                  <div class="swatch" style="--swatch:#A2F5F5;">
+                  <div class="swatch" style="--swatch: #a2f5f5">
                     <span>turquoise-3</span><span class="value">#A2F5F5</span>
                   </div>
-                  <div class="swatch" style="--swatch:#52DDDD;">
+                  <div class="swatch" style="--swatch: #52dddd">
                     <span>turquoise-4</span><span class="value">#52DDDD</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#12B7B7;">
+                  <div class="swatch dark" style="--swatch: #12b7b7">
                     <span>turquoise-5</span><span class="value">#12B7B7</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#0FA4A3;">
+                  <div class="swatch dark" style="--swatch: #0fa4a3">
                     <span>turquoise-6</span><span class="value">#0FA4A3</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#0C908F;">
+                  <div class="swatch dark" style="--swatch: #0c908f">
                     <span>turquoise-7</span><span class="value">#0C908F</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#0A7D7C;">
+                  <div class="swatch dark" style="--swatch: #0a7d7c">
                     <span>turquoise-8</span><span class="value">#0A7D7C</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#076968;">
+                  <div class="swatch dark" style="--swatch: #076968">
                     <span>turquoise-9</span><span class="value">#076968</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#045654;">
+                  <div class="swatch dark" style="--swatch: #045654">
                     <span>turquoise-10</span><span class="value">#045654</span>
                   </div>
                 </div>
 
                 <div class="palette-column">
                   <h3>Green</h3>
-                  <div class="swatch" style="--swatch:#E6F6EC;">
+                  <div class="swatch" style="--swatch: #e6f6ec">
                     <span>green-1</span><span class="value">#E6F6EC</span>
                   </div>
-                  <div class="swatch" style="--swatch:#CDFCE9;">
+                  <div class="swatch" style="--swatch: #cdfce9">
                     <span>green-2</span><span class="value">#CDFCE9</span>
                   </div>
-                  <div class="swatch" style="--swatch:#85F1C6;">
+                  <div class="swatch" style="--swatch: #85f1c6">
                     <span>green-3</span><span class="value">#85F1C6</span>
                   </div>
-                  <div class="swatch" style="--swatch:#3DD196;">
+                  <div class="swatch" style="--swatch: #3dd196">
                     <span>green-4</span><span class="value">#3DD196</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#00AD68;">
+                  <div class="swatch dark" style="--swatch: #00ad68">
                     <span>green-5</span><span class="value">#00AD68</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#009E5F;">
+                  <div class="swatch dark" style="--swatch: #009e5f">
                     <span>green-6</span><span class="value">#009E5F</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#008F56;">
+                  <div class="swatch dark" style="--swatch: #008f56">
                     <span>green-7</span><span class="value">#008F56</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#01814E;">
+                  <div class="swatch dark" style="--swatch: #01814e">
                     <span>green-8</span><span class="value">#01814E</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#017245;">
+                  <div class="swatch dark" style="--swatch: #017245">
                     <span>green-9</span><span class="value">#017245</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#01633C;">
+                  <div class="swatch dark" style="--swatch: #01633c">
                     <span>green-10</span><span class="value">#01633C</span>
                   </div>
                 </div>
 
                 <div class="palette-column">
                   <h3>Orange</h3>
-                  <div class="swatch" style="--swatch:#FFF4D0;">
+                  <div class="swatch" style="--swatch: #fff4d0">
                     <span>orange-1</span><span class="value">#FFF4D0</span>
                   </div>
-                  <div class="swatch" style="--swatch:#FBDE97;">
+                  <div class="swatch" style="--swatch: #fbde97">
                     <span>orange-2</span><span class="value">#FBDE97</span>
                   </div>
-                  <div class="swatch" style="--swatch:#FDC64E;">
+                  <div class="swatch" style="--swatch: #fdc64e">
                     <span>orange-3</span><span class="value">#FDC64E</span>
                   </div>
-                  <div class="swatch" style="--swatch:#F9A500;">
+                  <div class="swatch" style="--swatch: #f9a500">
                     <span>orange-4</span><span class="value">#F9A500</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#FA8A00;">
+                  <div class="swatch dark" style="--swatch: #fa8a00">
                     <span>orange-5</span><span class="value">#FA8A00</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#DE7A00;">
+                  <div class="swatch dark" style="--swatch: #de7a00">
                     <span>orange-6</span><span class="value">#DE7A00</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#C36A00;">
+                  <div class="swatch dark" style="--swatch: #c36a00">
                     <span>orange-7</span><span class="value">#C36A00</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#A75A00;">
+                  <div class="swatch dark" style="--swatch: #a75a00">
                     <span>orange-8</span><span class="value">#A75A00</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#8C4A00;">
+                  <div class="swatch dark" style="--swatch: #8c4a00">
                     <span>orange-9</span><span class="value">#8C4A00</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#703A00;">
+                  <div class="swatch dark" style="--swatch: #703a00">
                     <span>orange-10</span><span class="value">#703A00</span>
                   </div>
                 </div>
 
                 <div class="palette-column">
                   <h3>Red</h3>
-                  <div class="swatch" style="--swatch:#FFE3E3;">
+                  <div class="swatch" style="--swatch: #ffe3e3">
                     <span>red-1</span><span class="value">#FFE3E3</span>
                   </div>
-                  <div class="swatch" style="--swatch:#FFB1B1;">
+                  <div class="swatch" style="--swatch: #ffb1b1">
                     <span>red-2</span><span class="value">#FFB1B1</span>
                   </div>
-                  <div class="swatch" style="--swatch:#FB7070;">
+                  <div class="swatch" style="--swatch: #fb7070">
                     <span>red-3</span><span class="value">#FB7070</span>
                   </div>
-                  <div class="swatch" style="--swatch:#F34343;">
+                  <div class="swatch" style="--swatch: #f34343">
                     <span>red-4</span><span class="value">#F34343</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#F00000;">
+                  <div class="swatch dark" style="--swatch: #f00000">
                     <span>red-5</span><span class="value">#F00000</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#D50202;">
+                  <div class="swatch dark" style="--swatch: #d50202">
                     <span>red-6</span><span class="value">#D50202</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#BB0403;">
+                  <div class="swatch dark" style="--swatch: #bb0403">
                     <span>red-7</span><span class="value">#BB0403</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#A00705;">
+                  <div class="swatch dark" style="--swatch: #a00705">
                     <span>red-8</span><span class="value">#A00705</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#860906;">
+                  <div class="swatch dark" style="--swatch: #860906">
                     <span>red-9</span><span class="value">#860906</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#6B0B08;">
+                  <div class="swatch dark" style="--swatch: #6b0b08">
                     <span>red-10</span><span class="value">#6B0B08</span>
                   </div>
                 </div>
 
                 <div class="palette-column">
                   <h3>Grayscale</h3>
-                  <div class="swatch" style="--swatch:#F3F3F3;">
+                  <div class="swatch" style="--swatch: #f3f3f3">
                     <span>gray-1</span><span class="value">#F3F3F3</span>
                   </div>
-                  <div class="swatch" style="--swatch:#D8D8D8;">
+                  <div class="swatch" style="--swatch: #d8d8d8">
                     <span>gray-2</span><span class="value">#D8D8D8</span>
                   </div>
-                  <div class="swatch" style="--swatch:#CCCCCC;">
+                  <div class="swatch" style="--swatch: #cccccc">
                     <span>gray-3</span><span class="value">#CCCCCC</span>
                   </div>
-                  <div class="swatch" style="--swatch:#9B9B9B;">
+                  <div class="swatch" style="--swatch: #9b9b9b">
                     <span>gray-4</span><span class="value">#9B9B9B</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#808080;">
+                  <div class="swatch dark" style="--swatch: #808080">
                     <span>gray-5</span><span class="value">#808080</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#646464;">
+                  <div class="swatch dark" style="--swatch: #646464">
                     <span>gray-6</span><span class="value">#646464</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#4D4D4D;">
+                  <div class="swatch dark" style="--swatch: #4d4d4d">
                     <span>gray-7</span><span class="value">#4D4D4D</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#2E2E2E;">
+                  <div class="swatch dark" style="--swatch: #2e2e2e">
                     <span>gray-8</span><span class="value">#2E2E2E</span>
                   </div>
                 </div>
 
                 <div class="palette-column">
                   <h3>Black / White</h3>
-                  <div class="swatch dark" style="--swatch:#000000;">
+                  <div class="swatch dark" style="--swatch: #000000">
                     <span>black-100</span><span class="value">#000000</span>
                   </div>
-                  <div class="swatch dark" style="--swatch:#00000080;">
+                  <div class="swatch dark" style="--swatch: #00000080">
                     <span>black-50</span><span class="value">#00000080</span>
                   </div>
-                  <div class="swatch" style="--swatch:#FFFFFF;">
+                  <div class="swatch" style="--swatch: #ffffff">
                     <span>white-100</span><span class="value">#FFFFFF</span>
                   </div>
-                  <div class="swatch" style="--swatch:#FFFFFF99;">
+                  <div class="swatch" style="--swatch: #ffffff99">
                     <span>white-60</span><span class="value">#FFFFFF99</span>
                   </div>
-                  <div class="swatch" style="--swatch:#FFFFFF80;">
+                  <div class="swatch" style="--swatch: #ffffff80">
                     <span>white-50</span><span class="value">#FFFFFF80</span>
                   </div>
-                  <div class="swatch" style="--swatch:#FFFFFF66;">
+                  <div class="swatch" style="--swatch: #ffffff66">
                     <span>white-40</span><span class="value">#FFFFFF66</span>
                   </div>
-                  <div class="swatch" style="--swatch:#FFFFFF4D;">
+                  <div class="swatch" style="--swatch: #ffffff4d">
                     <span>white-30</span><span class="value">#FFFFFF4D</span>
                   </div>
-                  <div class="swatch" style="--swatch:#FFFFFF33;">
+                  <div class="swatch" style="--swatch: #ffffff33">
                     <span>white-20</span><span class="value">#FFFFFF33</span>
                   </div>
-                  <div class="swatch" style="--swatch:#FFFFFF1A;">
+                  <div class="swatch" style="--swatch: #ffffff1a">
                     <span>white-10</span><span class="value">#FFFFFF1A</span>
                   </div>
-                  <div class="swatch" style="--swatch:#FFFFFF0D;">
+                  <div class="swatch" style="--swatch: #ffffff0d">
                     <span>white-5</span><span class="value">#FFFFFF0D</span>
                   </div>
                 </div>
 
                 <div class="palette-column">
                   <h3>Gradients</h3>
-                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#141ED2,#0075FF);">
+                  <div
+                    class="swatch gradient"
+                    style="--swatch: linear-gradient(90deg, #141ed2, #0075ff)"
+                  >
                     <span>gradient-700</span><span class="value">#141ED2 → #0075FF</span>
                   </div>
-                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#3949D6,#2C87F6);">
+                  <div
+                    class="swatch gradient"
+                    style="--swatch: linear-gradient(90deg, #3949d6, #2c87f6)"
+                  >
                     <span>gradient-600</span><span class="value">#3949D6 → #2C87F6</span>
                   </div>
-                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#606AD5,#569AED);">
+                  <div
+                    class="swatch gradient"
+                    style="--swatch: linear-gradient(90deg, #606ad5, #569aed)"
+                  >
                     <span>gradient-500</span><span class="value">#606AD5 → #569AED</span>
                   </div>
-                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#888CD4,#80AEE5);">
+                  <div
+                    class="swatch gradient"
+                    style="--swatch: linear-gradient(90deg, #888cd4, #80aee5)"
+                  >
                     <span>gradient-400</span><span class="value">#888CD4 → #80AEE5</span>
                   </div>
-                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#AEB1D4,#AAC1DD);">
+                  <div
+                    class="swatch gradient"
+                    style="--swatch: linear-gradient(90deg, #aeb1d4, #aac1dd)"
+                  >
                     <span>gradient-300</span><span class="value">#AEB1D4 → #AAC1DD</span>
                   </div>
-                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#D6EAF000,#BDD5E4B2);">
+                  <div
+                    class="swatch gradient"
+                    style="--swatch: linear-gradient(90deg, #d6eaf000, #bdd5e4b2)"
+                  >
                     <span>gradient-200</span><span class="value">#D6EAF000 → #BDD5E4B2</span>
                   </div>
-                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#141ED2,#0075FF);">
+                  <div
+                    class="swatch gradient"
+                    style="--swatch: linear-gradient(90deg, #141ed2, #0075ff)"
+                  >
                     <span>gradient-100</span><span class="value">#141ED2 → #0075FF</span>
                   </div>
-                  <div class="swatch gradient" style="--swatch:linear-gradient(90deg,#FFFFFF,#F5FFFD,#DDE7FF,#DFE3FF);">
-                    <span>gradient-800</span><span class="value">#FFFFFF → #F5FFFD → #DDE7FF → #DFE3FF</span>
+                  <div
+                    class="swatch gradient"
+                    style="--swatch: linear-gradient(90deg, #ffffff, #f5fffd, #dde7ff, #dfe3ff)"
+                  >
+                    <span>gradient-800</span
+                    ><span class="value">#FFFFFF → #F5FFFD → #DDE7FF → #DFE3FF</span>
                   </div>
-                  <div class="swatch" style="--swatch:#1D5CFB29;">
+                  <div class="swatch" style="--swatch: #1d5cfb29">
                     <span>skyblue-100</span><span class="value">#1D5CFB29</span>
                   </div>
-                  <div class="swatch" style="--swatch:#ECF5FAB2;">
+                  <div class="swatch" style="--swatch: #ecf5fab2">
                     <span>darkblue-50</span><span class="value">#ECF5FAB2</span>
                   </div>
                 </div>
@@ -4391,9 +5133,9 @@
               </div>
               <h1>Colors</h1>
               <p class="lead">
-                Cấu trúc token theo mô hình <span class="mono">Primitive → Semantic → Component</span>.
-                Dữ liệu hiện tại áp dụng đầy đủ cho nhóm
-                <span class="mono">color/semantic/*</span>.
+                Cấu trúc token theo mô hình
+                <span class="mono">Primitive → Semantic → Component</span>. Dữ liệu hiện tại áp dụng
+                đầy đủ cho nhóm <span class="mono">color/semantic/*</span>.
               </p>
             </div>
 
@@ -4435,7 +5177,11 @@
                   <div class="token-alias-cell" [class.na]="getTokenDisplayValue(token) === 'N/A'">
                     <span
                       class="token-swatch"
-                      [style.background]="getTokenDisplayValue(token) === 'N/A' ? '#E2E8F0' : getTokenDisplayValue(token)"
+                      [style.background]="
+                        getTokenDisplayValue(token) === 'N/A'
+                          ? '#E2E8F0'
+                          : getTokenDisplayValue(token)
+                      "
                     ></span>
                     <code class="token-code">{{ getTokenFigmaAlias(token) }}</code>
                   </div>
@@ -4445,7 +5191,6 @@
                 </div>
               </div>
             </section>
-
           </ng-container>
 
           <ng-container *ngIf="activePage() === 'spacing'">
@@ -4457,7 +5202,8 @@
               </div>
               <h1>Spacing</h1>
               <p class="lead">
-                Scale tables cho spacing và radius, tách riêng khỏi Colors để tra cứu nhanh khi xây dựng layout.
+                Scale tables cho spacing và radius, tách riêng khỏi Colors để tra cứu nhanh khi xây
+                dựng layout.
               </p>
             </div>
 
@@ -4507,7 +5253,8 @@
               </div>
               <h1>Typography</h1>
               <p class="lead">
-                Scale tables cho font size, line height và font weight để đồng bộ kiểu chữ trong component docs.
+                Scale tables cho font size, line height và font weight để đồng bộ kiểu chữ trong
+                component docs.
               </p>
             </div>
 
@@ -4580,7 +5327,8 @@
                   <span>Pro Tip</span>
                 </div>
                 <p>
-                  Use the component page snippets after installing the package and global theme once.
+                  Use the component page snippets after installing the package and global theme
+                  once.
                 </p>
               </div>
             </aside>
@@ -4657,7 +5405,9 @@
                 <a
                   *ngFor="let demo of buttonMappingDemoSections"
                   class="toc-item"
-                  [class.active]="activeButtonMappingSection() === getButtonMappingSectionId(demo.id)"
+                  [class.active]="
+                    activeButtonMappingSection() === getButtonMappingSectionId(demo.id)
+                  "
                   [href]="'#' + getButtonMappingSectionId(demo.id)"
                   (click)="setActiveButtonMappingSection(getButtonMappingSectionId(demo.id))"
                 >
@@ -4687,8 +5437,8 @@
                   <span>Pro Tip</span>
                 </div>
                 <p>
-                  Trang này bám theo cấu trúc docs component page để map 1:1 từ preview sang app
-                  mà không đổi shell điều hướng chung.
+                  Trang này bám theo cấu trúc docs component page để map 1:1 từ preview sang app mà
+                  không đổi shell điều hướng chung.
                 </p>
               </div>
             </aside>
@@ -4850,8 +5600,7 @@
                 </div>
                 <p>
                   Use state-driven snippets to reproduce
-                  <span class="mono">focus</span>,
-                  <span class="mono">typing</span>, and
+                  <span class="mono">focus</span>, <span class="mono">typing</span>, and
                   <span class="mono">filled</span> behaviors.
                 </p>
               </div>
@@ -4905,8 +5654,9 @@
                   <span>Pro Tip</span>
                 </div>
                 <p>
-                  Start from <span class="mono">Interactive</span> for production usage; use the other
-                  sections when the product requires overflow, custom render, or validation behavior.
+                  Start from <span class="mono">Interactive</span> for production usage; use the
+                  other sections when the product requires overflow, custom render, or validation
+                  behavior.
                 </p>
               </div>
             </aside>
@@ -5014,7 +5764,8 @@
                   <span>Pro Tip</span>
                 </div>
                 <p>
-                  Use <span class="mono">current</span> as a zero-based index and keep each step title short.
+                  Use <span class="mono">current</span> as a zero-based index and keep each step
+                  title short.
                 </p>
               </div>
             </aside>
@@ -5022,6 +5773,87 @@
             <button
               type="button"
               class="anchor-collapse-btn"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'tab'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of tabDemoSections"
+                  [class.active]="activeTabSection() === getTabSectionId(demo.id)"
+                  [href]="'#' + getTabSectionId(demo.id)"
+                  (click)="setActiveTabSection(getTabSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'badge'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of badgeDemoSections"
+                  [class.active]="activeBadgeSection() === getBadgeSectionId(demo.id)"
+                  [href]="'#' + getBadgeSectionId(demo.id)"
+                  (click)="setActiveBadgeSection(getBadgeSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'status'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of statusDemoSections"
+                  [class.active]="activeStatusSection() === getStatusSectionId(demo.id)"
+                  [href]="'#' + getStatusSectionId(demo.id)"
+                  (click)="setActiveStatusSection(getStatusSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
               (click)="toggleTocCollapsed()"
               [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
             >
@@ -5155,7 +5987,8 @@
                 </div>
                 <p>
                   Use <span class="mono">Basic Select</span> for normal dropdown usage; use
-                  <span class="mono">Tag Select</span> only when the selected values must stay visible as chips.
+                  <span class="mono">Tag Select</span> only when the selected values must stay
+                  visible as chips.
                 </p>
               </div>
             </aside>
@@ -5208,8 +6041,8 @@
                   <span>Pro Tip</span>
                 </div>
                 <p>
-                  Use <span class="mono">Radio Group</span> when the user must choose exactly one option
-                  from a set.
+                  Use <span class="mono">Radio Group</span> when the user must choose exactly one
+                  option from a set.
                 </p>
               </div>
             </aside>
@@ -5332,6 +6165,59 @@
           </div>
         </ng-container>
 
+        <ng-container *ngIf="activePage() === 'iconography'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  [class.active]="activeIconographySection() === 'iconography-usage'"
+                  href="#iconography-usage"
+                  (click)="setActiveIconographySection('iconography-usage')"
+                >
+                  Usage
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeIconographySection() === 'iconography-assets'"
+                  href="#iconography-assets"
+                  (click)="setActiveIconographySection('iconography-assets')"
+                >
+                  Asset Library
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeIconographySection() === 'iconography-naming'"
+                  href="#iconography-naming"
+                  (click)="setActiveIconographySection('iconography-naming')"
+                >
+                  Naming
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Pro Tip</span>
+                </div>
+                <p>
+                  Use <span class="mono">Copy URL</span> for existing markup and
+                  <span class="mono">Copy snippet</span> when adding an icon image.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
         <ng-container *ngIf="activePage() === 'illustration'">
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
@@ -5411,8 +6297,8 @@
                   <span>Pro Tip</span>
                 </div>
                 <p>
-                  Use <span class="mono">Checkbox Group</span> when multiple options may be selected;
-                  use <span class="mono">Radio</span> when exactly one option is allowed.
+                  Use <span class="mono">Checkbox Group</span> when multiple options may be
+                  selected; use <span class="mono">Radio</span> when exactly one option is allowed.
                 </p>
               </div>
             </aside>

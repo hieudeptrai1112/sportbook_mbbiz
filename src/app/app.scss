@@ -80,7 +80,7 @@
   border-radius: 2px;
   padding: 3px 7px;
   font-size: 10px;
-  font-family: "IBM Plex Mono", "Liberation Mono", monospace;
+  font-family: 'IBM Plex Mono', 'Liberation Mono', monospace;
   color: #94a3b8;
 }
 
@@ -124,7 +124,10 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 120ms ease, box-shadow 120ms ease, color 120ms ease;
+  transition:
+    background 120ms ease,
+    box-shadow 120ms ease,
+    color 120ms ease;
 }
 
 .icon-btn.subtle {
@@ -146,7 +149,9 @@
 .theme-btn {
   border-radius: 8px;
   color: #64748b;
-  transition: background 120ms ease, box-shadow 120ms ease;
+  transition:
+    background 120ms ease,
+    box-shadow 120ms ease;
 }
 
 .lang-btn:hover,
@@ -298,7 +303,10 @@
   font-size: 14px;
   line-height: 20px;
   color: #475569;
-  transition: background 120ms ease, color 120ms ease, font-weight 120ms ease;
+  transition:
+    background 120ms ease,
+    color 120ms ease,
+    font-weight 120ms ease;
 }
 
 .sidebar-item.collapsible {
@@ -323,7 +331,9 @@
   font-size: 14px;
   line-height: 1;
   color: #86909c;
-  transition: transform 120ms ease, color 120ms ease;
+  transition:
+    transform 120ms ease,
+    color 120ms ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -373,7 +383,10 @@
   line-height: 20px;
   color: #475569;
   cursor: pointer;
-  transition: background 120ms ease, color 120ms ease, font-weight 120ms ease;
+  transition:
+    background 120ms ease,
+    color 120ms ease,
+    font-weight 120ms ease;
 }
 
 .sidebar-link img {
@@ -416,7 +429,9 @@
   max-width: 1284px;
   margin: 0 auto;
   align-items: flex-start;
-  transition: grid-template-columns 160ms ease, column-gap 160ms ease;
+  transition:
+    grid-template-columns 160ms ease,
+    column-gap 160ms ease;
 }
 
 .main-inner.toc-collapsed {
@@ -549,7 +564,7 @@
 }
 
 .lead .mono {
-  font-family: "IBM Plex Mono", "Liberation Mono", monospace;
+  font-family: 'IBM Plex Mono', 'Liberation Mono', monospace;
 }
 
 .palette-grid {
@@ -577,7 +592,9 @@
   border: 1px solid rgba(15, 23, 42, 0.06);
   position: relative;
   overflow: hidden;
-  transition: transform 120ms ease, box-shadow 120ms ease;
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
 }
 
 .swatch.dark {
@@ -732,7 +749,10 @@
   padding: 6px 12px;
   border-radius: 6px;
   cursor: pointer;
-  transition: color 120ms ease, border-color 120ms ease, background 120ms ease;
+  transition:
+    color 120ms ease,
+    border-color 120ms ease,
+    background 120ms ease;
 }
 
 .token-mode-btn:hover {
@@ -901,7 +921,7 @@
 }
 
 .token-code {
-  font-family: "IBM Plex Mono", "Liberation Mono", monospace;
+  font-family: 'IBM Plex Mono', 'Liberation Mono', monospace;
   font-size: 12px;
   color: #1e293b;
   white-space: nowrap;
@@ -961,7 +981,10 @@
   font-weight: 600;
   padding: 0 12px;
   cursor: pointer;
-  transition: border-color 120ms ease, color 120ms ease, background 120ms ease;
+  transition:
+    border-color 120ms ease,
+    color 120ms ease,
+    background 120ms ease;
 }
 
 .token-copy-btn:hover {
@@ -1024,7 +1047,7 @@
 }
 
 .button-inline-code {
-  font-family: "IBM Plex Mono", "Liberation Mono", monospace;
+  font-family: 'IBM Plex Mono', 'Liberation Mono', monospace;
   font-size: 12px;
   color: #4e5969;
   background: #f2f3f5;
@@ -1071,7 +1094,9 @@ sportbook6vn-button.button-doc-state-pressed {
 }
 
 sportbook6vn-button.button-doc-state-hover
-  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-rectangle.ant-btn-primary:not(:disabled) {
+  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-rectangle.ant-btn-primary:not(
+    :disabled
+  ) {
   background: linear-gradient(
     90deg,
     var(--sportbook6vn-color-action-primary-hover-start, #3949d6) 0%,
@@ -1081,7 +1106,9 @@ sportbook6vn-button.button-doc-state-hover
 }
 
 sportbook6vn-button.button-doc-state-pressed
-  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-rectangle.ant-btn-primary:not(:disabled) {
+  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-rectangle.ant-btn-primary:not(
+    :disabled
+  ) {
   background: linear-gradient(
     90deg,
     var(--sportbook6vn-color-action-primary-active-start, #606ad5) 0%,
@@ -1091,16 +1118,21 @@ sportbook6vn-button.button-doc-state-pressed
 }
 
 sportbook6vn-button.button-doc-state-hover
-  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary:not(:disabled) {
+  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary:not(
+    :disabled
+  ) {
   background: var(--sportbook6vn-color-action-pill-primary-hover, #5f7eeb);
 }
 
 sportbook6vn-button.button-doc-state-pressed
-  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary:not(:disabled) {
+  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary:not(
+    :disabled
+  ) {
   background: var(--sportbook6vn-color-action-pill-primary-active, #a3b7fd);
 }
 
-sportbook6vn-button.button-doc-state-hover .sportbook6vn-button--variant-secondary.ant-btn-default:not(:disabled) {
+sportbook6vn-button.button-doc-state-hover
+  .sportbook6vn-button--variant-secondary.ant-btn-default:not(:disabled) {
   border-color: var(--sportbook6vn-color-button-secondary-hover, #5f7eeb);
   color: var(--sportbook6vn-color-button-secondary-hover, #5f7eeb);
   opacity: 0.7;
@@ -1241,7 +1273,7 @@ sportbook6vn-button.button-doc-state-pressed
 
 .core3-map-button-add-icon::before {
   background: currentColor;
-  content: "";
+  content: '';
   display: block;
   height: 20px;
   width: 20px;
@@ -1300,6 +1332,54 @@ sportbook6vn-button.button-doc-state-pressed
 
 .core3-steps-basic-demo {
   padding: 8px;
+}
+
+.core3-tab-card,
+.core3-tab-preview {
+  overflow: visible;
+}
+
+.core3-tab-preview {
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 220px;
+}
+
+.core3-tab-stack {
+  align-items: flex-start;
+  display: grid;
+  gap: 24px;
+}
+
+.core3-badge-card,
+.core3-badge-preview,
+.core3-status-card,
+.core3-status-preview {
+  overflow: visible;
+}
+
+.core3-badge-preview,
+.core3-status-preview {
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 220px;
+}
+
+.core3-badge-strip,
+.core3-status-strip {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 48px;
+}
+
+.core3-badge-grid {
+  align-items: flex-start;
+  display: grid;
+  gap: 20px 48px;
+  grid-template-columns: repeat(4, max-content);
 }
 
 .core3-datepicker-card,
@@ -1515,7 +1595,10 @@ sportbook6vn-button.button-doc-state-pressed
   max-height: calc(100vh - 104px);
   overflow-y: auto;
   padding: 56px 0 0 16px;
-  transition: opacity 140ms ease, transform 140ms ease, visibility 140ms ease;
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease,
+    visibility 140ms ease;
 }
 
 .anchor-layout-holder.collapsed .toc {
@@ -1539,7 +1622,10 @@ sportbook6vn-button.button-doc-state-pressed
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  transition:
+    background 120ms ease,
+    color 120ms ease,
+    border-color 120ms ease;
   z-index: 2;
 }
 
@@ -1735,8 +1821,12 @@ sportbook6vn-button.button-doc-state-pressed
   background: #252b36;
 }
 
+.iconography-usage-section,
+.iconography-library-section,
+.iconography-naming-section,
 .illustration-usage-section,
 .illustration-library-section,
+.illustration-flag-section,
 .illustration-naming-section {
   scroll-margin-top: 88px;
 }
@@ -1769,7 +1859,7 @@ sportbook6vn-button.button-doc-state-pressed
 .illustration-guideline-card code,
 .illustration-path {
   color: #0f1bd8;
-  font-family: "IBM Plex Mono", "Liberation Mono", monospace;
+  font-family: 'IBM Plex Mono', 'Liberation Mono', monospace;
   font-size: 13px;
   line-height: 20px;
   word-break: break-all;
@@ -1809,6 +1899,12 @@ sportbook6vn-button.button-doc-state-pressed
   gap: 20px;
 }
 
+.iconography-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
 .illustration-card {
   display: flex;
   min-width: 0;
@@ -1833,6 +1929,15 @@ sportbook6vn-button.button-doc-state-pressed
   width: min(180px, 100%);
   height: 180px;
   object-fit: contain;
+}
+
+.iconography-thumb {
+  min-height: 150px;
+}
+
+.iconography-thumb img {
+  width: 56px;
+  height: 56px;
 }
 
 .illustration-card-body {
@@ -1888,6 +1993,26 @@ sportbook6vn-button.button-doc-state-pressed
   word-break: break-word;
 }
 
+.iconography-file-table {
+  overflow-x: auto;
+}
+
+.iconography-file-table .button-api-row {
+  min-width: 1160px;
+  grid-template-columns:
+    minmax(140px, 0.8fr)
+    minmax(220px, 1.2fr)
+    72px
+    96px
+    minmax(320px, 2fr)
+    minmax(240px, 1.4fr);
+}
+
+.iconography-file-table .token-code {
+  white-space: normal;
+  word-break: break-word;
+}
+
 .page.theme-dark .illustration-guideline-card,
 .page.theme-dark .illustration-code-card,
 .page.theme-dark .illustration-card {
@@ -1914,6 +2039,10 @@ sportbook6vn-button.button-doc-state-pressed
 }
 
 @media (max-width: 1280px) {
+  .iconography-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .illustration-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1921,8 +2050,13 @@ sportbook6vn-button.button-doc-state-pressed
 
 @media (max-width: 980px) {
   .illustration-guideline-grid,
+  .iconography-grid,
   .illustration-grid,
   .illustration-file-table .button-api-row {
     grid-template-columns: 1fr;
+  }
+
+  .iconography-file-table .button-api-row {
+    min-width: 1040px;
   }
 }
