@@ -224,6 +224,11 @@ import {
   type ThemeId,
   type ThemeMode,
 } from './semantic-theme-modes.data';
+import {
+  FOOTER_PATTERN_DEPENDENCIES,
+  FOOTER_PATTERN_IMPLEMENTATION_SNIPPET,
+  FOOTER_PATTERN_VARIANTS,
+} from './pattern-demos.data';
 
 interface SemanticTokenGroup {
   category: string;
@@ -326,6 +331,7 @@ export class App {
   protected readonly isGettingStartedOpen = signal(false);
   protected readonly isDesignTokensOpen = signal(false);
   protected readonly isComponentsOpen = signal(true);
+  protected readonly isPatternOpen = signal(false);
   protected readonly activePage = signal<
     | 'buttons'
     | 'buttonMapping'
@@ -345,7 +351,7 @@ export class App {
     | 'uploadFile'
     | 'iconography'
     | 'illustration'
-    | 'pattern'
+    | 'footerPattern'
     | 'introduction'
     | 'installation'
     | 'color'
@@ -363,6 +369,9 @@ export class App {
   protected readonly colorTokenMode = signal<ThemeMode>(DEFAULT_THEME_MODE);
   protected readonly copiedSemanticAlias = signal<string | null>(null);
   protected readonly isTocCollapsed = signal(false);
+  protected readonly footerPatternVariants = FOOTER_PATTERN_VARIANTS;
+  protected readonly footerPatternDependencies = FOOTER_PATTERN_DEPENDENCIES;
+  protected readonly footerPatternImplementationSnippet = FOOTER_PATTERN_IMPLEMENTATION_SNIPPET;
   protected readonly spacingScaleRows: NumericScaleRow[] = SPACING_SCALE_ROWS;
   protected readonly radiusScaleRows: NumericScaleRow[] = RADIUS_SCALE_ROWS;
   protected readonly typographyScaleGroups: TypographyScaleGroup[] = TYPOGRAPHY_SCALE_GROUPS;
@@ -859,7 +868,7 @@ export class AppComponent {}`;
       | 'uploadFile'
       | 'iconography'
       | 'illustration'
-      | 'pattern'
+      | 'footerPattern'
       | 'introduction'
       | 'installation'
       | 'color'
@@ -868,6 +877,9 @@ export class AppComponent {}`;
       | 'typography',
   ) {
     this.activePage.set(page);
+    if (page === 'footerPattern') {
+      this.isPatternOpen.set(true);
+    }
     if (page === 'tokens' || page === 'spacing' || page === 'typography') {
       setTimeout(() => this.updateActiveTokenSection(), 0);
     } else if (page === 'buttons') {
@@ -909,11 +921,13 @@ export class AppComponent {}`;
     }
   }
 
-  protected toggleSection(section: 'gettingStarted' | 'designTokens' | 'components') {
+  protected toggleSection(section: 'gettingStarted' | 'designTokens' | 'components' | 'pattern') {
     if (section === 'gettingStarted') {
       this.isGettingStartedOpen.update((v) => !v);
     } else if (section === 'designTokens') {
       this.isDesignTokensOpen.update((v) => !v);
+    } else if (section === 'pattern') {
+      this.isPatternOpen.update((v) => !v);
     } else {
       this.isComponentsOpen.update((v) => !v);
     }
