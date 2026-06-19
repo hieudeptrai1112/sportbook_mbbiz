@@ -440,6 +440,11 @@
   max-width: 1212px;
 }
 
+.main-inner.main-inner-pattern {
+  grid-template-columns: minmax(0, 1324px) minmax(0, 180px);
+  max-width: 1528px;
+}
+
 .main-inner.toc-collapsed .content {
   max-width: 1100px;
 }
@@ -462,6 +467,10 @@
 .content.content-color,
 .content.content-tokens {
   max-width: 1100px;
+}
+
+.content.content-pattern {
+  max-width: 1324px;
 }
 
 .page-header {
@@ -1125,14 +1134,14 @@
 }
 
 .footer-pattern-row-shell {
-  align-items: center;
+  align-items: flex-start;
   background: #ffffff;
-  box-shadow: 0 1px 4px rgba(74, 125, 255, 0.18);
+  box-shadow: 0 1px 3px rgba(74, 125, 255, 0.35);
   display: flex;
   flex-wrap: nowrap;
-  gap: 20px;
-  min-height: 72px;
-  padding: 14px 24px;
+  gap: 24px;
+  min-height: 80px;
+  padding: 16px 28px;
   position: relative;
   width: 100%;
 }
@@ -1146,17 +1155,16 @@
 }
 
 .footer-pattern-action--compact {
-  width: clamp(104px, 18%, 184px);
+  width: 128px;
 }
 
 .footer-pattern-action--wide {
-  width: clamp(220px, 30%, 456px);
+  width: 316px;
 }
 
 .footer-pattern-action--trigger {
   cursor: pointer;
-  position: relative;
-  width: clamp(156px, 22%, 216px);
+  width: 151px;
 }
 
 .footer-pattern-overflow {
@@ -1164,8 +1172,10 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  justify-content: flex-end;
   min-height: 48px;
-  position: relative;
+  overflow: visible;
+  width: 151px;
 }
 
 .footer-pattern-overflow-menu {
@@ -1175,18 +1185,13 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  position: absolute;
-  bottom: calc(100% + 12px);
-  left: 0;
+  padding: 12px;
   width: 226px;
   z-index: 1;
 }
 
 .footer-pattern-overflow-menu--panel {
-  bottom: calc(100% + 8px);
-  left: 0;
-  width: 324px;
-  max-width: min(324px, calc(100vw - 64px));
+  max-width: none;
 }
 
 .footer-pattern-overflow-item {
@@ -1194,11 +1199,12 @@
   font-size: 14px;
   letter-spacing: 0.25px;
   line-height: 20px;
-  padding: 12px 16px;
+  padding: 8px 4px;
+  width: 100%;
 }
 
 .footer-pattern-overflow-item + .footer-pattern-overflow-item {
-  border-top: 1px solid rgba(82, 221, 221, 0.18);
+  border-top: none;
 }
 
 .footer-pattern-note {
