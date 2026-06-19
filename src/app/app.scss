@@ -1099,6 +1099,7 @@
 
 .footer-pattern-demo-card {
   border-radius: 16px;
+  overflow: visible;
 }
 
 .footer-pattern-demo-preview {
@@ -1108,7 +1109,13 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  overflow: visible;
   padding: 32px;
+  position: relative;
+}
+
+.footer-pattern-demo-preview--overflow-open {
+  min-height: 328px;
 }
 
 .footer-pattern-row-label {
@@ -1131,6 +1138,16 @@
   height: 30px;
   justify-content: center;
   width: 30px;
+}
+
+.footer-pattern-row-stage {
+  min-height: 80px;
+  position: relative;
+  width: 100%;
+}
+
+.footer-pattern-row-stage--overflow-open {
+  padding-top: 96px;
 }
 
 .footer-pattern-row-shell {
@@ -1168,13 +1185,9 @@
 }
 
 .footer-pattern-overflow {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  justify-content: flex-end;
   min-height: 48px;
   overflow: visible;
+  position: relative;
   width: 151px;
 }
 
@@ -1186,8 +1199,11 @@
   flex-direction: column;
   overflow: hidden;
   padding: 12px;
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 0;
   width: 226px;
-  z-index: 1;
+  z-index: 2;
 }
 
 .footer-pattern-overflow-menu--panel {
@@ -1205,6 +1221,12 @@
 
 .footer-pattern-overflow-item + .footer-pattern-overflow-item {
   border-top: none;
+}
+
+.footer-pattern-action > sportbook6vn-button,
+.footer-pattern-overflow > sportbook6vn-button {
+  display: block;
+  width: 100%;
 }
 
 .footer-pattern-note {
@@ -1874,6 +1896,14 @@ sportbook6vn-button.button-doc-state-pressed
 
   .footer-pattern-demo-preview {
     padding: 24px 16px;
+  }
+
+  .footer-pattern-demo-preview--overflow-open {
+    min-height: 0;
+  }
+
+  .footer-pattern-row-stage--overflow-open {
+    padding-top: 0;
   }
 
   .footer-pattern-row-shell {

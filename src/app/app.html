@@ -698,67 +698,79 @@
               <p class="button-demo-description footer-pattern-note">{{ variant.usage }}</p>
 
               <article class="button-demo-card footer-pattern-demo-card">
-                <div class="footer-pattern-demo-preview">
+                <div
+                  class="footer-pattern-demo-preview"
+                  [class.footer-pattern-demo-preview--overflow-open]="
+                    variant.id === 'typeMore' && isFooterPatternOverflowOpen(variant.id)
+                  "
+                >
                   <div class="footer-pattern-row-label">
                     <span class="footer-pattern-row-index">{{ variant.figmaType }}</span>
                     <span>{{ variant.countLabel }}</span>
                   </div>
 
-                  <div class="footer-pattern-row-shell footer-pattern-row-shell--case">
-                    <ng-container *ngFor="let action of variant.actions">
-                      <div
-                        class="footer-pattern-action"
-                        [class.footer-pattern-action--compact]="action.width === 'compact'"
-                        [class.footer-pattern-action--wide]="action.width === 'wide'"
-                        [class.footer-pattern-action--trigger]="
-                          variant.id === 'typeMore' && action.label === 'Thao tác khác'
-                        "
-                        (click)="
-                          variant.id === 'typeMore' && action.label === 'Thao tác khác'
-                            ? toggleFooterPatternOverflow(variant.id, $event)
-                            : null
-                        "
-                      >
+                  <div
+                    class="footer-pattern-row-stage"
+                    [class.footer-pattern-row-stage--overflow-open]="
+                      variant.id === 'typeMore' && isFooterPatternOverflowOpen(variant.id)
+                    "
+                  >
+                    <div class="footer-pattern-row-shell footer-pattern-row-shell--case">
+                      <ng-container *ngFor="let action of variant.actions">
                         <div
-                          class="footer-pattern-overflow"
-                          *ngIf="variant.id === 'typeMore' && action.label === 'Thao tác khác'; else footerPatternActionButton"
+                          class="footer-pattern-action"
+                          [class.footer-pattern-action--compact]="action.width === 'compact'"
+                          [class.footer-pattern-action--wide]="action.width === 'wide'"
+                          [class.footer-pattern-action--trigger]="
+                            variant.id === 'typeMore' && action.label === 'Thao tác khác'
+                          "
+                          (click)="
+                            variant.id === 'typeMore' && action.label === 'Thao tác khác'
+                              ? toggleFooterPatternOverflow(variant.id, $event)
+                              : null
+                          "
                         >
                           <div
-                            class="footer-pattern-overflow-menu footer-pattern-overflow-menu--panel"
-                            *ngIf="
-                              variant.overflowMenuItems?.length &&
-                              isFooterPatternOverflowOpen(variant.id)
-                            "
-                            (click)="$event.stopPropagation()"
+                            class="footer-pattern-overflow"
+                            *ngIf="variant.id === 'typeMore' && action.label === 'Thao tác khác'; else footerPatternActionButton"
                           >
                             <div
-                              class="footer-pattern-overflow-item"
-                              *ngFor="let item of variant.overflowMenuItems"
+                              class="footer-pattern-overflow-menu footer-pattern-overflow-menu--panel"
+                              *ngIf="
+                                variant.overflowMenuItems?.length &&
+                                isFooterPatternOverflowOpen(variant.id)
+                              "
+                              (click)="$event.stopPropagation()"
                             >
-                              {{ item }}
+                              <div
+                                class="footer-pattern-overflow-item"
+                                *ngFor="let item of variant.overflowMenuItems"
+                              >
+                                {{ item }}
+                              </div>
                             </div>
+
+                            <sportbook6vn-button
+                              [variant]="action.variant"
+                              size="lg"
+                              [fullWidth]="true"
+                            >
+                              {{ action.label }}
+                            </sportbook6vn-button>
                           </div>
 
-                          <sportbook6vn-button
-                            [variant]="action.variant"
-                            size="lg"
-                            [fullWidth]="true"
-                          >
-                            {{ action.label }}
-                          </sportbook6vn-button>
+                          <ng-template #footerPatternActionButton>
+                            <sportbook6vn-button
+                              [variant]="action.variant"
+                              size="lg"
+                              [fullWidth]="true"
+                            >
+                              {{ action.label }}
+                            </sportbook6vn-button>
+                          </ng-template>
                         </div>
-
-                        <ng-template #footerPatternActionButton>
-                          <sportbook6vn-button
-                            [variant]="action.variant"
-                            size="lg"
-                            [fullWidth]="true"
-                          >
-                            {{ action.label }}
-                          </sportbook6vn-button>
-                        </ng-template>
-                      </div>
-                    </ng-container>
+                      </ng-container>
+                    </div>
                   </div>
                 </div>
               </article>
