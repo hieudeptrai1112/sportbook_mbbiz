@@ -1,4 +1,4 @@
-export type StepsDemoVariant = 'basic';
+export type StepsDemoVariant = 'basic' | 'states' | 'vertical';
 
 export interface StepsDescriptionPart {
   text?: string;
@@ -35,10 +35,12 @@ export interface StepsVariableGroup {
 
 export const STEPS_DEMO_SECTIONS: StepsDemoSection[] = [
   {
-    id: 'basic',
-    title: 'Basic',
-    descriptionParts: [{ text: 'A simple three-step process with the first step active.' }],
-    tags: ['selector=sportbook6vn-steps', 'variant=basic', 'steps=3', 'figma=5061:56328'],
+    id: 'horizontal-steps',
+    title: 'Horizontal Steps',
+    descriptionParts: [
+      { text: 'Horizontal progress-dot flow aligned to the approved docs-ready draft.' },
+    ],
+    tags: ['selector=sportbook6vn-steps', 'direction=horizontal', 'steps=4', 'figma=3898:182753'],
     variant: 'basic',
     snippetTs: `import { Component } from '@angular/core';
 import { Sportbook6vnStepsComponent } from 'sportbook6vn';
@@ -52,6 +54,56 @@ import { Sportbook6vnStepsComponent } from 'sportbook6vn';
   \`,
 })
 export class StepsBasicDemoComponent {}`,
+  },
+  {
+    id: 'horizontal-step-states',
+    title: 'Horizontal Step States',
+    descriptionParts: [
+      {
+        text: 'Single-step state matrix mapped directly from Figma: Next, In Progress, Done, and Error.',
+      },
+    ],
+    tags: [
+      'selector=sportbook6vn-steps',
+      'direction=horizontal',
+      'state=next|process|finish|error',
+      'figma=3898:182489',
+    ],
+    variant: 'states',
+    snippetTs: `import { Component } from '@angular/core';
+import { Sportbook6vnStepsComponent } from 'sportbook6vn';
+
+@Component({
+  selector: 'app-steps-states-demo',
+  standalone: true,
+  imports: [Sportbook6vnStepsComponent],
+  template: \`
+    <sportbook6vn-steps
+      direction="horizontal"
+      [items]="[{ title: 'Text', status: 'error' }]"
+    />
+  \`,
+})
+export class StepsStatesDemoComponent {}`,
+  },
+  {
+    id: 'vertical-steps',
+    title: 'Vertical Step',
+    descriptionParts: [{ text: 'Three-step vertical flow aligned to Figma Progress=3 Step, Step=1.' }],
+    tags: ['selector=sportbook6vn-steps', 'direction=vertical', 'steps=3', 'figma=3898:183673'],
+    variant: 'vertical',
+    snippetTs: `import { Component } from '@angular/core';
+import { Sportbook6vnStepsComponent } from 'sportbook6vn';
+
+@Component({
+  selector: 'app-steps-vertical-demo',
+  standalone: true,
+  imports: [Sportbook6vnStepsComponent],
+  template: \`
+    <sportbook6vn-steps direction="vertical" [amount]="3" [current]="0" />
+  \`,
+})
+export class StepsVerticalDemoComponent {}`,
   },
 ];
 

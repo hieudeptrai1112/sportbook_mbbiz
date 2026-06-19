@@ -242,7 +242,7 @@
               (click)="setPage('steps')"
             >
               <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
-              <span>Steps</span>
+              <span>Step</span>
             </div>
             <div
               class="sidebar-link"
@@ -317,6 +317,14 @@
             >
               <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
               <span>Status</span>
+            </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'message'"
+              (click)="setPage('message')"
+            >
+              <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+              <span>Message</span>
             </div>
             <div
               class="sidebar-link"
@@ -2209,28 +2217,20 @@
                 <span class="slash">/</span>
                 <span class="meta-version">v2.4.0</span>
               </div>
-              <h1>Steps</h1>
+              <h1>Step</h1>
               <p class="lead">
-                Steps renders sequential progress states with Sportbook6VN numbered markers,
-                connector lines, and active/inactive text treatment from Figma.
+                Step maps the approved horizontal and vertical flows into the docs app, including
+                state coverage for the horizontal progress-dot variant.
               </p>
             </div>
 
             <section
               class="section button-demo-section"
-              *ngFor="let demo of stepsDemoSections; let i = index"
+              *ngFor="let demo of stepsDemoSections"
               [attr.id]="getStepsSectionId(demo.id)"
             >
               <div class="button-demo-head">
                 <h2>{{ demo.title }}</h2>
-                <button
-                  *ngIf="i === 0"
-                  class="button-doc-toggle"
-                  type="button"
-                  (click)="toggleAllStepsDemoCode()"
-                >
-                  {{ areAllStepsDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
-                </button>
               </div>
               <p class="button-demo-description button-demo-description--rich">
                 @for (part of demo.descriptionParts; track $index) {
@@ -2249,98 +2249,39 @@
 
               <div class="button-demo-card core3-steps-card">
                 <div class="button-demo-preview core3-map-preview core3-steps-preview">
-                  <ng-container [ngSwitch]="demo.variant">
-                    <div *ngSwitchCase="'basic'" class="core3-steps-basic-demo">
-                      <sportbook6vn-steps [amount]="3" [current]="0" />
+                  @if (demo.variant === 'states') {
+                    <div class="core3-step-states-board">
+                      <div class="core3-step-state-card" *ngFor="let stateCase of horizontalStepStateCases">
+                        <span class="core3-step-state-title">{{ stateCase.title }}</span>
+                        <sportbook6vn-steps
+                          direction="horizontal"
+                          [items]="stateCase.items"
+                          [ariaLabel]="stateCase.ariaLabel"
+                        />
+                      </div>
                     </div>
-                  </ng-container>
-                </div>
-
-                <div class="button-demo-controls">
-                  <div class="button-demo-icons">
-                    <button
-                      type="button"
-                      class="button-icon-btn"
-                      [class.active]="isStepsDemoExpanded(demo.id)"
-                      (click)="toggleStepsDemoCode(demo.id)"
-                      aria-label="Toggle code"
-                    >
-                      &lt;/&gt;
-                    </button>
-                    <button
-                      type="button"
-                      class="button-icon-btn"
-                      (click)="copyStepsDemoCode(demo)"
-                      aria-label="Copy code"
-                    >
-                      {{ copiedStepsDemoId() === demo.id ? 'Copied' : 'Copy' }}
-                    </button>
-                  </div>
-
-                  <span class="button-code-hint">TS</span>
-                </div>
-
-                <div class="button-code-wrapper" *ngIf="isStepsDemoExpanded(demo.id)">
-                  <div class="button-code-head">
-                    <span class="button-code-file">{{ getStepsCodeLanguageLabel(demo) }}</span>
-                    <span class="button-code-hint">{{ getStepsCodeHint() }}</span>
-                  </div>
-                  <pre
-                    class="button-code-block"
-                  ><code [innerHTML]="getStepsDemoHighlightedCode(demo)"></code></pre>
+                  } @else if (demo.variant === 'vertical') {
+                    <div class="core3-vertical-steps-board">
+                      <sportbook6vn-steps
+                        direction="vertical"
+                        [items]="verticalStepPreviewItems"
+                        ariaLabel="Vertical steps preview"
+                      />
+                    </div>
+                  } @else {
+                    <div class="core3-steps-board">
+                      <sportbook6vn-steps
+                        *ngFor="let current of stepProgressStates"
+                        direction="horizontal"
+                        [amount]="4"
+                        [current]="current"
+                        generatedTitle="Text"
+                        ariaLabel="Horizontal steps preview"
+                      />
+                    </div>
+                  }
                 </div>
               </div>
-            </section>
-
-            <section class="section button-api-section" id="steps-api">
-              <h2>API</h2>
-              <h3 class="button-api-group-title">sportbook6vn-steps</h3>
-              <div class="button-api-table">
-                <div class="button-api-row button-api-head">
-                  <span class="button-api-col button-api-col-property">Property</span>
-                  <span class="button-api-col button-api-col-description">Description</span>
-                  <span class="button-api-col button-api-col-type">Type</span>
-                  <span class="button-api-col button-api-col-default">Default</span>
-                </div>
-                <div class="button-api-row" *ngFor="let row of stepsApiRows">
-                  <span class="token-code button-api-col button-api-col-property">{{
-                    row.property
-                  }}</span>
-                  <span class="button-api-col button-api-col-description">{{
-                    row.description
-                  }}</span>
-                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
-                  <span class="token-code button-api-col button-api-col-default">{{
-                    row.defaultValue
-                  }}</span>
-                </div>
-              </div>
-            </section>
-
-            <section class="section button-variables-section" id="steps-variables">
-              <h2>Component Token</h2>
-              <div class="scale-block" *ngFor="let group of stepsVariableGroups">
-                <h3>{{ group.title }}</h3>
-                <div class="token-table button-variable-table">
-                  <div class="token-row token-head">
-                    <span>Token</span>
-                    <span>Value</span>
-                    <span>Usage</span>
-                  </div>
-                  <div class="token-row" *ngFor="let row of group.rows">
-                    <span class="token-code">{{ row.token }}</span>
-                    <span class="token-code">{{ row.value }}</span>
-                    <span class="token-note-cell">
-                      <span class="token-description">{{ row.appliesTo }}</span>
-                      <span class="token-description">{{ row.notes }}</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <ul class="button-variable-notes">
-                <li *ngFor="let note of stepsVariableNotes">{{ note }}</li>
-              </ul>
             </section>
           </ng-container>
 
@@ -2414,6 +2355,83 @@
                     <div *ngSwitchCase="'disabled-count'" class="core3-tab-stack">
                       <sportbook6vn-tab [items]="tabDisabledItems" [activeIndex]="2" />
                       <sportbook6vn-tab variant="underlined" [items]="tabCountItems" />
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'message'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Display</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Message</h1>
+              <p class="lead">
+                Message maps the approved snackbar surface into the docs app with baseline,
+                semantic types, dismissible state, and service-triggered feedback cases.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of messageDemoSections"
+              [attr.id]="getMessageSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card message-demo-card">
+                <div class="button-demo-preview core3-map-preview message-demo-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <div *ngSwitchCase="'default'" class="message-demo-frame message-demo-frame--intrinsic">
+                      <sportbook6vn-message />
+                    </div>
+
+                    <div *ngSwitchCase="'type'" class="message-demo-frame">
+                      <div class="message-demo-stack">
+                        <sportbook6vn-message
+                          *ngFor="let item of messageCases"
+                          [type]="item.type"
+                          [content]="item.content"
+                        />
+                      </div>
+                    </div>
+
+                    <div *ngSwitchCase="'dismissible'" class="message-demo-frame message-demo-frame--intrinsic">
+                      <sportbook6vn-message
+                        type="warning"
+                        content="Warning inform with dismiss button."
+                        [closable]="true"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'service'" class="message-demo-frame">
+                      <div class="message-demo-actions">
+                        <sportbook6vn-button
+                          *ngFor="let item of messageCases"
+                          size="sm"
+                          variant="secondary"
+                          (buttonClick)="showMessage(item.type)"
+                        >
+                          {{ item.type === 'inform' ? 'Inform' : (item.type | titlecase) }}
+                        </sportbook6vn-button>
+                        <sportbook6vn-button
+                          size="sm"
+                          variant="secondary"
+                          (buttonClick)="clearMessages()"
+                        >
+                          Clear
+                        </sportbook6vn-button>
+                      </div>
                     </div>
                   </ng-container>
                 </div>
@@ -5849,33 +5867,6 @@
                 >
                   {{ demo.title }}
                 </a>
-                <a
-                  class="toc-item"
-                  [class.active]="activeStepsSection() === 'steps-api'"
-                  href="#steps-api"
-                  (click)="setActiveStepsSection('steps-api')"
-                >
-                  API
-                </a>
-                <a
-                  class="toc-item"
-                  [class.active]="activeStepsSection() === 'steps-variables'"
-                  href="#steps-variables"
-                  (click)="setActiveStepsSection('steps-variables')"
-                >
-                  Component Token
-                </a>
-              </div>
-
-              <div class="pro-tip">
-                <div class="pro-tip-title">
-                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
-                  <span>Pro Tip</span>
-                </div>
-                <p>
-                  Use <span class="mono">current</span> as a zero-based index and keep each step
-                  title short.
-                </p>
               </div>
             </aside>
 
@@ -5955,6 +5946,33 @@
                   [class.active]="activeStatusSection() === getStatusSectionId(demo.id)"
                   [href]="'#' + getStatusSectionId(demo.id)"
                   (click)="setActiveStatusSection(getStatusSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'message'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of messageDemoSections"
+                  [class.active]="activeMessageSection() === getMessageSectionId(demo.id)"
+                  [href]="'#' + getMessageSectionId(demo.id)"
+                  (click)="setActiveMessageSection(getMessageSectionId(demo.id))"
                 >
                   {{ demo.title }}
                 </a>

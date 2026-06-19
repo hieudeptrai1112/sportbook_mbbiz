@@ -91,12 +91,16 @@ export class Sportbook6vnStepsComponent {
       .join(' ');
   }
 
+  protected isCurrentStep(index: number, item: Sportbook6vnStepItem): boolean {
+    return !this.isComplete() && this.stepStatus(index, item) === 'process';
+  }
+
   protected trackStep(index: number, item: Sportbook6vnStepItem): string {
     return `${item.title}-${index}`;
   }
 
   protected onStepClick(index: number, item: Sportbook6vnStepItem): void {
-    if (!this.clickable() || item.disabled || index === this.currentIndex()) {
+    if (!this.clickable() || item.disabled || this.isCurrentStep(index, item)) {
       return;
     }
 

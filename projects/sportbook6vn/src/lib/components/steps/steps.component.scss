@@ -40,11 +40,12 @@
 
   align-items: flex-start;
   flex-direction: row;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 16px;
-  width: min(100%, 648px);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .sportbook6vn-steps__item {
@@ -87,13 +88,21 @@
   --sportbook6vn-steps-title-color: var(--sportbook6vn-color-steps-step-active, #7b5fff);
 }
 
+.sportbook6vn-steps__item--error {
+  --sportbook6vn-steps-marker-border: #f00000;
+  --sportbook6vn-steps-marker-bg: #f00000;
+  --sportbook6vn-steps-marker-color: transparent;
+  --sportbook6vn-steps-tail-color: #f00000;
+  --sportbook6vn-steps-title-color: #f00000;
+}
+
 .sportbook6vn-steps--horizontal .sportbook6vn-steps__item {
-  flex: 1 1 0;
+  flex: 0 0 162px;
   flex-direction: column;
   gap: 12px;
   min-height: 0;
   min-width: 0;
-  width: auto;
+  width: 162px;
 }
 
 .sportbook6vn-steps--horizontal .sportbook6vn-steps__item--finish {
@@ -108,7 +117,7 @@
   --sportbook6vn-steps-marker-bg: #ffffff;
   --sportbook6vn-steps-marker-border: var(--sportbook6vn-steps-primary-color);
   --sportbook6vn-steps-marker-color: transparent;
-  --sportbook6vn-steps-tail-color: #a3b7fd;
+  --sportbook6vn-steps-tail-color: var(--sportbook6vn-steps-primary-color);
   --sportbook6vn-steps-title-color: var(--sportbook6vn-steps-text-color);
 }
 
@@ -118,6 +127,14 @@
   --sportbook6vn-steps-marker-color: transparent;
   --sportbook6vn-steps-tail-color: #a3b7fd;
   --sportbook6vn-steps-title-color: #6d83a7;
+}
+
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__item--error {
+  --sportbook6vn-steps-marker-bg: #f00000;
+  --sportbook6vn-steps-marker-border: #f00000;
+  --sportbook6vn-steps-marker-color: transparent;
+  --sportbook6vn-steps-tail-color: var(--sportbook6vn-steps-primary-color);
+  --sportbook6vn-steps-title-color: var(--sportbook6vn-steps-text-color);
 }
 
 .sportbook6vn-steps--size-badge .sportbook6vn-steps__item--wait {
@@ -261,12 +278,19 @@
 }
 
 .sportbook6vn-steps--horizontal .sportbook6vn-steps__title {
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 14px;
+  letter-spacing: 0.25px;
+  line-height: 20px;
 }
 
 .sportbook6vn-steps--horizontal .sportbook6vn-steps__item--wait .sportbook6vn-steps__title {
   font-weight: 400;
+}
+
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__item--process .sportbook6vn-steps__title,
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__item--finish .sportbook6vn-steps__title,
+.sportbook6vn-steps--horizontal .sportbook6vn-steps__item--error .sportbook6vn-steps__title {
+  font-weight: 600;
 }
 
 .sportbook6vn-steps__description {

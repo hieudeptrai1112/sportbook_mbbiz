@@ -124,4 +124,34 @@ describe('Sportbook6vnStepsComponent', () => {
       Array.from(items).every((item) => (item as HTMLElement).classList.contains('sportbook6vn-steps__item--finish')),
     ).toBe(true);
   });
+
+  it('supports explicit horizontal error state items', () => {
+    @Component({
+      imports: [Sportbook6vnStepsComponent],
+      template: `
+        <sportbook6vn-steps
+          direction="horizontal"
+          [items]="[
+            { title: 'Next', status: 'wait' },
+            { title: 'Current', status: 'process' },
+            { title: 'Failure', status: 'error' },
+            { title: 'Done', status: 'finish' },
+          ]"
+        />
+      `,
+    })
+    class Sportbook6vnStepsHorizontalErrorTestHostComponent {}
+
+    const fixture = TestBed.createComponent(Sportbook6vnStepsHorizontalErrorTestHostComponent);
+    fixture.detectChanges();
+
+    const items = fixture.nativeElement.querySelectorAll('.sportbook6vn-steps__item');
+    const current = fixture.nativeElement.querySelector('[aria-current="step"]');
+
+    expect(items[0].classList).toContain('sportbook6vn-steps__item--wait');
+    expect(items[1].classList).toContain('sportbook6vn-steps__item--process');
+    expect(items[2].classList).toContain('sportbook6vn-steps__item--error');
+    expect(items[3].classList).toContain('sportbook6vn-steps__item--finish');
+    expect(current.textContent).toContain('Current');
+  });
 });

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, computed, signal, type WritableSignal } from '@angular/core';
+import { Component, HostListener, computed, inject, signal, type WritableSignal } from '@angular/core';
 import type { DsInputPasswordState } from './components/ds-input-password/ds-input-password.component';
 import {
   Sportbook6vnAffixInputComponent,
@@ -26,6 +26,9 @@ import {
   type Sportbook6vnInputTagValue,
   Sportbook6vnPasswordInputComponent,
   Sportbook6vnPaginationComponent,
+  Sportbook6vnMessageComponent,
+  Sportbook6vnMessageService,
+  type Sportbook6vnMessageType,
   type Sportbook6vnPaginationRangeFormatter,
   type Sportbook6vnPaginationSummaryFormatter,
   Sportbook6vnRadioComponent,
@@ -33,6 +36,7 @@ import {
   type Sportbook6vnRadioGroupOption,
   Sportbook6vnSearchInputComponent,
   Sportbook6vnStepsComponent,
+  type Sportbook6vnStepItem,
   Sportbook6vnStatusComponent,
   type Sportbook6vnStatusColor,
   Sportbook6vnTabComponent,
@@ -160,6 +164,12 @@ import {
   type BreadcrumbDemoSection,
   type BreadcrumbVariableGroup,
 } from './breadcrumb-demos.data';
+import {
+  MESSAGE_CASES,
+  MESSAGE_DEMO_SECTIONS,
+  type MessageCase,
+  type MessageDemoSection,
+} from './message-demos.data';
 import {
   STEPS_API_ROWS,
   STEPS_DEMO_SECTIONS,
@@ -305,6 +315,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     Sportbook6vnInputTagComponent,
     Sportbook6vnItemFileComponent,
     Sportbook6vnItemUploadComponent,
+    Sportbook6vnMessageComponent,
     Sportbook6vnPasswordInputComponent,
     Sportbook6vnPaginationComponent,
     Sportbook6vnRadioComponent,
@@ -321,6 +332,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
   styleUrl: './app.scss',
 })
 export class App {
+  private readonly messageService = inject(Sportbook6vnMessageService);
   protected readonly title = signal('sportbook_mbbiz');
   protected readonly activeLang = signal<'VIE' | 'ENG'>('VIE');
   protected readonly isLangOpen = signal(false);
@@ -344,6 +356,7 @@ export class App {
     | 'checkbox'
     | 'badge'
     | 'status'
+    | 'message'
     | 'table'
     | 'pagination'
     | 'datepicker'
@@ -436,8 +449,40 @@ export class App {
   protected readonly stepsVariableGroups: StepsVariableGroup[] = STEPS_VARIABLE_GROUPS;
   protected readonly stepsVariableNotes = STEPS_VARIABLE_NOTES;
   protected readonly activeStepsSection = signal(
-    this.getStepsSectionId(this.stepsDemoSections[0]?.id ?? 'basic'),
+    this.getStepsSectionId(this.stepsDemoSections[0]?.id ?? 'horizontal-steps'),
   );
+  protected readonly stepProgressStates = [0, 1, 2, 3, 4];
+  protected readonly verticalStepPreviewItems: readonly Sportbook6vnStepItem[] = [
+    { title: 'Text', status: 'process' },
+    { title: 'Text', status: 'wait' },
+    { title: 'Text', status: 'wait' },
+  ];
+  protected readonly horizontalStepStateCases: {
+    title: string;
+    ariaLabel: string;
+    items: readonly Sportbook6vnStepItem[];
+  }[] = [
+    {
+      title: 'Next',
+      ariaLabel: 'Horizontal step next state',
+      items: [{ title: 'Text', status: 'wait' }],
+    },
+    {
+      title: 'In Progress',
+      ariaLabel: 'Horizontal step in progress state',
+      items: [{ title: 'Text', status: 'process' }],
+    },
+    {
+      title: 'Done',
+      ariaLabel: 'Horizontal step done state',
+      items: [{ title: 'Text', status: 'finish' }],
+    },
+    {
+      title: 'Error',
+      ariaLabel: 'Horizontal step error state',
+      items: [{ title: 'Text', status: 'error' }],
+    },
+  ];
   protected readonly expandedStepsDemoIds = signal<string[]>([]);
   protected readonly copiedStepsDemoId = signal<string | null>(null);
   protected readonly tabDemoSections: TabDemoSection[] = TAB_DEMO_SECTIONS;
@@ -478,6 +523,11 @@ export class App {
   protected readonly statusDemoSections: StatusDemoSection[] = STATUS_DEMO_SECTIONS;
   protected readonly activeStatusSection = signal(
     this.getStatusSectionId(this.statusDemoSections[0]?.id ?? 'default'),
+  );
+  protected readonly messageDemoSections: MessageDemoSection[] = MESSAGE_DEMO_SECTIONS;
+  protected readonly messageCases: MessageCase[] = MESSAGE_CASES;
+  protected readonly activeMessageSection = signal(
+    this.getMessageSectionId(this.messageDemoSections[0]?.id ?? 'default'),
   );
   protected readonly statusColorCases: { color: Sportbook6vnStatusColor; label: string }[] = [
     { color: 'neutral', label: 'Text' },
@@ -863,6 +913,7 @@ export class AppComponent {}`;
       | 'checkbox'
       | 'badge'
       | 'status'
+      | 'message'
       | 'table'
       | 'pagination'
       | 'datepicker'
@@ -904,6 +955,8 @@ export class AppComponent {}`;
       setTimeout(() => this.updateActiveBadgeSection(), 0);
     } else if (page === 'status') {
       setTimeout(() => this.updateActiveStatusSection(), 0);
+    } else if (page === 'message') {
+      setTimeout(() => this.updateActiveMessageSection(), 0);
     } else if (page === 'table') {
       setTimeout(() => this.updateActiveTableSection(), 0);
     } else if (page === 'pagination') {
@@ -1699,6 +1752,28 @@ export class AppComponent {}`;
     return `status-${sectionId}`;
   }
 
+  protected setActiveMessageSection(sectionId: string) {
+    this.activeMessageSection.set(sectionId);
+  }
+
+  protected getMessageSectionId(sectionId: string): string {
+    return `message-${sectionId}`;
+  }
+
+  protected showMessage(type: Sportbook6vnMessageType): void {
+    const content =
+      this.messageCases.find((item) => item.type === type)?.content ?? 'Informative inform.';
+    this.messageService.create(type, content, {
+      closable: type !== 'inform',
+      duration: 5000,
+      top: 32,
+    });
+  }
+
+  protected clearMessages(): void {
+    this.messageService.remove();
+  }
+
   protected setActiveTableSection(sectionId: string) {
     this.activeTableSection.set(sectionId);
   }
@@ -2295,6 +2370,7 @@ export class AppComponent {}`;
     this.updateActiveTabSection();
     this.updateActiveBadgeSection();
     this.updateActiveStatusSection();
+    this.updateActiveMessageSection();
     this.updateActiveTableSection();
     this.updateActivePaginationSection();
     this.updateActiveDropdownSection();
@@ -2591,6 +2667,31 @@ export class AppComponent {}`;
     }
 
     this.activeStatusSection.set(currentSection);
+  }
+
+  private updateActiveMessageSection() {
+    if (this.activePage() !== 'message' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getMessageSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeMessageSection.set(currentSection);
   }
 
   private updateActiveTableSection() {
@@ -2993,11 +3094,7 @@ export class AppComponent {}`;
   }
 
   private getStepsSectionIds(): string[] {
-    return [
-      ...this.stepsDemoSections.map((section) => this.getStepsSectionId(section.id)),
-      'steps-api',
-      'steps-variables',
-    ];
+    return this.stepsDemoSections.map((section) => this.getStepsSectionId(section.id));
   }
 
   private getTabSectionIds(): string[] {
@@ -3010,6 +3107,10 @@ export class AppComponent {}`;
 
   private getStatusSectionIds(): string[] {
     return this.statusDemoSections.map((section) => this.getStatusSectionId(section.id));
+  }
+
+  private getMessageSectionIds(): string[] {
+    return this.messageDemoSections.map((section) => this.getMessageSectionId(section.id));
   }
 
   private getTableSectionIds(): string[] {

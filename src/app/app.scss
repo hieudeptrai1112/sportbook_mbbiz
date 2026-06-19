@@ -1489,8 +1489,45 @@ sportbook6vn-button.button-doc-state-pressed
   overflow-x: auto;
 }
 
-.core3-steps-basic-demo {
-  padding: 8px;
+.core3-steps-board {
+  display: grid;
+  gap: 44px;
+  margin: 0 auto;
+  min-width: 648px;
+  width: 648px;
+}
+
+.core3-step-states-board {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  margin: 0 auto;
+  min-width: 720px;
+  width: 720px;
+}
+
+.core3-step-state-card {
+  align-items: flex-start;
+  display: grid;
+  flex: 0 0 162px;
+  gap: 16px;
+  justify-items: flex-start;
+}
+
+.core3-step-state-title {
+  color: #192d39;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+}
+
+.core3-vertical-steps-board {
+  display: grid;
+  justify-content: center;
+  margin: 0 auto;
+  min-width: 218px;
+  width: 218px;
 }
 
 .core3-tab-card,
@@ -1514,12 +1551,15 @@ sportbook6vn-button.button-doc-state-pressed
 .core3-badge-card,
 .core3-badge-preview,
 .core3-status-card,
-.core3-status-preview {
+.core3-status-preview,
+.message-demo-card,
+.message-demo-preview {
   overflow: visible;
 }
 
 .core3-badge-preview,
-.core3-status-preview {
+.core3-status-preview,
+.message-demo-preview {
   align-items: flex-start;
   flex-direction: column;
   justify-content: center;
@@ -1539,6 +1579,31 @@ sportbook6vn-button.button-doc-state-pressed
   display: grid;
   gap: 20px 48px;
   grid-template-columns: repeat(4, max-content);
+}
+
+.message-demo-frame {
+  align-items: flex-start;
+  display: flex;
+  width: 100%;
+}
+
+.message-demo-frame--intrinsic {
+  width: auto;
+}
+
+.message-demo-stack {
+  align-items: flex-start;
+  display: grid;
+  gap: 40px;
+  justify-items: start;
+  padding: 20px 0;
+}
+
+.message-demo-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .core3-datepicker-card,

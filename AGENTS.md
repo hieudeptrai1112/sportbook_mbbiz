@@ -35,6 +35,26 @@ do not reference any fake stories or examples that would mislead a reader
 - Trigger: `code + <component/page component>`.
 - Generate snippet code, API docs, and component token docs for an already mapped component/page.
 
+### pattern
+
+- Trigger: `pattern + <component/pattern name>`.
+- Create or extend a tab under Pattern in the `sportbook6vn` preview app.
+- Render the preview page with the same page structure used by other component pages:
+  - page header
+  - title
+  - lead/description
+  - demo sections/cases
+  - demo card/frame
+- Do not generate snippet code, API docs, or token docs during the first pattern mapping pass unless the user explicitly asks.
+- Read the exact Figma node(s) first. Do not estimate spacing, size, or overlay behavior from screenshots alone.
+- Reuse existing Sportbook6vn components that the pattern depends on. Do not redraw a dependency if the component already exists.
+- If the pattern contains overlay UI such as dropdown, droplist, or popover, place it according to the product context shown in Figma:
+  - footer/bottom-page patterns must open upward when the node shows an upward menu
+  - the preview frame must reserve enough visible area to show the full overlay
+  - do not place overlay content in normal flow when Figma shows it as an anchored overlay
+- Match exact Figma dimensions when the node provides them. Do not replace fixed node values with approximate or responsive guesses unless the user asks for adaptation.
+- Do not push after implementing a pattern unless the user explicitly says `push`.
+
 ### tach
 
 - Trigger: `tách + <component name>`.
