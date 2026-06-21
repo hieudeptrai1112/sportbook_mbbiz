@@ -1,4 +1,4 @@
-export type StepsDemoVariant = 'basic' | 'states' | 'vertical';
+export type StepsDemoVariant = 'basic' | 'states' | 'vertical' | 'vertical-states';
 
 export interface StepsDescriptionPart {
   text?: string;
@@ -104,6 +104,39 @@ import { Sportbook6vnStepsComponent } from 'sportbook6vn';
   \`,
 })
 export class StepsVerticalDemoComponent {}`,
+  },
+  {
+    id: 'vertical-step-states',
+    title: 'Vertical Step States',
+    descriptionParts: [
+      { text: 'Single-step vertical state pair mapped directly from Figma Step Final variants ' },
+      { code: 'Active=No' },
+      { text: ' and ' },
+      { code: 'Active=Yes' },
+      { text: '.' },
+    ],
+    tags: [
+      'selector=sportbook6vn-steps',
+      'direction=vertical',
+      'state=active-no|active-yes',
+      'figma=3898:183582',
+    ],
+    variant: 'vertical-states',
+    snippetTs: `import { Component } from '@angular/core';
+import { Sportbook6vnStepsComponent } from 'sportbook6vn';
+
+@Component({
+  selector: 'app-steps-vertical-states-demo',
+  standalone: true,
+  imports: [Sportbook6vnStepsComponent],
+  template: \`
+    <sportbook6vn-steps
+      direction="vertical"
+      [items]="[{ title: 'Text', status: 'process' }]"
+    />
+  \`,
+})
+export class StepsVerticalStatesDemoComponent {}`,
   },
 ];
 

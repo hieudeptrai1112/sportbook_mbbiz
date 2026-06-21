@@ -2220,7 +2220,8 @@
               <h1>Step</h1>
               <p class="lead">
                 Step maps the approved horizontal and vertical flows into the docs app, including
-                state coverage for the horizontal progress-dot variant.
+                state coverage for both the horizontal progress-dot and vertical single-step
+                variants.
               </p>
             </div>
 
@@ -2255,6 +2256,17 @@
                         <span class="core3-step-state-title">{{ stateCase.title }}</span>
                         <sportbook6vn-steps
                           direction="horizontal"
+                          [items]="stateCase.items"
+                          [ariaLabel]="stateCase.ariaLabel"
+                        />
+                      </div>
+                    </div>
+                  } @else if (demo.variant === 'vertical-states') {
+                    <div class="core3-vertical-step-states-board">
+                      <div class="core3-step-state-card" *ngFor="let stateCase of verticalStepStateCases">
+                        <span class="core3-step-state-title">{{ stateCase.title }}</span>
+                        <sportbook6vn-steps
+                          direction="vertical"
                           [items]="stateCase.items"
                           [ariaLabel]="stateCase.ariaLabel"
                         />

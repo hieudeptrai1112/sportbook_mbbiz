@@ -457,6 +457,22 @@ export class App {
     { title: 'Text', status: 'wait' },
     { title: 'Text', status: 'wait' },
   ];
+  protected readonly verticalStepStateCases: {
+    title: string;
+    ariaLabel: string;
+    items: readonly Sportbook6vnStepItem[];
+  }[] = [
+    {
+      title: 'Active=No',
+      ariaLabel: 'Vertical step inactive state',
+      items: [{ title: 'Text', status: 'wait' }],
+    },
+    {
+      title: 'Active=Yes',
+      ariaLabel: 'Vertical step active state',
+      items: [{ title: 'Text', status: 'process' }],
+    },
+  ];
   protected readonly horizontalStepStateCases: {
     title: string;
     ariaLabel: string;

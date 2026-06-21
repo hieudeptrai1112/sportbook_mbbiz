@@ -1530,6 +1530,19 @@ sportbook6vn-button.button-doc-state-pressed
   width: 218px;
 }
 
+.core3-vertical-step-states-board {
+  display: flex;
+  gap: 64px;
+  justify-content: space-between;
+  margin: 0 auto;
+  min-width: 700px;
+  width: 700px;
+}
+
+.core3-vertical-step-states-board .core3-step-state-card {
+  flex: 0 0 180px;
+}
+
 .core3-tab-card,
 .core3-tab-preview {
   overflow: visible;
