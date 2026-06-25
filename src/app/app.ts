@@ -64,6 +64,7 @@ import {
 } from '../../projects/sportbook6vn/src/lib/components/table/table.preview-fixtures';
 import {
   SEMANTIC_BACKGROUND_FIGMA_ORDER,
+  SEMANTIC_BACKGROUND_GRADIENT_FIGMA_ORDER,
   SEMANTIC_BORDER_FIGMA_ORDER,
   SEMANTIC_COLOR_TOKEN_MAPPINGS,
   SEMANTIC_ICON_FIGMA_ORDER,
@@ -236,7 +237,11 @@ import {
 } from './semantic-theme-modes.data';
 import {
   FOOTER_PATTERN_VARIANTS,
+  PAGE_HEADER_PATTERN_CASES,
+  STEP_PROCESS_PATTERN_CASES,
   type FooterPatternVariant,
+  type PageHeaderPatternCase,
+  type StepProcessPatternCase,
 } from './pattern-demos.data';
 
 interface SemanticTokenGroup {
@@ -347,6 +352,7 @@ export class App {
     | 'buttons'
     | 'buttonMapping'
     | 'inputField'
+    | 'form'
     | 'inputTag'
     | 'breadcrumb'
     | 'steps'
@@ -363,7 +369,9 @@ export class App {
     | 'uploadFile'
     | 'iconography'
     | 'illustration'
+    | 'pageHeaderPattern'
     | 'footerPattern'
+    | 'stepProcessPattern'
     | 'introduction'
     | 'installation'
     | 'color'
@@ -384,6 +392,14 @@ export class App {
   protected readonly footerPatternVariants = FOOTER_PATTERN_VARIANTS;
   protected readonly activeFooterPatternSection = signal(
     this.getFooterPatternSectionId(this.footerPatternVariants[0]?.id ?? 'type1'),
+  );
+  protected readonly pageHeaderPatternCases = PAGE_HEADER_PATTERN_CASES;
+  protected readonly activePageHeaderPatternSection = signal(
+    this.getPageHeaderPatternSectionId(this.pageHeaderPatternCases[0]?.id ?? 'default'),
+  );
+  protected readonly stepProcessPatternCases = STEP_PROCESS_PATTERN_CASES;
+  protected readonly activeStepProcessPatternSection = signal(
+    this.getStepProcessPatternSectionId(this.stepProcessPatternCases[0]?.id ?? 'default'),
   );
   protected readonly openFooterPatternOverflowId = signal<FooterPatternVariant['id'] | null>(null);
   protected readonly spacingScaleRows: NumericScaleRow[] = SPACING_SCALE_ROWS;
@@ -584,6 +600,7 @@ export class App {
   protected readonly activeDropdownSection = signal(
     this.getDropdownSectionId(this.dropdownDemoSections[0]?.id ?? 'basic'),
   );
+  protected readonly activeFormSection = signal(this.getFormSectionId('default'));
   protected readonly expandedDropdownDemoIds = signal<string[]>([]);
   protected readonly copiedDropdownDemoId = signal<string | null>(null);
   protected readonly radioDemoSections: RadioDemoSection[] = RADIO_DEMO_SECTIONS;
@@ -837,6 +854,16 @@ export class AppComponent {}`;
   protected readonly core3DropdownBasicItems: readonly Sportbook6vnDropdownItem[] =
     this.core3DropdownItems.slice(0, 4);
   protected readonly core3DropdownEmptyItems: readonly Sportbook6vnDropdownItem[] = [];
+  protected readonly formPreviewFields: readonly {
+    id: 'top' | 'middle' | 'bottom';
+    title: string;
+    placeholder: string;
+    showChevron: boolean;
+  }[] = [
+    { id: 'top', title: 'Title', placeholder: 'Lựa chọn', showChevron: true },
+    { id: 'middle', title: 'Title', placeholder: 'Lựa chọn', showChevron: false },
+    { id: 'bottom', title: 'Title', placeholder: 'Lựa chọn', showChevron: true },
+  ];
   protected readonly core3RadioGroupOptions: readonly Sportbook6vnRadioGroupOption[] = [
     { label: 'A', value: 'a' },
     { label: 'B', value: 'b' },
@@ -920,6 +947,7 @@ export class AppComponent {}`;
       | 'buttons'
       | 'buttonMapping'
       | 'inputField'
+      | 'form'
       | 'inputTag'
       | 'breadcrumb'
       | 'steps'
@@ -936,7 +964,9 @@ export class AppComponent {}`;
       | 'uploadFile'
       | 'iconography'
       | 'illustration'
+      | 'pageHeaderPattern'
       | 'footerPattern'
+      | 'stepProcessPattern'
       | 'introduction'
       | 'installation'
       | 'color'
@@ -946,19 +976,29 @@ export class AppComponent {}`;
   ) {
     this.activePage.set(page);
     this.openFooterPatternOverflowId.set(null);
-    if (page === 'footerPattern') {
+    if (
+      page === 'pageHeaderPattern' ||
+      page === 'footerPattern' ||
+      page === 'stepProcessPattern'
+    ) {
       this.isPatternOpen.set(true);
     }
     if (page === 'tokens' || page === 'spacing' || page === 'typography') {
       setTimeout(() => this.updateActiveTokenSection(), 0);
+    } else if (page === 'pageHeaderPattern') {
+      setTimeout(() => this.updateActivePageHeaderPatternSection(), 0);
     } else if (page === 'footerPattern') {
       setTimeout(() => this.updateActiveFooterPatternSection(), 0);
+    } else if (page === 'stepProcessPattern') {
+      setTimeout(() => this.updateActiveStepProcessPatternSection(), 0);
     } else if (page === 'buttons') {
       setTimeout(() => this.updateActiveButtonSection(), 0);
     } else if (page === 'buttonMapping') {
       setTimeout(() => this.updateActiveButtonMappingSection(), 0);
     } else if (page === 'inputField') {
       setTimeout(() => this.updateActiveInputSection(), 0);
+    } else if (page === 'form') {
+      setTimeout(() => this.updateActiveFormSection(), 0);
     } else if (page === 'inputTag') {
       setTimeout(() => this.updateActiveInputTagSection(), 0);
     } else if (page === 'breadcrumb') {
@@ -1018,6 +1058,14 @@ export class AppComponent {}`;
     return `footer-pattern-${sectionId}`;
   }
 
+  protected getPageHeaderPatternSectionId(sectionId: PageHeaderPatternCase['id']): string {
+    return `page-header-pattern-${sectionId}`;
+  }
+
+  protected getStepProcessPatternSectionId(sectionId: StepProcessPatternCase['id']): string {
+    return `step-process-pattern-${sectionId}`;
+  }
+
   protected setActiveTokenSection(sectionId: string) {
     this.activeTokenSection.set(sectionId);
   }
@@ -1028,6 +1076,14 @@ export class AppComponent {}`;
 
   protected setActiveFooterPatternSection(sectionId: string) {
     this.activeFooterPatternSection.set(sectionId);
+  }
+
+  protected setActivePageHeaderPatternSection(sectionId: string) {
+    this.activePageHeaderPatternSection.set(sectionId);
+  }
+
+  protected setActiveStepProcessPatternSection(sectionId: string) {
+    this.activeStepProcessPatternSection.set(sectionId);
   }
 
   protected setActiveButtonMappingSection(sectionId: string) {
@@ -1970,6 +2026,14 @@ export class AppComponent {}`;
     return `dropdown-${sectionId}`;
   }
 
+  protected setActiveFormSection(sectionId: string) {
+    this.activeFormSection.set(sectionId);
+  }
+
+  protected getFormSectionId(sectionId: 'default'): string {
+    return `form-${sectionId}`;
+  }
+
   protected setActiveRadioSection(sectionId: string) {
     this.activeRadioSection.set(sectionId);
   }
@@ -2376,10 +2440,13 @@ export class AppComponent {}`;
   @HostListener('window:resize')
   protected onViewportChange() {
     this.updateActiveTokenSection();
+    this.updateActivePageHeaderPatternSection();
     this.updateActiveFooterPatternSection();
+    this.updateActiveStepProcessPatternSection();
     this.updateActiveButtonSection();
     this.updateActiveButtonMappingSection();
     this.updateActiveInputSection();
+    this.updateActiveFormSection();
     this.updateActiveInputTagSection();
     this.updateActiveBreadcrumbSection();
     this.updateActiveStepsSection();
@@ -2458,6 +2525,56 @@ export class AppComponent {}`;
     }
 
     this.activeFooterPatternSection.set(currentSection);
+  }
+
+  private updateActivePageHeaderPatternSection() {
+    if (this.activePage() !== 'pageHeaderPattern' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getPageHeaderPatternSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activePageHeaderPatternSection.set(currentSection);
+  }
+
+  private updateActiveStepProcessPatternSection() {
+    if (this.activePage() !== 'stepProcessPattern' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getStepProcessPatternSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeStepProcessPatternSection.set(currentSection);
   }
 
   private updateActiveButtonSection() {
@@ -2785,6 +2902,31 @@ export class AppComponent {}`;
     this.activeDropdownSection.set(currentSection);
   }
 
+  private updateActiveFormSection() {
+    if (this.activePage() !== 'form' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getFormSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeFormSection.set(currentSection);
+  }
+
   private updateActiveRadioSection() {
     if (this.activePage() !== 'radio' || typeof document === 'undefined') {
       return;
@@ -2939,6 +3081,7 @@ export class AppComponent {}`;
     const normalizeAlias = (alias: string) => alias.replace(/^color\/semantic\//, '');
     const orderPairs: Array<[string, readonly string[]]> = [
       ['background', SEMANTIC_BACKGROUND_FIGMA_ORDER],
+      ['background-gradient', SEMANTIC_BACKGROUND_GRADIENT_FIGMA_ORDER],
       ['text', SEMANTIC_TEXT_FIGMA_ORDER],
       ['border', SEMANTIC_BORDER_FIGMA_ORDER],
       ['icon', SEMANTIC_ICON_FIGMA_ORDER],
@@ -3064,6 +3207,18 @@ export class AppComponent {}`;
     return this.footerPatternVariants.map((variant) => this.getFooterPatternSectionId(variant.id));
   }
 
+  private getPageHeaderPatternSectionIds(): string[] {
+    return this.pageHeaderPatternCases.map((patternCase) =>
+      this.getPageHeaderPatternSectionId(patternCase.id),
+    );
+  }
+
+  private getStepProcessPatternSectionIds(): string[] {
+    return this.stepProcessPatternCases.map((patternCase) =>
+      this.getStepProcessPatternSectionId(patternCase.id),
+    );
+  }
+
   private getButtonMappingSectionIds(): string[] {
     return [
       ...this.buttonMappingDemoSections.map((section) =>
@@ -3151,6 +3306,10 @@ export class AppComponent {}`;
       'dropdown-api',
       'dropdown-variables',
     ];
+  }
+
+  private getFormSectionIds(): string[] {
+    return [this.getFormSectionId('default')];
   }
 
   private getRadioSectionIds(): string[] {

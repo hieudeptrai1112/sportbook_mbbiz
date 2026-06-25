@@ -1,4 +1,8 @@
-import type { Sportbook6vnButtonVariant } from 'sportbook6vn';
+import type {
+  Sportbook6vnBreadcrumbItem,
+  Sportbook6vnButtonVariant,
+  Sportbook6vnStepItem,
+} from 'sportbook6vn';
 
 export interface FooterPatternAction {
   label: string;
@@ -17,6 +21,25 @@ export interface FooterPatternVariant {
   approvedPairs?: readonly string[];
   overflowMenuItems?: readonly string[];
   placeholderNote?: string;
+}
+
+export interface StepProcessPatternCase {
+  id: 'default';
+  title: string;
+  description: string;
+  usage: string;
+  saveCtaLabel?: string;
+  saveTimestamp?: string;
+  steps: readonly Sportbook6vnStepItem[];
+}
+
+export interface PageHeaderPatternCase {
+  id: 'default';
+  title: string;
+  description: string;
+  usage: string;
+  titleText: string;
+  breadcrumbItems: readonly Sportbook6vnBreadcrumbItem[];
 }
 
 export const FOOTER_PATTERN_VARIANTS: readonly FooterPatternVariant[] = [
@@ -89,6 +112,40 @@ export const FOOTER_PATTERN_VARIANTS: readonly FooterPatternVariant[] = [
     ],
   },
 ];
+
+export const STEP_PROCESS_PATTERN_CASES: readonly StepProcessPatternCase[] = [
+  {
+    id: 'default',
+    title: 'Default',
+    description:
+      'Card tiến trình xử lý gồm 3 bước dọc, bước đầu tiên đang active, phía dưới có CTA lưu phương án.',
+    usage:
+      'Node Figma hiện chỉ thể hiện đúng cấu hình có nút Lưu phương án và dòng thời gian lưu lần cuối.',
+    saveCtaLabel: 'Lưu phương án',
+    saveTimestamp: 'Lưu lần cuối 16:23 hôm nay',
+    steps: [
+      { title: 'Text', status: 'process' },
+      { title: 'Text', status: 'wait' },
+      { title: 'Text', status: 'wait' },
+    ],
+  },
+] as const;
+
+export const PAGE_HEADER_PATTERN_CASES: readonly PageHeaderPatternCase[] = [
+  {
+    id: 'default',
+    title: 'Default',
+    description: 'Page header gồm breadcrumb 3 cấp và tiêu đề chính của trang theo đúng node Figma.',
+    usage:
+      'Node 24228:7920 hiện chỉ bật breadcrumb + title. Không tự thêm description, info icon hoặc required mark.',
+    titleText: 'Title',
+    breadcrumbItems: [
+      { label: 'Page', href: '#' },
+      { label: 'Page', href: '#' },
+      { label: 'Page', href: null },
+    ],
+  },
+] as const;
 
 export const FOOTER_PATTERN_DEPENDENCIES = [
   'Sportbook6vnButtonComponent',

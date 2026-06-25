@@ -263,6 +263,14 @@
             <span class="sidebar-sublabel">Data Entry</span>
             <div
               class="sidebar-link"
+              [class.active]="activePage() === 'form'"
+              (click)="setPage('form')"
+            >
+              <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
+              <span>Form</span>
+            </div>
+            <div
+              class="sidebar-link"
               [class.active]="activePage() === 'inputTag'"
               (click)="setPage('inputTag')"
             >
@@ -362,6 +370,22 @@
             <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
             <span>Footer</span>
           </div>
+          <div
+            class="sidebar-link"
+            [class.active]="activePage() === 'pageHeaderPattern'"
+            (click)="setPage('pageHeaderPattern')"
+          >
+            <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+            <span>Page header</span>
+          </div>
+          <div
+            class="sidebar-link"
+            [class.active]="activePage() === 'stepProcessPattern'"
+            (click)="setPage('stepProcessPattern')"
+          >
+            <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+            <span>Step process</span>
+          </div>
         </div>
       </div>
       <div class="sidebar-footer">
@@ -376,12 +400,20 @@
       <div
         class="main-inner"
         [class.toc-collapsed]="isTocCollapsed()"
-        [class.main-inner-pattern]="activePage() === 'footerPattern'"
+        [class.main-inner-pattern]="
+          activePage() === 'pageHeaderPattern' ||
+          activePage() === 'footerPattern' ||
+          activePage() === 'stepProcessPattern'
+        "
       >
         <div
           class="content"
           [class.content-color]="activePage() === 'color'"
-          [class.content-pattern]="activePage() === 'footerPattern'"
+          [class.content-pattern]="
+            activePage() === 'pageHeaderPattern' ||
+            activePage() === 'footerPattern' ||
+            activePage() === 'stepProcessPattern'
+          "
           [class.content-tokens]="
             activePage() === 'tokens' || activePage() === 'spacing' || activePage() === 'typography'
           "
@@ -677,6 +709,50 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'pageHeaderPattern'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Pattern</span>
+                <span class="slash">/</span>
+                <span>Page header</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Page header</h1>
+              <p class="lead">
+                Page header là pattern đầu trang gồm breadcrumb điều hướng và tiêu đề chính. Preview
+                này reuse trực tiếp <span class="mono">sportbook6vn-breadcrumb</span> và chỉ
+                mapping đúng case đang có trong node Figma.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section page-header-pattern-section"
+              *ngFor="let patternCase of pageHeaderPatternCases"
+              [attr.id]="getPageHeaderPatternSectionId(patternCase.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ patternCase.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ patternCase.description }}</p>
+              <p class="button-demo-description page-header-pattern-note">{{ patternCase.usage }}</p>
+
+              <article class="button-demo-card page-header-pattern-demo-card">
+                <div class="button-demo-preview page-header-pattern-demo-preview">
+                  <article class="page-header-pattern-shell">
+                    <sportbook6vn-breadcrumb
+                      class="page-header-pattern-breadcrumb"
+                      [items]="patternCase.breadcrumbItems"
+                      ariaLabel="Page header breadcrumb preview"
+                    />
+
+                    <h3 class="page-header-pattern-title">{{ patternCase.titleText }}</h3>
+                  </article>
+                </div>
+              </article>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'footerPattern'">
             <div class="page-header">
               <div class="header-meta">
@@ -780,6 +856,66 @@
                       </ng-container>
                     </div>
                   </div>
+                </div>
+              </article>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'stepProcessPattern'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Pattern</span>
+                <span class="slash">/</span>
+                <span>Step process</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Step process</h1>
+              <p class="lead">
+                Step process là card tiến trình xử lý theo trục dọc, ghép
+                <span class="mono">sportbook6vn-steps</span> với CTA lưu phương án và mốc lưu lần
+                cuối trong cùng một khối thao tác.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section step-process-pattern-section"
+              *ngFor="let patternCase of stepProcessPatternCases"
+              [attr.id]="getStepProcessPatternSectionId(patternCase.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ patternCase.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ patternCase.description }}</p>
+              <p class="button-demo-description step-process-pattern-note">{{ patternCase.usage }}</p>
+
+              <article class="button-demo-card step-process-pattern-demo-card">
+                <div class="button-demo-preview step-process-pattern-demo-preview">
+                  <article class="step-process-pattern-card-shell">
+                    <sportbook6vn-steps
+                      class="step-process-pattern-steps"
+                      direction="vertical"
+                      [items]="patternCase.steps"
+                      ariaLabel="Step process preview"
+                    />
+
+                    <div class="step-process-pattern-save" *ngIf="patternCase.saveCtaLabel">
+                      <div class="step-process-pattern-save-cta">
+                        <sportbook6vn-button
+                          variant="secondary"
+                          size="sm"
+                          shape="pill"
+                          [fullWidth]="true"
+                        >
+                          {{ patternCase.saveCtaLabel }}
+                        </sportbook6vn-button>
+                      </div>
+
+                      <p class="step-process-pattern-save-time" *ngIf="patternCase.saveTimestamp">
+                        {{ patternCase.saveTimestamp }}
+                      </p>
+                    </div>
+                  </article>
                 </div>
               </article>
             </section>
@@ -3137,6 +3273,65 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'form'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Entry</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Form</h1>
+              <p class="lead">
+                Form preview này copy đúng block <span class="mono">form</span> từ Figma: 3 field
+                dropdown xếp dọc, label ngoài field, có required mark và info icon.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section form-preview-section"
+              [attr.id]="getFormSectionId('default')"
+            >
+              <div class="button-demo-head">
+                <h2>Default</h2>
+              </div>
+              <p class="button-demo-description">
+                Node Figma 10880:59561 có shell 944×324, padding 28, gap dọc 20, và mỗi field rộng
+                888×76.
+              </p>
+
+              <article class="button-demo-card form-preview-card">
+                <div class="button-demo-preview form-preview-demo">
+                  <form class="form-preview-shell" novalidate>
+                    <div class="form-preview-field" *ngFor="let field of formPreviewFields">
+                      <div class="form-preview-label-row">
+                        <div class="form-preview-label-copy">
+                          <span class="form-preview-label">{{ field.title }}</span>
+                          <span class="form-preview-required">*</span>
+                        </div>
+
+                        <span class="form-preview-info" aria-hidden="true">
+                          <svg viewBox="0 0 20 20" focusable="false">
+                            <path
+                              d="M10 1.667a8.333 8.333 0 1 0 0 16.666 8.333 8.333 0 0 0 0-16.666Zm0 3.333a1.042 1.042 0 1 1 0 2.083 1.042 1.042 0 0 1 0-2.083Zm1.25 10H8.75v-1.667h.833V9.167H8.75V7.5h2.5v5.833h.833V15Z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+
+                      <sportbook6vn-dropdown
+                        class="form-preview-dropdown"
+                        [class.form-preview-dropdown--no-chevron]="!field.showChevron"
+                        [placeholder]="field.placeholder"
+                        [items]="core3DropdownBasicItems"
+                      />
+                    </div>
+                  </form>
+                </div>
+              </article>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'radio'">
             <div class="page-header">
               <div class="header-meta">
@@ -5218,6 +5413,17 @@
                     <span>darkblue-50</span><span class="value">#ECF5FAB2</span>
                   </div>
                 </div>
+
+                <div class="palette-column">
+                  <h3>Background gradients</h3>
+                  <div
+                    class="swatch gradient"
+                    style="--swatch: linear-gradient(330deg, #e5d1ff 7.641%, #dde7ff 37.039%, #f5fffd 70.721%, #ffffff 113.34%)"
+                  >
+                    <span>page-default</span
+                    ><span class="value">#E5D1FF → #DDE7FF → #F5FFFD → #FFFFFF</span>
+                  </div>
+                </div>
               </div>
             </section>
           </ng-container>
@@ -5441,6 +5647,47 @@
           </div>
         </ng-container>
 
+        <ng-container *ngIf="activePage() === 'pageHeaderPattern'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let patternCase of pageHeaderPatternCases"
+                  [class.active]="
+                    activePageHeaderPatternSection() ===
+                    getPageHeaderPatternSectionId(patternCase.id)
+                  "
+                  [href]="'#' + getPageHeaderPatternSectionId(patternCase.id)"
+                  (click)="setActivePageHeaderPatternSection(getPageHeaderPatternSectionId(patternCase.id))"
+                >
+                  {{ patternCase.title }}
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Usage Note</span>
+                </div>
+                <p>
+                  Node này chỉ có breadcrumb 3 cấp và title. Tôi không thêm description, badge,
+                  actions hay state khác ngoài những gì Figma đang bật.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
         <ng-container *ngIf="activePage() === 'footerPattern'">
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
@@ -5468,6 +5715,48 @@
                   Case <span class="mono">&gt;4 button</span> giữ button
                   <span class="mono">Thao tác khác</span> để bật menu overflow thay vì dàn thêm
                   action ngang hàng.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'stepProcessPattern'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let patternCase of stepProcessPatternCases"
+                  [class.active]="
+                    activeStepProcessPatternSection() ===
+                    getStepProcessPatternSectionId(patternCase.id)
+                  "
+                  [href]="'#' + getStepProcessPatternSectionId(patternCase.id)"
+                  (click)="setActiveStepProcessPatternSection(getStepProcessPatternSectionId(patternCase.id))"
+                >
+                  {{ patternCase.title }}
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Usage Note</span>
+                </div>
+                <p>
+                  Card này giữ nguyên shell <span class="mono">296×276</span> của node Figma và
+                  dùng lại <span class="mono">sportbook6vn-steps</span> cùng
+                  <span class="mono">sportbook6vn-button</span> thay vì vẽ pattern riêng.
                 </p>
               </div>
             </aside>
@@ -6128,6 +6417,43 @@
                   Use <span class="mono">Basic Select</span> for normal dropdown usage; use
                   <span class="mono">Tag Select</span> only when the selected values must stay
                   visible as chips.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'form'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  [class.active]="activeFormSection() === getFormSectionId('default')"
+                  [href]="'#' + getFormSectionId('default')"
+                  (click)="setActiveFormSection(getFormSectionId('default'))"
+                >
+                  Default
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Usage Note</span>
+                </div>
+                <p>
+                  Preview này giữ nguyên cấu trúc outer label của Figma thay vì ép label vào trong
+                  dropdown. Field giữa cũng giữ đúng trạng thái không có caret như node gốc.
                 </p>
               </div>
             </aside>

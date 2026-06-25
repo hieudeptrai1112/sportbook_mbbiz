@@ -145,6 +145,13 @@
   --sportbook6vn-color-pagination-disabled-bg: #f3f3f3;
   --sportbook6vn-color-pagination-disabled-text: #808080;
   --sportbook6vn-color-pagination-scrollbar: #cadbe8;
+  --sportbook6vn-color-background-gradient-page-default: linear-gradient(
+    330deg,
+    #e5d1ff 7.641%,
+    #dde7ff 37.039%,
+    #f5fffd 70.721%,
+    #ffffff 113.34%
+  );
 
   --sportbook6vn-color-surface-primary: #ffffff;
   --sportbook6vn-color-surface-secondary: #ffffff;

@@ -1087,6 +1087,134 @@
   gap: 16px;
 }
 
+.form-preview-section {
+  scroll-margin-top: 88px;
+}
+
+.form-preview-card {
+  overflow: visible;
+}
+
+.form-preview-demo {
+  justify-content: center;
+  min-height: 420px;
+}
+
+.form-preview-shell {
+  align-items: flex-start;
+  background: #ffffff;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px;
+  width: min(100%, 944px);
+}
+
+.form-preview-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.form-preview-label-row {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  min-height: 20px;
+  width: 100%;
+}
+
+.form-preview-label-copy {
+  align-items: center;
+  display: inline-flex;
+  gap: 4px;
+}
+
+.form-preview-label,
+.form-preview-required {
+  font-family: var(--sportbook6vn-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  font-size: 14px;
+  font-style: normal;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+}
+
+.form-preview-label {
+  color: #192d39;
+  font-weight: 600;
+}
+
+.form-preview-required {
+  color: #f34343;
+  font-weight: 600;
+}
+
+.form-preview-info {
+  color: #141ed2;
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 20px;
+  width: 20px;
+}
+
+.form-preview-info svg {
+  display: block;
+  height: 20px;
+  width: 20px;
+}
+
+sportbook6vn-dropdown.form-preview-dropdown {
+  display: inline-block;
+  width: 100%;
+}
+
+sportbook6vn-dropdown.form-preview-dropdown.form-preview-dropdown--no-chevron ::ng-deep .sportbook6vn-dropdown__chevron {
+  display: none;
+}
+
+.page-header-pattern-section {
+  scroll-margin-top: 88px;
+}
+
+.page-header-pattern-note {
+  color: #4e5969;
+}
+
+.page-header-pattern-demo-card {
+  border-radius: 16px;
+  overflow: visible;
+}
+
+.page-header-pattern-demo-preview {
+  justify-content: center;
+  min-height: 168px;
+  overflow: visible;
+}
+
+.page-header-pattern-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: min(100%, 1160px);
+}
+
+.page-header-pattern-breadcrumb {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.page-header-pattern-title {
+  color: #192d39;
+  font-family: var(--sportbook6vn-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 32px;
+  margin: 0;
+}
+
 .footer-pattern-card {
   display: flex;
   flex-direction: column;
@@ -1235,6 +1363,78 @@
 
 .footer-pattern-code {
   margin-top: 20px;
+}
+
+.step-process-pattern-section {
+  scroll-margin-top: 88px;
+}
+
+.step-process-pattern-note {
+  color: #4e5969;
+}
+
+.step-process-pattern-demo-card {
+  border-radius: 16px;
+  overflow: visible;
+}
+
+.step-process-pattern-demo-preview {
+  justify-content: center;
+  min-height: 372px;
+  overflow: visible;
+}
+
+.step-process-pattern-card-shell {
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(189, 213, 228, 0.7);
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-width: 296px;
+  padding: 28px;
+  width: 296px;
+}
+
+.step-process-pattern-steps {
+  display: block;
+  width: 100%;
+}
+
+.step-process-pattern-steps .sportbook6vn-steps {
+  max-width: none;
+  width: 100%;
+}
+
+.step-process-pattern-save {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.step-process-pattern-save-cta {
+  width: 100%;
+}
+
+.step-process-pattern-save-cta > sportbook6vn-button {
+  display: block;
+  width: 100%;
+}
+
+.step-process-pattern-save-time {
+  color: #6d83a7;
+  font-family: var(--sportbook6vn-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 16px;
+  margin: 0;
+  text-align: center;
+  width: 100%;
 }
 
 .button-doc-plus-icon {
