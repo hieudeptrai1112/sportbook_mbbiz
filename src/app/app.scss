@@ -1087,49 +1087,17 @@
   gap: 16px;
 }
 
-.form-preview-section {
+.form-preview-section,
+.page-header-pattern-section,
+.footer-pattern-section,
+.step-process-pattern-section {
   scroll-margin-top: 88px;
 }
 
-.form-preview-card {
+.page-header-pattern-demo-card,
+.footer-pattern-demo-card,
+.step-process-pattern-demo-card {
   overflow: visible;
-}
-
-.form-preview-demo {
-  justify-content: center;
-  min-height: 420px;
-}
-
-.form-preview-shell {
-  align-items: flex-start;
-  background: #ffffff;
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 28px;
-  width: min(100%, 944px);
-}
-
-.form-preview-field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 100%;
-}
-
-.form-preview-label-row {
-  align-items: center;
-  display: flex;
-  gap: 8px;
-  min-height: 20px;
-  width: 100%;
-}
-
-.form-preview-label-copy {
-  align-items: center;
-  display: inline-flex;
-  gap: 4px;
 }
 
 .form-preview-label,
@@ -1159,32 +1127,19 @@
   width: 20px;
 }
 
-.form-preview-info svg {
-  display: block;
-  height: 20px;
-  width: 20px;
-}
-
-sportbook6vn-dropdown.form-preview-dropdown {
-  display: inline-block;
-  width: 100%;
-}
-
 sportbook6vn-dropdown.form-preview-dropdown.form-preview-dropdown--no-chevron ::ng-deep .sportbook6vn-dropdown__chevron {
   display: none;
 }
 
-.page-header-pattern-section {
-  scroll-margin-top: 88px;
-}
-
-.page-header-pattern-note {
+.page-header-pattern-note,
+.footer-pattern-note,
+.step-process-pattern-note {
   color: #4e5969;
 }
 
-.page-header-pattern-demo-card {
+.page-header-pattern-demo-card,
+.step-process-pattern-demo-card {
   border-radius: 16px;
-  overflow: visible;
 }
 
 .page-header-pattern-demo-preview {
@@ -1221,13 +1176,8 @@ sportbook6vn-dropdown.form-preview-dropdown.form-preview-dropdown--no-chevron ::
   gap: 0;
 }
 
-.footer-pattern-section {
-  scroll-margin-top: 88px;
-}
-
 .footer-pattern-demo-card {
   border-radius: 16px;
-  overflow: visible;
 }
 
 .footer-pattern-demo-preview {
@@ -1357,25 +1307,8 @@ sportbook6vn-dropdown.form-preview-dropdown.form-preview-dropdown--no-chevron ::
   width: 100%;
 }
 
-.footer-pattern-note {
-  color: #4e5969;
-}
-
 .footer-pattern-code {
   margin-top: 20px;
-}
-
-.step-process-pattern-section {
-  scroll-margin-top: 88px;
-}
-
-.step-process-pattern-note {
-  color: #4e5969;
-}
-
-.step-process-pattern-demo-card {
-  border-radius: 16px;
-  overflow: visible;
 }
 
 .step-process-pattern-demo-preview {

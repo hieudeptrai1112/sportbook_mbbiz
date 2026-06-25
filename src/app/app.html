@@ -3299,18 +3299,48 @@
                 888×76.
               </p>
 
-              <article class="button-demo-card form-preview-card">
-                <div class="button-demo-preview form-preview-demo">
-                  <form class="form-preview-shell" novalidate>
-                    <div class="form-preview-field" *ngFor="let field of formPreviewFields">
-                      <div class="form-preview-label-row">
-                        <div class="form-preview-label-copy">
+              <article class="button-demo-card" style="overflow: visible">
+                <div
+                  class="button-demo-preview"
+                  style="justify-content: center; min-height: 420px"
+                >
+                  <form
+                    class="form-preview-shell"
+                    style="
+                      align-items: flex-start;
+                      background: #ffffff;
+                      border-radius: 4px;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 20px;
+                      padding: 28px;
+                      width: min(100%, 944px);
+                    "
+                    novalidate
+                  >
+                    <div
+                      class="form-preview-field"
+                      style="display: flex; flex-direction: column; gap: 4px; width: 100%"
+                      *ngFor="let field of formPreviewFields"
+                    >
+                      <div
+                        class="form-preview-label-row"
+                        style="align-items: center; display: flex; gap: 8px; min-height: 20px; width: 100%"
+                      >
+                        <div
+                          class="form-preview-label-copy"
+                          style="align-items: center; display: inline-flex; gap: 4px"
+                        >
                           <span class="form-preview-label">{{ field.title }}</span>
                           <span class="form-preview-required">*</span>
                         </div>
 
                         <span class="form-preview-info" aria-hidden="true">
-                          <svg viewBox="0 0 20 20" focusable="false">
+                          <svg
+                            viewBox="0 0 20 20"
+                            focusable="false"
+                            style="display: block; height: 20px; width: 20px"
+                          >
                             <path
                               d="M10 1.667a8.333 8.333 0 1 0 0 16.666 8.333 8.333 0 0 0 0-16.666Zm0 3.333a1.042 1.042 0 1 1 0 2.083 1.042 1.042 0 0 1 0-2.083Zm1.25 10H8.75v-1.667h.833V9.167H8.75V7.5h2.5v5.833h.833V15Z"
                               fill="currentColor"
@@ -3321,6 +3351,7 @@
 
                       <sportbook6vn-dropdown
                         class="form-preview-dropdown"
+                        style="display: inline-block; width: 100%"
                         [class.form-preview-dropdown--no-chevron]="!field.showChevron"
                         [placeholder]="field.placeholder"
                         [items]="core3DropdownBasicItems"
