@@ -1,10 +1,10 @@
-import type { IconDefinition } from '@hieudeptrai1112/icon';
+import type { IconDefinition } from '@hieultra/icon';
 import {
   ICON_SIZE_PX,
   allIcons,
   registerIcons,
   type IconSizeToken,
-} from '@hieudeptrai1112/icon';
+} from '@hieultra/icon';
 
 registerIcons(...allIcons);
 
@@ -83,13 +83,13 @@ export const ICON_LIBRARY_GROUPS: IconLibraryGroup[] = (
       id: 'iconography-linear',
       family: 'linear',
       title: 'Linear',
-      description: 'Stroke / outline icons from ALinear_* in @hieudeptrai1112/icon.',
+      description: 'Stroke / outline icons from ALinear_* in @hieultra/icon.',
     },
     {
       id: 'iconography-bold',
       family: 'bold',
       title: 'Bold',
-      description: 'Filled status icons from ABold_* in @hieudeptrai1112/icon.',
+      description: 'Filled status icons from ABold_* in @hieultra/icon.',
     },
     {
       id: 'iconography-general',

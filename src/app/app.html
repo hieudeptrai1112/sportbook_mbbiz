@@ -2894,23 +2894,116 @@
               <h1>Iconography</h1>
               <p class="lead">
                 Catalog of
-                <span class="mono">&#64;hieudeptrai1112/icon</span>
+                <span class="mono">&#64;hieultra/icon</span>
                 — Linear vs Bold families, token sizes
                 (<span class="mono">xs–2xl</span>), and copy-ready
                 <span class="mono">&lt;lib-icon&gt;</span> snippets.
               </p>
             </div>
 
+            <section class="section iconography-usage-section" id="iconography-install">
+              <h2>Install</h2>
+              <p class="iconography-section-lead">
+                Package
+                <a
+                  class="mono iconography-npm-link"
+                  [href]="iconPackageUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >&#64;hieultra/icon</a>
+                on npm — SVG icon library for Angular (peer
+                <span class="mono">&#64;angular/core &gt;= 17</span>).
+              </p>
+
+              <div class="illustration-guideline-grid">
+                <article class="illustration-guideline-card">
+                  <span>1. Install</span>
+                  <code>npm i &#64;hieultra/icon</code>
+                  <p>Add the published package to the host Angular app.</p>
+                </article>
+                <article class="illustration-guideline-card">
+                  <span>2. Register</span>
+                  <code>provideIcons([...])</code>
+                  <p>
+                    Register only the icons you need in
+                    <span class="mono">app.config.ts</span>. Avoid
+                    <span class="mono">allIcons</span> in production.
+                  </p>
+                </article>
+                <article class="illustration-guideline-card">
+                  <span>3. Render</span>
+                  <code>&lt;lib-icon&gt;</code>
+                  <p>
+                    Import
+                    <span class="mono">IconComponent</span>
+                    and use
+                    <span class="mono">&lt;lib-icon&gt;</span>
+                    or
+                    <span class="mono">&lt;mbbiz-icon&gt;</span>.
+                  </p>
+                </article>
+              </div>
+
+              <div class="illustration-code-card iconography-install-card">
+                <div class="button-code-head">
+                  <span class="button-code-file">terminal</span>
+                  <button
+                    class="button-doc-toggle"
+                    type="button"
+                    (click)="copyIconInstallSnippet('install', iconInstallCommand)"
+                  >
+                    {{ copiedIconInstallSnippet() === 'install' ? 'Copied' : 'Copy' }}
+                  </button>
+                </div>
+                <pre class="button-code-block"><code>{{ iconInstallCommand }}</code></pre>
+              </div>
+
+              <div class="illustration-code-card iconography-install-card">
+                <div class="button-code-head">
+                  <span class="button-code-file">app.config.ts</span>
+                  <button
+                    class="button-doc-toggle"
+                    type="button"
+                    (click)="copyIconInstallSnippet('register', iconRegisterCode)"
+                  >
+                    {{ copiedIconInstallSnippet() === 'register' ? 'Copied' : 'Copy' }}
+                  </button>
+                </div>
+                <pre class="button-code-block"><code>{{ iconRegisterCode }}</code></pre>
+              </div>
+
+              <div class="illustration-code-card iconography-install-card">
+                <div class="button-code-head">
+                  <span class="button-code-file">template.html</span>
+                  <button
+                    class="button-doc-toggle"
+                    type="button"
+                    (click)="copyIconInstallSnippet('template', iconTemplateCode)"
+                  >
+                    {{ copiedIconInstallSnippet() === 'template' ? 'Copied' : 'Copy' }}
+                  </button>
+                </div>
+                <pre class="button-code-block"><code>{{ iconTemplateCode }}</code></pre>
+              </div>
+            </section>
+
             <section class="section iconography-usage-section" id="iconography-usage">
               <h2>Usage</h2>
               <div class="illustration-guideline-grid">
                 <article class="illustration-guideline-card">
                   <span>Package</span>
-                  <code>&#64;hieudeptrai1112/icon</code>
+                  <code>
+                    <a
+                      class="iconography-npm-link"
+                      [href]="iconPackageUrl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >&#64;hieultra/icon</a>
+                  </code>
                   <p>
-                    Register icons once with
-                    <span class="mono">provideIcons(allIcons)</span>, then render with
-                    <span class="mono">&lt;lib-icon&gt;</span>.
+                    Register with
+                    <span class="mono">provideIcons</span>, render with
+                    <span class="mono">&lt;lib-icon&gt;</span>. See Install above.
                   </p>
                 </article>
                 <article class="illustration-guideline-card">
@@ -7174,6 +7267,14 @@
               <div class="toc-list">
                 <a
                   class="toc-item"
+                  [class.active]="activeIconographySection() === 'iconography-install'"
+                  href="#iconography-install"
+                  (click)="setActiveIconographySection('iconography-install')"
+                >
+                  Install
+                </a>
+                <a
+                  class="toc-item"
                   [class.active]="activeIconographySection() === 'iconography-usage'"
                   href="#iconography-usage"
                   (click)="setActiveIconographySection('iconography-usage')"
@@ -7221,11 +7322,15 @@
                   <span>Pro Tip</span>
                 </div>
                 <p>
-                  Prefer
-                  <span class="mono">&lt;lib-icon name size&gt;</span>
-                  from
-                  <span class="mono">&#64;hieudeptrai1112/icon</span>.
-                  Click a card to preview all token sizes.
+                  Start with
+                  <span class="mono">npm i &#64;hieultra/icon</span>
+                  then register only the icons you use.
+                  <a
+                    class="iconography-npm-link"
+                    [href]="iconPackageUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >npm package</a>
                 </p>
               </div>
             </aside>

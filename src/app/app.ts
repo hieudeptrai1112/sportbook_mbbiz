@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, computed, inject, signal, type WritableSignal } from '@angular/core';
-import type { IconSizeToken } from '@hieudeptrai1112/icon';
+import type { IconSizeToken } from '@hieultra/icon';
 import { LibIconComponent } from './components/lib-icon/lib-icon.component';
 import type { DsInputPasswordState } from './components/ds-input-password/ds-input-password.component';
 import {
@@ -838,10 +838,32 @@ export class AppComponent {}`;
       ICON_LIBRARY_GROUPS[0]?.entries[0]?.name ??
       'nav-home',
   );
-  protected readonly activeIconographySection = signal('iconography-usage');
+  protected readonly activeIconographySection = signal('iconography-install');
   protected readonly copiedIconAssetUrl = signal<string | null>(null);
   protected readonly copiedIconAssetSnippet = signal<string | null>(null);
   protected readonly copiedIconLibraryName = signal<string | null>(null);
+  protected readonly copiedIconInstallSnippet = signal<string | null>(null);
+  protected readonly iconPackageUrl = 'https://www.npmjs.com/package/@hieultra/icon';
+  protected readonly iconInstallCommand = 'npm install @hieultra/icon';
+  protected readonly iconRegisterCode = `import { ApplicationConfig } from '@angular/core';
+import { provideIcons, IconComponent } from '@hieultra/icon/angular';
+import { Alinear_searchIcon, Abold_errorIcon } from '@hieultra/icon';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideIcons([Alinear_searchIcon, Abold_errorIcon]),
+  ],
+};
+
+// In the consuming component:
+// imports: [IconComponent]
+`;
+  protected readonly iconTemplateCode = `<lib-icon name="alinear_search" size="m" />
+<lib-icon name="abold_error" size="s" ariaLabel="Error" />
+
+<!-- Alias selector also works -->
+<mbbiz-icon name="alinear_search" size="l" />
+`;
   protected readonly illustrationAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS;
   protected readonly illustrationLibraryAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS.filter(
     (asset) => !asset.id.startsWith('flag-'),
@@ -2357,6 +2379,16 @@ export class AppComponent {}`;
     }, 1600);
   }
 
+  protected async copyIconInstallSnippet(snippetId: string, code: string) {
+    await this.writeTextToClipboard(code);
+    this.copiedIconInstallSnippet.set(snippetId);
+    setTimeout(() => {
+      if (this.copiedIconInstallSnippet() === snippetId) {
+        this.copiedIconInstallSnippet.set(null);
+      }
+    }, 1600);
+  }
+
   protected async copyIconAssetUrl(asset: IconAsset) {
     await this.writeTextToClipboard(asset.src);
     this.copiedIconAssetUrl.set(asset.id);
@@ -3451,6 +3483,7 @@ export class AppComponent {}`;
 
   private getIconographySectionIds(): string[] {
     return [
+      'iconography-install',
       'iconography-usage',
       'iconography-sizes',
       ...this.iconLibraryGroups.map((group) => group.id),

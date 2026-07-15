@@ -2305,6 +2305,30 @@ mbbiz-button.button-doc-state-pressed
   line-height: 22px;
 }
 
+.iconography-npm-link {
+  color: #0f1bd8;
+  text-decoration: none;
+}
+
+.iconography-npm-link:hover {
+  text-decoration: underline;
+}
+
+.iconography-install-card {
+  margin-top: 16px;
+}
+
+.iconography-install-card .button-code-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.iconography-install-card .button-code-block {
+  white-space: pre-wrap;
+}
+
 .iconography-size-strip {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));

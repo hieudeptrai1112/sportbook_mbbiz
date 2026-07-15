@@ -13,9 +13,9 @@ import {
   resolveIconSize,
   toSvgElement,
   type IconSize,
-} from '@hieudeptrai1112/icon';
+} from '@hieultra/icon';
 
-/** Docs shell adapter for @hieudeptrai1112/icon (avoids dual Angular from library /angular). */
+/** Docs shell adapter for @hieultra/icon (avoids dual Angular from library /angular). */
 @Component({
   selector: 'lib-icon, mbbiz-icon',
   standalone: true,
