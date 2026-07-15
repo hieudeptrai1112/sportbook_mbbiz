@@ -50,17 +50,17 @@ export const INPUT_TAG_DEMO_SECTIONS: InputTagDemoSection[] = [
       { code: 'allowClear' },
       { text: ' clears all tags and the current input value.' },
     ],
-    tags: ['selector=sportbook6vn-input-tag', 'allowClear=true', 'saveOnBlur=true'],
+    tags: ['selector=mbbiz-input-tag', 'allowClear=true', 'saveOnBlur=true'],
     variant: 'interactive',
     snippetTs: `import { Component, signal } from '@angular/core';
-import { Sportbook6vnInputTagComponent, type Sportbook6vnInputTagValue } from 'sportbook6vn';
+import { MbbizInputTagComponent, type MbbizInputTagValue } from 'mbbiz';
 
 @Component({
   selector: 'app-input-tag-interactive-demo',
   standalone: true,
-  imports: [Sportbook6vnInputTagComponent],
+  imports: [MbbizInputTagComponent],
   template: \`
-    <sportbook6vn-input-tag
+    <mbbiz-input-tag
       inputId="input-tag-interactive"
       placeholder="Input and press Enter"
       [allowClear]="true"
@@ -74,7 +74,7 @@ import { Sportbook6vnInputTagComponent, type Sportbook6vnInputTagValue } from 's
 })
 export class InputTagInteractiveDemoComponent {
   readonly value = signal('');
-  readonly tags = signal<Sportbook6vnInputTagValue[]>([]);
+  readonly tags = signal<MbbizInputTagValue[]>([]);
 }`,
   },
   {
@@ -84,23 +84,23 @@ export class InputTagInteractiveDemoComponent {
       { code: 'maxTagCount' },
       { text: ' limits visible tags and exposes the remaining tags through an overflow indicator.' },
     ],
-    tags: ['selector=sportbook6vn-input-tag', 'maxTagCount=3', 'maxTagCount=responsive'],
+    tags: ['selector=mbbiz-input-tag', 'maxTagCount=3', 'maxTagCount=responsive'],
     variant: 'overflow',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnInputTagComponent } from 'sportbook6vn';
+import { MbbizInputTagComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-input-tag-overflow-demo',
   standalone: true,
-  imports: [Sportbook6vnInputTagComponent],
+  imports: [MbbizInputTagComponent],
   template: \`
-    <sportbook6vn-input-tag
+    <mbbiz-input-tag
       inputId="input-tag-max-count"
       [tags]="['1', '2', '3', '4', '5']"
       [maxTagCount]="3"
     />
 
-    <sportbook6vn-input-tag
+    <mbbiz-input-tag
       inputId="input-tag-responsive"
       [tags]="['label 1', 'label 2', 'label 3', 'label 4', 'label 5']"
       [maxTagCount]="{ count: 1, render: renderMore }"
@@ -118,20 +118,20 @@ export class InputTagOverflowDemoComponent {
       { code: 'renderTag' },
       { text: ' customizes each chip label and visual tone while keeping the same input behavior.' },
     ],
-    tags: ['selector=sportbook6vn-input-tag', 'renderTag=custom', 'allowClear=true'],
+    tags: ['selector=mbbiz-input-tag', 'renderTag=custom', 'allowClear=true'],
     variant: 'renderTag',
     snippetTs: `import { Component } from '@angular/core';
 import {
-  Sportbook6vnInputTagComponent,
-  type Sportbook6vnInputTagRenderFn,
-} from 'sportbook6vn';
+  MbbizInputTagComponent,
+  type MbbizInputTagRenderFn,
+} from 'mbbiz';
 
 @Component({
   selector: 'app-input-tag-render-demo',
   standalone: true,
-  imports: [Sportbook6vnInputTagComponent],
+  imports: [MbbizInputTagComponent],
   template: \`
-    <sportbook6vn-input-tag
+    <mbbiz-input-tag
       inputId="input-tag-render"
       placeholder="Color tags"
       [allowClear]="true"
@@ -141,7 +141,7 @@ import {
   \`,
 })
 export class InputTagRenderDemoComponent {
-  readonly renderTag: Sportbook6vnInputTagRenderFn = ({ value, label }) => {
+  readonly renderTag: MbbizInputTagRenderFn = ({ value, label }) => {
     const toneByValue = {
       arcoblue: 'brand',
       orange: 'warning',
@@ -162,21 +162,21 @@ export class InputTagRenderDemoComponent {
       { code: 'validate' },
       { text: ' blocks invalid tag creation and keeps the typed value visible for correction.' },
     ],
-    tags: ['selector=sportbook6vn-input-tag', 'validate=email', 'allowClear=true'],
+    tags: ['selector=mbbiz-input-tag', 'validate=email', 'allowClear=true'],
     variant: 'validation',
     snippetTs: `import { Component, signal } from '@angular/core';
 import {
-  Sportbook6vnInputTagComponent,
-  type Sportbook6vnInputTagValidateFn,
-  type Sportbook6vnInputTagValue,
-} from 'sportbook6vn';
+  MbbizInputTagComponent,
+  type MbbizInputTagValidateFn,
+  type MbbizInputTagValue,
+} from 'mbbiz';
 
 @Component({
   selector: 'app-input-tag-validation-demo',
   standalone: true,
-  imports: [Sportbook6vnInputTagComponent],
+  imports: [MbbizInputTagComponent],
   template: \`
-    <sportbook6vn-input-tag
+    <mbbiz-input-tag
       inputId="input-tag-email"
       placeholder="Input email and press Enter"
       [allowClear]="true"
@@ -190,9 +190,9 @@ import {
 })
 export class InputTagValidationDemoComponent {
   readonly value = signal('');
-  readonly tags = signal<Sportbook6vnInputTagValue[]>([]);
+  readonly tags = signal<MbbizInputTagValue[]>([]);
 
-  readonly validateEmail: Sportbook6vnInputTagValidateFn = (inputValue, tags) => {
+  readonly validateEmail: MbbizInputTagValidateFn = (inputValue, tags) => {
     const candidate = inputValue.trim().toLowerCase();
     const isEmail = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(candidate);
     const duplicated = tags.some((tag) => (typeof tag === 'string' ? tag : tag.value) === candidate);
@@ -208,17 +208,17 @@ export class InputTagValidationDemoComponent {
       { code: 'status="error"' },
       { text: ' renders the invalid state without changing the tag creation API.' },
     ],
-    tags: ['selector=sportbook6vn-input-tag', 'status=error', 'showTrailingClear=true'],
+    tags: ['selector=mbbiz-input-tag', 'status=error', 'showTrailingClear=true'],
     variant: 'error',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnInputTagComponent } from 'sportbook6vn';
+import { MbbizInputTagComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-input-tag-error-demo',
   standalone: true,
-  imports: [Sportbook6vnInputTagComponent],
+  imports: [MbbizInputTagComponent],
   template: \`
-    <sportbook6vn-input-tag
+    <mbbiz-input-tag
       inputId="input-tag-error"
       placeholder="Input text"
       status="error"
@@ -235,17 +235,17 @@ export class InputTagErrorDemoComponent {}`,
       { code: 'disabled=true' },
       { text: ' prevents typing, tag deletion, and clear interaction.' },
     ],
-    tags: ['selector=sportbook6vn-input-tag', 'disabled=true'],
+    tags: ['selector=mbbiz-input-tag', 'disabled=true'],
     variant: 'disabled',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnInputTagComponent } from 'sportbook6vn';
+import { MbbizInputTagComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-input-tag-disabled-demo',
   standalone: true,
-  imports: [Sportbook6vnInputTagComponent],
+  imports: [MbbizInputTagComponent],
   template: \`
-    <sportbook6vn-input-tag
+    <mbbiz-input-tag
       inputId="input-tag-disabled"
       placeholder="Input text"
       [disabled]="true"
@@ -260,7 +260,7 @@ export const INPUT_TAG_API_ROWS: InputTagApiRow[] = [
   {
     property: 'tags',
     description: 'Controlled tag values rendered as removable chips.',
-    type: 'readonly Sportbook6vnInputTagValue[]',
+    type: 'readonly MbbizInputTagValue[]',
     defaultValue: '[]',
   },
   {
@@ -332,13 +332,13 @@ export const INPUT_TAG_API_ROWS: InputTagApiRow[] = [
   {
     property: 'validate',
     description: 'Validates and optionally transforms typed text before creating a tag.',
-    type: 'Sportbook6vnInputTagValidateFn',
+    type: 'MbbizInputTagValidateFn',
     defaultValue: 'dedupe non-empty value',
   },
   {
     property: 'renderTag',
     description: 'Customizes chip label, closability, tone, or class name.',
-    type: 'Sportbook6vnInputTagRenderFn | null',
+    type: 'MbbizInputTagRenderFn | null',
     defaultValue: 'null',
   },
   {
@@ -350,13 +350,13 @@ export const INPUT_TAG_API_ROWS: InputTagApiRow[] = [
   {
     property: 'tagsChange',
     description: 'Emits the next tag list after creation, removal, or clear.',
-    type: 'output<Sportbook6vnInputTagValue[]>',
+    type: 'output<MbbizInputTagValue[]>',
     defaultValue: '-',
   },
   {
     property: 'tagRemove',
     description: 'Emits the removed tag value before the next tag list is emitted.',
-    type: 'output<Sportbook6vnInputTagValue>',
+    type: 'output<MbbizInputTagValue>',
     defaultValue: '-',
   },
   {
@@ -371,78 +371,28 @@ export const INPUT_TAG_VARIABLE_GROUPS: InputTagVariableGroup[] = [
   {
     title: 'Container',
     rows: [
-      {
-        token: '--sportbook6vn-color-surface-primary',
-        value: '#ffffff',
-        appliesTo: 'Container background',
-        notes: 'Surface used by default and disabled shells.',
-      },
-      {
-        token: '--sportbook6vn-color-border-brand-active',
-        value: '#a3b7fd',
-        appliesTo: 'Default border',
-        notes: 'Base border before hover/focus/error/disabled overrides.',
-      },
-      {
-        token: '--sportbook6vn-color-border-brand-tertiary',
-        value: '#52dddd',
-        appliesTo: 'Hover and focus border',
-        notes: 'Interactive border state from the component runtime.',
-      },
-      {
-        token: '--sportbook6vn-radius-md',
-        value: '4px',
-        appliesTo: 'Container and tag radius',
-        notes: 'Shared radius for the input shell and chips.',
-      },
+      { token: 'background/primary', value: 'white/100%', appliesTo: 'Container background', notes: 'Surface used by default and disabled shells.' },
+      { token: 'border/brand-primary3', value: 'blue/300', appliesTo: 'Default border', notes: 'Base border before hover/focus/error/disabled overrides.' },
+      { token: 'border/brand-tertiary', value: 'turquoise/400', appliesTo: 'Hover and focus border', notes: 'Interactive border state from the component runtime.' },
+      { token: 'radius/md', value: '4px', appliesTo: 'Container and tag radius', notes: 'Shared radius for the input shell and chips.' },
     ],
   },
   {
     title: 'Status',
     rows: [
-      {
-        token: '--sportbook6vn-color-danger-strong',
-        value: '#f34343',
-        appliesTo: 'Error border and error chip text',
-        notes: 'Activated by status="error".',
-      },
-      {
-        token: '--sportbook6vn-color-border-disabled',
-        value: '#cccccc',
-        appliesTo: 'Disabled border',
-        notes: 'Activated by disabled=true.',
-      },
-      {
-        token: '--sportbook6vn-color-text-disabled',
-        value: '#808080',
-        appliesTo: 'Disabled placeholder and input text',
-        notes: 'Keeps disabled value readable without interactive affordance.',
-      },
+      { token: 'background/error-secondary', value: 'red/400', appliesTo: 'Error border and error chip text', notes: 'Activated by status="error".' },
+      { token: 'border/disable2', value: 'grayscale/400', appliesTo: 'Disabled border', notes: 'Activated by disabled=true.' },
+      { token: 'text/disable1', value: 'grayscale/600', appliesTo: 'Disabled placeholder and input text', notes: 'Keeps disabled value readable without interactive affordance.' },
     ],
   },
   {
     title: 'Chip',
     rows: [
-      {
-        token: '--sportbook6vn-color-dropdown-tag-background',
-        value: '#dae4ff',
-        appliesTo: 'Default chip background',
-        notes: 'Used by normal tags and overflow examples.',
-      },
-      {
-        token: '--sportbook6vn-color-dropdown-tag-text',
-        value: '#435870',
-        appliesTo: 'Default chip text and remove icon',
-        notes: 'Shared color for label and clear icon in a chip.',
-      },
-      {
-        token: '--sportbook6vn-color-dropdown-tag-background-error',
-        value: '#ffe3e3',
-        appliesTo: 'Error chip background',
-        notes: 'Used when the input tag status is error.',
-      },
+      { token: 'background/brand-primary4', value: 'blue/200', appliesTo: 'Default chip background', notes: 'Used by normal tags and overflow examples.' },
+      { token: 'text/primary3', value: 'darkblue/700', appliesTo: 'Default chip text and remove icon', notes: 'Shared color for label and clear icon in a chip.' },
+      { token: 'background/error-tertiary', value: 'red/100', appliesTo: 'Error chip background', notes: 'Used when the input tag status is error.' },
     ],
-  },
+  }
 ];
 
 export const INPUT_TAG_VARIABLE_NOTES = [

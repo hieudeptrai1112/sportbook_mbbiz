@@ -36,7 +36,7 @@ compare_file "${SNAPSHOT_DIR}/workspace/angular.json" "${REPO_ROOT}/angular.json
 compare_file "${SNAPSHOT_DIR}/workspace/package.json" "${REPO_ROOT}/package.json"
 compare_file "${SNAPSHOT_DIR}/workspace/package-lock.json" "${REPO_ROOT}/package-lock.json"
 compare_file "${SNAPSHOT_DIR}/workspace/tsconfig.json" "${REPO_ROOT}/tsconfig.json"
-compare_file "${SNAPSHOT_DIR}/workspace/tsconfig.sportbook6vn-preview.json" "${REPO_ROOT}/tsconfig.sportbook6vn-preview.json"
+compare_file "${SNAPSHOT_DIR}/workspace/tsconfig.mbbiz-preview.json" "${REPO_ROOT}/tsconfig.mbbiz-preview.json"
 
-compare_dir "${SNAPSHOT_DIR}/projects/sportbook6vn" "${REPO_ROOT}/projects/sportbook6vn"
-compare_dir "${SNAPSHOT_DIR}/projects/sportbook6vn-preview" "${REPO_ROOT}/projects/sportbook6vn-preview"
+compare_dir "${SNAPSHOT_DIR}/projects/mbbiz" "${REPO_ROOT}/projects/mbbiz"
+compare_dir "${SNAPSHOT_DIR}/projects/mbbiz-preview" "${REPO_ROOT}/projects/mbbiz-preview"

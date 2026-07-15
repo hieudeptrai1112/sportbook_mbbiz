@@ -81,13 +81,13 @@ const makeSizeScaleActions = (
 const buildButtonMarkup = (action: ButtonMappingDemoAction): string => {
   const attrs = buildButtonAttrs(action.shape, action.variant, action.size, action.disabled ?? false);
   if (action.showStartIcon) {
-    return `    <sportbook6vn-button ${attrs}>
-      <span sportbook6vnButtonStartIcon aria-hidden="true">+</span>
+    return `    <mbbiz-button ${attrs}>
+      <span mbbizButtonStartIcon aria-hidden="true">+</span>
       ${action.label}
-    </sportbook6vn-button>`;
+    </mbbiz-button>`;
   }
 
-  return `    <sportbook6vn-button ${attrs}>${action.label}</sportbook6vn-button>`;
+  return `    <mbbiz-button ${attrs}>${action.label}</mbbiz-button>`;
 };
 
 const buildSnippetTemplate = (groups: ButtonMappingDemoGroup[]): string =>
@@ -102,12 +102,12 @@ const buildSnippetTs = (
   id: string,
   groups: ButtonMappingDemoGroup[],
 ): string => `import { Component } from '@angular/core';
-import { Sportbook6vnButtonComponent } from 'sportbook6vn';
+import { MbbizButtonComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-button-${id}-demo',
   standalone: true,
-  imports: [Sportbook6vnButtonComponent],
+  imports: [MbbizButtonComponent],
   template: \`
 ${buildSnippetTemplate(groups)}
   \`,
@@ -136,7 +136,7 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
     'basic',
     'Basic',
     'There are primary, secondary, pill primary, and pill secondary button variants.',
-    ['selector=sportbook6vn-button', 'use-case=basic', 'size=lg'],
+    ['selector=mbbiz-button', 'use-case=basic', 'size=lg'],
     [
       {
         label: 'Primary and secondary',
@@ -169,7 +169,7 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
     'size',
     'Size',
     'Buttons support large, medium, and small sizes across rectangle and pill shapes.',
-    ['selector=sportbook6vn-button', 'use-case=size', 'sizes=lg/md/sm'],
+    ['selector=mbbiz-button', 'use-case=size', 'sizes=lg/md/sm'],
     [
       {
         label: 'Rectangle / Primary',
@@ -206,7 +206,7 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
     'shape',
     'Shape',
     'Buttons can be rendered as rectangle or pill shapes.',
-    ['selector=sportbook6vn-button', 'use-case=shape', 'shape=rectangle/pill'],
+    ['selector=mbbiz-button', 'use-case=shape', 'shape=rectangle/pill'],
     [
       {
         label: 'Rectangle',
@@ -235,7 +235,7 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
     'with-icon',
     'With icon',
     'Use the start icon slot to display an icon before the label.',
-    ['selector=sportbook6vn-button', 'use-case=with-icon', 'slot=startIcon'],
+    ['selector=mbbiz-button', 'use-case=with-icon', 'slot=startIcon'],
     [
       {
         label: 'Leading icon',
@@ -249,7 +249,7 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
     ],
     [
       { text: 'Use ' },
-      { code: 'sportbook6vnButtonStartIcon' },
+      { code: 'mbbizButtonStartIcon' },
       { text: ' to display an icon before the label.' },
     ],
   ),
@@ -257,7 +257,7 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
     'disabled',
     'Disabled',
     'Disabled buttons prevent interaction and use muted visual styles.',
-    ['selector=sportbook6vn-button', 'use-case=disabled', 'size=lg'],
+    ['selector=mbbiz-button', 'use-case=disabled', 'size=lg'],
     [
       {
         label: 'Rectangle / Primary',
@@ -342,13 +342,13 @@ export const BUTTON_MAPPING_API_ROWS: ButtonMappingApiRow[] = [
     defaultValue: '-',
   },
   {
-    property: '[sportbook6vnButtonStartIcon]',
+    property: '[mbbizButtonStartIcon]',
     description: 'Content projection slot for leading icon. Covered by the current With icon use case.',
     type: 'Projected slot',
     defaultValue: '-',
   },
   {
-    property: '[sportbook6vnButtonEndIcon]',
+    property: '[mbbizButtonEndIcon]',
     description:
       'Content projection slot for trailing icon. Supported by the component; temporarily hidden from the current preview mapping scope.',
     type: 'Projected slot',

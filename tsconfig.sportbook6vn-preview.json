@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./out-tsc/sportbook6vn-preview",
-    "types": []
-  },
-  "files": ["projects/sportbook6vn-preview/src/main.ts"],
-  "include": ["projects/sportbook6vn-preview/src/**/*.d.ts"]
-}

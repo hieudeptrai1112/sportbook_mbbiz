@@ -4,13 +4,13 @@
   "components": [
     {
       "name": "button",
-      "selector": "sportbook6vn-button",
-      "entry": "projects/sportbook6vn/src/lib/components/button/button.component.ts",
+      "selector": "mbbiz-button",
+      "entry": "projects/mbbiz/src/lib/components/button/button.component.ts",
       "publicApiExport": "./lib/components/button/button.component",
       "inputs": [
-        { "name": "variant", "type": "Sportbook6vnButtonVariant", "default": "'primary'" },
-        { "name": "size", "type": "Sportbook6vnButtonSize", "default": "'md'" },
-        { "name": "shape", "type": "Sportbook6vnButtonShape", "default": "'rectangle'" },
+        { "name": "variant", "type": "MbbizButtonVariant", "default": "'primary'" },
+        { "name": "size", "type": "MbbizButtonSize", "default": "'md'" },
+        { "name": "shape", "type": "MbbizButtonShape", "default": "'rectangle'" },
         { "name": "disabled", "type": null, "default": "false" },
         { "name": "loading", "type": null, "default": "false" },
         { "name": "fullWidth", "type": null, "default": "false" },
@@ -18,19 +18,19 @@
         { "name": "ariaLabel", "type": "string | null", "default": "null" }
       ],
       "outputs": [{ "name": "buttonClick", "type": "MouseEvent" }],
-      "previewSelectors": ["sportbook6vn-button"]
+      "previewSelectors": ["mbbiz-button"]
     },
     {
       "name": "input",
-      "selector": "sportbook6vn-input",
-      "entry": "projects/sportbook6vn/src/lib/components/input/input.component.ts",
+      "selector": "mbbiz-input",
+      "entry": "projects/mbbiz/src/lib/components/input/input.component.ts",
       "publicApiExport": "./lib/components/input/input.component",
       "inputs": [
         { "name": "value", "type": null, "default": "''" },
         { "name": "placeholder", "type": null, "default": "''" },
         { "name": "disabled", "type": null, "default": "false" },
-        { "name": "size", "type": "Sportbook6vnInputSize", "default": "'md'" },
-        { "name": "status", "type": "Sportbook6vnInputStatus", "default": "'default'" },
+        { "name": "size", "type": "MbbizInputSize", "default": "'md'" },
+        { "name": "status", "type": "MbbizInputStatus", "default": "'default'" },
         { "name": "type", "type": "'text' | 'email' | 'number' | 'password' | 'search'", "default": "'text'" },
         { "name": "inputId", "type": "string | null", "default": "null" },
         { "name": "label", "type": "string | null", "default": "null" },
@@ -39,46 +39,46 @@
       ],
       "outputs": [{ "name": "valueChange", "type": "string" }],
       "previewSelectors": [
-        "sportbook6vn-input",
-        "sportbook6vn-affix-input",
-        "sportbook6vn-search-input",
-        "sportbook6vn-password-input",
-        "sportbook6vn-textarea",
-        "sportbook6vn-floating-label-input",
-        "sportbook6vn-affix-label-input",
-        "sportbook6vn-input-tag"
+        "mbbiz-input",
+        "mbbiz-affix-input",
+        "mbbiz-search-input",
+        "mbbiz-password-input",
+        "mbbiz-textarea",
+        "mbbiz-floating-label-input",
+        "mbbiz-affix-label-input",
+        "mbbiz-input-tag"
       ]
     },
     {
       "name": "dropdown",
-      "selector": "sportbook6vn-dropdown",
-      "entry": "projects/sportbook6vn/src/lib/components/dropdown/dropdown.component.ts",
+      "selector": "mbbiz-dropdown",
+      "entry": "projects/mbbiz/src/lib/components/dropdown/dropdown.component.ts",
       "publicApiExport": "./lib/components/dropdown/dropdown.component",
       "inputs": [
         { "name": "title", "type": null, "default": "'Title'" },
         { "name": "placeholder", "type": null, "default": "'Lựa chọn'" },
-        { "name": "items", "type": "readonly Sportbook6vnDropdownItem[]", "default": "[]" },
-        { "name": "mode", "type": "Sportbook6vnDropdownMode", "default": "'single'" },
-        { "name": "labelMode", "type": "Sportbook6vnDropdownLabelMode", "default": "'outside'" },
-        { "name": "status", "type": "Sportbook6vnDropdownStatus", "default": "'default'" },
+        { "name": "items", "type": "readonly MbbizDropdownItem[]", "default": "[]" },
+        { "name": "mode", "type": "MbbizDropdownMode", "default": "'single'" },
+        { "name": "labelMode", "type": "MbbizDropdownLabelMode", "default": "'outside'" },
+        { "name": "status", "type": "MbbizDropdownStatus", "default": "'default'" },
         { "name": "disabled", "type": null, "default": "false" },
         { "name": "errorMessage", "type": "string | null", "default": "null" },
         { "name": "value", "type": "string | null", "default": "null" },
         { "name": "values", "type": "readonly string[]", "default": "[]" },
         { "name": "open", "type": null, "default": "false" },
-        { "name": "searchBehavior", "type": "Sportbook6vnDropdownSearchBehavior", "default": "'auto'" },
+        { "name": "searchBehavior", "type": "MbbizDropdownSearchBehavior", "default": "'auto'" },
         { "name": "searchThreshold", "type": null, "default": "5" },
-        { "name": "emptyState", "type": "Sportbook6vnDropdownEmptyState", "default": "'none'" },
+        { "name": "emptyState", "type": "MbbizDropdownEmptyState", "default": "'none'" },
         { "name": "retryDelayMs", "type": null, "default": "3000" }
       ],
       "outputs": [
         { "name": "valueChange", "type": "string | null" },
         { "name": "valuesChange", "type": "string[]" },
-        { "name": "itemSelect", "type": "Sportbook6vnDropdownItem" },
+        { "name": "itemSelect", "type": "MbbizDropdownItem" },
         { "name": "openChange", "type": "boolean" },
         { "name": "retryRequest", "type": "void" }
       ],
-      "previewSelectors": ["sportbook6vn-dropdown", "sportbook6vn-dropdown-tag"]
+      "previewSelectors": ["mbbiz-dropdown", "mbbiz-dropdown-tag"]
     }
   ]
 }

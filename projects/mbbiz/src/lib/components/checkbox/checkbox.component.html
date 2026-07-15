@@ -1,0 +1,27 @@
+<label [class]="wrapperClass()">
+  <input
+    type="checkbox"
+    class="mbbiz-checkbox__native"
+    [attr.id]="inputId()"
+    [checked]="resolvedChecked()"
+    [indeterminate]="resolvedIndeterminate()"
+    [disabled]="disabled()"
+    (change)="onInputChange($event)"
+  />
+
+  <span class="mbbiz-checkbox__control" aria-hidden="true">
+    @if (resolvedChecked()) {
+      <svg class="mbbiz-checkbox__glyph mbbiz-checkbox__glyph--check" viewBox="0 0 12 12">
+        <path d="M2 6.3L4.5 8.7L9.8 3.5" />
+      </svg>
+    } @else if (resolvedIndeterminate()) {
+      <svg class="mbbiz-checkbox__glyph mbbiz-checkbox__glyph--minus" viewBox="0 0 12 12">
+        <path d="M2.5 6H9.5" />
+      </svg>
+    }
+  </span>
+
+  @if (label(); as label) {
+    <span class="mbbiz-checkbox__label">{{ label }}</span>
+  }
+</label>

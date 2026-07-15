@@ -14,9 +14,9 @@ This script will restore these paths from the approved snapshot into the live wo
   package.json
   package-lock.json
   tsconfig.json
-  tsconfig.sportbook6vn-preview.json
-  projects/sportbook6vn
-  projects/sportbook6vn-preview
+  tsconfig.mbbiz-preview.json
+  projects/mbbiz
+  projects/mbbiz-preview
 
 Before restore, it will create a backup under:
   ${BACKUP_ROOT}
@@ -56,18 +56,18 @@ backup_if_exists "${REPO_ROOT}/angular.json" "${BACKUP_ROOT}/workspace/"
 backup_if_exists "${REPO_ROOT}/package.json" "${BACKUP_ROOT}/workspace/"
 backup_if_exists "${REPO_ROOT}/package-lock.json" "${BACKUP_ROOT}/workspace/"
 backup_if_exists "${REPO_ROOT}/tsconfig.json" "${BACKUP_ROOT}/workspace/"
-backup_if_exists "${REPO_ROOT}/tsconfig.sportbook6vn-preview.json" "${BACKUP_ROOT}/workspace/"
-backup_if_exists "${REPO_ROOT}/projects/sportbook6vn" "${BACKUP_ROOT}/projects/"
-backup_if_exists "${REPO_ROOT}/projects/sportbook6vn-preview" "${BACKUP_ROOT}/projects/"
+backup_if_exists "${REPO_ROOT}/tsconfig.mbbiz-preview.json" "${BACKUP_ROOT}/workspace/"
+backup_if_exists "${REPO_ROOT}/projects/mbbiz" "${BACKUP_ROOT}/projects/"
+backup_if_exists "${REPO_ROOT}/projects/mbbiz-preview" "${BACKUP_ROOT}/projects/"
 
 restore_file "${SNAPSHOT_DIR}/workspace/angular.json" "${REPO_ROOT}/angular.json"
 restore_file "${SNAPSHOT_DIR}/workspace/package.json" "${REPO_ROOT}/package.json"
 restore_file "${SNAPSHOT_DIR}/workspace/package-lock.json" "${REPO_ROOT}/package-lock.json"
 restore_file "${SNAPSHOT_DIR}/workspace/tsconfig.json" "${REPO_ROOT}/tsconfig.json"
-restore_file "${SNAPSHOT_DIR}/workspace/tsconfig.sportbook6vn-preview.json" "${REPO_ROOT}/tsconfig.sportbook6vn-preview.json"
+restore_file "${SNAPSHOT_DIR}/workspace/tsconfig.mbbiz-preview.json" "${REPO_ROOT}/tsconfig.mbbiz-preview.json"
 
-restore_dir "${SNAPSHOT_DIR}/projects/sportbook6vn" "${REPO_ROOT}/projects/sportbook6vn"
-restore_dir "${SNAPSHOT_DIR}/projects/sportbook6vn-preview" "${REPO_ROOT}/projects/sportbook6vn-preview"
+restore_dir "${SNAPSHOT_DIR}/projects/mbbiz" "${REPO_ROOT}/projects/mbbiz"
+restore_dir "${SNAPSHOT_DIR}/projects/mbbiz-preview" "${REPO_ROOT}/projects/mbbiz-preview"
 
 echo "Restore complete."
 echo "Backup created at: ${BACKUP_ROOT}"

@@ -1,0 +1,142 @@
+<div [class]="wrapperClass()" (mousedown)="preserveFocus($event)" (click)="focusInput()">
+  <div #contentRef class="mbbiz-input-tag__content">
+    @for (tag of visibleTags(); track trackByTag($index, tag)) {
+      <span
+        class="mbbiz-input-tag__chip"
+        [class.mbbiz-input-tag__chip--brand]="resolveRenderedTag(tag, $index).tone === 'brand'"
+        [class.mbbiz-input-tag__chip--success]="resolveRenderedTag(tag, $index).tone === 'success'"
+        [class.mbbiz-input-tag__chip--warning]="resolveRenderedTag(tag, $index).tone === 'warning'"
+        [class.mbbiz-input-tag__chip--danger]="resolveRenderedTag(tag, $index).tone === 'danger'"
+        [class]="resolveRenderedTag(tag, $index).className"
+      >
+        <span class="mbbiz-input-tag__chip-label">{{ resolveRenderedTag(tag, $index).label }}</span>
+        @if (resolveRenderedTag(tag, $index).closable) {
+          <button
+            type="button"
+            class="mbbiz-input-tag__chip-remove"
+            [disabled]="disabled() || readOnly()"
+            aria-label="Remove tag"
+            (click)="removeTag($index, $event)"
+          >
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4.5 4.5L11.5 11.5" />
+              <path d="M11.5 4.5L4.5 11.5" />
+            </svg>
+          </button>
+        }
+      </span>
+    }
+
+    @if (overflowLabel(); as overflowLabel) {
+      <span class="mbbiz-input-tag__overflow-anchor" tabindex="0">
+        <span class="mbbiz-input-tag__overflow">{{ overflowLabel }}</span>
+
+        @if (hiddenTags().length > 0) {
+          <span class="mbbiz-input-tag__overflow-popover">
+            <span class="mbbiz-input-tag__overflow-popover-arrow"></span>
+
+            @for (tag of hiddenTags(); track trackByTag(visibleTags().length + $index, tag)) {
+              <span
+                class="mbbiz-input-tag__chip"
+                [class.mbbiz-input-tag__chip--brand]="
+                  resolveRenderedTag(tag, visibleTags().length + $index).tone === 'brand'
+                "
+                [class.mbbiz-input-tag__chip--success]="
+                  resolveRenderedTag(tag, visibleTags().length + $index).tone === 'success'
+                "
+                [class.mbbiz-input-tag__chip--warning]="
+                  resolveRenderedTag(tag, visibleTags().length + $index).tone === 'warning'
+                "
+                [class.mbbiz-input-tag__chip--danger]="
+                  resolveRenderedTag(tag, visibleTags().length + $index).tone === 'danger'
+                "
+                [class]="resolveRenderedTag(tag, visibleTags().length + $index).className"
+              >
+                <span class="mbbiz-input-tag__chip-label">
+                  {{ resolveRenderedTag(tag, visibleTags().length + $index).label }}
+                </span>
+                @if (resolveRenderedTag(tag, visibleTags().length + $index).closable) {
+                  <button
+                    type="button"
+                    class="mbbiz-input-tag__chip-remove"
+                    [disabled]="disabled() || readOnly()"
+                    aria-label="Remove hidden tag"
+                    (click)="removeOverflowTag($index, $event)"
+                  >
+                    <svg viewBox="0 0 16 16" aria-hidden="true">
+                      <path d="M4.5 4.5L11.5 11.5" />
+                      <path d="M11.5 4.5L4.5 11.5" />
+                    </svg>
+                  </button>
+                }
+              </span>
+            }
+          </span>
+        }
+      </span>
+    }
+
+    <div class="mbbiz-input-tag__input-slot">
+      <input
+        #nativeInput
+        nz-input
+        class="mbbiz-input-tag__native"
+        [attr.id]="inputId()"
+        [disabled]="disabled()"
+        [readOnly]="readOnly()"
+        [value]="localValue()"
+        [attr.placeholder]="inputPlaceholder()"
+        (input)="onInput($event)"
+        (keydown)="onKeyDown($event)"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+      />
+
+      @if (showCursor()) {
+        <span class="mbbiz-input-tag__cursor" aria-hidden="true">|</span>
+      }
+    </div>
+  </div>
+
+  @if (showClearButton()) {
+    <button
+      type="button"
+      class="mbbiz-input-tag__clear"
+      aria-label="Clear tag input"
+      (click)="clearAll($event)"
+    >
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M4.5 4.5L11.5 11.5" />
+        <path d="M11.5 4.5L4.5 11.5" />
+      </svg>
+    </button>
+  }
+
+  @if (isResponsiveMode()) {
+    <div class="mbbiz-input-tag__measure" aria-hidden="true">
+      <div #measureContainer class="mbbiz-input-tag__measure-row">
+        @for (tag of localTags(); track trackByTag($index, tag)) {
+          <span
+            class="mbbiz-input-tag__chip"
+            [class.mbbiz-input-tag__chip--brand]="resolveRenderedTag(tag, $index).tone === 'brand'"
+            [class.mbbiz-input-tag__chip--success]="resolveRenderedTag(tag, $index).tone === 'success'"
+            [class.mbbiz-input-tag__chip--warning]="resolveRenderedTag(tag, $index).tone === 'warning'"
+            [class.mbbiz-input-tag__chip--danger]="resolveRenderedTag(tag, $index).tone === 'danger'"
+            [class]="resolveRenderedTag(tag, $index).className"
+          >
+            <span class="mbbiz-input-tag__chip-label">{{ resolveRenderedTag(tag, $index).label }}</span>
+            @if (resolveRenderedTag(tag, $index).closable) {
+              <span class="mbbiz-input-tag__measure-close" aria-hidden="true">
+                <svg viewBox="0 0 16 16">
+                  <path d="M4.5 4.5L11.5 11.5" />
+                  <path d="M11.5 4.5L4.5 11.5" />
+                </svg>
+              </span>
+            }
+          </span>
+        }
+      </div>
+      <span #measureOverflow class="mbbiz-input-tag__overflow"></span>
+    </div>
+  }
+</div>

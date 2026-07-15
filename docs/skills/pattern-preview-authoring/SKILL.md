@@ -1,6 +1,6 @@
 ---
 name: pattern-preview-authoring
-description: Build or map a pattern page in the sportbook6vn preview app when the user says "pattern + <component/pattern name>". Use exact Figma nodes, follow the component-page preview structure, reuse existing Sportbook6vn dependencies, and do not push until the user explicitly says "push".
+description: Build or map a pattern page in the mbbiz preview app when the user says "pattern + <component/pattern name>". Use exact Figma nodes, follow the component-page preview structure, reuse existing Mbbiz dependencies, and do not push until the user explicitly says "push".
 ---
 
 # Pattern preview authoring
@@ -13,7 +13,7 @@ Use this skill when the user asks for a new pattern page or a new pattern tab in
 
 ## Required outcome
 
-Create or update a Pattern tab/page in the `sportbook6vn` preview app with:
+Create or update a Pattern tab/page in the `mbbiz` preview app with:
 
 - a page header consistent with other component pages
 - a title and lead description
@@ -31,7 +31,7 @@ Do not push unless the user explicitly says `push`.
    - shell padding
    - overlay direction and anchor
    - preview frame size needed to show the full case
-3. Reuse existing Sportbook6vn components used inside the pattern.
+3. Reuse existing Mbbiz components used inside the pattern.
 4. Add the pattern page under Pattern in the preview app. Keep the page structure parallel to other component pages.
 5. Split the pattern into explicit cases. Each case should have:
    - section title
@@ -63,7 +63,7 @@ If the pattern has a dropdown, droplist, or popover:
 ### Dependency rules
 
 - Use the project's real dependency component, not a hand-drawn substitute.
-- If the pattern depends on Button, use the existing `sportbook6vn-button`.
+- If the pattern depends on Button, use the existing `mbbiz-button`.
 - Width fidelity must be enforced at the actual rendered host, not only at an outer wrapper, when the component API allows the host to stretch differently.
 
 ## Preview app mapping checklist

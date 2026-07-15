@@ -1,0 +1,25 @@
+<button
+  nz-button
+  [nzLoading]="loading()"
+  [nzShape]="zorroShape()"
+  [nzSize]="zorroSize()"
+  [nzType]="zorroType()"
+  [attr.aria-busy]="loading() ? 'true' : null"
+  [attr.aria-label]="ariaLabel()"
+  [attr.type]="type()"
+  [class]="buttonClass()"
+  [disabled]="isDisabled()"
+  (click)="onClick($event)"
+>
+  <span class="mbbiz-button__icon" aria-hidden="true">
+    <ng-content select="[mbbizButtonStartIcon]" />
+  </span>
+
+  <span class="mbbiz-button__label">
+    <ng-content />
+  </span>
+
+  <span class="mbbiz-button__icon" aria-hidden="true">
+    <ng-content select="[mbbizButtonEndIcon]" />
+  </span>
+</button>

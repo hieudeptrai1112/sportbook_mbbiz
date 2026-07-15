@@ -1,0 +1,31 @@
+@if (label()) {
+  <label class="mbbiz-input__label" [attr.for]="inputId()">
+    {{ label() }}
+  </label>
+}
+
+<div [class]="wrapperClass()">
+  <span class="mbbiz-input__slot" aria-hidden="true">
+    <ng-content select="[mbbizInputPrefix]" />
+  </span>
+
+  <input
+    class="mbbiz-input__native"
+    [attr.id]="inputId()"
+    [attr.placeholder]="placeholder()"
+    [attr.type]="type()"
+    [disabled]="disabled()"
+    [value]="value()"
+    (input)="onInput($event)"
+  />
+
+  <span class="mbbiz-input__slot" aria-hidden="true">
+    <ng-content select="[mbbizInputSuffix]" />
+  </span>
+</div>
+
+@if (caption()) {
+  <p class="mbbiz-input__caption">
+    {{ caption() }}
+  </p>
+}

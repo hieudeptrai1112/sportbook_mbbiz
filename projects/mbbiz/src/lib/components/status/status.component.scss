@@ -1,0 +1,83 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.mbbiz-status {
+  --mbbiz-status-color: var(--mbbiz-color-status-neutral, #cccccc);
+
+  align-items: flex-start;
+  display: inline-flex;
+  flex-direction: column;
+  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  gap: 4px;
+  justify-content: center;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.mbbiz-status--neutral {
+  --mbbiz-status-color: var(--mbbiz-color-status-neutral, #cccccc);
+}
+
+.mbbiz-status--orange {
+  --mbbiz-status-color: var(--mbbiz-color-status-orange, #fa8a00);
+}
+
+.mbbiz-status--blue {
+  --mbbiz-status-color: var(--mbbiz-color-status-blue, #141ed2);
+}
+
+.mbbiz-status--dark-blue {
+  --mbbiz-status-color: var(--mbbiz-color-status-dark-blue, #6d83a7);
+}
+
+.mbbiz-status--green {
+  --mbbiz-status-color: var(--mbbiz-color-status-green, #00ad68);
+}
+
+.mbbiz-status--red {
+  --mbbiz-status-color: var(--mbbiz-color-status-red, #f00000);
+}
+
+.mbbiz-status__content {
+  align-items: center;
+  display: inline-flex;
+  gap: 4px;
+  min-height: 20px;
+  min-width: 0;
+}
+
+.mbbiz-status__dot {
+  background: var(--mbbiz-status-color);
+  border-radius: 100px;
+  flex: 0 0 8px;
+  height: 8px;
+  width: 8px;
+}
+
+.mbbiz-status__label {
+  color: var(--mbbiz-status-color);
+  display: block;
+  flex: 0 1 auto;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mbbiz-status__description {
+  color: var(--mbbiz-color-status-description, #192d39);
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 16px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

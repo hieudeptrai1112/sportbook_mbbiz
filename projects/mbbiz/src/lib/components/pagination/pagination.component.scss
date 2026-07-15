@@ -1,0 +1,265 @@
+:host {
+  display: block;
+  font-family: var(--mbbiz-font-family-sans);
+}
+
+.mbbiz-pagination {
+  align-items: center;
+  color: var(--mbbiz-color-pagination-text, #192d39);
+  display: flex;
+  justify-content: space-between;
+  min-height: 52px;
+  width: 100%;
+}
+
+.mbbiz-pagination__total {
+  color: var(--mbbiz-color-pagination-muted, #6d83a7);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.mbbiz-pagination__controls {
+  align-items: center;
+  display: flex;
+  gap: 24px;
+  justify-content: flex-end;
+}
+
+.mbbiz-pagination__pager {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+}
+
+.mbbiz-pagination__nav-group,
+.mbbiz-pagination__page-list {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+}
+
+.mbbiz-pagination__nav,
+.mbbiz-pagination__page {
+  -webkit-appearance: none;
+  appearance: none;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--mbbiz-color-pagination-icon, #192d39);
+  cursor: pointer;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-family: inherit;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.mbbiz-pagination__nav {
+  height: 24px;
+  width: 24px;
+}
+
+.mbbiz-pagination__nav svg {
+  fill: none;
+  height: 24px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.2;
+  width: 24px;
+}
+
+.mbbiz-pagination__nav:disabled,
+.mbbiz-pagination__page:disabled {
+  color: var(--mbbiz-color-pagination-disabled, #cccccc);
+  cursor: not-allowed;
+}
+
+.mbbiz-pagination__page {
+  border-radius: 20px;
+  color: var(--mbbiz-color-pagination-muted, #6d83a7);
+  font-size: 12px;
+  font-weight: 600;
+  height: 24px;
+  letter-spacing: 0.25px;
+  line-height: 16px;
+  min-width: 24px;
+  padding: 4px;
+}
+
+.mbbiz-pagination__page--active {
+  background: var(--mbbiz-color-pagination-active-bg, #52dddd);
+  color: var(--mbbiz-color-pagination-active-text, #192d39);
+  min-width: 24px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.mbbiz-pagination__page-summary {
+  color: var(--mbbiz-color-pagination-text, #192d39);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.mbbiz-pagination__jump {
+  position: relative;
+  width: 150px;
+}
+
+.mbbiz-pagination__jump-trigger,
+.mbbiz-pagination__quick-input {
+  background: var(--mbbiz-color-pagination-surface, #ffffff);
+  border: 1px solid var(--mbbiz-color-pagination-border, #a3b7fd);
+  border-radius: var(--mbbiz-radius-md);
+  color: var(--mbbiz-color-pagination-text, #192d39);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  height: 52px;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+}
+
+.mbbiz-pagination__jump-trigger {
+  -webkit-appearance: none;
+  appearance: none;
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 12px;
+  width: 100%;
+}
+
+.mbbiz-pagination__jump-trigger:hover:not(:disabled),
+.mbbiz-pagination__jump-trigger[aria-expanded="true"],
+.mbbiz-pagination--jump-active .mbbiz-pagination__jump-trigger,
+.mbbiz-pagination--quick-input-active .mbbiz-pagination__quick-input,
+.mbbiz-pagination__quick-input:focus {
+  border-color: var(--mbbiz-color-pagination-border-active, #52dddd);
+  outline: none;
+}
+
+.mbbiz-pagination__jump-trigger:disabled,
+.mbbiz-pagination__quick-input:disabled {
+  background: var(--mbbiz-color-pagination-disabled-bg, #f3f3f3);
+  border-color: var(--mbbiz-color-pagination-disabled, #cccccc);
+  color: var(--mbbiz-color-pagination-disabled-text, #808080);
+  cursor: not-allowed;
+}
+
+.mbbiz-pagination__jump-trigger svg {
+  fill: none;
+  height: 20px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  width: 20px;
+}
+
+.mbbiz-pagination__jump-panel {
+  background: var(--mbbiz-color-pagination-surface, #ffffff);
+  border: 1px solid var(--mbbiz-color-pagination-border-active, #52dddd);
+  border-radius: var(--mbbiz-radius-md);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+  display: grid;
+  gap: 0;
+  left: 0;
+  margin-top: 4px;
+  max-height: 208px;
+  overflow-y: auto;
+  padding: 12px;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  z-index: 20;
+}
+
+.mbbiz-pagination__jump-panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mbbiz-pagination__jump-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mbbiz-pagination__jump-panel::-webkit-scrollbar-thumb {
+  background: var(--mbbiz-color-pagination-scrollbar, #cadbe8);
+  border-radius: 21px;
+}
+
+.mbbiz-pagination__jump-option {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: var(--mbbiz-radius-md);
+  color: var(--mbbiz-color-pagination-text, #192d39);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  padding: 8px 4px;
+  text-align: left;
+}
+
+.mbbiz-pagination__jump-option--active {
+  color: var(--mbbiz-color-pagination-action, #141ed2);
+  font-weight: 600;
+}
+
+.mbbiz-pagination__quick {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+}
+
+.mbbiz-pagination__quick-label {
+  color: var(--mbbiz-color-pagination-text, #192d39);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.mbbiz-pagination__quick-input {
+  padding: 16px 12px;
+  width: 80px;
+}
+
+.mbbiz-pagination__quick-input::placeholder {
+  color: var(--mbbiz-color-pagination-placeholder, #9bafc8);
+}
+
+.mbbiz-pagination--disabled .mbbiz-pagination__total,
+.mbbiz-pagination--disabled .mbbiz-pagination__page-summary,
+.mbbiz-pagination--disabled .mbbiz-pagination__quick-label {
+  color: var(--mbbiz-color-pagination-disabled-text, #808080);
+}
+
+@media (max-width: 760px) {
+  .mbbiz-pagination {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .mbbiz-pagination__controls {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+}

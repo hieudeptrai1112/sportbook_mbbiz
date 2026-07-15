@@ -1,0 +1,249 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.mbbiz-button.ant-btn {
+  --mbbiz-button-height: 44px;
+  --mbbiz-button-min-width: 103px;
+  --mbbiz-button-padding-x: 20px;
+  --mbbiz-button-font-size: 14px;
+  --mbbiz-button-line-height: 20px;
+  --mbbiz-button-label-color: var(--mbbiz-color-text-on-brand, #ffffff);
+
+  -webkit-appearance: none;
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  background-image: none;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 1px;
+  box-shadow: none;
+  display: inline-flex;
+  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  gap: 4px;
+  height: var(--mbbiz-button-height);
+  justify-content: center;
+  min-width: var(--mbbiz-button-min-width);
+  padding-inline: var(--mbbiz-button-padding-x);
+  -webkit-text-fill-color: currentColor;
+  transition:
+    background 140ms ease,
+    background-color 140ms ease,
+    background-image 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease,
+    opacity 140ms ease;
+  white-space: nowrap;
+}
+
+.mbbiz-button--full-width {
+  width: 100%;
+}
+
+.mbbiz-button__label {
+  align-items: center;
+  color: inherit;
+  display: inline-flex;
+  font-size: var(--mbbiz-button-font-size);
+  font-weight: 600;
+  justify-content: center;
+  letter-spacing: 0.25px;
+  line-height: var(--mbbiz-button-line-height);
+}
+
+.mbbiz-button__icon {
+  align-items: center;
+  color: inherit;
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 20px;
+  justify-content: center;
+  width: 20px;
+}
+
+.mbbiz-button__icon > * {
+  display: block;
+}
+
+.mbbiz-button__icon svg {
+  display: block;
+  flex: 0 0 auto;
+  height: 20px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  width: 20px;
+}
+
+.mbbiz-button__icon:empty {
+  display: none;
+}
+
+.mbbiz-button--shape-rectangle.ant-btn {
+  border-radius: var(--mbbiz-radius-md, 4px);
+}
+
+.mbbiz-button--shape-pill.ant-btn {
+  border-radius: 20px;
+}
+
+.mbbiz-button--size-sm.ant-btn {
+  --mbbiz-button-min-width: 80px;
+  --mbbiz-button-font-size: 12px;
+  --mbbiz-button-line-height: 16px;
+}
+
+.mbbiz-button--size-md.ant-btn {
+  --mbbiz-button-min-width: 103px;
+  --mbbiz-button-font-size: 14px;
+  --mbbiz-button-line-height: 20px;
+}
+
+.mbbiz-button--size-lg.ant-btn {
+  --mbbiz-button-min-width: 128px;
+  --mbbiz-button-font-size: 16px;
+  --mbbiz-button-line-height: 24px;
+}
+
+.mbbiz-button--shape-rectangle.mbbiz-button--size-lg.ant-btn {
+  --mbbiz-button-height: 48px;
+}
+
+.mbbiz-button--shape-rectangle.mbbiz-button--size-md.ant-btn {
+  --mbbiz-button-height: 44px;
+}
+
+.mbbiz-button--shape-rectangle.mbbiz-button--size-sm.ant-btn {
+  --mbbiz-button-height: 40px;
+}
+
+.mbbiz-button--shape-rectangle.mbbiz-button--variant-secondary.mbbiz-button--size-sm.ant-btn {
+  --mbbiz-button-height: 36px;
+}
+
+.mbbiz-button--shape-pill.mbbiz-button--size-lg.ant-btn {
+  --mbbiz-button-height: 40px;
+}
+
+.mbbiz-button--shape-pill.mbbiz-button--size-md.ant-btn {
+  --mbbiz-button-height: 36px;
+}
+
+.mbbiz-button--shape-pill.mbbiz-button--size-sm.ant-btn {
+  --mbbiz-button-height: 28px;
+}
+
+.mbbiz-button--variant-primary.ant-btn-primary {
+  background: linear-gradient(
+    90deg,
+    var(--mbbiz-color-action-primary-start, #141ed2) 0%,
+    var(--mbbiz-color-action-primary-end, #0075ff) 100%
+  );
+  border-color: transparent;
+  color: var(--mbbiz-button-label-color);
+}
+
+.mbbiz-button--variant-primary.ant-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(
+    90deg,
+    var(--mbbiz-color-action-primary-hover-start, #3949d6) 0%,
+    var(--mbbiz-color-action-primary-hover-end, #2c87f6) 100%
+  );
+  border-color: transparent;
+}
+
+.mbbiz-button--variant-primary.ant-btn-primary:active:not(:disabled) {
+  background: linear-gradient(
+    90deg,
+    var(--mbbiz-color-action-primary-active-start, #606ad5) 0%,
+    var(--mbbiz-color-action-primary-active-end, #569aed) 100%
+  );
+  border-color: transparent;
+}
+
+.mbbiz-button--variant-primary.mbbiz-button--shape-pill.ant-btn-primary {
+  background: var(--mbbiz-color-action-pill-primary-default, #7b5fff);
+}
+
+.mbbiz-button--variant-primary.mbbiz-button--shape-pill.ant-btn-primary:hover:not(:disabled) {
+  background: var(--mbbiz-color-action-pill-primary-hover, #9781ff);
+}
+
+.mbbiz-button--variant-primary.mbbiz-button--shape-pill.ant-btn-primary:active:not(:disabled) {
+  background: var(--mbbiz-color-action-pill-primary-active, #bbadff);
+}
+
+.mbbiz-button--variant-secondary.ant-btn-default {
+  background: var(--mbbiz-color-surface-secondary, #ffffff);
+}
+
+.mbbiz-button--variant-secondary.mbbiz-button--shape-rectangle.ant-btn-default {
+  border-color: var(--mbbiz-color-button-secondary-default, #141ed2);
+  color: var(--mbbiz-color-button-secondary-default, #141ed2);
+}
+
+.mbbiz-button--variant-secondary.mbbiz-button--shape-pill.ant-btn-default {
+  border-color: var(--mbbiz-color-button-pill-secondary-default, #7b5fff);
+  color: var(--mbbiz-color-button-pill-secondary-default, #7b5fff);
+}
+
+.mbbiz-button--variant-secondary.mbbiz-button--shape-rectangle.ant-btn-default:hover:not(:disabled) {
+  background: var(--mbbiz-color-surface-secondary, #ffffff);
+  border-color: var(--mbbiz-color-button-secondary-hover, #5f7eeb);
+  color: var(--mbbiz-color-button-secondary-hover, #5f7eeb);
+  opacity: 0.7;
+}
+
+.mbbiz-button--variant-secondary.mbbiz-button--shape-pill.ant-btn-default:hover:not(:disabled) {
+  background: var(--mbbiz-color-surface-secondary, #ffffff);
+  border-color: var(--mbbiz-color-button-pill-secondary-hover, #9781ff);
+  color: var(--mbbiz-color-button-pill-secondary-hover, #9781ff);
+  opacity: 0.7;
+}
+
+.mbbiz-button--variant-secondary.mbbiz-button--shape-rectangle.ant-btn-default:active:not(:disabled) {
+  background: var(--mbbiz-color-surface-secondary, #ffffff);
+  border-color: var(--mbbiz-color-button-secondary-pressed, #a3b7fd);
+  color: var(--mbbiz-color-button-secondary-pressed, #a3b7fd);
+}
+
+.mbbiz-button--variant-secondary.mbbiz-button--shape-pill.ant-btn-default:active:not(:disabled) {
+  background: var(--mbbiz-color-surface-secondary, #ffffff);
+  border-color: var(--mbbiz-color-button-pill-secondary-pressed, #bbadff);
+  color: var(--mbbiz-color-button-pill-secondary-pressed, #bbadff);
+}
+
+.mbbiz-button.ant-btn:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.mbbiz-button--variant-primary.ant-btn-primary:disabled {
+  background: var(--mbbiz-color-action-primary-disabled, #d8d8d8);
+  border-color: transparent;
+  color: var(--mbbiz-color-text-on-brand-muted, #f3f3f3);
+}
+
+.mbbiz-button--variant-primary.mbbiz-button--shape-pill.ant-btn-primary:disabled {
+  background: var(--mbbiz-color-action-pill-primary-disabled, #dbd3ff);
+  color: var(--mbbiz-color-text-on-brand, #ffffff);
+}
+
+.mbbiz-button--variant-secondary.mbbiz-button--shape-rectangle.ant-btn-default:disabled {
+  background: var(--mbbiz-color-surface-secondary, #ffffff);
+  border-color: var(--mbbiz-color-button-secondary-disabled-rectangle, #9b9b9b);
+  color: var(--mbbiz-color-button-secondary-disabled-rectangle, #9b9b9b);
+}
+
+.mbbiz-button--variant-secondary.mbbiz-button--shape-pill.ant-btn-default:disabled {
+  background: var(--mbbiz-color-surface-secondary, #ffffff);
+  border-color: var(--mbbiz-color-button-secondary-disabled-pill, #dbd3ff);
+  color: var(--mbbiz-color-button-secondary-disabled-pill, #dbd3ff);
+}
+
+.mbbiz-button.ant-btn:focus-visible {
+  box-shadow: none;
+  outline: none;
+}

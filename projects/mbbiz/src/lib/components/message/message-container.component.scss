@@ -1,0 +1,14 @@
+:host {
+  display: contents;
+}
+
+.mbbiz-message-container {
+  display: grid;
+  gap: 16px;
+  justify-items: end;
+  pointer-events: none;
+  position: fixed;
+  right: 28px;
+  top: 32px;
+  z-index: var(--mbbiz-z-index-message, 1010);
+}

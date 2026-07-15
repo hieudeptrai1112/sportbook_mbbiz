@@ -1,19 +1,19 @@
 {
   "version": "2026-04-21",
-  "description": "Mapping between sportbook6vn preview blocks and implementation targets.",
+  "description": "Mapping between mbbiz preview blocks and implementation targets.",
   "families": [
     {
       "name": "button",
       "figmaNodes": ["18693:412281"],
       "previewSection": "Button family",
-      "previewSelectors": ["sportbook6vn-button"],
-      "libraryEntries": ["projects/sportbook6vn/src/lib/components/button/button.component.ts"],
+      "previewSelectors": ["mbbiz-button"],
+      "libraryEntries": ["projects/mbbiz/src/lib/components/button/button.component.ts"],
       "docsAppTargets": [
         "src/app/app.ts",
         "src/app/app.html",
         "src/app/components/ds-button/ds-button.component.ts"
       ],
-      "appSelectors": ["sportbook6vn-button"]
+      "appSelectors": ["mbbiz-button"]
     },
     {
       "name": "input",
@@ -32,24 +32,24 @@
       ],
       "previewSection": "Input family",
       "previewSelectors": [
-        "sportbook6vn-input",
-        "sportbook6vn-affix-input",
-        "sportbook6vn-search-input",
-        "sportbook6vn-password-input",
-        "sportbook6vn-textarea",
-        "sportbook6vn-floating-label-input",
-        "sportbook6vn-affix-label-input",
-        "sportbook6vn-input-tag"
+        "mbbiz-input",
+        "mbbiz-affix-input",
+        "mbbiz-search-input",
+        "mbbiz-password-input",
+        "mbbiz-textarea",
+        "mbbiz-floating-label-input",
+        "mbbiz-affix-label-input",
+        "mbbiz-input-tag"
       ],
       "libraryEntries": [
-        "projects/sportbook6vn/src/lib/components/input/input.component.ts",
-        "projects/sportbook6vn/src/lib/components/affix-input/affix-input.component.ts",
-        "projects/sportbook6vn/src/lib/components/search-input/search-input.component.ts",
-        "projects/sportbook6vn/src/lib/components/password-input/password-input.component.ts",
-        "projects/sportbook6vn/src/lib/components/textarea/textarea.component.ts",
-        "projects/sportbook6vn/src/lib/components/floating-label-input/floating-label-input.component.ts",
-        "projects/sportbook6vn/src/lib/components/affix-label-input/affix-label-input.component.ts",
-        "projects/sportbook6vn/src/lib/components/input-tag/input-tag.component.ts"
+        "projects/mbbiz/src/lib/components/input/input.component.ts",
+        "projects/mbbiz/src/lib/components/affix-input/affix-input.component.ts",
+        "projects/mbbiz/src/lib/components/search-input/search-input.component.ts",
+        "projects/mbbiz/src/lib/components/password-input/password-input.component.ts",
+        "projects/mbbiz/src/lib/components/textarea/textarea.component.ts",
+        "projects/mbbiz/src/lib/components/floating-label-input/floating-label-input.component.ts",
+        "projects/mbbiz/src/lib/components/affix-label-input/affix-label-input.component.ts",
+        "projects/mbbiz/src/lib/components/input-tag/input-tag.component.ts"
       ],
       "docsAppTargets": [
         "src/app/app.ts",
@@ -63,27 +63,27 @@
         "src/app/components/ds-text-area/ds-text-area.component.ts"
       ],
       "appSelectors": [
-        "sportbook6vn-input",
-        "sportbook6vn-affix-input",
-        "sportbook6vn-search-input",
-        "sportbook6vn-password-input",
-        "sportbook6vn-textarea",
-        "sportbook6vn-floating-label-input",
-        "sportbook6vn-affix-label-input",
-        "sportbook6vn-input-tag"
+        "mbbiz-input",
+        "mbbiz-affix-input",
+        "mbbiz-search-input",
+        "mbbiz-password-input",
+        "mbbiz-textarea",
+        "mbbiz-floating-label-input",
+        "mbbiz-affix-label-input",
+        "mbbiz-input-tag"
       ]
     },
     {
       "name": "dropdown",
       "figmaNodes": ["19564:29158", "18679:398700", "19564:29826", "19564:44125", "19564:45850", "18676:395476"],
       "previewSection": "Dropdown family",
-      "previewSelectors": ["sportbook6vn-dropdown", "sportbook6vn-dropdown-tag"],
+      "previewSelectors": ["mbbiz-dropdown", "mbbiz-dropdown-tag"],
       "libraryEntries": [
-        "projects/sportbook6vn/src/lib/components/dropdown/dropdown.component.ts",
-        "projects/sportbook6vn/src/lib/components/dropdown-tag/dropdown-tag.component.ts"
+        "projects/mbbiz/src/lib/components/dropdown/dropdown.component.ts",
+        "projects/mbbiz/src/lib/components/dropdown-tag/dropdown-tag.component.ts"
       ],
       "docsAppTargets": ["src/app/app.ts", "src/app/app.html"],
-      "appSelectors": ["sportbook6vn-dropdown"]
+      "appSelectors": ["mbbiz-dropdown"]
     },
     {
       "name": "datepicker",
@@ -101,17 +101,17 @@
         "19779:21973"
       ],
       "previewSection": "Date picker family",
-      "previewSelectors": ["sportbook6vn-datepicker"],
+      "previewSelectors": ["mbbiz-datepicker"],
       "libraryEntries": [
-        "projects/sportbook6vn/src/lib/components/datepicker/datepicker.component.ts",
-        "projects/sportbook6vn/src/lib/components/datepicker/datepicker.types.ts"
+        "projects/mbbiz/src/lib/components/datepicker/datepicker.component.ts",
+        "projects/mbbiz/src/lib/components/datepicker/datepicker.types.ts"
       ],
       "docsAppTargets": [
         "src/app/app.ts",
         "src/app/app.html",
         "src/app/app.scss"
       ],
-      "appSelectors": ["sportbook6vn-datepicker"]
+      "appSelectors": ["mbbiz-datepicker"]
     }
   ]
 }

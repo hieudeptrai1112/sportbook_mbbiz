@@ -42,17 +42,17 @@ export const PAGINATION_DEMO_SECTIONS: PaginationDemoSection[] = [
     id: 'default',
     title: 'Default',
     description: 'Baseline page list with total result range, page numbers, and dropdown jumper trigger.',
-    tags: ['selector=sportbook6vn-pagination', 'mode=page-list', 'page=1'],
+    tags: ['selector=mbbiz-pagination', 'mode=page-list', 'page=1'],
     variant: 'default',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnPaginationComponent } from 'sportbook6vn';
+import { MbbizPaginationComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-pagination-default-demo',
   standalone: true,
-  imports: [Sportbook6vnPaginationComponent],
+  imports: [MbbizPaginationComponent],
   template: \`
-    <sportbook6vn-pagination
+    <mbbiz-pagination
       ariaLabel="Pagination"
       [total]="100"
       [pageIndex]="1"
@@ -65,17 +65,17 @@ export class PaginationDefaultDemoComponent {}`,
     id: 'active-border',
     title: 'Active Border',
     description: 'Dropdown jumper trigger uses the active border state while the page list remains unchanged.',
-    tags: ['selector=sportbook6vn-pagination', 'jumpActive=true'],
+    tags: ['selector=mbbiz-pagination', 'jumpActive=true'],
     variant: 'active-border',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnPaginationComponent } from 'sportbook6vn';
+import { MbbizPaginationComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-pagination-active-border-demo',
   standalone: true,
-  imports: [Sportbook6vnPaginationComponent],
+  imports: [MbbizPaginationComponent],
   template: \`
-    <sportbook6vn-pagination
+    <mbbiz-pagination
       ariaLabel="Pagination active jumper"
       [total]="100"
       [pageIndex]="1"
@@ -89,17 +89,17 @@ export class PaginationActiveBorderDemoComponent {}`,
     id: 'dropdown-open',
     title: 'Dropdown Jumper Open',
     description: 'Open jumper state lists available pages with a compact internal scrollbar.',
-    tags: ['selector=sportbook6vn-pagination', 'openJump=true'],
+    tags: ['selector=mbbiz-pagination', 'openJump=true'],
     variant: 'dropdown-open',
     snippetTs: `import { Component, signal } from '@angular/core';
-import { Sportbook6vnPaginationComponent } from 'sportbook6vn';
+import { MbbizPaginationComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-pagination-dropdown-open-demo',
   standalone: true,
-  imports: [Sportbook6vnPaginationComponent],
+  imports: [MbbizPaginationComponent],
   template: \`
-    <sportbook6vn-pagination
+    <mbbiz-pagination
       ariaLabel="Pagination open jumper"
       [total]="100"
       [pageIndex]="pageIndex()"
@@ -118,17 +118,17 @@ export class PaginationDropdownOpenDemoComponent {
     id: 'boundary',
     title: 'Boundary',
     description: 'Last page state disables next controls while keeping previous controls available.',
-    tags: ['selector=sportbook6vn-pagination', 'page=last'],
+    tags: ['selector=mbbiz-pagination', 'page=last'],
     variant: 'boundary',
     snippetTs: `import { Component, signal } from '@angular/core';
-import { Sportbook6vnPaginationComponent } from 'sportbook6vn';
+import { MbbizPaginationComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-pagination-boundary-demo',
   standalone: true,
-  imports: [Sportbook6vnPaginationComponent],
+  imports: [MbbizPaginationComponent],
   template: \`
-    <sportbook6vn-pagination
+    <mbbiz-pagination
       ariaLabel="Pagination last page"
       [total]="100"
       [pageIndex]="pageIndex()"
@@ -144,17 +144,17 @@ export class PaginationBoundaryDemoComponent {
     id: 'disabled',
     title: 'Disabled',
     description: 'Disabled state keeps the same layout while making all controls unavailable.',
-    tags: ['selector=sportbook6vn-pagination', 'disabled=true'],
+    tags: ['selector=mbbiz-pagination', 'disabled=true'],
     variant: 'disabled',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnPaginationComponent } from 'sportbook6vn';
+import { MbbizPaginationComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-pagination-disabled-demo',
   standalone: true,
-  imports: [Sportbook6vnPaginationComponent],
+  imports: [MbbizPaginationComponent],
   template: \`
-    <sportbook6vn-pagination
+    <mbbiz-pagination
       ariaLabel="Disabled pagination"
       [total]="10"
       [pageIndex]="1"
@@ -168,21 +168,21 @@ export class PaginationDisabledDemoComponent {}`,
     id: 'quick-selected',
     title: 'Quick Jumper Selected',
     description: 'Large result sets switch to quick jumper mode with formatted page summary and direct input.',
-    tags: ['selector=sportbook6vn-pagination', 'mode=quick-jumper', 'page=23'],
+    tags: ['selector=mbbiz-pagination', 'mode=quick-jumper', 'page=23'],
     variant: 'quick-selected',
     snippetTs: `import { Component, signal } from '@angular/core';
 import {
-  Sportbook6vnPaginationComponent,
-  type Sportbook6vnPaginationRangeFormatter,
-  type Sportbook6vnPaginationSummaryFormatter,
-} from 'sportbook6vn';
+  MbbizPaginationComponent,
+  type MbbizPaginationRangeFormatter,
+  type MbbizPaginationSummaryFormatter,
+} from 'mbbiz';
 
 @Component({
   selector: 'app-pagination-quick-selected-demo',
   standalone: true,
-  imports: [Sportbook6vnPaginationComponent],
+  imports: [MbbizPaginationComponent],
   template: \`
-    <sportbook6vn-pagination
+    <mbbiz-pagination
       ariaLabel="Quick pagination"
       mode="quick-jumper"
       [total]="18000"
@@ -197,9 +197,9 @@ import {
 })
 export class PaginationQuickSelectedDemoComponent {
   readonly pageIndex = signal(23);
-  readonly rangeFormatter: Sportbook6vnPaginationRangeFormatter = () =>
+  readonly rangeFormatter: MbbizPaginationRangeFormatter = () =>
     'Đã hiển thị 91 - 100 trên 18000 kết quả';
-  readonly summaryFormatter: Sportbook6vnPaginationSummaryFormatter = (summary) =>
+  readonly summaryFormatter: MbbizPaginationSummaryFormatter = (summary) =>
     \`Trang \${new Intl.NumberFormat('vi-VN').format(summary.pageIndex)} / \${new Intl.NumberFormat('vi-VN').format(summary.pageCount)}\`;
 }`,
   },
@@ -207,21 +207,21 @@ export class PaginationQuickSelectedDemoComponent {
     id: 'quick-default',
     title: 'Quick Jumper Default',
     description: 'First page quick jumper state with previous controls disabled.',
-    tags: ['selector=sportbook6vn-pagination', 'mode=quick-jumper', 'page=1'],
+    tags: ['selector=mbbiz-pagination', 'mode=quick-jumper', 'page=1'],
     variant: 'quick-default',
     snippetTs: `import { Component } from '@angular/core';
 import {
-  Sportbook6vnPaginationComponent,
-  type Sportbook6vnPaginationRangeFormatter,
-  type Sportbook6vnPaginationSummaryFormatter,
-} from 'sportbook6vn';
+  MbbizPaginationComponent,
+  type MbbizPaginationRangeFormatter,
+  type MbbizPaginationSummaryFormatter,
+} from 'mbbiz';
 
 @Component({
   selector: 'app-pagination-quick-default-demo',
   standalone: true,
-  imports: [Sportbook6vnPaginationComponent],
+  imports: [MbbizPaginationComponent],
   template: \`
-    <sportbook6vn-pagination
+    <mbbiz-pagination
       ariaLabel="Quick pagination first page"
       mode="quick-jumper"
       [total]="18000"
@@ -233,9 +233,9 @@ import {
   \`,
 })
 export class PaginationQuickDefaultDemoComponent {
-  readonly rangeFormatter: Sportbook6vnPaginationRangeFormatter = () =>
+  readonly rangeFormatter: MbbizPaginationRangeFormatter = () =>
     'Đã hiển thị 1 - 10 trên 18000 kết quả';
-  readonly summaryFormatter: Sportbook6vnPaginationSummaryFormatter = (summary) =>
+  readonly summaryFormatter: MbbizPaginationSummaryFormatter = (summary) =>
     \`Trang \${new Intl.NumberFormat('vi-VN').format(summary.pageIndex)} / \${new Intl.NumberFormat('vi-VN').format(summary.pageCount)}\`;
 }`,
   },
@@ -243,21 +243,21 @@ export class PaginationQuickDefaultDemoComponent {
     id: 'quick-maximum',
     title: 'Quick Jumper Maximum',
     description: 'Last page quick jumper state with next controls disabled.',
-    tags: ['selector=sportbook6vn-pagination', 'mode=quick-jumper', 'page=18000'],
+    tags: ['selector=mbbiz-pagination', 'mode=quick-jumper', 'page=18000'],
     variant: 'quick-maximum',
     snippetTs: `import { Component } from '@angular/core';
 import {
-  Sportbook6vnPaginationComponent,
-  type Sportbook6vnPaginationRangeFormatter,
-  type Sportbook6vnPaginationSummaryFormatter,
-} from 'sportbook6vn';
+  MbbizPaginationComponent,
+  type MbbizPaginationRangeFormatter,
+  type MbbizPaginationSummaryFormatter,
+} from 'mbbiz';
 
 @Component({
   selector: 'app-pagination-quick-maximum-demo',
   standalone: true,
-  imports: [Sportbook6vnPaginationComponent],
+  imports: [MbbizPaginationComponent],
   template: \`
-    <sportbook6vn-pagination
+    <mbbiz-pagination
       ariaLabel="Quick pagination last page"
       mode="quick-jumper"
       [total]="18000"
@@ -269,9 +269,9 @@ import {
   \`,
 })
 export class PaginationQuickMaximumDemoComponent {
-  readonly rangeFormatter: Sportbook6vnPaginationRangeFormatter = () =>
+  readonly rangeFormatter: MbbizPaginationRangeFormatter = () =>
     'Đã hiển thị 17990 - 18000 trên 18000 kết quả';
-  readonly summaryFormatter: Sportbook6vnPaginationSummaryFormatter = (summary) =>
+  readonly summaryFormatter: MbbizPaginationSummaryFormatter = (summary) =>
     \`Trang \${new Intl.NumberFormat('vi-VN').format(summary.pageIndex)} / \${new Intl.NumberFormat('vi-VN').format(summary.pageCount)}\`;
 }`,
   },
@@ -279,21 +279,21 @@ export class PaginationQuickMaximumDemoComponent {
     id: 'quick-input-active',
     title: 'Quick Jumper Input Active',
     description: 'Quick jumper input active state uses the focused border treatment from the Figma node.',
-    tags: ['selector=sportbook6vn-pagination', 'quickInputActive=true'],
+    tags: ['selector=mbbiz-pagination', 'quickInputActive=true'],
     variant: 'quick-input-active',
     snippetTs: `import { Component } from '@angular/core';
 import {
-  Sportbook6vnPaginationComponent,
-  type Sportbook6vnPaginationRangeFormatter,
-  type Sportbook6vnPaginationSummaryFormatter,
-} from 'sportbook6vn';
+  MbbizPaginationComponent,
+  type MbbizPaginationRangeFormatter,
+  type MbbizPaginationSummaryFormatter,
+} from 'mbbiz';
 
 @Component({
   selector: 'app-pagination-quick-input-active-demo',
   standalone: true,
-  imports: [Sportbook6vnPaginationComponent],
+  imports: [MbbizPaginationComponent],
   template: \`
-    <sportbook6vn-pagination
+    <mbbiz-pagination
       ariaLabel="Quick pagination active input"
       mode="quick-jumper"
       [total]="18000"
@@ -306,9 +306,9 @@ import {
   \`,
 })
 export class PaginationQuickInputActiveDemoComponent {
-  readonly rangeFormatter: Sportbook6vnPaginationRangeFormatter = () =>
+  readonly rangeFormatter: MbbizPaginationRangeFormatter = () =>
     'Đã hiển thị 91 - 100 trên 18000 kết quả';
-  readonly summaryFormatter: Sportbook6vnPaginationSummaryFormatter = (summary) =>
+  readonly summaryFormatter: MbbizPaginationSummaryFormatter = (summary) =>
     \`Trang \${new Intl.NumberFormat('vi-VN').format(summary.pageIndex)} / \${new Intl.NumberFormat('vi-VN').format(summary.pageCount)}\`;
 }`,
   },
@@ -320,7 +320,7 @@ export const PAGINATION_API_ROWS: PaginationApiRow[] = [
   { property: 'pageCount', description: 'Optional explicit page count. When omitted, page count is calculated from total and pageSize.', type: 'number | null', defaultValue: 'null' },
   { property: 'pageSize', description: 'Number of records per page for range calculation.', type: 'number', defaultValue: '10' },
   { property: 'disabled', description: 'Disables navigation, jumper trigger, and quick input.', type: 'boolean', defaultValue: 'false' },
-  { property: 'mode', description: 'Controls whether the component renders page list, quick jumper, or switches automatically after threshold.', type: 'Sportbook6vnPaginationMode', defaultValue: "'auto'" },
+  { property: 'mode', description: 'Controls whether the component renders page list, quick jumper, or switches automatically after threshold.', type: 'MbbizPaginationMode', defaultValue: "'auto'" },
   { property: 'pageWindow', description: 'Maximum number of visible page buttons in page-list mode.', type: 'number', defaultValue: '5' },
   { property: 'quickJumperThreshold', description: 'Auto mode switches to quick jumper when page count exceeds this threshold.', type: 'number', defaultValue: '100' },
   { property: 'showTotal', description: 'Toggles the left-side range text.', type: 'boolean', defaultValue: 'true' },
@@ -328,8 +328,8 @@ export const PAGINATION_API_ROWS: PaginationApiRow[] = [
   { property: 'jumpActive', description: 'Forces active border state on the dropdown jumper trigger.', type: 'boolean', defaultValue: 'false' },
   { property: 'quickInputActive', description: 'Forces active border state on the quick jumper input.', type: 'boolean', defaultValue: 'false' },
   { property: 'quickJumpValue', description: 'Controlled quick jumper input display value.', type: 'string | number | null', defaultValue: 'null' },
-  { property: 'rangeFormatter', description: 'Custom formatter for the displayed result range.', type: 'Sportbook6vnPaginationRangeFormatter | null', defaultValue: 'null' },
-  { property: 'summaryFormatter', description: 'Custom formatter for quick jumper page summary.', type: 'Sportbook6vnPaginationSummaryFormatter | null', defaultValue: 'null' },
+  { property: 'rangeFormatter', description: 'Custom formatter for the displayed result range.', type: 'MbbizPaginationRangeFormatter | null', defaultValue: 'null' },
+  { property: 'summaryFormatter', description: 'Custom formatter for quick jumper page summary.', type: 'MbbizPaginationSummaryFormatter | null', defaultValue: 'null' },
   { property: 'ariaLabel', description: 'Accessible label for the pagination nav element.', type: 'string', defaultValue: "'Pagination'" },
 ];
 
@@ -339,42 +339,42 @@ export const PAGINATION_OUTPUT_ROWS: PaginationApiRow[] = [
 ];
 
 export const PAGINATION_TYPE_ROWS: PaginationApiRow[] = [
-  { property: 'Sportbook6vnPaginationMode', description: 'Rendering mode for page-list and quick-jumper variants.', type: "'auto' | 'page-list' | 'quick-jumper'", defaultValue: "'auto'" },
-  { property: 'Sportbook6vnPaginationRange', description: 'Range payload sent to rangeFormatter.', type: '{ start: number; end: number; total: number }', defaultValue: '-' },
-  { property: 'Sportbook6vnPaginationSummary', description: 'Summary payload sent to summaryFormatter.', type: '{ pageIndex: number; pageCount: number }', defaultValue: '-' },
-  { property: 'Sportbook6vnPaginationPageItem', description: 'Internal page button model.', type: '{ page: number; active: boolean }', defaultValue: '-' },
+  { property: 'MbbizPaginationMode', description: 'Rendering mode for page-list and quick-jumper variants.', type: "'auto' | 'page-list' | 'quick-jumper'", defaultValue: "'auto'" },
+  { property: 'MbbizPaginationRange', description: 'Range payload sent to rangeFormatter.', type: '{ start: number; end: number; total: number }', defaultValue: '-' },
+  { property: 'MbbizPaginationSummary', description: 'Summary payload sent to summaryFormatter.', type: '{ pageIndex: number; pageCount: number }', defaultValue: '-' },
+  { property: 'MbbizPaginationPageItem', description: 'Internal page button model.', type: '{ page: number; active: boolean }', defaultValue: '-' },
 ];
 
 export const PAGINATION_VARIABLE_GROUPS: PaginationVariableGroup[] = [
   {
     title: 'Text and Icon',
     rows: [
-      { token: '--sportbook6vn-color-pagination-text', value: '#192d39', appliesTo: 'Main text, page summary, and quick jumper label', notes: 'Defined in sportbook6vn-theme.css.' },
-      { token: '--sportbook6vn-color-pagination-muted', value: '#6d83a7', appliesTo: 'Range text and inactive page numbers', notes: 'Used by total range and page-list numbers.' },
-      { token: '--sportbook6vn-color-pagination-icon', value: '#192d39', appliesTo: 'Enabled navigation icons', notes: 'Used by single and double navigation buttons.' },
-      { token: '--sportbook6vn-color-pagination-action', value: '#141ed2', appliesTo: 'Active dropdown option text', notes: 'Used inside open jumper panel.' },
+      { token: 'text/primary', value: 'darkblue/1000', appliesTo: 'Main text, page summary, and quick jumper label', notes: '' },
+      { token: 'text/secondary', value: 'darkblue/500', appliesTo: 'Range text and inactive page numbers', notes: 'Used by total range and page-list numbers.' },
+      { token: 'icon/neutral1', value: 'darkblue/1000', appliesTo: 'Enabled navigation icons', notes: 'Used by single and double navigation buttons.' },
+      { token: 'text/brand-primary1', value: 'blue/500', appliesTo: 'Active dropdown option text', notes: 'Used inside open jumper panel.' },
     ],
   },
   {
     title: 'Surface and Border',
     rows: [
-      { token: '--sportbook6vn-color-pagination-surface', value: '#ffffff', appliesTo: 'Dropdown trigger, quick input, and dropdown panel background', notes: 'Keeps controls on the docs surface.' },
-      { token: '--sportbook6vn-color-pagination-border', value: '#a3b7fd', appliesTo: 'Default trigger and quick input border', notes: 'Default border state.' },
-      { token: '--sportbook6vn-color-pagination-border-active', value: '#52dddd', appliesTo: 'Active trigger, open panel, focused quick input', notes: 'Used for active and focus treatment.' },
-      { token: '--sportbook6vn-color-pagination-scrollbar', value: '#cadbe8', appliesTo: 'Dropdown jumper internal scrollbar thumb', notes: 'Matches compact scrollbar treatment.' },
+      { token: 'background/primary', value: 'white/100%', appliesTo: 'Dropdown trigger, quick input, and dropdown panel background', notes: 'Keeps controls on the docs surface.' },
+      { token: 'border/brand-primary3', value: 'blue/300', appliesTo: 'Default trigger and quick input border', notes: 'Default border state.' },
+      { token: 'border/brand-tertiary', value: 'turquoise/400', appliesTo: 'Active trigger, open panel, focused quick input', notes: 'Used for active and focus treatment.' },
+      { token: 'border/quaternary', value: 'darkblue/300', appliesTo: 'Dropdown jumper internal scrollbar thumb', notes: 'Matches compact scrollbar treatment.' },
     ],
   },
   {
     title: 'Active and Disabled State',
     rows: [
-      { token: '--sportbook6vn-color-pagination-active-bg', value: '#52dddd', appliesTo: 'Active page chip background', notes: 'Used in page-list mode.' },
-      { token: '--sportbook6vn-color-pagination-active-text', value: '#192d39', appliesTo: 'Active page chip text', notes: 'Text on active page background.' },
-      { token: '--sportbook6vn-color-pagination-placeholder', value: '#9bafc8', appliesTo: 'Quick jumper input placeholder', notes: 'Shown when quick input is empty.' },
-      { token: '--sportbook6vn-color-pagination-disabled', value: '#cccccc', appliesTo: 'Disabled nav icon, disabled page number, disabled border', notes: 'Used by disabled controls.' },
-      { token: '--sportbook6vn-color-pagination-disabled-bg', value: '#f3f3f3', appliesTo: 'Disabled trigger and quick input background', notes: 'Disabled control surface.' },
-      { token: '--sportbook6vn-color-pagination-disabled-text', value: '#808080', appliesTo: 'Disabled range, summary, and quick label text', notes: 'Disabled text role.' },
+      { token: 'background/brand-tertiary2', value: 'turquoise/400', appliesTo: 'Active page chip background', notes: 'Used in page-list mode.' },
+      { token: 'text/primary', value: 'darkblue/1000', appliesTo: 'Active page chip text', notes: 'Text on active page background.' },
+      { token: 'text/tertiary', value: 'darkblue/400', appliesTo: 'Quick jumper input placeholder', notes: 'Shown when quick input is empty.' },
+      { token: 'text/disable4', value: 'grayscale/400', appliesTo: 'Disabled nav icon, disabled page number, disabled border', notes: 'Used by disabled controls.' },
+      { token: 'background/disable3', value: 'grayscale/200', appliesTo: 'Disabled trigger and quick input background', notes: 'Disabled control surface.' },
+      { token: 'text/disable1', value: 'grayscale/600', appliesTo: 'Disabled range, summary, and quick label text', notes: 'Disabled text role.' },
     ],
-  },
+  }
 ];
 
 export const PAGINATION_VARIABLE_NOTES = [

@@ -1,0 +1,237 @@
+<div [class]="tableClass()" role="region" [attr.aria-label]="ariaLabel()">
+  <div
+    #viewport
+    class="mbbiz-table__viewport"
+    [class.mbbiz-table__viewport--ping-right]="showFixedRightShadow()"
+    [style.max-height]="maxHeight()"
+    (scroll)="onViewportScroll($event)"
+  >
+    <table class="mbbiz-table__native" [style.table-layout]="tableLayout()">
+      @if (showHeader()) {
+        <thead>
+          <tr>
+            @if (selectable()) {
+              <th class="mbbiz-table__header-cell mbbiz-table__header-cell--selection">
+                <mbbiz-checkbox
+                  [checked]="isAllSelected()"
+                  [indeterminate]="isIndeterminate()"
+                  aria-label="Chọn tất cả"
+                  (checkedChange)="toggleAll($event)"
+                />
+              </th>
+            }
+
+            @for (column of columns(); track trackColumn($index, column)) {
+              <th
+                [class]="headerCellClass(column)"
+                [style.width]="columnWidth(column)"
+                [style.min-width]="columnWidth(column)"
+              >
+                @if (resolvedCellType(column) === 'checkbox') {
+                  <mbbiz-checkbox
+                    class="mbbiz-table-checkbox-header-control"
+                    [label]="column.title"
+                    [checked]="isCheckboxColumnAllSelected(column)"
+                    [indeterminate]="isCheckboxColumnIndeterminate(column)"
+                    (click)="$event.stopPropagation()"
+                    (checkedChange)="toggleCheckboxColumn(column, $event)"
+                  />
+                } @else if (resolvedCellType(column) === 'remind') {
+                  <span class="mbbiz-table__header-label mbbiz-table__header-label--empty" aria-hidden="true"></span>
+                } @else if (column.sortable) {
+                  <button type="button" class="mbbiz-table__sort-button" (click)="toggleSort(column)">
+                    <span>{{ column.title }}</span>
+                    <span class="mbbiz-table__sort-icon" [attr.data-order]="sortOrder(column)" aria-hidden="true"></span>
+                  </button>
+                } @else {
+                  <span class="mbbiz-table__header-label">{{ column.title }}</span>
+                }
+              </th>
+            }
+          </tr>
+        </thead>
+      }
+
+      <tbody>
+        @if (loading()) {
+          <tr>
+            <td class="mbbiz-table__state" [attr.colspan]="columns().length + (selectable() ? 1 : 0)">
+              <span class="mbbiz-table__spinner" aria-hidden="true"></span>
+              <span>Đang tải</span>
+            </td>
+          </tr>
+        } @else if (pagedData().length === 0) {
+          <tr>
+            <td class="mbbiz-table__state" [attr.colspan]="columns().length + (selectable() ? 1 : 0)">
+              {{ emptyText() }}
+            </td>
+          </tr>
+        } @else {
+          @for (row of pagedData(); track trackRow($index, row); let rowIndex = $index) {
+            <tr [class]="rowClass(row, rowIndex)" (click)="emitRowClick(row, rowIndex)">
+              @if (selectable()) {
+                <td class="mbbiz-table__cell mbbiz-table__cell--selection" (click)="$event.stopPropagation()">
+                  <mbbiz-checkbox
+                    [checked]="localSelectedKeys().has(trackRow(rowIndex, row))"
+                    (checkedChange)="toggleRow(row, rowIndex, $event)"
+                  />
+                </td>
+              }
+
+              @for (column of columns(); track trackColumn($index, column)) {
+                <td
+                  [class]="bodyCellClass(column)"
+                  [style.width]="columnWidth(column)"
+                  [style.min-width]="columnWidth(column)"
+                  (click)="emitCellClick(row, column, rowIndex)"
+                >
+                  @switch (resolvedCellType(column)) {
+                    @case ('checkbox') {
+                      <mbbiz-checkbox
+                        class="mbbiz-table-checkbox-control"
+                        [label]="checkboxLabel(row, column)"
+                        [checked]="checkboxChecked(row, column)"
+                        (click)="$event.stopPropagation()"
+                        (checkedChange)="onCheckboxCellChange(row, column, rowIndex, $event)"
+                      />
+                    }
+                    @case ('status') {
+                      <span [class]="statusClass(row, column)">
+                        <span class="mbbiz-table-status__dot" aria-hidden="true"></span>
+                        <span class="mbbiz-table-status__label">{{ statusCell(row, column).label }}</span>
+                      </span>
+                    }
+                    @case ('file') {
+                      <img class="mbbiz-table-file" [src]="fileIconSrc(row, column)" [alt]="fileAlt(row, column)" />
+                    }
+                    @case ('currency') {
+                      <span class="mbbiz-table-currency">
+                        <img
+                          class="mbbiz-table-currency__flag"
+                          [src]="currencyFlagSrc(row, column)"
+                          [alt]="currencyFlagAlt(row, column)"
+                        />
+                        <span class="mbbiz-table-currency__code">{{ currencyLabel(row, column) }}</span>
+                      </span>
+                    }
+                    @case ('remind') {
+                      <img class="mbbiz-table-remind" [src]="remindIconSrc(row, column)" [alt]="remindAlt(row, column)" />
+                    }
+                    @case ('reference-number') {
+                      <mbbiz-button-link
+                        class="mbbiz-table-button-link"
+                        size="md"
+                        (click)="$event.stopPropagation()"
+                        (buttonLinkClick)="onActionCellClick(row, column, rowIndex, $event)"
+                      >
+                        {{ displayText(row, column) }}
+                      </mbbiz-button-link>
+                    }
+                    @case ('alert') {
+                      <span class="mbbiz-table-alert" [attr.data-tone]="alertTone(row, column)" [attr.aria-label]="alertLabel(row, column)">
+                        !
+                      </span>
+                    }
+                    @case ('input') {
+                      <mbbiz-input
+                        class="mbbiz-table-input-control"
+                        size="sm"
+                        [value]="inputValue(row, column)"
+                        [placeholder]="inputCell(row, column).placeholder ?? column.placeholder ?? 'Input text'"
+                        [disabled]="!!inputCell(row, column).disabled || !!column.disabled"
+                        (click)="$event.stopPropagation()"
+                        (valueChange)="onInputCellValueChange(row, column, rowIndex, $event)"
+                      />
+                    }
+                    @case ('dropdown') {
+                      <mbbiz-dropdown
+                        class="mbbiz-table-dropdown-control"
+                        [title]="''"
+                        [placeholder]="dropdownCell(row, column).placeholder ?? column.placeholder ?? 'Lựa chọn'"
+                        [items]="dropdownItems(row, column)"
+                        [value]="dropdownValue(row, column)"
+                        mode="single"
+                        labelMode="outside"
+                        searchBehavior="never"
+                        [disabled]="!!dropdownCell(row, column).disabled || !!column.disabled"
+                        (click)="$event.stopPropagation()"
+                        (valueChange)="onDropdownCellValueChange(row, column, rowIndex, $event)"
+                      />
+                    }
+                    @case ('button') {
+                      @if (shouldRenderButtonComponent(row, column)) {
+                        <mbbiz-button
+                          class="mbbiz-table-button-action"
+                          [variant]="actionButtonVariant(row, column)"
+                          [size]="actionButtonSize(row, column)"
+                          [shape]="actionButtonShape(row, column)"
+                          [disabled]="!!actionCell(row, column).disabled || !!column.disabled"
+                          (buttonClick)="onActionCellClick(row, column, rowIndex, $event)"
+                        >
+                          {{ actionCell(row, column).label ?? 'Thao tác' }}
+                        </mbbiz-button>
+                      } @else {
+                        <button
+                          type="button"
+                          class="mbbiz-table-action"
+                          [disabled]="!!actionCell(row, column).disabled || !!column.disabled"
+                          (click)="onActionCellClick(row, column, rowIndex, $event)"
+                        >
+                          {{ actionCell(row, column).label ?? 'Thao tác' }}
+                        </button>
+                      }
+                    }
+                    @case ('icon') {
+                      <span class="mbbiz-table-icon-actions">
+                        @for (action of iconActions(row, column); track trackIconAction($index, action)) {
+                          <button
+                            type="button"
+                            class="mbbiz-table-icon-action"
+                            [attr.aria-label]="iconActionLabel(action)"
+                            [disabled]="iconActionDisabled(action, column)"
+                            (click)="onActionCellClick(row, column, rowIndex, $event)"
+                          >
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                              @switch (iconActionName(action)) {
+                                @case ('eye') {
+                                  <path d="M12 5c5 0 8 7 8 7s-3 7-8 7-8-7-8-7 3-7 8-7Z" />
+                                  <path d="M12 9.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Z" />
+                                }
+                                @default {
+                                  <path d="M4 7h16" />
+                                  <path d="M9 7V4h6v3" />
+                                  <path d="M6 7l1 14h10l1-14" />
+                                  <path d="M10 11v6" />
+                                  <path d="M14 11v6" />
+                                }
+                              }
+                            </svg>
+                          </button>
+                        }
+                      </span>
+                    }
+                    @default {
+                      <span class="mbbiz-table__cell-text">{{ displayText(row, column) }}</span>
+                    }
+                  }
+                </td>
+              }
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+
+  @if (showPagination() && !loading() && data().length > 0) {
+    <mbbiz-pagination
+      class="mbbiz-table-pagination"
+      ariaLabel="Phân trang bảng"
+      mode="page-list"
+      [total]="sortedData().length"
+      [pageIndex]="resolvedPageIndex()"
+      [pageSize]="resolvedPageSize()"
+      (pageIndexChange)="setPage($event)"
+    />
+  }
+</div>

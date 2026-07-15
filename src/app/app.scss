@@ -910,6 +910,36 @@
   grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.7fr) minmax(0, 1.4fr) 100px;
 }
 
+.layout-token-table .token-row {
+  grid-template-columns:
+    minmax(0, 1.2fr)
+    minmax(0, 1.4fr)
+    minmax(0, 0.8fr)
+    minmax(0, 0.7fr)
+    minmax(0, 1fr)
+    minmax(0, 1.4fr);
+}
+
+.layout-demo-shell {
+  border: 1px solid rgba(195, 197, 217, 0.35);
+  border-radius: 10px;
+  background: #ffffff;
+  padding-block: 16px;
+}
+
+.layout-demo-cell {
+  min-height: 48px;
+  border-radius: 6px;
+  background: rgba(22, 93, 255, 0.08);
+  border: 1px dashed rgba(22, 93, 255, 0.35);
+  color: #165dff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
 .token-row {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr) minmax(0, 1fr);
@@ -1102,7 +1132,7 @@
 
 .form-preview-label,
 .form-preview-required {
-  font-family: var(--sportbook6vn-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
   font-size: 14px;
   font-style: normal;
   letter-spacing: 0.25px;
@@ -1127,7 +1157,7 @@
   width: 20px;
 }
 
-sportbook6vn-dropdown.form-preview-dropdown.form-preview-dropdown--no-chevron ::ng-deep .sportbook6vn-dropdown__chevron {
+mbbiz-dropdown.form-preview-dropdown.form-preview-dropdown--no-chevron ::ng-deep .mbbiz-dropdown__chevron {
   display: none;
 }
 
@@ -1162,7 +1192,7 @@ sportbook6vn-dropdown.form-preview-dropdown.form-preview-dropdown--no-chevron ::
 
 .page-header-pattern-title {
   color: #192d39;
-  font-family: var(--sportbook6vn-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
   font-size: 24px;
   font-weight: 400;
   letter-spacing: 0;
@@ -1301,8 +1331,8 @@ sportbook6vn-dropdown.form-preview-dropdown.form-preview-dropdown--no-chevron ::
   border-top: none;
 }
 
-.footer-pattern-action > sportbook6vn-button,
-.footer-pattern-overflow > sportbook6vn-button {
+.footer-pattern-action > mbbiz-button,
+.footer-pattern-overflow > mbbiz-button {
   display: block;
   width: 100%;
 }
@@ -1336,7 +1366,7 @@ sportbook6vn-dropdown.form-preview-dropdown.form-preview-dropdown--no-chevron ::
   width: 100%;
 }
 
-.step-process-pattern-steps .sportbook6vn-steps {
+.step-process-pattern-steps .mbbiz-steps {
   max-width: none;
   width: 100%;
 }
@@ -1353,14 +1383,14 @@ sportbook6vn-dropdown.form-preview-dropdown.form-preview-dropdown--no-chevron ::
   width: 100%;
 }
 
-.step-process-pattern-save-cta > sportbook6vn-button {
+.step-process-pattern-save-cta > mbbiz-button {
   display: block;
   width: 100%;
 }
 
 .step-process-pattern-save-time {
   color: #6d83a7;
-  font-family: var(--sportbook6vn-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.25px;
@@ -1380,60 +1410,60 @@ sportbook6vn-dropdown.form-preview-dropdown.form-preview-dropdown--no-chevron ::
   width: 20px;
 }
 
-sportbook6vn-button.button-doc-state-hover,
-sportbook6vn-button.button-doc-state-pressed {
+mbbiz-button.button-doc-state-hover,
+mbbiz-button.button-doc-state-pressed {
   pointer-events: none;
 }
 
-sportbook6vn-button.button-doc-state-hover
-  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-rectangle.ant-btn-primary:not(
+mbbiz-button.button-doc-state-hover
+  .mbbiz-button--variant-primary.mbbiz-button--shape-rectangle.ant-btn-primary:not(
     :disabled
   ) {
   background: linear-gradient(
     90deg,
-    var(--sportbook6vn-color-action-primary-hover-start, #3949d6) 0%,
-    var(--sportbook6vn-color-action-primary-hover-end, #2c87f6) 100%
+    var(--mbbiz-color-action-primary-hover-start, #3949d6) 0%,
+    var(--mbbiz-color-action-primary-hover-end, #2c87f6) 100%
   );
   border-color: transparent;
 }
 
-sportbook6vn-button.button-doc-state-pressed
-  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-rectangle.ant-btn-primary:not(
+mbbiz-button.button-doc-state-pressed
+  .mbbiz-button--variant-primary.mbbiz-button--shape-rectangle.ant-btn-primary:not(
     :disabled
   ) {
   background: linear-gradient(
     90deg,
-    var(--sportbook6vn-color-action-primary-active-start, #606ad5) 0%,
-    var(--sportbook6vn-color-action-primary-active-end, #569aed) 100%
+    var(--mbbiz-color-action-primary-active-start, #606ad5) 0%,
+    var(--mbbiz-color-action-primary-active-end, #569aed) 100%
   );
   border-color: transparent;
 }
 
-sportbook6vn-button.button-doc-state-hover
-  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary:not(
+mbbiz-button.button-doc-state-hover
+  .mbbiz-button--variant-primary.mbbiz-button--shape-pill.ant-btn-primary:not(
     :disabled
   ) {
-  background: var(--sportbook6vn-color-action-pill-primary-hover, #5f7eeb);
+  background: var(--mbbiz-color-action-pill-primary-hover, #5f7eeb);
 }
 
-sportbook6vn-button.button-doc-state-pressed
-  .sportbook6vn-button--variant-primary.sportbook6vn-button--shape-pill.ant-btn-primary:not(
+mbbiz-button.button-doc-state-pressed
+  .mbbiz-button--variant-primary.mbbiz-button--shape-pill.ant-btn-primary:not(
     :disabled
   ) {
-  background: var(--sportbook6vn-color-action-pill-primary-active, #a3b7fd);
+  background: var(--mbbiz-color-action-pill-primary-active, #a3b7fd);
 }
 
-sportbook6vn-button.button-doc-state-hover
-  .sportbook6vn-button--variant-secondary.ant-btn-default:not(:disabled) {
-  border-color: var(--sportbook6vn-color-button-secondary-hover, #5f7eeb);
-  color: var(--sportbook6vn-color-button-secondary-hover, #5f7eeb);
+mbbiz-button.button-doc-state-hover
+  .mbbiz-button--variant-secondary.ant-btn-default:not(:disabled) {
+  border-color: var(--mbbiz-color-button-secondary-hover, #5f7eeb);
+  color: var(--mbbiz-color-button-secondary-hover, #5f7eeb);
   opacity: 0.7;
 }
 
-sportbook6vn-button.button-doc-state-pressed
-  .sportbook6vn-button--variant-secondary.ant-btn-default:not(:disabled) {
-  border-color: var(--sportbook6vn-color-button-secondary-pressed, #a3b7fd);
-  color: var(--sportbook6vn-color-button-secondary-pressed, #a3b7fd);
+mbbiz-button.button-doc-state-pressed
+  .mbbiz-button--variant-secondary.ant-btn-default:not(:disabled) {
+  border-color: var(--mbbiz-color-button-secondary-pressed, #a3b7fd);
+  color: var(--mbbiz-color-button-secondary-pressed, #a3b7fd);
 }
 
 .input-demo-preview {
@@ -1826,9 +1856,9 @@ sportbook6vn-button.button-doc-state-pressed
   grid-template-columns: repeat(2, minmax(280px, 1fr));
 }
 
-.upload-file-item-grid sportbook6vn-item-file,
-.upload-file-item-upload-grid sportbook6vn-item-upload,
-.upload-file-demo-stack sportbook6vn-upload-file {
+.upload-file-item-grid mbbiz-item-file,
+.upload-file-item-upload-grid mbbiz-item-upload,
+.upload-file-demo-stack mbbiz-upload-file {
   width: 100%;
 }
 
@@ -2136,7 +2166,7 @@ sportbook6vn-button.button-doc-state-pressed
     width: 100%;
   }
 
-  sportbook6vn-button {
+  mbbiz-button {
     width: 100%;
   }
 }
@@ -2258,6 +2288,7 @@ sportbook6vn-button.button-doc-state-pressed
 }
 
 .iconography-usage-section,
+.iconography-sizes-section,
 .iconography-library-section,
 .iconography-naming-section,
 .illustration-usage-section,
@@ -2265,6 +2296,113 @@ sportbook6vn-button.button-doc-state-pressed
 .illustration-flag-section,
 .illustration-naming-section {
   scroll-margin-top: 88px;
+}
+
+.iconography-section-lead {
+  margin: 0 0 20px;
+  color: #4e5969;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.iconography-size-strip {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.iconography-size-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(195, 197, 217, 0.2);
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.iconography-size-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 96px;
+  padding: 16px;
+  border-bottom: 1px solid rgba(195, 197, 217, 0.16);
+  background: #f7f8fa;
+  color: #1d2129;
+}
+
+.iconography-size-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px 16px;
+}
+
+.iconography-size-meta strong {
+  color: #0f172a;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.iconography-size-meta code {
+  color: #0f1bd8;
+  font-family: 'IBM Plex Mono', 'Liberation Mono', monospace;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.iconography-size-meta span {
+  color: #86909c;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.iconography-lib-card {
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.iconography-lib-card.is-selected {
+  border-color: rgba(15, 27, 216, 0.45);
+  box-shadow: 0 0 0 1px rgba(15, 27, 216, 0.2);
+}
+
+.iconography-lib-thumb {
+  color: #1d2129;
+}
+
+.iconography-lib-table .button-api-row {
+  min-width: 920px;
+  grid-template-columns:
+    minmax(88px, 0.5fr)
+    minmax(160px, 0.9fr)
+    minmax(180px, 1fr)
+    minmax(280px, 1.6fr);
+}
+
+.page.theme-dark .iconography-size-card {
+  background: #1b1f27;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.page.theme-dark .iconography-size-thumb {
+  background: #222731;
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #e8edf6;
+}
+
+.page.theme-dark .iconography-size-meta strong {
+  color: #e8edf6;
+}
+
+.page.theme-dark .iconography-size-meta span,
+.page.theme-dark .iconography-section-lead {
+  color: #9ba7bb;
+}
+
+.page.theme-dark .iconography-lib-thumb {
+  color: #e8edf6;
 }
 
 .illustration-guideline-grid {
@@ -2479,6 +2617,10 @@ sportbook6vn-button.button-doc-state-pressed
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .iconography-size-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .illustration-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2487,6 +2629,7 @@ sportbook6vn-button.button-doc-state-pressed
 @media (max-width: 980px) {
   .illustration-guideline-grid,
   .iconography-grid,
+  .iconography-size-strip,
   .illustration-grid,
   .illustration-file-table .button-api-row {
     grid-template-columns: 1fr;

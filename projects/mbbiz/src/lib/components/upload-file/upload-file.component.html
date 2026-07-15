@@ -1,0 +1,73 @@
+<div [class]="uploadClass()">
+  <input
+    #fileInput
+    class="mbbiz-upload-file__native"
+    type="file"
+    [attr.id]="inputId()"
+    [attr.accept]="acceptAttribute()"
+    [multiple]="computedMultiple()"
+    [disabled]="isUploadDisabled()"
+    (change)="onInputChange($event)"
+  />
+
+  <div class="mbbiz-upload-file__content">
+    @if (showLabel()) {
+      <div class="mbbiz-upload-file__label-column">
+        <label class="mbbiz-upload-file__label" [attr.for]="inputId()">
+          <span>{{ label() }}</span>
+          @if (required()) {
+            <span class="mbbiz-upload-file__required">*</span>
+          }
+        </label>
+
+        @if (description()) {
+          <p class="mbbiz-upload-file__description">{{ description() }}</p>
+        }
+
+        @if (localFiles().length > 0) {
+          <div class="mbbiz-upload-file__list">
+            @for (file of visibleFiles(); track trackFile($index, file)) {
+              <mbbiz-item-file
+                [name]="file.name"
+                [sizeLabel]="fileSizeLabel(file)"
+                [fileKind]="fileKind(file)"
+                [status]="fileStatus(file)"
+                [percent]="progressValue(file)"
+                [errorMessage]="file.errorMessage ?? null"
+                [errorType]="file.errorType ?? null"
+                [showClose]="showRemove() && file.removable !== false"
+                [showDownload]="showDownload() && !!file.downloadable"
+                [disabled]="disabled() || !!file.disabled"
+                (remove)="removeFile(file)"
+                (download)="downloadFile(file)"
+              />
+            }
+
+            @if (shouldShowExpandAction()) {
+              <button type="button" class="mbbiz-upload-file__expand" (click)="toggleExpanded($event)">
+                <span>{{ localExpanded() ? 'Thu gọn' : 'Xem thêm' }}</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true" [class.mbbiz-upload-file__expand-icon--open]="localExpanded()">
+                  <path d="M7 10l5 5 5-5" />
+                </svg>
+              </button>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    @if (showUploadArea()) {
+      <mbbiz-item-upload
+        [state]="itemUploadState()"
+        [uploadText]="uploadText()"
+        [selectText]="selectText()"
+        [showDataSource]="showDataSource()"
+        [dataSourceText]="dataSourceText()"
+        [errorMessage]="errorMessage()"
+        (select)="openFileDialog()"
+        (dataSourceClick)="emitDataSourceClick()"
+        (fileDrop)="onFileDrop($event)"
+      />
+    }
+  </div>
+</div>

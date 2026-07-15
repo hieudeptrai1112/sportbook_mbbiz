@@ -41,7 +41,7 @@ export interface DropdownVariableGroup {
   rows: DropdownVariableRow[];
 }
 
-const OPTIONS_DECLARATION = `  readonly items: readonly Sportbook6vnDropdownItem[] = [
+const OPTIONS_DECLARATION = `  readonly items: readonly MbbizDropdownItem[] = [
     { id: 'option-1', label: 'Option 1' },
     { id: 'option-2', label: 'Option 2' },
     { id: 'option-3', label: 'Option 3' },
@@ -50,7 +50,7 @@ const OPTIONS_DECLARATION = `  readonly items: readonly Sportbook6vnDropdownItem
     { id: 'option-6', label: 'Option 6' },
   ];`;
 
-const BASIC_OPTIONS_DECLARATION = `  readonly items: readonly Sportbook6vnDropdownItem[] = [
+const BASIC_OPTIONS_DECLARATION = `  readonly items: readonly MbbizDropdownItem[] = [
     { id: 'option-1', label: 'Option 1' },
     { id: 'option-2', label: 'Option 2' },
     { id: 'option-3', label: 'Option 3' },
@@ -70,19 +70,19 @@ export const DROPDOWN_DEMO_SECTIONS: DropdownDemoSection[] = [
       { code: 'selected' },
       { text: ' value.' },
     ],
-    tags: ['selector=sportbook6vn-dropdown', 'mode=single', 'state=interactive/open/selected'],
+    tags: ['selector=mbbiz-dropdown', 'mode=single', 'state=interactive/open/selected'],
     variant: 'basic',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sportbook6vn';
+import { MbbizDropdownComponent, type MbbizDropdownItem } from 'mbbiz';
 
 @Component({
   selector: 'app-dropdown-basic-demo',
   standalone: true,
-  imports: [Sportbook6vnDropdownComponent],
+  imports: [MbbizDropdownComponent],
   template: \`
-    <sportbook6vn-dropdown placeholder="Lựa chọn" [items]="items" />
+    <mbbiz-dropdown placeholder="Lựa chọn" [items]="items" />
 
-    <sportbook6vn-dropdown placeholder="Lựa chọn" value="option-1" [items]="items" />
+    <mbbiz-dropdown placeholder="Lựa chọn" value="option-1" [items]="items" />
   \`,
 })
 export class DropdownBasicDemoComponent {
@@ -96,19 +96,19 @@ ${BASIC_OPTIONS_DECLARATION}
       { code: 'mode="multiple"' },
       { text: ' displays a selected-value summary while keeping the same closed trigger behavior.' },
     ],
-    tags: ['selector=sportbook6vn-dropdown', 'mode=multiple', 'values=string[]'],
+    tags: ['selector=mbbiz-dropdown', 'mode=multiple', 'values=string[]'],
     variant: 'multiple',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sportbook6vn';
+import { MbbizDropdownComponent, type MbbizDropdownItem } from 'mbbiz';
 
 @Component({
   selector: 'app-dropdown-multiple-demo',
   standalone: true,
-  imports: [Sportbook6vnDropdownComponent],
+  imports: [MbbizDropdownComponent],
   template: \`
-    <sportbook6vn-dropdown mode="multiple" placeholder="Lựa chọn" [items]="items" />
+    <mbbiz-dropdown mode="multiple" placeholder="Lựa chọn" [items]="items" />
 
-    <sportbook6vn-dropdown
+    <mbbiz-dropdown
       mode="multiple"
       placeholder="Lựa chọn"
       [items]="items"
@@ -124,33 +124,33 @@ ${OPTIONS_DECLARATION}
     id: 'tag-select',
     title: 'Tag Select',
     descriptionParts: [
-      { code: 'sportbook6vn-dropdown-tag' },
+      { code: 'mbbiz-dropdown-tag' },
       { text: ' renders selected items as removable chips and collapses overflow into a ' },
       { code: '+N' },
       { text: ' indicator.' },
     ],
-    tags: ['selector=sportbook6vn-dropdown-tag', 'maxVisibleTags=2', 'overflow=+N'],
+    tags: ['selector=mbbiz-dropdown-tag', 'maxVisibleTags=2', 'overflow=+N'],
     variant: 'tag',
     snippetTs: `import { Component } from '@angular/core';
 import {
-  Sportbook6vnDropdownTagComponent,
-  type Sportbook6vnDropdownItem,
-} from 'sportbook6vn';
+  MbbizDropdownTagComponent,
+  type MbbizDropdownItem,
+} from 'mbbiz';
 
 @Component({
   selector: 'app-dropdown-tag-demo',
   standalone: true,
-  imports: [Sportbook6vnDropdownTagComponent],
+  imports: [MbbizDropdownTagComponent],
   template: \`
-    <sportbook6vn-dropdown-tag placeholder="Lựa chọn" [items]="items" />
+    <mbbiz-dropdown-tag placeholder="Lựa chọn" [items]="items" />
 
-    <sportbook6vn-dropdown-tag
+    <mbbiz-dropdown-tag
       placeholder="Lựa chọn"
       [items]="items"
       [values]="['option-1', 'option-2']"
     />
 
-    <sportbook6vn-dropdown-tag
+    <mbbiz-dropdown-tag
       placeholder="Lựa chọn"
       [items]="items"
       [values]="['option-1', 'option-2', 'option-3', 'option-4']"
@@ -168,24 +168,24 @@ ${OPTIONS_DECLARATION}
       { code: 'labelMode="inside"' },
       { text: ' keeps the field label inside the trigger for both single and multiple select.' },
     ],
-    tags: ['selector=sportbook6vn-dropdown', 'labelMode=inside', 'title=Title'],
+    tags: ['selector=mbbiz-dropdown', 'labelMode=inside', 'title=Title'],
     variant: 'insideLabel',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sportbook6vn';
+import { MbbizDropdownComponent, type MbbizDropdownItem } from 'mbbiz';
 
 @Component({
   selector: 'app-dropdown-inside-label-demo',
   standalone: true,
-  imports: [Sportbook6vnDropdownComponent],
+  imports: [MbbizDropdownComponent],
   template: \`
-    <sportbook6vn-dropdown
+    <mbbiz-dropdown
       title="Title"
       labelMode="inside"
       value="option-1"
       [items]="items"
     />
 
-    <sportbook6vn-dropdown
+    <mbbiz-dropdown
       title="Title"
       labelMode="inside"
       mode="multiple"
@@ -210,24 +210,24 @@ ${OPTIONS_DECLARATION}
       { code: 'scrollbar' },
       { text: '.' },
     ],
-    tags: ['selector=sportbook6vn-dropdown', 'state=closed/interactive', 'searchBehavior=auto', 'searchThreshold=5'],
+    tags: ['selector=mbbiz-dropdown', 'state=closed/interactive', 'searchBehavior=auto', 'searchThreshold=5'],
     variant: 'searchable',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sportbook6vn';
+import { MbbizDropdownComponent, type MbbizDropdownItem } from 'mbbiz';
 
 @Component({
   selector: 'app-dropdown-searchable-demo',
   standalone: true,
-  imports: [Sportbook6vnDropdownComponent],
+  imports: [MbbizDropdownComponent],
   template: \`
-    <sportbook6vn-dropdown
+    <mbbiz-dropdown
       placeholder="Lựa chọn"
       [items]="items"
       searchBehavior="auto"
       [searchThreshold]="5"
     />
 
-    <sportbook6vn-dropdown
+    <mbbiz-dropdown
       mode="multiple"
       placeholder="Lựa chọn"
       [items]="items"
@@ -248,23 +248,23 @@ ${OPTIONS_DECLARATION}
       { code: 'status="error"' },
       { text: ' renders the error border for single, multiple, and tag select triggers.' },
     ],
-    tags: ['selector=sportbook6vn-dropdown', 'selector=sportbook6vn-dropdown-tag', 'status=error'],
+    tags: ['selector=mbbiz-dropdown', 'selector=mbbiz-dropdown-tag', 'status=error'],
     variant: 'status',
     snippetTs: `import { Component } from '@angular/core';
 import {
-  Sportbook6vnDropdownComponent,
-  Sportbook6vnDropdownTagComponent,
-  type Sportbook6vnDropdownItem,
-} from 'sportbook6vn';
+  MbbizDropdownComponent,
+  MbbizDropdownTagComponent,
+  type MbbizDropdownItem,
+} from 'mbbiz';
 
 @Component({
   selector: 'app-dropdown-status-demo',
   standalone: true,
-  imports: [Sportbook6vnDropdownComponent, Sportbook6vnDropdownTagComponent],
+  imports: [MbbizDropdownComponent, MbbizDropdownTagComponent],
   template: \`
-    <sportbook6vn-dropdown status="error" placeholder="Lựa chọn" [items]="items" />
+    <mbbiz-dropdown status="error" placeholder="Lựa chọn" [items]="items" />
 
-    <sportbook6vn-dropdown
+    <mbbiz-dropdown
       mode="multiple"
       status="error"
       placeholder="Lựa chọn"
@@ -272,7 +272,7 @@ import {
       [values]="['option-1', 'option-2']"
     />
 
-    <sportbook6vn-dropdown-tag status="error" placeholder="Lựa chọn" [items]="items" />
+    <mbbiz-dropdown-tag status="error" placeholder="Lựa chọn" [items]="items" />
   \`,
 })
 export class DropdownStatusDemoComponent {
@@ -286,23 +286,23 @@ ${OPTIONS_DECLARATION}
       { code: 'disabled=true' },
       { text: ' prevents opening, selection, and tag removal while keeping the current value visible.' },
     ],
-    tags: ['selector=sportbook6vn-dropdown', 'selector=sportbook6vn-dropdown-tag', 'disabled=true'],
+    tags: ['selector=mbbiz-dropdown', 'selector=mbbiz-dropdown-tag', 'disabled=true'],
     variant: 'disabled',
     snippetTs: `import { Component } from '@angular/core';
 import {
-  Sportbook6vnDropdownComponent,
-  Sportbook6vnDropdownTagComponent,
-  type Sportbook6vnDropdownItem,
-} from 'sportbook6vn';
+  MbbizDropdownComponent,
+  MbbizDropdownTagComponent,
+  type MbbizDropdownItem,
+} from 'mbbiz';
 
 @Component({
   selector: 'app-dropdown-disabled-demo',
   standalone: true,
-  imports: [Sportbook6vnDropdownComponent, Sportbook6vnDropdownTagComponent],
+  imports: [MbbizDropdownComponent, MbbizDropdownTagComponent],
   template: \`
-    <sportbook6vn-dropdown placeholder="Lựa chọn" [items]="items" [disabled]="true" />
+    <mbbiz-dropdown placeholder="Lựa chọn" [items]="items" [disabled]="true" />
 
-    <sportbook6vn-dropdown
+    <mbbiz-dropdown
       mode="multiple"
       placeholder="Lựa chọn"
       [items]="items"
@@ -310,7 +310,7 @@ import {
       [disabled]="true"
     />
 
-    <sportbook6vn-dropdown-tag
+    <mbbiz-dropdown-tag
       placeholder="Lựa chọn"
       [items]="items"
       [values]="['option-1', 'option-2', 'option-3']"
@@ -329,23 +329,23 @@ ${OPTIONS_DECLARATION}
       { code: 'emptyState' },
       { text: ' controls no-data, search-no-data, api-error, and loading droplist content.' },
     ],
-    tags: ['selector=sportbook6vn-dropdown', 'emptyState=no-data/search-no-data/api-error/loading'],
+    tags: ['selector=mbbiz-dropdown', 'emptyState=no-data/search-no-data/api-error/loading'],
     variant: 'emptyStates',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnDropdownComponent, type Sportbook6vnDropdownItem } from 'sportbook6vn';
+import { MbbizDropdownComponent, type MbbizDropdownItem } from 'mbbiz';
 
 @Component({
   selector: 'app-dropdown-empty-state-demo',
   standalone: true,
-  imports: [Sportbook6vnDropdownComponent],
+  imports: [MbbizDropdownComponent],
   template: \`
-    <sportbook6vn-dropdown placeholder="Lựa chọn" [items]="[]" emptyState="no-data" />
+    <mbbiz-dropdown placeholder="Lựa chọn" [items]="[]" emptyState="no-data" />
 
-    <sportbook6vn-dropdown placeholder="Lựa chọn" [items]="items" emptyState="search-no-data" />
+    <mbbiz-dropdown placeholder="Lựa chọn" [items]="items" emptyState="search-no-data" />
 
-    <sportbook6vn-dropdown placeholder="Lựa chọn" [items]="items" emptyState="api-error" />
+    <mbbiz-dropdown placeholder="Lựa chọn" [items]="items" emptyState="api-error" />
 
-    <sportbook6vn-dropdown placeholder="Lựa chọn" [items]="items" emptyState="loading" />
+    <mbbiz-dropdown placeholder="Lựa chọn" [items]="items" emptyState="loading" />
   \`,
 })
 export class DropdownEmptyStateDemoComponent {
@@ -358,7 +358,7 @@ export const DROPDOWN_API_ROWS: DropdownApiRow[] = [
   {
     property: 'items',
     description: 'Option list rendered in the droplist.',
-    type: 'readonly Sportbook6vnDropdownItem[]',
+    type: 'readonly MbbizDropdownItem[]',
     defaultValue: '[]',
   },
   {
@@ -457,7 +457,7 @@ export const DROPDOWN_TAG_API_ROWS: DropdownApiRow[] = [
   {
     property: 'items',
     description: 'Option list rendered in the tag droplist.',
-    type: 'readonly Sportbook6vnDropdownItem[]',
+    type: 'readonly MbbizDropdownItem[]',
     defaultValue: '[]',
   },
   {
@@ -520,90 +520,30 @@ export const DROPDOWN_VARIABLE_GROUPS: DropdownVariableGroup[] = [
   {
     title: 'Trigger',
     rows: [
-      {
-        token: '--sportbook6vn-color-dropdown-border-default',
-        value: '#dae4ff',
-        appliesTo: 'Default trigger border',
-        notes: 'Used by closed select and tag triggers.',
-      },
-      {
-        token: '--sportbook6vn-color-dropdown-border-active',
-        value: '#52dddd',
-        appliesTo: 'Hover, focus, and open trigger border',
-        notes: 'Interactive accent border from the Figma state set.',
-      },
-      {
-        token: '--sportbook6vn-color-dropdown-border-error',
-        value: '#f00000',
-        appliesTo: 'Error trigger border',
-        notes: 'Activated by status="error".',
-      },
-      {
-        token: '--sportbook6vn-color-dropdown-border-disabled',
-        value: '#cccccc',
-        appliesTo: 'Disabled trigger border',
-        notes: 'Activated by disabled=true.',
-      },
-      {
-        token: '--sportbook6vn-radius-md',
-        value: '4px',
-        appliesTo: 'Trigger and droplist radius',
-        notes: 'Shared radius for select shell, search box, and dropdown panel.',
-      },
+      { token: 'border/brand-primary4', value: 'blue/200', appliesTo: 'Default trigger border', notes: 'Used by closed select and tag triggers.' },
+      { token: 'border/brand-tertiary', value: 'turquoise/400', appliesTo: 'Hover, focus, and open trigger border', notes: 'Interactive accent border from the Figma state set.' },
+      { token: 'border/error1', value: 'red/500', appliesTo: 'Error trigger border', notes: 'Activated by status="error".' },
+      { token: 'border/disable2', value: 'grayscale/400', appliesTo: 'Disabled trigger border', notes: 'Activated by disabled=true.' },
+      { token: 'radius/md', value: '4px', appliesTo: 'Trigger and droplist radius', notes: 'Shared radius for select shell, search box, and dropdown panel.' },
     ],
   },
   {
     title: 'Text And Icon',
     rows: [
-      {
-        token: '--sportbook6vn-color-dropdown-text-placeholder',
-        value: '#9bafc8',
-        appliesTo: 'Placeholder text',
-        notes: 'Shown when no value is selected.',
-      },
-      {
-        token: '--sportbook6vn-color-dropdown-text-default',
-        value: '#192d39',
-        appliesTo: 'Selected value and option text',
-        notes: 'Primary text in trigger and droplist options.',
-      },
-      {
-        token: '--sportbook6vn-color-dropdown-icon',
-        value: '#192d39',
-        appliesTo: 'Chevron icon',
-        notes: 'Used by closed and open trigger icons.',
-      },
-      {
-        token: '--sportbook6vn-color-text-brand',
-        value: '#141ed2',
-        appliesTo: 'Selected checkbox and search icon',
-        notes: 'Brand accent for selected multiple options and search action.',
-      },
+      { token: 'text/tertiary', value: 'darkblue/400', appliesTo: 'Placeholder text', notes: 'Shown when no value is selected.' },
+      { token: 'text/primary', value: 'darkblue/1000', appliesTo: 'Selected value and option text', notes: 'Primary text in trigger and droplist options.' },
+      { token: 'icon/neutral1', value: 'darkblue/1000', appliesTo: 'Chevron icon', notes: 'Used by closed and open trigger icons.' },
+      { token: 'text/brand-primary1', value: 'blue/500', appliesTo: 'Selected checkbox and search icon', notes: 'Brand accent for selected multiple options and search action.' },
     ],
   },
   {
     title: 'Tag',
     rows: [
-      {
-        token: '--sportbook6vn-color-dropdown-tag-background',
-        value: '#dae4ff',
-        appliesTo: 'Selected tag background',
-        notes: 'Used by tag select chips and overflow examples.',
-      },
-      {
-        token: '--sportbook6vn-color-dropdown-tag-text',
-        value: '#435870',
-        appliesTo: 'Selected tag text',
-        notes: 'Shared by chip label and remove icon.',
-      },
-      {
-        token: '--sportbook6vn-color-dropdown-tag-background-error',
-        value: '#ffe3e3',
-        appliesTo: 'Error tag background',
-        notes: 'Used when tag trigger status is error.',
-      },
+      { token: 'background/brand-primary4', value: 'blue/200', appliesTo: 'Selected tag background', notes: 'Used by tag select chips and overflow examples.' },
+      { token: 'text/primary3', value: 'darkblue/700', appliesTo: 'Selected tag text', notes: 'Shared by chip label and remove icon.' },
+      { token: 'background/error-tertiary', value: 'red/100', appliesTo: 'Error tag background', notes: 'Used when tag trigger status is error.' },
     ],
-  },
+  }
 ];
 
 export const DROPDOWN_VARIABLE_NOTES = [

@@ -1,0 +1,10 @@
+<div [class]="wrapperClass()">
+  @for (option of options(); track option.value) {
+    <mbbiz-checkbox
+      [label]="option.label"
+      [checked]="isChecked(option)"
+      [disabled]="disabled() || !!option.disabled"
+      (checkedChange)="onOptionChecked(option, $event)"
+    />
+  }
+</div>

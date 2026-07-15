@@ -4,7 +4,7 @@ Skill này dùng để sửa component preview theo đúng yêu cầu UI mà kh�
 
 ## Khi nào dùng
 
-- User yêu cầu sửa preview UI trong `sportbook6vn-preview`.
+- User yêu cầu sửa preview UI trong `mbbiz-preview`.
 - User nhấn mạnh "chỉ sửa đúng phần này", "không phá phần khác", "xóa state trùng", "đúng tương tác thật".
 - Có dấu hiệu server stale/hot-reload sai.
 
@@ -19,11 +19,11 @@ Skill này dùng để sửa component preview theo đúng yêu cầu UI mà kh�
 ## Quy trình thực thi
 
 1. Xác định `ACTIVE_PREVIEW_URL` user đang mở (ví dụ `http://127.0.0.1:4301/`).
-2. Xác định đúng file cần sửa (thường là `projects/sportbook6vn-preview/src/app/app.component.html` và `.ts`).
+2. Xác định đúng file cần sửa (thường là `projects/mbbiz-preview/src/app/app.component.html` và `.ts`).
 3. Chốt scope sửa bằng 1 câu ngắn trước khi edit.
 4. Edit tối thiểu, không mở rộng sang component khác.
 5. Verify compile nhanh:
-   - `npx tsc -p tsconfig.sportbook6vn-preview.json --noEmit`
+   - `npx tsc -p tsconfig.mbbiz-preview.json --noEmit`
 6. Verify runtime bundle:
    - đọc `ACTIVE_PREVIEW_URL/main.js`
    - kiểm tra token mong muốn có/không có.
@@ -64,7 +64,7 @@ Skill này dùng để sửa component preview theo đúng yêu cầu UI mà kh�
 ### Template note cho báo cáo lỗi
 
 - `Lỗi`: runtime stale, không phải logic component.
-- `Vị trí`: `ng serve sportbook6vn_preview` watcher (`EMFILE`) + `main.js` chưa cập nhật.
+- `Vị trí`: `ng serve mbbiz_preview` watcher (`EMFILE`) + `main.js` chưa cập nhật.
 - `Fix`: restart preview server và re-verify token trong bundle trước khi review UI.
 
 ## Prompt ngắn để gọi skill

@@ -40,17 +40,17 @@ export const STEPS_DEMO_SECTIONS: StepsDemoSection[] = [
     descriptionParts: [
       { text: 'Horizontal progress-dot flow aligned to the approved docs-ready draft.' },
     ],
-    tags: ['selector=sportbook6vn-steps', 'direction=horizontal', 'steps=4', 'figma=3898:182753'],
+    tags: ['selector=mbbiz-steps', 'direction=horizontal', 'steps=4', 'figma=3898:182753'],
     variant: 'basic',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnStepsComponent } from 'sportbook6vn';
+import { MbbizStepsComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-steps-basic-demo',
   standalone: true,
-  imports: [Sportbook6vnStepsComponent],
+  imports: [MbbizStepsComponent],
   template: \`
-    <sportbook6vn-steps [amount]="3" [current]="0" />
+    <mbbiz-steps [amount]="3" [current]="0" />
   \`,
 })
 export class StepsBasicDemoComponent {}`,
@@ -64,21 +64,21 @@ export class StepsBasicDemoComponent {}`,
       },
     ],
     tags: [
-      'selector=sportbook6vn-steps',
+      'selector=mbbiz-steps',
       'direction=horizontal',
       'state=next|process|finish|error',
       'figma=3898:182489',
     ],
     variant: 'states',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnStepsComponent } from 'sportbook6vn';
+import { MbbizStepsComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-steps-states-demo',
   standalone: true,
-  imports: [Sportbook6vnStepsComponent],
+  imports: [MbbizStepsComponent],
   template: \`
-    <sportbook6vn-steps
+    <mbbiz-steps
       direction="horizontal"
       [items]="[{ title: 'Text', status: 'error' }]"
     />
@@ -90,17 +90,17 @@ export class StepsStatesDemoComponent {}`,
     id: 'vertical-steps',
     title: 'Vertical Step',
     descriptionParts: [{ text: 'Three-step vertical flow aligned to Figma Progress=3 Step, Step=1.' }],
-    tags: ['selector=sportbook6vn-steps', 'direction=vertical', 'steps=3', 'figma=3898:183673'],
+    tags: ['selector=mbbiz-steps', 'direction=vertical', 'steps=3', 'figma=3898:183673'],
     variant: 'vertical',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnStepsComponent } from 'sportbook6vn';
+import { MbbizStepsComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-steps-vertical-demo',
   standalone: true,
-  imports: [Sportbook6vnStepsComponent],
+  imports: [MbbizStepsComponent],
   template: \`
-    <sportbook6vn-steps direction="vertical" [amount]="3" [current]="0" />
+    <mbbiz-steps direction="vertical" [amount]="3" [current]="0" />
   \`,
 })
 export class StepsVerticalDemoComponent {}`,
@@ -116,21 +116,21 @@ export class StepsVerticalDemoComponent {}`,
       { text: '.' },
     ],
     tags: [
-      'selector=sportbook6vn-steps',
+      'selector=mbbiz-steps',
       'direction=vertical',
       'state=active-no|active-yes',
       'figma=3898:183582',
     ],
     variant: 'vertical-states',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnStepsComponent } from 'sportbook6vn';
+import { MbbizStepsComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-steps-vertical-states-demo',
   standalone: true,
-  imports: [Sportbook6vnStepsComponent],
+  imports: [MbbizStepsComponent],
   template: \`
-    <sportbook6vn-steps
+    <mbbiz-steps
       direction="vertical"
       [items]="[{ title: 'Text', status: 'process' }]"
     />
@@ -141,7 +141,7 @@ export class StepsVerticalStatesDemoComponent {}`,
 ];
 
 export const STEPS_API_ROWS: StepsApiRow[] = [
-  { property: 'items', description: 'Explicit step items. When omitted, amount generates Text items for preview matrices.', type: 'readonly Sportbook6vnStepItem[]', defaultValue: '[]' },
+  { property: 'items', description: 'Explicit step items. When omitted, amount generates Text items for preview matrices.', type: 'readonly MbbizStepItem[]', defaultValue: '[]' },
   { property: 'amount', description: 'Number of generated steps when items is empty. Values are clamped from 1 to 6.', type: 'number', defaultValue: '3' },
   { property: 'current', description: 'Zero-based active step index.', type: 'number', defaultValue: '0' },
   { property: 'startIndex', description: 'Number shown on the first step marker.', type: 'number', defaultValue: '1' },
@@ -169,6 +169,6 @@ export const STEPS_VARIABLE_GROUPS: StepsVariableGroup[] = [
 ];
 
 export const STEPS_VARIABLE_NOTES = [
-  'The component uses the same interaction model as a steps control while keeping Sportbook6VN DOM and styling scoped to sportbook6vn-steps.',
+  'The component uses the same interaction model as a steps control while keeping Mbbiz DOM and styling scoped to mbbiz-steps.',
   'The basic demo mirrors the approved three-step Figma state with the first step active.',
 ];

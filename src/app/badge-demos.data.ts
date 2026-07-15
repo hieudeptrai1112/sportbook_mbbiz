@@ -13,7 +13,7 @@ export const BADGE_DEMO_SECTIONS: BadgeDemoSection[] = [
     id: 'default',
     title: 'Default',
     description: 'Baseline neutral pill badge.',
-    tags: ['selector=sportbook6vn-badge', 'status=invalid'],
+    tags: ['selector=mbbiz-badge', 'status=invalid'],
     variant: 'default',
   },
   {
@@ -21,7 +21,7 @@ export const BADGE_DEMO_SECTIONS: BadgeDemoSection[] = [
     title: 'Status',
     description: 'Status presets map to the approved color set from Figma.',
     tags: [
-      'selector=sportbook6vn-badge',
+      'selector=mbbiz-badge',
       'status=invalid/overdue/unfinished/renew-loan/pending/completed/failed',
     ],
     variant: 'status',
@@ -30,7 +30,7 @@ export const BADGE_DEMO_SECTIONS: BadgeDemoSection[] = [
     id: 'description',
     title: 'Description',
     description: 'Optional supporting text appears below the pill.',
-    tags: ['selector=sportbook6vn-badge', 'showDescription=true'],
+    tags: ['selector=mbbiz-badge', 'showDescription=true'],
     variant: 'description',
   },
 ];

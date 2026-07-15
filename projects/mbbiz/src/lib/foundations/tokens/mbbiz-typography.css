@@ -1,0 +1,300 @@
+/**
+ * Typography tokens + font styles
+ * Source: Figma Master Token (VtfMVehVniPRQ9BTYzQzdD) — local Text Styles
+ * Font family: Averta Std CY
+ */
+
+:root {
+  --mbbiz-font-family-sans: "Averta Std CY", "Inter", "Segoe UI", sans-serif;
+
+  /* Primitive / font size */
+  --mbbiz-font-size-xs: 10px;
+  --mbbiz-font-size-s: 12px;
+  --mbbiz-font-size-m: 14px;
+  --mbbiz-font-size-l: 16px;
+  --mbbiz-font-size-xl: 20px;
+  --mbbiz-font-size-2xl: 24px;
+
+  /* Primitive / line height */
+  --mbbiz-line-height-xs: 12px;
+  --mbbiz-line-height-s: 16px;
+  --mbbiz-line-height-m: 20px;
+  --mbbiz-line-height-l: 24px;
+  --mbbiz-line-height-xl: 28px;
+  --mbbiz-line-height-2xl: 32px;
+
+  /* Primitive / font weight */
+  --mbbiz-font-weight-regular: 400;
+  --mbbiz-font-weight-semibold: 600;
+
+  /* Primitive / letter spacing */
+  --mbbiz-letter-spacing-default: 0.25px;
+  --mbbiz-letter-spacing-underline-16: 0.5px;
+  --mbbiz-letter-spacing-none: 0;
+
+  /* Semantic aliases (schema v1) */
+  --sb-typography-font-size-xs: var(--mbbiz-font-size-xs);
+  --sb-typography-font-size-s: var(--mbbiz-font-size-s);
+  --sb-typography-font-size-m: var(--mbbiz-font-size-m);
+  --sb-typography-font-size-l: var(--mbbiz-font-size-l);
+  --sb-typography-font-size-xl: var(--mbbiz-font-size-xl);
+  --sb-typography-font-size-2xl: var(--mbbiz-font-size-2xl);
+
+  --sb-typography-line-height-xs: var(--mbbiz-line-height-xs);
+  --sb-typography-line-height-s: var(--mbbiz-line-height-s);
+  --sb-typography-line-height-m: var(--mbbiz-line-height-m);
+  --sb-typography-line-height-l: var(--mbbiz-line-height-l);
+  --sb-typography-line-height-xl: var(--mbbiz-line-height-xl);
+  --sb-typography-line-height-2xl: var(--mbbiz-line-height-2xl);
+
+  --sb-typography-font-weight-regular: var(--mbbiz-font-weight-regular);
+  --sb-typography-font-weight-semibold: var(--mbbiz-font-weight-semibold);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Font style utilities — 1:1 with Figma Text Styles                         */
+/* -------------------------------------------------------------------------- */
+
+.mbbiz-typo-h1-normal-24-regular,
+.mbbiz-typo-h1-uppercase-24-regular,
+.mbbiz-typo-h1-strikethrough-24-regular,
+.mbbiz-typo-h1-normal-24-semibold,
+.mbbiz-typo-h2-normal-20-regular,
+.mbbiz-typo-h2-uppercase-20-regular,
+.mbbiz-typo-h2-strikethrough-20-regular,
+.mbbiz-typo-h2-normal-20-semibold,
+.mbbiz-typo-h2-sub-header-normal-16-regular,
+.mbbiz-typo-h2-sub-header-normal-16-semibold,
+.mbbiz-typo-h2-sub-header-strikethrough-16-regular,
+.mbbiz-typo-h2-sub-header-uppercase-16-regular,
+.mbbiz-typo-h2-sub-header-underline-16-semibold,
+.mbbiz-typo-h2-sub-header-underline-16-regular,
+.mbbiz-typo-h3-normal-14-semibold,
+.mbbiz-typo-h3-strikethrough-14-semibold,
+.mbbiz-typo-h3-uppercase-14-semibold,
+.mbbiz-typo-body-normal-14-regular,
+.mbbiz-typo-body-strikethrough-14-regular,
+.mbbiz-typo-body-uppercase-14-regular,
+.mbbiz-typo-body-underline-14-semibold,
+.mbbiz-typo-body-underline-14-regular,
+.mbbiz-typo-body-normal-12-regular,
+.mbbiz-typo-body-normal-12-semibold,
+.mbbiz-typo-body-strikethrough-12-regular,
+.mbbiz-typo-body-uppercase-12-regular,
+.mbbiz-typo-body-underline-12-semibold,
+.mbbiz-typo-body-underline-12-regular,
+.mbbiz-typo-caption-normal-10-regular,
+.mbbiz-typo-caption-strikethrough-10-regular,
+.mbbiz-typo-caption-uppercase-10-regular {
+  font-family: var(--mbbiz-font-family-sans);
+  font-style: normal;
+  margin: 0;
+}
+
+/* H1 / 24 */
+.mbbiz-typo-h1-normal-24-regular,
+.mbbiz-typo-h1-uppercase-24-regular,
+.mbbiz-typo-h1-strikethrough-24-regular,
+.mbbiz-typo-h1-normal-24-semibold {
+  font-size: var(--mbbiz-font-size-2xl);
+  line-height: var(--mbbiz-line-height-2xl);
+  letter-spacing: var(--mbbiz-letter-spacing-default);
+}
+
+.mbbiz-typo-h1-normal-24-regular {
+  font-weight: var(--mbbiz-font-weight-regular);
+}
+
+.mbbiz-typo-h1-normal-24-semibold {
+  font-weight: var(--mbbiz-font-weight-semibold);
+}
+
+.mbbiz-typo-h1-uppercase-24-regular {
+  font-weight: var(--mbbiz-font-weight-regular);
+  text-transform: uppercase;
+}
+
+.mbbiz-typo-h1-strikethrough-24-regular {
+  font-weight: var(--mbbiz-font-weight-regular);
+  text-decoration: line-through;
+}
+
+/* H2 / 20 */
+.mbbiz-typo-h2-normal-20-regular,
+.mbbiz-typo-h2-uppercase-20-regular,
+.mbbiz-typo-h2-strikethrough-20-regular,
+.mbbiz-typo-h2-normal-20-semibold {
+  font-size: var(--mbbiz-font-size-xl);
+  line-height: var(--mbbiz-line-height-xl);
+  letter-spacing: var(--mbbiz-letter-spacing-default);
+}
+
+.mbbiz-typo-h2-normal-20-regular {
+  font-weight: var(--mbbiz-font-weight-regular);
+}
+
+.mbbiz-typo-h2-normal-20-semibold {
+  font-weight: var(--mbbiz-font-weight-semibold);
+}
+
+.mbbiz-typo-h2-uppercase-20-regular {
+  font-weight: var(--mbbiz-font-weight-regular);
+  text-transform: uppercase;
+}
+
+.mbbiz-typo-h2-strikethrough-20-regular {
+  font-weight: var(--mbbiz-font-weight-regular);
+  text-decoration: line-through;
+}
+
+/* H2 Sub-Header / 16 */
+.mbbiz-typo-h2-sub-header-normal-16-regular,
+.mbbiz-typo-h2-sub-header-normal-16-semibold,
+.mbbiz-typo-h2-sub-header-strikethrough-16-regular,
+.mbbiz-typo-h2-sub-header-uppercase-16-regular,
+.mbbiz-typo-h2-sub-header-underline-16-semibold {
+  font-size: var(--mbbiz-font-size-l);
+  line-height: var(--mbbiz-line-height-l);
+  letter-spacing: var(--mbbiz-letter-spacing-default);
+}
+
+.mbbiz-typo-h2-sub-header-normal-16-regular {
+  font-weight: var(--mbbiz-font-weight-regular);
+}
+
+.mbbiz-typo-h2-sub-header-normal-16-semibold {
+  font-weight: var(--mbbiz-font-weight-semibold);
+}
+
+.mbbiz-typo-h2-sub-header-strikethrough-16-regular {
+  font-weight: var(--mbbiz-font-weight-regular);
+  text-decoration: line-through;
+}
+
+.mbbiz-typo-h2-sub-header-uppercase-16-regular {
+  font-weight: var(--mbbiz-font-weight-regular);
+  text-transform: uppercase;
+}
+
+.mbbiz-typo-h2-sub-header-underline-16-semibold {
+  font-weight: var(--mbbiz-font-weight-semibold);
+  text-decoration: underline;
+}
+
+.mbbiz-typo-h2-sub-header-underline-16-regular {
+  font-size: var(--mbbiz-font-size-l);
+  line-height: var(--mbbiz-line-height-l);
+  letter-spacing: var(--mbbiz-letter-spacing-underline-16);
+  font-weight: var(--mbbiz-font-weight-regular);
+  text-decoration: underline;
+}
+
+/* H3 / 14 */
+.mbbiz-typo-h3-normal-14-semibold,
+.mbbiz-typo-h3-strikethrough-14-semibold,
+.mbbiz-typo-h3-uppercase-14-semibold {
+  font-size: var(--mbbiz-font-size-m);
+  line-height: var(--mbbiz-line-height-m);
+  letter-spacing: var(--mbbiz-letter-spacing-default);
+  font-weight: var(--mbbiz-font-weight-semibold);
+}
+
+.mbbiz-typo-h3-strikethrough-14-semibold {
+  text-decoration: line-through;
+}
+
+.mbbiz-typo-h3-uppercase-14-semibold {
+  text-transform: uppercase;
+}
+
+/* Body / 14 */
+.mbbiz-typo-body-normal-14-regular,
+.mbbiz-typo-body-strikethrough-14-regular,
+.mbbiz-typo-body-uppercase-14-regular {
+  font-size: var(--mbbiz-font-size-m);
+  line-height: var(--mbbiz-line-height-m);
+  letter-spacing: var(--mbbiz-letter-spacing-default);
+  font-weight: var(--mbbiz-font-weight-regular);
+}
+
+.mbbiz-typo-body-strikethrough-14-regular {
+  text-decoration: line-through;
+}
+
+.mbbiz-typo-body-uppercase-14-regular {
+  text-transform: uppercase;
+}
+
+.mbbiz-typo-body-underline-14-semibold,
+.mbbiz-typo-body-underline-14-regular {
+  font-size: var(--mbbiz-font-size-m);
+  line-height: var(--mbbiz-line-height-m);
+  letter-spacing: var(--mbbiz-letter-spacing-none);
+  text-decoration: underline;
+}
+
+.mbbiz-typo-body-underline-14-semibold {
+  font-weight: var(--mbbiz-font-weight-semibold);
+}
+
+.mbbiz-typo-body-underline-14-regular {
+  font-weight: var(--mbbiz-font-weight-regular);
+}
+
+/* Body / 12 */
+.mbbiz-typo-body-normal-12-regular,
+.mbbiz-typo-body-normal-12-semibold,
+.mbbiz-typo-body-strikethrough-12-regular,
+.mbbiz-typo-body-uppercase-12-regular,
+.mbbiz-typo-body-underline-12-semibold,
+.mbbiz-typo-body-underline-12-regular {
+  font-size: var(--mbbiz-font-size-s);
+  line-height: var(--mbbiz-line-height-s);
+  letter-spacing: var(--mbbiz-letter-spacing-default);
+}
+
+.mbbiz-typo-body-normal-12-regular {
+  font-weight: var(--mbbiz-font-weight-regular);
+}
+
+.mbbiz-typo-body-normal-12-semibold {
+  font-weight: var(--mbbiz-font-weight-semibold);
+}
+
+.mbbiz-typo-body-strikethrough-12-regular {
+  font-weight: var(--mbbiz-font-weight-regular);
+  text-decoration: line-through;
+}
+
+.mbbiz-typo-body-uppercase-12-regular {
+  font-weight: var(--mbbiz-font-weight-regular);
+  text-transform: uppercase;
+}
+
+.mbbiz-typo-body-underline-12-semibold {
+  font-weight: var(--mbbiz-font-weight-semibold);
+  text-decoration: underline;
+}
+
+.mbbiz-typo-body-underline-12-regular {
+  font-weight: var(--mbbiz-font-weight-regular);
+  text-decoration: underline;
+}
+
+/* Caption / 10 */
+.mbbiz-typo-caption-normal-10-regular,
+.mbbiz-typo-caption-strikethrough-10-regular,
+.mbbiz-typo-caption-uppercase-10-regular {
+  font-size: var(--mbbiz-font-size-xs);
+  line-height: var(--mbbiz-line-height-xs);
+  letter-spacing: var(--mbbiz-letter-spacing-default);
+  font-weight: var(--mbbiz-font-weight-regular);
+}
+
+.mbbiz-typo-caption-strikethrough-10-regular {
+  text-decoration: line-through;
+}
+
+.mbbiz-typo-caption-uppercase-10-regular {
+  text-transform: uppercase;
+}

@@ -1,0 +1,91 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.mbbiz-badge {
+  --mbbiz-badge-bg: var(--mbbiz-color-badge-neutral-bg, #d8d8d8);
+  --mbbiz-badge-fg: var(--mbbiz-color-badge-neutral-text, #9b9b9b);
+
+  align-items: center;
+  display: inline-flex;
+  flex-direction: column;
+  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  gap: 4px;
+  justify-content: center;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.mbbiz-badge--with-description {
+  align-items: flex-start;
+}
+
+.mbbiz-badge__label {
+  align-items: center;
+  background: var(--mbbiz-badge-bg);
+  border-radius: 20px;
+  color: var(--mbbiz-badge-fg);
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 600;
+  justify-content: center;
+  letter-spacing: 0.25px;
+  line-height: 16px;
+  max-width: 100%;
+  min-height: 24px;
+  overflow: hidden;
+  padding: 4px 12px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mbbiz-badge__description {
+  color: var(--mbbiz-color-badge-description, #192d39);
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 16px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mbbiz-badge--neutral {
+  --mbbiz-badge-bg: var(--mbbiz-color-badge-neutral-bg, #d8d8d8);
+  --mbbiz-badge-fg: var(--mbbiz-color-badge-neutral-text, #9b9b9b);
+}
+
+.mbbiz-badge--orange {
+  --mbbiz-badge-bg: var(--mbbiz-color-badge-orange-bg, #fff4d0);
+  --mbbiz-badge-fg: var(--mbbiz-color-badge-orange-text, #fa8a00);
+}
+
+.mbbiz-badge--blue.mbbiz-badge--unfinished {
+  --mbbiz-badge-bg: var(--mbbiz-color-badge-blue-soft-bg, #ecf5fa);
+  --mbbiz-badge-fg: var(--mbbiz-color-badge-blue-text, #141ed2);
+}
+
+.mbbiz-badge--blue.mbbiz-badge--renew-loan {
+  --mbbiz-badge-bg: var(--mbbiz-color-badge-blue-solid-bg, #141ed2);
+  --mbbiz-badge-fg: var(--mbbiz-color-badge-on-solid, #ffffff);
+}
+
+.mbbiz-badge--dark-blue {
+  --mbbiz-badge-bg: var(--mbbiz-color-badge-dark-blue-bg, #dae4ff);
+  --mbbiz-badge-fg: var(--mbbiz-color-badge-dark-blue-text, #6d83a7);
+}
+
+.mbbiz-badge--green {
+  --mbbiz-badge-bg: var(--mbbiz-color-badge-green-bg, #3dd196);
+  --mbbiz-badge-fg: var(--mbbiz-color-badge-on-solid, #ffffff);
+}
+
+.mbbiz-badge--red {
+  --mbbiz-badge-bg: var(--mbbiz-color-badge-red-bg, #f34343);
+  --mbbiz-badge-fg: var(--mbbiz-color-badge-on-solid, #ffffff);
+}

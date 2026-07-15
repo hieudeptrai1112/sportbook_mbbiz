@@ -1,0 +1,40 @@
+{
+  "name": "mbbiz",
+  "version": "0.0.1",
+  "description": "Angular UI components and design tokens for Mbbiz.",
+  "keywords": [
+    "angular",
+    "ui",
+    "components",
+    "design-system",
+    "mbbiz"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "ng-zorro-antd": "^21.2.2"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": [
+    "**/*.css",
+    "**/*.less"
+  ],
+  "exports": {
+    "./theme.css": {
+      "default": "./tokens/mbbiz-theme.css"
+    },
+    "./layout.css": {
+      "default": "./tokens/mbbiz-layout.css"
+    },
+    "./typography.css": {
+      "default": "./tokens/mbbiz-typography.css"
+    },
+    "./zorro-bridge.less": {
+      "default": "./tokens/zorro-bridge.less"
+    }
+  }
+}

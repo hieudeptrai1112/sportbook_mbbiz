@@ -1,0 +1,19 @@
+<nav [class]="tabClass()" [attr.aria-label]="ariaLabel()" role="tablist">
+  @for (item of resolvedItems(); track trackItem($index, item); let index = $index) {
+    <button
+      type="button"
+      [class]="itemClass(index, item)"
+      [disabled]="item.disabled"
+      role="tab"
+      [attr.aria-selected]="index === currentIndex()"
+      [attr.aria-label]="item.ariaLabel ?? item.label"
+      [attr.tabindex]="index === currentIndex() ? 0 : -1"
+      (click)="onTabClick(index, item)"
+    >
+      <span class="mbbiz-tab__label">{{ item.label }}</span>
+      @if (variant() === 'underlined' && hasCount(item)) {
+        <span class="mbbiz-tab__count" aria-label="Count {{ item.count }}">{{ item.count }}</span>
+      }
+    </button>
+  }
+</nav>

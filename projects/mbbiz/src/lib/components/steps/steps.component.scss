@@ -1,0 +1,303 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.mbbiz-steps {
+  --mbbiz-steps-marker-size: 24px;
+  --mbbiz-steps-marker-border: transparent;
+  --mbbiz-steps-marker-bg: var(--mbbiz-color-steps-step-default, #6d83a7);
+  --mbbiz-steps-marker-color: var(--mbbiz-color-steps-marker-text, #ffffff);
+  --mbbiz-steps-title-color: var(--mbbiz-color-steps-step-default, #6d83a7);
+  --mbbiz-steps-tail-color: var(--mbbiz-color-steps-line, #a3b7fd);
+
+  color: var(--mbbiz-steps-title-color);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  line-height: 24px;
+  width: min(100%, 218px);
+}
+
+.mbbiz-steps--size-badge {
+  --mbbiz-steps-marker-size: 20px;
+
+  width: auto;
+}
+
+.mbbiz-steps--horizontal {
+  --mbbiz-steps-marker-size: 16px;
+  --mbbiz-steps-marker-bg: #cadbe8;
+  --mbbiz-steps-marker-border: #cadbe8;
+  --mbbiz-steps-marker-color: #ffffff;
+  --mbbiz-steps-title-color: #6d83a7;
+  --mbbiz-steps-tail-color: #a3b7fd;
+  --mbbiz-steps-primary-color: #141ed2;
+  --mbbiz-steps-text-color: #192d39;
+
+  align-items: flex-start;
+  flex-direction: row;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.mbbiz-steps__item {
+  align-items: flex-start;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 20px;
+  color: var(--mbbiz-steps-title-color);
+  display: flex;
+  font: inherit;
+  gap: 16px;
+  margin: 0;
+  min-height: var(--mbbiz-steps-marker-size);
+  padding: 0;
+  position: relative;
+  text-align: left;
+  width: 100%;
+}
+
+.mbbiz-steps__item--finish {
+  --mbbiz-steps-marker-bg: transparent;
+  --mbbiz-steps-marker-border: var(--mbbiz-color-steps-step-active, #7b5fff);
+  --mbbiz-steps-marker-color: var(--mbbiz-color-steps-step-active, #7b5fff);
+  --mbbiz-steps-tail-color: var(--mbbiz-color-steps-step-active, #7b5fff);
+  --mbbiz-steps-title-color: var(--mbbiz-color-steps-step-default, #6d83a7);
+}
+
+.mbbiz-steps__item--wait {
+  --mbbiz-steps-marker-bg: var(--mbbiz-color-steps-step-default, #6d83a7);
+  --mbbiz-steps-marker-border: var(--mbbiz-color-steps-step-default, #6d83a7);
+  --mbbiz-steps-marker-color: var(--mbbiz-color-steps-marker-text, #ffffff);
+  --mbbiz-steps-title-color: var(--mbbiz-color-steps-step-default, #6d83a7);
+}
+
+.mbbiz-steps__item--process {
+  --mbbiz-steps-marker-border: var(--mbbiz-color-steps-step-active, #7b5fff);
+  --mbbiz-steps-marker-bg: var(--mbbiz-color-steps-step-active, #7b5fff);
+  --mbbiz-steps-marker-color: var(--mbbiz-color-steps-marker-text, #ffffff);
+  --mbbiz-steps-title-color: var(--mbbiz-color-steps-step-active, #7b5fff);
+}
+
+.mbbiz-steps__item--error {
+  --mbbiz-steps-marker-border: #f00000;
+  --mbbiz-steps-marker-bg: #f00000;
+  --mbbiz-steps-marker-color: transparent;
+  --mbbiz-steps-tail-color: #f00000;
+  --mbbiz-steps-title-color: #f00000;
+}
+
+.mbbiz-steps--horizontal .mbbiz-steps__item {
+  flex: 0 0 162px;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  min-width: 0;
+  width: 162px;
+}
+
+.mbbiz-steps--horizontal .mbbiz-steps__item--finish {
+  --mbbiz-steps-marker-bg: var(--mbbiz-steps-primary-color);
+  --mbbiz-steps-marker-border: var(--mbbiz-steps-primary-color);
+  --mbbiz-steps-marker-color: #ffffff;
+  --mbbiz-steps-tail-color: var(--mbbiz-steps-primary-color);
+  --mbbiz-steps-title-color: var(--mbbiz-steps-text-color);
+}
+
+.mbbiz-steps--horizontal .mbbiz-steps__item--process {
+  --mbbiz-steps-marker-bg: #ffffff;
+  --mbbiz-steps-marker-border: var(--mbbiz-steps-primary-color);
+  --mbbiz-steps-marker-color: transparent;
+  --mbbiz-steps-tail-color: var(--mbbiz-steps-primary-color);
+  --mbbiz-steps-title-color: var(--mbbiz-steps-text-color);
+}
+
+.mbbiz-steps--horizontal .mbbiz-steps__item--wait {
+  --mbbiz-steps-marker-bg: #cadbe8;
+  --mbbiz-steps-marker-border: #cadbe8;
+  --mbbiz-steps-marker-color: transparent;
+  --mbbiz-steps-tail-color: #a3b7fd;
+  --mbbiz-steps-title-color: #6d83a7;
+}
+
+.mbbiz-steps--horizontal .mbbiz-steps__item--error {
+  --mbbiz-steps-marker-bg: #f00000;
+  --mbbiz-steps-marker-border: #f00000;
+  --mbbiz-steps-marker-color: transparent;
+  --mbbiz-steps-tail-color: var(--mbbiz-steps-primary-color);
+  --mbbiz-steps-title-color: var(--mbbiz-steps-text-color);
+}
+
+.mbbiz-steps--size-badge .mbbiz-steps__item--wait {
+  --mbbiz-steps-marker-bg: var(--mbbiz-color-steps-step-next, #cadbe8);
+  --mbbiz-steps-marker-border: var(--mbbiz-color-steps-step-next, #cadbe8);
+  --mbbiz-steps-marker-color: var(--mbbiz-color-steps-step-active, #7b5fff);
+}
+
+.mbbiz-steps__item--clickable {
+  cursor: pointer;
+}
+
+.mbbiz-steps__item--disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.mbbiz-steps__item:focus-visible {
+  outline: 2px solid var(--mbbiz-color-steps-step-active, #7b5fff);
+  outline-offset: 3px;
+}
+
+.mbbiz-steps__marker-stack {
+  align-items: center;
+  display: flex;
+  flex: 0 0 var(--mbbiz-steps-marker-size);
+  flex-direction: column;
+  min-height: calc(var(--mbbiz-steps-marker-size) + 34px);
+}
+
+.mbbiz-steps__item--last .mbbiz-steps__marker-stack,
+.mbbiz-steps--size-badge .mbbiz-steps__marker-stack {
+  min-height: var(--mbbiz-steps-marker-size);
+}
+
+.mbbiz-steps--horizontal .mbbiz-steps__marker-stack {
+  flex: 0 0 auto;
+  flex-direction: row;
+  min-height: var(--mbbiz-steps-marker-size);
+  width: 100%;
+}
+
+.mbbiz-steps__marker {
+  align-items: center;
+  background: var(--mbbiz-steps-marker-bg);
+  border: 1px solid var(--mbbiz-steps-marker-border);
+  border-radius: 20px;
+  box-sizing: border-box;
+  color: var(--mbbiz-steps-marker-color);
+  display: inline-flex;
+  flex: 0 0 var(--mbbiz-steps-marker-size);
+  font-size: 12px;
+  font-weight: 400;
+  height: var(--mbbiz-steps-marker-size);
+  justify-content: center;
+  letter-spacing: 0.25px;
+  line-height: 16px;
+  min-width: var(--mbbiz-steps-marker-size);
+  text-align: center;
+  width: var(--mbbiz-steps-marker-size);
+}
+
+.mbbiz-steps--horizontal .mbbiz-steps__marker {
+  border-width: 0;
+  font-size: 0;
+  letter-spacing: 0;
+}
+
+.mbbiz-steps--horizontal .mbbiz-steps__item--process .mbbiz-steps__marker {
+  border-width: 2px;
+}
+
+.mbbiz-steps__check {
+  border-bottom: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  display: block;
+  height: 11px;
+  margin-top: -2px;
+  transform: rotate(45deg);
+  width: 6px;
+}
+
+.mbbiz-steps--horizontal .mbbiz-steps__check {
+  height: 7px;
+  margin-top: -1px;
+  width: 4px;
+}
+
+.mbbiz-steps__tail {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--mbbiz-steps-tail-color) 0,
+    var(--mbbiz-steps-tail-color) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  display: block;
+  flex: 0 0 34px;
+  height: 34px;
+  width: 1px;
+}
+
+.mbbiz-steps--horizontal .mbbiz-steps__tail {
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--mbbiz-steps-tail-color) 0,
+    var(--mbbiz-steps-tail-color) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  flex: 1 1 auto;
+  height: 1px;
+  min-width: 0;
+  width: auto;
+}
+
+.mbbiz-steps__content {
+  color: inherit;
+  display: inline-flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.mbbiz-steps--horizontal .mbbiz-steps__content {
+  display: block;
+  flex: 0 1 auto;
+  width: 100%;
+}
+
+.mbbiz-steps--size-badge .mbbiz-steps__content,
+.mbbiz-steps--size-badge .mbbiz-steps__tail {
+  display: none;
+}
+
+.mbbiz-steps__title {
+  color: inherit;
+  display: block;
+  font: inherit;
+  overflow-wrap: anywhere;
+}
+
+.mbbiz-steps--horizontal .mbbiz-steps__title {
+  font-size: 14px;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+}
+
+.mbbiz-steps--horizontal .mbbiz-steps__item--wait .mbbiz-steps__title {
+  font-weight: 400;
+}
+
+.mbbiz-steps--horizontal .mbbiz-steps__item--process .mbbiz-steps__title,
+.mbbiz-steps--horizontal .mbbiz-steps__item--finish .mbbiz-steps__title,
+.mbbiz-steps--horizontal .mbbiz-steps__item--error .mbbiz-steps__title {
+  font-weight: 600;
+}
+
+.mbbiz-steps__description {
+  color: var(--mbbiz-color-text-secondary, #6d83a7);
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin-top: 2px;
+}

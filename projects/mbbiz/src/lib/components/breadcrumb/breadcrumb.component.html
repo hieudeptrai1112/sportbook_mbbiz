@@ -1,0 +1,35 @@
+<nz-breadcrumb [nzSeparator]="breadcrumbSeparator" [class]="breadcrumbClass()" [attr.aria-label]="ariaLabel()">
+  @for (item of resolvedItems(); track trackItem($index, item); let isCurrent = $last) {
+    <nz-breadcrumb-item>
+      @if (item.href && !isCurrent && !item.disabled) {
+        <a
+          [class]="itemLabelClass(item, isCurrent)"
+          [href]="item.href"
+          (click)="onItemClick($event, item, isCurrent)"
+        >
+          {{ item.label }}
+        </a>
+      } @else {
+        <span
+          [class]="itemLabelClass(item, isCurrent)"
+          [attr.aria-current]="isCurrent ? 'page' : null"
+        >
+          {{ item.label }}
+        </span>
+      }
+    </nz-breadcrumb-item>
+  }
+</nz-breadcrumb>
+
+<ng-template #breadcrumbSeparator>
+  <span class="mbbiz-breadcrumb__separator" aria-hidden="true">
+    <svg viewBox="0 0 5 8.33336" focusable="false">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M4.79079 4.65774C5.06974 4.38655 5.06974 3.94685 4.79079 3.67565L1.21936 0.203428C0.940416 -0.0677688 0.488155 -0.0677688 0.209209 0.203428C-0.0697365 0.474626 -0.0697365 0.914324 0.209209 1.18552L3.27556 4.1667L0.209209 7.14787C-0.0697365 7.41907 -0.0697365 7.85877 0.209209 8.12997C0.488155 8.40116 0.940416 8.40116 1.21936 8.12997L4.79079 4.65774Z"
+        fill="currentColor"
+      />
+    </svg>
+  </span>
+</ng-template>

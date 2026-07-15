@@ -1,0 +1,14 @@
+<label [class]="wrapperClass()">
+  <input
+    type="checkbox"
+    class="mbbiz-switch__native"
+    [attr.id]="inputId()"
+    [checked]="resolvedChecked()"
+    [disabled]="disabled()"
+    (change)="onInputChange($event)"
+  />
+
+  <span class="mbbiz-switch__track" aria-hidden="true">
+    <span class="mbbiz-switch__thumb"></span>
+  </span>
+</label>

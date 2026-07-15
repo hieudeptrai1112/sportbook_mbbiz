@@ -16,23 +16,23 @@ Preview hiện render các component thật sau:
 
 | Nhóm | Component/selector | Preview hiện tại | Trạng thái blueprint |
 | --- | --- | --- | --- |
-| Input family | `sportbook6vn-input` | Basic + Status | Cần formalize blueprint từ Figma node input basic. |
-| Input family | `sportbook6vn-affix-input` | Basic + Status | Cần formalize; kiểm tra node có prefix/suffix/both hay không. |
-| Input family | `sportbook6vn-search-input` | Basic + Status | Cần formalize; clear icon phải là behavior thật. |
-| Input family | `sportbook6vn-password-input` | Basic + Status | Cần formalize; cover hide/unhide theo node. |
-| Input family | `sportbook6vn-textarea` | Basic + Status | Cần formalize; kiểm tra counter/max length có nằm trong node không. |
-| Input family | `sportbook6vn-floating-label-input` | Basic + Status | Cần formalize; kiểm tra height/label states theo node. |
-| Input family | `sportbook6vn-affix-label-input` | Basic + Status | Cần formalize; dropdown affix phải có blueprint riêng nếu node có. |
-| Input family | `sportbook6vn-input-tag` | Basic + Status + Advanced | Cần formalize kỹ; Arco advanced case chỉ giữ khi Figma/user đã chốt. |
-| Selection | `sportbook6vn-checkbox` | Basic, Group, Select all, Vertical group | Gần đúng pattern NG-Zorro; cần tạo blueprint chính thức. |
-| Selection | `sportbook6vn-checkbox-group` | Group + Vertical + Select all | Gần đúng pattern NG-Zorro; cần kiểm tra node có select-all không. |
-| Selection | `sportbook6vn-radio` | Basic, Group, Vertical group | Gần đúng pattern Arco/NG-Zorro; cần tạo blueprint chính thức. |
-| Selection | `sportbook6vn-radio-group` | Group + Vertical | Gần đúng; cần kiểm tra node có disabled option hay không. |
-| Selection | `sportbook6vn-switch` | Basic, Disable, Loading, Size | Gần đúng pattern NG-Zorro; cần tạo blueprint chính thức. |
-| Feedback/Form | `sportbook6vn-modal` | Form / Two actions, Form / Single action | Cần formalize theo 2 Figma nodes đã cung cấp. |
-| Button | `sportbook6vn-button` | Rectangle/Pill x Primary/Secondary, Default/With icon/Disabled | Cần đổi blueprint từ ma trận biến thể sang use case-first. |
-| Dropdown | `sportbook6vn-dropdown` | Single, Multi, Empty states | Cần formalize; tránh lẫn trigger state, droplist state, empty state. |
-| Dropdown | `sportbook6vn-dropdown-tag` | Tag states | Cần formalize; kiểm tra rule `+N`, error no helptext, disabled. |
+| Input family | `mbbiz-input` | Basic + Status | Cần formalize blueprint từ Figma node input basic. |
+| Input family | `mbbiz-affix-input` | Basic + Status | Cần formalize; kiểm tra node có prefix/suffix/both hay không. |
+| Input family | `mbbiz-search-input` | Basic + Status | Cần formalize; clear icon phải là behavior thật. |
+| Input family | `mbbiz-password-input` | Basic + Status | Cần formalize; cover hide/unhide theo node. |
+| Input family | `mbbiz-textarea` | Basic + Status | Cần formalize; kiểm tra counter/max length có nằm trong node không. |
+| Input family | `mbbiz-floating-label-input` | Basic + Status | Cần formalize; kiểm tra height/label states theo node. |
+| Input family | `mbbiz-affix-label-input` | Basic + Status | Cần formalize; dropdown affix phải có blueprint riêng nếu node có. |
+| Input family | `mbbiz-input-tag` | Basic + Status + Advanced | Cần formalize kỹ; Arco advanced case chỉ giữ khi Figma/user đã chốt. |
+| Selection | `mbbiz-checkbox` | Basic, Group, Select all, Vertical group | Gần đúng pattern NG-Zorro; cần tạo blueprint chính thức. |
+| Selection | `mbbiz-checkbox-group` | Group + Vertical + Select all | Gần đúng pattern NG-Zorro; cần kiểm tra node có select-all không. |
+| Selection | `mbbiz-radio` | Basic, Group, Vertical group | Gần đúng pattern Arco/NG-Zorro; cần tạo blueprint chính thức. |
+| Selection | `mbbiz-radio-group` | Group + Vertical | Gần đúng; cần kiểm tra node có disabled option hay không. |
+| Selection | `mbbiz-switch` | Basic, Disable, Loading, Size | Gần đúng pattern NG-Zorro; cần tạo blueprint chính thức. |
+| Feedback/Form | `mbbiz-modal` | Form / Two actions, Form / Single action | Cần formalize theo 2 Figma nodes đã cung cấp. |
+| Button | `mbbiz-button` | Rectangle/Pill x Primary/Secondary, Default/With icon/Disabled | Cần đổi blueprint từ ma trận biến thể sang use case-first. |
+| Dropdown | `mbbiz-dropdown` | Single, Multi, Empty states | Cần formalize; tránh lẫn trigger state, droplist state, empty state. |
+| Dropdown | `mbbiz-dropdown-tag` | Tag states | Cần formalize; kiểm tra rule `+N`, error no helptext, disabled. |
 
 ## Tham chiếu tổ chức từ NG-Zorro local package
 

@@ -1,0 +1,129 @@
+:host {
+  display: block;
+  max-width: 100%;
+  width: min(100%, 932px);
+}
+
+.mbbiz-upload-file {
+  --mbbiz-upload-primary: var(--mbbiz-color-brand-600, #141ed2);
+  --mbbiz-upload-primary-300: var(--mbbiz-color-brand-300, #a3b7fd);
+  --mbbiz-upload-secondary: #7b5fff;
+  --mbbiz-upload-secondary-200: #dbd3ff;
+  --mbbiz-upload-surface-file: #ecf5fa;
+  --mbbiz-upload-text-default: #192d39;
+  --mbbiz-upload-text-muted: #6d83a7;
+  --mbbiz-upload-text-disabled: #9b9b9b;
+  --mbbiz-upload-error: #f00000;
+  --mbbiz-upload-error-text: #f34343;
+
+  color: var(--mbbiz-upload-text-default);
+  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  width: 100%;
+}
+
+.mbbiz-upload-file__native {
+  display: none;
+}
+
+.mbbiz-upload-file__content {
+  align-items: flex-start;
+  display: flex;
+  gap: 64px;
+  width: 100%;
+}
+
+.mbbiz-upload-file__label-column,
+mbbiz-item-upload {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.mbbiz-upload-file__label-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mbbiz-upload-file__label {
+  align-items: center;
+  color: var(--mbbiz-upload-text-default);
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 600;
+  gap: 4px;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+}
+
+.mbbiz-upload-file__required {
+  color: var(--mbbiz-upload-error-text);
+}
+
+.mbbiz-upload-file__description {
+  color: var(--mbbiz-upload-text-muted);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  margin: 0;
+}
+
+.mbbiz-upload-file__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+mbbiz-item-file {
+  width: 100%;
+}
+
+mbbiz-item-upload {
+  width: 100%;
+}
+
+.mbbiz-upload-file__expand {
+  -webkit-appearance: none;
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--mbbiz-upload-primary);
+  cursor: pointer;
+  display: inline-flex;
+  font: 600 14px/20px var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  gap: 2px;
+  letter-spacing: 0.25px;
+  padding: 0;
+  width: fit-content;
+}
+
+.mbbiz-upload-file__expand svg {
+  fill: none;
+  height: 24px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  width: 24px;
+}
+
+.mbbiz-upload-file__expand-icon--open {
+  transform: rotate(180deg);
+}
+
+.mbbiz-upload-file--disabled {
+  opacity: 1;
+}
+
+@media (max-width: 760px) {
+  .mbbiz-upload-file__content {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  mbbiz-item-upload {
+    width: 100%;
+  }
+}

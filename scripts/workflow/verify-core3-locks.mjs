@@ -6,7 +6,7 @@ const repoRoot = process.cwd();
 const previewHtmlPath = path.join(
   repoRoot,
   'projects',
-  'sportbook6vn-preview',
+  'mbbiz-preview',
   'src',
   'app',
   'app.component.html',
@@ -15,7 +15,7 @@ const docsAppHtmlPath = path.join(repoRoot, 'src', 'app', 'app.html');
 const publicApiPath = path.join(
   repoRoot,
   'projects',
-  'sportbook6vn',
+  'mbbiz',
   'src',
   'public-api.ts',
 );

@@ -1,0 +1,66 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.mbbiz-floating-label-input {
+  background: var(--mbbiz-color-surface-primary, #ffffff);
+  border: 1px solid var(--mbbiz-color-border-brand-active, #a3b7fd);
+  border-radius: var(--mbbiz-radius-md, 4px);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 250px;
+  padding: 10px 12px;
+  transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+.mbbiz-floating-label-input:hover:not(.mbbiz-floating-label-input--disabled):not(.mbbiz-floating-label-input--status-error),
+.mbbiz-floating-label-input:focus-within:not(.mbbiz-floating-label-input--disabled):not(.mbbiz-floating-label-input--status-error) {
+  border-color: var(--mbbiz-color-border-brand-tertiary, #52dddd);
+}
+
+.mbbiz-floating-label-input--status-error {
+  border-color: var(--mbbiz-color-danger-strong, #f34343);
+}
+
+.mbbiz-floating-label-input--disabled {
+  background: var(--mbbiz-color-surface-disabled, #f3f3f3);
+  border-color: var(--mbbiz-color-border-disabled, #cccccc);
+}
+
+.mbbiz-floating-label-input__label {
+  color: var(--mbbiz-color-text-floating-label, #6d83a7);
+  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
+  letter-spacing: 0.25px;
+}
+
+.mbbiz-floating-label-input__native.ant-input {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: var(--mbbiz-color-text-field, #192d39);
+  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
+  letter-spacing: 0.25px;
+  min-width: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.mbbiz-floating-label-input__native.ant-input:focus,
+.mbbiz-floating-label-input__native.ant-input:focus-visible {
+  border: 0;
+  box-shadow: none;
+  outline: none;
+}
+
+.mbbiz-floating-label-input__native.ant-input::placeholder {
+  color: var(--mbbiz-color-text-tertiary, #9bafc8);
+}
+
+.mbbiz-floating-label-input--disabled .mbbiz-floating-label-input__native.ant-input,
+.mbbiz-floating-label-input--disabled .mbbiz-floating-label-input__native.ant-input::placeholder {
+  color: var(--mbbiz-color-text-disabled, #808080);
+}

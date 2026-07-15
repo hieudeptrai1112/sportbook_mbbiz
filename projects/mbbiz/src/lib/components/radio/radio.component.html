@@ -1,0 +1,20 @@
+<label [class]="wrapperClass()">
+  <input
+    type="radio"
+    class="mbbiz-radio__native"
+    [attr.id]="inputId()"
+    [attr.name]="name()"
+    [attr.value]="value()"
+    [checked]="resolvedChecked()"
+    [disabled]="disabled()"
+    (change)="onInputChange($event)"
+  />
+
+  <span class="mbbiz-radio__control" aria-hidden="true">
+    <span class="mbbiz-radio__dot"></span>
+  </span>
+
+  @if (label(); as label) {
+    <span class="mbbiz-radio__label">{{ label }}</span>
+  }
+</label>

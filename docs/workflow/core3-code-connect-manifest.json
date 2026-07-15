@@ -6,8 +6,8 @@
       "figmaNodes": ["18693:412281"],
       "components": [
         {
-          "selector": "sportbook6vn-button",
-          "entry": "projects/sportbook6vn/src/lib/components/button/button.component.ts",
+          "selector": "mbbiz-button",
+          "entry": "projects/mbbiz/src/lib/components/button/button.component.ts",
           "previewSection": "Button family"
         }
       ]
@@ -29,43 +29,43 @@
       ],
       "components": [
         {
-          "selector": "sportbook6vn-input",
-          "entry": "projects/sportbook6vn/src/lib/components/input/input.component.ts",
+          "selector": "mbbiz-input",
+          "entry": "projects/mbbiz/src/lib/components/input/input.component.ts",
           "previewSection": "Input family"
         },
         {
-          "selector": "sportbook6vn-affix-input",
-          "entry": "projects/sportbook6vn/src/lib/components/affix-input/affix-input.component.ts",
+          "selector": "mbbiz-affix-input",
+          "entry": "projects/mbbiz/src/lib/components/affix-input/affix-input.component.ts",
           "previewSection": "Input family"
         },
         {
-          "selector": "sportbook6vn-search-input",
-          "entry": "projects/sportbook6vn/src/lib/components/search-input/search-input.component.ts",
+          "selector": "mbbiz-search-input",
+          "entry": "projects/mbbiz/src/lib/components/search-input/search-input.component.ts",
           "previewSection": "Input family"
         },
         {
-          "selector": "sportbook6vn-password-input",
-          "entry": "projects/sportbook6vn/src/lib/components/password-input/password-input.component.ts",
+          "selector": "mbbiz-password-input",
+          "entry": "projects/mbbiz/src/lib/components/password-input/password-input.component.ts",
           "previewSection": "Input family"
         },
         {
-          "selector": "sportbook6vn-textarea",
-          "entry": "projects/sportbook6vn/src/lib/components/textarea/textarea.component.ts",
+          "selector": "mbbiz-textarea",
+          "entry": "projects/mbbiz/src/lib/components/textarea/textarea.component.ts",
           "previewSection": "Input family"
         },
         {
-          "selector": "sportbook6vn-floating-label-input",
-          "entry": "projects/sportbook6vn/src/lib/components/floating-label-input/floating-label-input.component.ts",
+          "selector": "mbbiz-floating-label-input",
+          "entry": "projects/mbbiz/src/lib/components/floating-label-input/floating-label-input.component.ts",
           "previewSection": "Input family"
         },
         {
-          "selector": "sportbook6vn-affix-label-input",
-          "entry": "projects/sportbook6vn/src/lib/components/affix-label-input/affix-label-input.component.ts",
+          "selector": "mbbiz-affix-label-input",
+          "entry": "projects/mbbiz/src/lib/components/affix-label-input/affix-label-input.component.ts",
           "previewSection": "Input family"
         },
         {
-          "selector": "sportbook6vn-input-tag",
-          "entry": "projects/sportbook6vn/src/lib/components/input-tag/input-tag.component.ts",
+          "selector": "mbbiz-input-tag",
+          "entry": "projects/mbbiz/src/lib/components/input-tag/input-tag.component.ts",
           "previewSection": "Input family"
         }
       ]
@@ -75,13 +75,13 @@
       "figmaNodes": ["19564:29158", "18679:398700", "19564:29826", "19564:44125", "19564:45850", "18676:395476"],
       "components": [
         {
-          "selector": "sportbook6vn-dropdown",
-          "entry": "projects/sportbook6vn/src/lib/components/dropdown/dropdown.component.ts",
+          "selector": "mbbiz-dropdown",
+          "entry": "projects/mbbiz/src/lib/components/dropdown/dropdown.component.ts",
           "previewSection": "Dropdown family"
         },
         {
-          "selector": "sportbook6vn-dropdown-tag",
-          "entry": "projects/sportbook6vn/src/lib/components/dropdown-tag/dropdown-tag.component.ts",
+          "selector": "mbbiz-dropdown-tag",
+          "entry": "projects/mbbiz/src/lib/components/dropdown-tag/dropdown-tag.component.ts",
           "previewSection": "Dropdown family"
         }
       ]
@@ -103,8 +103,8 @@
       ],
       "components": [
         {
-          "selector": "sportbook6vn-datepicker",
-          "entry": "projects/sportbook6vn/src/lib/components/datepicker/datepicker.component.ts",
+          "selector": "mbbiz-datepicker",
+          "entry": "projects/mbbiz/src/lib/components/datepicker/datepicker.component.ts",
           "previewSection": "Date picker family"
         }
       ]

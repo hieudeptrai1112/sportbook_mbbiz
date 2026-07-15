@@ -1,0 +1,270 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.mbbiz-input-tag {
+  align-items: center;
+  background: var(--mbbiz-color-surface-primary, #ffffff);
+  border: 1px solid var(--mbbiz-color-border-brand-active, #a3b7fd);
+  border-radius: var(--mbbiz-radius-md, 4px);
+  display: inline-flex;
+  gap: 8px;
+  min-height: 52px;
+  padding: 8px 12px;
+  position: relative;
+  transition: border-color 140ms ease, background-color 140ms ease;
+  width: 300px;
+}
+
+.mbbiz-input-tag:hover:not(.mbbiz-input-tag--disabled):not(.mbbiz-input-tag--status-error),
+.mbbiz-input-tag--hovered:not(.mbbiz-input-tag--disabled):not(.mbbiz-input-tag--status-error),
+.mbbiz-input-tag--focused:not(.mbbiz-input-tag--disabled):not(.mbbiz-input-tag--status-error),
+.mbbiz-input-tag:focus-within:not(.mbbiz-input-tag--disabled):not(.mbbiz-input-tag--status-error) {
+  border-color: var(--mbbiz-color-border-brand-tertiary, #52dddd);
+}
+
+.mbbiz-input-tag--status-error {
+  border-color: var(--mbbiz-color-danger-strong, #f34343);
+}
+
+.mbbiz-input-tag--disabled {
+  background: var(--mbbiz-color-surface-primary, #ffffff);
+  border-color: var(--mbbiz-color-border-disabled, #cccccc);
+}
+
+.mbbiz-input-tag--readonly {
+  cursor: default;
+}
+
+.mbbiz-input-tag__content {
+  align-items: center;
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 0;
+}
+
+.mbbiz-input-tag__chip {
+  align-items: center;
+  background: var(--mbbiz-color-dropdown-tag-background, #dae4ff);
+  border-radius: var(--mbbiz-radius-md, 4px);
+  color: var(--mbbiz-color-dropdown-tag-text, #435870);
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 8px;
+  padding: 0 8px;
+}
+
+.mbbiz-input-tag__chip--brand {
+  background: #dae4ff;
+  color: #1f3ef0;
+}
+
+.mbbiz-input-tag__chip--success {
+  background: #d9f8e6;
+  color: #14804a;
+}
+
+.mbbiz-input-tag__chip--warning {
+  background: #fff1d6;
+  color: #ad6800;
+}
+
+.mbbiz-input-tag__chip--danger {
+  background: #ffe3e3;
+  color: #f34343;
+}
+
+.mbbiz-input-tag--status-error .mbbiz-input-tag__chip {
+  background: var(--mbbiz-color-dropdown-tag-background-error, #ffe3e3);
+  color: var(--mbbiz-color-danger-strong, #f34343);
+}
+
+.mbbiz-input-tag__chip-label {
+  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
+  letter-spacing: 0.25px;
+  white-space: nowrap;
+}
+
+.mbbiz-input-tag__chip-remove,
+.mbbiz-input-tag__clear {
+  -webkit-appearance: none;
+  appearance: none;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: currentColor;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  padding: 0;
+}
+
+.mbbiz-input-tag__chip-remove:disabled {
+  cursor: not-allowed;
+}
+
+.mbbiz-input-tag__chip-remove svg,
+.mbbiz-input-tag__clear svg {
+  fill: none;
+  height: 16px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  width: 16px;
+}
+
+.mbbiz-input-tag__overflow {
+  color: var(--mbbiz-color-text-secondary, #65758b);
+  flex: 0 0 auto;
+  font: 400 12px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
+  letter-spacing: 0.25px;
+  padding-right: 4px;
+}
+
+.mbbiz-input-tag__overflow-anchor {
+  display: inline-flex;
+  flex: 0 0 auto;
+  outline: none;
+  position: relative;
+}
+
+.mbbiz-input-tag__overflow-anchor:hover .mbbiz-input-tag__overflow-popover,
+.mbbiz-input-tag__overflow-anchor:focus-within .mbbiz-input-tag__overflow-popover {
+  display: inline-flex;
+}
+
+.mbbiz-input-tag__overflow-popover {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #d9dfe8;
+  border-radius: 8px;
+  bottom: calc(100% + 14px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+  display: none;
+  flex-wrap: wrap;
+  gap: 8px;
+  left: 50%;
+  max-width: min(420px, calc(100vw - 32px));
+  padding: 12px;
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.mbbiz-input-tag__overflow-popover-arrow {
+  background: #ffffff;
+  border-bottom: 1px solid #d9dfe8;
+  border-right: 1px solid #d9dfe8;
+  bottom: -7px;
+  height: 14px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%) rotate(45deg);
+  width: 14px;
+}
+
+.mbbiz-input-tag__measure {
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  visibility: hidden;
+  z-index: -1;
+}
+
+.mbbiz-input-tag__measure-row {
+  display: inline-flex;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.mbbiz-input-tag__measure-close {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.mbbiz-input-tag__measure-close svg {
+  fill: none;
+  height: 16px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  width: 16px;
+}
+
+.mbbiz-input-tag__input-slot {
+  align-items: center;
+  display: inline-flex;
+  flex: 1 1 80px;
+  gap: 2px;
+  min-width: 80px;
+  position: relative;
+}
+
+.mbbiz-input-tag--collapsed-input .mbbiz-input-tag__input-slot {
+  flex-basis: 72px;
+  min-width: 72px;
+}
+
+.mbbiz-input-tag--collapsed-input .mbbiz-input-tag__native.ant-input {
+  width: 72px;
+}
+
+.mbbiz-input-tag__native.ant-input {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: var(--mbbiz-color-text-field, #192d39);
+  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
+  letter-spacing: 0.25px;
+  min-width: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.mbbiz-input-tag__native.ant-input:focus,
+.mbbiz-input-tag__native.ant-input:focus-visible {
+  border: 0;
+  box-shadow: none;
+  outline: none;
+}
+
+.mbbiz-input-tag__native.ant-input::placeholder {
+  color: var(--mbbiz-color-text-tertiary, #9bafc8);
+}
+
+.mbbiz-input-tag--disabled .mbbiz-input-tag__native.ant-input,
+.mbbiz-input-tag--disabled .mbbiz-input-tag__native.ant-input::placeholder {
+  color: var(--mbbiz-color-text-disabled, #808080);
+}
+
+.mbbiz-input-tag__cursor {
+  color: var(--mbbiz-color-border-brand-tertiary, #52dddd);
+  flex: 0 0 auto;
+  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
+  letter-spacing: 0.25px;
+  margin-left: -2px;
+}
+
+.mbbiz-input-tag__clear {
+  color: var(--mbbiz-color-text-default, #000000);
+}
+
+.mbbiz-input-tag--status-error .mbbiz-input-tag__clear {
+  color: var(--mbbiz-color-danger-strong, #f34343);
+}
+
+.mbbiz-input-tag--disabled .mbbiz-input-tag__clear {
+  color: var(--mbbiz-color-text-disabled, #808080);
+  cursor: not-allowed;
+}

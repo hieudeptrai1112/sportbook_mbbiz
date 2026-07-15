@@ -4,7 +4,7 @@
       <div class="top-left">
         <div class="logo">
           <img src="/assets/figma/13a404ae-6372-42d7-b0c3-c446bc475214.svg" alt="Logo" />
-          <span>Sportbook6vn</span>
+          <span>Mbbiz</span>
         </div>
         <div class="search">
           <img
@@ -172,6 +172,14 @@
           </div>
           <div
             class="sidebar-link"
+            [class.active]="activePage() === 'layout'"
+            (click)="setPage('layout')"
+          >
+            <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
+            <span>Layout</span>
+          </div>
+          <div
+            class="sidebar-link"
             [class.active]="activePage() === 'typography'"
             (click)="setPage('typography')"
           >
@@ -206,10 +214,6 @@
             >
               <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
               <span>Input Field</span>
-            </div>
-            <div class="sidebar-link">
-              <img src="/assets/figma/b9238733-6594-4666-b6ab-b199a6aca7e8.svg" alt="" />
-              <span>Typography</span>
             </div>
             <div
               class="sidebar-link"
@@ -364,6 +368,14 @@
         <div class="sidebar-subgroup" [class.open]="isPatternOpen()">
           <div
             class="sidebar-link"
+            [class.active]="activePage() === 'formPattern'"
+            (click)="setPage('formPattern')"
+          >
+            <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
+            <span>Form</span>
+          </div>
+          <div
+            class="sidebar-link"
             [class.active]="activePage() === 'footerPattern'"
             (click)="setPage('footerPattern')"
           >
@@ -401,6 +413,7 @@
         class="main-inner"
         [class.toc-collapsed]="isTocCollapsed()"
         [class.main-inner-pattern]="
+          activePage() === 'formPattern' ||
           activePage() === 'pageHeaderPattern' ||
           activePage() === 'footerPattern' ||
           activePage() === 'stepProcessPattern'
@@ -410,12 +423,16 @@
           class="content"
           [class.content-color]="activePage() === 'color'"
           [class.content-pattern]="
+            activePage() === 'formPattern' ||
             activePage() === 'pageHeaderPattern' ||
             activePage() === 'footerPattern' ||
             activePage() === 'stepProcessPattern'
           "
           [class.content-tokens]="
-            activePage() === 'tokens' || activePage() === 'spacing' || activePage() === 'typography'
+            activePage() === 'tokens' ||
+            activePage() === 'spacing' ||
+            activePage() === 'layout' ||
+            activePage() === 'typography'
           "
         >
           <ng-container *ngIf="activePage() === 'introduction'">
@@ -518,7 +535,7 @@
               </div>
               <h1>Installation</h1>
               <p class="lead">
-                Install Sportbook6vn from npm, load the theme once, then import only the standalone
+                Install Mbbiz from npm, load the theme once, then import only the standalone
                 components needed by each Angular page.
               </p>
             </div>
@@ -529,7 +546,7 @@
               </div>
               <p class="button-demo-description">
                 The published package is
-                <span class="button-inline-code">sportbook6vn&#64;0.0.1</span>. Install it in the
+                <span class="button-inline-code">mbbiz&#64;0.0.1</span>. Install it in the
                 Angular application that consumes the component library.
               </p>
               <div class="button-demo-card">
@@ -605,7 +622,7 @@
                 <h2>Import Style</h2>
               </div>
               <p class="button-demo-description">
-                Load the Sportbook6vn tokens and NG-Zorro bridge once in the global stylesheet. Keep
+                Load the Mbbiz tokens and NG-Zorro bridge once in the global stylesheet. Keep
                 product-level overrides after these imports.
               </p>
               <div class="button-demo-card">
@@ -652,7 +669,7 @@
                 <h2>Import Component</h2>
               </div>
               <p class="button-demo-description">
-                Sportbook6vn exports standalone Angular components. Import only the components used
+                Mbbiz exports standalone Angular components. Import only the components used
                 by the current page or feature module.
               </p>
               <div class="button-demo-card">
@@ -695,17 +712,297 @@
               <p class="button-demo-description">
                 Open the target component page, choose the matching case, and copy the snippet from
                 that page. Keep implementation imports from
-                <span class="button-inline-code">sportbook6vn</span> so the app stays on one source
+                <span class="button-inline-code">mbbiz</span> so the app stays on one source
                 of truth.
               </p>
               <div class="button-demo-tags">
-                <span class="button-inline-code">Sportbook6vnButtonComponent</span>
-                <span class="button-inline-code">Sportbook6vnInputComponent</span>
-                <span class="button-inline-code">Sportbook6vnDatepickerComponent</span>
-                <span class="button-inline-code">Sportbook6vnDropdownComponent</span>
-                <span class="button-inline-code">Sportbook6vnUploadFileComponent</span>
-                <span class="button-inline-code">Sportbook6vnStepsComponent</span>
+                <span class="button-inline-code">MbbizButtonComponent</span>
+                <span class="button-inline-code">MbbizInputComponent</span>
+                <span class="button-inline-code">MbbizDatepickerComponent</span>
+                <span class="button-inline-code">MbbizDropdownComponent</span>
+                <span class="button-inline-code">MbbizUploadFileComponent</span>
+                <span class="button-inline-code">MbbizStepsComponent</span>
               </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'formPattern'">
+            <style>
+              .form-pattern-fill-control {
+                display: block;
+                max-width: none;
+                width: 100%;
+              }
+
+              .form-pattern-fill-control .mbbiz-dropdown,
+              .form-pattern-fill-control .mbbiz-input,
+              .form-pattern-fill-control .mbbiz-textarea,
+              .form-pattern-fill-control .mbbiz-upload-file,
+              .form-pattern-fill-control .mbbiz-datepicker,
+              .form-pattern-fill-control .mbbiz-datepicker__input-field {
+                max-width: none;
+                min-width: 0;
+                width: 100%;
+              }
+
+              .form-pattern-compact-textarea .mbbiz-textarea__surface {
+                min-height: 72px;
+              }
+
+              .form-pattern-compact-textarea .mbbiz-textarea__field,
+              .form-pattern-compact-textarea .mbbiz-textarea__native {
+                min-height: 20px;
+              }
+            </style>
+
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Pattern</span>
+                <span class="slash">/</span>
+                <span>Form</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Form</h1>
+              <p class="lead">
+                Form pattern gom các bố cục nhập liệu phổ biến từ Figma vào một tab riêng, tái sử
+                dụng component thật của thư viện và chỉ compose local phần label cùng radio
+                description khi cần.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section form-preview-section"
+              *ngFor="let patternCase of formPatternCases"
+              [attr.id]="getFormPatternSectionId(patternCase.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ patternCase.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ patternCase.description }}</p>
+              <p class="button-demo-description page-header-pattern-note">{{ patternCase.usage }}</p>
+
+              <article class="button-demo-card page-header-pattern-demo-card" style="overflow: visible">
+                <div
+                  class="button-demo-preview page-header-pattern-demo-preview"
+                  [style.min-height]="
+                    patternCase.id === 'long'
+                      ? '596px'
+                      : patternCase.id === 'checkboxRadio'
+                        ? '516px'
+                        : patternCase.id === 'upload'
+                          ? '492px'
+                          : '548px'
+                  "
+                >
+                  <article
+                    style="
+                      align-items: flex-start;
+                      background: #ffffff;
+                      border-radius: 6px;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 20px;
+                      padding: 28px;
+                      width: min(100%, 944px);
+                    "
+                  >
+                    <div
+                      *ngIf="patternCase.heading"
+                      style="
+                        align-items: center;
+                        display: flex;
+                        gap: 28px;
+                        justify-content: space-between;
+                        width: 100%;
+                      "
+                    >
+                      <h3
+                        style="
+                          color: #192d39;
+                          font-family: var(--mbbiz-font-family-sans, 'Averta Std CY', 'Inter', 'Segoe UI', sans-serif);
+                          font-size: 20px;
+                          font-style: normal;
+                          font-weight: 600;
+                          letter-spacing: 0.25px;
+                          line-height: 28px;
+                          margin: 0;
+                        "
+                      >
+                        {{ patternCase.heading }}
+                      </h3>
+
+                      <mbbiz-button
+                        *ngIf="patternCase.topActionLabel"
+                        variant="secondary"
+                        size="sm"
+                        shape="pill"
+                      >
+                        {{ patternCase.topActionLabel }}
+                      </mbbiz-button>
+                    </div>
+
+                    <ng-container *ngIf="patternCase.id !== 'checkboxRadio'; else formPatternCheckboxRadioCase">
+                      <div
+                        *ngIf="patternCase.fields?.length"
+                        style="display: flex; flex-wrap: wrap; gap: 20px; width: 100%"
+                      >
+                        <div
+                          *ngFor="let field of patternCase.fields"
+                          [style.width]="field.width === 'half' ? 'calc((100% - 20px) / 2)' : '100%'"
+                          style="display: flex; flex-direction: column; gap: 4px"
+                        >
+                          <div
+                            style="align-items: center; display: flex; gap: 8px; min-height: 20px; width: 100%"
+                          >
+                            <div style="align-items: center; display: inline-flex; gap: 4px">
+                              <span class="form-preview-label">{{ field.title }}</span>
+                              <span class="form-preview-required" *ngIf="field.required">*</span>
+                            </div>
+
+                            <span class="form-preview-info" *ngIf="field.showInfo" aria-hidden="true">
+                              <svg viewBox="0 0 20 20" focusable="false" style="display: block; height: 20px; width: 20px">
+                                <path
+                                  d="M10 1.667a8.333 8.333 0 1 0 0 16.666 8.333 8.333 0 0 0 0-16.666Zm0 3.333a1.042 1.042 0 1 1 0 2.083 1.042 1.042 0 0 1 0-2.083Zm1.25 10H8.75v-1.667h.833V9.167H8.75V7.5h2.5v5.833h.833V15Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+
+                          <mbbiz-input
+                            *ngIf="field.kind === 'input'"
+                            class="form-pattern-fill-control"
+                            [placeholder]="field.placeholder"
+                          />
+
+                          <mbbiz-dropdown
+                            *ngIf="field.kind === 'dropdown'"
+                            class="form-pattern-fill-control form-preview-dropdown"
+                            [class.form-preview-dropdown--no-chevron]="field.showChevron === false"
+                            [placeholder]="field.placeholder"
+                            [items]="core3DropdownBasicItems"
+                          />
+
+                          <mbbiz-datepicker
+                            *ngIf="field.kind === 'datepicker'"
+                            class="form-pattern-fill-control"
+                            field="input"
+                            [placeholder]="field.placeholder"
+                          />
+
+                          <mbbiz-textarea
+                            *ngIf="field.kind === 'textarea'"
+                            class="form-pattern-fill-control form-pattern-compact-textarea"
+                            [placeholder]="field.placeholder"
+                            [maxLength]="field.maxLength ?? 200"
+                            [rows]="1"
+                          />
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <ng-template #formPatternCheckboxRadioCase>
+                      <div style="display: flex; flex-direction: column; gap: 20px; width: 100%">
+                        <div style="display: flex; flex-direction: column; gap: 16px; width: 100%">
+                          <span class="form-preview-label">{{ patternCase.fields?.[0]?.title }}</span>
+
+                          <mbbiz-checkbox
+                            *ngFor="let option of patternCase.checkboxes"
+                            [label]="option.label"
+                            [checked]="option.checked ?? false"
+                            [disabled]="option.disabled ?? false"
+                          />
+                        </div>
+
+                        <div style="display: flex; gap: 32px; width: 100%">
+                          <button
+                            *ngFor="let radio of patternCase.radios"
+                            type="button"
+                            (click)="setFormPatternSelectedRadio(radio.id)"
+                            style="
+                              align-items: flex-start;
+                              appearance: none;
+                              background: transparent;
+                              border: 0;
+                              display: flex;
+                              flex: 0 0 calc((100% - 32px) / 2);
+                              gap: 10px;
+                              padding: 0;
+                              text-align: left;
+                            "
+                          >
+                            <mbbiz-radio
+                              [name]="'form-pattern-radio'"
+                              [checked]="formPatternSelectedRadio() === radio.id"
+                            />
+
+                            <span style="display: flex; flex-direction: column; gap: 2px; padding-top: 1px">
+                              <span
+                                style="
+                                  color: #192d39;
+                                  font-family: var(--mbbiz-font-family-sans, 'Averta Std CY', 'Inter', 'Segoe UI', sans-serif);
+                                  font-size: 14px;
+                                  font-style: normal;
+                                  font-weight: 600;
+                                  letter-spacing: 0.25px;
+                                  line-height: 20px;
+                                "
+                              >
+                                {{ radio.title }}
+                              </span>
+                              <span
+                                style="
+                                  color: #192d39;
+                                  font-family: var(--mbbiz-font-family-sans, 'Averta Std CY', 'Inter', 'Segoe UI', sans-serif);
+                                  font-size: 14px;
+                                  font-style: normal;
+                                  font-weight: 400;
+                                  letter-spacing: 0.25px;
+                                  line-height: 20px;
+                                "
+                              >
+                                {{ radio.description }}
+                              </span>
+                            </span>
+                          </button>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 4px; width: 434px">
+                          <div
+                            style="align-items: center; display: flex; gap: 8px; min-height: 20px; width: 100%"
+                          >
+                            <div style="align-items: center; display: inline-flex; gap: 4px">
+                              <span class="form-preview-label">{{ patternCase.fields?.[0]?.title }}</span>
+                              <span class="form-preview-required">*</span>
+                            </div>
+                          </div>
+
+                          <mbbiz-datepicker
+                            class="form-pattern-fill-control"
+                            field="input"
+                            placeholder="Chọn ngày"
+                          />
+                        </div>
+                      </div>
+                    </ng-template>
+
+                    <div *ngIf="patternCase.id === 'upload'" style="display: flex; flex-direction: column; gap: 20px; width: 100%">
+                      <mbbiz-upload-file
+                        class="form-pattern-fill-control"
+                        label="Title"
+                        [files]="uploadFilesDone"
+                      />
+
+                      <mbbiz-upload-file
+                        class="form-pattern-fill-control"
+                        label="Title"
+                        [files]="uploadFilesDone"
+                      />
+                    </div>
+                  </article>
+                </div>
+              </article>
             </section>
           </ng-container>
 
@@ -721,7 +1018,7 @@
               <h1>Page header</h1>
               <p class="lead">
                 Page header là pattern đầu trang gồm breadcrumb điều hướng và tiêu đề chính. Preview
-                này reuse trực tiếp <span class="mono">sportbook6vn-breadcrumb</span> và chỉ
+                này reuse trực tiếp <span class="mono">mbbiz-breadcrumb</span> và chỉ
                 mapping đúng case đang có trong node Figma.
               </p>
             </div>
@@ -740,7 +1037,7 @@
               <article class="button-demo-card page-header-pattern-demo-card">
                 <div class="button-demo-preview page-header-pattern-demo-preview">
                   <article class="page-header-pattern-shell">
-                    <sportbook6vn-breadcrumb
+                    <mbbiz-breadcrumb
                       class="page-header-pattern-breadcrumb"
                       [items]="patternCase.breadcrumbItems"
                       ariaLabel="Page header breadcrumb preview"
@@ -765,7 +1062,7 @@
               <h1>Footer</h1>
               <p class="lead">
                 Footer là pattern gom nhiều action cuối trang vào một layout thống nhất. Nó dùng
-                các button sẵn có của Sportbook6vn để giữ nguyên token, trạng thái và thứ bậc
+                các button sẵn có của Mbbiz để giữ nguyên token, trạng thái và thứ bậc
                 hành động giữa các màn hình.
               </p>
             </div>
@@ -834,23 +1131,23 @@
                               </div>
                             </div>
 
-                            <sportbook6vn-button
+                            <mbbiz-button
                               [variant]="action.variant"
                               size="lg"
                               [fullWidth]="true"
                             >
                               {{ action.label }}
-                            </sportbook6vn-button>
+                            </mbbiz-button>
                           </div>
 
                           <ng-template #footerPatternActionButton>
-                            <sportbook6vn-button
+                            <mbbiz-button
                               [variant]="action.variant"
                               size="lg"
                               [fullWidth]="true"
                             >
                               {{ action.label }}
-                            </sportbook6vn-button>
+                            </mbbiz-button>
                           </ng-template>
                         </div>
                       </ng-container>
@@ -873,7 +1170,7 @@
               <h1>Step process</h1>
               <p class="lead">
                 Step process là card tiến trình xử lý theo trục dọc, ghép
-                <span class="mono">sportbook6vn-steps</span> với CTA lưu phương án và mốc lưu lần
+                <span class="mono">mbbiz-steps</span> với CTA lưu phương án và mốc lưu lần
                 cuối trong cùng một khối thao tác.
               </p>
             </div>
@@ -892,7 +1189,7 @@
               <article class="button-demo-card step-process-pattern-demo-card">
                 <div class="button-demo-preview step-process-pattern-demo-preview">
                   <article class="step-process-pattern-card-shell">
-                    <sportbook6vn-steps
+                    <mbbiz-steps
                       class="step-process-pattern-steps"
                       direction="vertical"
                       [items]="patternCase.steps"
@@ -901,14 +1198,14 @@
 
                     <div class="step-process-pattern-save" *ngIf="patternCase.saveCtaLabel">
                       <div class="step-process-pattern-save-cta">
-                        <sportbook6vn-button
+                        <mbbiz-button
                           variant="secondary"
                           size="sm"
                           shape="pill"
                           [fullWidth]="true"
                         >
                           {{ patternCase.saveCtaLabel }}
-                        </sportbook6vn-button>
+                        </mbbiz-button>
                       </div>
 
                       <p class="step-process-pattern-save-time" *ngIf="patternCase.saveTimestamp">
@@ -974,7 +1271,7 @@
                     <div class="core3-map-button-row" *ngFor="let group of demo.groups">
                       <span class="core3-map-button-row-label">{{ group.label }}</span>
                       <div class="core3-map-row">
-                        <sportbook6vn-button
+                        <mbbiz-button
                           *ngFor="let action of group.actions"
                           [shape]="action.shape"
                           [variant]="action.variant"
@@ -983,13 +1280,13 @@
                         >
                           @if (action.showStartIcon ?? false) {
                             <span
-                              sportbook6vnButtonStartIcon
+                              mbbizButtonStartIcon
                               aria-hidden="true"
                               class="core3-map-button-add-icon"
                             ></span>
                           }
                           {{ action.label }}
-                        </sportbook6vn-button>
+                        </mbbiz-button>
                       </div>
                     </div>
                   </div>
@@ -1033,7 +1330,7 @@
 
             <section class="section button-api-section" id="button-api">
               <h2>API</h2>
-              <h3 class="button-api-group-title">sportbook6vn-button</h3>
+              <h3 class="button-api-group-title">mbbiz-button</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -1132,7 +1429,7 @@
               <h1>Button Mapping</h1>
               <p class="lead">
                 Bản tách riêng cho component
-                <span class="button-inline-code">sportbook6vn-button</span>, map 1:1 từ preview sang
+                <span class="button-inline-code">mbbiz-button</span>, map 1:1 từ preview sang
                 app docs theo cấu trúc use-case-first: Basic, Size, Shape, With icon, Disabled.
               </p>
             </div>
@@ -1176,7 +1473,7 @@
                     <div class="core3-map-button-row" *ngFor="let group of demo.groups">
                       <span class="core3-map-button-row-label">{{ group.label }}</span>
                       <div class="core3-map-row">
-                        <sportbook6vn-button
+                        <mbbiz-button
                           *ngFor="let action of group.actions"
                           [shape]="action.shape"
                           [variant]="action.variant"
@@ -1185,13 +1482,13 @@
                         >
                           @if (action.showStartIcon ?? false) {
                             <span
-                              sportbook6vnButtonStartIcon
+                              mbbizButtonStartIcon
                               aria-hidden="true"
                               class="core3-map-button-add-icon"
                             ></span>
                           }
                           {{ action.label }}
-                        </sportbook6vn-button>
+                        </mbbiz-button>
                       </div>
                     </div>
                   </div>
@@ -1235,7 +1532,7 @@
 
             <section class="section button-api-section" id="button-mapping-api">
               <h2>API</h2>
-              <h3 class="button-api-group-title">sportbook6vn-button</h3>
+              <h3 class="button-api-group-title">mbbiz-button</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -1333,7 +1630,7 @@
               </div>
               <h1>Input Field</h1>
               <p class="lead">
-                Real Sportbook6vn input components mapped 1:1 from the approved preview
+                Real Mbbiz input components mapped 1:1 from the approved preview
                 <span class="button-inline-code">Input family / docs-ready draft</span>. Input Tag
                 is intentionally excluded because it has independent tag creation and validation
                 behavior.
@@ -1398,7 +1695,7 @@
                 behavior from the component runtime.
               </p>
               <div class="button-demo-tags">
-                <span class="button-inline-code">selector=sportbook6vn-input</span>
+                <span class="button-inline-code">selector=mbbiz-input</span>
                 <span class="button-inline-code">placeholder=Input text</span>
                 <span class="button-inline-code">status=default</span>
               </div>
@@ -1406,7 +1703,7 @@
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
                   <div class="core3-input-frame core3-input-frame--compact">
-                    <sportbook6vn-input
+                    <mbbiz-input
                       inputId="input-doc-basic"
                       placeholder="Input text"
                       [value]="core3InputValue()"
@@ -1433,13 +1730,13 @@
                 slot for compact currency or unit hints.
               </p>
               <div class="button-demo-tags">
-                <span class="button-inline-code">selector=sportbook6vn-affix-input</span>
+                <span class="button-inline-code">selector=mbbiz-affix-input</span>
                 <span class="button-inline-code">mode=prefix</span>
               </div>
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
                   <div class="core3-input-frame core3-input-frame--compact">
-                    <sportbook6vn-affix-input
+                    <mbbiz-affix-input
                       inputId="input-doc-affix-prefix"
                       placeholder="Input text"
                       mode="prefix"
@@ -1470,13 +1767,13 @@
                 slots.
               </p>
               <div class="button-demo-tags">
-                <span class="button-inline-code">selector=sportbook6vn-affix-input</span>
+                <span class="button-inline-code">selector=mbbiz-affix-input</span>
                 <span class="button-inline-code">mode=both</span>
               </div>
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
                   <div class="core3-input-frame core3-input-frame--compact">
-                    <sportbook6vn-affix-input
+                    <mbbiz-affix-input
                       inputId="input-doc-affix-both"
                       placeholder="Input text"
                       mode="both"
@@ -1505,13 +1802,13 @@
                 actions. The clear icon removes the current text value.
               </p>
               <div class="button-demo-tags">
-                <span class="button-inline-code">selector=sportbook6vn-search-input</span>
+                <span class="button-inline-code">selector=mbbiz-search-input</span>
                 <span class="button-inline-code">allowClear=true</span>
               </div>
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
                   <div class="core3-input-frame core3-input-frame--compact">
-                    <sportbook6vn-search-input
+                    <mbbiz-search-input
                       inputId="input-doc-search"
                       placeholder="Input text"
                       [value]="core3SearchValue()"
@@ -1538,13 +1835,13 @@
                 toggle. Default state starts empty and interaction drives the filled state.
               </p>
               <div class="button-demo-tags">
-                <span class="button-inline-code">selector=sportbook6vn-password-input</span>
+                <span class="button-inline-code">selector=mbbiz-password-input</span>
                 <span class="button-inline-code">visible=false</span>
               </div>
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
                   <div class="core3-input-frame core3-input-frame--compact">
-                    <sportbook6vn-password-input
+                    <mbbiz-password-input
                       inputId="input-doc-password"
                       [value]="core3PasswordValue()"
                       [visible]="core3PasswordVisible()"
@@ -1572,14 +1869,14 @@
                 counter and fixed visual shell.
               </p>
               <div class="button-demo-tags">
-                <span class="button-inline-code">selector=sportbook6vn-textarea</span>
+                <span class="button-inline-code">selector=mbbiz-textarea</span>
                 <span class="button-inline-code">rows=4</span>
                 <span class="button-inline-code">maxLength=100</span>
               </div>
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
                   <div class="core3-input-frame core3-input-frame--compact">
-                    <sportbook6vn-textarea
+                    <mbbiz-textarea
                       textareaId="input-doc-textarea"
                       placeholder="Input text"
                       [rows]="4"
@@ -1608,7 +1905,7 @@
                 that stays within the field shell.
               </p>
               <div class="button-demo-tags">
-                <span class="button-inline-code">selector=sportbook6vn-floating-label-input</span>
+                <span class="button-inline-code">selector=mbbiz-floating-label-input</span>
                 <span class="button-inline-code">label=Title</span>
               </div>
               <div class="button-demo-card">
@@ -1616,7 +1913,7 @@
                   <div
                     class="core3-input-frame core3-input-frame--compact core3-input-frame--intrinsic"
                   >
-                    <sportbook6vn-floating-label-input
+                    <mbbiz-floating-label-input
                       inputId="input-doc-floating-label"
                       label="Title"
                       placeholder="Input text"
@@ -1643,7 +1940,7 @@
                 droplist interaction is verified from the component itself.
               </p>
               <div class="button-demo-tags">
-                <span class="button-inline-code">selector=sportbook6vn-affix-label-input</span>
+                <span class="button-inline-code">selector=mbbiz-affix-label-input</span>
                 <span class="button-inline-code">prefixDropdownItems</span>
               </div>
               <div class="button-demo-card">
@@ -1651,7 +1948,7 @@
                   <div class="core3-input-frame core3-input-frame--grid">
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Interactive prefix</span>
-                      <sportbook6vn-affix-label-input
+                      <mbbiz-affix-label-input
                         inputId="input-doc-affix-label-interactive"
                         placeholder="Input text"
                         prefixLabel="Loại tiền"
@@ -1664,7 +1961,7 @@
                     </div>
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Selected currency</span>
-                      <sportbook6vn-affix-label-input
+                      <mbbiz-affix-label-input
                         inputId="input-doc-affix-label-selected"
                         placeholder="Input text"
                         prefixLabel="Loại tiền"
@@ -1703,7 +2000,7 @@
                   <div class="core3-input-frame core3-input-frame--grid core3-input-frame--three">
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Input</span>
-                      <sportbook6vn-input
+                      <mbbiz-input
                         inputId="input-doc-input-error"
                         placeholder="Input text"
                         status="error"
@@ -1711,7 +2008,7 @@
                     </div>
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Search</span>
-                      <sportbook6vn-search-input
+                      <mbbiz-search-input
                         inputId="input-doc-search-error"
                         placeholder="Input text"
                         status="error"
@@ -1719,14 +2016,14 @@
                     </div>
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Password</span>
-                      <sportbook6vn-password-input
+                      <mbbiz-password-input
                         inputId="input-doc-password-error"
                         status="error"
                       />
                     </div>
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Textarea</span>
-                      <sportbook6vn-textarea
+                      <mbbiz-textarea
                         textareaId="input-doc-textarea-error"
                         placeholder="Input text"
                         [rows]="4"
@@ -1736,7 +2033,7 @@
                     </div>
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Floating label</span>
-                      <sportbook6vn-floating-label-input
+                      <mbbiz-floating-label-input
                         inputId="input-doc-floating-error"
                         label="Title"
                         placeholder="Input text"
@@ -1774,7 +2071,7 @@
                   <div class="core3-input-frame core3-input-frame--grid core3-input-frame--three">
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Input</span>
-                      <sportbook6vn-input
+                      <mbbiz-input
                         inputId="input-doc-input-disabled"
                         placeholder="Input text"
                         [disabled]="true"
@@ -1782,7 +2079,7 @@
                     </div>
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Search</span>
-                      <sportbook6vn-search-input
+                      <mbbiz-search-input
                         inputId="input-doc-search-disabled"
                         placeholder="Input text"
                         [disabled]="true"
@@ -1790,14 +2087,14 @@
                     </div>
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Password</span>
-                      <sportbook6vn-password-input
+                      <mbbiz-password-input
                         inputId="input-doc-password-disabled"
                         [disabled]="true"
                       />
                     </div>
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Textarea</span>
-                      <sportbook6vn-textarea
+                      <mbbiz-textarea
                         textareaId="input-doc-textarea-disabled"
                         placeholder="Input text"
                         [rows]="4"
@@ -1807,7 +2104,7 @@
                     </div>
                     <div class="core3-input-demo-stack">
                       <span class="core3-map-button-row-label">Floating label</span>
-                      <sportbook6vn-floating-label-input
+                      <mbbiz-floating-label-input
                         inputId="input-doc-floating-disabled"
                         label="Title"
                         placeholder="Input text"
@@ -2020,7 +2317,7 @@
                 <div class="button-demo-preview core3-map-preview">
                   <ng-container [ngSwitch]="demo.variant">
                     <div *ngSwitchCase="'interactive'" class="core3-map-col">
-                      <sportbook6vn-input-tag
+                      <mbbiz-input-tag
                         inputId="input-tag-docs-interactive"
                         placeholder="Input and press Enter"
                         [allowClear]="true"
@@ -2038,7 +2335,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Max tag count</span>
-                        <sportbook6vn-input-tag
+                        <mbbiz-input-tag
                           inputId="input-tag-docs-overflow"
                           placeholder=""
                           [tags]="['1', '2', '3', '4', '5']"
@@ -2047,7 +2344,7 @@
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Responsive tags</span>
-                        <sportbook6vn-input-tag
+                        <mbbiz-input-tag
                           inputId="input-tag-docs-responsive"
                           placeholder=""
                           [tags]="['label 1', 'label 2', 'label 3', 'label 4', 'label 5']"
@@ -2060,7 +2357,7 @@
                     </div>
 
                     <div *ngSwitchCase="'renderTag'" class="core3-map-col">
-                      <sportbook6vn-input-tag
+                      <mbbiz-input-tag
                         inputId="input-tag-docs-render"
                         placeholder="Color tags"
                         [allowClear]="true"
@@ -2070,7 +2367,7 @@
                     </div>
 
                     <div *ngSwitchCase="'validation'" class="core3-map-col">
-                      <sportbook6vn-input-tag
+                      <mbbiz-input-tag
                         inputId="input-tag-docs-validation"
                         placeholder="Input email and press Enter"
                         [allowClear]="true"
@@ -2083,7 +2380,7 @@
                     </div>
 
                     <div *ngSwitchCase="'error'" class="core3-map-col">
-                      <sportbook6vn-input-tag
+                      <mbbiz-input-tag
                         inputId="input-tag-docs-error"
                         placeholder="Input text"
                         status="error"
@@ -2092,7 +2389,7 @@
                     </div>
 
                     <div *ngSwitchCase="'disabled'" class="core3-map-col">
-                      <sportbook6vn-input-tag
+                      <mbbiz-input-tag
                         inputId="input-tag-docs-disabled"
                         placeholder="Input text"
                         [disabled]="true"
@@ -2139,7 +2436,7 @@
 
             <section class="section button-api-section" id="input-tag-api">
               <h2>API</h2>
-              <h3 class="button-api-group-title">sportbook6vn-input-tag</h3>
+              <h3 class="button-api-group-title">mbbiz-input-tag</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -2245,15 +2542,15 @@
                 <div class="button-demo-preview core3-map-preview core3-breadcrumb-preview">
                   <ng-container [ngSwitch]="demo.variant">
                     <div *ngSwitchCase="'amount'" class="core3-breadcrumb-stack">
-                      <sportbook6vn-breadcrumb [amount]="1" />
-                      <sportbook6vn-breadcrumb [amount]="2" />
-                      <sportbook6vn-breadcrumb [amount]="3" />
-                      <sportbook6vn-breadcrumb [amount]="4" />
-                      <sportbook6vn-breadcrumb [amount]="5" />
+                      <mbbiz-breadcrumb [amount]="1" />
+                      <mbbiz-breadcrumb [amount]="2" />
+                      <mbbiz-breadcrumb [amount]="3" />
+                      <mbbiz-breadcrumb [amount]="4" />
+                      <mbbiz-breadcrumb [amount]="5" />
                     </div>
 
                     <div *ngSwitchCase="'state'" class="core3-breadcrumb-state">
-                      <sportbook6vn-breadcrumb [amount]="2" />
+                      <mbbiz-breadcrumb [amount]="2" />
                     </div>
                   </ng-container>
                 </div>
@@ -2296,7 +2593,7 @@
 
             <section class="section button-api-section" id="breadcrumb-api">
               <h2>API</h2>
-              <h3 class="button-api-group-title">sportbook6vn-breadcrumb</h3>
+              <h3 class="button-api-group-title">mbbiz-breadcrumb</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -2390,7 +2687,7 @@
                     <div class="core3-step-states-board">
                       <div class="core3-step-state-card" *ngFor="let stateCase of horizontalStepStateCases">
                         <span class="core3-step-state-title">{{ stateCase.title }}</span>
-                        <sportbook6vn-steps
+                        <mbbiz-steps
                           direction="horizontal"
                           [items]="stateCase.items"
                           [ariaLabel]="stateCase.ariaLabel"
@@ -2401,7 +2698,7 @@
                     <div class="core3-vertical-step-states-board">
                       <div class="core3-step-state-card" *ngFor="let stateCase of verticalStepStateCases">
                         <span class="core3-step-state-title">{{ stateCase.title }}</span>
-                        <sportbook6vn-steps
+                        <mbbiz-steps
                           direction="vertical"
                           [items]="stateCase.items"
                           [ariaLabel]="stateCase.ariaLabel"
@@ -2410,7 +2707,7 @@
                     </div>
                   } @else if (demo.variant === 'vertical') {
                     <div class="core3-vertical-steps-board">
-                      <sportbook6vn-steps
+                      <mbbiz-steps
                         direction="vertical"
                         [items]="verticalStepPreviewItems"
                         ariaLabel="Vertical steps preview"
@@ -2418,7 +2715,7 @@
                     </div>
                   } @else {
                     <div class="core3-steps-board">
-                      <sportbook6vn-steps
+                      <mbbiz-steps
                         *ngFor="let current of stepProgressStates"
                         direction="horizontal"
                         [amount]="4"
@@ -2463,7 +2760,7 @@
               <div class="button-demo-card core3-tab-card">
                 <div class="button-demo-preview core3-map-preview core3-tab-preview">
                   <ng-container [ngSwitch]="demo.variant">
-                    <sportbook6vn-tab
+                    <mbbiz-tab
                       *ngSwitchCase="'default'"
                       [items]="tabDefaultItems"
                       [activeIndex]="tabPillActiveIndex()"
@@ -2471,12 +2768,12 @@
                     />
 
                     <div *ngSwitchCase="'type'" class="core3-tab-stack">
-                      <sportbook6vn-tab
+                      <mbbiz-tab
                         [items]="tabDefaultItems"
                         [activeIndex]="tabPillActiveIndex()"
                         (indexChange)="tabPillActiveIndex.set($event)"
                       />
-                      <sportbook6vn-tab
+                      <mbbiz-tab
                         variant="underlined"
                         [items]="tabDefaultItems"
                         [activeIndex]="tabUnderlinedActiveIndex()"
@@ -2485,13 +2782,13 @@
                     </div>
 
                     <div *ngSwitchCase="'size'" class="core3-tab-stack">
-                      <sportbook6vn-tab
+                      <mbbiz-tab
                         size="small"
                         [items]="tabDefaultItems"
                         [activeIndex]="tabSmallActiveIndex()"
                         (indexChange)="tabSmallActiveIndex.set($event)"
                       />
-                      <sportbook6vn-tab
+                      <mbbiz-tab
                         variant="underlined"
                         size="small"
                         [items]="tabDefaultItems"
@@ -2501,8 +2798,8 @@
                     </div>
 
                     <div *ngSwitchCase="'disabled-count'" class="core3-tab-stack">
-                      <sportbook6vn-tab [items]="tabDisabledItems" [activeIndex]="2" />
-                      <sportbook6vn-tab variant="underlined" [items]="tabCountItems" />
+                      <mbbiz-tab [items]="tabDisabledItems" [activeIndex]="2" />
+                      <mbbiz-tab variant="underlined" [items]="tabCountItems" />
                     </div>
                   </ng-container>
                 </div>
@@ -2541,12 +2838,12 @@
                 <div class="button-demo-preview core3-map-preview message-demo-preview">
                   <ng-container [ngSwitch]="demo.variant">
                     <div *ngSwitchCase="'default'" class="message-demo-frame message-demo-frame--intrinsic">
-                      <sportbook6vn-message />
+                      <mbbiz-message />
                     </div>
 
                     <div *ngSwitchCase="'type'" class="message-demo-frame">
                       <div class="message-demo-stack">
-                        <sportbook6vn-message
+                        <mbbiz-message
                           *ngFor="let item of messageCases"
                           [type]="item.type"
                           [content]="item.content"
@@ -2555,7 +2852,7 @@
                     </div>
 
                     <div *ngSwitchCase="'dismissible'" class="message-demo-frame message-demo-frame--intrinsic">
-                      <sportbook6vn-message
+                      <mbbiz-message
                         type="warning"
                         content="Warning inform with dismiss button."
                         [closable]="true"
@@ -2564,21 +2861,21 @@
 
                     <div *ngSwitchCase="'service'" class="message-demo-frame">
                       <div class="message-demo-actions">
-                        <sportbook6vn-button
+                        <mbbiz-button
                           *ngFor="let item of messageCases"
                           size="sm"
                           variant="secondary"
                           (buttonClick)="showMessage(item.type)"
                         >
                           {{ item.type === 'inform' ? 'Inform' : (item.type | titlecase) }}
-                        </sportbook6vn-button>
-                        <sportbook6vn-button
+                        </mbbiz-button>
+                        <mbbiz-button
                           size="sm"
                           variant="secondary"
                           (buttonClick)="clearMessages()"
                         >
                           Clear
-                        </sportbook6vn-button>
+                        </mbbiz-button>
                       </div>
                     </div>
                   </ng-container>
@@ -2596,9 +2893,11 @@
               </div>
               <h1>Iconography</h1>
               <p class="lead">
-                Iconography is the asset registry for the icons currently served from
-                <span class="mono">/assets/figma</span>. Developers can inspect each file and copy
-                its public URL or image snippet.
+                Catalog of
+                <span class="mono">&#64;hieudeptrai1112/icon</span>
+                — Linear vs Bold families, token sizes
+                (<span class="mono">xs–2xl</span>), and copy-ready
+                <span class="mono">&lt;lib-icon&gt;</span> snippets.
               </p>
             </div>
 
@@ -2606,39 +2905,125 @@
               <h2>Usage</h2>
               <div class="illustration-guideline-grid">
                 <article class="illustration-guideline-card">
-                  <span>Base path</span>
-                  <code>/assets/figma/</code>
-                  <p>Use the exported file directly from the Angular public asset folder.</p>
+                  <span>Package</span>
+                  <code>&#64;hieudeptrai1112/icon</code>
+                  <p>
+                    Register icons once with
+                    <span class="mono">provideIcons(allIcons)</span>, then render with
+                    <span class="mono">&lt;lib-icon&gt;</span>.
+                  </p>
                 </article>
                 <article class="illustration-guideline-card">
-                  <span>Format</span>
-                  <code>SVG first</code>
-                  <p>Use the PNG entry only when the source icon is available as a raster asset.</p>
+                  <span>Families</span>
+                  <code>Linear · Bold</code>
+                  <p>
+                    <span class="mono">ALinear_*</span> → stroke icons;
+                    <span class="mono">ABold_*</span> → filled status icons.
+                  </p>
                 </article>
                 <article class="illustration-guideline-card">
-                  <span>Reference</span>
-                  <code>Copy URL / Copy snippet</code>
-                  <p>Copy the exact registered path to avoid duplicate or renamed local assets.</p>
+                  <span>Sizes</span>
+                  <code>iconsize/xs–2xl</code>
+                  <p>
+                    Default is
+                    <span class="mono">m</span>
+                    (24px). Pass
+                    <span class="mono">size="xs|s|m|l|xl|2xl"</span>.
+                  </p>
                 </article>
               </div>
 
               <div class="illustration-code-card">
                 <div class="button-code-head">
                   <span class="button-code-file">example.html</span>
-                  <span class="button-code-hint">Registered search icon</span>
+                  <span class="button-code-hint">{{ iconLibraryPreviewName() }}</span>
                 </div>
-                <pre class="button-code-block"><code>&lt;img
-  src="/assets/figma/a4bec56f-e50e-413d-917b-016797d3ae81.svg"
-  alt="Search icon"
-/&gt;</code></pre>
+                <pre class="button-code-block"><code>&lt;lib-icon name="{{ iconLibraryPreviewName() }}" size="m" /&gt;</code></pre>
               </div>
             </section>
 
+            <section class="section iconography-sizes-section" id="iconography-sizes">
+              <div class="illustration-section-head">
+                <h2>Sizes</h2>
+                <span>{{ iconLibrarySizePreviews.length }} tokens</span>
+              </div>
+              <p class="iconography-section-lead">
+                Same glyph at every token size. Click a library card below to change the preview name.
+              </p>
+
+              <div class="iconography-size-strip">
+                <article
+                  class="iconography-size-card"
+                  *ngFor="let row of iconLibrarySizePreviews"
+                >
+                  <div class="iconography-size-thumb">
+                    <lib-icon [name]="iconLibraryPreviewName()" [size]="row.token" />
+                  </div>
+                  <div class="iconography-size-meta">
+                    <strong>{{ row.token }}</strong>
+                    <code>{{ row.alias }}</code>
+                    <span>{{ row.px }}px</span>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <ng-container *ngFor="let group of iconLibraryGroups">
+              <section class="section iconography-library-section" [id]="group.id">
+                <div class="illustration-section-head">
+                  <h2>{{ group.title }}</h2>
+                  <span>{{ group.entries.length }} icons</span>
+                </div>
+                <p class="iconography-section-lead">{{ group.description }}</p>
+
+                <div class="iconography-grid iconography-lib-grid">
+                  <article
+                    class="illustration-card iconography-card iconography-lib-card"
+                    *ngFor="let entry of group.entries"
+                    [class.is-selected]="iconLibraryPreviewName() === entry.name"
+                    (click)="setIconLibraryPreviewName(entry.name)"
+                  >
+                    <div class="illustration-thumb iconography-thumb iconography-lib-thumb">
+                      <lib-icon [name]="entry.name" size="l" />
+                    </div>
+
+                    <div class="illustration-card-body">
+                      <div class="illustration-card-title">
+                        <h3>{{ entry.label }}</h3>
+                        <span>{{ group.title }}</span>
+                      </div>
+                      <code class="illustration-path">{{ entry.name }}</code>
+                      <p>{{ entry.file }}</p>
+                    </div>
+
+                    <div class="illustration-card-actions">
+                      <button
+                        class="button-icon-btn illustration-copy-btn"
+                        type="button"
+                        (click)="copyIconLibrarySnippet(entry); $event.stopPropagation()"
+                      >
+                        {{
+                          copiedIconLibraryName() === entry.name
+                            ? 'Copied snippet'
+                            : 'Copy snippet'
+                        }}
+                      </button>
+                    </div>
+                  </article>
+                </div>
+              </section>
+            </ng-container>
+
             <section class="section iconography-library-section" id="iconography-assets">
               <div class="illustration-section-head">
-                <h2>Asset Library</h2>
+                <h2>Docs chrome assets</h2>
                 <span>{{ iconAssets.length }} files</span>
               </div>
+              <p class="iconography-section-lead">
+                Legacy SVGs under
+                <span class="mono">/assets/figma</span>
+                used by this docs shell — not part of the product icon package.
+              </p>
 
               <div class="iconography-grid">
                 <article
@@ -2682,23 +3067,21 @@
 
             <section class="section iconography-naming-section" id="iconography-naming">
               <h2>Naming</h2>
-              <div class="button-api-table iconography-file-table">
+              <div class="button-api-table iconography-file-table iconography-lib-table">
                 <div class="button-api-row button-api-head">
+                  <span>Family</span>
                   <span>Name</span>
-                  <span>File</span>
-                  <span>Format</span>
-                  <span>Size</span>
+                  <span>Source</span>
                   <span>Snippet</span>
-                  <span>Usage</span>
                 </div>
-                <div class="button-api-row" *ngFor="let asset of iconAssets">
-                  <span class="button-api-col-description">{{ asset.name }}</span>
-                  <code class="token-code">{{ asset.fileName }}</code>
-                  <code class="token-code">{{ asset.format }}</code>
-                  <code class="token-code">{{ asset.size }}</code>
-                  <code class="token-code">{{ getIconAssetSnippet(asset) }}</code>
-                  <span class="button-api-col-description">{{ asset.usage }}</span>
-                </div>
+                <ng-container *ngFor="let group of iconLibraryGroups">
+                  <div class="button-api-row" *ngFor="let entry of group.entries">
+                    <code class="token-code">{{ group.title }}</code>
+                    <code class="token-code">{{ entry.name }}</code>
+                    <code class="token-code">{{ entry.file }}</code>
+                    <code class="token-code">{{ getIconLibrarySnippet(entry) }}</code>
+                  </div>
+                </ng-container>
               </div>
             </section>
           </ng-container>
@@ -2925,14 +3308,14 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Default / click to open</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           placeholder="Lựa chọn"
                           [items]="core3DropdownBasicItems"
                         />
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Selected value</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           placeholder="Lựa chọn"
                           value="option-1"
                           [items]="core3DropdownBasicItems"
@@ -2946,7 +3329,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Empty</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           placeholder="Lựa chọn"
                           mode="multiple"
                           [items]="core3DropdownItems"
@@ -2954,7 +3337,7 @@
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Selected values</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           placeholder="Lựa chọn"
                           mode="multiple"
                           [items]="core3DropdownItems"
@@ -2969,14 +3352,14 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Empty</span>
-                        <sportbook6vn-dropdown-tag
+                        <mbbiz-dropdown-tag
                           placeholder="Lựa chọn"
                           [items]="core3DropdownItems"
                         />
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Selected tags</span>
-                        <sportbook6vn-dropdown-tag
+                        <mbbiz-dropdown-tag
                           placeholder="Lựa chọn"
                           [items]="core3DropdownItems"
                           [values]="['option-1', 'option-2']"
@@ -2984,7 +3367,7 @@
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Overflow +N</span>
-                        <sportbook6vn-dropdown-tag
+                        <mbbiz-dropdown-tag
                           placeholder="Lựa chọn"
                           [items]="core3DropdownItems"
                           [values]="['option-1', 'option-2', 'option-3', 'option-4']"
@@ -2998,7 +3381,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Single</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           title="Title"
                           labelMode="inside"
                           placeholder="Lựa chọn"
@@ -3008,7 +3391,7 @@
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Multiple</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           title="Title"
                           labelMode="inside"
                           placeholder="Lựa chọn"
@@ -3031,7 +3414,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Single</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           placeholder="Lựa chọn"
                           [items]="core3DropdownItems"
                           searchBehavior="auto"
@@ -3040,7 +3423,7 @@
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Multiple</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           placeholder="Lựa chọn"
                           mode="multiple"
                           [items]="core3DropdownItems"
@@ -3057,7 +3440,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Single error</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           placeholder="Lựa chọn"
                           status="error"
                           [items]="core3DropdownItems"
@@ -3065,7 +3448,7 @@
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Multiple error</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           placeholder="Lựa chọn"
                           mode="multiple"
                           status="error"
@@ -3075,7 +3458,7 @@
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Tag error</span>
-                        <sportbook6vn-dropdown-tag
+                        <mbbiz-dropdown-tag
                           placeholder="Lựa chọn"
                           status="error"
                           [items]="core3DropdownItems"
@@ -3089,7 +3472,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Single</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           placeholder="Lựa chọn"
                           [items]="core3DropdownItems"
                           [disabled]="true"
@@ -3097,7 +3480,7 @@
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Multiple</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           placeholder="Lựa chọn"
                           mode="multiple"
                           [items]="core3DropdownItems"
@@ -3107,7 +3490,7 @@
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Tag</span>
-                        <sportbook6vn-dropdown-tag
+                        <mbbiz-dropdown-tag
                           placeholder="Lựa chọn"
                           [items]="core3DropdownItems"
                           [values]="['option-1', 'option-2', 'option-3', 'option-4']"
@@ -3122,7 +3505,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">No data</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           placeholder="Lựa chọn"
                           [items]="core3DropdownEmptyItems"
                           emptyState="no-data"
@@ -3130,7 +3513,7 @@
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Search no data</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           placeholder="Lựa chọn"
                           [items]="core3DropdownItems"
                           emptyState="search-no-data"
@@ -3138,7 +3521,7 @@
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">API error</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           placeholder="Lựa chọn"
                           [items]="core3DropdownItems"
                           emptyState="api-error"
@@ -3146,7 +3529,7 @@
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Loading</span>
-                        <sportbook6vn-dropdown
+                        <mbbiz-dropdown
                           placeholder="Lựa chọn"
                           [items]="core3DropdownItems"
                           emptyState="loading"
@@ -3194,7 +3577,7 @@
 
             <section class="section button-api-section" id="dropdown-api">
               <h2>API</h2>
-              <h3 class="button-api-group-title">sportbook6vn-dropdown</h3>
+              <h3 class="button-api-group-title">mbbiz-dropdown</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -3216,7 +3599,7 @@
                 </div>
               </div>
 
-              <h3 class="button-api-group-title">sportbook6vn-dropdown-tag</h3>
+              <h3 class="button-api-group-title">mbbiz-dropdown-tag</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -3349,7 +3732,7 @@
                         </span>
                       </div>
 
-                      <sportbook6vn-dropdown
+                      <mbbiz-dropdown
                         class="form-preview-dropdown"
                         style="display: inline-block; width: 100%"
                         [class.form-preview-dropdown--no-chevron]="!field.showChevron"
@@ -3413,15 +3796,15 @@
                   <ng-container [ngSwitch]="demo.variant">
                     <div *ngSwitchCase="'basic'" class="core3-input-family">
                       <div class="core3-map-row">
-                        <sportbook6vn-radio label="Radio" />
-                        <sportbook6vn-radio label="Checked Radio" [defaultChecked]="true" />
+                        <mbbiz-radio label="Radio" />
+                        <mbbiz-radio label="Checked Radio" [defaultChecked]="true" />
                       </div>
                     </div>
 
                     <div *ngSwitchCase="'disabled'" class="core3-input-family">
                       <div class="core3-map-row">
-                        <sportbook6vn-radio label="Disabled Radio" [disabled]="true" />
-                        <sportbook6vn-radio
+                        <mbbiz-radio label="Disabled Radio" [disabled]="true" />
+                        <mbbiz-radio
                           label="Disabled Checked Radio"
                           [defaultChecked]="true"
                           [disabled]="true"
@@ -3430,7 +3813,7 @@
                     </div>
 
                     <div *ngSwitchCase="'group'" class="core3-input-family">
-                      <sportbook6vn-radio-group
+                      <mbbiz-radio-group
                         name="radio-docs-group-horizontal"
                         [options]="core3RadioGroupOptions"
                         [value]="radioGroupValue()"
@@ -3439,7 +3822,7 @@
                     </div>
 
                     <div *ngSwitchCase="'verticalGroup'" class="core3-input-family">
-                      <sportbook6vn-radio-group
+                      <mbbiz-radio-group
                         name="radio-docs-group-vertical"
                         direction="vertical"
                         [options]="core3RadioGroupOptions"
@@ -3492,7 +3875,7 @@
                 Radio exposes a single control API and a group API for option arrays.
               </p>
 
-              <h3 class="button-api-group-title">sportbook6vn-radio</h3>
+              <h3 class="button-api-group-title">mbbiz-radio</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -3514,7 +3897,7 @@
                 </div>
               </div>
 
-              <h3 class="button-api-group-title">sportbook6vn-radio-group</h3>
+              <h3 class="button-api-group-title">mbbiz-radio-group</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -3625,7 +4008,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Date</span>
-                        <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" />
+                        <mbbiz-datepicker field="input" placeholder="Chọn ngày" />
                       </div>
                     </div>
 
@@ -3635,7 +4018,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Date + time</span>
-                        <sportbook6vn-datepicker
+                        <mbbiz-datepicker
                           field="input"
                           placeholder="Chọn ngày"
                           [showTime]="true"
@@ -3649,7 +4032,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Interest</span>
-                        <sportbook6vn-datepicker
+                        <mbbiz-datepicker
                           field="input"
                           content="interest"
                           panelLabel="Tháng 5 2025"
@@ -3664,7 +4047,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Month</span>
-                        <sportbook6vn-datepicker
+                        <mbbiz-datepicker
                           field="input"
                           content="month"
                           panelLabel="2026"
@@ -3679,7 +4062,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Year</span>
-                        <sportbook6vn-datepicker
+                        <mbbiz-datepicker
                           field="input"
                           content="year"
                           panelLabel="2020 - 2031"
@@ -3694,7 +4077,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Date to date</span>
-                        <sportbook6vn-datepicker
+                        <mbbiz-datepicker
                           mode="range"
                           field="input"
                           startPlaceholder="Từ ngày"
@@ -3709,7 +4092,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Date to date + time</span>
-                        <sportbook6vn-datepicker
+                        <mbbiz-datepicker
                           mode="range"
                           field="input"
                           startPlaceholder="Từ ngày"
@@ -3725,7 +4108,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Month to month</span>
-                        <sportbook6vn-datepicker
+                        <mbbiz-datepicker
                           mode="range"
                           field="input"
                           content="month"
@@ -3742,7 +4125,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Year to year</span>
-                        <sportbook6vn-datepicker
+                        <mbbiz-datepicker
                           mode="range"
                           field="input"
                           content="year"
@@ -3759,7 +4142,7 @@
                     >
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Single error</span>
-                        <sportbook6vn-datepicker
+                        <mbbiz-datepicker
                           field="input"
                           placeholder="Chọn ngày"
                           status="error"
@@ -3767,7 +4150,7 @@
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Single disabled</span>
-                        <sportbook6vn-datepicker
+                        <mbbiz-datepicker
                           field="input"
                           placeholder="Chọn ngày"
                           [disabled]="true"
@@ -3775,7 +4158,7 @@
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Range error</span>
-                        <sportbook6vn-datepicker
+                        <mbbiz-datepicker
                           mode="range"
                           field="input"
                           startPlaceholder="Từ ngày"
@@ -3785,7 +4168,7 @@
                       </div>
                       <div class="core3-input-demo-stack">
                         <span class="core3-map-button-row-label">Range disabled</span>
-                        <sportbook6vn-datepicker
+                        <mbbiz-datepicker
                           mode="range"
                           field="input"
                           startPlaceholder="Từ ngày"
@@ -3840,7 +4223,7 @@
                 arrays.
               </p>
 
-              <h3 class="button-api-group-title">sportbook6vn-datepicker inputs</h3>
+              <h3 class="button-api-group-title">mbbiz-datepicker inputs</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -3862,7 +4245,7 @@
                 </div>
               </div>
 
-              <h3 class="button-api-group-title">sportbook6vn-datepicker outputs</h3>
+              <h3 class="button-api-group-title">mbbiz-datepicker outputs</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Output</span>
@@ -3976,23 +4359,23 @@
                       *ngSwitchCase="'itemUploadDefault'"
                       class="upload-file-demo-frame upload-file-demo-frame--narrow"
                     >
-                      <sportbook6vn-item-upload />
+                      <mbbiz-item-upload />
                     </div>
 
                     <div *ngSwitchCase="'itemUploadStatus'" class="upload-file-item-upload-grid">
-                      <sportbook6vn-item-upload state="error" errorMessage="Error Message" />
-                      <sportbook6vn-item-upload state="disabled" />
+                      <mbbiz-item-upload state="error" errorMessage="Error Message" />
+                      <mbbiz-item-upload state="disabled" />
                     </div>
 
                     <div
                       *ngSwitchCase="'itemUploadDataSource'"
                       class="upload-file-demo-frame upload-file-demo-frame--narrow"
                     >
-                      <sportbook6vn-item-upload [showDataSource]="true" />
+                      <mbbiz-item-upload [showDataSource]="true" />
                     </div>
 
                     <div *ngSwitchCase="'itemFileDefault'" class="upload-file-item-grid">
-                      <sportbook6vn-item-file
+                      <mbbiz-item-file
                         *ngFor="let file of itemFileKinds"
                         [name]="file.name"
                         [fileKind]="file.kind"
@@ -4000,7 +4383,7 @@
                     </div>
 
                     <div *ngSwitchCase="'itemFileView'" class="upload-file-item-grid">
-                      <sportbook6vn-item-file
+                      <mbbiz-item-file
                         *ngFor="let file of itemFileKinds"
                         [name]="file.name"
                         [fileKind]="file.kind"
@@ -4011,7 +4394,7 @@
                     </div>
 
                     <div *ngSwitchCase="'itemFileLoading'" class="upload-file-item-grid">
-                      <sportbook6vn-item-file
+                      <mbbiz-item-file
                         *ngFor="let file of itemFileLoadingKinds"
                         [name]="file.name"
                         [fileKind]="file.kind"
@@ -4021,7 +4404,7 @@
                     </div>
 
                     <div *ngSwitchCase="'itemFileError'" class="upload-file-item-grid">
-                      <sportbook6vn-item-file
+                      <mbbiz-item-file
                         *ngFor="let file of itemFileErrorCases"
                         [name]="file.name"
                         [fileKind]="file.kind"
@@ -4031,26 +4414,26 @@
                     </div>
 
                     <div *ngSwitchCase="'uploadBasic'" class="upload-file-demo-stack">
-                      <sportbook6vn-upload-file />
+                      <mbbiz-upload-file />
                     </div>
 
                     <div *ngSwitchCase="'uploadUploaded'" class="upload-file-demo-stack">
-                      <sportbook6vn-upload-file [files]="uploadFilesDone" [expanded]="false" />
-                      <sportbook6vn-upload-file [files]="uploadFilesExpanded" [expanded]="true" />
+                      <mbbiz-upload-file [files]="uploadFilesDone" [expanded]="false" />
+                      <mbbiz-upload-file [files]="uploadFilesExpanded" [expanded]="true" />
                     </div>
 
                     <div *ngSwitchCase="'uploadLoading'" class="upload-file-demo-stack">
-                      <sportbook6vn-upload-file [files]="uploadFilesLoading" [expanded]="true" />
+                      <mbbiz-upload-file [files]="uploadFilesLoading" [expanded]="true" />
                     </div>
 
                     <div *ngSwitchCase="'uploadStatus'" class="upload-file-demo-stack">
-                      <sportbook6vn-upload-file errorMessage="Vui lòng tải lên thông tin" />
-                      <sportbook6vn-upload-file [files]="uploadFilesError" [expanded]="true" />
+                      <mbbiz-upload-file errorMessage="Vui lòng tải lên thông tin" />
+                      <mbbiz-upload-file [files]="uploadFilesError" [expanded]="true" />
                     </div>
 
                     <div *ngSwitchCase="'uploadDisabled'" class="upload-file-demo-stack">
-                      <sportbook6vn-upload-file [disabled]="true" />
-                      <sportbook6vn-upload-file
+                      <mbbiz-upload-file [disabled]="true" />
+                      <mbbiz-upload-file
                         [files]="uploadFilesDone"
                         [maxCount]="3"
                         [expanded]="true"
@@ -4058,7 +4441,7 @@
                     </div>
 
                     <div *ngSwitchCase="'uploadFileTypes'" class="upload-file-demo-stack">
-                      <sportbook6vn-upload-file
+                      <mbbiz-upload-file
                         [files]="uploadFileTypes"
                         [expanded]="true"
                         [showUploadArea]="false"
@@ -4113,7 +4496,7 @@
                 by selector.
               </p>
 
-              <h3 class="button-api-group-title">sportbook6vn-item-upload</h3>
+              <h3 class="button-api-group-title">mbbiz-item-upload</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -4135,7 +4518,7 @@
                 </div>
               </div>
 
-              <h3 class="button-api-group-title">sportbook6vn-item-file</h3>
+              <h3 class="button-api-group-title">mbbiz-item-file</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -4157,7 +4540,7 @@
                 </div>
               </div>
 
-              <h3 class="button-api-group-title">sportbook6vn-upload-file</h3>
+              <h3 class="button-api-group-title">mbbiz-upload-file</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -4264,10 +4647,10 @@
               <div class="button-demo-card core3-badge-card">
                 <div class="button-demo-preview core3-map-preview core3-badge-preview">
                   <ng-container [ngSwitch]="demo.variant">
-                    <sportbook6vn-badge *ngSwitchCase="'default'" />
+                    <mbbiz-badge *ngSwitchCase="'default'" />
 
                     <div *ngSwitchCase="'status'" class="core3-badge-strip">
-                      <sportbook6vn-badge
+                      <mbbiz-badge
                         *ngFor="let item of badgeStatusCases"
                         [status]="item.status"
                         [label]="item.label"
@@ -4275,7 +4658,7 @@
                     </div>
 
                     <div *ngSwitchCase="'description'" class="core3-badge-grid">
-                      <sportbook6vn-badge
+                      <mbbiz-badge
                         *ngFor="let item of badgeStatusCases"
                         [status]="item.status"
                         [label]="item.label"
@@ -4319,10 +4702,10 @@
               <div class="button-demo-card core3-status-card">
                 <div class="button-demo-preview core3-map-preview core3-status-preview">
                   <ng-container [ngSwitch]="demo.variant">
-                    <sportbook6vn-status *ngSwitchCase="'default'" />
+                    <mbbiz-status *ngSwitchCase="'default'" />
 
                     <div *ngSwitchCase="'colors'" class="core3-status-strip">
-                      <sportbook6vn-status
+                      <mbbiz-status
                         *ngFor="let item of statusColorCases"
                         [color]="item.color"
                         [label]="item.label"
@@ -4343,7 +4726,7 @@
               </div>
               <h1>Table</h1>
               <p class="lead">
-                Table maps the approved sportbook6vn preview cases into a dedicated docs tab: basic
+                Table maps the approved mbbiz preview cases into a dedicated docs tab: basic
                 rows, all column types, fixed right icon column, default data rows, selection with
                 pagination, loading, and empty states.
               </p>
@@ -4387,7 +4770,7 @@
                       class="table-demo-stage table-demo-stage--figma"
                       style="flex: 0 0 850px; max-width: 850px; overflow: hidden; width: 850px"
                     >
-                      <sportbook6vn-table
+                      <mbbiz-table
                         ariaLabel="Basic table docs demo"
                         [columns]="tablePrimitiveColumns"
                         [data]="tablePrimitiveRows"
@@ -4396,7 +4779,7 @@
                     </div>
 
                     <div *ngSwitchCase="'all-columns'" class="table-demo-stage" style="width: 100%">
-                      <sportbook6vn-table
+                      <mbbiz-table
                         ariaLabel="All table columns docs demo"
                         [columns]="tableColumnTypeColumns"
                         [data]="tableAllColumnRows()"
@@ -4410,7 +4793,7 @@
                       class="table-demo-stage"
                       style="width: 100%"
                     >
-                      <sportbook6vn-table
+                      <mbbiz-table
                         ariaLabel="Fixed right icon column docs demo"
                         [columns]="tableFixedRightIconColumns"
                         [data]="tableFixedRightIconRows"
@@ -4419,7 +4802,7 @@
                     </div>
 
                     <div *ngSwitchCase="'default'" class="table-demo-stage" style="width: 100%">
-                      <sportbook6vn-table
+                      <mbbiz-table
                         ariaLabel="Default table docs demo"
                         [columns]="tableDefaultColumns"
                         [data]="tableDefaultRows"
@@ -4431,7 +4814,7 @@
                       class="table-demo-stage"
                       style="width: 100%"
                     >
-                      <sportbook6vn-table
+                      <mbbiz-table
                         ariaLabel="Selection and pagination table docs demo"
                         [columns]="tableSelectionColumns"
                         [data]="tableSelectionRows()"
@@ -4454,13 +4837,13 @@
                         width: 100%;
                       "
                     >
-                      <sportbook6vn-table
+                      <mbbiz-table
                         ariaLabel="Loading table docs demo"
                         [columns]="tableDefaultColumns"
                         [data]="tableDefaultRows"
                         [loading]="true"
                       />
-                      <sportbook6vn-table
+                      <mbbiz-table
                         ariaLabel="Empty table docs demo"
                         [columns]="tableDefaultColumns"
                         [data]="[]"
@@ -4508,7 +4891,7 @@
 
             <section class="section button-api-section" id="table-api">
               <h2>API</h2>
-              <h3 class="button-api-group-title">sportbook6vn-table inputs</h3>
+              <h3 class="button-api-group-title">mbbiz-table inputs</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -4530,7 +4913,7 @@
                 </div>
               </div>
 
-              <h3 class="button-api-group-title">sportbook6vn-table outputs</h3>
+              <h3 class="button-api-group-title">mbbiz-table outputs</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Event</span>
@@ -4650,7 +5033,7 @@
                 >
                   <ng-container [ngSwitch]="demo.variant">
                     <div *ngSwitchCase="'default'" style="min-width: 805px; width: 805px">
-                      <sportbook6vn-pagination
+                      <mbbiz-pagination
                         ariaLabel="Default pagination docs demo"
                         [total]="100"
                         [pageIndex]="1"
@@ -4658,7 +5041,7 @@
                     </div>
 
                     <div *ngSwitchCase="'active-border'" style="min-width: 805px; width: 805px">
-                      <sportbook6vn-pagination
+                      <mbbiz-pagination
                         ariaLabel="Active border pagination docs demo"
                         [total]="100"
                         [pageIndex]="1"
@@ -4667,7 +5050,7 @@
                     </div>
 
                     <div *ngSwitchCase="'dropdown-open'" style="min-width: 805px; width: 805px">
-                      <sportbook6vn-pagination
+                      <mbbiz-pagination
                         ariaLabel="Open dropdown pagination docs demo"
                         [total]="100"
                         [pageIndex]="paginationDocsDropdownPage()"
@@ -4678,7 +5061,7 @@
                     </div>
 
                     <div *ngSwitchCase="'boundary'" style="min-width: 805px; width: 805px">
-                      <sportbook6vn-pagination
+                      <mbbiz-pagination
                         ariaLabel="Boundary pagination docs demo"
                         [total]="100"
                         [pageIndex]="paginationDocsBoundaryPage()"
@@ -4687,7 +5070,7 @@
                     </div>
 
                     <div *ngSwitchCase="'disabled'" style="min-width: 805px; width: 805px">
-                      <sportbook6vn-pagination
+                      <mbbiz-pagination
                         ariaLabel="Disabled pagination docs demo"
                         [total]="10"
                         [pageIndex]="1"
@@ -4696,7 +5079,7 @@
                     </div>
 
                     <div *ngSwitchCase="'quick-selected'" style="min-width: 811px; width: 811px">
-                      <sportbook6vn-pagination
+                      <mbbiz-pagination
                         ariaLabel="Quick selected pagination docs demo"
                         mode="quick-jumper"
                         [total]="18000"
@@ -4710,7 +5093,7 @@
                     </div>
 
                     <div *ngSwitchCase="'quick-default'" style="min-width: 811px; width: 811px">
-                      <sportbook6vn-pagination
+                      <mbbiz-pagination
                         ariaLabel="Quick default pagination docs demo"
                         mode="quick-jumper"
                         [total]="18000"
@@ -4722,7 +5105,7 @@
                     </div>
 
                     <div *ngSwitchCase="'quick-maximum'" style="min-width: 811px; width: 811px">
-                      <sportbook6vn-pagination
+                      <mbbiz-pagination
                         ariaLabel="Quick maximum pagination docs demo"
                         mode="quick-jumper"
                         [total]="18000"
@@ -4737,7 +5120,7 @@
                       *ngSwitchCase="'quick-input-active'"
                       style="min-width: 811px; width: 811px"
                     >
-                      <sportbook6vn-pagination
+                      <mbbiz-pagination
                         ariaLabel="Quick input active pagination docs demo"
                         mode="quick-jumper"
                         [total]="18000"
@@ -4789,7 +5172,7 @@
 
             <section class="section button-api-section" id="pagination-api">
               <h2>API</h2>
-              <h3 class="button-api-group-title">sportbook6vn-pagination inputs</h3>
+              <h3 class="button-api-group-title">mbbiz-pagination inputs</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Property</span>
@@ -4811,7 +5194,7 @@
                 </div>
               </div>
 
-              <h3 class="button-api-group-title">sportbook6vn-pagination outputs</h3>
+              <h3 class="button-api-group-title">mbbiz-pagination outputs</h3>
               <div class="button-api-table">
                 <div class="button-api-row button-api-head">
                   <span class="button-api-col button-api-col-property">Event</span>
@@ -4893,8 +5276,8 @@
               <h1>Checkbox</h1>
               <p class="lead">
                 Checkbox lets users select one or many options. This page keeps the approved preview
-                cases for <span class="button-inline-code">sportbook6vn-checkbox</span> and
-                <span class="button-inline-code">sportbook6vn-checkbox-group</span> in one dedicated
+                cases for <span class="button-inline-code">mbbiz-checkbox</span> and
+                <span class="button-inline-code">mbbiz-checkbox-group</span> in one dedicated
                 component tab.
               </p>
             </div>
@@ -4905,7 +5288,7 @@
                   <h2>Basic</h2>
                   <p>There are unchecked, checked, and indeterminate checkbox states.</p>
                   <div class="button-demo-tags">
-                    <span>selector=sportbook6vn-checkbox</span>
+                    <span>selector=mbbiz-checkbox</span>
                     <span>state=default/checked/indeterminate</span>
                   </div>
                 </div>
@@ -4914,9 +5297,9 @@
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
                   <div class="core3-map-row">
-                    <sportbook6vn-checkbox label="Checkbox" />
-                    <sportbook6vn-checkbox label="Checked" [defaultChecked]="true" />
-                    <sportbook6vn-checkbox label="Indeterminate" [defaultIndeterminate]="true" />
+                    <mbbiz-checkbox label="Checkbox" />
+                    <mbbiz-checkbox label="Checked" [defaultChecked]="true" />
+                    <mbbiz-checkbox label="Indeterminate" [defaultIndeterminate]="true" />
                   </div>
                 </div>
               </div>
@@ -4928,7 +5311,7 @@
                   <h2>Disabled</h2>
                   <p>Disabled checkboxes keep visual state but block selection.</p>
                   <div class="button-demo-tags">
-                    <span>selector=sportbook6vn-checkbox</span>
+                    <span>selector=mbbiz-checkbox</span>
                     <span>disabled=true</span>
                   </div>
                 </div>
@@ -4937,13 +5320,13 @@
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
                   <div class="core3-map-row">
-                    <sportbook6vn-checkbox label="Disabled" [disabled]="true" />
-                    <sportbook6vn-checkbox
+                    <mbbiz-checkbox label="Disabled" [disabled]="true" />
+                    <mbbiz-checkbox
                       label="Disabled checked"
                       [defaultChecked]="true"
                       [disabled]="true"
                     />
-                    <sportbook6vn-checkbox
+                    <mbbiz-checkbox
                       label="Disabled indeterminate"
                       [defaultIndeterminate]="true"
                       [disabled]="true"
@@ -4959,7 +5342,7 @@
                   <h2>Checkbox Group</h2>
                   <p>Checkbox group allows multiple selected options in a horizontal layout.</p>
                   <div class="button-demo-tags">
-                    <span>selector=sportbook6vn-checkbox-group</span>
+                    <span>selector=mbbiz-checkbox-group</span>
                     <span>direction=horizontal</span>
                   </div>
                 </div>
@@ -4967,7 +5350,7 @@
 
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
-                  <sportbook6vn-checkbox-group
+                  <mbbiz-checkbox-group
                     [options]="core3CheckboxGroupOptions"
                     [value]="core3CheckboxGroupValues()"
                     (valueChange)="setCore3CheckboxGroupValues($event)"
@@ -4982,7 +5365,7 @@
                   <h2>Select All</h2>
                   <p>Select all becomes indeterminate when only part of the group is selected.</p>
                   <div class="button-demo-tags">
-                    <span>selector=sportbook6vn-checkbox</span>
+                    <span>selector=mbbiz-checkbox</span>
                     <span>indeterminate=true</span>
                     <span>group=valueChange</span>
                   </div>
@@ -4992,13 +5375,13 @@
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
                   <div class="core3-input-demo-stack">
-                    <sportbook6vn-checkbox
+                    <mbbiz-checkbox
                       label="Select all"
                       [checked]="core3CheckboxSelectAllChecked()"
                       [indeterminate]="core3CheckboxSelectAllIndeterminate()"
                       (checkedChange)="setCore3CheckboxSelectAll($event)"
                     />
-                    <sportbook6vn-checkbox-group
+                    <mbbiz-checkbox-group
                       [options]="core3CheckboxGroupOptions"
                       [value]="core3CheckboxSelectAllValues()"
                       (valueChange)="setCore3CheckboxSelectAllValues($event)"
@@ -5014,7 +5397,7 @@
                   <h2>Vertical Checkbox Group</h2>
                   <p>Vertical group keeps the same multi-select behavior with stacked options.</p>
                   <div class="button-demo-tags">
-                    <span>selector=sportbook6vn-checkbox-group</span>
+                    <span>selector=mbbiz-checkbox-group</span>
                     <span>direction=vertical</span>
                   </div>
                 </div>
@@ -5022,7 +5405,7 @@
 
               <div class="button-demo-card">
                 <div class="button-demo-preview core3-map-preview">
-                  <sportbook6vn-checkbox-group
+                  <mbbiz-checkbox-group
                     direction="vertical"
                     [options]="core3CheckboxGroupOptions"
                     [value]="core3CheckboxGroupVerticalValues()"
@@ -5577,6 +5960,88 @@
                 </div>
               </div>
             </section>
+
+            <section class="section scale-section" id="iconsize-scale">
+              <h2>Icon Size Scale</h2>
+              <p class="scale-note">
+                Render size for <code class="token-code">&lt;lib-icon size&gt;</code> — one SVG asset,
+                scaled via token (same pattern as Arco / Ant Design).
+              </p>
+              <div class="token-table scale-table">
+                <div class="token-row token-head">
+                  <span>Alias</span>
+                  <span>Proposed</span>
+                  <span>Primitive</span>
+                  <span>Value</span>
+                </div>
+                <div class="token-row" *ngFor="let row of iconSizeScaleRows">
+                  <code class="token-code">{{ row.alias }}</code>
+                  <code class="token-code">{{ row.proposed }}</code>
+                  <code class="token-code">{{ row.primitive }}</code>
+                  <code class="token-code">{{ row.value }}</code>
+                </div>
+              </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'layout'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Design Tokens</span>
+                <span class="slash">/</span>
+                <span class="meta-version">Layout</span>
+              </div>
+              <h1>Layout &amp; Grid</h1>
+              <p class="lead">
+                Hệ 24 cột theo Arco — breakpoint, gutter, page margin và container max-width. Column
+                width là fluid; chỉ token hóa gutter, margin và span recipes.
+              </p>
+            </div>
+
+            <section class="section scale-section" id="layout-grid-demo">
+              <h2>Grid Preview</h2>
+              <p class="scale-note">
+                Demo dùng <code class="token-code">.mbbiz-page</code> + <code class="token-code">.mbbiz-grid</code>
+                với gutter và margin từ CSS variables hiện tại.
+              </p>
+              <div class="mbbiz-page layout-demo-shell">
+                <div class="mbbiz-grid">
+                  <div class="mbbiz-grid__col--span-8 layout-demo-cell">span 8</div>
+                  <div class="mbbiz-grid__col--span-8 layout-demo-cell">span 8</div>
+                  <div class="mbbiz-grid__col--span-8 layout-demo-cell">span 8</div>
+                  <div class="mbbiz-grid__col--span-12 layout-demo-cell">span 12</div>
+                  <div class="mbbiz-grid__col--span-12 layout-demo-cell">span 12</div>
+                  <div class="mbbiz-grid__col--span-24 layout-demo-cell">span 24</div>
+                </div>
+              </div>
+            </section>
+
+            <section
+              class="section scale-section"
+              *ngFor="let group of layoutTokenGroups"
+              [attr.id]="group.id"
+            >
+              <h2>{{ group.title }}</h2>
+              <p class="scale-note" *ngIf="group.description">{{ group.description }}</p>
+              <div class="token-table scale-table layout-token-table">
+                <div class="token-row token-head">
+                  <span>Alias</span>
+                  <span>Proposed</span>
+                  <span>Primitive</span>
+                  <span>Value</span>
+                  <span>CSS Var</span>
+                  <span>Applies to</span>
+                </div>
+                <div class="token-row" *ngFor="let row of group.rows">
+                  <code class="token-code">{{ row.alias }}</code>
+                  <code class="token-code">{{ row.proposed }}</code>
+                  <code class="token-code">{{ row.primitive }}</code>
+                  <code class="token-code">{{ row.value }}</code>
+                  <code class="token-code">{{ row.cssVar }}</code>
+                  <span class="token-description">{{ row.appliesTo }}</span>
+                </div>
+              </div>
+            </section>
           </ng-container>
 
           <ng-container *ngIf="activePage() === 'typography'">
@@ -5664,6 +6129,47 @@
                 <p>
                   Use the component page snippets after installing the package and global theme
                   once.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'formPattern'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let patternCase of formPatternCases"
+                  [class.active]="activeFormPatternSection() === getFormPatternSectionId(patternCase.id)"
+                  [href]="'#' + getFormPatternSectionId(patternCase.id)"
+                  (click)="setActiveFormPatternSection(getFormPatternSectionId(patternCase.id))"
+                >
+                  {{ patternCase.title }}
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Usage Note</span>
+                </div>
+                <p>
+                  Tab này ưu tiên reuse <span class="mono">input</span>,
+                  <span class="mono">dropdown</span>, <span class="mono">datepicker</span>,
+                  <span class="mono">upload-file</span>, <span class="mono">checkbox</span> và
+                  <span class="mono">radio</span>. Chỉ compose local phần label và radio
+                  description để giữ đúng layout node Figma.
                 </p>
               </div>
             </aside>
@@ -5786,8 +6292,8 @@
                 </div>
                 <p>
                   Card này giữ nguyên shell <span class="mono">296×276</span> của node Figma và
-                  dùng lại <span class="mono">sportbook6vn-steps</span> cùng
-                  <span class="mono">sportbook6vn-button</span> thay vì vẽ pattern riêng.
+                  dùng lại <span class="mono">mbbiz-steps</span> cùng
+                  <span class="mono">mbbiz-button</span> thay vì vẽ pattern riêng.
                 </p>
               </div>
             </aside>
@@ -6646,7 +7152,7 @@
                 </div>
                 <p>
                   Use the copied snippets with exported selectors from
-                  <span class="mono">sportbook6vn</span>.
+                  <span class="mono">mbbiz</span>.
                 </p>
               </div>
             </aside>
@@ -6676,11 +7182,28 @@
                 </a>
                 <a
                   class="toc-item"
+                  [class.active]="activeIconographySection() === 'iconography-sizes'"
+                  href="#iconography-sizes"
+                  (click)="setActiveIconographySection('iconography-sizes')"
+                >
+                  Sizes
+                </a>
+                <a
+                  class="toc-item"
+                  *ngFor="let group of iconLibraryGroups"
+                  [class.active]="activeIconographySection() === group.id"
+                  [href]="'#' + group.id"
+                  (click)="setActiveIconographySection(group.id)"
+                >
+                  {{ group.title }}
+                </a>
+                <a
+                  class="toc-item"
                   [class.active]="activeIconographySection() === 'iconography-assets'"
                   href="#iconography-assets"
                   (click)="setActiveIconographySection('iconography-assets')"
                 >
-                  Asset Library
+                  Docs chrome
                 </a>
                 <a
                   class="toc-item"
@@ -6698,8 +7221,11 @@
                   <span>Pro Tip</span>
                 </div>
                 <p>
-                  Use <span class="mono">Copy URL</span> for existing markup and
-                  <span class="mono">Copy snippet</span> when adding an icon image.
+                  Prefer
+                  <span class="mono">&lt;lib-icon name size&gt;</span>
+                  from
+                  <span class="mono">&#64;hieudeptrai1112/icon</span>.
+                  Click a card to preview all token sizes.
                 </p>
               </div>
             </aside>
@@ -6856,6 +7382,49 @@
                   (click)="setActiveTokenSection('radius-scale')"
                 >
                   Radius Scale
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeTokenSection() === 'iconsize-scale'"
+                  href="#iconsize-scale"
+                  (click)="setActiveTokenSection('iconsize-scale')"
+                >
+                  Icon Size Scale
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'layout'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  [class.active]="activeTokenSection() === 'layout-grid-demo'"
+                  href="#layout-grid-demo"
+                  (click)="setActiveTokenSection('layout-grid-demo')"
+                >
+                  Grid Preview
+                </a>
+                <a
+                  class="toc-item"
+                  *ngFor="let group of layoutTokenGroups"
+                  [class.active]="activeTokenSection() === group.id"
+                  [href]="'#' + group.id"
+                  (click)="setActiveTokenSection(group.id)"
+                >
+                  {{ group.title }}
                 </a>
               </div>
             </aside>

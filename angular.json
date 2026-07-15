@@ -95,23 +95,23 @@
         }
       }
     },
-    "sportbook6vn": {
+    "mbbiz": {
       "projectType": "library",
-      "root": "projects/sportbook6vn",
-      "sourceRoot": "projects/sportbook6vn/src",
-      "prefix": "sportbook6vn",
+      "root": "projects/mbbiz",
+      "sourceRoot": "projects/mbbiz/src",
+      "prefix": "mbbiz",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
           "options": {
-            "project": "projects/sportbook6vn/ng-package.json"
+            "project": "projects/mbbiz/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/sportbook6vn/tsconfig.lib.prod.json"
+              "tsConfig": "projects/mbbiz/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/sportbook6vn/tsconfig.lib.json"
+              "tsConfig": "projects/mbbiz/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -119,23 +119,23 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "projects/sportbook6vn/tsconfig.spec.json",
-            "buildTarget": "sportbook6vn:build:development"
+            "tsConfig": "projects/mbbiz/tsconfig.spec.json",
+            "buildTarget": "mbbiz:build:development"
           }
         }
       }
     },
-    "sportbook6vn_preview": {
+    "mbbiz_preview": {
       "projectType": "application",
-      "root": "projects/sportbook6vn-preview",
-      "sourceRoot": "projects/sportbook6vn-preview/src",
+      "root": "projects/mbbiz-preview",
+      "sourceRoot": "projects/mbbiz-preview/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "projects/sportbook6vn-preview/src/main.ts",
-            "tsConfig": "tsconfig.sportbook6vn-preview.json",
+            "browser": "projects/mbbiz-preview/src/main.ts",
+            "tsConfig": "tsconfig.mbbiz-preview.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
@@ -143,7 +143,7 @@
                 "input": "public"
               }
             ],
-            "styles": ["projects/sportbook6vn-preview/src/styles.scss"]
+            "styles": ["projects/mbbiz-preview/src/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -161,10 +161,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "sportbook6vn_preview:build:production"
+              "buildTarget": "mbbiz_preview:build:production"
             },
             "development": {
-              "buildTarget": "sportbook6vn_preview:build:development"
+              "buildTarget": "mbbiz_preview:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -1,55 +1,57 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, computed, inject, signal, type WritableSignal } from '@angular/core';
+import type { IconSizeToken } from '@hieudeptrai1112/icon';
+import { LibIconComponent } from './components/lib-icon/lib-icon.component';
 import type { DsInputPasswordState } from './components/ds-input-password/ds-input-password.component';
 import {
-  Sportbook6vnAffixInputComponent,
-  Sportbook6vnAffixLabelInputComponent,
-  Sportbook6vnBadgeComponent,
-  type Sportbook6vnBadgeStatus,
-  type Sportbook6vnAffixDropdownItem,
-  Sportbook6vnButtonComponent,
-  Sportbook6vnBreadcrumbComponent,
-  Sportbook6vnCheckboxComponent,
-  Sportbook6vnCheckboxGroupComponent,
-  type Sportbook6vnCheckboxGroupOption,
-  Sportbook6vnDatepickerComponent,
-  Sportbook6vnDropdownComponent,
-  type Sportbook6vnDropdownItem,
-  Sportbook6vnDropdownTagComponent,
-  Sportbook6vnFloatingLabelInputComponent,
-  Sportbook6vnInputComponent,
-  Sportbook6vnInputTagComponent,
-  Sportbook6vnItemFileComponent,
-  type Sportbook6vnItemFileErrorType,
-  type Sportbook6vnItemFileKind,
-  Sportbook6vnItemUploadComponent,
-  type Sportbook6vnInputTagValue,
-  Sportbook6vnPasswordInputComponent,
-  Sportbook6vnPaginationComponent,
-  Sportbook6vnMessageComponent,
-  Sportbook6vnMessageService,
-  type Sportbook6vnMessageType,
-  type Sportbook6vnPaginationRangeFormatter,
-  type Sportbook6vnPaginationSummaryFormatter,
-  Sportbook6vnRadioComponent,
-  Sportbook6vnRadioGroupComponent,
-  type Sportbook6vnRadioGroupOption,
-  Sportbook6vnSearchInputComponent,
-  Sportbook6vnStepsComponent,
-  type Sportbook6vnStepItem,
-  Sportbook6vnStatusComponent,
-  type Sportbook6vnStatusColor,
-  Sportbook6vnTabComponent,
-  type Sportbook6vnTabItem,
-  Sportbook6vnTableComponent,
-  type Sportbook6vnTableCellValueChange,
-  type Sportbook6vnTableRow,
-  Sportbook6vnTextareaComponent,
-  Sportbook6vnUploadFileComponent,
-  type Sportbook6vnUploadFileItem,
-  type Sportbook6vnButtonSize,
-  type Sportbook6vnButtonVariant,
-} from 'sportbook6vn';
+  MbbizAffixInputComponent,
+  MbbizAffixLabelInputComponent,
+  MbbizBadgeComponent,
+  type MbbizBadgeStatus,
+  type MbbizAffixDropdownItem,
+  MbbizButtonComponent,
+  MbbizBreadcrumbComponent,
+  MbbizCheckboxComponent,
+  MbbizCheckboxGroupComponent,
+  type MbbizCheckboxGroupOption,
+  MbbizDatepickerComponent,
+  MbbizDropdownComponent,
+  type MbbizDropdownItem,
+  MbbizDropdownTagComponent,
+  MbbizFloatingLabelInputComponent,
+  MbbizInputComponent,
+  MbbizInputTagComponent,
+  MbbizItemFileComponent,
+  type MbbizItemFileErrorType,
+  type MbbizItemFileKind,
+  MbbizItemUploadComponent,
+  type MbbizInputTagValue,
+  MbbizPasswordInputComponent,
+  MbbizPaginationComponent,
+  MbbizMessageComponent,
+  MbbizMessageService,
+  type MbbizMessageType,
+  type MbbizPaginationRangeFormatter,
+  type MbbizPaginationSummaryFormatter,
+  MbbizRadioComponent,
+  MbbizRadioGroupComponent,
+  type MbbizRadioGroupOption,
+  MbbizSearchInputComponent,
+  MbbizStepsComponent,
+  type MbbizStepItem,
+  MbbizStatusComponent,
+  type MbbizStatusColor,
+  MbbizTabComponent,
+  type MbbizTabItem,
+  MbbizTableComponent,
+  type MbbizTableCellValueChange,
+  type MbbizTableRow,
+  MbbizTextareaComponent,
+  MbbizUploadFileComponent,
+  type MbbizUploadFileItem,
+  type MbbizButtonSize,
+  type MbbizButtonVariant,
+} from 'mbbiz';
 import {
   TABLE_PREVIEW_ALL_COLUMNS,
   TABLE_PREVIEW_DEFAULT_COLUMNS,
@@ -61,7 +63,7 @@ import {
   createTablePreviewAllColumnRows,
   createTablePreviewFixedRightRows,
   createTablePreviewSelectionRows,
-} from '../../projects/sportbook6vn/src/lib/components/table/table.preview-fixtures';
+} from '../../projects/mbbiz/src/lib/components/table/table.preview-fixtures';
 import {
   SEMANTIC_BACKGROUND_FIGMA_ORDER,
   SEMANTIC_BACKGROUND_GRADIENT_FIGMA_ORDER,
@@ -73,11 +75,16 @@ import {
 } from './semantic-tokens.data';
 import {
   RADIUS_SCALE_ROWS,
+  ICON_SIZE_SCALE_ROWS,
   SPACING_SCALE_ROWS,
   TYPOGRAPHY_SCALE_GROUPS,
   type TypographyScaleGroup,
   type NumericScaleRow,
 } from './scale-tokens.data';
+import {
+  LAYOUT_TOKEN_GROUPS,
+  type LayoutTokenGroup,
+} from './layout-tokens.data';
 import {
   BUTTON_API_ROWS,
   BUTTON_DEMO_SECTIONS,
@@ -207,6 +214,13 @@ import {
 import { ILLUSTRATION_ASSETS, type IllustrationAsset } from './illustration-assets.data';
 import { ICON_ASSETS, type IconAsset } from './icon-assets.data';
 import {
+  ICON_LIBRARY_GROUPS,
+  ICON_LIBRARY_SIZE_PREVIEWS,
+  type IconLibraryEntry,
+  type IconLibraryGroup,
+  type IconSizePreviewRow,
+} from './icon-library-demos.data';
+import {
   UPLOAD_FILE_API_ROWS,
   UPLOAD_FILE_DEMO_SECTIONS,
   UPLOAD_FILE_ITEM_FILE_API_ROWS,
@@ -237,9 +251,11 @@ import {
 } from './semantic-theme-modes.data';
 import {
   FOOTER_PATTERN_VARIANTS,
+  FORM_PATTERN_CASES,
   PAGE_HEADER_PATTERN_CASES,
   STEP_PROCESS_PATTERN_CASES,
   type FooterPatternVariant,
+  type FormPatternCase,
   type PageHeaderPatternCase,
   type StepProcessPatternCase,
 } from './pattern-demos.data';
@@ -305,39 +321,40 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
   selector: 'app-root',
   imports: [
     CommonModule,
-    Sportbook6vnAffixInputComponent,
-    Sportbook6vnAffixLabelInputComponent,
-    Sportbook6vnBadgeComponent,
-    Sportbook6vnButtonComponent,
-    Sportbook6vnBreadcrumbComponent,
-    Sportbook6vnCheckboxComponent,
-    Sportbook6vnCheckboxGroupComponent,
-    Sportbook6vnDatepickerComponent,
-    Sportbook6vnDropdownComponent,
-    Sportbook6vnDropdownTagComponent,
-    Sportbook6vnFloatingLabelInputComponent,
-    Sportbook6vnInputComponent,
-    Sportbook6vnInputTagComponent,
-    Sportbook6vnItemFileComponent,
-    Sportbook6vnItemUploadComponent,
-    Sportbook6vnMessageComponent,
-    Sportbook6vnPasswordInputComponent,
-    Sportbook6vnPaginationComponent,
-    Sportbook6vnRadioComponent,
-    Sportbook6vnRadioGroupComponent,
-    Sportbook6vnSearchInputComponent,
-    Sportbook6vnStepsComponent,
-    Sportbook6vnStatusComponent,
-    Sportbook6vnTabComponent,
-    Sportbook6vnTableComponent,
-    Sportbook6vnTextareaComponent,
-    Sportbook6vnUploadFileComponent,
+    MbbizAffixInputComponent,
+    MbbizAffixLabelInputComponent,
+    MbbizBadgeComponent,
+    MbbizButtonComponent,
+    MbbizBreadcrumbComponent,
+    MbbizCheckboxComponent,
+    MbbizCheckboxGroupComponent,
+    MbbizDatepickerComponent,
+    MbbizDropdownComponent,
+    MbbizDropdownTagComponent,
+    MbbizFloatingLabelInputComponent,
+    MbbizInputComponent,
+    MbbizInputTagComponent,
+    MbbizItemFileComponent,
+    MbbizItemUploadComponent,
+    MbbizMessageComponent,
+    MbbizPasswordInputComponent,
+    MbbizPaginationComponent,
+    MbbizRadioComponent,
+    MbbizRadioGroupComponent,
+    MbbizSearchInputComponent,
+    MbbizStepsComponent,
+    MbbizStatusComponent,
+    MbbizTabComponent,
+    MbbizTableComponent,
+    MbbizTextareaComponent,
+    MbbizUploadFileComponent,
+    LibIconComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
-  private readonly messageService = inject(Sportbook6vnMessageService);
+  private readonly messageService = inject(MbbizMessageService);
   protected readonly title = signal('sportbook_mbbiz');
   protected readonly activeLang = signal<'VIE' | 'ENG'>('VIE');
   protected readonly isLangOpen = signal(false);
@@ -372,11 +389,13 @@ export class App {
     | 'pageHeaderPattern'
     | 'footerPattern'
     | 'stepProcessPattern'
+    | 'formPattern'
     | 'introduction'
     | 'installation'
     | 'color'
     | 'tokens'
     | 'spacing'
+    | 'layout'
     | 'typography'
   >('buttons');
   protected readonly semanticTokenMappings = SEMANTIC_COLOR_TOKEN_MAPPINGS;
@@ -393,6 +412,10 @@ export class App {
   protected readonly activeFooterPatternSection = signal(
     this.getFooterPatternSectionId(this.footerPatternVariants[0]?.id ?? 'type1'),
   );
+  protected readonly formPatternCases = FORM_PATTERN_CASES;
+  protected readonly activeFormPatternSection = signal(
+    this.getFormPatternSectionId(this.formPatternCases[0]?.id ?? 'basic'),
+  );
   protected readonly pageHeaderPatternCases = PAGE_HEADER_PATTERN_CASES;
   protected readonly activePageHeaderPatternSection = signal(
     this.getPageHeaderPatternSectionId(this.pageHeaderPatternCases[0]?.id ?? 'default'),
@@ -404,6 +427,8 @@ export class App {
   protected readonly openFooterPatternOverflowId = signal<FooterPatternVariant['id'] | null>(null);
   protected readonly spacingScaleRows: NumericScaleRow[] = SPACING_SCALE_ROWS;
   protected readonly radiusScaleRows: NumericScaleRow[] = RADIUS_SCALE_ROWS;
+  protected readonly iconSizeScaleRows: NumericScaleRow[] = ICON_SIZE_SCALE_ROWS;
+  protected readonly layoutTokenGroups: LayoutTokenGroup[] = LAYOUT_TOKEN_GROUPS;
   protected readonly typographyScaleGroups: TypographyScaleGroup[] = TYPOGRAPHY_SCALE_GROUPS;
   protected readonly buttonDemoSections: ButtonDemoSection[] = BUTTON_DEMO_SECTIONS;
   protected readonly buttonMappingDemoSections: ButtonMappingDemoSection[] =
@@ -468,7 +493,7 @@ export class App {
     this.getStepsSectionId(this.stepsDemoSections[0]?.id ?? 'horizontal-steps'),
   );
   protected readonly stepProgressStates = [0, 1, 2, 3, 4];
-  protected readonly verticalStepPreviewItems: readonly Sportbook6vnStepItem[] = [
+  protected readonly verticalStepPreviewItems: readonly MbbizStepItem[] = [
     { title: 'Text', status: 'process' },
     { title: 'Text', status: 'wait' },
     { title: 'Text', status: 'wait' },
@@ -476,7 +501,7 @@ export class App {
   protected readonly verticalStepStateCases: {
     title: string;
     ariaLabel: string;
-    items: readonly Sportbook6vnStepItem[];
+    items: readonly MbbizStepItem[];
   }[] = [
     {
       title: 'Active=No',
@@ -492,7 +517,7 @@ export class App {
   protected readonly horizontalStepStateCases: {
     title: string;
     ariaLabel: string;
-    items: readonly Sportbook6vnStepItem[];
+    items: readonly MbbizStepItem[];
   }[] = [
     {
       title: 'Next',
@@ -524,17 +549,17 @@ export class App {
   protected readonly tabPillActiveIndex = signal(0);
   protected readonly tabUnderlinedActiveIndex = signal(0);
   protected readonly tabSmallActiveIndex = signal(0);
-  protected readonly tabDefaultItems: Sportbook6vnTabItem[] = [
+  protected readonly tabDefaultItems: MbbizTabItem[] = [
     { label: 'Text' },
     { label: 'Text' },
     { label: 'Text' },
   ];
-  protected readonly tabCountItems: Sportbook6vnTabItem[] = [
+  protected readonly tabCountItems: MbbizTabItem[] = [
     { label: 'Text', count: 12 },
     { label: 'Text' },
     { label: 'Text', count: 12 },
   ];
-  protected readonly tabDisabledItems: Sportbook6vnTabItem[] = [
+  protected readonly tabDisabledItems: MbbizTabItem[] = [
     { label: 'Text' },
     { label: 'Text' },
     { label: 'Text', disabled: true },
@@ -543,7 +568,7 @@ export class App {
   protected readonly activeBadgeSection = signal(
     this.getBadgeSectionId(this.badgeDemoSections[0]?.id ?? 'default'),
   );
-  protected readonly badgeStatusCases: { status: Sportbook6vnBadgeStatus; label: string }[] = [
+  protected readonly badgeStatusCases: { status: MbbizBadgeStatus; label: string }[] = [
     { status: 'invalid', label: 'Text' },
     { status: 'overdue', label: 'Text' },
     { status: 'unfinished', label: 'Text' },
@@ -561,7 +586,7 @@ export class App {
   protected readonly activeMessageSection = signal(
     this.getMessageSectionId(this.messageDemoSections[0]?.id ?? 'default'),
   );
-  protected readonly statusColorCases: { color: Sportbook6vnStatusColor; label: string }[] = [
+  protected readonly statusColorCases: { color: MbbizStatusColor; label: string }[] = [
     { color: 'neutral', label: 'Text' },
     { color: 'orange', label: 'Text' },
     { color: 'blue', label: 'Text' },
@@ -601,6 +626,7 @@ export class App {
     this.getDropdownSectionId(this.dropdownDemoSections[0]?.id ?? 'basic'),
   );
   protected readonly activeFormSection = signal(this.getFormSectionId('default'));
+  protected readonly formPatternSelectedRadio = signal<'option-1' | 'option-2'>('option-1');
   protected readonly expandedDropdownDemoIds = signal<string[]>([]);
   protected readonly copiedDropdownDemoId = signal<string | null>(null);
   protected readonly radioDemoSections: RadioDemoSection[] = RADIO_DEMO_SECTIONS;
@@ -640,29 +666,29 @@ export class App {
   protected readonly copiedUploadFileDemoId = signal<string | null>(null);
   protected readonly activeInstallationSection = signal('installation-install');
   protected readonly copiedInstallationSnippet = signal<string | null>(null);
-  protected readonly installationInstallCommand = 'npm install sportbook6vn';
+  protected readonly installationInstallCommand = 'npm install mbbiz';
   protected readonly installationPeerCommand =
     'npm install @angular/common@^21.2.0 @angular/core@^21.2.0 @angular/forms@^21.2.0 @angular/platform-browser@^21.2.0 ng-zorro-antd@^21.2.2';
-  protected readonly installationThemeCode = `@import 'sportbook6vn/theme.css';
-@import 'sportbook6vn/zorro-bridge.less';`;
+  protected readonly installationThemeCode = `@import 'mbbiz/theme.css';
+@import 'mbbiz/zorro-bridge.less';`;
   protected readonly installationUsageCode = `import { Component } from '@angular/core';
-import { Sportbook6vnButtonComponent, Sportbook6vnInputComponent } from 'sportbook6vn';
+import { MbbizButtonComponent, MbbizInputComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-root',
-  imports: [Sportbook6vnButtonComponent, Sportbook6vnInputComponent],
+  imports: [MbbizButtonComponent, MbbizInputComponent],
   template: \`
-    <sportbook6vn-button>Submit</sportbook6vn-button>
-    <sportbook6vn-input label="Username" placeholder="Enter username" />
+    <mbbiz-button>Submit</mbbiz-button>
+    <mbbiz-input label="Username" placeholder="Enter username" />
   \`,
 })
 export class AppComponent {}`;
-  protected readonly uploadFilesDone: Sportbook6vnUploadFileItem[] = [
+  protected readonly uploadFilesDone: MbbizUploadFileItem[] = [
     { uid: 'docs-upload-done-1', name: 'Tên tệp tin.pdf', sizeLabel: '2 MB', fileKind: 'pdf' },
     { uid: 'docs-upload-done-2', name: 'Tên tệp tin.docx', sizeLabel: '2 MB', fileKind: 'docx' },
     { uid: 'docs-upload-done-3', name: 'Tên tệp tin.xlsx', sizeLabel: '2 MB', fileKind: 'xlsx' },
   ];
-  protected readonly uploadFilesExpanded: Sportbook6vnUploadFileItem[] = [
+  protected readonly uploadFilesExpanded: MbbizUploadFileItem[] = [
     { uid: 'docs-upload-expanded-1', name: 'Tên tệp tin.pdf', sizeLabel: '2 MB', fileKind: 'pdf' },
     {
       uid: 'docs-upload-expanded-2',
@@ -678,7 +704,7 @@ export class AppComponent {}`;
     },
     { uid: 'docs-upload-expanded-4', name: 'Tên tệp tin.jpg', sizeLabel: '2 MB', fileKind: 'jpg' },
   ];
-  protected readonly uploadFilesLoading: Sportbook6vnUploadFileItem[] = [
+  protected readonly uploadFilesLoading: MbbizUploadFileItem[] = [
     {
       uid: 'docs-upload-loading-1',
       name: 'Tên tệp tin.pdf',
@@ -696,7 +722,7 @@ export class AppComponent {}`;
       percent: 86,
     },
   ];
-  protected readonly uploadFilesError: Sportbook6vnUploadFileItem[] = [
+  protected readonly uploadFilesError: MbbizUploadFileItem[] = [
     {
       uid: 'docs-upload-error-1',
       name: 'Tên tệp tin.xlsx',
@@ -716,7 +742,7 @@ export class AppComponent {}`;
       errorMessage: 'File tải lên không đúng định dạng. Vui lòng kiểm tra và tải lại',
     },
   ];
-  protected readonly uploadFileTypes: Sportbook6vnUploadFileItem[] = [
+  protected readonly uploadFileTypes: MbbizUploadFileItem[] = [
     {
       uid: 'docs-upload-type-xlsx',
       name: 'Tên tệp tin.xlsx',
@@ -753,7 +779,7 @@ export class AppComponent {}`;
       downloadable: true,
     },
   ];
-  protected readonly itemFileKinds: { kind: Sportbook6vnItemFileKind; name: string }[] = [
+  protected readonly itemFileKinds: { kind: MbbizItemFileKind; name: string }[] = [
     { kind: 'xlsx', name: 'Tên tệp tin.xlsx' },
     { kind: 'docx', name: 'Tên tệp tin.docx' },
     { kind: 'pdf', name: 'Tên tệp tin.pdf' },
@@ -765,9 +791,9 @@ export class AppComponent {}`;
     percent: [72, 54, 38, 80, 46][index],
   }));
   protected readonly itemFileErrorCases: {
-    kind: Sportbook6vnItemFileKind;
+    kind: MbbizItemFileKind;
     name: string;
-    errorType: Sportbook6vnItemFileErrorType;
+    errorType: MbbizItemFileErrorType;
   }[] = [
     { kind: 'xlsx', name: 'Tên tệp tin.xlsx', errorType: 'size' },
     { kind: 'pdf', name: 'Tên tệp tin.pdf', errorType: 'upload' },
@@ -778,11 +804,11 @@ export class AppComponent {}`;
   protected readonly tableDefaultColumns = TABLE_PREVIEW_DEFAULT_COLUMNS;
   protected readonly tableDefaultRows = TABLE_PREVIEW_DEFAULT_ROWS;
   protected readonly tableSelectionColumns = TABLE_PREVIEW_SELECTION_COLUMNS;
-  protected readonly tableSelectionRows = signal<Sportbook6vnTableRow[]>(
+  protected readonly tableSelectionRows = signal<MbbizTableRow[]>(
     createTablePreviewSelectionRows(),
   );
   protected readonly tableColumnTypeColumns = TABLE_PREVIEW_ALL_COLUMNS;
-  protected readonly tableAllColumnRows = signal<Sportbook6vnTableRow[]>(
+  protected readonly tableAllColumnRows = signal<MbbizTableRow[]>(
     createTablePreviewAllColumnRows(),
   );
   protected readonly tableFixedRightIconColumns = TABLE_PREVIEW_FIXED_RIGHT_COLUMNS;
@@ -793,21 +819,29 @@ export class AppComponent {}`;
   protected readonly paginationDocsBoundaryPage = signal(10);
   protected readonly paginationDocsQuickPage = signal(23);
   protected readonly paginationDocsDropdownOpen = signal(true);
-  protected readonly paginationQuickSelectedRange: Sportbook6vnPaginationRangeFormatter = () =>
+  protected readonly paginationQuickSelectedRange: MbbizPaginationRangeFormatter = () =>
     'Đã hiển thị 91 - 100 trên 18000 kết quả';
-  protected readonly paginationQuickDefaultRange: Sportbook6vnPaginationRangeFormatter = () =>
+  protected readonly paginationQuickDefaultRange: MbbizPaginationRangeFormatter = () =>
     'Đã hiển thị 1 - 10 trên 18000 kết quả';
-  protected readonly paginationQuickMaximumRange: Sportbook6vnPaginationRangeFormatter = () =>
+  protected readonly paginationQuickMaximumRange: MbbizPaginationRangeFormatter = () =>
     'Đã hiển thị 17990 - 18000 trên 18000 kết quả';
-  protected readonly paginationQuickSummary: Sportbook6vnPaginationSummaryFormatter = (summary) =>
+  protected readonly paginationQuickSummary: MbbizPaginationSummaryFormatter = (summary) =>
     `Trang ${new Intl.NumberFormat('vi-VN').format(summary.pageIndex)} / ${new Intl.NumberFormat('vi-VN').format(summary.pageCount)}`;
-  protected readonly downloadDocsUploadFile = (file: Sportbook6vnUploadFileItem): void => {
+  protected readonly downloadDocsUploadFile = (file: MbbizUploadFileItem): void => {
     this.downloadDocsFile(file.name);
   };
   protected readonly iconAssets: IconAsset[] = ICON_ASSETS;
+  protected readonly iconLibraryGroups: IconLibraryGroup[] = ICON_LIBRARY_GROUPS;
+  protected readonly iconLibrarySizePreviews: IconSizePreviewRow[] = ICON_LIBRARY_SIZE_PREVIEWS;
+  protected readonly iconLibraryPreviewName = signal(
+    ICON_LIBRARY_GROUPS.find((group) => group.family === 'linear')?.entries[0]?.name ??
+      ICON_LIBRARY_GROUPS[0]?.entries[0]?.name ??
+      'nav-home',
+  );
   protected readonly activeIconographySection = signal('iconography-usage');
   protected readonly copiedIconAssetUrl = signal<string | null>(null);
   protected readonly copiedIconAssetSnippet = signal<string | null>(null);
+  protected readonly copiedIconLibraryName = signal<string | null>(null);
   protected readonly illustrationAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS;
   protected readonly illustrationLibraryAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS.filter(
     (asset) => !asset.id.startsWith('flag-'),
@@ -828,14 +862,14 @@ export class AppComponent {}`;
   protected readonly core3AffixLabelValue = signal('');
   protected readonly core3AffixLabelPrefixValue = signal<string | null>(null);
   protected readonly core3InputTagValue = signal('');
-  protected readonly core3InputTagTags = signal<Sportbook6vnInputTagValue[]>([]);
+  protected readonly core3InputTagTags = signal<MbbizInputTagValue[]>([]);
   protected readonly core3InputTagValidatedValue = signal('');
-  protected readonly core3InputTagValidatedTags = signal<Sportbook6vnInputTagValue[]>([]);
+  protected readonly core3InputTagValidatedTags = signal<MbbizInputTagValue[]>([]);
   protected readonly inputTagDemoValue = signal('');
-  protected readonly inputTagDemoTags = signal<Sportbook6vnInputTagValue[]>([]);
+  protected readonly inputTagDemoTags = signal<MbbizInputTagValue[]>([]);
   protected readonly inputTagValidatedValue = signal('');
-  protected readonly inputTagValidatedTags = signal<Sportbook6vnInputTagValue[]>([]);
-  protected readonly core3CurrencyAffixItems: readonly Sportbook6vnAffixDropdownItem[] = [
+  protected readonly inputTagValidatedTags = signal<MbbizInputTagValue[]>([]);
+  protected readonly core3CurrencyAffixItems: readonly MbbizAffixDropdownItem[] = [
     { id: 'vnd', label: 'VND', flagCode: 'vnd' },
     { id: 'usd', label: 'USD', flagCode: 'usd' },
     { id: 'krw', label: 'KRW', flagCode: 'krw' },
@@ -843,7 +877,7 @@ export class AppComponent {}`;
     { id: 'cad', label: 'CAD', flagCode: 'cad' },
     { id: 'thb', label: 'THB', flagCode: 'thb' },
   ];
-  protected readonly core3DropdownItems: readonly Sportbook6vnDropdownItem[] = [
+  protected readonly core3DropdownItems: readonly MbbizDropdownItem[] = [
     { id: 'option-1', label: 'Option 1' },
     { id: 'option-2', label: 'Option 2' },
     { id: 'option-3', label: 'Option 3' },
@@ -851,9 +885,9 @@ export class AppComponent {}`;
     { id: 'option-5', label: 'Option 5' },
     { id: 'option-6', label: 'Option 6' },
   ];
-  protected readonly core3DropdownBasicItems: readonly Sportbook6vnDropdownItem[] =
+  protected readonly core3DropdownBasicItems: readonly MbbizDropdownItem[] =
     this.core3DropdownItems.slice(0, 4);
-  protected readonly core3DropdownEmptyItems: readonly Sportbook6vnDropdownItem[] = [];
+  protected readonly core3DropdownEmptyItems: readonly MbbizDropdownItem[] = [];
   protected readonly formPreviewFields: readonly {
     id: 'top' | 'middle' | 'bottom';
     title: string;
@@ -864,7 +898,7 @@ export class AppComponent {}`;
     { id: 'middle', title: 'Title', placeholder: 'Lựa chọn', showChevron: false },
     { id: 'bottom', title: 'Title', placeholder: 'Lựa chọn', showChevron: true },
   ];
-  protected readonly core3RadioGroupOptions: readonly Sportbook6vnRadioGroupOption[] = [
+  protected readonly core3RadioGroupOptions: readonly MbbizRadioGroupOption[] = [
     { label: 'A', value: 'a' },
     { label: 'B', value: 'b' },
     { label: 'C', value: 'c' },
@@ -874,7 +908,7 @@ export class AppComponent {}`;
   protected readonly core3RadioGroupVerticalValue = signal<string | number | null>('a');
   protected readonly radioGroupValue = signal<string | number | null>('a');
   protected readonly radioGroupVerticalValue = signal<string | number | null>('a');
-  protected readonly core3CheckboxGroupOptions: readonly Sportbook6vnCheckboxGroupOption[] = [
+  protected readonly core3CheckboxGroupOptions: readonly MbbizCheckboxGroupOption[] = [
     { label: 'A', value: 'a' },
     { label: 'B', value: 'b' },
     { label: 'C', value: 'c' },
@@ -967,11 +1001,13 @@ export class AppComponent {}`;
       | 'pageHeaderPattern'
       | 'footerPattern'
       | 'stepProcessPattern'
+      | 'formPattern'
       | 'introduction'
       | 'installation'
       | 'color'
       | 'tokens'
       | 'spacing'
+      | 'layout'
       | 'typography',
   ) {
     this.activePage.set(page);
@@ -979,12 +1015,15 @@ export class AppComponent {}`;
     if (
       page === 'pageHeaderPattern' ||
       page === 'footerPattern' ||
-      page === 'stepProcessPattern'
+      page === 'stepProcessPattern' ||
+      page === 'formPattern'
     ) {
       this.isPatternOpen.set(true);
     }
-    if (page === 'tokens' || page === 'spacing' || page === 'typography') {
+    if (page === 'tokens' || page === 'spacing' || page === 'layout' || page === 'typography') {
       setTimeout(() => this.updateActiveTokenSection(), 0);
+    } else if (page === 'formPattern') {
+      setTimeout(() => this.updateActiveFormPatternSection(), 0);
     } else if (page === 'pageHeaderPattern') {
       setTimeout(() => this.updateActivePageHeaderPatternSection(), 0);
     } else if (page === 'footerPattern') {
@@ -1058,6 +1097,10 @@ export class AppComponent {}`;
     return `footer-pattern-${sectionId}`;
   }
 
+  protected getFormPatternSectionId(sectionId: FormPatternCase['id']): string {
+    return `form-pattern-${sectionId}`;
+  }
+
   protected getPageHeaderPatternSectionId(sectionId: PageHeaderPatternCase['id']): string {
     return `page-header-pattern-${sectionId}`;
   }
@@ -1076,6 +1119,10 @@ export class AppComponent {}`;
 
   protected setActiveFooterPatternSection(sectionId: string) {
     this.activeFooterPatternSection.set(sectionId);
+  }
+
+  protected setActiveFormPatternSection(sectionId: string) {
+    this.activeFormPatternSection.set(sectionId);
   }
 
   protected setActivePageHeaderPatternSection(sectionId: string) {
@@ -1107,11 +1154,15 @@ export class AppComponent {}`;
     return this.openFooterPatternOverflowId() === variantId;
   }
 
-  protected getButtonVariant(action: ButtonDemoAction): Sportbook6vnButtonVariant {
+  protected setFormPatternSelectedRadio(value: 'option-1' | 'option-2') {
+    this.formPatternSelectedRadio.set(value);
+  }
+
+  protected getButtonVariant(action: ButtonDemoAction): MbbizButtonVariant {
     return action.tone === 'secondary' ? 'secondary' : 'primary';
   }
 
-  protected getButtonSize(action: ButtonDemoAction): Sportbook6vnButtonSize {
+  protected getButtonSize(action: ButtonDemoAction): MbbizButtonSize {
     switch (action.size) {
       case 'small':
         return 'sm';
@@ -1197,7 +1248,7 @@ export class AppComponent {}`;
     this.core3InputTagValue.set(value);
   }
 
-  protected setCore3InputTagTags(value: Sportbook6vnInputTagValue[]) {
+  protected setCore3InputTagTags(value: MbbizInputTagValue[]) {
     this.core3InputTagTags.set(value);
   }
 
@@ -1205,7 +1256,7 @@ export class AppComponent {}`;
     this.core3InputTagValidatedValue.set(value);
   }
 
-  protected setCore3InputTagValidatedTags(value: Sportbook6vnInputTagValue[]) {
+  protected setCore3InputTagValidatedTags(value: MbbizInputTagValue[]) {
     this.core3InputTagValidatedTags.set(value);
   }
 
@@ -1213,7 +1264,7 @@ export class AppComponent {}`;
     this.inputTagDemoValue.set(value);
   }
 
-  protected setInputTagDemoTags(value: Sportbook6vnInputTagValue[]) {
+  protected setInputTagDemoTags(value: MbbizInputTagValue[]) {
     this.inputTagDemoTags.set(value);
   }
 
@@ -1221,7 +1272,7 @@ export class AppComponent {}`;
     this.inputTagValidatedValue.set(value);
   }
 
-  protected setInputTagValidatedTags(value: Sportbook6vnInputTagValue[]) {
+  protected setInputTagValidatedTags(value: MbbizInputTagValue[]) {
     this.inputTagValidatedTags.set(value);
   }
 
@@ -1272,7 +1323,7 @@ export class AppComponent {}`;
 
   protected readonly core3InputTagEmailValidate = (
     inputValue: string,
-    tags: readonly Sportbook6vnInputTagValue[],
+    tags: readonly MbbizInputTagValue[],
   ) => {
     const candidate = inputValue.trim().toLowerCase();
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate);
@@ -1832,7 +1883,7 @@ export class AppComponent {}`;
     return `message-${sectionId}`;
   }
 
-  protected showMessage(type: Sportbook6vnMessageType): void {
+  protected showMessage(type: MbbizMessageType): void {
     const content =
       this.messageCases.find((item) => item.type === type)?.content ?? 'Informative inform.';
     this.messageService.create(type, content, {
@@ -2288,6 +2339,24 @@ export class AppComponent {}`;
     return `<img src="${asset.src}" alt="${asset.alt}" />`;
   }
 
+  protected getIconLibrarySnippet(entry: IconLibraryEntry, size: IconSizeToken = 'm'): string {
+    return `<lib-icon name="${entry.name}" size="${size}" />`;
+  }
+
+  protected setIconLibraryPreviewName(name: string) {
+    this.iconLibraryPreviewName.set(name);
+  }
+
+  protected async copyIconLibrarySnippet(entry: IconLibraryEntry) {
+    await this.writeTextToClipboard(this.getIconLibrarySnippet(entry));
+    this.copiedIconLibraryName.set(entry.name);
+    setTimeout(() => {
+      if (this.copiedIconLibraryName() === entry.name) {
+        this.copiedIconLibraryName.set(null);
+      }
+    }, 1600);
+  }
+
   protected async copyIconAssetUrl(asset: IconAsset) {
     await this.writeTextToClipboard(asset.src);
     this.copiedIconAssetUrl.set(asset.id);
@@ -2364,18 +2433,18 @@ export class AppComponent {}`;
     this.paginationDocsDropdownOpen.set(value);
   }
 
-  protected updateTableAllColumnCellValue(event: Sportbook6vnTableCellValueChange): void {
+  protected updateTableAllColumnCellValue(event: MbbizTableCellValueChange): void {
     this.updateTableRows(this.tableAllColumnRows, event);
   }
 
-  protected updateTableSelectionCellValue(event: Sportbook6vnTableCellValueChange): void {
+  protected updateTableSelectionCellValue(event: MbbizTableCellValueChange): void {
     this.updateTableRows(this.tableSelectionRows, event);
     this.syncTableSelectionKeys();
   }
 
   private updateTableRows(
-    rowsSignal: WritableSignal<Sportbook6vnTableRow[]>,
-    event: Sportbook6vnTableCellValueChange,
+    rowsSignal: WritableSignal<MbbizTableRow[]>,
+    event: MbbizTableCellValueChange,
   ): void {
     rowsSignal.update((rows) =>
       rows.map((row, index) => {
@@ -2422,7 +2491,7 @@ export class AppComponent {}`;
       return;
     }
 
-    const blob = new Blob([`Sportbook6vn docs download: ${fileName}\n`], {
+    const blob = new Blob([`Mbbiz docs download: ${fileName}\n`], {
       type: 'text/plain;charset=utf-8',
     });
     const url = URL.createObjectURL(blob);
@@ -2443,6 +2512,7 @@ export class AppComponent {}`;
     this.updateActivePageHeaderPatternSection();
     this.updateActiveFooterPatternSection();
     this.updateActiveStepProcessPatternSection();
+    this.updateActiveFormPatternSection();
     this.updateActiveButtonSection();
     this.updateActiveButtonMappingSection();
     this.updateActiveInputSection();
@@ -2476,6 +2546,7 @@ export class AppComponent {}`;
     if (
       (this.activePage() !== 'tokens' &&
         this.activePage() !== 'spacing' &&
+        this.activePage() !== 'layout' &&
         this.activePage() !== 'typography') ||
       typeof document === 'undefined'
     ) {
@@ -2525,6 +2596,31 @@ export class AppComponent {}`;
     }
 
     this.activeFooterPatternSection.set(currentSection);
+  }
+
+  private updateActiveFormPatternSection() {
+    if (this.activePage() !== 'formPattern' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getFormPatternSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeFormPatternSection.set(currentSection);
   }
 
   private updateActivePageHeaderPatternSection() {
@@ -3185,7 +3281,11 @@ export class AppComponent {}`;
 
   private getTokenSectionIds(): string[] {
     if (this.activePage() === 'spacing') {
-      return ['spacing-scale', 'radius-scale'];
+      return ['spacing-scale', 'radius-scale', 'iconsize-scale'];
+    }
+
+    if (this.activePage() === 'layout') {
+      return ['layout-grid-demo', ...this.layoutTokenGroups.map((group) => group.id)];
     }
 
     if (this.activePage() === 'typography') {
@@ -3205,6 +3305,10 @@ export class AppComponent {}`;
 
   private getFooterPatternSectionIds(): string[] {
     return this.footerPatternVariants.map((variant) => this.getFooterPatternSectionId(variant.id));
+  }
+
+  private getFormPatternSectionIds(): string[] {
+    return this.formPatternCases.map((patternCase) => this.getFormPatternSectionId(patternCase.id));
   }
 
   private getPageHeaderPatternSectionIds(): string[] {
@@ -3346,7 +3450,13 @@ export class AppComponent {}`;
   }
 
   private getIconographySectionIds(): string[] {
-    return ['iconography-usage', 'iconography-assets', 'iconography-naming'];
+    return [
+      'iconography-usage',
+      'iconography-sizes',
+      ...this.iconLibraryGroups.map((group) => group.id),
+      'iconography-assets',
+      'iconography-naming',
+    ];
   }
 
   private getInstallationSectionIds(): string[] {
@@ -3464,7 +3574,7 @@ export class AppComponent {}`;
 
     return `import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Sportbook6vnButtonComponent } from 'sportbook6vn';
+import { MbbizButtonComponent } from 'mbbiz';
 
 type ButtonDocState = 'default' | 'hover' | 'pressed' | 'disabled';
 
@@ -3481,10 +3591,10 @@ interface ButtonAction {
 @Component({
   selector: 'app-button-demo',
   standalone: true,
-  imports: [CommonModule, Sportbook6vnButtonComponent],
+  imports: [CommonModule, MbbizButtonComponent],
   template: \`
     <div class="button-demo-preview">
-      <sportbook6vn-button
+      <mbbiz-button
         *ngFor="let action of actions"
         [shape]="action.shape"
         [variant]="action.variant"
@@ -3494,13 +3604,13 @@ interface ButtonAction {
         [class.button-doc-state-pressed]="action.docState === 'pressed'"
       >
         @if (action.showLeftIcon) {
-          <span sportbook6vnButtonStartIcon aria-hidden="true">+</span>
+          <span mbbizButtonStartIcon aria-hidden="true">+</span>
         }
         {{ action.label }}
         @if (action.showRightIcon) {
-          <span sportbook6vnButtonEndIcon aria-hidden="true">+</span>
+          <span mbbizButtonEndIcon aria-hidden="true">+</span>
         }
-      </sportbook6vn-button>
+      </mbbiz-button>
     </div>
   \`,
 })
@@ -3514,7 +3624,7 @@ ${actionRows}
   private buildButtonCodeActionMarkup(action: ButtonDemoAction, indent: string): string {
     const state = this.getButtonDocState(action);
     const lines = [
-      `${indent}<sportbook6vn-button`,
+      `${indent}<mbbiz-button`,
       `${indent}  shape="${action.shape ?? 'rectangle'}"`,
       `${indent}  variant="${this.getButtonVariant(action)}"`,
       `${indent}  size="${this.getButtonSize(action)}"`,
@@ -3533,16 +3643,16 @@ ${actionRows}
     lines.push(`${indent}>`);
 
     if (action.showLeftIcon) {
-      lines.push(`${indent}  <span sportbook6vnButtonStartIcon aria-hidden="true">+</span>`);
+      lines.push(`${indent}  <span mbbizButtonStartIcon aria-hidden="true">+</span>`);
     }
 
     lines.push(`${indent}  ${action.label}`);
 
     if (action.showRightIcon) {
-      lines.push(`${indent}  <span sportbook6vnButtonEndIcon aria-hidden="true">+</span>`);
+      lines.push(`${indent}  <span mbbizButtonEndIcon aria-hidden="true">+</span>`);
     }
 
-    lines.push(`${indent}</sportbook6vn-button>`);
+    lines.push(`${indent}</mbbiz-button>`);
 
     return lines.join('\n');
   }
@@ -3707,14 +3817,14 @@ ${actionRows}
 
   private buildInputDocsBasicSnippet(): string {
     return `import { Component, signal } from '@angular/core';
-import { Sportbook6vnInputComponent } from 'sportbook6vn';
+import { MbbizInputComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-input-basic-demo',
   standalone: true,
-  imports: [Sportbook6vnInputComponent],
+  imports: [MbbizInputComponent],
   template: \`
-    <sportbook6vn-input
+    <mbbiz-input
       inputId="basic-input"
       placeholder="Input text"
       [value]="value()"
@@ -3729,14 +3839,14 @@ export class InputBasicDemoComponent {
 
   private buildInputDocsAffixPrefixSnippet(): string {
     return `import { Component, signal } from '@angular/core';
-import { Sportbook6vnAffixInputComponent } from 'sportbook6vn';
+import { MbbizAffixInputComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-affix-input-prefix-demo',
   standalone: true,
-  imports: [Sportbook6vnAffixInputComponent],
+  imports: [MbbizAffixInputComponent],
   template: \`
-    <sportbook6vn-affix-input
+    <mbbiz-affix-input
       inputId="affix-prefix-input"
       mode="prefix"
       prefixText="₫"
@@ -3753,14 +3863,14 @@ export class AffixInputPrefixDemoComponent {
 
   private buildInputDocsAffixBothSnippet(): string {
     return `import { Component, signal } from '@angular/core';
-import { Sportbook6vnAffixInputComponent } from 'sportbook6vn';
+import { MbbizAffixInputComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-affix-input-both-demo',
   standalone: true,
-  imports: [Sportbook6vnAffixInputComponent],
+  imports: [MbbizAffixInputComponent],
   template: \`
-    <sportbook6vn-affix-input
+    <mbbiz-affix-input
       inputId="affix-both-input"
       mode="both"
       prefixText="₫"
@@ -3778,14 +3888,14 @@ export class AffixInputBothDemoComponent {
 
   private buildInputDocsSearchSnippet(): string {
     return `import { Component, signal } from '@angular/core';
-import { Sportbook6vnSearchInputComponent } from 'sportbook6vn';
+import { MbbizSearchInputComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-search-input-demo',
   standalone: true,
-  imports: [Sportbook6vnSearchInputComponent],
+  imports: [MbbizSearchInputComponent],
   template: \`
-    <sportbook6vn-search-input
+    <mbbiz-search-input
       inputId="search-input"
       placeholder="Input text"
       [value]="query()"
@@ -3805,14 +3915,14 @@ export class SearchInputDemoComponent {
 
   private buildInputDocsPasswordSnippet(): string {
     return `import { Component, signal } from '@angular/core';
-import { Sportbook6vnPasswordInputComponent } from 'sportbook6vn';
+import { MbbizPasswordInputComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-password-input-demo',
   standalone: true,
-  imports: [Sportbook6vnPasswordInputComponent],
+  imports: [MbbizPasswordInputComponent],
   template: \`
-    <sportbook6vn-password-input
+    <mbbiz-password-input
       inputId="password-input"
       [value]="password()"
       [visible]="visible()"
@@ -3829,14 +3939,14 @@ export class PasswordInputDemoComponent {
 
   private buildInputDocsTextareaSnippet(): string {
     return `import { Component, signal } from '@angular/core';
-import { Sportbook6vnTextareaComponent } from 'sportbook6vn';
+import { MbbizTextareaComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-textarea-demo',
   standalone: true,
-  imports: [Sportbook6vnTextareaComponent],
+  imports: [MbbizTextareaComponent],
   template: \`
-    <sportbook6vn-textarea
+    <mbbiz-textarea
       textareaId="message-textarea"
       placeholder="Input text"
       [rows]="4"
@@ -3853,14 +3963,14 @@ export class TextareaDemoComponent {
 
   private buildInputDocsFloatingLabelSnippet(): string {
     return `import { Component, signal } from '@angular/core';
-import { Sportbook6vnFloatingLabelInputComponent } from 'sportbook6vn';
+import { MbbizFloatingLabelInputComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-floating-label-input-demo',
   standalone: true,
-  imports: [Sportbook6vnFloatingLabelInputComponent],
+  imports: [MbbizFloatingLabelInputComponent],
   template: \`
-    <sportbook6vn-floating-label-input
+    <mbbiz-floating-label-input
       inputId="floating-label-input"
       label="Title"
       placeholder="Input text"
@@ -3877,16 +3987,16 @@ export class FloatingLabelInputDemoComponent {
   private buildInputDocsAffixLabelSnippet(): string {
     return `import { Component, signal } from '@angular/core';
 import {
-  Sportbook6vnAffixDropdownItem,
-  Sportbook6vnAffixLabelInputComponent,
-} from 'sportbook6vn';
+  MbbizAffixDropdownItem,
+  MbbizAffixLabelInputComponent,
+} from 'mbbiz';
 
 @Component({
   selector: 'app-affix-label-input-demo',
   standalone: true,
-  imports: [Sportbook6vnAffixLabelInputComponent],
+  imports: [MbbizAffixLabelInputComponent],
   template: \`
-    <sportbook6vn-affix-label-input
+    <mbbiz-affix-label-input
       inputId="currency-input"
       placeholder="Input text"
       prefixLabel="Loại tiền"
@@ -3902,7 +4012,7 @@ export class AffixLabelInputDemoComponent {
   readonly value = signal('');
   readonly currencyId = signal<string | null>(null);
 
-  readonly currencyItems: readonly Sportbook6vnAffixDropdownItem[] = [
+  readonly currencyItems: readonly MbbizAffixDropdownItem[] = [
     { id: 'vnd', label: 'VND', flagCode: 'vnd' },
     { id: 'usd', label: 'USD', flagCode: 'usd' },
     { id: 'krw', label: 'KRW', flagCode: 'krw' },
@@ -3913,35 +4023,35 @@ export class AffixLabelInputDemoComponent {
   private buildInputDocsStatusSnippet(): string {
     return `import { Component } from '@angular/core';
 import {
-  Sportbook6vnFloatingLabelInputComponent,
-  Sportbook6vnInputComponent,
-  Sportbook6vnPasswordInputComponent,
-  Sportbook6vnSearchInputComponent,
-  Sportbook6vnTextareaComponent,
-} from 'sportbook6vn';
+  MbbizFloatingLabelInputComponent,
+  MbbizInputComponent,
+  MbbizPasswordInputComponent,
+  MbbizSearchInputComponent,
+  MbbizTextareaComponent,
+} from 'mbbiz';
 
 @Component({
   selector: 'app-input-status-demo',
   standalone: true,
   imports: [
-    Sportbook6vnInputComponent,
-    Sportbook6vnSearchInputComponent,
-    Sportbook6vnPasswordInputComponent,
-    Sportbook6vnTextareaComponent,
-    Sportbook6vnFloatingLabelInputComponent,
+    MbbizInputComponent,
+    MbbizSearchInputComponent,
+    MbbizPasswordInputComponent,
+    MbbizTextareaComponent,
+    MbbizFloatingLabelInputComponent,
   ],
   template: \`
-    <sportbook6vn-input inputId="input-error" placeholder="Input text" status="error" />
-    <sportbook6vn-search-input inputId="search-error" placeholder="Input text" status="error" />
-    <sportbook6vn-password-input inputId="password-error" status="error" />
-    <sportbook6vn-textarea
+    <mbbiz-input inputId="input-error" placeholder="Input text" status="error" />
+    <mbbiz-search-input inputId="search-error" placeholder="Input text" status="error" />
+    <mbbiz-password-input inputId="password-error" status="error" />
+    <mbbiz-textarea
       textareaId="textarea-error"
       placeholder="Input text"
       [rows]="4"
       [maxLength]="100"
       status="error"
     />
-    <sportbook6vn-floating-label-input
+    <mbbiz-floating-label-input
       inputId="floating-error"
       label="Title"
       placeholder="Input text"
@@ -3955,35 +4065,35 @@ export class InputStatusDemoComponent {}`;
   private buildInputDocsDisabledSnippet(): string {
     return `import { Component } from '@angular/core';
 import {
-  Sportbook6vnFloatingLabelInputComponent,
-  Sportbook6vnInputComponent,
-  Sportbook6vnPasswordInputComponent,
-  Sportbook6vnSearchInputComponent,
-  Sportbook6vnTextareaComponent,
-} from 'sportbook6vn';
+  MbbizFloatingLabelInputComponent,
+  MbbizInputComponent,
+  MbbizPasswordInputComponent,
+  MbbizSearchInputComponent,
+  MbbizTextareaComponent,
+} from 'mbbiz';
 
 @Component({
   selector: 'app-input-disabled-demo',
   standalone: true,
   imports: [
-    Sportbook6vnInputComponent,
-    Sportbook6vnSearchInputComponent,
-    Sportbook6vnPasswordInputComponent,
-    Sportbook6vnTextareaComponent,
-    Sportbook6vnFloatingLabelInputComponent,
+    MbbizInputComponent,
+    MbbizSearchInputComponent,
+    MbbizPasswordInputComponent,
+    MbbizTextareaComponent,
+    MbbizFloatingLabelInputComponent,
   ],
   template: \`
-    <sportbook6vn-input inputId="input-disabled" placeholder="Input text" [disabled]="true" />
-    <sportbook6vn-search-input inputId="search-disabled" placeholder="Input text" [disabled]="true" />
-    <sportbook6vn-password-input inputId="password-disabled" [disabled]="true" />
-    <sportbook6vn-textarea
+    <mbbiz-input inputId="input-disabled" placeholder="Input text" [disabled]="true" />
+    <mbbiz-search-input inputId="search-disabled" placeholder="Input text" [disabled]="true" />
+    <mbbiz-password-input inputId="password-disabled" [disabled]="true" />
+    <mbbiz-textarea
       textareaId="textarea-disabled"
       placeholder="Input text"
       [rows]="4"
       [maxLength]="100"
       [disabled]="true"
     />
-    <sportbook6vn-floating-label-input
+    <mbbiz-floating-label-input
       inputId="floating-disabled"
       label="Title"
       placeholder="Input text"
@@ -4069,7 +4179,7 @@ export class InputDisabledDemoComponent {}`;
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|Sportbook6vnButtonComponent|Sportbook6vnInputComponent|Sportbook6vnAffixInputComponent|Sportbook6vnSearchInputComponent|Sportbook6vnPasswordInputComponent|Sportbook6vnTextareaComponent|Sportbook6vnFloatingLabelInputComponent|Sportbook6vnAffixLabelInputComponent|Sportbook6vnAffixDropdownItem|Sportbook6vnDropdownComponent|Sportbook6vnDropdownTagComponent|Sportbook6vnDropdownItem|Sportbook6vnInputTagComponent|Sportbook6vnInputTagValue|Sportbook6vnDatepickerComponent|Sportbook6vnDatepickerCell|Sportbook6vnDatepickerRangeValue|Sportbook6vnBreadcrumbComponent|Sportbook6vnBreadcrumbItem|Sportbook6vnStepsComponent|Sportbook6vnStepItem|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
+      /\b(Component|MbbizButtonComponent|MbbizInputComponent|MbbizAffixInputComponent|MbbizSearchInputComponent|MbbizPasswordInputComponent|MbbizTextareaComponent|MbbizFloatingLabelInputComponent|MbbizAffixLabelInputComponent|MbbizAffixDropdownItem|MbbizDropdownComponent|MbbizDropdownTagComponent|MbbizDropdownItem|MbbizInputTagComponent|MbbizInputTagValue|MbbizDatepickerComponent|MbbizDatepickerCell|MbbizDatepickerRangeValue|MbbizBreadcrumbComponent|MbbizBreadcrumbItem|MbbizStepsComponent|MbbizStepItem|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');

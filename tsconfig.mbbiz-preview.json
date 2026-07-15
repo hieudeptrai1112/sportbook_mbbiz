@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/mbbiz-preview",
+    "types": []
+  },
+  "files": ["projects/mbbiz-preview/src/main.ts"],
+  "include": ["projects/mbbiz-preview/src/**/*.d.ts"]
+}

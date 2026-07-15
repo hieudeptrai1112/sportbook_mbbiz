@@ -1,13 +1,13 @@
 ---
 name: thay-token
-description: Use when the user prompts `token + <component name>`, for example `token button`, or asks in Vietnamese/English to replace, update, add, or remap alias/component tokens for an existing Sportbook6vn component. This skill is for safe token changes in the component library and docs, especially color token changes from Figma alias tokens.
+description: Use when the user prompts `token + <component name>`, for example `token button`, or asks in Vietnamese/English to replace, update, add, or remap alias/component tokens for an existing Mbbiz component. This skill is for safe token changes in the component library and docs, especially color token changes from Figma alias tokens.
 metadata:
   short-description: Safely update component tokens
 ---
 
 # Thay Token
 
-Use this skill when the user says `token + <component>` such as `token button`, or asks to change/update/add token mappings for an existing Sportbook6vn component.
+Use this skill when the user says `token + <component>` such as `token button`, or asks to change/update/add token mappings for an existing Mbbiz component.
 
 Vietnamese trigger intent: `token + tên component`.
 
@@ -35,8 +35,8 @@ Vietnamese trigger intent: `token + tên component`.
 3. **Audit current code before editing**
    - Use `rg` to find component files, existing component tokens, alias names, and CSS variables.
    - Check at minimum:
-     - `projects/sportbook6vn/src/lib/foundations/tokens/`
-     - `projects/sportbook6vn/src/lib/components/<component>/`
+     - `projects/mbbiz/src/lib/foundations/tokens/`
+     - `projects/mbbiz/src/lib/components/<component>/`
      - `src/app/components/ds-<component>/`
      - component docs/data files such as `src/app/*<component>*data.ts`
    - Search for generic selectors that can leak changes, such as tone-only or variant-only selectors without shape/state qualifiers.
@@ -59,10 +59,10 @@ Vietnamese trigger intent: `token + tên component`.
 
 7. **Validation**
    - Run the smallest relevant build/test first.
-   - For Sportbook6vn component changes, prefer:
-     - `npm run build:sportbook6vn`
+   - For Mbbiz component changes, prefer:
+     - `npm run build:mbbiz`
      - `npm run build`
-     - `npm run test:sportbook6vn -- --watch=false` when component behavior or shared CSS changed
+     - `npm run test:mbbiz -- --watch=false` when component behavior or shared CSS changed
    - Report build warnings separately from failures.
 
 8. **Push**

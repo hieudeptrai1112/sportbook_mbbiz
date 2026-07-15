@@ -1,0 +1,80 @@
+<div class="mbbiz-modal">
+  <div class="mbbiz-modal__header">
+    <h3 class="mbbiz-modal__title">{{ title() }}</h3>
+
+    @if (showClose()) {
+      <button
+        type="button"
+        class="mbbiz-modal__close"
+        [attr.aria-label]="closeAriaLabel()"
+        (click)="emitCloseAction()"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 7L17 17" />
+          <path d="M17 7L7 17" />
+        </svg>
+      </button>
+    }
+  </div>
+
+  <div class="mbbiz-modal__body">
+    <div class="mbbiz-modal__field">
+      <mbbiz-input
+        inputId="mbbiz-modal-field-1"
+        [label]="firstFieldLabel()"
+        [placeholder]="firstFieldPlaceholder()"
+        [value]="firstFieldValue()"
+        (valueChange)="onFirstFieldValueChange($event)"
+      />
+    </div>
+
+    @if (showSecondField()) {
+      <div class="mbbiz-modal__field">
+        <mbbiz-input
+          inputId="mbbiz-modal-field-2"
+          [label]="secondFieldLabel()"
+          [placeholder]="secondFieldPlaceholder()"
+          [value]="secondFieldValue()"
+          (valueChange)="onSecondFieldValueChange($event)"
+        />
+      </div>
+    }
+
+    <ng-content />
+  </div>
+
+  <div class="mbbiz-modal__footer">
+    @if (actionLayout() === 'single') {
+      <div class="mbbiz-modal__actions-single">
+        <mbbiz-button
+          shape="pill"
+          size="lg"
+          (buttonClick)="emitPrimaryAction()"
+        >
+          {{ primaryButtonLabel() }}
+        </mbbiz-button>
+      </div>
+    } @else {
+      <div class="mbbiz-modal__actions mbbiz-modal__actions--double">
+        @if (shouldShowSecondaryAction()) {
+          <mbbiz-button
+            variant="secondary"
+            shape="pill"
+            size="lg"
+            (buttonClick)="emitSecondaryAction()"
+          >
+            {{ secondaryButtonLabel() }}
+          </mbbiz-button>
+        }
+
+        <mbbiz-button
+          shape="pill"
+          size="lg"
+          (buttonClick)="emitPrimaryAction()"
+        >
+          {{ primaryButtonLabel() }}
+        </mbbiz-button>
+      </div>
+    }
+  </div>
+</div>

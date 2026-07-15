@@ -1,0 +1,130 @@
+<nav [class]="wrapperClass()" [attr.aria-label]="ariaLabel()">
+  @if (showTotal()) {
+    <p class="mbbiz-pagination__total">{{ rangeLabel() }}</p>
+  }
+
+  <div class="mbbiz-pagination__controls">
+    <div class="mbbiz-pagination__pager">
+      <div class="mbbiz-pagination__nav-group mbbiz-pagination__nav-group--back">
+        <button
+          type="button"
+          class="mbbiz-pagination__nav mbbiz-pagination__nav--double"
+          [disabled]="!canGoPrevious()"
+          aria-label="Lùi 5 trang"
+          (click)="jumpPreviousFive()"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M13 7l-5 5 5 5" />
+            <path d="M19 7l-5 5 5 5" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="mbbiz-pagination__nav"
+          [disabled]="!canGoPrevious()"
+          aria-label="Trang trước"
+          (click)="goPrevious()"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 7l-5 5 5 5" />
+          </svg>
+        </button>
+      </div>
+
+      @if (useQuickJumper()) {
+        <p class="mbbiz-pagination__page-summary">{{ pageSummary() }}</p>
+      } @else {
+        <div class="mbbiz-pagination__page-list">
+          @for (item of pageItems(); track trackPage($index, item)) {
+            <button
+              type="button"
+              class="mbbiz-pagination__page"
+              [class.mbbiz-pagination__page--active]="item.active"
+              [disabled]="disabled()"
+              [attr.aria-current]="item.active ? 'page' : null"
+              (click)="setPage(item.page)"
+            >
+              {{ item.page }}
+            </button>
+          }
+        </div>
+      }
+
+      <div class="mbbiz-pagination__nav-group mbbiz-pagination__nav-group--next">
+        <button
+          type="button"
+          class="mbbiz-pagination__nav"
+          [disabled]="!canGoNext()"
+          aria-label="Trang sau"
+          (click)="goNext()"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 7l5 5-5 5" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="mbbiz-pagination__nav mbbiz-pagination__nav--double"
+          [disabled]="!canGoNext()"
+          aria-label="Tiến 5 trang"
+          (click)="jumpNextFive()"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 7l5 5-5 5" />
+            <path d="M11 7l5 5-5 5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    @if (useQuickJumper()) {
+      <label class="mbbiz-pagination__quick">
+        <span class="mbbiz-pagination__quick-label">Đi đến</span>
+        <input
+          class="mbbiz-pagination__quick-input"
+          inputmode="numeric"
+          placeholder="Trang"
+          [disabled]="disabled()"
+          [value]="localQuickJumpValue()"
+          (input)="updateQuickJumpValue($event)"
+          (keydown)="onQuickJumpKeydown($event)"
+          (blur)="submitQuickJump()"
+        />
+      </label>
+    } @else {
+      <div class="mbbiz-pagination__jump">
+        <button
+          type="button"
+          class="mbbiz-pagination__jump-trigger"
+          [disabled]="disabled()"
+          [attr.aria-expanded]="localOpenJump()"
+          (click)="toggleJump()"
+        >
+          <span>Đến trang {{ currentPage() }}</span>
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            @if (localOpenJump()) {
+              <path d="M5 12.5L10 7.5L15 12.5" />
+            } @else {
+              <path d="M5 7.5L10 12.5L15 7.5" />
+            }
+          </svg>
+        </button>
+
+        @if (localOpenJump()) {
+          <div class="mbbiz-pagination__jump-panel">
+            @for (page of jumpOptions(); track trackOption($index, page)) {
+              <button
+                type="button"
+                class="mbbiz-pagination__jump-option"
+                [class.mbbiz-pagination__jump-option--active]="page === currentPage()"
+                (click)="setPage(page)"
+              >
+                Đến trang {{ page }}
+              </button>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</nav>

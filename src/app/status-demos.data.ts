@@ -13,14 +13,14 @@ export const STATUS_DEMO_SECTIONS: StatusDemoSection[] = [
     id: 'default',
     title: 'Default',
     description: 'Baseline neutral status with compact dot and text.',
-    tags: ['selector=sportbook6vn-status', 'status=invalid'],
+    tags: ['selector=mbbiz-status', 'status=invalid'],
     variant: 'default',
   },
   {
     id: 'colors',
     title: 'Colors',
     description: 'Color set from the approved Figma status node.',
-    tags: ['selector=sportbook6vn-status', 'color=neutral/orange/blue/dark-blue/green/red'],
+    tags: ['selector=mbbiz-status', 'color=neutral/orange/blue/dark-blue/green/red'],
     variant: 'colors',
   },
 ];

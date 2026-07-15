@@ -1,12 +1,12 @@
 import type {
-  Sportbook6vnBreadcrumbItem,
-  Sportbook6vnButtonVariant,
-  Sportbook6vnStepItem,
-} from 'sportbook6vn';
+  MbbizBreadcrumbItem,
+  MbbizButtonVariant,
+  MbbizStepItem,
+} from 'mbbiz';
 
 export interface FooterPatternAction {
   label: string;
-  variant: Sportbook6vnButtonVariant;
+  variant: MbbizButtonVariant;
   width: 'compact' | 'wide';
 }
 
@@ -30,7 +30,7 @@ export interface StepProcessPatternCase {
   usage: string;
   saveCtaLabel?: string;
   saveTimestamp?: string;
-  steps: readonly Sportbook6vnStepItem[];
+  steps: readonly MbbizStepItem[];
 }
 
 export interface PageHeaderPatternCase {
@@ -39,7 +39,42 @@ export interface PageHeaderPatternCase {
   description: string;
   usage: string;
   titleText: string;
-  breadcrumbItems: readonly Sportbook6vnBreadcrumbItem[];
+  breadcrumbItems: readonly MbbizBreadcrumbItem[];
+}
+
+export interface FormPatternField {
+  title: string;
+  placeholder: string;
+  kind: 'input' | 'dropdown' | 'datepicker' | 'textarea';
+  width: 'full' | 'half';
+  required?: boolean;
+  showInfo?: boolean;
+  showChevron?: boolean;
+  maxLength?: number;
+}
+
+export interface FormPatternCheckboxOption {
+  label: string;
+  checked?: boolean;
+  disabled?: boolean;
+}
+
+export interface FormPatternRadioOption {
+  id: 'option-1' | 'option-2';
+  title: string;
+  description: string;
+}
+
+export interface FormPatternCase {
+  id: 'basic' | 'long' | 'checkboxRadio' | 'upload';
+  title: string;
+  description: string;
+  usage: string;
+  heading?: string;
+  topActionLabel?: string;
+  fields?: readonly FormPatternField[];
+  checkboxes?: readonly FormPatternCheckboxOption[];
+  radios?: readonly FormPatternRadioOption[];
 }
 
 export const FOOTER_PATTERN_VARIANTS: readonly FooterPatternVariant[] = [
@@ -147,29 +182,167 @@ export const PAGE_HEADER_PATTERN_CASES: readonly PageHeaderPatternCase[] = [
   },
 ] as const;
 
+export const FORM_PATTERN_CASES: readonly FormPatternCase[] = [
+  {
+    id: 'basic',
+    title: 'Basic form',
+    description:
+      'Biến thể cơ bản gồm 2 dropdown, 1 datepicker và 1 textarea xếp dọc trong shell 944×440.',
+    usage:
+      'Dùng để mô tả form nhập liệu đơn giản với label ngoài field, required mark và placeholder của Figma.',
+    fields: [
+      {
+        title: 'Title',
+        placeholder: 'Lựa chọn',
+        kind: 'dropdown',
+        width: 'full',
+        required: true,
+        showChevron: false,
+      },
+      {
+        title: 'Title',
+        placeholder: 'Lựa chọn',
+        kind: 'dropdown',
+        width: 'full',
+        required: true,
+        showChevron: true,
+      },
+      {
+        title: 'Title',
+        placeholder: 'Chọn ngày',
+        kind: 'datepicker',
+        width: 'full',
+      },
+      {
+        title: 'Title',
+        placeholder: 'Nhập nội dung',
+        kind: 'textarea',
+        width: 'full',
+        required: true,
+        maxLength: 200,
+      },
+    ],
+  },
+  {
+    id: 'long',
+    title: 'Long form',
+    description:
+      'Form dài với header heading + button và các field text chia theo bố cục 2 cột xen kẽ 1 cột.',
+    usage:
+      'Node này dùng text field post-login với các label dài, một số label có info icon bên phải.',
+    heading: 'Heading',
+    topActionLabel: 'Button',
+    fields: [
+      {
+        title: 'Số tài khoản/Iban',
+        placeholder: 'Nhập số tài khoản/Iban',
+        kind: 'input',
+        width: 'half',
+        required: true,
+      },
+      {
+        title: 'Tên người thụ hưởng',
+        placeholder: 'Nhập tên người thụ hưởng',
+        kind: 'input',
+        width: 'half',
+        required: true,
+        showInfo: true,
+      },
+      {
+        title: 'Địa chỉ người thụ hưởng',
+        placeholder: 'Nhập địa chỉ người thụ hưởng',
+        kind: 'input',
+        width: 'full',
+        required: true,
+      },
+      {
+        title: 'Mã ngân hàng (SWIFT code...)',
+        placeholder: 'Nhập mã ngân hàng',
+        kind: 'input',
+        width: 'half',
+        required: true,
+        showInfo: true,
+      },
+      {
+        title: 'Tên ngân hàng',
+        placeholder: 'Nhập tên ngân hàng',
+        kind: 'input',
+        width: 'half',
+        required: true,
+        showInfo: true,
+      },
+      {
+        title: 'Địa chỉ ngân hàng',
+        placeholder: 'Nhập địa chỉ ngân hàng',
+        kind: 'input',
+        width: 'full',
+        required: true,
+        showInfo: true,
+      },
+    ],
+  },
+  {
+    id: 'checkboxRadio',
+    title: 'Checkbox and radio form',
+    description:
+      'Case kết hợp heading, nhóm checkbox, 2 radio option có description và một single date phía dưới.',
+    usage:
+      'Radio description được compose local trong pattern để bám Figma, còn control vẫn dùng component radio của thư viện.',
+    heading: 'Heading',
+    fields: [
+      {
+        title: 'Title',
+        placeholder: 'Chọn ngày',
+        kind: 'datepicker',
+        width: 'half',
+        required: true,
+      },
+    ],
+    checkboxes: [
+      { label: 'Option', checked: true, disabled: true },
+      { label: 'Option', checked: true },
+      { label: 'Option' },
+    ],
+    radios: [
+      { id: 'option-1', title: 'Title', description: 'Description' },
+      { id: 'option-2', title: 'Title', description: 'Description' },
+    ],
+  },
+  {
+    id: 'upload',
+    title: 'Upload form',
+    description:
+      'Biến thể upload với heading + button ở trên, bên dưới là 2 block upload file lặp lại theo đúng node.',
+    usage:
+      'Mỗi block giữ nguyên cấu trúc file list bên trái và upload area bên phải từ component upload-file hiện có.',
+    heading: 'Heading',
+    topActionLabel: 'Button',
+  },
+] as const;
+
 export const FOOTER_PATTERN_DEPENDENCIES = [
-  'Sportbook6vnButtonComponent',
-  'sportbook6vn-button',
+  'MbbizButtonComponent',
+  'mbbiz-button',
 ] as const;
 
 export const FOOTER_PATTERN_IMPLEMENTATION_SNIPPET = `<footer class="page-footer-pattern">
   <div class="page-footer-pattern__actions">
     <div class="page-footer-pattern__action page-footer-pattern__action--compact">
-      <sportbook6vn-button variant="secondary" size="lg" [fullWidth]="true">
+      <mbbiz-button variant="secondary" size="lg" [fullWidth]="true">
         Quay lại
-      </sportbook6vn-button>
+      </mbbiz-button>
     </div>
 
     <div class="page-footer-pattern__action page-footer-pattern__action--compact">
-      <sportbook6vn-button variant="secondary" size="lg" [fullWidth]="true">
+      <mbbiz-button variant="secondary" size="lg" [fullWidth]="true">
         Từ chối
-      </sportbook6vn-button>
+      </mbbiz-button>
     </div>
 
     <div class="page-footer-pattern__action page-footer-pattern__action--wide">
-      <sportbook6vn-button variant="primary" size="lg" [fullWidth]="true">
+      <mbbiz-button variant="primary" size="lg" [fullWidth]="true">
         Phê duyệt
-      </sportbook6vn-button>
+      </mbbiz-button>
     </div>
   </div>
 </footer>`;

@@ -1,0 +1,227 @@
+[
+  {
+    "source": "agents_local",
+    "name": "find-skills",
+    "path": "/Users/apple/.agents/skills/find-skills/SKILL.md"
+  },
+  {
+    "source": "codex_local",
+    "name": "apply-design-system",
+    "path": "/Users/apple/.codex/skills/apply-design-system/SKILL.md"
+  },
+  {
+    "source": "codex_local",
+    "name": "cc-figma-component",
+    "path": "/Users/apple/.codex/skills/cc-figma-component/SKILL.md"
+  },
+  {
+    "source": "codex_local",
+    "name": "cc-figma-tokens",
+    "path": "/Users/apple/.codex/skills/cc-figma-tokens/SKILL.md"
+  },
+  {
+    "source": "codex_local",
+    "name": "figma",
+    "path": "/Users/apple/.codex/skills/figma/SKILL.md"
+  },
+  {
+    "source": "codex_local",
+    "name": "figma-code-connect-components",
+    "path": "/Users/apple/.codex/skills/figma-code-connect-components/SKILL.md"
+  },
+  {
+    "source": "codex_local",
+    "name": "figma-create-design-system-rules",
+    "path": "/Users/apple/.codex/skills/figma-create-design-system-rules/SKILL.md"
+  },
+  {
+    "source": "codex_local",
+    "name": "figma-create-new-file",
+    "path": "/Users/apple/.codex/skills/figma-create-new-file/SKILL.md"
+  },
+  {
+    "source": "codex_local",
+    "name": "figma-generate-design",
+    "path": "/Users/apple/.codex/skills/figma-generate-design/SKILL.md"
+  },
+  {
+    "source": "codex_local",
+    "name": "figma-generate-library",
+    "path": "/Users/apple/.codex/skills/figma-generate-library/SKILL.md"
+  },
+  {
+    "source": "codex_local",
+    "name": "figma-implement-design",
+    "path": "/Users/apple/.codex/skills/figma-implement-design/SKILL.md"
+  },
+  {
+    "source": "codex_local",
+    "name": "figma-use",
+    "path": "/Users/apple/.codex/skills/figma-use/SKILL.md"
+  },
+  {
+    "source": "codex_local",
+    "name": "gh-fix-ci",
+    "path": "/Users/apple/.codex/skills/gh-fix-ci/SKILL.md"
+  },
+  {
+    "source": "codex_local",
+    "name": "sync-figma-token",
+    "path": "/Users/apple/.codex/skills/sync-figma-token/SKILL.md"
+  },
+  {
+    "source": "codex_local",
+    "name": "vercel-deploy",
+    "path": "/Users/apple/.codex/skills/vercel-deploy/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "automate",
+    "path": "/Users/apple/.cursor/skills-cursor/automate/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "babysit",
+    "path": "/Users/apple/.cursor/skills-cursor/babysit/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "canvas",
+    "path": "/Users/apple/.cursor/skills-cursor/canvas/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "create-hook",
+    "path": "/Users/apple/.cursor/skills-cursor/create-hook/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "create-rule",
+    "path": "/Users/apple/.cursor/skills-cursor/create-rule/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "create-skill",
+    "path": "/Users/apple/.cursor/skills-cursor/create-skill/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "create-subagent",
+    "path": "/Users/apple/.cursor/skills-cursor/create-subagent/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "loop",
+    "path": "/Users/apple/.cursor/skills-cursor/loop/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "migrate-to-skills",
+    "path": "/Users/apple/.cursor/skills-cursor/migrate-to-skills/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "onboard",
+    "path": "/Users/apple/.cursor/skills-cursor/onboard/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "review",
+    "path": "/Users/apple/.cursor/skills-cursor/review/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "review-bugbot",
+    "path": "/Users/apple/.cursor/skills-cursor/review-bugbot/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "review-security",
+    "path": "/Users/apple/.cursor/skills-cursor/review-security/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "sdk",
+    "path": "/Users/apple/.cursor/skills-cursor/sdk/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "shell",
+    "path": "/Users/apple/.cursor/skills-cursor/shell/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "split-to-prs",
+    "path": "/Users/apple/.cursor/skills-cursor/split-to-prs/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "statusline",
+    "path": "/Users/apple/.cursor/skills-cursor/statusline/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "update-cli-config",
+    "path": "/Users/apple/.cursor/skills-cursor/update-cli-config/SKILL.md"
+  },
+  {
+    "source": "cursor_builtin",
+    "name": "update-cursor-settings",
+    "path": "/Users/apple/.cursor/skills-cursor/update-cursor-settings/SKILL.md"
+  },
+  {
+    "source": "plugin_cache",
+    "name": "figma-code-connect",
+    "path": "/Users/apple/.cursor/plugins/cache/cursor-public/figma/bea8bea5f676ab2bf76fa822b82f50b66653c098/skills/figma-code-connect/SKILL.md"
+  },
+  {
+    "source": "plugin_cache",
+    "name": "figma-create-new-file",
+    "path": "/Users/apple/.cursor/plugins/cache/cursor-public/figma/bea8bea5f676ab2bf76fa822b82f50b66653c098/skills/figma-create-new-file/SKILL.md"
+  },
+  {
+    "source": "plugin_cache",
+    "name": "figma-generate-design",
+    "path": "/Users/apple/.cursor/plugins/cache/cursor-public/figma/bea8bea5f676ab2bf76fa822b82f50b66653c098/skills/figma-generate-design/SKILL.md"
+  },
+  {
+    "source": "plugin_cache",
+    "name": "figma-generate-diagram",
+    "path": "/Users/apple/.cursor/plugins/cache/cursor-public/figma/bea8bea5f676ab2bf76fa822b82f50b66653c098/skills/figma-generate-diagram/SKILL.md"
+  },
+  {
+    "source": "plugin_cache",
+    "name": "figma-generate-library",
+    "path": "/Users/apple/.cursor/plugins/cache/cursor-public/figma/bea8bea5f676ab2bf76fa822b82f50b66653c098/skills/figma-generate-library/SKILL.md"
+  },
+  {
+    "source": "plugin_cache",
+    "name": "figma-implement-motion",
+    "path": "/Users/apple/.cursor/plugins/cache/cursor-public/figma/bea8bea5f676ab2bf76fa822b82f50b66653c098/skills/figma-implement-motion/SKILL.md"
+  },
+  {
+    "source": "plugin_cache",
+    "name": "figma-swiftui",
+    "path": "/Users/apple/.cursor/plugins/cache/cursor-public/figma/bea8bea5f676ab2bf76fa822b82f50b66653c098/skills/figma-swiftui/SKILL.md"
+  },
+  {
+    "source": "plugin_cache",
+    "name": "figma-use",
+    "path": "/Users/apple/.cursor/plugins/cache/cursor-public/figma/bea8bea5f676ab2bf76fa822b82f50b66653c098/skills/figma-use/SKILL.md"
+  },
+  {
+    "source": "plugin_cache",
+    "name": "figma-use-figjam",
+    "path": "/Users/apple/.cursor/plugins/cache/cursor-public/figma/bea8bea5f676ab2bf76fa822b82f50b66653c098/skills/figma-use-figjam/SKILL.md"
+  },
+  {
+    "source": "plugin_cache",
+    "name": "figma-use-motion",
+    "path": "/Users/apple/.cursor/plugins/cache/cursor-public/figma/bea8bea5f676ab2bf76fa822b82f50b66653c098/skills/figma-use-motion/SKILL.md"
+  },
+  {
+    "source": "plugin_cache",
+    "name": "figma-use-slides",
+    "path": "/Users/apple/.cursor/plugins/cache/cursor-public/figma/bea8bea5f676ab2bf76fa822b82f50b66653c098/skills/figma-use-slides/SKILL.md"
+  }
+]

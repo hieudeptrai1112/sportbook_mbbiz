@@ -1,8 +1,8 @@
-# Sportbook6vn Non-Wrapper Component Workflow
+# Mbbiz Non-Wrapper Component Workflow
 
 ## Mục tiêu
 
-Triển khai component theo hướng **không wrapper**: component thật được implement trực tiếp trong `sportbook6vn`, còn preview chỉ là cửa sổ QA.
+Triển khai component theo hướng **không wrapper**: component thật được implement trực tiếp trong `mbbiz`, còn preview chỉ là cửa sổ QA.
 
 ## Quy tắc bắt buộc
 
@@ -16,9 +16,9 @@ Triển khai component theo hướng **không wrapper**: component thật đư�
 ## Định danh môi trường
 
 - `preview app`: `http://127.0.0.1:4300/`.
-- `sportbook6vn app` / app docs: môi trường docs/app riêng, không được dùng thay cho preview.
+- `mbbiz app` / app docs: môi trường docs/app riêng, không được dùng thay cho preview.
 - Khi kiểm tra preview, luôn mở `http://127.0.0.1:4300/` và tìm đúng section component trong preview.
-- Khi mapping/tách/docs, preview là nguồn đã chốt; sportbook6vn app/docs là đích hiển thị.
+- Khi mapping/tách/docs, preview là nguồn đã chốt; mbbiz app/docs là đích hiển thị.
 
 ## Chuỗi bước chuẩn
 
@@ -27,7 +27,7 @@ Triển khai component theo hướng **không wrapper**: component thật đư�
 - Link code NG-Zorro tham chiếu.
 - Danh sách state/variant bắt buộc.
 
-2. Implement trực tiếp component thật trong `sportbook6vn`:
+2. Implement trực tiếp component thật trong `mbbiz`:
 - Logic.
 - Template.
 - Style.
