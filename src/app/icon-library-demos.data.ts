@@ -2,11 +2,8 @@ import type { IconDefinition } from '@hieultra/icon';
 import {
   ICON_SIZE_PX,
   allIcons,
-  registerIcons,
   type IconSizeToken,
 } from '@hieultra/icon';
-
-registerIcons(...allIcons);
 
 export type IconLibraryFamily = 'linear' | 'bold' | 'general';
 

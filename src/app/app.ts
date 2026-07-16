@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, computed, inject, signal, type WritableSignal } from '@angular/core';
 import type { IconSizeToken } from '@hieultra/icon';
-import { LibIconComponent } from './components/lib-icon/lib-icon.component';
+import { IconComponent } from '@hieultra/icon/angular';
 import type { DsInputPasswordState } from './components/ds-input-password/ds-input-password.component';
 import {
   MbbizAffixInputComponent,
@@ -348,7 +348,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     MbbizTableComponent,
     MbbizTextareaComponent,
     MbbizUploadFileComponent,
-    LibIconComponent,
+    IconComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
