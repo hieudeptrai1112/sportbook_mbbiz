@@ -88,12 +88,6 @@ export const ICON_LIBRARY_GROUPS: IconLibraryGroup[] = (
       title: 'Bold',
       description: 'Filled status icons from ABold_* in @hieultra/icon.',
     },
-    {
-      id: 'iconography-general',
-      family: 'general',
-      title: 'General',
-      description: 'Nav and action starters (ic-*). Prefer Linear/Bold for product UI.',
-    },
   ] as const
 )
   .map((group) => ({

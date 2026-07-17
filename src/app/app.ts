@@ -212,7 +212,6 @@ import {
   type PaginationVariableGroup,
 } from './pagination-demos.data';
 import { ILLUSTRATION_ASSETS, type IllustrationAsset } from './illustration-assets.data';
-import { ICON_ASSETS, type IconAsset } from './icon-assets.data';
 import {
   ICON_LIBRARY_GROUPS,
   ICON_LIBRARY_SIZE_PREVIEWS,
@@ -361,9 +360,9 @@ export class App {
   protected readonly activeThemeBrand = signal<ThemeBrand>(DEFAULT_THEME_BRAND);
   protected readonly activeTheme = signal<ThemeMode>(DEFAULT_THEME_MODE);
   protected readonly isThemeOpen = signal(false);
-  protected readonly isGettingStartedOpen = signal(false);
+  protected readonly isGettingStartedOpen = signal(true);
   protected readonly isDesignTokensOpen = signal(false);
-  protected readonly isComponentsOpen = signal(true);
+  protected readonly isComponentsOpen = signal(false);
   protected readonly isPatternOpen = signal(false);
   protected readonly activePage = signal<
     | 'buttons'
@@ -397,7 +396,7 @@ export class App {
     | 'spacing'
     | 'layout'
     | 'typography'
-  >('buttons');
+  >('introduction');
   protected readonly semanticTokenMappings = SEMANTIC_COLOR_TOKEN_MAPPINGS;
   protected readonly semanticTokenGroups = this.buildSemanticTokenGroups();
   protected readonly activeTokenSection = signal(
@@ -830,17 +829,14 @@ export class AppComponent {}`;
   protected readonly downloadDocsUploadFile = (file: MbbizUploadFileItem): void => {
     this.downloadDocsFile(file.name);
   };
-  protected readonly iconAssets: IconAsset[] = ICON_ASSETS;
   protected readonly iconLibraryGroups: IconLibraryGroup[] = ICON_LIBRARY_GROUPS;
   protected readonly iconLibrarySizePreviews: IconSizePreviewRow[] = ICON_LIBRARY_SIZE_PREVIEWS;
   protected readonly iconLibraryPreviewName = signal(
     ICON_LIBRARY_GROUPS.find((group) => group.family === 'linear')?.entries[0]?.name ??
       ICON_LIBRARY_GROUPS[0]?.entries[0]?.name ??
-      'nav-home',
+      'alinear_search',
   );
   protected readonly activeIconographySection = signal('iconography-install');
-  protected readonly copiedIconAssetUrl = signal<string | null>(null);
-  protected readonly copiedIconAssetSnippet = signal<string | null>(null);
   protected readonly copiedIconLibraryName = signal<string | null>(null);
   protected readonly copiedIconInstallSnippet = signal<string | null>(null);
   protected readonly iconPackageUrl = 'https://www.npmjs.com/package/@hieultra/icon';
@@ -861,9 +857,88 @@ export const appConfig: ApplicationConfig = {
   protected readonly iconTemplateCode = `<lib-icon name="alinear_search" size="m" />
 <lib-icon name="abold_error" size="s" ariaLabel="Error" />
 
+<!-- Color via prop (same model as ng-zorro: currentColor) -->
+<lib-icon name="action-plus" size="m" color="#1677ff" />
+<lib-icon name="abold_error" size="m" color="var(--semantic-color-error, #f53f3f)" />
+
 <!-- Alias selector also works -->
 <mbbiz-icon name="alinear_search" size="l" />
 `;
+  protected readonly iconColorCode = `<!-- 1. Inherit from parent text color (default) -->
+<button style="color: #1677ff">
+  <lib-icon name="action-plus" size="s" />
+  Add
+</button>
+
+<!-- 2. Explicit color prop -->
+<lib-icon name="alinear_search" size="m" color="#1677ff" />
+<lib-icon name="abold_error" size="m" color="#f53f3f" />
+
+<!-- 3. Design token / CSS variable -->
+<lib-icon
+  name="abold_success"
+  size="m"
+  color="var(--semantic-color-success, #00b42a)"
+/>
+
+<!-- 4. Class on host / wrapper -->
+<span class="icon-muted">
+  <lib-icon name="alinear_info" size="m" />
+</span>
+`;
+  protected readonly iconColorCssCode = `.icon-muted {
+  color: var(--semantic-color-text-secondary, #86909c);
+}
+
+/* Icons follow text color of buttons, links, labels */
+.btn-primary {
+  color: #ffffff;
+}
+`;
+  protected readonly iconColorPreviewRows = [
+    {
+      id: 'inherit',
+      label: 'Inherit',
+      hint: 'currentColor from parent',
+      color: '#1677ff',
+      mode: 'inherit' as const,
+    },
+    {
+      id: 'prop-blue',
+      label: 'Prop',
+      hint: 'color="#1677ff"',
+      color: '#1677ff',
+      mode: 'prop' as const,
+    },
+    {
+      id: 'prop-error',
+      label: 'Error',
+      hint: 'color="#f53f3f"',
+      color: '#f53f3f',
+      mode: 'prop' as const,
+    },
+    {
+      id: 'prop-success',
+      label: 'Success',
+      hint: 'color="#00b42a"',
+      color: '#00b42a',
+      mode: 'prop' as const,
+    },
+    {
+      id: 'prop-warning',
+      label: 'Warning',
+      hint: 'color="#ff7d00"',
+      color: '#ff7d00',
+      mode: 'prop' as const,
+    },
+    {
+      id: 'muted',
+      label: 'Muted',
+      hint: 'secondary text',
+      color: '#86909c',
+      mode: 'prop' as const,
+    },
+  ];
   protected readonly illustrationAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS;
   protected readonly illustrationLibraryAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS.filter(
     (asset) => !asset.id.startsWith('flag-'),
@@ -1034,6 +1109,9 @@ export const appConfig: ApplicationConfig = {
   ) {
     this.activePage.set(page);
     this.openFooterPatternOverflowId.set(null);
+    if (page === 'introduction' || page === 'installation') {
+      this.isGettingStartedOpen.set(true);
+    }
     if (
       page === 'pageHeaderPattern' ||
       page === 'footerPattern' ||
@@ -2357,10 +2435,6 @@ export const appConfig: ApplicationConfig = {
     this.activeIconographySection.set(sectionId);
   }
 
-  protected getIconAssetSnippet(asset: IconAsset): string {
-    return `<img src="${asset.src}" alt="${asset.alt}" />`;
-  }
-
   protected getIconLibrarySnippet(entry: IconLibraryEntry, size: IconSizeToken = 'm'): string {
     return `<lib-icon name="${entry.name}" size="${size}" />`;
   }
@@ -2387,26 +2461,6 @@ export const appConfig: ApplicationConfig = {
         this.copiedIconInstallSnippet.set(null);
       }
     }, 1600);
-  }
-
-  protected async copyIconAssetUrl(asset: IconAsset) {
-    await this.writeTextToClipboard(asset.src);
-    this.copiedIconAssetUrl.set(asset.id);
-    setTimeout(() => {
-      if (this.copiedIconAssetUrl() === asset.id) {
-        this.copiedIconAssetUrl.set(null);
-      }
-    }, 1200);
-  }
-
-  protected async copyIconAssetSnippet(asset: IconAsset) {
-    await this.writeTextToClipboard(this.getIconAssetSnippet(asset));
-    this.copiedIconAssetSnippet.set(asset.id);
-    setTimeout(() => {
-      if (this.copiedIconAssetSnippet() === asset.id) {
-        this.copiedIconAssetSnippet.set(null);
-      }
-    }, 1200);
   }
 
   protected getIllustrationSnippet(asset: IllustrationAsset): string {
@@ -3486,8 +3540,8 @@ export const appConfig: ApplicationConfig = {
       'iconography-install',
       'iconography-usage',
       'iconography-sizes',
+      'iconography-color',
       ...this.iconLibraryGroups.map((group) => group.id),
-      'iconography-assets',
       'iconography-naming',
     ];
   }
@@ -3540,10 +3594,7 @@ export const appConfig: ApplicationConfig = {
       return getThemeId(DEFAULT_THEME_BRAND, legacyMode);
     }
 
-    if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
-      return getThemeId(DEFAULT_THEME_BRAND, 'dark');
-    }
-
+    // First visit: always light mode (do not follow OS prefers-color-scheme).
     return DEFAULT_THEME_ID;
   }
 

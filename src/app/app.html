@@ -2896,7 +2896,8 @@
                 Catalog of
                 <span class="mono">&#64;hieultra/icon</span>
                 — Linear vs Bold families, token sizes
-                (<span class="mono">xs–2xl</span>), and copy-ready
+                (<span class="mono">xs–2xl</span>), color via
+                <span class="mono">currentColor</span>, and copy-ready
                 <span class="mono">&lt;lib-icon&gt;</span> snippets.
               </p>
             </div>
@@ -3024,6 +3025,18 @@
                     <span class="mono">size="xs|s|m|l|xl|2xl"</span>.
                   </p>
                 </article>
+                <article class="illustration-guideline-card">
+                  <span>Color</span>
+                  <code>currentColor</code>
+                  <p>
+                    Inherit parent
+                    <span class="mono">color</span>, or set
+                    <span class="mono">color="#hex"</span>
+                    /
+                    <span class="mono">var(--token)</span>
+                    — same approach as ng-zorro.
+                  </p>
+                </article>
               </div>
 
               <div class="illustration-code-card">
@@ -3058,6 +3071,112 @@
                     <span>{{ row.px }}px</span>
                   </div>
                 </article>
+              </div>
+            </section>
+
+            <section class="section iconography-color-section" id="iconography-color">
+              <div class="illustration-section-head">
+                <h2>Color</h2>
+                <span>currentColor</span>
+              </div>
+              <p class="iconography-section-lead">
+                Same model as
+                <span class="mono">ng-zorro</span>
+                /
+                <span class="mono">antd</span>: SVG paths use
+                <span class="mono">fill</span>/<span class="mono">stroke="currentColor"</span>,
+                so the icon inherits CSS
+                <span class="mono">color</span>
+                from the host or parent. Prefer inherit for buttons/links; use the
+                <span class="mono">color</span>
+                input or a token when you need an explicit override.
+              </p>
+
+              <div class="illustration-guideline-grid">
+                <article class="illustration-guideline-card">
+                  <span>1. Inherit</span>
+                  <code>color: inherit</code>
+                  <p>
+                    Default
+                    <span class="mono">color="currentColor"</span>.
+                    Place the icon inside text, buttons, or menus — it follows parent color.
+                  </p>
+                </article>
+                <article class="illustration-guideline-card">
+                  <span>2. Prop</span>
+                  <code>[color]</code>
+                  <p>
+                    Pass a hex, named color, or CSS variable:
+                    <span class="mono">color="#1677ff"</span>
+                    or
+                    <span class="mono">color="var(--…)"</span>.
+                  </p>
+                </article>
+                <article class="illustration-guideline-card">
+                  <span>3. Class / token</span>
+                  <code>.icon-muted</code>
+                  <p>
+                    Style the wrapper (or host) with semantic tokens. Avoid hard-coded fills in raw SVG
+                    if the icon must recolor.
+                  </p>
+                </article>
+              </div>
+
+              <div class="iconography-color-strip">
+                <article
+                  class="iconography-color-card"
+                  *ngFor="let row of iconColorPreviewRows"
+                >
+                  <div
+                    class="iconography-color-thumb"
+                    [style.color]="row.mode === 'inherit' ? row.color : null"
+                  >
+                    <lib-icon
+                      *ngIf="row.mode === 'inherit'"
+                      [name]="iconLibraryPreviewName()"
+                      size="l"
+                    />
+                    <lib-icon
+                      *ngIf="row.mode === 'prop'"
+                      [name]="iconLibraryPreviewName()"
+                      size="l"
+                      [color]="row.color"
+                    />
+                  </div>
+                  <div class="iconography-color-meta">
+                    <strong>{{ row.label }}</strong>
+                    <code>{{ row.hint }}</code>
+                    <span class="iconography-color-swatch" [style.background]="row.color"></span>
+                  </div>
+                </article>
+              </div>
+
+              <div class="illustration-code-card iconography-install-card">
+                <div class="button-code-head">
+                  <span class="button-code-file">template.html</span>
+                  <button
+                    class="button-doc-toggle"
+                    type="button"
+                    (click)="copyIconInstallSnippet('color', iconColorCode)"
+                  >
+                    {{ copiedIconInstallSnippet() === 'color' ? 'Copied' : 'Copy' }}
+                  </button>
+                </div>
+                <pre class="button-code-block"><code>{{ iconColorCode }}</code></pre>
+              </div>
+
+              <div class="illustration-code-card iconography-install-card">
+                <div class="button-code-head">
+                  <span class="button-code-file">styles.css</span>
+                  <button
+                    class="button-doc-toggle"
+                    type="button"
+                    (click)="copyIconInstallSnippet('color-css', iconColorCssCode)"
+                  >
+                    {{ copiedIconInstallSnippet() === 'color-css' ? 'Copied' : 'Copy' }}
+                  </button>
+                </div>
+                <pre class="button-code-block"><code>{{ iconColorCssCode }}</code></pre>
               </div>
             </section>
 
@@ -3106,57 +3225,6 @@
                 </div>
               </section>
             </ng-container>
-
-            <section class="section iconography-library-section" id="iconography-assets">
-              <div class="illustration-section-head">
-                <h2>Docs chrome assets</h2>
-                <span>{{ iconAssets.length }} files</span>
-              </div>
-              <p class="iconography-section-lead">
-                Legacy SVGs under
-                <span class="mono">/assets/figma</span>
-                used by this docs shell — not part of the product icon package.
-              </p>
-
-              <div class="iconography-grid">
-                <article
-                  class="illustration-card iconography-card"
-                  *ngFor="let asset of iconAssets"
-                >
-                  <div class="illustration-thumb iconography-thumb">
-                    <img [src]="asset.src" [alt]="asset.alt" loading="lazy" />
-                  </div>
-
-                  <div class="illustration-card-body">
-                    <div class="illustration-card-title">
-                      <h3>{{ asset.name }}</h3>
-                      <span>{{ asset.format }} · {{ asset.size }}</span>
-                    </div>
-                    <code class="illustration-path">{{ asset.src }}</code>
-                    <p>{{ asset.usage }}</p>
-                  </div>
-
-                  <div class="illustration-card-actions">
-                    <button
-                      class="button-icon-btn illustration-copy-btn"
-                      type="button"
-                      (click)="copyIconAssetUrl(asset)"
-                    >
-                      {{ copiedIconAssetUrl() === asset.id ? 'Copied URL' : 'Copy URL' }}
-                    </button>
-                    <button
-                      class="button-icon-btn illustration-copy-btn"
-                      type="button"
-                      (click)="copyIconAssetSnippet(asset)"
-                    >
-                      {{
-                        copiedIconAssetSnippet() === asset.id ? 'Copied snippet' : 'Copy snippet'
-                      }}
-                    </button>
-                  </div>
-                </article>
-              </div>
-            </section>
 
             <section class="section iconography-naming-section" id="iconography-naming">
               <h2>Naming</h2>
@@ -7291,20 +7359,20 @@
                 </a>
                 <a
                   class="toc-item"
+                  [class.active]="activeIconographySection() === 'iconography-color'"
+                  href="#iconography-color"
+                  (click)="setActiveIconographySection('iconography-color')"
+                >
+                  Color
+                </a>
+                <a
+                  class="toc-item"
                   *ngFor="let group of iconLibraryGroups"
                   [class.active]="activeIconographySection() === group.id"
                   [href]="'#' + group.id"
                   (click)="setActiveIconographySection(group.id)"
                 >
                   {{ group.title }}
-                </a>
-                <a
-                  class="toc-item"
-                  [class.active]="activeIconographySection() === 'iconography-assets'"
-                  href="#iconography-assets"
-                  (click)="setActiveIconographySection('iconography-assets')"
-                >
-                  Docs chrome
                 </a>
                 <a
                   class="toc-item"
