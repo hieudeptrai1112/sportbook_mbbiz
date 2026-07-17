@@ -1,7 +1,15 @@
 {
   "name": "mbbiz",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Angular UI components and design tokens for Mbbiz.",
+  "homepage": "https://github.com/hieudeptrai1112/sportbook_mbbiz",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hieudeptrai1112/sportbook_mbbiz.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hieudeptrai1112/sportbook_mbbiz/issues"
+  },
   "keywords": [
     "angular",
     "ui",
