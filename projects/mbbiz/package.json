@@ -1,8 +1,8 @@
 {
   "name": "mbbiz",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Angular UI components and design tokens for Mbbiz.",
-  "homepage": "https://github.com/hieudeptrai1112/sportbook_mbbiz",
+  "homepage": "https://browser-nine-brown.vercel.app",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hieudeptrai1112/sportbook_mbbiz.git"

@@ -4,11 +4,11 @@ Angular UI components and design tokens for Mbbiz.
 
 ## Docs
 
-Full component docs, tokens, and Iconography live in the design-system docs app:
+Full component docs, tokens, and Iconography:
 
-**[mbbiz Docs](https://github.com/hieudeptrai1112/sportbook_mbbiz)**
+**[mbbiz Docs](https://browser-nine-brown.vercel.app)**
 
-> Clone the repo and run `npm start` to open the docs locally (`http://localhost:4200`).
+Source: [github.com/hieudeptrai1112/sportbook_mbbiz](https://github.com/hieudeptrai1112/sportbook_mbbiz)
 
 ## Install
 
