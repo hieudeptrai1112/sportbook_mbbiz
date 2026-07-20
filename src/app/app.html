@@ -444,34 +444,51 @@
               </div>
               <h1>Introduction</h1>
               <p class="lead">
-                Đây là trang web được tạo ra để designer không cần cầu cạnh dev khi thay đổi
-                component nữa.
+                MBBiz Design System là bộ thư viện UI dùng chung cho các sản phẩm thuộc hệ sinh
+                thái MBBank. Trang tài liệu này giúp designer và developer tra cứu token, component
+                và pattern — đồng thời hướng dẫn cài đặt và sử dụng thư viện trong dự án Angular
+                (Web) và Flutter (Mobile).
               </p>
             </div>
 
             <section class="section button-demo-section">
               <div
                 class="button-demo-card"
-                style="padding: 32px; display: flex; flex-direction: column; gap: 14px"
+                style="padding: 32px; display: flex; flex-direction: column; gap: 20px"
               >
-                <span class="button-inline-code" style="width: fit-content">p/s</span>
-                <p
+                <div style="display: flex; flex-direction: column; gap: 8px">
+                  <span class="button-inline-code" style="width: fit-content">Mục tiêu</span>
+                  <p style="margin: 0; color: #0f172a; font-size: 20px; line-height: 30px; font-weight: 600">
+                    Tách Design System ra khỏi source code của từng dự án, để designer chủ động quản
+                    lý giao diện mà không cần phụ thuộc vào lịch làm việc của developer.
+                  </p>
+                </div>
+                <div
                   style="
-                    margin: 0;
-                    color: #0f172a;
-                    font-size: 36px;
-                    line-height: 44px;
-                    font-weight: 700;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 16px;
                   "
                 >
-                  it's showtime
-                </p>
+                  <div style="display: flex; flex-direction: column; gap: 6px">
+                    <span style="font-size: 13px; font-weight: 600; color: #4e5969; text-transform: uppercase; letter-spacing: 0.05em">Nền tảng</span>
+                    <span style="font-size: 16px; color: #0f172a">Angular (Web) · Flutter (Mobile)</span>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 6px">
+                    <span style="font-size: 13px; font-weight: 600; color: #4e5969; text-transform: uppercase; letter-spacing: 0.05em">Phát hành</span>
+                    <span style="font-size: 16px; color: #0f172a">NPM (Web) · GitHub (Mobile)</span>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 6px">
+                    <span style="font-size: 13px; font-weight: 600; color: #4e5969; text-transform: uppercase; letter-spacing: 0.05em">Bao gồm</span>
+                    <span style="font-size: 16px; color: #0f172a">Token · Icon · Component · Pattern</span>
+                  </div>
+                </div>
               </div>
             </section>
 
             <section class="section button-demo-section">
               <div class="button-demo-head">
-                <h2>Showtime Team</h2>
+                <h2>Nhóm thực hiện</h2>
               </div>
               <div
                 style="
@@ -483,42 +500,75 @@
                 <article class="button-demo-card" style="overflow: hidden">
                   <img
                     src="/assets/introduction/lord-shen.jpg"
-                    alt="Lord Shen"
+                    alt="Vũ Đăng Minh Hiếu"
                     style="
                       display: block;
                       width: 100%;
                       height: 260px;
                       object-fit: cover;
-                      object-position: center;
+                      object-position: center top;
                     "
                   />
-                  <div style="padding: 24px; display: flex; flex-direction: column; gap: 8px">
-                    <h3 style="margin: 0; color: #0f172a; font-size: 24px; line-height: 32px">
-                      Lord Shen
+                  <div style="padding: 24px; display: flex; flex-direction: column; gap: 6px">
+                    <h3 style="margin: 0; color: #0f172a; font-size: 20px; line-height: 28px; font-weight: 700">
+                      Vũ Đăng Minh Hiếu
                     </h3>
-                    <p style="margin: 0; color: #4e5969; font-size: 16px; line-height: 24px">
-                      Designer / Owner
+                    <p style="margin: 0; color: #141ED2; font-size: 14px; line-height: 20px; font-weight: 600">
+                      Owner · Designer
+                    </p>
+                    <p style="margin: 4px 0 0; color: #4e5969; font-size: 14px; line-height: 22px">
+                      Xây dựng và quản lý toàn bộ Design System, thiết kế token, component và
+                      pattern cho cả Web và Mobile.
                     </p>
                   </div>
                 </article>
                 <article class="button-demo-card" style="overflow: hidden">
                   <img
                     src="/assets/introduction/po-the-fat-panda.jpg"
-                    alt="Po the Fat Panda"
+                    alt="Trần Duy Khánh"
                     style="
                       display: block;
                       width: 100%;
                       height: 260px;
                       object-fit: cover;
-                      object-position: center;
+                      object-position: center top;
                     "
                   />
-                  <div style="padding: 24px; display: flex; flex-direction: column; gap: 8px">
-                    <h3 style="margin: 0; color: #0f172a; font-size: 24px; line-height: 32px">
-                      Po the Fat Panda
+                  <div style="padding: 24px; display: flex; flex-direction: column; gap: 6px">
+                    <h3 style="margin: 0; color: #0f172a; font-size: 20px; line-height: 28px; font-weight: 700">
+                      Trần Duy Khánh
                     </h3>
-                    <p style="margin: 0; color: #4e5969; font-size: 16px; line-height: 24px">
-                      Developer / Tech Consultant
+                    <p style="margin: 0; color: #141ED2; font-size: 14px; line-height: 20px; font-weight: 600">
+                      Developer · Mobile
+                    </p>
+                    <p style="margin: 4px 0 0; color: #4e5969; font-size: 14px; line-height: 22px">
+                      Tích hợp Flutter library vào ứng dụng Mobile, xây dựng adapter layer và
+                      hỗ trợ chuyển đổi từ Design System cũ sang mới.
+                    </p>
+                  </div>
+                </article>
+                <article class="button-demo-card" style="overflow: hidden">
+                  <img
+                    src="/assets/introduction/placeholder.jpg"
+                    alt="Nguyễn Thanh Tùng"
+                    style="
+                      display: block;
+                      width: 100%;
+                      height: 260px;
+                      object-fit: cover;
+                      object-position: center top;
+                    "
+                  />
+                  <div style="padding: 24px; display: flex; flex-direction: column; gap: 6px">
+                    <h3 style="margin: 0; color: #0f172a; font-size: 20px; line-height: 28px; font-weight: 700">
+                      Nguyễn Thanh Tùng
+                    </h3>
+                    <p style="margin: 0; color: #141ED2; font-size: 14px; line-height: 20px; font-weight: 600">
+                      Developer · Web
+                    </p>
+                    <p style="margin: 4px 0 0; color: #4e5969; font-size: 14px; line-height: 22px">
+                      Tích hợp Angular library vào ứng dụng Web, hỗ trợ cấu hình NPM package và
+                      đảm bảo đồng nhất giữa thư viện và sản phẩm.
                     </p>
                   </div>
                 </article>
