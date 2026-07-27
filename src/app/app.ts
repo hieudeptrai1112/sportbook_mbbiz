@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, computed, inject, signal, type WritableSignal } from '@angular/core';
-import type { IconSizeToken } from '@hieultra/icon';
-import { IconComponent } from '@hieultra/icon/angular';
+import type { IconSizeToken } from '@mbbiz/icon';
+import { IconComponent } from '@mbbiz/icon/angular';
 import type { DsInputPasswordState } from './components/ds-input-password/ds-input-password.component';
 import {
   MbbizAffixInputComponent,
@@ -839,11 +839,11 @@ export class AppComponent {}`;
   protected readonly activeIconographySection = signal('iconography-install');
   protected readonly copiedIconLibraryName = signal<string | null>(null);
   protected readonly copiedIconInstallSnippet = signal<string | null>(null);
-  protected readonly iconPackageUrl = 'https://www.npmjs.com/package/@hieultra/icon';
-  protected readonly iconInstallCommand = 'npm install @hieultra/icon';
+  protected readonly iconPackageUrl = 'https://www.npmjs.com/package/@mbbiz/icon';
+  protected readonly iconInstallCommand = 'npm install @mbbiz/icon';
   protected readonly iconRegisterCode = `import { ApplicationConfig } from '@angular/core';
-import { provideIcons, IconComponent } from '@hieultra/icon/angular';
-import { Alinear_searchIcon, Abold_errorIcon } from '@hieultra/icon';
+import { provideIcons, IconComponent } from '@mbbiz/icon/angular';
+import { Alinear_searchIcon, Abold_errorIcon } from '@mbbiz/icon';
 
 export const appConfig: ApplicationConfig = {
   providers: [

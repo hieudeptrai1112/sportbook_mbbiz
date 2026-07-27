@@ -1,9 +1,9 @@
-import type { IconDefinition } from '@hieultra/icon';
+import type { IconDefinition } from '@mbbiz/icon';
 import {
   ICON_SIZE_PX,
   allIcons,
   type IconSizeToken,
-} from '@hieultra/icon';
+} from '@mbbiz/icon';
 
 export type IconLibraryFamily = 'linear' | 'bold' | 'general';
 
@@ -80,13 +80,13 @@ export const ICON_LIBRARY_GROUPS: IconLibraryGroup[] = (
       id: 'iconography-linear',
       family: 'linear',
       title: 'Linear',
-      description: 'Stroke / outline icons from ALinear_* in @hieultra/icon.',
+      description: 'Stroke / outline icons from ALinear_* in @mbbiz/icon.',
     },
     {
       id: 'iconography-bold',
       family: 'bold',
       title: 'Bold',
-      description: 'Filled status icons from ABold_* in @hieultra/icon.',
+      description: 'Filled status icons from ABold_* in @mbbiz/icon.',
     },
   ] as const
 )

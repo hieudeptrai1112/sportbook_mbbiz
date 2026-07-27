@@ -1,6 +1,6 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideIcons } from '@hieultra/icon/angular';
-import { allIcons } from '@hieultra/icon';
+import { provideIcons } from '@mbbiz/icon/angular';
+import { allIcons } from '@mbbiz/icon';
 
 export const appConfig: ApplicationConfig = {
   providers: [
