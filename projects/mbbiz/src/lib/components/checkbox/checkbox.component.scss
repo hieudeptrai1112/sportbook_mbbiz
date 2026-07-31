@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: inline-flex;
 }
@@ -54,11 +56,7 @@
 
 .mbbiz-checkbox__label {
   color: var(--mbbiz-color-text-field, #192d39);
-  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.25px;
-  line-height: 20px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
 }
 
 .mbbiz-checkbox--checked .mbbiz-checkbox__control,

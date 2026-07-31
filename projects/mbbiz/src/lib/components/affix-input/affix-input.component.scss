@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: inline-flex;
   max-width: 100%;
@@ -55,8 +57,7 @@
   border: 0;
   box-shadow: none;
   color: var(--mbbiz-color-text-field, #192d39);
-  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: 0.25px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   min-width: 0;
   outline: none;
   padding: 0;
@@ -90,8 +91,7 @@
 
 .mbbiz-affix-input__text {
   color: var(--mbbiz-color-text-secondary, #5f6b85);
-  font: 500 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: 0.25px;
+  @include typo.mbbiz-typo-h3-normal-14-semibold;
 }
 
 .mbbiz-affix-input--disabled .mbbiz-affix-input__text {

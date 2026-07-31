@@ -1,10 +1,12 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: inline-block;
 }
 
 .mbbiz-datepicker {
   color: var(--mbbiz-color-datepicker-text);
-  font-family: "Averta Std CY", "Inter", "Segoe UI", sans-serif;
+  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
   position: relative;
   width: fit-content;
 }
@@ -17,12 +19,9 @@
   color: var(--mbbiz-color-datepicker-text);
   cursor: pointer;
   display: inline-flex;
-  font-family: inherit;
-  font-size: 16px;
-  font-weight: 400;
+  @include typo.mbbiz-typo-h2-sub-header-normal-16-regular;
   height: 52px;
   justify-content: space-between;
-  line-height: 20px;
   padding: 0 16px;
   transition:
     border-color 160ms ease,
@@ -122,11 +121,7 @@
   border: 0;
   color: inherit;
   flex: 1 1 auto;
-  font: inherit;
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.25px;
-  line-height: 20px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   min-width: 0;
   outline: none;
   padding: 0;
@@ -137,9 +132,7 @@
   box-sizing: border-box;
   box-shadow: inset 0 -1px 0 transparent;
   flex: 0 0 auto;
-  font-size: 14px;
   height: 20px;
-  line-height: 20px;
   max-width: 100%;
   padding: 0;
 }
@@ -155,9 +148,7 @@
 
 .mbbiz-datepicker__range-value {
   color: inherit;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -325,15 +316,12 @@
   align-items: stretch;
   color: var(--mbbiz-color-datepicker-border-focus);
   display: flex;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 16px;
+  @include typo.mbbiz-typo-body-normal-12-semibold;
   padding: 0;
 }
 
 .mbbiz-datepicker--content-interest .mbbiz-datepicker__header {
   border-bottom: 1px solid var(--mbbiz-color-datepicker-panel-divider);
-  font-weight: 600;
   height: 40px;
 }
 
@@ -351,8 +339,7 @@
   border-left: 1px solid var(--mbbiz-color-datepicker-panel-divider);
   display: flex;
   flex: 0 0 92px;
-  font: inherit;
-  font-weight: 700;
+  @include typo.mbbiz-typo-body-normal-12-semibold;
   justify-content: center;
   min-height: 40px;
   padding: 12px 8px;
@@ -457,9 +444,7 @@
 
 .mbbiz-datepicker__weekdays {
   color: var(--mbbiz-color-datepicker-text-secondary);
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 20px;
+  @include typo.mbbiz-typo-body-normal-12-semibold;
   text-align: center;
 }
 
@@ -476,11 +461,8 @@
   color: var(--mbbiz-color-datepicker-text-secondary);
   cursor: pointer;
   display: inline-flex;
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 500;
+  @include typo.mbbiz-typo-body-normal-12-regular;
   justify-content: center;
-  line-height: 20px;
   padding: 0;
 }
 
@@ -503,9 +485,7 @@
 
 .mbbiz-datepicker__interest-weekdays {
   color: var(--mbbiz-color-datepicker-text-secondary);
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
+  @include typo.mbbiz-typo-body-normal-12-regular;
   text-align: center;
 }
 
@@ -536,21 +516,15 @@
   align-items: center;
   border-radius: 100px;
   display: inline-flex;
-  font-size: 14px;
-  font-weight: 400;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   height: 20px;
   justify-content: center;
-  letter-spacing: 0.25px;
-  line-height: 20px;
   width: 20px;
 }
 
 .mbbiz-datepicker__interest-caption {
   color: var(--mbbiz-color-datepicker-text-muted);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.25px;
-  line-height: 16px;
+  @include typo.mbbiz-typo-body-normal-12-regular;
   text-align: center;
   width: 40px;
 }
@@ -558,7 +532,7 @@
 .mbbiz-datepicker__interest-day--active .mbbiz-datepicker__interest-date {
   background: var(--mbbiz-color-datepicker-day-range-background);
   color: var(--mbbiz-color-datepicker-text);
-  font-weight: 600;
+  font-weight: var(--mbbiz-font-weight-semibold, 600);
 }
 
 .mbbiz-datepicker__interest-day--disabled,
@@ -675,7 +649,7 @@
   background: var(--mbbiz-color-datepicker-day-range-background);
   border-radius: 0;
   color: var(--mbbiz-color-datepicker-text);
-  font-weight: 600;
+  font-weight: var(--mbbiz-font-weight-semibold, 600);
 }
 
 .mbbiz-datepicker__time-list,
@@ -784,11 +758,8 @@
 .mbbiz-datepicker__apply {
   border: 0;
   cursor: pointer;
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 700;
+  @include typo.mbbiz-typo-body-normal-12-semibold;
   height: 28px;
-  line-height: 16px;
 }
 
 .mbbiz-datepicker__reset {
@@ -799,7 +770,7 @@
 }
 
 .mbbiz-datepicker--content-interest .mbbiz-datepicker__reset {
-  font-weight: 400;
+  @include typo.mbbiz-typo-body-underline-12-regular;
   padding: 0;
 }
 

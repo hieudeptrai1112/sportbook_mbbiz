@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: block;
   font-family: var(--mbbiz-font-family-sans);
@@ -28,11 +30,8 @@
   background: var(--mbbiz-color-table-header-bg);
   border: 0;
   color: var(--mbbiz-color-table-header-text);
-  font-size: 14px;
-  font-weight: 600;
+  @include typo.mbbiz-typo-h3-normal-14-semibold;
   height: 52px;
-  letter-spacing: 0.25px;
-  line-height: 20px;
   max-height: 52px;
   min-height: 52px;
   overflow: hidden;
@@ -127,11 +126,8 @@
   background: inherit;
   border-top: 1px solid var(--mbbiz-color-table-line);
   color: var(--mbbiz-color-table-text);
-  font-size: 14px;
-  font-weight: 400;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   height: 64px;
-  letter-spacing: 0.25px;
-  line-height: 20px;
   max-height: 64px;
   min-height: 64px;
   overflow: hidden;
@@ -250,9 +246,7 @@
 :host ::ng-deep .mbbiz-table-checkbox-header-control .mbbiz-checkbox__label,
 :host ::ng-deep .mbbiz-table-checkbox-control .mbbiz-checkbox__label {
   color: var(--mbbiz-color-table-text);
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
+  @include typo.mbbiz-typo-h3-normal-14-semibold;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -260,7 +254,7 @@
 }
 
 :host ::ng-deep .mbbiz-table-checkbox-control .mbbiz-checkbox__label {
-  font-weight: 400;
+  @include typo.mbbiz-typo-body-normal-14-regular;
 }
 
 .mbbiz-table__cell--money-in .mbbiz-table__cell-text {
@@ -307,10 +301,7 @@
 }
 
 .mbbiz-table-status__label {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  line-height: 20px;
+  @include typo.mbbiz-typo-h3-normal-14-semibold;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -376,8 +367,7 @@
   border-radius: 999px;
   color: var(--mbbiz-color-table-error);
   display: inline-flex;
-  font-size: 13px;
-  font-weight: 700;
+  @include typo.mbbiz-typo-body-normal-12-semibold;
   height: 24px;
   justify-content: center;
   line-height: 1;
@@ -432,11 +422,8 @@
   border: 1px solid var(--mbbiz-color-table-control-border);
   border-radius: var(--mbbiz-radius-md);
   color: var(--mbbiz-color-table-text);
-  font-family: inherit;
-  font-size: 14px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   height: 40px;
-  letter-spacing: 0.25px;
-  line-height: 20px;
   max-width: 100%;
   outline: none;
   padding: 8px 12px;
@@ -472,13 +459,8 @@
   border: 0;
   color: var(--mbbiz-color-table-action);
   cursor: pointer;
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.25px;
-  line-height: 20px;
+  @include typo.mbbiz-typo-body-underline-14-semibold;
   padding: 0;
-  text-decoration: underline;
   text-underline-offset: 3px;
 }
 
@@ -531,10 +513,8 @@
   background: var(--mbbiz-color-table-row-bg);
   border-top: 1px solid var(--mbbiz-color-table-line);
   color: var(--mbbiz-color-table-muted);
-  font-size: 14px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   height: 96px;
-  letter-spacing: 0.25px;
-  line-height: 20px;
   padding: 24px;
   text-align: center;
   vertical-align: middle;

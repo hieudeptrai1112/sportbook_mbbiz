@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: block;
   max-width: 100%;
@@ -33,11 +35,7 @@
 
 .mbbiz-modal__title {
   color: #192d39;
-  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 0.25px;
-  line-height: 28px;
+  @include typo.mbbiz-typo-h2-normal-20-semibold;
   margin: 0;
 }
 
@@ -85,11 +83,7 @@
 
 .mbbiz-modal__field ::ng-deep .mbbiz-input__label {
   color: #192d39;
-  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.25px;
-  line-height: 20px;
+  @include typo.mbbiz-typo-h3-normal-14-semibold;
 }
 
 .mbbiz-modal__footer {

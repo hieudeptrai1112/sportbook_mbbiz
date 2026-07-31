@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: inline-flex;
   max-width: 100%;
@@ -16,7 +18,6 @@
   box-sizing: border-box;
   color: var(--mbbiz-color-message-text, #192d39);
   display: inline-flex;
-  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
   gap: 8px;
   max-width: 100%;
   min-height: 48px;
@@ -104,20 +105,17 @@
 .mbbiz-message__title,
 .mbbiz-message__text {
   display: block;
-  font-size: 14px;
-  letter-spacing: 0.25px;
-  line-height: 20px;
   margin: 0;
   max-width: 100%;
   overflow-wrap: anywhere;
 }
 
 .mbbiz-message__title {
-  font-weight: 600;
+  @include typo.mbbiz-typo-h3-normal-14-semibold;
 }
 
 .mbbiz-message__text {
-  font-weight: 400;
+  @include typo.mbbiz-typo-body-normal-14-regular;
 }
 
 .mbbiz-message__close {

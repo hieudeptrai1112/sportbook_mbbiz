@@ -190,14 +190,22 @@ button {
   grid-template-columns: minmax(0, 1.8fr) minmax(0, 0.9fr) minmax(0, 1.2fr) minmax(0, 1.8fr);
 }
 
-.button-semantic-table .token-row {
+.button-semantic-table .token-row,
+.component-alias-color-table .token-row {
   grid-template-columns:
-    minmax(0, 1.8fr)
-    minmax(0, 1.9fr)
-    minmax(0, 1.6fr)
+    minmax(0, 1.4fr)
     minmax(0, 1fr)
-    minmax(0, 1.2fr)
-    minmax(0, 1.8fr);
+    minmax(0, 0.85fr)
+    minmax(0, 2.8fr);
+}
+
+.token-description {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .button-variable-subsection {

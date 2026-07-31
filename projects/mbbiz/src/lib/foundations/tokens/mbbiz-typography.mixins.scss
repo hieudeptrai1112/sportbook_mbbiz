@@ -1,0 +1,131 @@
+/**
+ * Typography mixins — 1:1 with Figma Text Styles / .mbbiz-typo-* utilities
+ * Source: Design System — V2 (Web)
+ */
+
+@mixin mbbiz-typo-base {
+  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  font-style: normal;
+}
+
+@mixin mbbiz-typo-h2-normal-20-semibold {
+  /* H2/Normal/20-Semibold */
+  @include mbbiz-typo-base;
+  font-size: var(--mbbiz-font-size-xl, 20px);
+  font-weight: var(--mbbiz-font-weight-semibold, 600);
+  letter-spacing: var(--mbbiz-letter-spacing-default, 0.25px);
+  line-height: var(--mbbiz-line-height-xl, 28px);
+}
+
+@mixin mbbiz-typo-h2-sub-header-normal-16-semibold {
+  /* H2/Sub-Header/Normal/16-SemiBold */
+  @include mbbiz-typo-base;
+  font-size: var(--mbbiz-font-size-l, 16px);
+  font-weight: var(--mbbiz-font-weight-semibold, 600);
+  letter-spacing: var(--mbbiz-letter-spacing-default, 0.25px);
+  line-height: var(--mbbiz-line-height-l, 24px);
+}
+
+@mixin mbbiz-typo-h2-sub-header-normal-16-regular {
+  /* H2/Sub-Header/Normal/16-Regular */
+  @include mbbiz-typo-base;
+  font-size: var(--mbbiz-font-size-l, 16px);
+  font-weight: var(--mbbiz-font-weight-regular, 400);
+  letter-spacing: var(--mbbiz-letter-spacing-default, 0.25px);
+  line-height: var(--mbbiz-line-height-l, 24px);
+}
+
+@mixin mbbiz-typo-h2-sub-header-underline-16-regular {
+  /* H2/Sub-Header/Underline/16-Regular */
+  @include mbbiz-typo-base;
+  font-size: var(--mbbiz-font-size-l, 16px);
+  font-weight: var(--mbbiz-font-weight-regular, 400);
+  letter-spacing: var(--mbbiz-letter-spacing-underline-16, 0.5px);
+  line-height: var(--mbbiz-line-height-l, 24px);
+  text-decoration: underline;
+}
+
+@mixin mbbiz-typo-h3-normal-14-semibold {
+  /* H3/Normal/14-SemiBold */
+  @include mbbiz-typo-base;
+  font-size: var(--mbbiz-font-size-m, 14px);
+  font-weight: var(--mbbiz-font-weight-semibold, 600);
+  letter-spacing: var(--mbbiz-letter-spacing-default, 0.25px);
+  line-height: var(--mbbiz-line-height-m, 20px);
+}
+
+@mixin mbbiz-typo-body-normal-14-regular {
+  /* Body Copy (Data & Nav)/Normal/14-Regular */
+  @include mbbiz-typo-base;
+  font-size: var(--mbbiz-font-size-m, 14px);
+  font-weight: var(--mbbiz-font-weight-regular, 400);
+  letter-spacing: var(--mbbiz-letter-spacing-default, 0.25px);
+  line-height: var(--mbbiz-line-height-m, 20px);
+}
+
+@mixin mbbiz-typo-body-underline-14-semibold {
+  /* Body Copy (Data & Nav)/Underline/14-SemiBold */
+  @include mbbiz-typo-base;
+  font-size: var(--mbbiz-font-size-m, 14px);
+  font-weight: var(--mbbiz-font-weight-semibold, 600);
+  letter-spacing: var(--mbbiz-letter-spacing-none, 0);
+  line-height: var(--mbbiz-line-height-m, 20px);
+  text-decoration: underline;
+}
+
+@mixin mbbiz-typo-body-underline-14-regular {
+  /* Body Copy (Data & Nav)/Underline/14-Regular */
+  @include mbbiz-typo-base;
+  font-size: var(--mbbiz-font-size-m, 14px);
+  font-weight: var(--mbbiz-font-weight-regular, 400);
+  letter-spacing: var(--mbbiz-letter-spacing-none, 0);
+  line-height: var(--mbbiz-line-height-m, 20px);
+  text-decoration: underline;
+}
+
+@mixin mbbiz-typo-body-normal-12-regular {
+  /* Body Copy (Data & Nav)/Normal/12-Regular */
+  @include mbbiz-typo-base;
+  font-size: var(--mbbiz-font-size-s, 12px);
+  font-weight: var(--mbbiz-font-weight-regular, 400);
+  letter-spacing: var(--mbbiz-letter-spacing-default, 0.25px);
+  line-height: var(--mbbiz-line-height-s, 16px);
+}
+
+@mixin mbbiz-typo-body-normal-12-semibold {
+  /* Body Copy (Data & Nav)/Normal/12-Semibold */
+  @include mbbiz-typo-base;
+  font-size: var(--mbbiz-font-size-s, 12px);
+  font-weight: var(--mbbiz-font-weight-semibold, 600);
+  letter-spacing: var(--mbbiz-letter-spacing-default, 0.25px);
+  line-height: var(--mbbiz-line-height-s, 16px);
+}
+
+@mixin mbbiz-typo-body-underline-12-regular {
+  /* Body Copy (Data & Nav)/Underline/12-Regular */
+  @include mbbiz-typo-base;
+  font-size: var(--mbbiz-font-size-s, 12px);
+  font-weight: var(--mbbiz-font-weight-regular, 400);
+  letter-spacing: var(--mbbiz-letter-spacing-default, 0.25px);
+  line-height: var(--mbbiz-line-height-s, 16px);
+  text-decoration: underline;
+}
+
+@mixin mbbiz-typo-body-underline-12-semibold {
+  /* Body Copy (Data & Nav)/Underline/12-SemiBold */
+  @include mbbiz-typo-base;
+  font-size: var(--mbbiz-font-size-s, 12px);
+  font-weight: var(--mbbiz-font-weight-semibold, 600);
+  letter-spacing: var(--mbbiz-letter-spacing-default, 0.25px);
+  line-height: var(--mbbiz-line-height-s, 16px);
+  text-decoration: underline;
+}
+
+@mixin mbbiz-typo-caption-normal-10-regular {
+  /* Caption/Normal/10-Regular */
+  @include mbbiz-typo-base;
+  font-size: var(--mbbiz-font-size-xs, 10px);
+  font-weight: var(--mbbiz-font-weight-regular, 400);
+  letter-spacing: var(--mbbiz-letter-spacing-default, 0.25px);
+  line-height: var(--mbbiz-line-height-xs, 12px);
+}

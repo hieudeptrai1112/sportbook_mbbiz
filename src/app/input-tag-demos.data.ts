@@ -27,17 +27,6 @@ export interface InputTagApiRow {
   defaultValue: string;
 }
 
-export interface InputTagVariableRow {
-  token: string;
-  value: string;
-  appliesTo: string;
-  notes: string;
-}
-
-export interface InputTagVariableGroup {
-  title: string;
-  rows: InputTagVariableRow[];
-}
 
 export const INPUT_TAG_DEMO_SECTIONS: InputTagDemoSection[] = [
   {
@@ -367,36 +356,74 @@ export const INPUT_TAG_API_ROWS: InputTagApiRow[] = [
   },
 ];
 
-export const INPUT_TAG_VARIABLE_GROUPS: InputTagVariableGroup[] = [
+export const INPUT_TAG_VARIABLE_GROUPS = [
   {
-    title: 'Container',
+    title: 'Input Tag Color Tokens',
     rows: [
-      { token: 'background/primary', value: 'white/100%', appliesTo: 'Container background', notes: 'Surface used by default and disabled shells.' },
-      { token: 'border/brand-primary3', value: 'blue/300', appliesTo: 'Default border', notes: 'Base border before hover/focus/error/disabled overrides.' },
-      { token: 'border/brand-tertiary', value: 'turquoise/400', appliesTo: 'Hover and focus border', notes: 'Interactive border state from the component runtime.' },
-      { token: 'radius/md', value: '4px', appliesTo: 'Container and tag radius', notes: 'Shared radius for the input shell and chips.' },
+      { token: 'background/primary',        value: 'white/100%',   appliesTo: 'Container background',                          notes: 'Maps to --mbbiz-color-surface-primary.' },
+      { token: 'border/brand-primary3',     value: 'blue/300',     appliesTo: 'Default container border',                      notes: 'Maps to --mbbiz-color-border-brand-active.' },
+      { token: 'border/brand-tertiary',     value: 'turquoise/400', appliesTo: 'Hover, focus, and caret color',                 notes: 'Maps to --mbbiz-color-border-brand-tertiary.' },
+      { token: 'background/error-secondary', value: 'red/400',     appliesTo: 'Error border, error chip text, error clear icon', notes: 'Maps to --mbbiz-color-danger-strong.' },
+      { token: 'border/disable2',           value: 'grayscale/400', appliesTo: 'Disabled container border',                    notes: 'Maps to --mbbiz-color-border-disabled.' },
+      { token: 'background/brand-primary4', value: 'blue/200',     appliesTo: 'Default chip background',                      notes: 'Maps to --mbbiz-color-dropdown-tag-background.' },
+      { token: 'text/primary3',             value: 'darkblue/700', appliesTo: 'Default chip text and remove icon',             notes: 'Maps to --mbbiz-color-dropdown-tag-text.' },
+      { token: 'background/error-tertiary', value: 'red/100',      appliesTo: 'Error chip background',                        notes: 'Maps to --mbbiz-color-dropdown-tag-background-error.' },
+      { token: 'text/primary',              value: 'darkblue/1000', appliesTo: 'Typed input text',                             notes: 'Maps to --mbbiz-color-text-field.' },
+      { token: 'text/tertiary',             value: 'darkblue/400', appliesTo: 'Placeholder text',                             notes: 'Maps to --mbbiz-color-text-tertiary.' },
+      { token: '--mbbiz-color-text-secondary', value: '#65758B',   appliesTo: 'Overflow count label',                         notes: 'Orphan — value differs from semantic text/secondary.' },
+      { token: '--mbbiz-color-text-disabled',  value: '#808080',   appliesTo: 'Disabled input, placeholder, and clear icon',  notes: 'Maps to --mbbiz-color-text-disabled.' },
+      { token: '--mbbiz-color-text-default',   value: '#000000',   appliesTo: 'Clear icon in default state',                  notes: 'Orphan — maps to --mbbiz-color-text-default.' },
+      { token: 'chip/brand',    value: '#DAE4FF / #1F3EF0', appliesTo: 'Render-tag brand tone',   notes: 'Hardcoded chip tone for brand renderTag examples.' },
+      { token: 'chip/success',  value: '#D9F8E6 / #14804A', appliesTo: 'Render-tag success tone', notes: 'Hardcoded chip tone for success renderTag examples.' },
+      { token: 'chip/warning',  value: '#FFF1D6 / #AD6800', appliesTo: 'Render-tag warning tone', notes: 'Hardcoded chip tone for warning renderTag examples.' },
+      { token: 'chip/danger',   value: '#FFE3E3 / #F34343', appliesTo: 'Render-tag danger tone',  notes: 'Hardcoded chip tone for danger renderTag examples.' },
     ],
   },
   {
-    title: 'Status',
+    title: 'Input Tag Layout Specs',
     rows: [
-      { token: 'background/error-secondary', value: 'red/400', appliesTo: 'Error border and error chip text', notes: 'Activated by status="error".' },
-      { token: 'border/disable2', value: 'grayscale/400', appliesTo: 'Disabled border', notes: 'Activated by disabled=true.' },
-      { token: 'text/disable1', value: 'grayscale/600', appliesTo: 'Disabled placeholder and input text', notes: 'Keeps disabled value readable without interactive affordance.' },
+      {
+        token: 'input-tag/width',
+        value: '300px',
+        appliesTo: 'Default control width',
+        notes: 'Fixed component width.',
+      },
+      {
+        token: 'input-tag/min-height',
+        value: '52px',
+        appliesTo: 'Container min height',
+        notes: 'Fixed visual spec.',
+      },
+      {
+        token: 'input-tag/padding',
+        value: '8px 12px',
+        appliesTo: 'Container padding',
+        notes: 'Fixed visual spec.',
+      },
+      {
+        token: 'input-tag/gap',
+        value: '8px',
+        appliesTo: 'Content to clear-action gap',
+        notes: 'Container layout gap.',
+      },
+      {
+        token: 'input-tag/content/gap',
+        value: '4px',
+        appliesTo: 'Chip and input wrap gap',
+        notes: 'Content flex wrap gap.',
+      },
+      {
+        token: 'radius/md',
+        value: '4px',
+        appliesTo: 'Container and chip radius',
+        notes: 'Maps to --mbbiz-radius-md.',
+      },
     ],
   },
-  {
-    title: 'Chip',
-    rows: [
-      { token: 'background/brand-primary4', value: 'blue/200', appliesTo: 'Default chip background', notes: 'Used by normal tags and overflow examples.' },
-      { token: 'text/primary3', value: 'darkblue/700', appliesTo: 'Default chip text and remove icon', notes: 'Shared color for label and clear icon in a chip.' },
-      { token: 'background/error-tertiary', value: 'red/100', appliesTo: 'Error chip background', notes: 'Used when the input tag status is error.' },
-    ],
-  }
 ];
 
 export const INPUT_TAG_VARIABLE_NOTES = [
+  'Color rows map to CSS custom properties implemented by mbbiz-input-tag.',
+  'Chip brand/success/warning/danger tones are local renderTag colors; promote them to theme tokens when re-syncing from Figma.',
   'The input shell is 300px wide in the component implementation; docs cards should not add an extra border around the component itself.',
-  'Hover and focus are runtime states. Static docs should demo the default state first and let interaction drive hover/focus.',
-  'Advanced API such as labelInValue and tokenSeparators is documented for completeness but is not shown as a separate preview use case unless a matching Figma node is approved.',
 ];

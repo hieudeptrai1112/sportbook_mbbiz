@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: inline-flex;
   max-width: 100%;
@@ -14,11 +16,7 @@
   color: var(--mbbiz-steps-title-color);
   display: flex;
   flex-direction: column;
-  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.25px;
-  line-height: 24px;
+  @include typo.mbbiz-typo-h2-sub-header-normal-16-semibold;
   width: min(100%, 218px);
 }
 
@@ -40,10 +38,7 @@
 
   align-items: flex-start;
   flex-direction: row;
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.25px;
-  line-height: 20px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   width: fit-content;
   max-width: 100%;
 }
@@ -186,12 +181,9 @@
   color: var(--mbbiz-steps-marker-color);
   display: inline-flex;
   flex: 0 0 var(--mbbiz-steps-marker-size);
-  font-size: 12px;
-  font-weight: 400;
+  @include typo.mbbiz-typo-body-normal-12-regular;
   height: var(--mbbiz-steps-marker-size);
   justify-content: center;
-  letter-spacing: 0.25px;
-  line-height: 16px;
   min-width: var(--mbbiz-steps-marker-size);
   text-align: center;
   width: var(--mbbiz-steps-marker-size);
@@ -278,26 +270,22 @@
 }
 
 .mbbiz-steps--horizontal .mbbiz-steps__title {
-  font-size: 14px;
-  letter-spacing: 0.25px;
-  line-height: 20px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
 }
 
 .mbbiz-steps--horizontal .mbbiz-steps__item--wait .mbbiz-steps__title {
-  font-weight: 400;
+  font-weight: var(--mbbiz-font-weight-regular, 400);
 }
 
 .mbbiz-steps--horizontal .mbbiz-steps__item--process .mbbiz-steps__title,
 .mbbiz-steps--horizontal .mbbiz-steps__item--finish .mbbiz-steps__title,
 .mbbiz-steps--horizontal .mbbiz-steps__item--error .mbbiz-steps__title {
-  font-weight: 600;
+  font-weight: var(--mbbiz-font-weight-semibold, 600);
 }
 
 .mbbiz-steps__description {
   color: var(--mbbiz-color-text-secondary, #6d83a7);
   display: block;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
+  @include typo.mbbiz-typo-body-normal-12-regular;
   margin-top: 2px;
 }

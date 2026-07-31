@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: block;
   max-width: 100%;
@@ -17,7 +19,6 @@
   --mbbiz-upload-error-text: #f34343;
 
   color: var(--mbbiz-upload-text-default);
-  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
   width: 100%;
 }
 
@@ -48,11 +49,8 @@ mbbiz-item-upload {
   align-items: center;
   color: var(--mbbiz-upload-text-default);
   display: inline-flex;
-  font-size: 14px;
-  font-weight: 600;
+  @include typo.mbbiz-typo-h3-normal-14-semibold;
   gap: 4px;
-  letter-spacing: 0.25px;
-  line-height: 20px;
 }
 
 .mbbiz-upload-file__required {
@@ -61,10 +59,7 @@ mbbiz-item-upload {
 
 .mbbiz-upload-file__description {
   color: var(--mbbiz-upload-text-muted);
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.25px;
-  line-height: 20px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   margin: 0;
 }
 
@@ -92,9 +87,8 @@ mbbiz-item-upload {
   color: var(--mbbiz-upload-primary);
   cursor: pointer;
   display: inline-flex;
-  font: 600 14px/20px var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  @include typo.mbbiz-typo-h3-normal-14-semibold;
   gap: 2px;
-  letter-spacing: 0.25px;
   padding: 0;
   width: fit-content;
 }

@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: inline-flex;
   max-width: 100%;
@@ -38,9 +40,7 @@
   box-shadow: none;
   color: var(--mbbiz-color-text-field, #192d39);
   flex: 1 1 auto;
-  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: 0.25px;
-  line-height: 20px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   min-height: 80px;
   outline: none;
   padding: 0;
@@ -64,8 +64,7 @@
 .mbbiz-textarea__counter {
   align-self: flex-end;
   color: var(--mbbiz-color-text-counter, #9b9b9b);
-  font: 400 12px/16px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: 0.25px;
+  @include typo.mbbiz-typo-body-normal-12-regular;
   margin-top: 4px;
 }
 

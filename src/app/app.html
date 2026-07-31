@@ -209,6 +209,14 @@
             </div>
             <div
               class="sidebar-link"
+              [class.active]="activePage() === 'buttonLink'"
+              (click)="setPage('buttonLink')"
+            >
+              <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+              <span>Button Link</span>
+            </div>
+            <div
+              class="sidebar-link"
               [class.active]="activePage() === 'inputField'"
               (click)="setPage('inputField')"
             >
@@ -313,6 +321,14 @@
               <img src="/assets/figma/3e20b364-afaa-44e7-9d9d-1a4bbf8611cc.svg" alt="" />
               <span>Checkbox</span>
             </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'switch'"
+              (click)="setPage('switch')"
+            >
+              <img src="/assets/figma/3e20b364-afaa-44e7-9d9d-1a4bbf8611cc.svg" alt="" />
+              <span>Switch</span>
+            </div>
             <span class="sidebar-sublabel">Data Display</span>
             <div
               class="sidebar-link"
@@ -337,6 +353,14 @@
             >
               <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
               <span>Message</span>
+            </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'modal'"
+              (click)="setPage('modal')"
+            >
+              <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+              <span>Modal</span>
             </div>
             <div
               class="sidebar-link"
@@ -1415,21 +1439,21 @@
                 <p class="scale-note">{{ group.description }}</p>
                 <div class="token-table button-semantic-table">
                   <div class="token-row token-head">
-                    <span>Component Token</span>
-                    <span>Alias Token</span>
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
                     <span>Description</span>
                   </div>
                   <div class="token-row" *ngFor="let row of group.rows">
-                    <div class="token-alias-cell" [class.na]="row.semanticValue === 'N/A'">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
                       <span
                         class="token-swatch"
-                        [style.background]="
-                          row.semanticValue === 'N/A' ? '#E2E8F0' : row.semanticValue
-                        "
+                        [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"
                       ></span>
-                      <code class="token-code">{{ row.componentToken }}</code>
+                      <code class="token-code">{{ row.alias }}</code>
                     </div>
-                    <code class="token-code">{{ row.semanticAlias }}</code>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
                     <span class="token-description">{{ row.description }}</span>
                   </div>
                 </div>
@@ -1617,21 +1641,21 @@
                 <p class="scale-note">{{ group.description }}</p>
                 <div class="token-table button-semantic-table">
                   <div class="token-row token-head">
-                    <span>Component Token</span>
-                    <span>Alias Token</span>
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
                     <span>Description</span>
                   </div>
                   <div class="token-row" *ngFor="let row of group.rows">
-                    <div class="token-alias-cell" [class.na]="row.semanticValue === 'N/A'">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
                       <span
                         class="token-swatch"
-                        [style.background]="
-                          row.semanticValue === 'N/A' ? '#E2E8F0' : row.semanticValue
-                        "
+                        [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"
                       ></span>
-                      <code class="token-code">{{ row.componentToken }}</code>
+                      <code class="token-code">{{ row.alias }}</code>
                     </div>
-                    <code class="token-code">{{ row.semanticAlias }}</code>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
                     <span class="token-description">{{ row.description }}</span>
                   </div>
                 </div>
@@ -1666,6 +1690,131 @@
                 <h3>Normalization Notes</h3>
                 <ul>
                   <li *ngFor="let note of buttonVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'buttonLink'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">General</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Button Link</h1>
+              <p class="lead">
+                Button Link is the underlined text action used for secondary navigation and inline
+                actions. It supports size, interaction states, and optional href rendering.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of buttonLinkDemoSections"
+              [attr.id]="getButtonLinkSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card">
+                <div class="button-demo-preview core3-map-preview core3-button-link-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <mbbiz-button-link *ngSwitchCase="'default'">Button link</mbbiz-button-link>
+
+                    <div *ngSwitchCase="'size'" class="core3-map-row">
+                      <mbbiz-button-link size="sm">Small</mbbiz-button-link>
+                      <mbbiz-button-link size="md">Medium</mbbiz-button-link>
+                      <mbbiz-button-link size="lg">Large</mbbiz-button-link>
+                    </div>
+
+                    <div *ngSwitchCase="'states'" class="core3-button-link-states">
+                      <div class="core3-button-link-state">
+                        <span class="core3-button-link-state-label">Default</span>
+                        <mbbiz-button-link>Button link</mbbiz-button-link>
+                      </div>
+                      <div class="core3-button-link-state">
+                        <span class="core3-button-link-state-label">Hover</span>
+                        <mbbiz-button-link class="mbbiz-button-link-preview-hover"
+                          >Button link</mbbiz-button-link
+                        >
+                      </div>
+                      <div class="core3-button-link-state">
+                        <span class="core3-button-link-state-label">Pressed</span>
+                        <mbbiz-button-link class="mbbiz-button-link-preview-pressed"
+                          >Button link</mbbiz-button-link
+                        >
+                      </div>
+                      <div class="core3-button-link-state">
+                        <span class="core3-button-link-state-label">Disabled</span>
+                        <mbbiz-button-link [disabled]="true">Button link</mbbiz-button-link>
+                      </div>
+                    </div>
+
+                    <mbbiz-button-link
+                      *ngSwitchCase="'href'"
+                      href="/docs"
+                      target="_blank"
+                    >
+                      Open docs
+                    </mbbiz-button-link>
+                  </ng-container>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="button-link-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Button Link uses a compact color layer for default, hover, pressed, and disabled
+                text.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of buttonLinkVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of buttonLinkVariableNotes">{{ note }}</li>
                 </ul>
               </div>
             </section>
@@ -2262,21 +2411,21 @@
                 <p class="scale-note">{{ group.description }}</p>
                 <div class="token-table button-semantic-table">
                   <div class="token-row token-head">
-                    <span>Component Token</span>
-                    <span>Alias Token</span>
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
                     <span>Description</span>
                   </div>
                   <div class="token-row" *ngFor="let row of group.rows">
-                    <div class="token-alias-cell" [class.na]="row.semanticValue === 'N/A'">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
                       <span
                         class="token-swatch"
-                        [style.background]="
-                          row.semanticValue === 'N/A' ? '#E2E8F0' : row.semanticValue
-                        "
+                        [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"
                       ></span>
-                      <code class="token-code">{{ row.componentToken }}</code>
+                      <code class="token-code">{{ row.alias }}</code>
                     </div>
-                    <code class="token-code">{{ row.semanticAlias }}</code>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
                     <span class="token-description">{{ row.description }}</span>
                   </div>
                 </div>
@@ -2512,24 +2661,42 @@
             <section class="section button-variables-section" id="input-tag-variables">
               <h2>Component Token</h2>
               <p class="button-demo-description">
-                Input Tag binds to the same semantic token layer as Input and Dropdown Tag chips.
+                Input Tag uses container, chip, text, and status colors from the component CSS
+                token layer.
               </p>
 
               <div class="scale-block" *ngFor="let group of inputTagVariableGroups">
                 <h3>{{ group.title }}</h3>
-                <div class="token-table button-variable-table">
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
                   <div class="token-row token-head">
                     <span>Token</span>
                     <span>Value</span>
-                    <span>Applied To</span>
+                    <span>Usage</span>
                   </div>
-                  <div class="token-row" *ngFor="let row of group.rows">
-                    <div class="token-note-cell">
-                      <code class="token-code">{{ row.token }}</code>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
                       <span class="token-description">{{ row.notes }}</span>
-                    </div>
-                    <code class="token-code">{{ row.value }}</code>
-                    <span>{{ row.appliesTo }}</span>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -2670,13 +2837,36 @@
               <h2>Component Token</h2>
               <div class="scale-block" *ngFor="let group of breadcrumbVariableGroups">
                 <h3>{{ group.title }}</h3>
-                <div class="token-table button-variable-table">
+                <div
+                  class="token-table component-alias-color-table"
+                  *ngIf="group.kind === 'alias-color'"
+                >
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span
+                        class="token-swatch"
+                        [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"
+                      ></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
                   <div class="token-row token-head">
                     <span>Token</span>
                     <span>Value</span>
                     <span>Usage</span>
                   </div>
-                  <div class="token-row" *ngFor="let row of group.rows">
+                  <div class="token-row" *ngFor="let row of group.specRows">
                     <span class="token-code">{{ row.token }}</span>
                     <span class="token-code">{{ row.value }}</span>
                     <span class="token-note-cell">
@@ -2778,6 +2968,57 @@
                 </div>
               </div>
             </section>
+
+            <section class="section button-variables-section" id="steps-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Steps uses marker, label, and connector colors shared across horizontal and vertical
+                flows.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of stepsVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of stepsVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
           </ng-container>
 
           <ng-container *ngIf="activePage() === 'tab'">
@@ -2855,6 +3096,56 @@
                 </div>
               </div>
             </section>
+
+            <section class="section button-variables-section" id="tab-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Tab uses a shared color layer for pill, underlined, disabled, and count treatments.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of tabVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of tabVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
           </ng-container>
 
           <ng-container *ngIf="activePage() === 'message'">
@@ -2930,6 +3221,173 @@
                     </div>
                   </ng-container>
                 </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="message-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Message swaps background, border, and icon color by type while keeping shared text
+                and close colors.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of messageVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of messageVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'modal'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Display</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Modal</h1>
+              <p class="lead">
+                Modal maps the approved dialog shell into docs: title, close, form fields, and
+                single or double footer actions.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of modalDemoSections"
+              [attr.id]="getModalSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card modal-demo-card">
+                <div class="button-demo-preview core3-map-preview modal-demo-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <mbbiz-modal
+                      *ngSwitchCase="'default'"
+                      title="Modal title"
+                      primaryLabel="Confirm"
+                      secondaryLabel="Cancel"
+                    />
+
+                    <mbbiz-modal
+                      *ngSwitchCase="'single'"
+                      title="Confirm action"
+                      actionLayout="single"
+                      primaryLabel="Confirm"
+                    />
+
+                    <mbbiz-modal
+                      *ngSwitchCase="'one-field'"
+                      title="Single field"
+                      [showSecondField]="false"
+                      primaryLabel="Save"
+                      secondaryLabel="Cancel"
+                    />
+
+                    <mbbiz-modal
+                      *ngSwitchCase="'no-close'"
+                      title="Required decision"
+                      [showClose]="false"
+                      primaryLabel="Continue"
+                      secondaryLabel="Back"
+                    />
+                  </ng-container>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="modal-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Modal documents the dialog shell colors and spacing. Nested Input and Button tokens
+                still apply inside the body and footer.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of modalVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of modalVariableNotes">{{ note }}</li>
+                </ul>
               </div>
             </section>
           </ng-container>
@@ -3841,13 +4299,36 @@
 
               <div class="scale-block" *ngFor="let group of dropdownVariableGroups">
                 <h3>{{ group.title }}</h3>
-                <div class="token-table button-variable-table">
+                <div
+                  class="token-table component-alias-color-table"
+                  *ngIf="group.kind === 'alias-color'"
+                >
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span
+                        class="token-swatch"
+                        [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"
+                      ></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
                   <div class="token-row token-head">
                     <span>Token</span>
                     <span>Value</span>
                     <span>Applied To</span>
                   </div>
-                  <div class="token-row" *ngFor="let row of group.rows">
+                  <div class="token-row" *ngFor="let row of group.specRows">
                     <div class="token-note-cell">
                       <code class="token-code">{{ row.token }}</code>
                       <span class="token-description">{{ row.notes }}</span>
@@ -3954,6 +4435,57 @@
                   </form>
                 </div>
               </article>
+            </section>
+
+            <section class="section button-variables-section" id="form-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Form docs cover the outer-label shell colors and spacing from the Figma form block.
+                Field control colors inherit from Dropdown.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of formVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of formVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
             </section>
           </ng-container>
 
@@ -4139,13 +4671,36 @@
 
               <div class="scale-block" *ngFor="let group of radioVariableGroups">
                 <h3>{{ group.title }}</h3>
-                <div class="token-table button-variable-table">
+                <div
+                  class="token-table component-alias-color-table"
+                  *ngIf="group.kind === 'alias-color'"
+                >
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span
+                        class="token-swatch"
+                        [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"
+                      ></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
                   <div class="token-row token-head">
                     <span>Token</span>
                     <span>Value</span>
                     <span>Applied To</span>
                   </div>
-                  <div class="token-row" *ngFor="let row of group.rows">
+                  <div class="token-row" *ngFor="let row of group.specRows">
                     <div class="token-note-cell">
                       <code class="token-code">{{ row.token }}</code>
                       <span class="token-description">{{ row.notes }}</span>
@@ -4488,19 +5043,36 @@
 
               <div class="scale-block" *ngFor="let group of datepickerVariableGroups">
                 <h3>{{ group.title }}</h3>
-                <div class="token-table button-variable-table">
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
                   <div class="token-row token-head">
                     <span>Token</span>
                     <span>Value</span>
-                    <span>Applied To</span>
+                    <span>Usage</span>
                   </div>
-                  <div class="token-row" *ngFor="let row of group.rows">
-                    <div class="token-note-cell">
-                      <code class="token-code">{{ row.token }}</code>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
                       <span class="token-description">{{ row.notes }}</span>
-                    </div>
-                    <code class="token-code">{{ row.value }}</code>
-                    <span>{{ row.appliesTo }}</span>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -4805,13 +5377,36 @@
 
               <div class="scale-block" *ngFor="let group of uploadFileVariableGroups">
                 <h3>{{ group.title }}</h3>
-                <div class="token-table button-variable-table">
+                <div
+                  class="token-table component-alias-color-table"
+                  *ngIf="group.kind === 'alias-color'"
+                >
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span
+                        class="token-swatch"
+                        [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"
+                      ></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
                   <div class="token-row token-head">
                     <span>Token</span>
                     <span>Value</span>
                     <span>Usage</span>
                   </div>
-                  <div class="token-row" *ngFor="let row of group.rows">
+                  <div class="token-row" *ngFor="let row of group.specRows">
                     <span class="token-code">{{ row.token }}</span>
                     <span class="token-code">{{ row.value }}</span>
                     <span class="token-note-cell">
@@ -4881,6 +5476,57 @@
                 </div>
               </div>
             </section>
+
+            <section class="section button-variables-section" id="badge-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Badge status presets remap to a shared pill color layer for background, text, and
+                optional description.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of badgeVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of badgeVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
           </ng-container>
 
           <ng-container *ngIf="activePage() === 'status'">
@@ -4924,6 +5570,56 @@
                     </div>
                   </ng-container>
                 </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="status-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Status uses one color token per preset for both the dot and the label.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of statusVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of statusVariableNotes">{{ note }}</li>
+                </ul>
               </div>
             </section>
           </ng-container>
@@ -5173,13 +5869,36 @@
               <h2>Component Token</h2>
               <div class="scale-block" *ngFor="let group of tableVariableGroups">
                 <h3>{{ group.title }}</h3>
-                <div class="token-table button-variable-table">
+                <div
+                  class="token-table component-alias-color-table"
+                  *ngIf="group.kind === 'alias-color'"
+                >
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span
+                        class="token-swatch"
+                        [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"
+                      ></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
                   <div class="token-row token-head">
                     <span>Token</span>
                     <span>Value</span>
                     <span>Usage</span>
                   </div>
-                  <div class="token-row" *ngFor="let row of group.rows">
+                  <div class="token-row" *ngFor="let row of group.specRows">
                     <span class="token-code">{{ row.token }}</span>
                     <span class="token-code">{{ row.value }}</span>
                     <span class="token-note-cell">
@@ -5454,13 +6173,36 @@
               <h2>Component Token</h2>
               <div class="scale-block" *ngFor="let group of paginationVariableGroups">
                 <h3>{{ group.title }}</h3>
-                <div class="token-table button-variable-table">
+                <div
+                  class="token-table component-alias-color-table"
+                  *ngIf="group.kind === 'alias-color'"
+                >
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span
+                        class="token-swatch"
+                        [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"
+                      ></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
                   <div class="token-row token-head">
                     <span>Token</span>
                     <span>Value</span>
                     <span>Usage</span>
                   </div>
-                  <div class="token-row" *ngFor="let row of group.rows">
+                  <div class="token-row" *ngFor="let row of group.specRows">
                     <span class="token-code">{{ row.token }}</span>
                     <span class="token-code">{{ row.value }}</span>
                     <span class="token-note-cell">
@@ -5623,6 +6365,172 @@
                     (valueChange)="setCore3CheckboxGroupVerticalValues($event)"
                   />
                 </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="checkbox-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Checkbox uses a compact control token layer for border, selected fill, label, and
+                group spacing.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of checkboxVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of checkboxVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'switch'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Entry</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Switch</h1>
+              <p class="lead">
+                Switch toggles a single binary setting. This page covers size, loading/pressed
+                interaction states, and disabled off/on tracks.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of switchDemoSections"
+              [attr.id]="getSwitchSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card">
+                <div class="button-demo-preview core3-map-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <div *ngSwitchCase="'default'" class="core3-map-row">
+                      <mbbiz-switch />
+                      <mbbiz-switch
+                        [checked]="switchDemoChecked()"
+                        (checkedChange)="switchDemoChecked.set($event)"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'size'" class="core3-map-row">
+                      <mbbiz-switch size="m" [defaultChecked]="true" />
+                      <mbbiz-switch size="l" [defaultChecked]="true" />
+                    </div>
+
+                    <div *ngSwitchCase="'states'" class="core3-switch-states">
+                      <div class="core3-map-row">
+                        <mbbiz-switch interactionState="loading" />
+                        <mbbiz-switch interactionState="loading" [defaultChecked]="true" />
+                      </div>
+                      <div class="core3-map-row">
+                        <mbbiz-switch interactionState="pressed" />
+                        <mbbiz-switch interactionState="pressed" [defaultChecked]="true" />
+                      </div>
+                    </div>
+
+                    <div *ngSwitchCase="'disabled'" class="core3-map-row">
+                      <mbbiz-switch [disabled]="true" />
+                      <mbbiz-switch [disabled]="true" [defaultChecked]="true" />
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="switch-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Switch uses track, thumb, and loading-ring colors across off, on, loading, and
+                disabled states.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of switchVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of switchVariableNotes">{{ note }}</li>
+                </ul>
               </div>
             </section>
           </ng-container>
@@ -6264,10 +7172,41 @@
               </div>
               <h1>Typography</h1>
               <p class="lead">
-                Scale tables cho font size, line height và font weight để đồng bộ kiểu chữ trong
-                component docs.
+                Font styles từ Design System V2 (Averta Std CY) — map 1:1 với 31 local Text Styles
+                trên Figma, kèm scale font-size / line-height / font-weight.
               </p>
             </div>
+
+            <section class="section typography-styles-section" id="typography-font-styles">
+              <h2>Font Styles</h2>
+              <p class="section-note">
+                Source: Design System — V2 (Web) · 31 local Text Styles · family Averta Std CY
+              </p>
+
+              <div
+                class="typography-style-group"
+                *ngFor="let group of typographyStyleGroups"
+                [attr.id]="group.id"
+              >
+                <h3>{{ group.title }}</h3>
+                <div class="typography-style-list">
+                  <div class="typography-style-row" *ngFor="let row of group.rows">
+                    <div class="typography-style-meta">
+                      <code class="token-code">{{ row.name }}</code>
+                      <code class="token-code">.{{ row.className }}</code>
+                      <span class="typography-style-spec"
+                        >{{ row.fontSize }} / {{ row.lineHeight }} · {{ row.weight }} · LS
+                        {{ row.letterSpacing }}</span
+                      >
+                      <span class="typography-style-spec"
+                        >{{ row.textCase }} · {{ row.textDecoration }}</span
+                      >
+                    </div>
+                    <p [class]="row.className">{{ row.sample }}</p>
+                  </div>
+                </div>
+              </div>
+            </section>
 
             <section
               class="section scale-section"
@@ -6629,6 +7568,41 @@
           </div>
         </ng-container>
 
+        <ng-container *ngIf="activePage() === 'buttonLink'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of buttonLinkDemoSections"
+                  [class.active]="activeButtonLinkSection() === getButtonLinkSectionId(demo.id)"
+                  [href]="'#' + getButtonLinkSectionId(demo.id)"
+                  (click)="setActiveButtonLinkSection(getButtonLinkSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeButtonLinkSection() === 'button-link-variables'"
+                  href="#button-link-variables"
+                  (click)="setActiveButtonLinkSection('button-link-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
         <ng-container *ngIf="activePage() === 'color'">
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
@@ -6916,6 +7890,14 @@
                 >
                   {{ demo.title }}
                 </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeStepsSection() === 'steps-variables'"
+                  href="#steps-variables"
+                  (click)="setActiveStepsSection('steps-variables')"
+                >
+                  Component Token
+                </a>
               </div>
             </aside>
 
@@ -6944,6 +7926,14 @@
                 >
                   {{ demo.title }}
                 </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeTabSection() === 'tab-variables'"
+                  href="#tab-variables"
+                  (click)="setActiveTabSection('tab-variables')"
+                >
+                  Component Token
+                </a>
               </div>
             </aside>
             <button
@@ -6970,6 +7960,14 @@
                   (click)="setActiveBadgeSection(getBadgeSectionId(demo.id))"
                 >
                   {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeBadgeSection() === 'badge-variables'"
+                  href="#badge-variables"
+                  (click)="setActiveBadgeSection('badge-variables')"
+                >
+                  Component Token
                 </a>
               </div>
             </aside>
@@ -6998,6 +7996,14 @@
                 >
                   {{ demo.title }}
                 </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeStatusSection() === 'status-variables'"
+                  href="#status-variables"
+                  (click)="setActiveStatusSection('status-variables')"
+                >
+                  Component Token
+                </a>
               </div>
             </aside>
             <button
@@ -7024,6 +8030,49 @@
                   (click)="setActiveMessageSection(getMessageSectionId(demo.id))"
                 >
                   {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeMessageSection() === 'message-variables'"
+                  href="#message-variables"
+                  (click)="setActiveMessageSection('message-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'modal'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of modalDemoSections"
+                  [class.active]="activeModalSection() === getModalSectionId(demo.id)"
+                  [href]="'#' + getModalSectionId(demo.id)"
+                  (click)="setActiveModalSection(getModalSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeModalSection() === 'modal-variables'"
+                  href="#modal-variables"
+                  (click)="setActiveModalSection('modal-variables')"
+                >
+                  Component Token
                 </a>
               </div>
             </aside>
@@ -7191,6 +8240,14 @@
                   (click)="setActiveFormSection(getFormSectionId('default'))"
                 >
                   Default
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeFormSection() === getFormSectionId('variables')"
+                  [href]="'#' + getFormSectionId('variables')"
+                  (click)="setActiveFormSection(getFormSectionId('variables'))"
+                >
+                  Component Token
                 </a>
               </div>
 
@@ -7534,6 +8591,7 @@
                 <a class="toc-item" href="#checkbox-group">Checkbox Group</a>
                 <a class="toc-item" href="#checkbox-select-all">Select All</a>
                 <a class="toc-item" href="#checkbox-vertical-group">Vertical Checkbox Group</a>
+                <a class="toc-item" href="#checkbox-variables">Component Token</a>
               </div>
 
               <div class="pro-tip">
@@ -7545,6 +8603,41 @@
                   Use <span class="mono">Checkbox Group</span> when multiple options may be
                   selected; use <span class="mono">Radio</span> when exactly one option is allowed.
                 </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'switch'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of switchDemoSections"
+                  [class.active]="activeSwitchSection() === getSwitchSectionId(demo.id)"
+                  [href]="'#' + getSwitchSectionId(demo.id)"
+                  (click)="setActiveSwitchSection(getSwitchSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeSwitchSection() === 'switch-variables'"
+                  href="#switch-variables"
+                  (click)="setActiveSwitchSection('switch-variables')"
+                >
+                  Component Token
+                </a>
               </div>
             </aside>
             <button
@@ -7667,6 +8760,23 @@
             <aside class="toc">
               <span class="toc-label">On This Page</span>
               <div class="toc-list">
+                <a
+                  class="toc-item"
+                  [class.active]="activeTokenSection() === 'typography-font-styles'"
+                  href="#typography-font-styles"
+                  (click)="setActiveTokenSection('typography-font-styles')"
+                >
+                  Font Styles
+                </a>
+                <a
+                  class="toc-item"
+                  *ngFor="let group of typographyStyleGroups"
+                  [class.active]="activeTokenSection() === group.id"
+                  [href]="'#' + group.id"
+                  (click)="setActiveTokenSection(group.id)"
+                >
+                  {{ group.title }}
+                </a>
                 <a
                   class="toc-item"
                   *ngFor="let group of typographyScaleGroups"

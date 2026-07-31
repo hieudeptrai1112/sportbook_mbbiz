@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: inline-flex;
   max-width: 100%;
@@ -83,8 +85,7 @@
 }
 
 .mbbiz-input-tag__chip-label {
-  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: 0.25px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   white-space: nowrap;
 }
 
@@ -121,8 +122,7 @@
 .mbbiz-input-tag__overflow {
   color: var(--mbbiz-color-text-secondary, #65758b);
   flex: 0 0 auto;
-  font: 400 12px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: 0.25px;
+  @include typo.mbbiz-typo-body-normal-12-regular;
   padding-right: 4px;
 }
 
@@ -225,8 +225,7 @@
   border: 0;
   box-shadow: none;
   color: var(--mbbiz-color-text-field, #192d39);
-  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: 0.25px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   min-width: 0;
   padding: 0;
   width: 100%;
@@ -251,8 +250,7 @@
 .mbbiz-input-tag__cursor {
   color: var(--mbbiz-color-border-brand-tertiary, #52dddd);
   flex: 0 0 auto;
-  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: 0.25px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   margin-left: -2px;
 }
 

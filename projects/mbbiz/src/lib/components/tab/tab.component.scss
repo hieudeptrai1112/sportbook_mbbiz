@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: inline-flex;
   max-width: 100%;
@@ -16,7 +18,6 @@
 
   align-items: flex-start;
   display: flex;
-  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
   gap: 16px;
   max-width: 100%;
   overflow-x: auto;
@@ -41,11 +42,8 @@
   cursor: pointer;
   display: inline-flex;
   flex: 0 0 auto;
-  font-family: inherit;
-  font-weight: 400;
   gap: 8px;
   justify-content: center;
-  letter-spacing: 0.25px;
   margin: 0;
   position: relative;
   text-align: center;
@@ -69,13 +67,19 @@
 }
 
 .mbbiz-tab--size-large .mbbiz-tab__item {
-  font-size: 14px;
-  line-height: 20px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
+}
+
+.mbbiz-tab--size-large .mbbiz-tab__item--active {
+  @include typo.mbbiz-typo-h3-normal-14-semibold;
 }
 
 .mbbiz-tab--size-small .mbbiz-tab__item {
-  font-size: 12px;
-  line-height: 16px;
+  @include typo.mbbiz-typo-body-normal-12-regular;
+}
+
+.mbbiz-tab--size-small .mbbiz-tab__item--active {
+  @include typo.mbbiz-typo-body-normal-12-semibold;
 }
 
 .mbbiz-tab--variant-pill .mbbiz-tab__item {
@@ -86,7 +90,6 @@
 .mbbiz-tab--variant-pill .mbbiz-tab__item--active {
   background: var(--mbbiz-tab-pill-active-bg);
   color: var(--mbbiz-tab-pill-active-text);
-  font-weight: 600;
   padding-inline: 16px;
 }
 
@@ -122,7 +125,6 @@
 .mbbiz-tab--variant-underlined .mbbiz-tab__item--active {
   border-bottom-color: var(--mbbiz-tab-active-text);
   color: var(--mbbiz-tab-active-text);
-  font-weight: 600;
 }
 
 .mbbiz-tab--variant-underlined .mbbiz-tab__item--disabled {
@@ -135,11 +137,8 @@
   border-radius: 65px;
   color: var(--mbbiz-tab-count-text);
   display: inline-flex;
-  font-size: 12px;
-  font-weight: 600;
+  @include typo.mbbiz-typo-body-normal-12-semibold;
   justify-content: center;
-  letter-spacing: 0.25px;
-  line-height: 16px;
   min-height: 16px;
   min-width: 16px;
   padding-inline: 8px;

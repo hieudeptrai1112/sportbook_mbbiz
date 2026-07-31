@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: inline-flex;
   max-width: 100%;
@@ -12,15 +14,12 @@
   color: var(--mbbiz-color-button-link-default, #141ed2);
   cursor: pointer;
   display: inline-flex;
-  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
-  font-weight: 400;
   justify-content: center;
   margin: 0;
   max-width: 100%;
   padding: 0;
   position: relative;
   text-align: center;
-  text-decoration-line: underline;
   text-decoration-skip-ink: none;
   text-underline-position: from-font;
   transition: color 140ms ease;
@@ -29,21 +28,15 @@
 }
 
 .mbbiz-button-link--lg {
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  line-height: 24px;
+  @include typo.mbbiz-typo-h2-sub-header-underline-16-regular;
 }
 
 .mbbiz-button-link--md {
-  font-size: 14px;
-  letter-spacing: 0;
-  line-height: 20px;
+  @include typo.mbbiz-typo-body-underline-14-regular;
 }
 
 .mbbiz-button-link--sm {
-  font-size: 12px;
-  letter-spacing: 0.25px;
-  line-height: 16px;
+  @include typo.mbbiz-typo-body-underline-12-regular;
   padding-block: 2px;
 }
 

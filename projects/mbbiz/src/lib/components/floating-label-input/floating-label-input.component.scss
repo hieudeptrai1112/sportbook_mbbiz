@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: inline-flex;
   max-width: 100%;
@@ -31,8 +33,7 @@
 
 .mbbiz-floating-label-input__label {
   color: var(--mbbiz-color-text-floating-label, #6d83a7);
-  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: 0.25px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
 }
 
 .mbbiz-floating-label-input__native.ant-input {
@@ -42,8 +43,7 @@
   border: 0;
   box-shadow: none;
   color: var(--mbbiz-color-text-field, #192d39);
-  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: 0.25px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   min-width: 0;
   padding: 0;
   width: 100%;

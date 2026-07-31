@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: inline-flex;
   max-width: 100%;
@@ -68,8 +70,7 @@
 }
 
 .mbbiz-affix-label-input__affix-label {
-  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: 0.25px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   white-space: nowrap;
 }
 
@@ -100,8 +101,7 @@
   box-shadow: none;
   color: var(--mbbiz-color-text-field, #192d39);
   flex: 1 1 auto;
-  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: 0.25px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   min-width: 0;
   padding: 0 4px;
   width: 100%;
@@ -168,8 +168,7 @@
   box-shadow: none;
   color: #192d39;
   flex: 1 1 auto;
-  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: 0.25px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   min-width: 0;
   padding: 0;
 }
@@ -238,6 +237,5 @@
 
 .mbbiz-affix-label-input__option-label {
   flex: 1 1 auto;
-  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: 0.25px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
 }

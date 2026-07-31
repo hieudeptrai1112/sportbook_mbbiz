@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: grid;
   gap: 6px;
@@ -6,7 +8,7 @@
 
 .mbbiz-input__label {
   color: var(--mbbiz-color-text-default, #0f172a);
-  font: 600 13px/18px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
+  @include typo.mbbiz-typo-h3-normal-14-semibold;
 }
 
 .mbbiz-input {
@@ -61,9 +63,7 @@
   box-shadow: none;
   color: var(--mbbiz-color-text-field, #192d39);
   caret-color: var(--mbbiz-color-border-brand-tertiary, #52dddd);
-  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: inherit;
-  line-height: inherit;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   min-width: 0;
   outline: none;
   padding: 0;
@@ -106,7 +106,7 @@
 
 .mbbiz-input__caption {
   color: var(--mbbiz-color-text-muted, #667085);
-  font: 500 12px/16px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
+  @include typo.mbbiz-typo-body-normal-12-regular;
   margin: 0;
 }
 

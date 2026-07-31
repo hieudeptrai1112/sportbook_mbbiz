@@ -11,6 +11,7 @@ import {
   type MbbizAffixDropdownItem,
   MbbizButtonComponent,
   MbbizBreadcrumbComponent,
+  MbbizButtonLinkComponent,
   MbbizCheckboxComponent,
   MbbizCheckboxGroupComponent,
   type MbbizCheckboxGroupOption,
@@ -26,6 +27,7 @@ import {
   type MbbizItemFileKind,
   MbbizItemUploadComponent,
   type MbbizInputTagValue,
+  MbbizModalComponent,
   MbbizPasswordInputComponent,
   MbbizPaginationComponent,
   MbbizMessageComponent,
@@ -41,6 +43,7 @@ import {
   type MbbizStepItem,
   MbbizStatusComponent,
   type MbbizStatusColor,
+  MbbizSwitchComponent,
   MbbizTabComponent,
   type MbbizTabItem,
   MbbizTableComponent,
@@ -82,6 +85,10 @@ import {
   type NumericScaleRow,
 } from './scale-tokens.data';
 import {
+  TYPOGRAPHY_STYLE_GROUPS,
+  type TypographyStyleGroup,
+} from './typography-styles.data';
+import {
   LAYOUT_TOKEN_GROUPS,
   type LayoutTokenGroup,
 } from './layout-tokens.data';
@@ -98,7 +105,38 @@ import {
   type ButtonSemanticBindingGroup,
   type ButtonVariableGroup,
 } from './button-demos.data';
-import { BADGE_DEMO_SECTIONS, type BadgeDemoSection } from './badge-demos.data';
+import {
+  BADGE_DEMO_SECTIONS,
+  BADGE_VARIABLE_GROUPS,
+  BADGE_VARIABLE_NOTES,
+  type BadgeDemoSection,
+} from './badge-demos.data';
+import {
+  BUTTON_LINK_DEMO_SECTIONS,
+  BUTTON_LINK_VARIABLE_GROUPS,
+  BUTTON_LINK_VARIABLE_NOTES,
+  type ButtonLinkDemoSection,
+} from './button-link-demos.data';
+import {
+  CHECKBOX_VARIABLE_GROUPS,
+  CHECKBOX_VARIABLE_NOTES,
+} from './checkbox-demos.data';
+import {
+  FORM_VARIABLE_GROUPS,
+  FORM_VARIABLE_NOTES,
+} from './form-demos.data';
+import {
+  MODAL_DEMO_SECTIONS,
+  MODAL_VARIABLE_GROUPS,
+  MODAL_VARIABLE_NOTES,
+  type ModalDemoSection,
+} from './modal-demos.data';
+import {
+  SWITCH_DEMO_SECTIONS,
+  SWITCH_VARIABLE_GROUPS,
+  SWITCH_VARIABLE_NOTES,
+  type SwitchDemoSection,
+} from './switch-demos.data';
 import {
   BUTTON_MAPPING_API_ROWS,
   BUTTON_MAPPING_DEMO_SECTIONS,
@@ -131,7 +169,6 @@ import {
   INPUT_TAG_VARIABLE_NOTES,
   type InputTagApiRow,
   type InputTagDemoSection,
-  type InputTagVariableGroup,
 } from './input-tag-demos.data';
 import {
   DROPDOWN_API_ROWS,
@@ -141,7 +178,6 @@ import {
   DROPDOWN_VARIABLE_NOTES,
   type DropdownApiRow,
   type DropdownDemoSection,
-  type DropdownVariableGroup,
 } from './dropdown-demos.data';
 import {
   RADIO_API_ROWS,
@@ -151,7 +187,6 @@ import {
   RADIO_VARIABLE_NOTES,
   type RadioApiRow,
   type RadioDemoSection,
-  type RadioVariableGroup,
 } from './radio-demos.data';
 import {
   DATEPICKER_API_ROWS,
@@ -161,7 +196,6 @@ import {
   DATEPICKER_VARIABLE_NOTES,
   type DatepickerApiRow,
   type DatepickerDemoSection,
-  type DatepickerVariableGroup,
 } from './datepicker-demos.data';
 import {
   BREADCRUMB_API_ROWS,
@@ -170,11 +204,12 @@ import {
   BREADCRUMB_VARIABLE_NOTES,
   type BreadcrumbApiRow,
   type BreadcrumbDemoSection,
-  type BreadcrumbVariableGroup,
 } from './breadcrumb-demos.data';
 import {
   MESSAGE_CASES,
   MESSAGE_DEMO_SECTIONS,
+  MESSAGE_VARIABLE_GROUPS,
+  MESSAGE_VARIABLE_NOTES,
   type MessageCase,
   type MessageDemoSection,
 } from './message-demos.data';
@@ -185,10 +220,19 @@ import {
   STEPS_VARIABLE_NOTES,
   type StepsApiRow,
   type StepsDemoSection,
-  type StepsVariableGroup,
 } from './steps-demos.data';
-import { STATUS_DEMO_SECTIONS, type StatusDemoSection } from './status-demos.data';
-import { TAB_DEMO_SECTIONS, type TabDemoSection } from './tab-demos.data';
+import {
+  STATUS_DEMO_SECTIONS,
+  STATUS_VARIABLE_GROUPS,
+  STATUS_VARIABLE_NOTES,
+  type StatusDemoSection,
+} from './status-demos.data';
+import {
+  TAB_DEMO_SECTIONS,
+  TAB_VARIABLE_GROUPS,
+  TAB_VARIABLE_NOTES,
+  type TabDemoSection,
+} from './tab-demos.data';
 import {
   TABLE_API_ROWS,
   TABLE_DEMO_SECTIONS,
@@ -198,7 +242,6 @@ import {
   TABLE_VARIABLE_NOTES,
   type TableApiRow,
   type TableDemoSection,
-  type TableVariableGroup,
 } from './table-demos.data';
 import {
   PAGINATION_API_ROWS,
@@ -209,7 +252,6 @@ import {
   PAGINATION_VARIABLE_NOTES,
   type PaginationApiRow,
   type PaginationDemoSection,
-  type PaginationVariableGroup,
 } from './pagination-demos.data';
 import { ILLUSTRATION_ASSETS, type IllustrationAsset } from './illustration-assets.data';
 import {
@@ -229,7 +271,6 @@ import {
   UPLOAD_FILE_VARIABLE_NOTES,
   type UploadFileApiRow,
   type UploadFileDemoSection,
-  type UploadFileVariableGroup,
 } from './upload-file-demos.data';
 import {
   DEFAULT_THEME_BRAND,
@@ -266,9 +307,9 @@ interface SemanticTokenGroup {
 }
 
 interface ResolvedButtonSemanticBindingRow {
-  componentToken: string;
-  semanticAlias: string;
-  semanticValue: string;
+  alias: string;
+  globalColor: string;
+  hexValue: string;
   description: string;
 }
 
@@ -279,9 +320,9 @@ interface ResolvedButtonSemanticBindingGroup {
 }
 
 interface ResolvedInputSemanticBindingRow {
-  componentToken: string;
-  semanticAlias: string;
-  semanticValue: string;
+  alias: string;
+  globalColor: string;
+  hexValue: string;
   description: string;
 }
 
@@ -289,6 +330,27 @@ interface ResolvedInputSemanticBindingGroup {
   title: string;
   description: string;
   rows: ResolvedInputSemanticBindingRow[];
+}
+
+interface ResolvedAliasColorRow {
+  alias: string;
+  globalColor: string;
+  hexValue: string;
+  description: string;
+}
+
+interface ResolvedVariableSpecRow {
+  token: string;
+  value: string;
+  appliesTo: string;
+  notes: string;
+}
+
+interface ResolvedVariableTokenGroup {
+  title: string;
+  kind: 'alias-color' | 'spec';
+  aliasRows: ResolvedAliasColorRow[];
+  specRows: ResolvedVariableSpecRow[];
 }
 
 type InputDocsSectionId =
@@ -325,6 +387,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     MbbizBadgeComponent,
     MbbizButtonComponent,
     MbbizBreadcrumbComponent,
+    MbbizButtonLinkComponent,
     MbbizCheckboxComponent,
     MbbizCheckboxGroupComponent,
     MbbizDatepickerComponent,
@@ -336,6 +399,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     MbbizItemFileComponent,
     MbbizItemUploadComponent,
     MbbizMessageComponent,
+    MbbizModalComponent,
     MbbizPasswordInputComponent,
     MbbizPaginationComponent,
     MbbizRadioComponent,
@@ -343,6 +407,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     MbbizSearchInputComponent,
     MbbizStepsComponent,
     MbbizStatusComponent,
+    MbbizSwitchComponent,
     MbbizTabComponent,
     MbbizTableComponent,
     MbbizTextareaComponent,
@@ -367,6 +432,7 @@ export class App {
   protected readonly activePage = signal<
     | 'buttons'
     | 'buttonMapping'
+    | 'buttonLink'
     | 'inputField'
     | 'form'
     | 'inputTag'
@@ -376,9 +442,11 @@ export class App {
     | 'dropdown'
     | 'radio'
     | 'checkbox'
+    | 'switch'
     | 'badge'
     | 'status'
     | 'message'
+    | 'modal'
     | 'table'
     | 'pagination'
     | 'datepicker'
@@ -429,6 +497,7 @@ export class App {
   protected readonly iconSizeScaleRows: NumericScaleRow[] = ICON_SIZE_SCALE_ROWS;
   protected readonly layoutTokenGroups: LayoutTokenGroup[] = LAYOUT_TOKEN_GROUPS;
   protected readonly typographyScaleGroups: TypographyScaleGroup[] = TYPOGRAPHY_SCALE_GROUPS;
+  protected readonly typographyStyleGroups: TypographyStyleGroup[] = TYPOGRAPHY_STYLE_GROUPS;
   protected readonly buttonDemoSections: ButtonDemoSection[] = BUTTON_DEMO_SECTIONS;
   protected readonly buttonMappingDemoSections: ButtonMappingDemoSection[] =
     BUTTON_MAPPING_DEMO_SECTIONS;
@@ -467,7 +536,8 @@ export class App {
   protected readonly copiedInputDocsDemoId = signal<string | null>(null);
   protected readonly inputTagDemoSections: InputTagDemoSection[] = INPUT_TAG_DEMO_SECTIONS;
   protected readonly inputTagApiRows: InputTagApiRow[] = INPUT_TAG_API_ROWS;
-  protected readonly inputTagVariableGroups: InputTagVariableGroup[] = INPUT_TAG_VARIABLE_GROUPS;
+  protected readonly inputTagVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(INPUT_TAG_VARIABLE_GROUPS);
   protected readonly inputTagVariableNotes = INPUT_TAG_VARIABLE_NOTES;
   protected readonly activeInputTagSection = signal(
     this.getInputTagSectionId(this.inputTagDemoSections[0]?.id ?? 'interactive'),
@@ -476,8 +546,8 @@ export class App {
   protected readonly copiedInputTagDemoId = signal<string | null>(null);
   protected readonly breadcrumbDemoSections: BreadcrumbDemoSection[] = BREADCRUMB_DEMO_SECTIONS;
   protected readonly breadcrumbApiRows: BreadcrumbApiRow[] = BREADCRUMB_API_ROWS;
-  protected readonly breadcrumbVariableGroups: BreadcrumbVariableGroup[] =
-    BREADCRUMB_VARIABLE_GROUPS;
+  protected readonly breadcrumbVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(BREADCRUMB_VARIABLE_GROUPS);
   protected readonly breadcrumbVariableNotes = BREADCRUMB_VARIABLE_NOTES;
   protected readonly activeBreadcrumbSection = signal(
     this.getBreadcrumbSectionId(this.breadcrumbDemoSections[0]?.id ?? 'amount'),
@@ -486,7 +556,8 @@ export class App {
   protected readonly copiedBreadcrumbDemoId = signal<string | null>(null);
   protected readonly stepsDemoSections: StepsDemoSection[] = STEPS_DEMO_SECTIONS;
   protected readonly stepsApiRows: StepsApiRow[] = STEPS_API_ROWS;
-  protected readonly stepsVariableGroups: StepsVariableGroup[] = STEPS_VARIABLE_GROUPS;
+  protected readonly stepsVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(STEPS_VARIABLE_GROUPS);
   protected readonly stepsVariableNotes = STEPS_VARIABLE_NOTES;
   protected readonly activeStepsSection = signal(
     this.getStepsSectionId(this.stepsDemoSections[0]?.id ?? 'horizontal-steps'),
@@ -542,6 +613,9 @@ export class App {
   protected readonly expandedStepsDemoIds = signal<string[]>([]);
   protected readonly copiedStepsDemoId = signal<string | null>(null);
   protected readonly tabDemoSections: TabDemoSection[] = TAB_DEMO_SECTIONS;
+  protected readonly tabVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(TAB_VARIABLE_GROUPS);
+  protected readonly tabVariableNotes = TAB_VARIABLE_NOTES;
   protected readonly activeTabSection = signal(
     this.getTabSectionId(this.tabDemoSections[0]?.id ?? 'default'),
   );
@@ -564,6 +638,9 @@ export class App {
     { label: 'Text', disabled: true },
   ];
   protected readonly badgeDemoSections: BadgeDemoSection[] = BADGE_DEMO_SECTIONS;
+  protected readonly badgeVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(BADGE_VARIABLE_GROUPS);
+  protected readonly badgeVariableNotes = BADGE_VARIABLE_NOTES;
   protected readonly activeBadgeSection = signal(
     this.getBadgeSectionId(this.badgeDemoSections[0]?.id ?? 'default'),
   );
@@ -577,10 +654,44 @@ export class App {
     { status: 'failed', label: 'Text' },
   ];
   protected readonly statusDemoSections: StatusDemoSection[] = STATUS_DEMO_SECTIONS;
+  protected readonly statusVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(STATUS_VARIABLE_GROUPS);
+  protected readonly statusVariableNotes = STATUS_VARIABLE_NOTES;
   protected readonly activeStatusSection = signal(
     this.getStatusSectionId(this.statusDemoSections[0]?.id ?? 'default'),
   );
   protected readonly messageDemoSections: MessageDemoSection[] = MESSAGE_DEMO_SECTIONS;
+  protected readonly messageVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(MESSAGE_VARIABLE_GROUPS);
+  protected readonly messageVariableNotes = MESSAGE_VARIABLE_NOTES;
+  protected readonly checkboxVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(CHECKBOX_VARIABLE_GROUPS);
+  protected readonly checkboxVariableNotes = CHECKBOX_VARIABLE_NOTES;
+  protected readonly formVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(FORM_VARIABLE_GROUPS);
+  protected readonly formVariableNotes = FORM_VARIABLE_NOTES;
+  protected readonly switchDemoSections: SwitchDemoSection[] = SWITCH_DEMO_SECTIONS;
+  protected readonly switchVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(SWITCH_VARIABLE_GROUPS);
+  protected readonly switchVariableNotes = SWITCH_VARIABLE_NOTES;
+  protected readonly activeSwitchSection = signal(
+    this.getSwitchSectionId(this.switchDemoSections[0]?.id ?? 'default'),
+  );
+  protected readonly switchDemoChecked = signal(true);
+  protected readonly modalDemoSections: ModalDemoSection[] = MODAL_DEMO_SECTIONS;
+  protected readonly modalVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(MODAL_VARIABLE_GROUPS);
+  protected readonly modalVariableNotes = MODAL_VARIABLE_NOTES;
+  protected readonly activeModalSection = signal(
+    this.getModalSectionId(this.modalDemoSections[0]?.id ?? 'default'),
+  );
+  protected readonly buttonLinkDemoSections: ButtonLinkDemoSection[] = BUTTON_LINK_DEMO_SECTIONS;
+  protected readonly buttonLinkVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(BUTTON_LINK_VARIABLE_GROUPS);
+  protected readonly buttonLinkVariableNotes = BUTTON_LINK_VARIABLE_NOTES;
+  protected readonly activeButtonLinkSection = signal(
+    this.getButtonLinkSectionId(this.buttonLinkDemoSections[0]?.id ?? 'default'),
+  );
   protected readonly messageCases: MessageCase[] = MESSAGE_CASES;
   protected readonly activeMessageSection = signal(
     this.getMessageSectionId(this.messageDemoSections[0]?.id ?? 'default'),
@@ -597,7 +708,8 @@ export class App {
   protected readonly tableApiRows: TableApiRow[] = TABLE_API_ROWS;
   protected readonly tableOutputRows: TableApiRow[] = TABLE_OUTPUT_ROWS;
   protected readonly tableTypeRows: TableApiRow[] = TABLE_TYPE_ROWS;
-  protected readonly tableVariableGroups: TableVariableGroup[] = TABLE_VARIABLE_GROUPS;
+  protected readonly tableVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(TABLE_VARIABLE_GROUPS);
   protected readonly tableVariableNotes = TABLE_VARIABLE_NOTES;
   protected readonly activeTableSection = signal(
     this.getTableSectionId(this.tableDemoSections[0]?.id ?? 'basic'),
@@ -608,8 +720,8 @@ export class App {
   protected readonly paginationApiRows: PaginationApiRow[] = PAGINATION_API_ROWS;
   protected readonly paginationOutputRows: PaginationApiRow[] = PAGINATION_OUTPUT_ROWS;
   protected readonly paginationTypeRows: PaginationApiRow[] = PAGINATION_TYPE_ROWS;
-  protected readonly paginationVariableGroups: PaginationVariableGroup[] =
-    PAGINATION_VARIABLE_GROUPS;
+  protected readonly paginationVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(PAGINATION_VARIABLE_GROUPS);
   protected readonly paginationVariableNotes = PAGINATION_VARIABLE_NOTES;
   protected readonly activePaginationSection = signal(
     this.getPaginationSectionId(this.paginationDemoSections[0]?.id ?? 'default'),
@@ -619,7 +731,8 @@ export class App {
   protected readonly dropdownDemoSections: DropdownDemoSection[] = DROPDOWN_DEMO_SECTIONS;
   protected readonly dropdownApiRows: DropdownApiRow[] = DROPDOWN_API_ROWS;
   protected readonly dropdownTagApiRows: DropdownApiRow[] = DROPDOWN_TAG_API_ROWS;
-  protected readonly dropdownVariableGroups: DropdownVariableGroup[] = DROPDOWN_VARIABLE_GROUPS;
+  protected readonly dropdownVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(DROPDOWN_VARIABLE_GROUPS);
   protected readonly dropdownVariableNotes = DROPDOWN_VARIABLE_NOTES;
   protected readonly activeDropdownSection = signal(
     this.getDropdownSectionId(this.dropdownDemoSections[0]?.id ?? 'basic'),
@@ -631,7 +744,8 @@ export class App {
   protected readonly radioDemoSections: RadioDemoSection[] = RADIO_DEMO_SECTIONS;
   protected readonly radioApiRows: RadioApiRow[] = RADIO_API_ROWS;
   protected readonly radioGroupApiRows: RadioApiRow[] = RADIO_GROUP_API_ROWS;
-  protected readonly radioVariableGroups: RadioVariableGroup[] = RADIO_VARIABLE_GROUPS;
+  protected readonly radioVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(RADIO_VARIABLE_GROUPS);
   protected readonly radioVariableNotes = RADIO_VARIABLE_NOTES;
   protected readonly activeRadioSection = signal(
     this.getRadioSectionId(this.radioDemoSections[0]?.id ?? 'basic'),
@@ -641,8 +755,8 @@ export class App {
   protected readonly datepickerDemoSections: DatepickerDemoSection[] = DATEPICKER_DEMO_SECTIONS;
   protected readonly datepickerApiRows: DatepickerApiRow[] = DATEPICKER_API_ROWS;
   protected readonly datepickerOutputRows: DatepickerApiRow[] = DATEPICKER_OUTPUT_ROWS;
-  protected readonly datepickerVariableGroups: DatepickerVariableGroup[] =
-    DATEPICKER_VARIABLE_GROUPS;
+  protected readonly datepickerVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(DATEPICKER_VARIABLE_GROUPS);
   protected readonly datepickerVariableNotes = DATEPICKER_VARIABLE_NOTES;
   protected readonly activeDatepickerSection = signal(
     this.getDatepickerSectionId(this.datepickerDemoSections[0]?.id ?? 'single-date'),
@@ -655,8 +769,8 @@ export class App {
   protected readonly uploadFileItemFileApiRows: UploadFileApiRow[] = UPLOAD_FILE_ITEM_FILE_API_ROWS;
   protected readonly uploadFileApiRows: UploadFileApiRow[] = UPLOAD_FILE_API_ROWS;
   protected readonly uploadFileTypeRows: UploadFileApiRow[] = UPLOAD_FILE_TYPE_ROWS;
-  protected readonly uploadFileVariableGroups: UploadFileVariableGroup[] =
-    UPLOAD_FILE_VARIABLE_GROUPS;
+  protected readonly uploadFileVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(UPLOAD_FILE_VARIABLE_GROUPS);
   protected readonly uploadFileVariableNotes = UPLOAD_FILE_VARIABLE_NOTES;
   protected readonly activeUploadFileSection = signal(
     this.getUploadFileSectionId(this.uploadFileDemoSections[0]?.id ?? 'item-upload-default'),
@@ -1077,6 +1191,7 @@ export const appConfig: ApplicationConfig = {
     page:
       | 'buttons'
       | 'buttonMapping'
+      | 'buttonLink'
       | 'inputField'
       | 'form'
       | 'inputTag'
@@ -1086,9 +1201,11 @@ export const appConfig: ApplicationConfig = {
       | 'dropdown'
       | 'radio'
       | 'checkbox'
+      | 'switch'
       | 'badge'
       | 'status'
       | 'message'
+      | 'modal'
       | 'table'
       | 'pagination'
       | 'datepicker'
@@ -1134,6 +1251,8 @@ export const appConfig: ApplicationConfig = {
       setTimeout(() => this.updateActiveButtonSection(), 0);
     } else if (page === 'buttonMapping') {
       setTimeout(() => this.updateActiveButtonMappingSection(), 0);
+    } else if (page === 'buttonLink') {
+      setTimeout(() => this.updateActiveButtonLinkSection(), 0);
     } else if (page === 'inputField') {
       setTimeout(() => this.updateActiveInputSection(), 0);
     } else if (page === 'form') {
@@ -1152,6 +1271,10 @@ export const appConfig: ApplicationConfig = {
       setTimeout(() => this.updateActiveStatusSection(), 0);
     } else if (page === 'message') {
       setTimeout(() => this.updateActiveMessageSection(), 0);
+    } else if (page === 'modal') {
+      setTimeout(() => this.updateActiveModalSection(), 0);
+    } else if (page === 'switch') {
+      setTimeout(() => this.updateActiveSwitchSection(), 0);
     } else if (page === 'table') {
       setTimeout(() => this.updateActiveTableSection(), 0);
     } else if (page === 'pagination') {
@@ -1967,6 +2090,30 @@ export const appConfig: ApplicationConfig = {
     return `badge-${sectionId}`;
   }
 
+  protected setActiveSwitchSection(sectionId: string) {
+    this.activeSwitchSection.set(sectionId);
+  }
+
+  protected getSwitchSectionId(sectionId: string): string {
+    return `switch-${sectionId}`;
+  }
+
+  protected setActiveModalSection(sectionId: string) {
+    this.activeModalSection.set(sectionId);
+  }
+
+  protected getModalSectionId(sectionId: string): string {
+    return `modal-${sectionId}`;
+  }
+
+  protected setActiveButtonLinkSection(sectionId: string) {
+    this.activeButtonLinkSection.set(sectionId);
+  }
+
+  protected getButtonLinkSectionId(sectionId: string): string {
+    return `button-link-${sectionId}`;
+  }
+
   protected setActiveStatusSection(sectionId: string) {
     this.activeStatusSection.set(sectionId);
   }
@@ -2181,7 +2328,7 @@ export const appConfig: ApplicationConfig = {
     this.activeFormSection.set(sectionId);
   }
 
-  protected getFormSectionId(sectionId: 'default'): string {
+  protected getFormSectionId(sectionId: 'default' | 'variables'): string {
     return `form-${sectionId}`;
   }
 
@@ -2601,6 +2748,7 @@ export const appConfig: ApplicationConfig = {
     this.updateActiveFormPatternSection();
     this.updateActiveButtonSection();
     this.updateActiveButtonMappingSection();
+    this.updateActiveButtonLinkSection();
     this.updateActiveInputSection();
     this.updateActiveFormSection();
     this.updateActiveInputTagSection();
@@ -2610,6 +2758,8 @@ export const appConfig: ApplicationConfig = {
     this.updateActiveBadgeSection();
     this.updateActiveStatusSection();
     this.updateActiveMessageSection();
+    this.updateActiveModalSection();
+    this.updateActiveSwitchSection();
     this.updateActiveTableSection();
     this.updateActivePaginationSection();
     this.updateActiveDropdownSection();
@@ -2957,6 +3107,81 @@ export const appConfig: ApplicationConfig = {
     }
 
     this.activeBadgeSection.set(currentSection);
+  }
+
+  private updateActiveSwitchSection() {
+    if (this.activePage() !== 'switch' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getSwitchSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeSwitchSection.set(currentSection);
+  }
+
+  private updateActiveModalSection() {
+    if (this.activePage() !== 'modal' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getModalSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeModalSection.set(currentSection);
+  }
+
+  private updateActiveButtonLinkSection() {
+    if (this.activePage() !== 'buttonLink' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getButtonLinkSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeButtonLinkSection.set(currentSection);
   }
 
   private updateActiveStatusSection() {
@@ -3307,30 +3532,31 @@ export const appConfig: ApplicationConfig = {
       }));
   }
 
+  private formatTokenDescription(path?: string, appliesTo?: string, notes?: string): string {
+    const wrapPath = (value: string) => value.replace(/\//g, '/\u200B');
+    const meta = [appliesTo, notes].filter(Boolean).join(' · ');
+    if (path && meta) {
+      return `${wrapPath(path)}\n· ${meta}`;
+    }
+    if (path) {
+      return wrapPath(path);
+    }
+    return meta;
+  }
+
   private buildButtonSemanticBindingGroups(
     groups: ButtonSemanticBindingGroup[],
   ): ResolvedButtonSemanticBindingGroup[] {
-    const normalizeSemanticAlias = (alias: string): string =>
-      alias.startsWith('color/semantic/') ? alias : `color/semantic/${alias}`;
-
-    const semanticByAlias = new Map<string, SemanticColorTokenMapping>();
-    for (const token of this.semanticTokenMappings) {
-      semanticByAlias.set(token.alias, token);
-      semanticByAlias.set(token.alias.replace(/^color\/semantic\//, ''), token);
-    }
-
     return groups.map((group) => ({
       title: group.title,
       description: group.description,
       rows: group.rows.map((row) => {
-        const mapped =
-          semanticByAlias.get(row.semanticAlias) ??
-          semanticByAlias.get(normalizeSemanticAlias(row.semanticAlias));
+        const mapped = this.lookupSemanticColorToken(row.semanticAlias);
         return {
-          componentToken: row.componentToken,
-          semanticAlias: row.semanticAlias,
-          semanticValue: mapped?.value ?? 'N/A',
-          description: `${row.appliesTo} · ${row.notes}`,
+          alias: this.toShortSemanticAlias(row.semanticAlias),
+          globalColor: this.toShortPrimitiveRef(mapped?.primitive ?? 'N/A'),
+          hexValue: mapped?.value ?? 'N/A',
+          description: this.formatTokenDescription(row.componentToken, row.appliesTo, row.notes),
         };
       }),
     }));
@@ -3339,30 +3565,106 @@ export const appConfig: ApplicationConfig = {
   private buildInputSemanticBindingGroups(
     groups: InputSemanticBindingGroup[],
   ): ResolvedInputSemanticBindingGroup[] {
-    const normalizeSemanticAlias = (alias: string): string =>
-      alias.startsWith('color/semantic/') ? alias : `color/semantic/${alias}`;
-
-    const semanticByAlias = new Map<string, SemanticColorTokenMapping>();
-    for (const token of this.semanticTokenMappings) {
-      semanticByAlias.set(token.alias, token);
-      semanticByAlias.set(token.alias.replace(/^color\/semantic\//, ''), token);
-    }
-
     return groups.map((group) => ({
       title: group.title,
       description: group.description,
       rows: group.rows.map((row) => {
-        const mapped =
-          semanticByAlias.get(row.semanticAlias) ??
-          semanticByAlias.get(normalizeSemanticAlias(row.semanticAlias));
+        const mapped = this.lookupSemanticColorToken(row.semanticAlias);
         return {
-          componentToken: row.componentToken,
-          semanticAlias: row.semanticAlias,
-          semanticValue: mapped?.value ?? 'N/A',
-          description: `${row.appliesTo} · ${row.notes}`,
+          alias: this.toShortSemanticAlias(row.semanticAlias),
+          globalColor: this.toShortPrimitiveRef(mapped?.primitive ?? 'N/A'),
+          hexValue: mapped?.value ?? 'N/A',
+          description: this.formatTokenDescription(row.componentToken, row.appliesTo, row.notes),
         };
       }),
     }));
+  }
+
+  private buildResolvedVariableTokenGroups(
+    groups: readonly {
+      title: string;
+      rows: readonly {
+        token: string;
+        value: string;
+        appliesTo: string;
+        notes: string;
+      }[];
+    }[],
+  ): ResolvedVariableTokenGroup[] {
+    const resolved: ResolvedVariableTokenGroup[] = [];
+
+    for (const group of groups) {
+      const colorRows = group.rows.filter((row) => this.isGlobalColorRef(row.value));
+      const specRows = group.rows.filter((row) => !this.isGlobalColorRef(row.value));
+
+      if (colorRows.length > 0) {
+        resolved.push({
+          title:
+            colorRows.length === group.rows.length || /color/i.test(group.title)
+              ? group.title
+              : `${group.title} · Color`,
+          kind: 'alias-color',
+          aliasRows: colorRows.map((row) => {
+            const mapped = this.lookupSemanticColorToken(row.token);
+            return {
+              alias: this.toShortSemanticAlias(row.token),
+              globalColor: this.toShortPrimitiveRef(mapped?.primitive ?? row.value),
+              hexValue: mapped?.value ?? 'N/A',
+              description: this.formatTokenDescription(undefined, row.appliesTo, row.notes),
+            };
+          }),
+          specRows: [],
+        });
+      }
+
+      if (specRows.length > 0) {
+        resolved.push({
+          title:
+            specRows.length === group.rows.length
+              ? group.title
+              : /color/i.test(group.title)
+                ? group.title.replace(/Color Tokens?/i, 'Sizing Specs').trim()
+                : `${group.title} · Specs`,
+          kind: 'spec',
+          aliasRows: [],
+          specRows: specRows.map((row) => ({
+            token: row.token,
+            value: row.value,
+            appliesTo: row.appliesTo,
+            notes: row.notes,
+          })),
+        });
+      }
+    }
+
+    return resolved;
+  }
+
+  private lookupSemanticColorToken(alias: string): SemanticColorTokenMapping | undefined {
+    const shortAlias = this.toShortSemanticAlias(alias);
+    const fullAlias = shortAlias.startsWith('color/semantic/')
+      ? shortAlias
+      : `color/semantic/${shortAlias}`;
+
+    return (
+      this.semanticTokenMappings.find((token) => token.alias === fullAlias) ??
+      this.semanticTokenMappings.find((token) => token.alias === shortAlias) ??
+      this.semanticTokenMappings.find(
+        (token) => this.toShortSemanticAlias(token.alias) === shortAlias,
+      )
+    );
+  }
+
+  private toShortSemanticAlias(alias: string): string {
+    return alias.replace(/^color\/semantic\//, '');
+  }
+
+  private toShortPrimitiveRef(primitive: string): string {
+    return primitive.replace(/^color\/primitive\//, '');
+  }
+
+  private isGlobalColorRef(value: string): boolean {
+    return /^[a-z][a-z0-9-]*\/[a-z0-9%.-]+$/i.test(value.trim());
   }
 
   private getTokenSectionIds(): string[] {
@@ -3375,7 +3677,11 @@ export const appConfig: ApplicationConfig = {
     }
 
     if (this.activePage() === 'typography') {
-      return this.typographyScaleGroups.map((group) => this.getTypographySectionId(group.title));
+      return [
+        'typography-font-styles',
+        ...this.typographyStyleGroups.map((group) => group.id),
+        ...this.typographyScaleGroups.map((group) => this.getTypographySectionId(group.title)),
+      ];
     }
 
     return this.semanticTokenGroups.map((group) => this.getTokenSectionId(group.category));
@@ -3455,23 +3761,59 @@ export const appConfig: ApplicationConfig = {
   }
 
   private getStepsSectionIds(): string[] {
-    return this.stepsDemoSections.map((section) => this.getStepsSectionId(section.id));
+    return [
+      ...this.stepsDemoSections.map((section) => this.getStepsSectionId(section.id)),
+      'steps-variables',
+    ];
   }
 
   private getTabSectionIds(): string[] {
-    return this.tabDemoSections.map((section) => this.getTabSectionId(section.id));
+    return [
+      ...this.tabDemoSections.map((section) => this.getTabSectionId(section.id)),
+      'tab-variables',
+    ];
   }
 
   private getBadgeSectionIds(): string[] {
-    return this.badgeDemoSections.map((section) => this.getBadgeSectionId(section.id));
+    return [
+      ...this.badgeDemoSections.map((section) => this.getBadgeSectionId(section.id)),
+      'badge-variables',
+    ];
+  }
+
+  private getSwitchSectionIds(): string[] {
+    return [
+      ...this.switchDemoSections.map((section) => this.getSwitchSectionId(section.id)),
+      'switch-variables',
+    ];
+  }
+
+  private getModalSectionIds(): string[] {
+    return [
+      ...this.modalDemoSections.map((section) => this.getModalSectionId(section.id)),
+      'modal-variables',
+    ];
+  }
+
+  private getButtonLinkSectionIds(): string[] {
+    return [
+      ...this.buttonLinkDemoSections.map((section) => this.getButtonLinkSectionId(section.id)),
+      'button-link-variables',
+    ];
   }
 
   private getStatusSectionIds(): string[] {
-    return this.statusDemoSections.map((section) => this.getStatusSectionId(section.id));
+    return [
+      ...this.statusDemoSections.map((section) => this.getStatusSectionId(section.id)),
+      'status-variables',
+    ];
   }
 
   private getMessageSectionIds(): string[] {
-    return this.messageDemoSections.map((section) => this.getMessageSectionId(section.id));
+    return [
+      ...this.messageDemoSections.map((section) => this.getMessageSectionId(section.id)),
+      'message-variables',
+    ];
   }
 
   private getTableSectionIds(): string[] {
@@ -3499,7 +3841,7 @@ export const appConfig: ApplicationConfig = {
   }
 
   private getFormSectionIds(): string[] {
-    return [this.getFormSectionId('default')];
+    return [this.getFormSectionId('default'), this.getFormSectionId('variables')];
   }
 
   private getRadioSectionIds(): string[] {

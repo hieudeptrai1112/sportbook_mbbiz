@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: inline-flex;
   max-width: 100%;
@@ -7,8 +9,6 @@
   --mbbiz-button-height: 44px;
   --mbbiz-button-min-width: 103px;
   --mbbiz-button-padding-x: 20px;
-  --mbbiz-button-font-size: 14px;
-  --mbbiz-button-line-height: 20px;
   --mbbiz-button-label-color: var(--mbbiz-color-text-on-brand, #ffffff);
 
   -webkit-appearance: none;
@@ -46,11 +46,8 @@
   align-items: center;
   color: inherit;
   display: inline-flex;
-  font-size: var(--mbbiz-button-font-size);
-  font-weight: 600;
+  @include typo.mbbiz-typo-h3-normal-14-semibold;
   justify-content: center;
-  letter-spacing: 0.25px;
-  line-height: var(--mbbiz-button-line-height);
 }
 
 .mbbiz-button__icon {
@@ -91,20 +88,26 @@
 
 .mbbiz-button--size-sm.ant-btn {
   --mbbiz-button-min-width: 80px;
-  --mbbiz-button-font-size: 12px;
-  --mbbiz-button-line-height: 16px;
+}
+
+.mbbiz-button--size-sm .mbbiz-button__label {
+  @include typo.mbbiz-typo-body-normal-12-semibold;
 }
 
 .mbbiz-button--size-md.ant-btn {
   --mbbiz-button-min-width: 103px;
-  --mbbiz-button-font-size: 14px;
-  --mbbiz-button-line-height: 20px;
+}
+
+.mbbiz-button--size-md .mbbiz-button__label {
+  @include typo.mbbiz-typo-h3-normal-14-semibold;
 }
 
 .mbbiz-button--size-lg.ant-btn {
   --mbbiz-button-min-width: 128px;
-  --mbbiz-button-font-size: 16px;
-  --mbbiz-button-line-height: 24px;
+}
+
+.mbbiz-button--size-lg .mbbiz-button__label {
+  @include typo.mbbiz-typo-h2-sub-header-normal-16-semibold;
 }
 
 .mbbiz-button--shape-rectangle.mbbiz-button--size-lg.ant-btn {

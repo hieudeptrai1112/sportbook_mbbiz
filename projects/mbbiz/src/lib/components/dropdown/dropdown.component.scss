@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: inline-block;
   max-width: 100%;
@@ -7,24 +9,12 @@
   color: var(--mbbiz-color-text-field, #192d39);
   display: inline-flex;
   flex-direction: column;
-  font-family: var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
   width: 250px;
 }
 
-.mbbiz-dropdown__inside-title,
-.mbbiz-dropdown__option-label,
-.mbbiz-dropdown__value,
-.mbbiz-dropdown__retry,
-.mbbiz-dropdown__reset {
-  font-family: inherit;
-  letter-spacing: 0.25px;
-}
-
 .mbbiz-dropdown__inside-title {
-  color: var(--mbbiz-color-text-secondary, #516682);
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
+  color: var(--mbbiz-color-text-floating-label, #6d83a7);
+  @include typo.mbbiz-typo-body-normal-12-regular;
 }
 
 .mbbiz-dropdown__surface {
@@ -91,19 +81,10 @@
   width: 0;
 }
 
-.mbbiz-dropdown__inside-title {
-  color: var(--mbbiz-color-text-floating-label, #6d83a7);
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
-}
-
 .mbbiz-dropdown__value {
   display: block;
   flex: 1 1 auto;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   min-width: 0;
   overflow: hidden;
   text-align: left;
@@ -187,8 +168,7 @@
   box-shadow: none;
   color: var(--mbbiz-color-dropdown-text-default, #192d39);
   flex: 1 1 auto;
-  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
-  letter-spacing: 0.25px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   min-width: 0;
   padding: 0;
 }
@@ -244,7 +224,7 @@
 
 .mbbiz-dropdown__option--selected {
   color: var(--mbbiz-color-text-brand, #141ed2);
-  font-weight: 600;
+  font-weight: var(--mbbiz-font-weight-semibold, 600);
 }
 
 .mbbiz-dropdown__option--disabled {
@@ -290,9 +270,8 @@
 .mbbiz-dropdown__option-label {
   color: currentColor;
   flex: 1 1 auto;
-  font-size: 14px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   font-weight: inherit;
-  line-height: 20px;
 }
 
 .mbbiz-dropdown__reset {
@@ -300,12 +279,9 @@
   border: 0;
   color: var(--mbbiz-color-text-brand, #141ed2);
   cursor: pointer;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
+  @include typo.mbbiz-typo-body-underline-12-regular;
   padding: 2px 4px;
   text-align: left;
-  text-decoration: underline;
   width: fit-content;
 }
 
@@ -317,10 +293,8 @@
   color: #7b5fff;
   cursor: pointer;
   display: inline-flex;
-  font-size: 12px;
-  font-weight: 600;
+  @include typo.mbbiz-typo-body-normal-12-semibold;
   justify-content: center;
-  line-height: 16px;
   min-width: 75px;
   padding: 4px 20px;
   text-decoration: none;
@@ -357,17 +331,13 @@
 
 .mbbiz-dropdown__state-title {
   color: var(--mbbiz-color-text-field, #192d39);
-  font-size: 10px;
-  font-weight: 400;
-  line-height: 12px;
+  @include typo.mbbiz-typo-caption-normal-10-regular;
   margin: 0;
 }
 
 .mbbiz-dropdown__state-copy {
   color: var(--mbbiz-color-text-secondary, #6d83a7);
-  font-size: 10px;
-  font-weight: 400;
-  line-height: 12px;
+  @include typo.mbbiz-typo-caption-normal-10-regular;
   margin: 0;
   max-width: 176px;
 }

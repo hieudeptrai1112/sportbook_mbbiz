@@ -31,17 +31,6 @@ export interface DatepickerApiRow {
   defaultValue: string;
 }
 
-export interface DatepickerVariableRow {
-  token: string;
-  value: string;
-  appliesTo: string;
-  notes: string;
-}
-
-export interface DatepickerVariableGroup {
-  title: string;
-  rows: DatepickerVariableRow[];
-}
 
 export const DATEPICKER_DEMO_SECTIONS: DatepickerDemoSection[] = [
   {
@@ -360,28 +349,28 @@ export const DATEPICKER_OUTPUT_ROWS: DatepickerApiRow[] = [
   { property: 'applyClick', description: 'Emits committed range values when apply is clicked.', type: 'MbbizDatepickerRangeValue', defaultValue: '-' },
 ];
 
-export const DATEPICKER_VARIABLE_GROUPS: DatepickerVariableGroup[] = [
+export const DATEPICKER_VARIABLE_GROUPS = [
   {
     title: 'Trigger And Input',
     rows: [
-      { token: 'datepicker/input/border/default', value: '#A3B7FD', appliesTo: 'Input and range border', notes: 'Default input border from approved Figma states.' },
-      { token: 'datepicker/input/border/hover', value: '#52DDDD', appliesTo: 'Hover and open border', notes: 'Interactive cyan border used on active picker triggers.' },
-      { token: 'datepicker/input/border/error', value: '#F00000', appliesTo: 'Error state border', notes: 'Validation border color.' },
-      { token: 'datepicker/input/text/default', value: '#142837', appliesTo: 'Input text', notes: 'Primary date value text.' },
-      { token: 'datepicker/input/text/placeholder', value: '#9BAFC8', appliesTo: 'Placeholder text', notes: 'Start/end placeholders and empty single inputs.' },
-      { token: 'datepicker/input/background/disabled', value: '#F3F3F3', appliesTo: 'Disabled input background', notes: 'Disabled state fill.' },
+      { token: 'border/brand-primary3',    value: 'blue/300',      appliesTo: 'Input and range border',       notes: 'Maps to --mbbiz-color-datepicker-input-border-default.' },
+      { token: 'border/brand-tertiary',    value: 'turquoise/400', appliesTo: 'Hover and open border',        notes: 'Maps to --mbbiz-color-datepicker-input-border-hover.' },
+      { token: 'border/error1',            value: 'red/500',       appliesTo: 'Error state border',           notes: 'Maps to --mbbiz-color-datepicker-input-border-error.' },
+      { token: 'text/primary',             value: 'darkblue/1000', appliesTo: 'Input text',                   notes: 'Maps to --mbbiz-color-datepicker-input-text-default.' },
+      { token: 'text/tertiary',            value: 'darkblue/400',  appliesTo: 'Placeholder text',             notes: 'Maps to --mbbiz-color-datepicker-input-text-placeholder.' },
+      { token: 'background/disable3',      value: 'grayscale/200', appliesTo: 'Disabled input background',    notes: 'Maps to --mbbiz-color-datepicker-input-background-disabled.' },
     ],
   },
   {
     title: 'Panel And Selection',
     rows: [
-      { token: 'datepicker/panel/border', value: '#52DDDD', appliesTo: 'Panel shell', notes: 'Panel outline.' },
-      { token: 'datepicker/panel/divider', value: '#A3B7FD', appliesTo: 'Header/body/footer dividers', notes: 'Calendar and time split lines.' },
-      { token: 'datepicker/day/selected/background', value: '#141ED2', appliesTo: 'Selected date/month/year/time', notes: 'Primary selected state.' },
-      { token: 'datepicker/day/range/background', value: '#E9EFFF', appliesTo: 'Range middle day cells', notes: 'Continuous range fill.' },
-      { token: 'datepicker/day/today/border', value: '#141ED2', appliesTo: 'Today cell', notes: 'Today outline and present text color.' },
-      { token: 'datepicker/scrollbar/thumb', value: '#B7B7B7', appliesTo: 'Time scrollbar', notes: 'Thin time list scrollbar thumb.' },
-      { token: 'datepicker/action/apply/background', value: '#7A5CFF', appliesTo: 'Apply button', notes: 'Footer apply action background.' },
+      { token: 'border/brand-tertiary',        value: 'turquoise/400', appliesTo: 'Panel shell',                      notes: 'Maps to --mbbiz-color-datepicker-panel-border.' },
+      { token: 'border/brand-primary3',        value: 'blue/300',      appliesTo: 'Header/body/footer dividers',      notes: 'Maps to --mbbiz-color-datepicker-panel-divider.' },
+      { token: 'background/brand-primary1',    value: 'blue/500',      appliesTo: 'Selected date/month/year/time',    notes: 'Maps to --mbbiz-color-datepicker-day-selected-bg.' },
+      { token: 'background/brand-primary5',    value: 'blue/100',      appliesTo: 'Range middle day cells',           notes: 'Maps to --mbbiz-color-datepicker-day-range-bg.' },
+      { token: 'border/brand-primary1',        value: 'blue/500',      appliesTo: 'Today cell outline',               notes: 'Maps to --mbbiz-color-datepicker-day-today-border.' },
+      { token: 'background/disable2',          value: 'grayscale/300', appliesTo: 'Time scrollbar thumb',             notes: 'Maps to --mbbiz-color-datepicker-scrollbar-thumb.' },
+      { token: 'background/brand-secondary1',  value: 'purple/500',    appliesTo: 'Apply button background',          notes: 'Maps to --mbbiz-color-datepicker-action-apply-bg.' },
     ],
   },
 ];

@@ -1,6 +1,7 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: block;
-  font-family: var(--mbbiz-font-family-sans);
 }
 
 .mbbiz-pagination {
@@ -14,10 +15,7 @@
 
 .mbbiz-pagination__total {
   color: var(--mbbiz-color-pagination-muted, #6d83a7);
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.25px;
-  line-height: 20px;
+  @include typo.mbbiz-typo-h3-normal-14-semibold;
   margin: 0;
   white-space: nowrap;
 }
@@ -83,11 +81,8 @@
 .mbbiz-pagination__page {
   border-radius: 20px;
   color: var(--mbbiz-color-pagination-muted, #6d83a7);
-  font-size: 12px;
-  font-weight: 600;
+  @include typo.mbbiz-typo-body-normal-12-semibold;
   height: 24px;
-  letter-spacing: 0.25px;
-  line-height: 16px;
   min-width: 24px;
   padding: 4px;
 }
@@ -102,10 +97,7 @@
 
 .mbbiz-pagination__page-summary {
   color: var(--mbbiz-color-pagination-text, #192d39);
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.25px;
-  line-height: 20px;
+  @include typo.mbbiz-typo-h3-normal-14-semibold;
   margin: 0;
   white-space: nowrap;
 }
@@ -121,12 +113,8 @@
   border: 1px solid var(--mbbiz-color-pagination-border, #a3b7fd);
   border-radius: var(--mbbiz-radius-md);
   color: var(--mbbiz-color-pagination-text, #192d39);
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 400;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   height: 52px;
-  letter-spacing: 0.25px;
-  line-height: 20px;
 }
 
 .mbbiz-pagination__jump-trigger {
@@ -206,18 +194,14 @@
   border-radius: var(--mbbiz-radius-md);
   color: var(--mbbiz-color-pagination-text, #192d39);
   cursor: pointer;
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.25px;
-  line-height: 20px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
   padding: 8px 4px;
   text-align: left;
 }
 
 .mbbiz-pagination__jump-option--active {
   color: var(--mbbiz-color-pagination-action, #141ed2);
-  font-weight: 600;
+  font-weight: var(--mbbiz-font-weight-semibold, 600);
 }
 
 .mbbiz-pagination__quick {
@@ -228,10 +212,7 @@
 
 .mbbiz-pagination__quick-label {
   color: var(--mbbiz-color-pagination-text, #192d39);
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.25px;
-  line-height: 20px;
+  @include typo.mbbiz-typo-h3-normal-14-semibold;
   white-space: nowrap;
 }
 

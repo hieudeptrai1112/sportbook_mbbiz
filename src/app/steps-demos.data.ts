@@ -21,17 +21,6 @@ export interface StepsApiRow {
   defaultValue: string;
 }
 
-export interface StepsVariableRow {
-  token: string;
-  value: string;
-  appliesTo: string;
-  notes: string;
-}
-
-export interface StepsVariableGroup {
-  title: string;
-  rows: StepsVariableRow[];
-}
 
 export const STEPS_DEMO_SECTIONS: StepsDemoSection[] = [
   {
@@ -152,23 +141,31 @@ export const STEPS_API_ROWS: StepsApiRow[] = [
   { property: 'indexChange', description: 'Emits the selected zero-based step index when clickable mode is enabled.', type: 'output<number>', defaultValue: '-' },
 ];
 
-export const STEPS_VARIABLE_GROUPS: StepsVariableGroup[] = [
+export const STEPS_VARIABLE_GROUPS = [
   {
-    title: 'Steps Tokens',
+    title: 'Steps Color Tokens',
     rows: [
-      { token: 'steps/step/default', value: '#6D83A7', appliesTo: 'Inactive marker and label', notes: 'Alias/Semantic1/500.' },
-      { token: 'steps/step/active', value: '#7B5FFF', appliesTo: 'Active marker and label', notes: 'Alias/Secondary/500.' },
-      { token: 'steps/step/next', value: '#CADBE8', appliesTo: 'Compact next marker', notes: 'Alias/Semantic1/300.' },
-      { token: 'steps/line', value: '#A3B7FD', appliesTo: 'Vertical connector', notes: 'Alias/Primary/300.' },
-      { token: 'steps/marker/text', value: '#FFFFFF', appliesTo: 'Marker number', notes: 'Alias/Neutral/100/100%.' },
+      { token: 'text/secondary',             value: 'darkblue/500',  appliesTo: 'Inactive marker, label, and secondary text', notes: 'Maps to --mbbiz-color-steps-step-default and --mbbiz-color-text-secondary.' },
+      { token: 'background/brand-secondary1', value: 'purple/500',   appliesTo: 'Active marker, border, and label',            notes: 'Maps to --mbbiz-color-steps-step-active.' },
+      { token: 'border/quaternary',          value: 'darkblue/300',  appliesTo: 'Compact next marker fill',                    notes: 'Maps to --mbbiz-color-steps-step-next.' },
+      { token: 'border/brand-primary3',      value: 'blue/300',      appliesTo: 'Horizontal and vertical connector',           notes: 'Maps to --mbbiz-color-steps-line.' },
+      { token: 'icon/white',                 value: 'white/100%',    appliesTo: 'Marker number on filled states',              notes: 'Maps to --mbbiz-color-steps-marker-text.' },
+      { token: '--mbbiz-steps-error',        value: '#F00000',       appliesTo: 'Error marker, label, and connector',          notes: 'Orphan — hardcoded error accent in component CSS.' },
+      { token: '--mbbiz-steps-primary',      value: '#141ED2',       appliesTo: 'Vertical final primary marker',               notes: 'Orphan — local --mbbiz-steps-primary-color.' },
+    ],
+  },
+  {
+    title: 'Steps Sizing Specs',
+    rows: [
       { token: 'steps/marker/size/default', value: '24px', appliesTo: 'Normal step marker', notes: 'Matches Step Normal and Step Final nodes.' },
       { token: 'steps/marker/size/badge', value: '20px', appliesTo: 'Compact progress marker', notes: 'Matches Badge Progress node.' },
+      { token: 'steps/marker/size/small', value: '16px', appliesTo: 'Small marker variant', notes: 'Used by compact progress-only displays.' },
       { token: 'steps/gap/content', value: '16px', appliesTo: 'Marker to text gap', notes: 'Figma auto-layout gap.' },
     ],
   },
 ];
 
 export const STEPS_VARIABLE_NOTES = [
-  'The component uses the same interaction model as a steps control while keeping Mbbiz DOM and styling scoped to mbbiz-steps.',
-  'The basic demo mirrors the approved three-step Figma state with the first step active.',
+  'Color rows map to CSS custom properties implemented by mbbiz-steps.',
+  'Error and primary accents are currently local component values; prefer promoting them to theme tokens when re-syncing from Figma.',
 ];

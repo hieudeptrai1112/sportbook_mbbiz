@@ -1,3 +1,5 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
 :host {
   display: inline-flex;
   max-width: 100%;
@@ -7,11 +9,7 @@
   --mbbiz-breadcrumb-color: var(--mbbiz-color-breadcrumb-text-default, #6d83a7);
 
   color: var(--mbbiz-breadcrumb-color);
-  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.25px;
-  line-height: 20px;
+  @include typo.mbbiz-typo-body-normal-14-regular;
 }
 
 .mbbiz-breadcrumb--state-hover.ant-breadcrumb {
