@@ -353,12 +353,12 @@ export const DATEPICKER_VARIABLE_GROUPS = [
   {
     title: 'Trigger And Input',
     rows: [
-      { token: 'border/brand-primary3',    value: 'blue/300',      appliesTo: 'Input and range border',       notes: 'Maps to --mbbiz-color-datepicker-input-border-default.' },
-      { token: 'border/brand-tertiary',    value: 'turquoise/400', appliesTo: 'Hover and open border',        notes: 'Maps to --mbbiz-color-datepicker-input-border-hover.' },
-      { token: 'border/error1',            value: 'red/500',       appliesTo: 'Error state border',           notes: 'Maps to --mbbiz-color-datepicker-input-border-error.' },
-      { token: 'text/primary',             value: 'darkblue/1000', appliesTo: 'Input text',                   notes: 'Maps to --mbbiz-color-datepicker-input-text-default.' },
-      { token: 'text/tertiary',            value: 'darkblue/400',  appliesTo: 'Placeholder text',             notes: 'Maps to --mbbiz-color-datepicker-input-text-placeholder.' },
-      { token: 'background/disable3',      value: 'grayscale/200', appliesTo: 'Disabled input background',    notes: 'Maps to --mbbiz-color-datepicker-input-background-disabled.' },
+      { token: 'border/brand-primary3',    value: 'blue/300',      appliesTo: 'Input and range border',       notes: 'Maps to --mbbiz-color-datepicker-panel-divider.' },
+      { token: 'border/brand-tertiary',    value: 'turquoise/400', appliesTo: 'Hover and open border',        notes: 'Maps to --mbbiz-color-datepicker-border-hover.' },
+      { token: 'border/error1',            value: 'red/500',       appliesTo: 'Error state border',           notes: 'Maps to --mbbiz-color-datepicker-border-error.' },
+      { token: 'text/primary',             value: 'darkblue/1000', appliesTo: 'Input text',                   notes: 'Maps to --mbbiz-color-datepicker-text.' },
+      { token: 'text/tertiary',            value: 'darkblue/400',  appliesTo: 'Placeholder text',             notes: 'Maps to --mbbiz-color-datepicker-text-placeholder.' },
+      { token: 'background/disable3',      value: 'grayscale/200', appliesTo: 'Disabled input background',    notes: 'Maps to --mbbiz-color-datepicker-background-disabled.' },
     ],
   },
   {
@@ -366,11 +366,11 @@ export const DATEPICKER_VARIABLE_GROUPS = [
     rows: [
       { token: 'border/brand-tertiary',        value: 'turquoise/400', appliesTo: 'Panel shell',                      notes: 'Maps to --mbbiz-color-datepicker-panel-border.' },
       { token: 'border/brand-primary3',        value: 'blue/300',      appliesTo: 'Header/body/footer dividers',      notes: 'Maps to --mbbiz-color-datepicker-panel-divider.' },
-      { token: 'background/brand-primary1',    value: 'blue/500',      appliesTo: 'Selected date/month/year/time',    notes: 'Maps to --mbbiz-color-datepicker-day-selected-bg.' },
-      { token: 'background/brand-primary5',    value: 'blue/100',      appliesTo: 'Range middle day cells',           notes: 'Maps to --mbbiz-color-datepicker-day-range-bg.' },
+      { token: 'background/brand-primary1',    value: 'blue/500',      appliesTo: 'Selected date/month/year/time',    notes: 'Maps to --mbbiz-color-datepicker-day-selected-background.' },
+      { token: 'background/brand-primary5',    value: 'blue/100',      appliesTo: 'Range middle day cells',           notes: 'Maps to --mbbiz-color-datepicker-day-range-middle.' },
       { token: 'border/brand-primary1',        value: 'blue/500',      appliesTo: 'Today cell outline',               notes: 'Maps to --mbbiz-color-datepicker-day-today-border.' },
       { token: 'background/disable2',          value: 'grayscale/300', appliesTo: 'Time scrollbar thumb',             notes: 'Maps to --mbbiz-color-datepicker-scrollbar-thumb.' },
-      { token: 'background/brand-secondary1',  value: 'purple/500',    appliesTo: 'Apply button background',          notes: 'Maps to --mbbiz-color-datepicker-action-apply-bg.' },
+      { token: 'background/brand-secondary1',  value: 'purple/500',    appliesTo: 'Apply button background',          notes: 'Maps to --mbbiz-color-datepicker-action-apply-background.' },
     ],
   },
 ];

@@ -195,20 +195,43 @@
   --mbbiz-color-switch-background-inactive-disabled: var(--color-semantic-background-disable3);
   --mbbiz-color-switch-background-active-disabled: var(--color-semantic-background-brand-tertiary4);
 
-  /* Datepicker */
-  --mbbiz-color-datepicker-input-border-default: var(--color-semantic-border-brand-primary3);
-  --mbbiz-color-datepicker-input-border-hover: var(--color-semantic-border-brand-tertiary);
-  --mbbiz-color-datepicker-input-border-error: var(--color-semantic-border-error1);
-  --mbbiz-color-datepicker-input-text-default: var(--color-semantic-text-primary);
-  --mbbiz-color-datepicker-input-text-placeholder: var(--color-semantic-text-tertiary);
-  --mbbiz-color-datepicker-input-background-disabled: var(--color-semantic-background-disable3);
+  /* Datepicker — names must match datepicker.component.scss */
+  --mbbiz-color-datepicker-background: var(--color-semantic-background-primary);
+  --mbbiz-color-datepicker-background-disabled: var(--color-semantic-background-disable3);
+  --mbbiz-color-datepicker-border-default: var(--color-semantic-border-brand-primary4);
+  --mbbiz-color-datepicker-border-hover: var(--color-semantic-border-brand-tertiary);
+  --mbbiz-color-datepicker-border-focus: var(--color-semantic-border-brand-primary1);
+  --mbbiz-color-datepicker-border-error: var(--color-semantic-border-error1);
+  --mbbiz-color-datepicker-border-disabled: var(--color-semantic-border-disable2);
+  --mbbiz-color-datepicker-text: var(--color-semantic-text-primary);
+  --mbbiz-color-datepicker-text-secondary: var(--color-semantic-text-secondary);
+  --mbbiz-color-datepicker-text-placeholder: var(--color-semantic-text-tertiary);
+  --mbbiz-color-datepicker-text-muted: #516682; /* orphan — closest semantic is text/secondary */
+  --mbbiz-color-datepicker-text-disabled: var(--color-semantic-text-disable1);
+  --mbbiz-color-datepicker-text-disabled-day: var(--color-semantic-background-brand-quaternary2);
+  --mbbiz-color-datepicker-on-solid: var(--color-semantic-text-white);
   --mbbiz-color-datepicker-panel-border: var(--color-semantic-border-brand-tertiary);
   --mbbiz-color-datepicker-panel-divider: var(--color-semantic-border-brand-primary3);
-  --mbbiz-color-datepicker-day-selected-bg: var(--color-semantic-background-brand-primary1);
-  --mbbiz-color-datepicker-day-range-bg: var(--color-semantic-background-brand-primary5);
+  --mbbiz-color-datepicker-time-divider: var(--color-semantic-border-brand-primary3);
   --mbbiz-color-datepicker-day-today-border: var(--color-semantic-border-brand-primary1);
+  --mbbiz-color-datepicker-day-selected-background: var(--color-semantic-background-brand-primary1);
+  --mbbiz-color-datepicker-day-range-background: var(--color-semantic-background-brand-primary4);
+  --mbbiz-color-datepicker-day-range-middle: var(--color-semantic-background-brand-primary5);
+  --mbbiz-color-datepicker-day-range-middle-alt: var(--color-semantic-background-brand-primary5);
+  --mbbiz-color-datepicker-option-focus-ring: var(--color-semantic-background-brand-primary4);
   --mbbiz-color-datepicker-scrollbar-thumb: var(--color-semantic-background-disable2);
-  --mbbiz-color-datepicker-action-apply-bg: var(--color-semantic-background-brand-secondary1);
+  --mbbiz-color-datepicker-action-apply-background: var(--color-semantic-background-brand-secondary1);
+
+  /* Docs aliases (Component Token table) */
+  --mbbiz-color-datepicker-input-border-default: var(--mbbiz-color-datepicker-panel-divider);
+  --mbbiz-color-datepicker-input-border-hover: var(--mbbiz-color-datepicker-border-hover);
+  --mbbiz-color-datepicker-input-border-error: var(--mbbiz-color-datepicker-border-error);
+  --mbbiz-color-datepicker-input-text-default: var(--mbbiz-color-datepicker-text);
+  --mbbiz-color-datepicker-input-text-placeholder: var(--mbbiz-color-datepicker-text-placeholder);
+  --mbbiz-color-datepicker-input-background-disabled: var(--mbbiz-color-datepicker-background-disabled);
+  --mbbiz-color-datepicker-day-selected-bg: var(--mbbiz-color-datepicker-day-selected-background);
+  --mbbiz-color-datepicker-day-range-bg: var(--mbbiz-color-datepicker-day-range-middle);
+  --mbbiz-color-datepicker-action-apply-bg: var(--mbbiz-color-datepicker-action-apply-background);
 
   --mbbiz-radius-md: 4px;
   --mbbiz-radius-lg: 10px;
