@@ -50,3 +50,8 @@ export * from './lib/components/checkbox/checkbox-group.component';
 export * from './lib/components/radio/radio.component';
 export * from './lib/components/radio/radio-group.component';
 export * from './lib/components/switch/switch.component';
+export * from './lib/components/navigation-bar/navigation-bar.component';
+export * from './lib/components/navigation-bar/navigation-bar.types';
+export * from './lib/components/navigation-bar/navigation-bar.maker';
+export * from './lib/components/navigation-bar/navigation-bar.checker';
+export * from './lib/components/navigation-bar/navigation-bar.one-user';

@@ -1,0 +1,112 @@
+<div class="mbbiz-navigation-bar-shell" (mouseleave)="onShellMouseLeave()">
+  <nav [class]="navClass()" [attr.aria-label]="ariaLabel()">
+    @if (showLogo()) {
+      <div class="mbbiz-navigation-bar__logo" aria-hidden="true">
+        <svg viewBox="0 0 65 28" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+          <path
+            d="M56.7876 8.34287C56.4234 8.34287 55.4709 8.34286 54.9106 8.43035V11.8713H55.0507C55.0507 11.8713 55.8351 11.9296 56.7316 11.9296C58.1884 11.9296 59.0288 11.813 59.5611 11.3464C60.0654 10.8798 60.2055 10.0925 59.8973 9.42181C59.393 8.40118 57.7962 8.34287 56.7876 8.34287ZM54.9106 19.2198C55.7511 19.2781 56.6755 19.3073 57.6 19.2781C58.3004 19.249 59.253 19.1906 59.9253 18.4908C60.5136 17.8492 60.6257 16.887 60.1775 16.0996C59.7572 15.3706 58.9448 15.0207 56.9277 15.0498C55.9191 15.0498 54.9386 15.1665 54.9106 15.1665V19.2198ZM56.5915 22.8357C54.4904 22.8357 52.5013 22.7774 50.9604 22.6899V5.19351C51.4927 5.13518 53.1736 5.10602 55.4989 5.0477C56.9837 5.01854 58.3845 5.07687 59.4771 5.25183C61.9704 5.66008 62.8949 6.91399 63.2871 7.58469C63.6513 8.25538 63.9035 8.9844 63.8474 9.91754C63.7634 11.0256 63.4272 11.9588 62.3346 12.8628L62.1385 13.0086L62.3626 13.1252C63.119 13.5335 63.5953 14.1458 63.9315 14.7874C64.3237 15.5456 64.5198 16.3912 64.5198 17.3244C64.5198 19.2198 63.8755 20.6487 62.5587 21.5818C61.4101 22.4275 59.7852 22.8357 56.5915 22.8357Z"
+            fill="#141ED2"
+          />
+          <path
+            d="M47.4524 5.2339H43.5583C43.2221 5.99208 40.7848 11.2118 39.6642 14.1862L39.5802 14.3904H39.4401L39.356 14.1862C38.2354 11.2118 35.7981 5.96292 35.4619 5.2339H31.5678C30.7274 11.5618 30.3071 21.3306 30.2511 22.7303H34.1452C34.1732 21.5639 34.4254 14.1862 34.5654 12.5241L34.5935 12.1158H34.6775L34.8456 12.4949C36.1343 15.5859 37.8152 19.8142 38.0954 20.5141H40.9249C41.205 19.8142 42.8579 15.5859 44.1747 12.4949L44.3427 12.1158H44.4268L44.4548 12.5241C44.6229 14.1862 44.847 21.5639 44.875 22.7303H48.7692C48.7131 21.3306 48.2929 11.5618 47.4524 5.2339Z"
+            fill="#141ED2"
+          />
+          <path d="M5.71182 8.5006L10.5304 10.6877C10.8106 10.8043 11.1188 10.8918 11.4549 10.8335C12.3234 10.6877 12.9117 9.84199 12.7717 8.93801C12.6596 8.23815 12.1833 7.71326 11.567 7.59662L6.4122 6.40104C6.27213 6.37187 6.13205 6.34271 5.96396 6.37187C5.37564 6.45936 4.98343 7.04257 5.06748 7.65494C5.12351 8.03403 5.37564 8.3548 5.71182 8.5006Z" fill="#EB2D4B" />
+          <path d="M11.6247 4.91353C11.4566 5.2343 11.3726 5.61338 11.4846 5.99247C11.6807 6.66316 12.3811 7.0131 12.9974 6.80897C13.1935 6.75065 13.3896 6.60485 13.5297 6.45904L16.5554 2.81396C16.9196 2.37654 17.1157 1.76418 16.9196 1.1518C16.6394 0.27698 15.7429 -0.189595 14.9025 0.0728517C14.5383 0.189494 14.2301 0.451939 14.034 0.772707C13.978 0.860189 11.6247 4.91353 11.6247 4.91353Z" fill="#EB2D4B" />
+          <path d="M20.2868 10.9503C19.9506 10.8629 19.5864 10.9212 19.2782 11.1545C18.746 11.5627 18.6339 12.3501 19.0261 12.9041C19.1662 13.0791 19.3343 13.2249 19.5024 13.3124C19.5024 13.3124 23.7607 15.1495 23.7607 15.1786C24.293 15.4119 24.8813 15.3828 25.3856 15.0328C26.0859 14.4788 26.254 13.4582 25.7217 12.7291C25.4976 12.4084 25.1614 12.1751 24.7972 12.0876C24.7412 12.0293 20.3148 10.9503 20.2868 10.9503Z" fill="#EB2D4B" />
+          <path d="M17.4821 21.3605C17.4541 20.9814 17.286 20.6314 16.9778 20.4273C16.4455 20.0191 15.6891 20.1357 15.2969 20.7189C15.1568 20.8939 15.1008 21.1272 15.0728 21.3313C15.0728 21.3313 14.6806 26.1136 14.6806 26.1428C14.6245 26.726 14.8486 27.3384 15.3249 27.6883C16.0253 28.2132 17.0338 28.0674 17.5381 27.3092C17.7622 26.9885 17.8743 26.5802 17.8463 26.2011C17.8463 26.0845 17.4821 21.3896 17.4821 21.3605Z" fill="#EB2D4B" />
+          <path d="M7.05974 21.8268C7.39592 21.681 7.64806 21.4185 7.76012 21.0395C7.95623 20.3688 7.62004 19.6689 6.97569 19.4648C6.77959 19.4065 6.55547 19.3773 6.35936 19.4356C6.35936 19.4356 1.87693 20.5437 1.84891 20.5437C1.28861 20.6895 0.812348 21.0686 0.616241 21.6518C0.336089 22.5267 0.812349 23.4598 1.62479 23.7514C1.98899 23.8681 2.3812 23.8681 2.71738 23.7222C2.85746 23.6639 7.05974 21.8268 7.05974 21.8268Z" fill="#EB2D4B" />
+          <path d="M3.44587 11.6494C3.66999 11.9118 4.00618 12.1159 4.37037 12.1159C5.04274 12.1159 5.57503 11.5619 5.57503 10.862C5.57503 10.6288 5.519 10.4246 5.40694 10.2205L2.99763 6.10885C2.68946 5.61312 2.2132 5.23403 1.59687 5.23403C0.728395 5.23403 0 5.96304 0 6.89619C0 7.30444 0.140074 7.68353 0.392211 7.97513C0.476257 8.06262 3.44587 11.6494 3.44587 11.6494Z" fill="#EB2D4B" />
+          <path d="M15.2152 6.19784L14.7109 11.6509C14.6829 11.9717 14.7109 12.2924 14.879 12.6132C15.2712 13.4297 16.2237 13.7505 17.0081 13.3422C17.5965 13.0214 17.9326 12.3799 17.8766 11.7092L17.3723 6.227C17.3723 6.0812 17.3163 5.93539 17.2603 5.78959C16.9801 5.23554 16.3358 5.00225 15.8035 5.29386C15.4393 5.49798 15.2432 5.81875 15.2152 6.19784Z" fill="#EB2D4B" />
+          <path d="M20.226 14.8862L15.0992 16.0818C14.791 16.1401 14.5109 16.2859 14.2588 16.5484C13.6424 17.1899 13.6424 18.2397 14.2588 18.8812C14.735 19.377 15.4354 19.4936 15.9957 19.2312L20.8423 17.0441C20.9824 16.9858 21.0945 16.8983 21.2065 16.7817C21.6268 16.3443 21.6268 15.6152 21.2065 15.1778C20.9544 14.8862 20.5902 14.7987 20.226 14.8862Z" fill="#EB2D4B" />
+          <path d="M13.865 22.5267L11.2035 17.8027C11.0355 17.5111 10.8394 17.2778 10.5312 17.132C9.74676 16.7237 8.79424 17.0445 8.40203 17.861C8.09386 18.4734 8.20592 19.2024 8.62615 19.6981C8.62615 19.6981 12.128 23.8098 12.128 23.839C12.2121 23.9556 12.3242 24.0431 12.4642 24.1306C12.9965 24.4222 13.6409 24.1889 13.921 23.6348C14.0611 23.2557 14.0331 22.8767 13.865 22.5267Z" fill="#EB2D4B" />
+          <path d="M4.90018 18.59C4.90018 18.59 8.37407 14.5075 8.40208 14.4784C8.59819 14.2451 8.76628 13.9535 8.82231 13.6035C8.96239 12.6996 8.37407 11.8539 7.5056 11.7081C6.83323 11.5915 6.2169 11.9414 5.88072 12.4954C5.88072 12.4954 3.19125 17.2195 3.19125 17.2486C3.10721 17.3653 3.05118 17.5111 3.02316 17.686C2.93912 18.2984 3.33133 18.8816 3.91965 18.9691C4.28385 19.0274 4.64805 18.8816 4.90018 18.59Z" fill="#EB2D4B" />
+        </svg>
+      </div>
+    }
+
+    <ul class="mbbiz-navigation-bar__list" role="list">
+      @for (item of resolvedItems(); track trackItem($index, item); let index = $index) {
+        <li class="mbbiz-navigation-bar__list-item" (mouseenter)="onL1MouseEnter(item)">
+          <button
+            type="button"
+            [class]="itemClass(item)"
+            [disabled]="item.disabled || itemState(item) === 'disabled'"
+            [attr.aria-current]="isBranchActive(item) ? 'page' : null"
+            [attr.aria-expanded]="hasChildren(item) ? isSubmenuOpen(item) : null"
+            [attr.aria-haspopup]="hasChildren(item) ? 'true' : null"
+            (click)="onItemClick(item, index)"
+          >
+            <mbiz-icon class="mbbiz-navigation-bar__icon" [name]="itemIcon(item)" size="m" />
+            <span class="mbbiz-navigation-bar__label">{{ item.label }}</span>
+            @if (item.showNew) {
+              <span class="mbbiz-navigation-bar__tag">Mới</span>
+            }
+          </button>
+        </li>
+      }
+    </ul>
+  </nav>
+
+  @if (openSubmenuItem(); as parent) {
+    <aside class="mbbiz-navigation-bar__submenu" [attr.aria-label]="parent.label">
+      <ul class="mbbiz-navigation-bar__submenu-list" role="list">
+        @for (child of parent.children; track trackItem($index, child); let index = $index) {
+          <li
+            class="mbbiz-navigation-bar__submenu-group"
+            [class.mbbiz-navigation-bar__submenu-group--expanded]="isExpanded(child)"
+          >
+            <button
+              type="button"
+              [class]="subItemClass(child, 2)"
+              [disabled]="child.disabled"
+              [attr.aria-expanded]="hasChildren(child) ? isExpanded(child) : null"
+              [attr.aria-haspopup]="hasChildren(child) ? 'true' : null"
+              (click)="onSubItemClick(child, index, 2)"
+            >
+              <span class="mbbiz-navigation-bar__subitem-label">{{ child.label }}</span>
+              @if (child.comingSoon) {
+                <span class="mbbiz-navigation-bar__subtag mbbiz-navigation-bar__subtag--soon">Sắp ra mắt</span>
+              }
+              @if (child.showNew) {
+                <span class="mbbiz-navigation-bar__subtag mbbiz-navigation-bar__subtag--new">Mới</span>
+              }
+              @if (child.favourite) {
+                <span class="mbbiz-navigation-bar__subtag mbbiz-navigation-bar__subtag--favourite">Ưa thích</span>
+              }
+              @if (hasChildren(child)) {
+                <mbiz-icon class="mbbiz-navigation-bar__chevron" [name]="chevronIcon(child)" size="m" />
+              }
+            </button>
+
+            @if (isExpanded(child) && child.children?.length) {
+              <ul class="mbbiz-navigation-bar__l3-list" role="list">
+                @for (grandchild of child.children; track trackItem($index, grandchild); let childIndex = $index) {
+                  <li>
+                    <button
+                      type="button"
+                      [class]="subItemClass(grandchild, 3)"
+                      [disabled]="grandchild.disabled || grandchild.comingSoon"
+                      (click)="onSubItemClick(grandchild, childIndex, 3)"
+                    >
+                      <span class="mbbiz-navigation-bar__subitem-label">{{ grandchild.label }}</span>
+                      @if (grandchild.comingSoon) {
+                        <span class="mbbiz-navigation-bar__subtag mbbiz-navigation-bar__subtag--soon">Sắp ra mắt</span>
+                      }
+                      @if (grandchild.showNew) {
+                        <span class="mbbiz-navigation-bar__subtag mbbiz-navigation-bar__subtag--new">Mới</span>
+                      }
+                      @if (grandchild.favourite) {
+                        <span class="mbbiz-navigation-bar__subtag mbbiz-navigation-bar__subtag--favourite">Ưa thích</span>
+                      }
+                    </button>
+                  </li>
+                }
+              </ul>
+            }
+          </li>
+        }
+      </ul>
+    </aside>
+  }
+</div>

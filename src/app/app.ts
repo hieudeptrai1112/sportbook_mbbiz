@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, computed, inject, signal, type WritableSignal } from '@angular/core';
+import { Component, ElementRef, HostListener, computed, inject, signal, viewChild, type WritableSignal } from '@angular/core';
 import type { IconSizeToken } from '@mbbiz/icon';
 import { IconComponent } from '@mbbiz/icon/angular';
 import type { DsInputPasswordState } from './components/ds-input-password/ds-input-password.component';
@@ -28,6 +28,9 @@ import {
   MbbizItemUploadComponent,
   type MbbizInputTagValue,
   MbbizModalComponent,
+  MbbizNavigationBarComponent,
+  type MbbizNavigationBarItem,
+  type MbbizNavigationItemClick,
   MbbizPasswordInputComponent,
   MbbizPaginationComponent,
   MbbizMessageComponent,
@@ -198,6 +201,11 @@ import {
   type DatepickerDemoSection,
 } from './datepicker-demos.data';
 import {
+  DOCS_SEARCH_ENTRIES,
+  type DocsPageId,
+  type DocsSearchEntry,
+} from './docs-search.data';
+import {
   BREADCRUMB_API_ROWS,
   BREADCRUMB_DEMO_SECTIONS,
   BREADCRUMB_VARIABLE_GROUPS,
@@ -205,6 +213,18 @@ import {
   type BreadcrumbApiRow,
   type BreadcrumbDemoSection,
 } from './breadcrumb-demos.data';
+import {
+  NAVIGATION_BAR_API_ROWS,
+  NAVIGATION_BAR_DEMO_SECTIONS,
+  NAVIGATION_BAR_L2_EXPAND_PREVIEWS,
+  NAVIGATION_BAR_L2_STATE_PREVIEWS,
+  NAVIGATION_BAR_L3_STATE_PREVIEWS,
+  NAVIGATION_BAR_VARIABLE_GROUPS,
+  NAVIGATION_BAR_VARIABLE_NOTES,
+  type NavigationBarApiRow,
+  type NavigationBarDemoSection,
+  type NavigationBarSubmenuPreview,
+} from './navigation-bar-demos.data';
 import {
   MESSAGE_CASES,
   MESSAGE_DEMO_SECTIONS,
@@ -400,6 +420,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     MbbizItemUploadComponent,
     MbbizMessageComponent,
     MbbizModalComponent,
+    MbbizNavigationBarComponent,
     MbbizPasswordInputComponent,
     MbbizPaginationComponent,
     MbbizRadioComponent,
@@ -429,42 +450,28 @@ export class App {
   protected readonly isDesignTokensOpen = signal(false);
   protected readonly isComponentsOpen = signal(false);
   protected readonly isPatternOpen = signal(false);
-  protected readonly activePage = signal<
-    | 'buttons'
-    | 'buttonMapping'
-    | 'buttonLink'
-    | 'inputField'
-    | 'form'
-    | 'inputTag'
-    | 'breadcrumb'
-    | 'steps'
-    | 'tab'
-    | 'dropdown'
-    | 'radio'
-    | 'checkbox'
-    | 'switch'
-    | 'badge'
-    | 'status'
-    | 'message'
-    | 'modal'
-    | 'table'
-    | 'pagination'
-    | 'datepicker'
-    | 'uploadFile'
-    | 'iconography'
-    | 'illustration'
-    | 'pageHeaderPattern'
-    | 'footerPattern'
-    | 'stepProcessPattern'
-    | 'formPattern'
-    | 'introduction'
-    | 'installation'
-    | 'color'
-    | 'tokens'
-    | 'spacing'
-    | 'layout'
-    | 'typography'
-  >('introduction');
+  protected readonly docsSearchQuery = signal('');
+  protected readonly isDocsSearchOpen = signal(false);
+  protected readonly docsSearchActiveIndex = signal(0);
+  private readonly docsSearchInput = viewChild<ElementRef<HTMLInputElement>>('docsSearchInput');
+  protected readonly docsSearchShortcutLabel = signal(this.resolveDocsSearchShortcutLabel());
+  protected readonly docsSearchPlaceholder = computed(
+    () => `Search components... (${this.docsSearchShortcutLabel() === '⌘K' ? 'CMD+K' : 'CTRL+K'})`,
+  );
+  protected readonly docsSearchResults = computed(() => {
+    const query = this.docsSearchQuery().trim().toLowerCase();
+    if (!query) {
+      return DOCS_SEARCH_ENTRIES;
+    }
+
+    return DOCS_SEARCH_ENTRIES.filter((entry) => {
+      const haystack = [entry.label, entry.group, entry.page, ...entry.keywords]
+        .join(' ')
+        .toLowerCase();
+      return haystack.includes(query);
+    });
+  });
+  protected readonly activePage = signal<DocsPageId>('introduction');
   protected readonly semanticTokenMappings = SEMANTIC_COLOR_TOKEN_MAPPINGS;
   protected readonly semanticTokenGroups = this.buildSemanticTokenGroups();
   protected readonly activeTokenSection = signal(
@@ -554,6 +561,33 @@ export class App {
   );
   protected readonly expandedBreadcrumbDemoIds = signal<string[]>([]);
   protected readonly copiedBreadcrumbDemoId = signal<string | null>(null);
+  protected readonly navigationBarDemoSections: NavigationBarDemoSection[] =
+    NAVIGATION_BAR_DEMO_SECTIONS;
+  protected readonly navigationBarApiRows: NavigationBarApiRow[] = NAVIGATION_BAR_API_ROWS;
+  protected readonly navigationBarVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(NAVIGATION_BAR_VARIABLE_GROUPS);
+  protected readonly navigationBarVariableNotes = NAVIGATION_BAR_VARIABLE_NOTES;
+  protected readonly activeNavigationBarSection = signal(
+    this.getNavigationBarSectionId(this.navigationBarDemoSections[0]?.id ?? 'maker'),
+  );
+  protected readonly expandedNavigationBarDemoIds = signal<string[]>([]);
+  protected readonly copiedNavigationBarDemoId = signal<string | null>(null);
+  protected readonly makerNavActiveId = signal('home');
+  protected readonly checkerNavActiveId = signal('home');
+  protected readonly oneUserNavActiveId = signal('home');
+  protected readonly makerNavStateItems: readonly MbbizNavigationBarItem[][] = [
+    [{ id: 'default', label: 'Trang chủ', icon: 'alinear_home', state: 'default' }],
+    [{ id: 'hover', label: 'Trang chủ', icon: 'alinear_home', state: 'hover' }],
+    [{ id: 'active', label: 'Trang chủ', icon: 'alinear_home', iconActive: 'abold_home', state: 'active' }],
+    [{ id: 'disabled', label: 'Trang chủ', icon: 'alinear_home', disabled: true, state: 'disabled' }],
+    [{ id: 'new', label: 'Trang chủ', icon: 'alinear_home', showNew: true }],
+  ];
+  protected readonly navL2StatePreviews: readonly NavigationBarSubmenuPreview[] =
+    NAVIGATION_BAR_L2_STATE_PREVIEWS;
+  protected readonly navL3StatePreviews: readonly NavigationBarSubmenuPreview[] =
+    NAVIGATION_BAR_L3_STATE_PREVIEWS;
+  protected readonly navL2ExpandPreviews: readonly NavigationBarSubmenuPreview[] =
+    NAVIGATION_BAR_L2_EXPAND_PREVIEWS;
   protected readonly stepsDemoSections: StepsDemoSection[] = STEPS_DEMO_SECTIONS;
   protected readonly stepsApiRows: StepsApiRow[] = STEPS_API_ROWS;
   protected readonly stepsVariableGroups: ResolvedVariableTokenGroup[] =
@@ -945,12 +979,43 @@ export class AppComponent {}`;
   };
   protected readonly iconLibraryGroups: IconLibraryGroup[] = ICON_LIBRARY_GROUPS;
   protected readonly iconLibrarySizePreviews: IconSizePreviewRow[] = ICON_LIBRARY_SIZE_PREVIEWS;
+  protected readonly iconLibrarySearchQuery = signal('');
+  protected readonly iconLibraryTotalCount = ICON_LIBRARY_GROUPS.reduce(
+    (count, group) => count + group.entries.length,
+    0,
+  );
+  protected readonly filteredIconLibraryGroups = computed(() => {
+    const query = this.iconLibrarySearchQuery().trim().toLowerCase();
+    if (!query) {
+      return this.iconLibraryGroups;
+    }
+
+    return this.iconLibraryGroups
+      .map((group) => ({
+        ...group,
+        entries: group.entries.filter((entry) =>
+          [entry.name, entry.label, entry.file, group.title].some((value) =>
+            value.toLowerCase().includes(query),
+          ),
+        ),
+      }))
+      .filter((group) => group.entries.length > 0);
+  });
+  protected readonly filteredIconLibraryCount = computed(() =>
+    this.filteredIconLibraryGroups().reduce((count, group) => count + group.entries.length, 0),
+  );
+  protected readonly iconLibraryCountLabel = computed(() => {
+    const shown = this.filteredIconLibraryCount();
+    return this.iconLibrarySearchQuery().trim()
+      ? `${shown} / ${this.iconLibraryTotalCount} icons`
+      : `${shown} icons`;
+  });
   protected readonly iconLibraryPreviewName = signal(
     ICON_LIBRARY_GROUPS.find((group) => group.family === 'linear')?.entries[0]?.name ??
       ICON_LIBRARY_GROUPS[0]?.entries[0]?.name ??
       'alinear_search',
   );
-  protected readonly activeIconographySection = signal('iconography-install');
+  protected readonly activeIconographySection = signal('iconography-catalog');
   protected readonly copiedIconLibraryName = signal<string | null>(null);
   protected readonly copiedIconInstallSnippet = signal<string | null>(null);
   protected readonly iconPackageUrl = 'https://www.npmjs.com/package/@mbbiz/icon';
@@ -968,28 +1033,28 @@ export const appConfig: ApplicationConfig = {
 // In the consuming component:
 // imports: [IconComponent]
 `;
-  protected readonly iconTemplateCode = `<lib-icon name="alinear_search" size="m" />
-<lib-icon name="abold_error" size="s" ariaLabel="Error" />
+  protected readonly iconTemplateCode = `<mbiz-icon name="alinear_search" size="m" />
+<mbiz-icon name="abold_error" size="s" ariaLabel="Error" />
 
 <!-- Color via prop (same model as ng-zorro: currentColor) -->
-<lib-icon name="action-plus" size="m" color="#1677ff" />
-<lib-icon name="abold_error" size="m" color="var(--semantic-color-error, #f53f3f)" />
+<mbiz-icon name="action-plus" size="m" color="#1677ff" />
+<mbiz-icon name="abold_error" size="m" color="var(--semantic-color-error, #f53f3f)" />
 
 <!-- Alias selector also works -->
 <mbbiz-icon name="alinear_search" size="l" />
 `;
   protected readonly iconColorCode = `<!-- 1. Inherit from parent text color (default) -->
 <button style="color: #1677ff">
-  <lib-icon name="action-plus" size="s" />
+  <mbiz-icon name="action-plus" size="s" />
   Add
 </button>
 
 <!-- 2. Explicit color prop -->
-<lib-icon name="alinear_search" size="m" color="#1677ff" />
-<lib-icon name="abold_error" size="m" color="#f53f3f" />
+<mbiz-icon name="alinear_search" size="m" color="#1677ff" />
+<mbiz-icon name="abold_error" size="m" color="#f53f3f" />
 
 <!-- 3. Design token / CSS variable -->
-<lib-icon
+<mbiz-icon
   name="abold_success"
   size="m"
   color="var(--semantic-color-success, #00b42a)"
@@ -997,7 +1062,7 @@ export const appConfig: ApplicationConfig = {
 
 <!-- 4. Class on host / wrapper -->
 <span class="icon-muted">
-  <lib-icon name="alinear_info" size="m" />
+  <mbiz-icon name="alinear_info" size="m" />
 </span>
 `;
   protected readonly iconColorCssCode = `.icon-muted {
@@ -1175,6 +1240,88 @@ export const appConfig: ApplicationConfig = {
     this.isLangOpen.set(false);
   }
 
+  protected openDocsSearch() {
+    this.isDocsSearchOpen.set(true);
+    this.isLangOpen.set(false);
+    this.isThemeOpen.set(false);
+    if (this.docsSearchActiveIndex() >= this.docsSearchResults().length) {
+      this.docsSearchActiveIndex.set(0);
+    }
+  }
+
+  protected closeDocsSearch() {
+    this.isDocsSearchOpen.set(false);
+    this.docsSearchActiveIndex.set(0);
+  }
+
+  protected clearDocsSearch() {
+    this.docsSearchQuery.set('');
+    this.docsSearchActiveIndex.set(0);
+    queueMicrotask(() => this.docsSearchInput()?.nativeElement.focus());
+  }
+
+  protected onDocsSearchInput(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.docsSearchQuery.set(value);
+    this.docsSearchActiveIndex.set(0);
+    this.isDocsSearchOpen.set(true);
+  }
+
+  protected setDocsSearchActiveIndex(index: number) {
+    this.docsSearchActiveIndex.set(index);
+  }
+
+  protected selectDocsSearchResult(entry: DocsSearchEntry) {
+    this.setPage(entry.page);
+    this.docsSearchQuery.set('');
+    this.closeDocsSearch();
+    this.docsSearchInput()?.nativeElement.blur();
+  }
+
+  protected onDocsSearchKeydown(event: KeyboardEvent) {
+    const results = this.docsSearchResults();
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      if (this.docsSearchQuery().trim()) {
+        this.clearDocsSearch();
+      } else {
+        this.closeDocsSearch();
+        this.docsSearchInput()?.nativeElement.blur();
+      }
+      return;
+    }
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      if (!results.length) {
+        return;
+      }
+      this.openDocsSearch();
+      this.docsSearchActiveIndex.set((this.docsSearchActiveIndex() + 1) % results.length);
+      return;
+    }
+
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      if (!results.length) {
+        return;
+      }
+      this.openDocsSearch();
+      this.docsSearchActiveIndex.set(
+        (this.docsSearchActiveIndex() - 1 + results.length) % results.length,
+      );
+      return;
+    }
+
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      const active = results[this.docsSearchActiveIndex()];
+      if (active) {
+        this.selectDocsSearchResult(active);
+      }
+    }
+  }
+
   protected toggleThemeMenu() {
     this.isThemeOpen.update((v) => !v);
   }
@@ -1187,47 +1334,20 @@ export const appConfig: ApplicationConfig = {
     this.isThemeOpen.set(false);
   }
 
-  protected setPage(
-    page:
-      | 'buttons'
-      | 'buttonMapping'
-      | 'buttonLink'
-      | 'inputField'
-      | 'form'
-      | 'inputTag'
-      | 'breadcrumb'
-      | 'steps'
-      | 'tab'
-      | 'dropdown'
-      | 'radio'
-      | 'checkbox'
-      | 'switch'
-      | 'badge'
-      | 'status'
-      | 'message'
-      | 'modal'
-      | 'table'
-      | 'pagination'
-      | 'datepicker'
-      | 'uploadFile'
-      | 'iconography'
-      | 'illustration'
-      | 'pageHeaderPattern'
-      | 'footerPattern'
-      | 'stepProcessPattern'
-      | 'formPattern'
-      | 'introduction'
-      | 'installation'
-      | 'color'
-      | 'tokens'
-      | 'spacing'
-      | 'layout'
-      | 'typography',
-  ) {
+  protected setPage(page: DocsPageId) {
     this.activePage.set(page);
     this.openFooterPatternOverflowId.set(null);
     if (page === 'introduction' || page === 'installation') {
       this.isGettingStartedOpen.set(true);
+    }
+    if (
+      page === 'color' ||
+      page === 'tokens' ||
+      page === 'spacing' ||
+      page === 'layout' ||
+      page === 'typography'
+    ) {
+      this.isDesignTokensOpen.set(true);
     }
     if (
       page === 'pageHeaderPattern' ||
@@ -1236,6 +1356,21 @@ export const appConfig: ApplicationConfig = {
       page === 'formPattern'
     ) {
       this.isPatternOpen.set(true);
+    }
+    if (
+      page !== 'introduction' &&
+      page !== 'installation' &&
+      page !== 'color' &&
+      page !== 'tokens' &&
+      page !== 'spacing' &&
+      page !== 'layout' &&
+      page !== 'typography' &&
+      page !== 'pageHeaderPattern' &&
+      page !== 'footerPattern' &&
+      page !== 'stepProcessPattern' &&
+      page !== 'formPattern'
+    ) {
+      this.isComponentsOpen.set(true);
     }
     if (page === 'tokens' || page === 'spacing' || page === 'layout' || page === 'typography') {
       setTimeout(() => this.updateActiveTokenSection(), 0);
@@ -1261,6 +1396,8 @@ export const appConfig: ApplicationConfig = {
       setTimeout(() => this.updateActiveInputTagSection(), 0);
     } else if (page === 'breadcrumb') {
       setTimeout(() => this.updateActiveBreadcrumbSection(), 0);
+    } else if (page === 'navigationBar') {
+      setTimeout(() => this.updateActiveNavigationBarSection(), 0);
     } else if (page === 'steps') {
       setTimeout(() => this.updateActiveStepsSection(), 0);
     } else if (page === 'tab') {
@@ -1305,6 +1442,45 @@ export const appConfig: ApplicationConfig = {
       this.isPatternOpen.update((v) => !v);
     } else {
       this.isComponentsOpen.update((v) => !v);
+    }
+  }
+
+  protected isNavSectionActive(
+    section: 'gettingStarted' | 'designTokens' | 'components' | 'pattern',
+  ): boolean {
+    const page = this.activePage();
+    switch (section) {
+      case 'gettingStarted':
+        return page === 'introduction' || page === 'installation';
+      case 'designTokens':
+        return (
+          page === 'color' ||
+          page === 'tokens' ||
+          page === 'spacing' ||
+          page === 'layout' ||
+          page === 'typography'
+        );
+      case 'pattern':
+        return (
+          page === 'formPattern' ||
+          page === 'footerPattern' ||
+          page === 'pageHeaderPattern' ||
+          page === 'stepProcessPattern'
+        );
+      case 'components':
+        return (
+          page !== 'introduction' &&
+          page !== 'installation' &&
+          page !== 'color' &&
+          page !== 'tokens' &&
+          page !== 'spacing' &&
+          page !== 'layout' &&
+          page !== 'typography' &&
+          page !== 'formPattern' &&
+          page !== 'footerPattern' &&
+          page !== 'pageHeaderPattern' &&
+          page !== 'stepProcessPattern'
+        );
     }
   }
 
@@ -2066,6 +2242,78 @@ export const appConfig: ApplicationConfig = {
     }, 1200);
   }
 
+  protected onMakerNavItemClick(event: MbbizNavigationItemClick) {
+    this.makerNavActiveId.set(event.item.id);
+  }
+
+  protected onCheckerNavItemClick(event: MbbizNavigationItemClick) {
+    this.checkerNavActiveId.set(event.item.id);
+  }
+
+  protected onOneUserNavItemClick(event: MbbizNavigationItemClick) {
+    this.oneUserNavActiveId.set(event.item.id);
+  }
+
+  protected setActiveNavigationBarSection(sectionId: string) {
+    this.activeNavigationBarSection.set(sectionId);
+  }
+
+  protected getNavigationBarSectionId(sectionId: string): string {
+    return `navigation-bar-${sectionId}`;
+  }
+
+  protected isNavigationBarDemoExpanded(sectionId: string): boolean {
+    return this.expandedNavigationBarDemoIds().includes(sectionId);
+  }
+
+  protected toggleNavigationBarDemoCode(sectionId: string) {
+    const next = new Set(this.expandedNavigationBarDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedNavigationBarDemoIds.set([...next]);
+  }
+
+  protected toggleAllNavigationBarDemoCode() {
+    const expanded = this.expandedNavigationBarDemoIds();
+    const allIds = this.navigationBarDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedNavigationBarDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllNavigationBarDemoCodeExpanded(): boolean {
+    return this.expandedNavigationBarDemoIds().length === this.navigationBarDemoSections.length;
+  }
+
+  protected getNavigationBarDemoCode(section: NavigationBarDemoSection): string {
+    return section.snippetTs;
+  }
+
+  protected getNavigationBarDemoHighlightedCode(section: NavigationBarDemoSection): string {
+    return this.highlightTypeScriptSnippet(this.getNavigationBarDemoCode(section));
+  }
+
+  protected getNavigationBarCodeLanguageLabel(section: NavigationBarDemoSection): string {
+    return `navigation-bar-${section.id}-demo.component.ts`;
+  }
+
+  protected getNavigationBarCodeHint(): string {
+    return 'Angular standalone snippet';
+  }
+
+  protected async copyNavigationBarDemoCode(section: NavigationBarDemoSection) {
+    const code = this.getNavigationBarDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedNavigationBarDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedNavigationBarDemoId() === section.id) {
+        this.copiedNavigationBarDemoId.set(null);
+      }
+    }, 1200);
+  }
+
   protected setActiveStepsSection(sectionId: string) {
     this.activeStepsSection.set(sectionId);
   }
@@ -2583,7 +2831,11 @@ export const appConfig: ApplicationConfig = {
   }
 
   protected getIconLibrarySnippet(entry: IconLibraryEntry, size: IconSizeToken = 'm'): string {
-    return `<lib-icon name="${entry.name}" size="${size}" />`;
+    return `<mbiz-icon name="${entry.name}" size="${size}" />`;
+  }
+
+  protected setIconLibrarySearchQuery(value: string) {
+    this.iconLibrarySearchQuery.set(value);
   }
 
   protected setIconLibraryPreviewName(name: string) {
@@ -2753,6 +3005,7 @@ export const appConfig: ApplicationConfig = {
     this.updateActiveFormSection();
     this.updateActiveInputTagSection();
     this.updateActiveBreadcrumbSection();
+    this.updateActiveNavigationBarSection();
     this.updateActiveStepsSection();
     this.updateActiveTabSection();
     this.updateActiveBadgeSection();
@@ -2771,11 +3024,41 @@ export const appConfig: ApplicationConfig = {
     this.updateActiveInstallationSection();
   }
 
+  @HostListener('document:keydown', ['$event'])
+  protected onDocumentKeydown(event: KeyboardEvent) {
+    const isShortcut = (event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k';
+    if (!isShortcut) {
+      return;
+    }
+
+    event.preventDefault();
+    this.openDocsSearch();
+    queueMicrotask(() => {
+      const input = this.docsSearchInput()?.nativeElement;
+      if (!input) {
+        return;
+      }
+      input.focus();
+      input.select();
+    });
+  }
+
   @HostListener('document:click')
   protected onDocumentClick() {
     if (this.openFooterPatternOverflowId()) {
       this.openFooterPatternOverflowId.set(null);
     }
+    if (this.isDocsSearchOpen()) {
+      this.closeDocsSearch();
+    }
+  }
+
+  private resolveDocsSearchShortcutLabel(): string {
+    if (typeof navigator === 'undefined') {
+      return '⌘K';
+    }
+    const platform = `${navigator.platform || ''} ${navigator.userAgent || ''}`.toLowerCase();
+    return /mac|iphone|ipad|ipod/.test(platform) ? '⌘K' : 'Ctrl K';
   }
 
   private updateActiveTokenSection() {
@@ -3032,6 +3315,31 @@ export const appConfig: ApplicationConfig = {
     }
 
     this.activeBreadcrumbSection.set(currentSection);
+  }
+
+  private updateActiveNavigationBarSection() {
+    if (this.activePage() !== 'navigationBar' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getNavigationBarSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeNavigationBarSection.set(currentSection);
   }
 
   private updateActiveStepsSection() {
@@ -3760,6 +4068,14 @@ export const appConfig: ApplicationConfig = {
     ];
   }
 
+  private getNavigationBarSectionIds(): string[] {
+    return [
+      ...this.navigationBarDemoSections.map((section) => this.getNavigationBarSectionId(section.id)),
+      'navigation-bar-api',
+      'navigation-bar-variables',
+    ];
+  }
+
   private getStepsSectionIds(): string[] {
     return [
       ...this.stepsDemoSections.map((section) => this.getStepsSectionId(section.id)),
@@ -3879,11 +4195,12 @@ export const appConfig: ApplicationConfig = {
 
   private getIconographySectionIds(): string[] {
     return [
+      'iconography-catalog',
+      ...this.iconLibraryGroups.map((group) => group.id),
       'iconography-install',
       'iconography-usage',
       'iconography-sizes',
       'iconography-color',
-      ...this.iconLibraryGroups.map((group) => group.id),
       'iconography-naming',
     ];
   }
@@ -4605,7 +4922,7 @@ export class InputDisabledDemoComponent {}`;
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|MbbizButtonComponent|MbbizInputComponent|MbbizAffixInputComponent|MbbizSearchInputComponent|MbbizPasswordInputComponent|MbbizTextareaComponent|MbbizFloatingLabelInputComponent|MbbizAffixLabelInputComponent|MbbizAffixDropdownItem|MbbizDropdownComponent|MbbizDropdownTagComponent|MbbizDropdownItem|MbbizInputTagComponent|MbbizInputTagValue|MbbizDatepickerComponent|MbbizDatepickerCell|MbbizDatepickerRangeValue|MbbizBreadcrumbComponent|MbbizBreadcrumbItem|MbbizStepsComponent|MbbizStepItem|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
+      /\b(Component|MbbizButtonComponent|MbbizInputComponent|MbbizAffixInputComponent|MbbizSearchInputComponent|MbbizPasswordInputComponent|MbbizTextareaComponent|MbbizFloatingLabelInputComponent|MbbizAffixLabelInputComponent|MbbizAffixDropdownItem|MbbizDropdownComponent|MbbizDropdownTagComponent|MbbizDropdownItem|MbbizInputTagComponent|MbbizInputTagValue|MbbizDatepickerComponent|MbbizDatepickerCell|MbbizDatepickerRangeValue|MbbizBreadcrumbComponent|MbbizBreadcrumbItem|MbbizNavigationBarComponent|MbbizNavigationBarItem|MbbizStepsComponent|MbbizStepItem|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');

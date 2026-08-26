@@ -6,14 +6,69 @@
           <img src="/assets/figma/13a404ae-6372-42d7-b0c3-c446bc475214.svg" alt="Logo" />
           <span>Mbbiz</span>
         </div>
-        <div class="search">
+        <div
+          class="search"
+          [class.open]="isDocsSearchOpen()"
+          [class.has-query]="docsSearchQuery().trim().length > 0"
+          (click)="$event.stopPropagation()"
+        >
           <img
             class="search-icon"
             src="/assets/figma/a4bec56f-e50e-413d-917b-016797d3ae81.svg"
-            alt="Search"
+            alt=""
           />
-          <span class="search-text">Search components... (CMD+K)</span>
-          <span class="kbd">⌘K</span>
+          <input
+            #docsSearchInput
+            class="search-input"
+            type="search"
+            autocomplete="off"
+            spellcheck="false"
+            [attr.placeholder]="docsSearchPlaceholder()"
+            [value]="docsSearchQuery()"
+            (focus)="openDocsSearch()"
+            (input)="onDocsSearchInput($event)"
+            (keydown)="onDocsSearchKeydown($event)"
+            aria-label="Search documentation"
+            aria-autocomplete="list"
+            [attr.aria-expanded]="isDocsSearchOpen()"
+            aria-controls="docs-search-results"
+          />
+          <span class="kbd" *ngIf="!docsSearchQuery().trim()">{{ docsSearchShortcutLabel() }}</span>
+          <button
+            *ngIf="docsSearchQuery().trim()"
+            class="search-clear"
+            type="button"
+            aria-label="Clear search"
+            (click)="clearDocsSearch()"
+          >
+            ×
+          </button>
+
+          <div
+            class="search-results"
+            id="docs-search-results"
+            *ngIf="isDocsSearchOpen()"
+            role="listbox"
+          >
+            <ng-container *ngIf="docsSearchResults().length; else docsSearchEmpty">
+              <button
+                type="button"
+                class="search-result"
+                *ngFor="let result of docsSearchResults(); let i = index"
+                role="option"
+                [class.active]="i === docsSearchActiveIndex()"
+                [attr.aria-selected]="i === docsSearchActiveIndex()"
+                (mouseenter)="setDocsSearchActiveIndex(i)"
+                (click)="selectDocsSearchResult(result)"
+              >
+                <span class="search-result-label">{{ result.label }}</span>
+                <span class="search-result-group">{{ result.group }}</span>
+              </button>
+            </ng-container>
+            <ng-template #docsSearchEmpty>
+              <div class="search-empty">No results for “{{ docsSearchQuery().trim() }}”</div>
+            </ng-template>
+          </div>
         </div>
       </div>
       <div class="top-right">
@@ -91,32 +146,21 @@
         <button class="icon-btn" type="button">
           <img src="/assets/figma/bcdda10d-5d94-429d-aeb4-1664cf474adc.svg" alt="Settings" />
         </button>
-        <a
-          class="github-btn"
-          href="https://github.com/hieudeptrai1112/sportbook_mbbiz"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img src="/assets/figma/fd2a3c7d-634a-4e4e-85c9-bbc89f059a8d.svg" alt="GitHub" />
-          GitHub
-        </a>
       </div>
     </div>
   </header>
 
   <div class="layout">
     <aside class="sidebar">
-      <div class="sidebar-section">
-        <span class="sidebar-label">Navigation</span>
-      </div>
       <div class="sidebar-nav">
         <div
           class="sidebar-item collapsible"
           [class.expanded]="isGettingStartedOpen()"
+          [class.active]="isNavSectionActive('gettingStarted')"
           (click)="toggleSection('gettingStarted')"
         >
           <span>Getting Started</span>
-          <span class="section-arrow" [class.open]="isGettingStartedOpen()">›</span>
+          <span class="section-arrow" [class.open]="isGettingStartedOpen()"></span>
         </div>
         <div class="sidebar-subgroup" [class.open]="isGettingStartedOpen()">
           <div
@@ -140,10 +184,11 @@
         <div
           class="sidebar-item collapsible"
           [class.expanded]="isDesignTokensOpen()"
+          [class.active]="isNavSectionActive('designTokens')"
           (click)="toggleSection('designTokens')"
         >
           <span>Design Tokens</span>
-          <span class="section-arrow" [class.open]="isDesignTokensOpen()">›</span>
+          <span class="section-arrow" [class.open]="isDesignTokensOpen()"></span>
         </div>
         <div class="sidebar-subgroup" [class.open]="isDesignTokensOpen()">
           <div
@@ -192,10 +237,11 @@
           <div
             class="sidebar-item collapsible"
             [class.expanded]="isComponentsOpen()"
+            [class.active]="isNavSectionActive('components')"
             (click)="toggleSection('components')"
           >
-            <span [class.strong]="isComponentsOpen()">Components</span>
-            <span class="section-arrow" [class.open]="isComponentsOpen()">›</span>
+            <span>Components</span>
+            <span class="section-arrow" [class.open]="isComponentsOpen()"></span>
           </div>
           <div class="sidebar-subgroup" [class.open]="isComponentsOpen()">
             <span class="sidebar-sublabel">General</span>
@@ -247,6 +293,14 @@
             >
               <img src="/assets/figma/c91fd4e6-3715-400c-afc3-e607a5774d04.svg" alt="" />
               <span>Breadcrumb</span>
+            </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'navigationBar'"
+              (click)="setPage('navigationBar')"
+            >
+              <img src="/assets/figma/c91fd4e6-3715-400c-afc3-e607a5774d04.svg" alt="" />
+              <span>Navigation Bar</span>
             </div>
             <div
               class="sidebar-link"
@@ -384,10 +438,11 @@
         <div
           class="sidebar-item collapsible"
           [class.expanded]="isPatternOpen()"
+          [class.active]="isNavSectionActive('pattern')"
           (click)="toggleSection('pattern')"
         >
-          <span [class.strong]="isPatternOpen()">Pattern</span>
-          <span class="section-arrow" [class.open]="isPatternOpen()">›</span>
+          <span>Pattern</span>
+          <span class="section-arrow" [class.open]="isPatternOpen()"></span>
         </div>
         <div class="sidebar-subgroup" [class.open]="isPatternOpen()">
           <div
@@ -2883,6 +2938,248 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'navigationBar'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Navigation</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Navigation Bar</h1>
+              <p class="lead">
+                Maker L1 sidebar from Figma node 20122:15095. Menu icons come from
+                <span class="mono">@mbbiz/icon</span>; the active item swaps to the bold set when it
+                exists.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of navigationBarDemoSections; let i = index"
+              [attr.id]="getNavigationBarSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+                <button
+                  *ngIf="i === 0"
+                  class="button-doc-toggle"
+                  type="button"
+                  (click)="toggleAllNavigationBarDemoCode()"
+                >
+                  {{ areAllNavigationBarDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                </button>
+              </div>
+              <p class="button-demo-description button-demo-description--rich">
+                @for (part of demo.descriptionParts; track $index) {
+                  @if (part.code) {
+                    <span class="button-inline-code button-inline-code--description">{{
+                      part.code
+                    }}</span>
+                  } @else {
+                    <span>{{ part.text }}</span>
+                  }
+                }
+              </p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card core3-nav-card">
+                <div class="button-demo-preview core3-map-preview core3-nav-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <div *ngSwitchCase="'maker'" class="core3-nav-stage">
+                      <mbbiz-navigation-bar
+                        [activeId]="makerNavActiveId()"
+                        (itemClick)="onMakerNavItemClick($event)"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'checker'" class="core3-nav-stage">
+                      <mbbiz-navigation-bar
+                        variant="checker"
+                        [activeId]="checkerNavActiveId()"
+                        (itemClick)="onCheckerNavItemClick($event)"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'1user'" class="core3-nav-stage">
+                      <mbbiz-navigation-bar
+                        variant="1user"
+                        [activeId]="oneUserNavActiveId()"
+                        (itemClick)="onOneUserNavItemClick($event)"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'states'" class="core3-nav-states">
+                      @for (items of makerNavStateItems; track items[0].id) {
+                        <div class="core3-nav-state">
+                          <span class="core3-nav-state-label">{{ items[0].id }}</span>
+                          <mbbiz-navigation-bar [items]="items" [showLogo]="false" />
+                        </div>
+                      }
+                    </div>
+
+                    <div *ngSwitchCase="'l2-states'" class="core3-nav-states">
+                      @for (preview of navL2StatePreviews; track preview.id) {
+                        <div class="core3-nav-state">
+                          <span class="core3-nav-state-label">{{ preview.label }}</span>
+                          <mbbiz-navigation-bar
+                            [items]="preview.items"
+                            [openId]="preview.openId"
+                            [expandedIds]="preview.expandedIds ?? []"
+                            [showLogo]="false"
+                          />
+                        </div>
+                      }
+                    </div>
+
+                    <div *ngSwitchCase="'l3-states'" class="core3-nav-states">
+                      @for (preview of navL3StatePreviews; track preview.id) {
+                        <div class="core3-nav-state">
+                          <span class="core3-nav-state-label">{{ preview.label }}</span>
+                          <mbbiz-navigation-bar
+                            [items]="preview.items"
+                            [openId]="preview.openId"
+                            [expandedIds]="preview.expandedIds ?? []"
+                            [showLogo]="false"
+                          />
+                        </div>
+                      }
+                    </div>
+
+                    <div *ngSwitchCase="'l2-expand'" class="core3-nav-states">
+                      @for (preview of navL2ExpandPreviews; track preview.id) {
+                        <div class="core3-nav-state">
+                          <span class="core3-nav-state-label">{{ preview.label }}</span>
+                          <mbbiz-navigation-bar
+                            [items]="preview.items"
+                            [openId]="preview.openId"
+                            [expandedIds]="preview.expandedIds ?? []"
+                            [showLogo]="false"
+                          />
+                        </div>
+                      }
+                    </div>
+                  </ng-container>
+                </div>
+
+                <div class="button-demo-controls">
+                  <div class="button-demo-icons">
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      [class.active]="isNavigationBarDemoExpanded(demo.id)"
+                      (click)="toggleNavigationBarDemoCode(demo.id)"
+                      aria-label="Toggle code"
+                    >
+                      &lt;/&gt;
+                    </button>
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      (click)="copyNavigationBarDemoCode(demo)"
+                      aria-label="Copy code"
+                    >
+                      {{ copiedNavigationBarDemoId() === demo.id ? 'Copied' : 'Copy' }}
+                    </button>
+                  </div>
+                  <span class="button-code-hint">TS</span>
+                </div>
+
+                <div class="button-code-wrapper" *ngIf="isNavigationBarDemoExpanded(demo.id)">
+                  <div class="button-code-head">
+                    <span class="button-code-file">{{ getNavigationBarCodeLanguageLabel(demo) }}</span>
+                    <span class="button-code-hint">{{ getNavigationBarCodeHint() }}</span>
+                  </div>
+                  <pre
+                    class="button-code-block"
+                  ><code [innerHTML]="getNavigationBarDemoHighlightedCode(demo)"></code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-api-section" id="navigation-bar-api">
+              <h2>API</h2>
+              <h3 class="button-api-group-title">mbbiz-navigation-bar</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of navigationBarApiRows">
+                  <span class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</span>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="navigation-bar-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Tokens are bound from Figma node 20122:15095 and Navigation Lv 1 item states.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of navigationBarVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div
+                  class="token-table component-alias-color-table"
+                  *ngIf="group.kind === 'alias-color'"
+                >
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span
+                        class="token-swatch"
+                        [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"
+                      ></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of navigationBarVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'steps'">
             <div class="page-header">
               <div class="header-meta">
@@ -3406,9 +3703,81 @@
                 — Linear vs Bold families, token sizes
                 (<span class="mono">xs–2xl</span>), color via
                 <span class="mono">currentColor</span>, and copy-ready
-                <span class="mono">&lt;lib-icon&gt;</span> snippets.
+                <span class="mono">&lt;mbiz-icon&gt;</span> snippets.
               </p>
             </div>
+
+            <section class="section iconography-library-section" id="iconography-catalog">
+              <div class="illustration-section-head">
+                <h2>Icons</h2>
+                <span>{{ iconLibraryCountLabel() }}</span>
+              </div>
+              <p class="iconography-section-lead">
+                Search Linear and Bold glyphs by name, file, or family. Click a card to preview
+                sizes and copy a snippet.
+              </p>
+              <div class="iconography-search">
+                <mbbiz-search-input
+                  inputId="iconography-search"
+                  placeholder="Search icons"
+                  [value]="iconLibrarySearchQuery()"
+                  (valueChange)="setIconLibrarySearchQuery($event)"
+                />
+              </div>
+            </section>
+
+            <ng-container *ngFor="let group of filteredIconLibraryGroups()">
+              <section class="section iconography-library-section" [id]="group.id">
+                <div class="illustration-section-head">
+                  <h2>{{ group.title }}</h2>
+                  <span>{{ group.entries.length }} icons</span>
+                </div>
+                <p class="iconography-section-lead">{{ group.description }}</p>
+
+                <div class="iconography-grid iconography-lib-grid">
+                  <article
+                    class="illustration-card iconography-card iconography-lib-card"
+                    *ngFor="let entry of group.entries"
+                    [class.is-selected]="iconLibraryPreviewName() === entry.name"
+                    (click)="setIconLibraryPreviewName(entry.name)"
+                  >
+                    <div class="illustration-thumb iconography-thumb iconography-lib-thumb">
+                      <mbiz-icon [name]="entry.name" size="l" />
+                    </div>
+
+                    <div class="illustration-card-body">
+                      <div class="illustration-card-title">
+                        <h3>{{ entry.label }}</h3>
+                        <span>{{ group.title }}</span>
+                      </div>
+                      <code class="illustration-path">{{ entry.name }}</code>
+                      <p>{{ entry.file }}</p>
+                    </div>
+
+                    <div class="illustration-card-actions">
+                      <button
+                        class="button-icon-btn illustration-copy-btn"
+                        type="button"
+                        (click)="copyIconLibrarySnippet(entry); $event.stopPropagation()"
+                      >
+                        {{
+                          copiedIconLibraryName() === entry.name
+                            ? 'Copied snippet'
+                            : 'Copy snippet'
+                        }}
+                      </button>
+                    </div>
+                  </article>
+                </div>
+              </section>
+            </ng-container>
+
+            <p
+              class="iconography-section-lead"
+              *ngIf="filteredIconLibraryGroups().length === 0"
+            >
+              No icons match “{{ iconLibrarySearchQuery() }}”.
+            </p>
 
             <section class="section iconography-usage-section" id="iconography-install">
               <h2>Install</h2>
@@ -3441,12 +3810,12 @@
                 </article>
                 <article class="illustration-guideline-card">
                   <span>3. Render</span>
-                  <code>&lt;lib-icon&gt;</code>
+                  <code>&lt;mbiz-icon&gt;</code>
                   <p>
                     Import
                     <span class="mono">IconComponent</span>
                     and use
-                    <span class="mono">&lt;lib-icon&gt;</span>
+                    <span class="mono">&lt;mbiz-icon&gt;</span>
                     or
                     <span class="mono">&lt;mbbiz-icon&gt;</span>.
                   </p>
@@ -3512,7 +3881,7 @@
                   <p>
                     Register with
                     <span class="mono">provideIcons</span>, render with
-                    <span class="mono">&lt;lib-icon&gt;</span>. See Install above.
+                    <span class="mono">&lt;mbiz-icon&gt;</span>. See Install above.
                   </p>
                 </article>
                 <article class="illustration-guideline-card">
@@ -3552,7 +3921,7 @@
                   <span class="button-code-file">example.html</span>
                   <span class="button-code-hint">{{ iconLibraryPreviewName() }}</span>
                 </div>
-                <pre class="button-code-block"><code>&lt;lib-icon name="{{ iconLibraryPreviewName() }}" size="m" /&gt;</code></pre>
+                <pre class="button-code-block"><code>&lt;mbiz-icon name="{{ iconLibraryPreviewName() }}" size="m" /&gt;</code></pre>
               </div>
             </section>
 
@@ -3562,7 +3931,7 @@
                 <span>{{ iconLibrarySizePreviews.length }} tokens</span>
               </div>
               <p class="iconography-section-lead">
-                Same glyph at every token size. Click a library card below to change the preview name.
+                Same glyph at every token size. Click a library card above to change the preview name.
               </p>
 
               <div class="iconography-size-strip">
@@ -3571,7 +3940,7 @@
                   *ngFor="let row of iconLibrarySizePreviews"
                 >
                   <div class="iconography-size-thumb">
-                    <lib-icon [name]="iconLibraryPreviewName()" [size]="row.token" />
+                    <mbiz-icon [name]="iconLibraryPreviewName()" [size]="row.token" />
                   </div>
                   <div class="iconography-size-meta">
                     <strong>{{ row.token }}</strong>
@@ -3639,12 +4008,12 @@
                     class="iconography-color-thumb"
                     [style.color]="row.mode === 'inherit' ? row.color : null"
                   >
-                    <lib-icon
+                    <mbiz-icon
                       *ngIf="row.mode === 'inherit'"
                       [name]="iconLibraryPreviewName()"
                       size="l"
                     />
-                    <lib-icon
+                    <mbiz-icon
                       *ngIf="row.mode === 'prop'"
                       [name]="iconLibraryPreviewName()"
                       size="l"
@@ -3687,52 +4056,6 @@
                 <pre class="button-code-block"><code>{{ iconColorCssCode }}</code></pre>
               </div>
             </section>
-
-            <ng-container *ngFor="let group of iconLibraryGroups">
-              <section class="section iconography-library-section" [id]="group.id">
-                <div class="illustration-section-head">
-                  <h2>{{ group.title }}</h2>
-                  <span>{{ group.entries.length }} icons</span>
-                </div>
-                <p class="iconography-section-lead">{{ group.description }}</p>
-
-                <div class="iconography-grid iconography-lib-grid">
-                  <article
-                    class="illustration-card iconography-card iconography-lib-card"
-                    *ngFor="let entry of group.entries"
-                    [class.is-selected]="iconLibraryPreviewName() === entry.name"
-                    (click)="setIconLibraryPreviewName(entry.name)"
-                  >
-                    <div class="illustration-thumb iconography-thumb iconography-lib-thumb">
-                      <lib-icon [name]="entry.name" size="l" />
-                    </div>
-
-                    <div class="illustration-card-body">
-                      <div class="illustration-card-title">
-                        <h3>{{ entry.label }}</h3>
-                        <span>{{ group.title }}</span>
-                      </div>
-                      <code class="illustration-path">{{ entry.name }}</code>
-                      <p>{{ entry.file }}</p>
-                    </div>
-
-                    <div class="illustration-card-actions">
-                      <button
-                        class="button-icon-btn illustration-copy-btn"
-                        type="button"
-                        (click)="copyIconLibrarySnippet(entry); $event.stopPropagation()"
-                      >
-                        {{
-                          copiedIconLibraryName() === entry.name
-                            ? 'Copied snippet'
-                            : 'Copy snippet'
-                        }}
-                      </button>
-                    </div>
-                  </article>
-                </div>
-              </section>
-            </ng-container>
 
             <section class="section iconography-naming-section" id="iconography-naming">
               <h2>Naming</h2>
@@ -7083,7 +7406,7 @@
             <section class="section scale-section" id="iconsize-scale">
               <h2>Icon Size Scale</h2>
               <p class="scale-note">
-                Render size for <code class="token-code">&lt;lib-icon size&gt;</code> — one SVG asset,
+                Render size for <code class="token-code">&lt;mbiz-icon size&gt;</code> — one SVG asset,
                 scaled via token (same pattern as Arco / Ant Design).
               </p>
               <div class="token-table scale-table">
@@ -7876,6 +8199,59 @@
           </div>
         </ng-container>
 
+        <ng-container *ngIf="activePage() === 'navigationBar'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of navigationBarDemoSections"
+                  [class.active]="activeNavigationBarSection() === getNavigationBarSectionId(demo.id)"
+                  [href]="'#' + getNavigationBarSectionId(demo.id)"
+                  (click)="setActiveNavigationBarSection(getNavigationBarSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeNavigationBarSection() === 'navigation-bar-api'"
+                  href="#navigation-bar-api"
+                  (click)="setActiveNavigationBarSection('navigation-bar-api')"
+                >
+                  API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeNavigationBarSection() === 'navigation-bar-variables'"
+                  href="#navigation-bar-variables"
+                  (click)="setActiveNavigationBarSection('navigation-bar-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Pro Tip</span>
+                </div>
+                <p>
+                  Click a Maker item to set
+                  <span class="mono">activeId</span>. The list scrolls without showing a scrollbar.
+                </p>
+              </div>
+            </aside>
+            <button
+              type="button"
+              class="anchor-collapse-btn"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
         <ng-container *ngIf="activePage() === 'steps'">
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
@@ -8442,6 +8818,23 @@
               <div class="toc-list">
                 <a
                   class="toc-item"
+                  [class.active]="activeIconographySection() === 'iconography-catalog'"
+                  href="#iconography-catalog"
+                  (click)="setActiveIconographySection('iconography-catalog')"
+                >
+                  Icons
+                </a>
+                <a
+                  class="toc-item"
+                  *ngFor="let group of iconLibraryGroups"
+                  [class.active]="activeIconographySection() === group.id"
+                  [href]="'#' + group.id"
+                  (click)="setActiveIconographySection(group.id)"
+                >
+                  {{ group.title }}
+                </a>
+                <a
+                  class="toc-item"
                   [class.active]="activeIconographySection() === 'iconography-install'"
                   href="#iconography-install"
                   (click)="setActiveIconographySection('iconography-install')"
@@ -8471,15 +8864,6 @@
                   (click)="setActiveIconographySection('iconography-color')"
                 >
                   Color
-                </a>
-                <a
-                  class="toc-item"
-                  *ngFor="let group of iconLibraryGroups"
-                  [class.active]="activeIconographySection() === group.id"
-                  [href]="'#' + group.id"
-                  (click)="setActiveIconographySection(group.id)"
-                >
-                  {{ group.title }}
                 </a>
                 <a
                   class="toc-item"

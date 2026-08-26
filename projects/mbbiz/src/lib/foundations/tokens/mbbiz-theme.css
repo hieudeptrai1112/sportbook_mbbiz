@@ -233,6 +233,36 @@
   --mbbiz-color-datepicker-day-range-bg: var(--mbbiz-color-datepicker-day-range-middle);
   --mbbiz-color-datepicker-action-apply-bg: var(--mbbiz-color-datepicker-action-apply-background);
 
+  /* Navigation item — Figma 20122:16974 */
+  --mbbiz-color-nav-background: var(--color-semantic-background-primary);
+  --mbbiz-color-nav-shadow: 2px 0 4px #00000014;
+  --mbbiz-color-nav-item-hover-bg: var(--color-semantic-background-disable3);
+  --mbbiz-color-nav-item-active-bg: var(--color-semantic-background-brand-primary4);
+  --mbbiz-color-nav-icon: var(--color-semantic-icon-brand-primary1);
+  --mbbiz-color-nav-icon-disabled: var(--color-semantic-icon-disable1);
+  --mbbiz-color-nav-label: var(--color-semantic-text-primary);
+  --mbbiz-color-nav-label-active: var(--color-semantic-text-primary);
+  --mbbiz-color-nav-label-disabled: var(--color-semantic-text-disable1);
+  --mbbiz-color-nav-tag-bg: var(--color-semantic-background-brand-tertiary2);
+  --mbbiz-color-nav-tag-text: var(--color-semantic-text-primary);
+  --mbbiz-color-nav-l2-label: var(--color-semantic-text-primary);
+  --mbbiz-color-nav-l2-label-hover: var(--color-semantic-text-secondary);
+  --mbbiz-color-nav-l2-label-disabled: var(--color-semantic-text-disable1);
+  --mbbiz-color-nav-l2-chevron: var(--color-semantic-icon-neutral1);
+  --mbbiz-color-nav-l2-chevron-hover: var(--color-semantic-icon-neutral4);
+  --mbbiz-color-nav-tag-coming-soon-bg: var(--color-semantic-background-secondary);
+  --mbbiz-color-nav-tag-coming-soon-text: var(--color-semantic-text-secondary);
+  --mbbiz-color-nav-tag-favourite-bg: var(--color-semantic-background-brand-secondary5);
+  --mbbiz-color-nav-tag-favourite-text: var(--color-semantic-text-brand-secondary1);
+  --mbbiz-nav-list-gap: 8px;
+  --mbbiz-nav-item-padding: 4px;
+  --mbbiz-nav-item-gap: 4px;
+  --mbbiz-nav-item-radius: 4px;
+  --mbbiz-nav-tag-padding-y: 2px;
+  --mbbiz-nav-tag-padding-x: 4px;
+  --mbbiz-nav-tag-radius: 40px;
+  --mbbiz-nav-l3-padding: 0;
+
   --mbbiz-radius-md: 4px;
   --mbbiz-radius-lg: 10px;
   --mbbiz-radius-pill: 999px;
