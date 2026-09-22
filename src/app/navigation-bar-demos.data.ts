@@ -103,6 +103,12 @@ export class NavigationBarMakerDemoComponent {
       'variant=checker',
       'figma=node 20122:18345',
       'figma=node 20122:18420',
+      'figma=node 20122:18435',
+      'figma=node 20122:18455',
+      'figma=node 20122:18475',
+      'figma=node 20122:18500',
+      'figma=node 20122:18526',
+      'figma=node 20122:18558',
     ],
     variant: 'checker',
     snippetTs: `import { Component, signal } from '@angular/core';
@@ -134,13 +140,20 @@ export class NavigationBarCheckerDemoComponent {
     descriptionParts: [
       { code: 'variant="1user"' },
       {
-        text: ' renders the 1 User L1 sidebar with the same tokens as Maker and 12 menu items.',
+        text: ' renders the 1 User L1 sidebar with the same tokens as Maker and 12 menu items. Hover an L1 item with children to open the L2 panel.',
       },
     ],
     tags: [
       'selector=mbbiz-navigation-bar',
       'variant=1user',
       'figma=node 20122:16326',
+      'figma=node 20122:16424',
+      'figma=node 20122:16439',
+      'figma=node 20122:16454',
+      'figma=node 20122:16471',
+      'figma=node 20122:16494',
+      'figma=node 20122:16522',
+      'figma=node 20122:16550',
     ],
     variant: '1user',
     snippetTs: `import { Component, signal } from '@angular/core';
@@ -639,12 +652,12 @@ export const NAVIGATION_BAR_VARIABLE_GROUPS: NavigationBarVariableGroup[] = [
   {
     title: 'Navigation Bar Color Tokens',
     rows: [
-      { token: 'background/primary', value: 'white/100%', appliesTo: 'Bar background', notes: 'Maps to --mbbiz-color-nav-background.' },
+      { token: 'background/primary', value: 'white/100%', appliesTo: 'Bar and L2 panel background', notes: 'Maps to --mbbiz-color-nav-background.' },
       { token: 'background/disable3', value: 'grayscale/200', appliesTo: 'Item hover fill', notes: 'Maps to --mbbiz-color-nav-item-hover-bg.' },
       { token: 'background/brand-primary4', value: 'blue/200', appliesTo: 'Item active fill', notes: 'Maps to --mbbiz-color-nav-item-active-bg.' },
       { token: 'icon/brand-primary1', value: 'blue/500', appliesTo: 'Default, hover, and active icon', notes: 'Maps to --mbbiz-color-nav-icon.' },
       { token: 'icon/disable1', value: 'grayscale/600', appliesTo: 'Disabled icon', notes: 'Maps to --mbbiz-color-nav-icon-disabled.' },
-      { token: 'text/primary', value: 'darkblue/1000', appliesTo: 'Default and active label, New tag text', notes: 'Maps to --mbbiz-color-nav-label, --mbbiz-color-nav-label-active, and --mbbiz-color-nav-tag-text.' },
+      { token: 'text/primary', value: 'darkblue/1000', appliesTo: 'L1/L2/L3 default and active label, New tag text', notes: 'Maps to --mbbiz-color-nav-label, --mbbiz-color-nav-label-active, --mbbiz-color-nav-l2-label, and --mbbiz-color-nav-tag-text.' },
       { token: 'text/disable1', value: 'grayscale/600', appliesTo: 'Disabled label', notes: 'Maps to --mbbiz-color-nav-label-disabled.' },
       { token: 'background/brand-tertiary2', value: 'turquoise/400', appliesTo: 'New tag fill', notes: 'Maps to --mbbiz-color-nav-tag-bg.' },
       { token: 'text/secondary', value: 'bluegrey/700', appliesTo: 'L2/L3 hover label', notes: 'Maps to --mbbiz-color-nav-l2-label-hover.' },
@@ -658,8 +671,8 @@ export const NAVIGATION_BAR_VARIABLE_GROUPS: NavigationBarVariableGroup[] = [
   {
     title: 'Navigation Bar Layout Specs',
     rows: [
-      { token: 'padding/s', value: '8px', appliesTo: 'Bar horizontal padding', notes: 'Figma node 20122:15095.' },
-      { token: 'spacing/2xl', value: '24px', appliesTo: 'Bar vertical padding and logo-to-list gap', notes: 'Figma node 20122:15095.' },
+      { token: 'padding/s', value: '8px', appliesTo: 'Bar horizontal padding', notes: 'Maps to --mbbiz-nav-bar-padding-x.' },
+      { token: 'spacing/2xl', value: '24px', appliesTo: 'Bar vertical padding, logo-to-list gap, and L2 panel padding', notes: 'Maps to --mbbiz-nav-bar-gap, --mbbiz-nav-bar-padding-y, and --mbbiz-nav-l2-padding.' },
       { token: 'spacing/s', value: '8px', appliesTo: 'Gap between L1 items', notes: 'Maps to --mbbiz-nav-list-gap.' },
       { token: 'padding/xs', value: '4px', appliesTo: 'Item padding', notes: 'Maps to --mbbiz-nav-item-padding.' },
       { token: 'spacing/xs', value: '4px', appliesTo: 'Icon to label gap', notes: 'Maps to --mbbiz-nav-item-gap.' },
@@ -669,16 +682,18 @@ export const NAVIGATION_BAR_VARIABLE_GROUPS: NavigationBarVariableGroup[] = [
       { token: 'nav/bar/size', value: '116 × 810', appliesTo: 'Bar width and max height', notes: 'List scrolls inside this frame.' },
       { token: 'nav/shadow', value: '2px 0 4px #00000014', appliesTo: 'Bar drop shadow', notes: 'Figma effect EF/2.' },
       { token: 'nav/l2/size', value: '308 × 810', appliesTo: 'L2 flyout width and height', notes: 'Figma node 20122:15429.' },
-      { token: 'spacing/5xl', value: '40px', appliesTo: 'Gap between L2 items', notes: 'Maps to submenu list gap.' },
-      { token: 'spacing/l', value: '16px', appliesTo: 'L2 label to chevron/tag gap', notes: 'Figma node 20122:17329.' },
-      { token: 'padding/none', value: '0px', appliesTo: 'L3 item padding', notes: 'Maps to --mbbiz-nav-l3-padding. Figma node 20122:15574.' },
-      { token: 'radius/s', value: '8px', appliesTo: 'L2 panel top/bottom right radius', notes: 'Figma node 20122:15429.' },
+      { token: 'spacing/5xl', value: '40px', appliesTo: 'Gap between L2 items', notes: 'Maps to --mbbiz-nav-l2-gap. Rebound on Checker 20122:18425–20122:18563.' },
+      { token: 'spacing/4xl', value: '32px', appliesTo: 'Gap from expanded L2 header to L3 list', notes: 'Maps to --mbbiz-nav-accordion-gap. Figma node 20122:18480.' },
+      { token: 'spacing/xl', value: '20px', appliesTo: 'Gap between L3 items', notes: 'Maps to --mbbiz-nav-l3-gap. Figma node 20122:18480.' },
+      { token: 'spacing/l', value: '16px', appliesTo: 'L2 label to chevron/tag gap', notes: 'Maps to --mbbiz-nav-l2-item-gap.' },
+      { token: 'padding/none', value: '0px', appliesTo: 'L3 item padding', notes: 'Maps to --mbbiz-nav-l3-padding.' },
+      { token: 'radius/s', value: '8px', appliesTo: 'L2 panel top/bottom right radius', notes: 'Maps to --mbbiz-nav-l2-radius.' },
     ],
   },
 ];
 
 export const NAVIGATION_BAR_VARIABLE_NOTES = [
   'Color rows bind to semantic aliases shared by Maker (20122:15095), Checker (20122:18345), and 1 User (20122:16326).',
-  'L2 flyout and item states follow 20122:15429, 20122:17329, 20122:13790, 20122:13915, and 20122:17421.',
+  'L2 flyout tokens follow Checker Tài khoản–Settings (20122:18420, 20122:18435, 20122:18455, 20122:18475, 20122:18500, 20122:18526, 20122:18558) and 1 User (20122:16424, 20122:16439, 20122:16454, 20122:16471, 20122:16494, 20122:16522, 20122:16550) after rebinding spacing/5xl, spacing/2xl, radius/s, and text/primary.',
   'The list keeps overflow scroll with the scrollbar hidden (scrollbar-width: none and webkit scrollbar display none).',
 ];

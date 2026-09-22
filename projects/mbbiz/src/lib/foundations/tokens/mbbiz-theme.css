@@ -268,6 +268,15 @@
   --mbbiz-nav-tag-padding-y: 2px;
   --mbbiz-nav-tag-padding-x: 4px;
   --mbbiz-nav-tag-radius: 40px;
+  --mbbiz-nav-bar-gap: var(--mbbiz-spacing-24, 24px);
+  --mbbiz-nav-bar-padding-y: var(--mbbiz-spacing-24, 24px);
+  --mbbiz-nav-bar-padding-x: var(--mbbiz-spacing-8, 8px);
+  --mbbiz-nav-l2-padding: var(--mbbiz-spacing-24, 24px);
+  --mbbiz-nav-l2-gap: 40px;
+  --mbbiz-nav-l2-radius: 8px;
+  --mbbiz-nav-l2-item-gap: var(--mbbiz-spacing-16, 16px);
+  --mbbiz-nav-accordion-gap: var(--mbbiz-spacing-32, 32px);
+  --mbbiz-nav-l3-gap: 20px;
   --mbbiz-nav-l3-padding: 0;
 
   --mbbiz-radius-md: 4px;

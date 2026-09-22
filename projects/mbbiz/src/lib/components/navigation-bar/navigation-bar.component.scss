@@ -39,11 +39,11 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--mbbiz-nav-bar-gap, 24px);
   max-height: 810px;
   min-height: 0;
   overflow: hidden;
-  padding: 24px 8px;
+  padding: var(--mbbiz-nav-bar-padding-y, 24px) var(--mbbiz-nav-bar-padding-x, 8px);
   scrollbar-width: none;
   -ms-overflow-style: none;
   width: 116px;
@@ -172,7 +172,7 @@
 
 .mbbiz-navigation-bar__submenu {
   background: var(--mbbiz-nav-bg);
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 var(--mbbiz-nav-l2-radius, 8px) var(--mbbiz-nav-l2-radius, 8px) 0;
   box-sizing: border-box;
   display: flex;
   flex: 0 0 auto;
@@ -180,7 +180,7 @@
   height: 810px;
   max-height: 100%;
   overflow: auto;
-  padding: 24px;
+  padding: var(--mbbiz-nav-l2-padding, 24px);
   scrollbar-width: none;
   -ms-overflow-style: none;
   width: 308px;
@@ -200,18 +200,18 @@
 }
 
 .mbbiz-navigation-bar__submenu-list {
-  gap: 40px;
+  gap: var(--mbbiz-nav-l2-gap, 40px);
 }
 
 .mbbiz-navigation-bar__submenu-group--expanded {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: var(--mbbiz-nav-accordion-gap, 32px);
   width: 260px;
 }
 
 .mbbiz-navigation-bar__l3-list {
-  gap: 20px;
+  gap: var(--mbbiz-nav-l3-gap, 20px);
 }
 
 .mbbiz-navigation-bar__subitem {
@@ -222,7 +222,7 @@
   color: var(--mbbiz-nav-l2-label);
   cursor: pointer;
   display: flex;
-  gap: 16px;
+  gap: var(--mbbiz-nav-l2-item-gap, 16px);
   padding: 0;
   text-align: left;
   width: 260px;
