@@ -1991,6 +1991,8 @@ mbbiz-button.button-doc-state-pressed
 .core3-status-preview,
 .message-demo-card,
 .message-demo-preview,
+.tooltip-demo-card,
+.tooltip-demo-preview,
 .modal-demo-card,
 .modal-demo-preview {
   overflow: visible;
@@ -1998,7 +2000,8 @@ mbbiz-button.button-doc-state-pressed
 
 .core3-badge-preview,
 .core3-status-preview,
-.message-demo-preview {
+.message-demo-preview,
+.tooltip-demo-preview {
   align-items: flex-start;
   flex-direction: column;
   justify-content: center;
@@ -2078,6 +2081,37 @@ mbbiz-button.button-doc-state-pressed
   gap: 40px;
   justify-items: start;
   padding: 20px 0;
+}
+
+.tooltip-demo-grid {
+  display: grid;
+  gap: 32px 40px;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  width: 100%;
+}
+
+.tooltip-demo-cell {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+  min-height: 88px;
+}
+
+.tooltip-demo-label {
+  color: #6d83a7;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.tooltip-demo-hover {
+  padding: 24px 8px 8px;
+}
+
+.tooltip-demo-cell--hover {
+  min-height: 120px;
+  padding: 48px 24px;
 }
 
 .message-demo-actions {

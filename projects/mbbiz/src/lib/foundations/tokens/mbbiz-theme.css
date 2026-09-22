@@ -153,6 +153,13 @@
     #ffffff 113.34%
   );
 
+  --mbbiz-color-tooltip-bg: var(--color-semantic-background-black);
+  --mbbiz-color-tooltip-text: var(--color-semantic-text-white);
+  --mbbiz-tooltip-padding-y: 12px;
+  --mbbiz-tooltip-padding-x: 16px;
+  --mbbiz-tooltip-radius: var(--mbbiz-radius-md);
+  --mbbiz-tooltip-max-width: 224px;
+
   --mbbiz-color-surface-primary: var(--color-semantic-background-primary);
   --mbbiz-color-surface-secondary: var(--color-semantic-background-primary);
   --mbbiz-color-surface-affix: var(--color-semantic-background-brand-primary5);

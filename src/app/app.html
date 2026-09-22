@@ -410,6 +410,14 @@
             </div>
             <div
               class="sidebar-link"
+              [class.active]="activePage() === 'tooltip'"
+              (click)="setPage('tooltip')"
+            >
+              <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+              <span>Tooltip</span>
+            </div>
+            <div
+              class="sidebar-link"
               [class.active]="activePage() === 'modal'"
               (click)="setPage('modal')"
             >
@@ -3568,6 +3576,121 @@
                 <h3>Normalization Notes</h3>
                 <ul>
                   <li *ngFor="let note of messageVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'tooltip'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Display</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Tooltip</h1>
+              <p class="lead">
+                Tooltip is the short black hint from Figma: one line of text, a 12×8 pointer, and
+                twelve Position + Side placements. Width stays under 224px and does not wrap.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of tooltipDemoSections"
+              [attr.id]="getTooltipSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card tooltip-demo-card">
+                <div class="button-demo-preview core3-map-preview tooltip-demo-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <mbbiz-tooltip *ngSwitchCase="'default'" />
+
+                    <div *ngSwitchCase="'positions'" class="tooltip-demo-grid">
+                      <div
+                        class="tooltip-demo-cell"
+                        *ngFor="let item of tooltipPositionCases"
+                      >
+                        <span class="tooltip-demo-label">{{ item.label }}</span>
+                        <mbbiz-tooltip [position]="item.position" [side]="item.side" />
+                      </div>
+                    </div>
+
+                    <div *ngSwitchCase="'hover'" class="tooltip-demo-grid tooltip-demo-hover">
+                      <div
+                        class="tooltip-demo-cell tooltip-demo-cell--hover"
+                        *ngFor="let item of tooltipPositionCases"
+                      >
+                        <span class="tooltip-demo-label">{{ item.label }}</span>
+                        <mbbiz-tooltip
+                          [text]="item.label"
+                          [position]="item.position"
+                          [side]="item.side"
+                          [trigger]="true"
+                        >
+                          <mbbiz-button>Hover me</mbbiz-button>
+                        </mbbiz-tooltip>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="tooltip-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Tooltip uses Neutral/1000 for the bubble and Neutral/100 for the label, with a
+                fixed 12×8 pointer.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of tooltipVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of tooltipVariableNotes">{{ note }}</li>
                 </ul>
               </div>
             </section>
@@ -8412,6 +8535,41 @@
                   [class.active]="activeMessageSection() === 'message-variables'"
                   href="#message-variables"
                   (click)="setActiveMessageSection('message-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'tooltip'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of tooltipDemoSections"
+                  [class.active]="activeTooltipSection() === getTooltipSectionId(demo.id)"
+                  [href]="'#' + getTooltipSectionId(demo.id)"
+                  (click)="setActiveTooltipSection(getTooltipSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeTooltipSection() === 'tooltip-variables'"
+                  href="#tooltip-variables"
+                  (click)="setActiveTooltipSection('tooltip-variables')"
                 >
                   Component Token
                 </a>

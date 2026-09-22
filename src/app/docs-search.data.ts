@@ -16,6 +16,7 @@ export type DocsPageId =
   | 'badge'
   | 'status'
   | 'message'
+  | 'tooltip'
   | 'modal'
   | 'table'
   | 'pagination'
@@ -234,6 +235,13 @@ export const DOCS_SEARCH_ENTRIES: readonly DocsSearchEntry[] = [
     group: 'Components',
     page: 'message',
     keywords: ['message', 'alert', 'toast', 'banner'],
+  },
+  {
+    id: 'tooltip',
+    label: 'Tooltip',
+    group: 'Components',
+    page: 'tooltip',
+    keywords: ['tooltip', 'hint', 'hover', 'pointer'],
   },
   {
     id: 'modal',

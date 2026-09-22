@@ -49,6 +49,7 @@ import {
   MbbizSwitchComponent,
   MbbizTabComponent,
   type MbbizTabItem,
+  MbbizTooltipComponent,
   MbbizTableComponent,
   type MbbizTableCellValueChange,
   type MbbizTableRow,
@@ -114,6 +115,14 @@ import {
   BADGE_VARIABLE_NOTES,
   type BadgeDemoSection,
 } from './badge-demos.data';
+import {
+  TOOLTIP_DEMO_SECTIONS,
+  TOOLTIP_POSITION_CASES,
+  TOOLTIP_VARIABLE_GROUPS,
+  TOOLTIP_VARIABLE_NOTES,
+  type TooltipDemoSection,
+  type TooltipPositionCase,
+} from './tooltip-demos.data';
 import {
   BUTTON_LINK_DEMO_SECTIONS,
   BUTTON_LINK_VARIABLE_GROUPS,
@@ -430,6 +439,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     MbbizStatusComponent,
     MbbizSwitchComponent,
     MbbizTabComponent,
+    MbbizTooltipComponent,
     MbbizTableComponent,
     MbbizTextareaComponent,
     MbbizUploadFileComponent,
@@ -698,6 +708,14 @@ export class App {
   protected readonly messageVariableGroups: ResolvedVariableTokenGroup[] =
     this.buildResolvedVariableTokenGroups(MESSAGE_VARIABLE_GROUPS);
   protected readonly messageVariableNotes = MESSAGE_VARIABLE_NOTES;
+  protected readonly tooltipDemoSections: TooltipDemoSection[] = TOOLTIP_DEMO_SECTIONS;
+  protected readonly tooltipPositionCases: TooltipPositionCase[] = TOOLTIP_POSITION_CASES;
+  protected readonly tooltipVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(TOOLTIP_VARIABLE_GROUPS);
+  protected readonly tooltipVariableNotes = TOOLTIP_VARIABLE_NOTES;
+  protected readonly activeTooltipSection = signal(
+    this.getTooltipSectionId(this.tooltipDemoSections[0]?.id ?? 'default'),
+  );
   protected readonly checkboxVariableGroups: ResolvedVariableTokenGroup[] =
     this.buildResolvedVariableTokenGroups(CHECKBOX_VARIABLE_GROUPS);
   protected readonly checkboxVariableNotes = CHECKBOX_VARIABLE_NOTES;
@@ -1408,6 +1426,8 @@ export const appConfig: ApplicationConfig = {
       setTimeout(() => this.updateActiveStatusSection(), 0);
     } else if (page === 'message') {
       setTimeout(() => this.updateActiveMessageSection(), 0);
+    } else if (page === 'tooltip') {
+      setTimeout(() => this.updateActiveTooltipSection(), 0);
     } else if (page === 'modal') {
       setTimeout(() => this.updateActiveModalSection(), 0);
     } else if (page === 'switch') {
@@ -2338,6 +2358,14 @@ export const appConfig: ApplicationConfig = {
     return `badge-${sectionId}`;
   }
 
+  protected setActiveTooltipSection(sectionId: string) {
+    this.activeTooltipSection.set(sectionId);
+  }
+
+  protected getTooltipSectionId(sectionId: string): string {
+    return `tooltip-${sectionId}`;
+  }
+
   protected setActiveSwitchSection(sectionId: string) {
     this.activeSwitchSection.set(sectionId);
   }
@@ -3011,6 +3039,7 @@ export const appConfig: ApplicationConfig = {
     this.updateActiveBadgeSection();
     this.updateActiveStatusSection();
     this.updateActiveMessageSection();
+    this.updateActiveTooltipSection();
     this.updateActiveModalSection();
     this.updateActiveSwitchSection();
     this.updateActiveTableSection();
@@ -3540,6 +3569,31 @@ export const appConfig: ApplicationConfig = {
     }
 
     this.activeMessageSection.set(currentSection);
+  }
+
+  private updateActiveTooltipSection() {
+    if (this.activePage() !== 'tooltip' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getTooltipSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeTooltipSection.set(currentSection);
   }
 
   private updateActiveTableSection() {
@@ -4129,6 +4183,13 @@ export const appConfig: ApplicationConfig = {
     return [
       ...this.messageDemoSections.map((section) => this.getMessageSectionId(section.id)),
       'message-variables',
+    ];
+  }
+
+  private getTooltipSectionIds(): string[] {
+    return [
+      ...this.tooltipDemoSections.map((section) => this.getTooltipSectionId(section.id)),
+      'tooltip-variables',
     ];
   }
 

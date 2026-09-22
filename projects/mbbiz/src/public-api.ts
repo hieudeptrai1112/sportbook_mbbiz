@@ -55,3 +55,5 @@ export * from './lib/components/navigation-bar/navigation-bar.types';
 export * from './lib/components/navigation-bar/navigation-bar.maker';
 export * from './lib/components/navigation-bar/navigation-bar.checker';
 export * from './lib/components/navigation-bar/navigation-bar.one-user';
+export * from './lib/components/tooltip/tooltip.component';
+export * from './lib/components/tooltip/tooltip.types';
