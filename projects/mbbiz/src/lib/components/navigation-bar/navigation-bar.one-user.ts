@@ -1,6 +1,6 @@
 import type { MbbizNavigationBarItem } from './navigation-bar.types';
 
-/** Visible 1 User L1 items from Figma node 20122:16326. Accounts L2 from 20122:16424 (panel 20122:16429). Payments L2 from 20122:16439 (panel 20122:16444). Deposits L2 from 20122:16454 (panel 20122:16459). Credit L2 from 20122:16471 (panel 20122:16476). Cards L2 from 20122:16494 (panel 20122:16499). Data L2 from 20122:16522 (panel 20122:16527). Settings L2 from 20122:16550 (panel 20122:16555). Credit L3 reuses Maker accordion copy from the same Lv2 item instances. */
+/** Visible 1 User L1 items from Figma node 25285:221085. TK Siêu lãi ngày uses abold_sack / alinear_sack. Accounts L2 from 20122:16424 (panel 20122:16429). Payments L2 from 20122:16439 (panel 20122:16444). Deposits L2 from 20122:16454 (panel 20122:16459). Credit L2 from 20122:16471 (panel 20122:16476). Cards L2 from 20122:16494 (panel 20122:16499). Data L2 from 20122:16522 (panel 20122:16527). Settings L2 from 20122:16550 (panel 20122:16555). Credit L3 reuses Maker accordion copy from the same Lv2 item instances. */
 export const MBBIZ_ONE_USER_NAV_ITEMS: readonly MbbizNavigationBarItem[] = [
   { id: 'home', label: 'Trang chủ', icon: 'alinear_home', iconActive: 'abold_home' },
   { id: 'enterprise-360', label: '360° Doanh nghiệp', icon: 'alinear_building', iconActive: 'abold_building' },
@@ -16,6 +16,7 @@ export const MBBIZ_ONE_USER_NAV_ITEMS: readonly MbbizNavigationBarItem[] = [
       { id: 'qr', label: 'Dịch vụ QR' },
     ],
   },
+  { id: 'daily-interest', label: 'TK Siêu lãi ngày', icon: 'alinear_sack', iconActive: 'abold_sack' },
   {
     id: 'payments',
     label: 'Thanh toán và Chuyển tiền',

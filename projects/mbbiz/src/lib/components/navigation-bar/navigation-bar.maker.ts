@@ -1,6 +1,6 @@
 import type { MbbizNavigationBarItem } from './navigation-bar.types';
 
-/** Visible Maker L1 items from Figma node 20122:15095. Payments L2 from 20122:15441. Deposits L2 from 20122:15457. CD L2 from 20122:15474. Credit L2 from 20122:15489. Cards L2 from 20122:15512. Cash-out L2 from 20122:15535. Data L2 from 20122:15552. SCF L2 from 20122:15569. Settings L2 from 20122:15614. */
+/** Visible Maker L1 items from Figma node 25285:218448. TK Siêu lãi ngày uses abold_sack / alinear_sack. Payments L2 from 20122:15441. Deposits L2 from 20122:15457. CD L2 from 20122:15474. Credit L2 from 20122:15489. Cards L2 from 20122:15512. Cash-out L2 from 20122:15535. Data L2 from 20122:15552. SCF L2 from 20122:15569. Settings L2 from 20122:15614. */
 export const MBBIZ_MAKER_NAV_ITEMS: readonly MbbizNavigationBarItem[] = [
   { id: 'home', label: 'Trang chủ', icon: 'alinear_home', iconActive: 'abold_home' },
   { id: 'enterprise-360', label: '360° Doanh nghiệp', icon: 'alinear_building', iconActive: 'abold_building' },
@@ -96,6 +96,7 @@ export const MBBIZ_MAKER_NAV_ITEMS: readonly MbbizNavigationBarItem[] = [
       { id: 'cd-docs', label: 'Tải chứng từ' },
     ],
   },
+  { id: 'daily-interest', label: 'TK Siêu lãi ngày', icon: 'alinear_sack', iconActive: 'abold_sack' },
   {
     id: 'credit',
     label: 'Tín dụng & Tài trợ thương mại',
