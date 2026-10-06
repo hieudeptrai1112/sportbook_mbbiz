@@ -6,7 +6,7 @@
 .ds-input-basic {
   align-items: center;
   background: var(--color-semantic-background-primary, #ffffff);
-  border: 1px solid var(--color-semantic-border-brand-primary3, #a3b7fd);
+  border: 1px solid var(--color-semantic-border-info, #a3b7fd);
   border-radius: var(--ds-input-basic-radius-default, 4px);
   box-sizing: border-box;
   color: var(--color-semantic-text-tertiary, #9bafc8);
@@ -39,7 +39,7 @@
   outline: none;
   background: transparent;
   color: inherit;
-  caret-color: var(--color-semantic-text-brand-tertiary2, #52dddd);
+  caret-color: var(--color-semantic-text-active, #52dddd);
   font: inherit;
   letter-spacing: inherit;
   line-height: inherit;
@@ -80,11 +80,11 @@
 }
 
 .ds-input-basic__cursor {
-  color: var(--color-semantic-text-brand-tertiary2, #52dddd);
+  color: var(--color-semantic-text-active, #52dddd);
 }
 
 .ds-input-basic--state-default {
-  border-color: var(--color-semantic-border-brand-primary3, #a3b7fd);
+  border-color: var(--color-semantic-border-info, #a3b7fd);
   color: var(--color-semantic-text-tertiary, #9bafc8);
 }
 
@@ -92,7 +92,7 @@
 .ds-input-basic--state-focus,
 .ds-input-basic--state-typing,
 .ds-input-basic--state-filled-active {
-  border-color: var(--color-semantic-border-brand-tertiary, #52dddd);
+  border-color: var(--color-semantic-border-active, #52dddd);
 }
 
 .ds-input-basic--state-hover,
@@ -108,13 +108,13 @@
 }
 
 .ds-input-basic--state-filled {
-  border-color: var(--color-semantic-border-brand-primary3, #a3b7fd);
+  border-color: var(--color-semantic-border-info, #a3b7fd);
 }
 
 .ds-input-basic--state-error,
 .ds-input-basic--state-error-typing,
 .ds-input-basic--state-error-filled {
-  border-color: var(--color-semantic-background-error-secondary, #f34343);
+  border-color: var(--color-semantic-border-error1, #f00000);
 }
 
 .ds-input-basic--state-error {

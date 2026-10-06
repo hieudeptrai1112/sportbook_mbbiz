@@ -511,6 +511,10 @@ export class TextareaStatusDemoComponent {}`,
   },
 ];
 
+export const INPUT_SEARCH_BASIC_DEMO = INPUT_DEMO_SECTIONS.find(
+  (section) => section.id === 'search-basic',
+);
+
 export const INPUT_API_ROWS: InputApiRow[] = [
   {
     property: 'value',
@@ -544,9 +548,16 @@ export const INPUT_API_ROWS: InputApiRow[] = [
   {
     property: 'prefixText / suffixText (Affix)',
     description:
-      'Text content shown in prefix/suffix slots when affix mode uses text-based slots.',
+      'Text content shown in prefix/suffix slots when the matching icon input is empty.',
     type: 'string',
     defaultValue: "'VND'",
+  },
+  {
+    property: 'prefixIcon / suffixIcon (Affix)',
+    description:
+      'Optional @mbbiz/icon names for affix slots. Prefix demo uses alinear_money. Both-mode defaults to alinear_book and alinear_info when omitted.',
+    type: 'string | null',
+    defaultValue: "null (both-mode: 'alinear_book' / 'alinear_info')",
   },
   {
     property: 'title (Password + Floating Label)',
@@ -656,8 +667,46 @@ export function deriveInputVisualState(runtime: InputRuntime): InputVisualState 
 
 export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
   {
+    title: 'Icon · Field convention',
+    description:
+      'Glyphs bind icon/* aliases only. Never reuse text/* on an icon, even when the hex matches. Action glyphs stay brand-primary1; decorative separators follow the Price Range empty/filled pair.',
+    rows: [
+      {
+        componentToken: 'ds/input/color/icon/action',
+        semanticAlias: 'icon/brand-primary1',
+        appliesTo: 'Search, clear, password eye, affix slot',
+        notes: 'Interactive field glyphs. Size is iconsize/s (20); search glyph is 24.',
+      },
+      {
+        componentToken: 'ds/input/color/icon/action/disabled',
+        semanticAlias: 'icon/disable1',
+        appliesTo: 'State=Disabled action glyphs',
+        notes: 'Disabled search, clear, eye, and affix icons. Do not use text/disable1.',
+      },
+      {
+        componentToken: 'ds/input/color/icon/separator-empty',
+        semanticAlias: 'icon/neutral5',
+        appliesTo: 'Empty dropdown/datepicker chevron',
+        notes: 'Decorative companion to placeholder text/tertiary.',
+      },
+      {
+        componentToken: 'ds/input/color/icon/separator-filled',
+        semanticAlias: 'icon/neutral4',
+        appliesTo: 'Filled dropdown/datepicker chevron',
+        notes: 'Same pair as Price Range arrow filled.',
+      },
+      {
+        componentToken: 'ds/input/color/icon/error',
+        semanticAlias: 'icon/error',
+        appliesTo: 'Error glyph beside a field',
+        notes: 'Use icon/error, not text/error.',
+      },
+    ],
+  },
+  {
     title: 'Surface + Border',
-    description: 'Container uses one white surface token and swaps border aliases by interaction state.',
+    description:
+      'Same chrome recipe as Price Range: white surface, then border/info → border/active → border/error1 → border/disable2.',
     rows: [
       {
         componentToken: 'ds/input-basic/color/background/default',
@@ -667,21 +716,21 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
       },
       {
         componentToken: 'ds/input-basic/color/border/default',
-        semanticAlias: 'border/brand-primary3',
+        semanticAlias: 'border/info',
         appliesTo: 'State=Default, Filled',
-        notes: 'Base neutral border.',
+        notes: 'Same Price Range default border. Same hex as former border/brand-primary3.',
       },
       {
         componentToken: 'ds/input-basic/color/border/interactive',
-        semanticAlias: 'border/brand-tertiary',
+        semanticAlias: 'border/active',
         appliesTo: 'State=Hover, Focus, Typing, Filled Active',
-        notes: 'Interactive emphasis border.',
+        notes: 'Same Price Range hover/focus border.',
       },
       {
         componentToken: 'ds/input-basic/color/border/error',
-        semanticAlias: 'background/error-secondary',
+        semanticAlias: 'border/error1',
         appliesTo: 'State=Error, Error Typing, Error Filled',
-        notes: 'Validation error border.',
+        notes: 'Same Price Range error border (#F00000). Not error2 or background/error-secondary.',
       },
       {
         componentToken: 'ds/input-basic/color/border/disabled',
@@ -709,9 +758,9 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
       },
       {
         componentToken: 'ds/input-basic/color/text/cursor',
-        semanticAlias: 'text/brand-tertiary2',
+        semanticAlias: 'text/active',
         appliesTo: 'State=Focus, Typing, Error Typing',
-        notes: 'Caret indicator color.',
+        notes: 'Same Price Range caret. Same hex as former text/brand-tertiary2.',
       },
       {
         componentToken: 'ds/input-basic/color/text/disabled',
@@ -740,21 +789,21 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
       },
       {
         componentToken: 'ds/input-floating-label/color/border/default',
-        semanticAlias: 'border/brand-primary3',
+        semanticAlias: 'border/info',
         appliesTo: 'State=Default, Filled',
         notes: 'Base border.',
       },
       {
         componentToken: 'ds/input-floating-label/color/border/interactive',
-        semanticAlias: 'border/brand-tertiary',
+        semanticAlias: 'border/active',
         appliesTo: 'State=Hover, Focus, Typing',
         notes: 'Interactive border for hover/focus/typing.',
       },
       {
         componentToken: 'ds/input-floating-label/color/border/error',
-        semanticAlias: 'border/error2',
+        semanticAlias: 'border/error1',
         appliesTo: 'State=Error, Error Typing, Error Filled',
-        notes: 'Validation border in error branch.',
+        notes: 'Same Price Range error border.',
       },
       {
         componentToken: 'ds/input-floating-label/color/border/disabled',
@@ -789,9 +838,9 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
       },
       {
         componentToken: 'ds/input-floating-label/color/text/cursor',
-        semanticAlias: 'text/brand-tertiary2',
+        semanticAlias: 'text/active',
         appliesTo: 'State=Focus, Typing, Error Typing',
-        notes: 'Caret indicator.',
+        notes: 'Same Price Range caret.',
       },
       {
         componentToken: 'ds/input-floating-label/color/text/disabled',
@@ -814,21 +863,21 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
       },
       {
         componentToken: 'ds/input-affix/color/border/default',
-        semanticAlias: 'border/brand-primary3',
+        semanticAlias: 'border/info',
         appliesTo: 'State=Default, Filled',
         notes: 'Neutral border.',
       },
       {
         componentToken: 'ds/input-affix/color/border/interactive',
-        semanticAlias: 'border/brand-tertiary',
+        semanticAlias: 'border/active',
         appliesTo: 'State=Hover, Focus, Typing',
-        notes: 'Interactive emphasis border.',
+        notes: 'Same Price Range hover/focus border.',
       },
       {
         componentToken: 'ds/input-affix/color/border/error',
-        semanticAlias: 'border/error2',
+        semanticAlias: 'border/error1',
         appliesTo: 'State=Error, Error Typing, Error Filled',
-        notes: 'Validation border.',
+        notes: 'Same Price Range error border.',
       },
       {
         componentToken: 'ds/input-affix/color/border/disabled',
@@ -857,9 +906,9 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
       },
       {
         componentToken: 'ds/input-affix/color/text/cursor',
-        semanticAlias: 'text/brand-tertiary2',
+        semanticAlias: 'text/active',
         appliesTo: 'State=Focus, Typing, Error Typing',
-        notes: 'Caret color.',
+        notes: 'Same Price Range caret.',
       },
       {
         componentToken: 'ds/input-affix/color/text/disabled',
@@ -876,14 +925,82 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
       {
         componentToken: 'ds/input-affix/color/slot/icon',
         semanticAlias: 'icon/brand-primary1',
-        appliesTo: 'Mode=Both',
-        notes: 'Book/info icon color.',
+        appliesTo: 'Mode=Prefix, Suffix, Both',
+        notes: 'Action slot glyph from @mbbiz/icon. Prefix uses alinear_money; both uses alinear_book + alinear_info.',
       },
       {
         componentToken: 'ds/input-affix/color/slot/icon/disabled',
         semanticAlias: 'icon/disable1',
         appliesTo: 'Mode=Both + State=Disabled',
-        notes: 'Disabled icon color.',
+        notes: 'Disabled action glyph. Not text/disable1.',
+      },
+    ],
+  },
+  {
+    title: 'Affix Label · Surface + Border',
+    description:
+      'Currency selector shell uses the same Price Range field chrome as Input/basic.',
+    rows: [
+      {
+        componentToken: 'ds/input-affix-label/color/background/default',
+        semanticAlias: 'background/primary',
+        appliesTo: 'All states',
+        notes: 'Base surface.',
+      },
+      {
+        componentToken: 'ds/input-affix-label/color/border/default',
+        semanticAlias: 'border/info',
+        appliesTo: 'State=Default, Filled',
+        notes: 'Same Price Range default border.',
+      },
+      {
+        componentToken: 'ds/input-affix-label/color/border/interactive',
+        semanticAlias: 'border/active',
+        appliesTo: 'State=Hover, Focus, Typing, Open',
+        notes: 'Same Price Range hover/focus border.',
+      },
+      {
+        componentToken: 'ds/input-affix-label/color/border/error',
+        semanticAlias: 'border/error1',
+        appliesTo: 'State=Error*',
+        notes: 'Same Price Range error border.',
+      },
+      {
+        componentToken: 'ds/input-affix-label/color/border/disabled',
+        semanticAlias: 'border/disable2',
+        appliesTo: 'State=Disabled',
+        notes: 'Same disabled border as the Input Field family.',
+      },
+    ],
+  },
+  {
+    title: 'Affix Label · Text + Cursor',
+    description:
+      'Typed value, placeholder, and caret follow the shared Input Field text roles.',
+    rows: [
+      {
+        componentToken: 'ds/input-affix-label/color/text/placeholder',
+        semanticAlias: 'text/tertiary',
+        appliesTo: 'Empty field',
+        notes: 'Placeholder text.',
+      },
+      {
+        componentToken: 'ds/input-affix-label/color/text/content',
+        semanticAlias: 'text/primary',
+        appliesTo: 'Filled value',
+        notes: 'Main content text.',
+      },
+      {
+        componentToken: 'ds/input-affix-label/color/text/cursor',
+        semanticAlias: 'text/active',
+        appliesTo: 'Focus, Typing',
+        notes: 'Same Price Range caret.',
+      },
+      {
+        componentToken: 'ds/input-affix-label/color/text/disabled',
+        semanticAlias: 'text/disable1',
+        appliesTo: 'State=Disabled',
+        notes: 'Disabled text contrast.',
       },
     ],
   },
@@ -900,27 +1017,33 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
       },
       {
         componentToken: 'ds/input-search/color/border/default',
-        semanticAlias: 'border/brand-primary3',
+        semanticAlias: 'border/info',
         appliesTo: 'State=Default, Filled',
         notes: 'Base border.',
       },
       {
         componentToken: 'ds/input-search/color/border/interactive',
-        semanticAlias: 'border/brand-tertiary',
+        semanticAlias: 'border/active',
         appliesTo: 'State=Hover, Focus, Typing',
         notes: 'Interactive border for hover/focus/typing.',
       },
       {
         componentToken: 'ds/input-search/color/border/error',
-        semanticAlias: 'border/error2',
+        semanticAlias: 'border/error1',
         appliesTo: 'State=Error, Error Typing, Error Filled',
-        notes: 'Validation border in error branch.',
+        notes: 'Same Price Range error border.',
+      },
+      {
+        componentToken: 'ds/input-search/color/background/disabled',
+        semanticAlias: 'background/disable3',
+        appliesTo: 'State=Disabled',
+        notes: 'Same disabled surface as Price Range and floating-label.',
       },
       {
         componentToken: 'ds/input-search/color/border/disabled',
-        semanticAlias: 'background/disable1',
+        semanticAlias: 'border/disable2',
         appliesTo: 'State=Disabled',
-        notes: 'Figma maps disabled border to disable background alias.',
+        notes: 'Same disabled border as Price Range. Replaces the old Figma disable-background mapping.',
       },
     ],
   },
@@ -943,9 +1066,9 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
       },
       {
         componentToken: 'ds/input-search/color/text/cursor',
-        semanticAlias: 'text/brand-tertiary2',
+        semanticAlias: 'text/active',
         appliesTo: 'State=Focus, Typing, Error Typing',
-        notes: 'Caret color.',
+        notes: 'Same Price Range caret.',
       },
       {
         componentToken: 'ds/input-search/color/text/disabled',
@@ -956,14 +1079,20 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
       {
         componentToken: 'ds/input-search/color/icon/search',
         semanticAlias: 'icon/brand-primary1',
-        appliesTo: 'All states',
-        notes: 'Suffix search icon color.',
+        appliesTo: 'Default, Hover, Focus, Typing, Filled, Error*',
+        notes: 'Action search glyph. Not text/brand-primary1.',
       },
       {
         componentToken: 'ds/input-search/color/icon/clear',
         semanticAlias: 'icon/brand-primary1',
         appliesTo: 'State=Typing',
-        notes: 'Clear icon appears only during typing state.',
+        notes: 'Action clear glyph. Appears only during typing.',
+      },
+      {
+        componentToken: 'ds/input-search/color/icon/search/disabled',
+        semanticAlias: 'icon/disable1',
+        appliesTo: 'State=Disabled',
+        notes: 'Disabled search glyph. Not text/disable1.',
       },
     ],
   },
@@ -980,13 +1109,13 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
       },
       {
         componentToken: 'ds/input-password/color/border/interactive',
-        semanticAlias: 'border/brand-tertiary',
+        semanticAlias: 'border/active',
         appliesTo: 'State=Focus, Typing',
         notes: 'Underline active color.',
       },
       {
         componentToken: 'ds/input-password/color/border/error',
-        semanticAlias: 'border/error2',
+        semanticAlias: 'border/error1',
         appliesTo: 'State=Error',
         notes: 'Validation underline color.',
       },
@@ -1011,9 +1140,9 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
       },
       {
         componentToken: 'ds/input-password/color/text/cursor',
-        semanticAlias: 'text/brand-tertiary2',
+        semanticAlias: 'text/active',
         appliesTo: 'State=Focus, Typing',
-        notes: 'Caret color.',
+        notes: 'Same Price Range caret.',
       },
       {
         componentToken: 'ds/input-password/color/text/disabled',
@@ -1025,7 +1154,13 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
         componentToken: 'ds/input-password/color/icon/toggle',
         semanticAlias: 'icon/brand-primary1',
         appliesTo: 'Hide + Unhide icon',
-        notes: 'Eye icon color.',
+        notes: 'Action eye glyph. Not text/brand-primary1.',
+      },
+      {
+        componentToken: 'ds/input-password/color/icon/toggle/disabled',
+        semanticAlias: 'icon/disable1',
+        appliesTo: 'State=Disabled',
+        notes: 'Disabled eye glyph. Not text/disable1.',
       },
     ],
   },
@@ -1042,13 +1177,13 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
       },
       {
         componentToken: 'ds/text-area/color/border/default',
-        semanticAlias: 'border/brand-primary3',
+        semanticAlias: 'border/info',
         appliesTo: 'State=Default, Filled',
         notes: 'Base border.',
       },
       {
         componentToken: 'ds/text-area/color/border/interactive',
-        semanticAlias: 'border/brand-tertiary',
+        semanticAlias: 'border/active',
         appliesTo: 'State=Hover, Focus, Typing',
         notes: 'Interactive highlight border.',
       },
@@ -1056,7 +1191,7 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
         componentToken: 'ds/text-area/color/border/error',
         semanticAlias: 'border/error1',
         appliesTo: 'State=Error, Error Typing, Error Filled',
-        notes: 'Validation border.',
+        notes: 'Same Price Range error border.',
       },
       {
         componentToken: 'ds/text-area/color/background/disabled',
@@ -1091,9 +1226,9 @@ export const INPUT_SEMANTIC_BINDING_GROUPS: InputSemanticBindingGroup[] = [
       },
       {
         componentToken: 'ds/text-area/color/text/cursor',
-        semanticAlias: 'text/brand-tertiary2',
+        semanticAlias: 'text/active',
         appliesTo: 'State=Focus, Typing, Error Typing',
-        notes: 'Caret color.',
+        notes: 'Same Price Range caret.',
       },
       {
         componentToken: 'ds/text-area/color/text/placeholder/disabled',
@@ -1413,5 +1548,7 @@ export const INPUT_VARIABLE_NOTES: string[] = [
   'This page documents `input/basic`, `input/floating-label`, `input/search`, `input/password`, and `input/textarea` from the Input family outline.',
   'State axis is normalized to machine-friendly values: default, hover, focus, typing, filled, error, disabled, error-typing, error-filled.',
   'Production API is recommended to expose `status` + `disabled`, then derive visual `state` internally for consistency.',
+  'Field chrome matches Price Range: background/primary, border/info, border/active, border/error1, border/disable2. Caret is text/active. Password underline default stays border/tertiary.',
+  'Field glyphs bind icon/* only: action = icon/brand-primary1, disabled = icon/disable1, decorative empty/filled = icon/neutral5 / icon/neutral4, error glyph = icon/error. Never bind text/* on an icon.',
   'Do not alter geometry, typography, or visual token mapping unless the Figma source component is updated.',
 ];

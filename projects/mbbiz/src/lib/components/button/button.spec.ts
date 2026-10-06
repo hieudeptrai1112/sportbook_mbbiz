@@ -51,6 +51,24 @@ describe('MbbizButtonComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should keep the legacy rectangle primary as the themeable gradient', () => {
+    const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+    expect(button.className).toContain('mbbiz-button--tone-secondary');
+    expect(button.className).toContain('mbbiz-button--appearance-solid');
+  });
+
+  it('should apply explicit Figma tone and appearance', () => {
+    fixture.componentRef.setInput('tone', 'primary');
+    fixture.componentRef.setInput('appearance', 'text-link');
+    fixture.componentRef.setInput('size', 'xl');
+    fixture.detectChanges();
+
+    const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+    expect(button.className).toContain('mbbiz-button--tone-primary');
+    expect(button.className).toContain('mbbiz-button--appearance-text-link');
+    expect(button.className).toContain('mbbiz-button--size-xl');
+  });
+
   it('should disable native button while loading', () => {
     fixture.componentRef.setInput('loading', true);
     fixture.detectChanges();
@@ -58,6 +76,7 @@ describe('MbbizButtonComponent', () => {
     const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
     expect(button.disabled).toBe(true);
     expect(button.getAttribute('aria-busy')).toBe('true');
+    expect(button.querySelector('.mbbiz-button__spinner')).toBeTruthy();
   });
 
   it('should render projected start and end icons', async () => {

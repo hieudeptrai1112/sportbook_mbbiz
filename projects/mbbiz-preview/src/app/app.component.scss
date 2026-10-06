@@ -488,6 +488,31 @@
   width: 100%;
 }
 
+.mbbiz-preview-theme-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.mbbiz-preview-theme-switch__option {
+  background: #ffffff;
+  border: 1px solid #d9dce5;
+  border-radius: 999px;
+  color: #192d39;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 12px;
+}
+
+.mbbiz-preview-theme-switch__option.is-active {
+  background: #141ed2;
+  border-color: #141ed2;
+  color: #ffffff;
+}
+
 .mbbiz-preview-button-group {
   display: grid;
   gap: 16px;
@@ -599,6 +624,25 @@
   min-height: 460px;
   overflow: auto;
   padding: 24px;
+}
+
+.mbbiz-preview-loading-stage {
+  align-items: center;
+  background: #808080;
+  border-radius: 16px;
+  box-sizing: border-box;
+  display: flex;
+  height: 82px;
+  justify-content: center;
+  padding: 21px;
+  width: 82px;
+}
+
+.mbbiz-preview-loading-stage--set {
+  gap: 14px;
+  justify-content: flex-start;
+  padding: 0 21px;
+  width: 162px;
 }
 
 @media (max-width: 900px) {

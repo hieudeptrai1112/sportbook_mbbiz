@@ -19,11 +19,11 @@
 
 .mbbiz-floating-label-input:hover:not(.mbbiz-floating-label-input--disabled):not(.mbbiz-floating-label-input--status-error),
 .mbbiz-floating-label-input:focus-within:not(.mbbiz-floating-label-input--disabled):not(.mbbiz-floating-label-input--status-error) {
-  border-color: var(--mbbiz-color-border-brand-tertiary, #52dddd);
+  border-color: var(--color-semantic-border-active, #52dddd);
 }
 
 .mbbiz-floating-label-input--status-error {
-  border-color: var(--mbbiz-color-danger-strong, #f34343);
+  border-color: var(--color-semantic-border-error1, #f00000);
 }
 
 .mbbiz-floating-label-input--disabled {
@@ -43,6 +43,7 @@
   border: 0;
   box-shadow: none;
   color: var(--mbbiz-color-text-field, #192d39);
+  caret-color: var(--color-semantic-text-active, #52dddd);
   @include typo.mbbiz-typo-body-normal-14-regular;
   min-width: 0;
   padding: 0;

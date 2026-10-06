@@ -1,4 +1,10 @@
 export type SwitchDemoVariant = 'default' | 'size' | 'states' | 'disabled';
+export type SwitchDemoSize = 'm' | 'l';
+
+/** Medium track 32×16 from Switch Size demo. */
+export const SWITCH_SIZE_M: SwitchDemoSize = 'm';
+/** Large track 40×20 from Switch Size demo. */
+export const SWITCH_SIZE_L: SwitchDemoSize = 'l';
 
 export interface SwitchDemoSection {
   id: string;

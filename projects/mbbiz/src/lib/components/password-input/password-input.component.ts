@@ -1,9 +1,11 @@
 import { Component, computed, effect, input, output, signal } from '@angular/core';
+import { IconComponent } from '@mbbiz/icon/angular';
 
 import { MbbizInputStatus } from '../input/input.types';
 
 @Component({
   selector: 'mbbiz-password-input',
+  imports: [IconComponent],
   templateUrl: './password-input.component.html',
   styleUrl: './password-input.component.scss',
 })

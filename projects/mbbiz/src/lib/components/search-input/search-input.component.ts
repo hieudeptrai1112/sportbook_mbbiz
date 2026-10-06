@@ -1,9 +1,11 @@
 import { Component, computed, input, output } from '@angular/core';
+import { IconComponent } from '@mbbiz/icon/angular';
 
 import { MbbizInputSize, MbbizInputStatus } from '../input/input.types';
 
 @Component({
   selector: 'mbbiz-search-input',
+  imports: [IconComponent],
   templateUrl: './search-input.component.html',
   styleUrl: './search-input.component.scss',
 })

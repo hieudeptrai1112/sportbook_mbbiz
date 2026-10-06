@@ -9,15 +9,15 @@
   --mbbiz-button-height: 44px;
   --mbbiz-button-min-width: 103px;
   --mbbiz-button-padding-x: 20px;
-  --mbbiz-button-label-color: var(--mbbiz-color-text-on-brand, #ffffff);
+  --mbbiz-button-bg: transparent;
+  --mbbiz-button-fg: var(--color-semantic-text-brand-primary1, #141ed2);
+  --mbbiz-button-border: transparent;
+  --mbbiz-button-opacity: 1;
 
   -webkit-appearance: none;
   align-items: center;
   appearance: none;
-  background: transparent;
-  background-image: none;
   border-style: solid;
-  border-color: transparent;
   border-width: 1px;
   box-shadow: none;
   display: inline-flex;
@@ -26,6 +26,7 @@
   height: var(--mbbiz-button-height);
   justify-content: center;
   min-width: var(--mbbiz-button-min-width);
+  opacity: var(--mbbiz-button-opacity);
   padding-inline: var(--mbbiz-button-padding-x);
   -webkit-text-fill-color: currentColor;
   transition:
@@ -36,6 +37,17 @@
     color 140ms ease,
     opacity 140ms ease;
   white-space: nowrap;
+}
+
+.mbbiz-button.ant-btn,
+.mbbiz-button.ant-btn:hover,
+.mbbiz-button.ant-btn:focus,
+.mbbiz-button.ant-btn:active,
+.mbbiz-button.ant-btn:disabled {
+  background: var(--mbbiz-button-bg);
+  border-color: var(--mbbiz-button-border);
+  color: var(--mbbiz-button-fg);
+  opacity: var(--mbbiz-button-opacity);
 }
 
 .mbbiz-button--full-width {
@@ -74,8 +86,37 @@
   width: 20px;
 }
 
-.mbbiz-button__icon:empty {
+.mbbiz-button__icon:empty,
+.mbbiz-button--loading .mbbiz-button__icon {
   display: none;
+}
+
+.mbbiz-button__spinner {
+  animation: mbbiz-button-spin 900ms linear infinite;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  border-right-color: transparent;
+  box-sizing: border-box;
+  display: block;
+  flex: 0 0 auto;
+  height: 20px;
+  width: 20px;
+}
+
+.mbbiz-button--loading.ant-btn:not(.mbbiz-button--appearance-text-link) {
+  padding-inline-start: 12px;
+}
+
+@keyframes mbbiz-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mbbiz-button__spinner {
+    animation-duration: 1ms;
+  }
 }
 
 .mbbiz-button--shape-rectangle.ant-btn {
@@ -102,15 +143,18 @@
   @include typo.mbbiz-typo-h3-normal-14-semibold;
 }
 
-.mbbiz-button--size-lg.ant-btn {
+.mbbiz-button--size-lg.ant-btn,
+.mbbiz-button--size-xl.ant-btn {
   --mbbiz-button-min-width: 128px;
 }
 
-.mbbiz-button--size-lg .mbbiz-button__label {
+.mbbiz-button--size-lg .mbbiz-button__label,
+.mbbiz-button--size-xl .mbbiz-button__label {
   @include typo.mbbiz-typo-h2-sub-header-normal-16-semibold;
 }
 
-.mbbiz-button--shape-rectangle.mbbiz-button--size-lg.ant-btn {
+.mbbiz-button--shape-rectangle.mbbiz-button--size-lg.ant-btn,
+.mbbiz-button--shape-rectangle.mbbiz-button--size-xl.ant-btn {
   --mbbiz-button-height: 48px;
 }
 
@@ -122,11 +166,8 @@
   --mbbiz-button-height: 40px;
 }
 
-.mbbiz-button--shape-rectangle.mbbiz-button--variant-secondary.mbbiz-button--size-sm.ant-btn {
-  --mbbiz-button-height: 36px;
-}
-
-.mbbiz-button--shape-pill.mbbiz-button--size-lg.ant-btn {
+.mbbiz-button--shape-pill.mbbiz-button--size-lg.ant-btn,
+.mbbiz-button--shape-pill.mbbiz-button--size-xl.ant-btn {
   --mbbiz-button-height: 40px;
 }
 
@@ -138,112 +179,172 @@
   --mbbiz-button-height: 28px;
 }
 
-.mbbiz-button--variant-primary.ant-btn-primary {
-  background: linear-gradient(
+.mbbiz-button--tone-primary.mbbiz-button--appearance-solid.ant-btn {
+  --mbbiz-button-bg: var(--mbbiz-color-action-pill-primary-default, var(--color-semantic-background-brand-secondary1, #7b5fff));
+  --mbbiz-button-fg: var(--color-semantic-text-brand-on-primary, #ffffff);
+  --mbbiz-button-border: transparent;
+}
+
+.mbbiz-button--tone-primary.mbbiz-button--appearance-solid.ant-btn:hover:not(:disabled) {
+  --mbbiz-button-bg: var(--mbbiz-color-action-pill-primary-hover, var(--color-semantic-background-brand-secondary2, #9781ff));
+}
+
+.mbbiz-button--tone-primary.mbbiz-button--appearance-solid.ant-btn:active:not(:disabled) {
+  --mbbiz-button-bg: var(--mbbiz-color-action-pill-primary-active, var(--color-semantic-background-brand-secondary3, #bbadff));
+}
+
+.mbbiz-button--tone-primary.mbbiz-button--appearance-solid.ant-btn:disabled {
+  --mbbiz-button-bg: var(--mbbiz-color-action-pill-primary-disabled, var(--color-semantic-background-brand-secondary4, #dbd3ff));
+  --mbbiz-button-fg: var(--color-semantic-text-brand-on-primary, #ffffff);
+}
+
+.mbbiz-button--tone-secondary.mbbiz-button--appearance-solid.ant-btn {
+  --mbbiz-button-bg: linear-gradient(
     90deg,
-    var(--mbbiz-color-action-primary-start, #141ed2) 0%,
-    var(--mbbiz-color-action-primary-end, #0075ff) 100%
+    var(--color-semantic-background-gradient1-left, #141ed2) 0%,
+    var(--color-semantic-background-gradient1-right, #0075ff) 100%
   );
-  border-color: transparent;
-  color: var(--mbbiz-button-label-color);
+  --mbbiz-button-fg: var(--color-semantic-text-brand-on-secondary, #ffffff);
+  --mbbiz-button-border: transparent;
 }
 
-.mbbiz-button--variant-primary.ant-btn-primary:hover:not(:disabled) {
-  background: linear-gradient(
+.mbbiz-button--tone-secondary.mbbiz-button--appearance-solid.ant-btn:hover:not(:disabled) {
+  --mbbiz-button-bg: linear-gradient(
     90deg,
-    var(--mbbiz-color-action-primary-hover-start, #3949d6) 0%,
-    var(--mbbiz-color-action-primary-hover-end, #2c87f6) 100%
+    var(--color-semantic-background-gradient2-left, #3949d6) 0%,
+    var(--color-semantic-background-gradient2-right, #2c87f6) 100%
   );
-  border-color: transparent;
 }
 
-.mbbiz-button--variant-primary.ant-btn-primary:active:not(:disabled) {
-  background: linear-gradient(
+.mbbiz-button--tone-secondary.mbbiz-button--appearance-solid.ant-btn:active:not(:disabled) {
+  --mbbiz-button-bg: linear-gradient(
     90deg,
-    var(--mbbiz-color-action-primary-active-start, #606ad5) 0%,
-    var(--mbbiz-color-action-primary-active-end, #569aed) 100%
+    var(--color-semantic-background-gradient3-left, #606ad5) 0%,
+    var(--color-semantic-background-gradient3-right, #569aed) 100%
   );
-  border-color: transparent;
 }
 
-.mbbiz-button--variant-primary.mbbiz-button--shape-pill.ant-btn-primary {
-  background: var(--mbbiz-color-action-pill-primary-default, #7b5fff);
+.mbbiz-button--tone-secondary.mbbiz-button--appearance-solid.ant-btn:disabled {
+  --mbbiz-button-bg: var(--color-semantic-background-disable2, #d8d8d8);
+  --mbbiz-button-fg: var(--color-semantic-hyperlink-disable, #9b9b9b);
 }
 
-.mbbiz-button--variant-primary.mbbiz-button--shape-pill.ant-btn-primary:hover:not(:disabled) {
-  background: var(--mbbiz-color-action-pill-primary-hover, #9781ff);
+.mbbiz-button--tone-secondary.mbbiz-button--appearance-solid.mbbiz-button--loading.ant-btn {
+  --mbbiz-button-bg: var(--color-semantic-background-disable1, #cccccc);
+  --mbbiz-button-fg: var(--color-semantic-text-brand-on-secondary, #ffffff);
+  --mbbiz-button-opacity: 0.4;
 }
 
-.mbbiz-button--variant-primary.mbbiz-button--shape-pill.ant-btn-primary:active:not(:disabled) {
-  background: var(--mbbiz-color-action-pill-primary-active, #bbadff);
+.mbbiz-button--tone-primary.mbbiz-button--appearance-outline.ant-btn {
+  --mbbiz-button-bg: transparent;
+  --mbbiz-button-border: var(--color-semantic-border-brand-primary1, #141ed2);
+  --mbbiz-button-fg: var(--color-semantic-text-brand-primary1, #141ed2);
 }
 
-.mbbiz-button--variant-secondary.ant-btn-default {
-  background: var(--mbbiz-color-surface-secondary, #ffffff);
+.mbbiz-button--tone-primary.mbbiz-button--appearance-outline.ant-btn:hover:not(:disabled) {
+  --mbbiz-button-border: var(--color-semantic-border-brand-primary2, #5f7eeb);
+  --mbbiz-button-fg: var(--color-semantic-text-brand-primary2, #5f7eeb);
 }
 
-.mbbiz-button--variant-secondary.mbbiz-button--shape-rectangle.ant-btn-default {
-  border-color: var(--mbbiz-color-button-secondary-default, #141ed2);
-  color: var(--mbbiz-color-button-secondary-default, #141ed2);
+.mbbiz-button--shape-rectangle.mbbiz-button--tone-primary.mbbiz-button--appearance-outline.ant-btn:hover:not(:disabled) {
+  --mbbiz-button-opacity: 0.7;
 }
 
-.mbbiz-button--variant-secondary.mbbiz-button--shape-pill.ant-btn-default {
-  border-color: var(--mbbiz-color-button-pill-secondary-default, #7b5fff);
-  color: var(--mbbiz-color-button-pill-secondary-default, #7b5fff);
+.mbbiz-button--tone-primary.mbbiz-button--appearance-outline.ant-btn:active:not(:disabled) {
+  --mbbiz-button-border: var(--color-semantic-border-brand-primary3, #a3b7fd);
+  --mbbiz-button-fg: var(--color-semantic-text-brand-primary3, #a3b7fd);
+  --mbbiz-button-opacity: 1;
 }
 
-.mbbiz-button--variant-secondary.mbbiz-button--shape-rectangle.ant-btn-default:hover:not(:disabled) {
-  background: var(--mbbiz-color-surface-secondary, #ffffff);
-  border-color: var(--mbbiz-color-button-secondary-hover, #5f7eeb);
-  color: var(--mbbiz-color-button-secondary-hover, #5f7eeb);
-  opacity: 0.7;
+.mbbiz-button--tone-primary.mbbiz-button--appearance-outline.ant-btn:disabled,
+.mbbiz-button--tone-primary.mbbiz-button--appearance-outline.mbbiz-button--loading.ant-btn {
+  --mbbiz-button-bg: transparent;
+  --mbbiz-button-border: var(--color-semantic-hyperlink-disable, #9b9b9b);
+  --mbbiz-button-fg: var(--color-semantic-hyperlink-disable, #9b9b9b);
+  --mbbiz-button-opacity: 1;
 }
 
-.mbbiz-button--variant-secondary.mbbiz-button--shape-pill.ant-btn-default:hover:not(:disabled) {
-  background: var(--mbbiz-color-surface-secondary, #ffffff);
-  border-color: var(--mbbiz-color-button-pill-secondary-hover, #9781ff);
-  color: var(--mbbiz-color-button-pill-secondary-hover, #9781ff);
-  opacity: 0.7;
+.mbbiz-button--tone-secondary.mbbiz-button--appearance-outline.ant-btn {
+  --mbbiz-button-bg: transparent;
+  --mbbiz-button-border: var(--color-semantic-border-brand-secondary1, #7b5fff);
+  --mbbiz-button-fg: var(--color-semantic-text-brand-secondary1, #7b5fff);
 }
 
-.mbbiz-button--variant-secondary.mbbiz-button--shape-rectangle.ant-btn-default:active:not(:disabled) {
-  background: var(--mbbiz-color-surface-secondary, #ffffff);
-  border-color: var(--mbbiz-color-button-secondary-pressed, #a3b7fd);
-  color: var(--mbbiz-color-button-secondary-pressed, #a3b7fd);
+.mbbiz-button--tone-secondary.mbbiz-button--appearance-outline.ant-btn:hover:not(:disabled) {
+  --mbbiz-button-border: var(--color-semantic-border-brand-secondary2, #9781ff);
+  --mbbiz-button-fg: var(--color-semantic-text-brand-secondary2, #9781ff);
 }
 
-.mbbiz-button--variant-secondary.mbbiz-button--shape-pill.ant-btn-default:active:not(:disabled) {
-  background: var(--mbbiz-color-surface-secondary, #ffffff);
-  border-color: var(--mbbiz-color-button-pill-secondary-pressed, #bbadff);
-  color: var(--mbbiz-color-button-pill-secondary-pressed, #bbadff);
+.mbbiz-button--tone-secondary.mbbiz-button--appearance-outline.ant-btn:active:not(:disabled) {
+  --mbbiz-button-border: var(--color-semantic-border-brand-secondary3, #bbadff);
+  --mbbiz-button-fg: var(--color-semantic-text-brand-secondary3, #bbadff);
+}
+
+.mbbiz-button--tone-secondary.mbbiz-button--appearance-outline.ant-btn:disabled {
+  --mbbiz-button-border: var(--color-semantic-border-brand-secondary3, #bbadff);
+  --mbbiz-button-fg: var(--color-semantic-text-brand-secondary3, #bbadff);
+}
+
+.mbbiz-button--tone-secondary.mbbiz-button--appearance-outline.mbbiz-button--loading.ant-btn {
+  --mbbiz-button-border: var(--color-semantic-border-brand-secondary4, #dbd3ff);
+  --mbbiz-button-fg: var(--color-semantic-text-brand-secondary4, #dbd3ff);
+}
+
+.mbbiz-button--appearance-text-link.ant-btn {
+  --mbbiz-button-bg: transparent;
+  --mbbiz-button-border: transparent;
+  --mbbiz-button-fg: var(--color-semantic-text-brand-primary1, #141ed2);
+  --mbbiz-button-min-width: 0;
+  --mbbiz-button-padding-x: 0;
+
+  border-radius: 0;
+  border-width: 0;
+  height: auto;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  text-underline-position: from-font;
+}
+
+.mbbiz-button--appearance-text-link .mbbiz-button__label {
+  text-decoration: inherit;
+}
+
+.mbbiz-button--appearance-text-link.mbbiz-button--size-lg .mbbiz-button__label,
+.mbbiz-button--appearance-text-link.mbbiz-button--size-xl .mbbiz-button__label {
+  @include typo.mbbiz-typo-h2-sub-header-underline-16-regular;
+}
+
+.mbbiz-button--appearance-text-link.mbbiz-button--size-md .mbbiz-button__label {
+  @include typo.mbbiz-typo-body-underline-14-regular;
+}
+
+.mbbiz-button--appearance-text-link.mbbiz-button--size-sm.ant-btn {
+  padding-block: 2px;
+}
+
+.mbbiz-button--appearance-text-link.mbbiz-button--size-sm .mbbiz-button__label {
+  @include typo.mbbiz-typo-body-underline-12-regular;
+}
+
+.mbbiz-button--appearance-text-link.ant-btn:hover:not(:disabled) {
+  --mbbiz-button-fg: var(--color-semantic-text-brand-primary2, #5f7eeb);
+}
+
+.mbbiz-button--appearance-text-link.ant-btn:active:not(:disabled) {
+  --mbbiz-button-fg: var(--color-semantic-text-brand-primary3, #a3b7fd);
+}
+
+.mbbiz-button--appearance-text-link.ant-btn:disabled {
+  --mbbiz-button-fg: var(--color-semantic-hyperlink-disable, #9b9b9b);
+}
+
+.mbbiz-button--appearance-text-link.mbbiz-button--loading.ant-btn {
+  --mbbiz-button-fg: var(--color-semantic-text-disable4, #cccccc);
 }
 
 .mbbiz-button.ant-btn:disabled {
   cursor: not-allowed;
-  opacity: 1;
-}
-
-.mbbiz-button--variant-primary.ant-btn-primary:disabled {
-  background: var(--mbbiz-color-action-primary-disabled, #d8d8d8);
-  border-color: transparent;
-  color: var(--mbbiz-color-text-on-brand-muted, #f3f3f3);
-}
-
-.mbbiz-button--variant-primary.mbbiz-button--shape-pill.ant-btn-primary:disabled {
-  background: var(--mbbiz-color-action-pill-primary-disabled, #dbd3ff);
-  color: var(--mbbiz-color-text-on-brand, #ffffff);
-}
-
-.mbbiz-button--variant-secondary.mbbiz-button--shape-rectangle.ant-btn-default:disabled {
-  background: var(--mbbiz-color-surface-secondary, #ffffff);
-  border-color: var(--mbbiz-color-button-secondary-disabled-rectangle, #9b9b9b);
-  color: var(--mbbiz-color-button-secondary-disabled-rectangle, #9b9b9b);
-}
-
-.mbbiz-button--variant-secondary.mbbiz-button--shape-pill.ant-btn-default:disabled {
-  background: var(--mbbiz-color-surface-secondary, #ffffff);
-  border-color: var(--mbbiz-color-button-secondary-disabled-pill, #dbd3ff);
-  color: var(--mbbiz-color-button-secondary-disabled-pill, #dbd3ff);
+  opacity: var(--mbbiz-button-opacity);
 }
 
 .mbbiz-button.ant-btn:focus-visible {

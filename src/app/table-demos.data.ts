@@ -506,8 +506,8 @@ export const TABLE_VARIABLE_GROUPS: TableVariableGroup[] = [
     title: 'State and Control',
     rows: [
       { token: 'background/primary', value: 'white/100%', appliesTo: 'Input and dropdown background in table cells', notes: 'Keeps embedded controls aligned with table surface.' },
-      { token: 'border/brand-primary3', value: 'blue/300', appliesTo: 'Input and dropdown default border in table cells', notes: 'Shared by embedded input and dropdown default states.' },
-      { token: 'border/brand-tertiary', value: 'turquoise/400', appliesTo: 'Focused control border and table accent', notes: 'Used for focused table controls.' },
+      { token: 'border/info', value: 'blue/300', appliesTo: 'Input and dropdown default border in table cells', notes: 'Shared Input Field family default.' },
+      { token: 'border/active', value: 'turquoise/400', appliesTo: 'Focused control border and table accent', notes: 'Shared Input Field family interactive border.' },
       { token: 'text/tertiary', value: 'darkblue/400', appliesTo: 'Inactive sort arrows', notes: 'Used in sortable header control.' },
       { token: 'text/disable2', value: 'grayscale/500', appliesTo: 'Disabled actions and controls', notes: 'Used by disabled cell controls.' },
     ],

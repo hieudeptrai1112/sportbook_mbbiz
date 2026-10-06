@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect, input, signal } from '@angular/core';
+import { IconComponent } from '@mbbiz/icon/angular';
 
 export type DsInputPasswordState =
   | 'default'
@@ -15,7 +16,7 @@ export type DsInputPasswordInteractiveMode = 'default' | 'error';
 @Component({
   selector: 'app-ds-input-password',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent],
   templateUrl: './ds-input-password.component.html',
   styleUrl: './ds-input-password.component.scss',
 })

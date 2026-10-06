@@ -50,6 +50,8 @@ import {
   MbbizTabComponent,
   type MbbizTabItem,
   MbbizTooltipComponent,
+  MbbizRatingComponent,
+  MbbizPriceRangeComponent,
   MbbizTableComponent,
   type MbbizTableCellValueChange,
   type MbbizTableRow,
@@ -72,14 +74,17 @@ import {
   createTablePreviewSelectionRows,
 } from '../../projects/mbbiz/src/lib/components/table/table.preview-fixtures';
 import {
-  SEMANTIC_BACKGROUND_FIGMA_ORDER,
-  SEMANTIC_BACKGROUND_GRADIENT_FIGMA_ORDER,
-  SEMANTIC_BORDER_FIGMA_ORDER,
+  SEMANTIC_CATEGORY_TABLE_ORDER,
+  SEMANTIC_COLLECTION_LABELS,
+  SEMANTIC_COLLECTION_NOTES,
+  SEMANTIC_COLLECTION_ORDER,
   SEMANTIC_COLOR_TOKEN_MAPPINGS,
-  SEMANTIC_ICON_FIGMA_ORDER,
-  SEMANTIC_TEXT_FIGMA_ORDER,
+  getSemanticCollection,
+  getSemanticCollectionOrderIndex,
+  type SemanticCollection,
   type SemanticColorTokenMapping,
 } from './semantic-tokens.data';
+import { PALETTE_COLUMNS, type PaletteColumn } from './palette-tokens.data';
 import {
   RADIUS_SCALE_ROWS,
   ICON_SIZE_SCALE_ROWS,
@@ -124,6 +129,14 @@ import {
   type TooltipPositionCase,
 } from './tooltip-demos.data';
 import {
+  RATING_DEMO_SECTIONS,
+  RATING_STAR_CASES,
+  RATING_VARIABLE_GROUPS,
+  RATING_VARIABLE_NOTES,
+  type RatingDemoSection,
+  type RatingStarCase,
+} from './rating-demos.data';
+import {
   BUTTON_LINK_DEMO_SECTIONS,
   BUTTON_LINK_VARIABLE_GROUPS,
   BUTTON_LINK_VARIABLE_NOTES,
@@ -145,6 +158,7 @@ import {
 } from './modal-demos.data';
 import {
   SWITCH_DEMO_SECTIONS,
+  SWITCH_SIZE_L,
   SWITCH_VARIABLE_GROUPS,
   SWITCH_VARIABLE_NOTES,
   type SwitchDemoSection,
@@ -159,6 +173,7 @@ import {
   INPUT_API_ROWS,
   type InputDemoComponent,
   INPUT_DEMO_SECTIONS,
+  INPUT_SEARCH_BASIC_DEMO,
   INPUT_STATE_CONTRACT_ROWS,
   INPUT_STATE_CONTRACT_SNIPPET,
   INPUT_STATE_PRIORITY_RULES,
@@ -209,6 +224,13 @@ import {
   type DatepickerApiRow,
   type DatepickerDemoSection,
 } from './datepicker-demos.data';
+import {
+  PRICE_RANGE_DEMO_SECTIONS,
+  PRICE_RANGE_SEMANTIC_BINDING_GROUPS,
+  PRICE_RANGE_VARIABLE_GROUPS,
+  PRICE_RANGE_VARIABLE_NOTES,
+  type PriceRangeDemoSection,
+} from './price-range-demos.data';
 import {
   DOCS_SEARCH_ENTRIES,
   type DocsPageId,
@@ -303,36 +325,53 @@ import {
 } from './upload-file-demos.data';
 import {
   DEFAULT_THEME_BRAND,
-  DEFAULT_THEME_ID,
-  DEFAULT_THEME_MODE,
-  SEMANTIC_THEME_ALIAS_PRIMITIVE_OVERRIDES,
-  SEMANTIC_THEME_ALIAS_OVERRIDES,
-  buildSemanticThemeAliasPrimitiveMaps,
-  buildSemanticThemeAliasValueMaps,
-  getThemeBrandFromId,
-  getThemeId,
-  getThemeModeFromId,
-  isThemeMode,
-  parseThemeId,
+  buildSemanticAliasPrimitiveMap,
+  buildSemanticAliasValueMap,
   type ThemeBrand,
-  type ThemeId,
-  type ThemeMode,
 } from './semantic-theme-modes.data';
+import {
+  BRAND_THEME_TABS,
+  DEFAULT_BRAND_THEME,
+  getBrandThemeTokenValue,
+  type BrandThemeId,
+} from './brand-theme-modes.data';
 import {
   FOOTER_PATTERN_VARIANTS,
   FORM_PATTERN_CASES,
   PAGE_HEADER_PATTERN_CASES,
+  SOURCE_ACCOUNT_ACCOUNT_OPTIONS,
+  SOURCE_ACCOUNT_CARD_BLACK_SRC,
+  SOURCE_ACCOUNT_CARD_OPTIONS,
+  SOURCE_ACCOUNT_CARD_WHITE_SRC,
+  SOURCE_ACCOUNT_EMPTY_LABEL,
+  SOURCE_ACCOUNT_EMPTY_SRC,
+  SOURCE_ACCOUNT_ERROR_MESSAGE,
+  SOURCE_ACCOUNT_LABEL,
+  SOURCE_ACCOUNT_PATTERN_CASES,
+  SOURCE_ACCOUNT_PLACEHOLDER,
+  SOURCE_ACCOUNT_SEARCH_PLACEHOLDER,
+  SOURCE_ACCOUNT_SWITCH_LABEL,
   STEP_PROCESS_PATTERN_CASES,
   type FooterPatternVariant,
   type FormPatternCase,
   type PageHeaderPatternCase,
+  type SourceAccountListItem,
+  type SourceAccountPatternCase,
   type StepProcessPatternCase,
 } from './pattern-demos.data';
 
-interface SemanticTokenGroup {
+interface SemanticTokenTable {
+  id: string;
   category: string;
   label: string;
   items: SemanticColorTokenMapping[];
+}
+
+interface SemanticTokenGroup {
+  category: SemanticCollection;
+  label: string;
+  description: string;
+  tables: SemanticTokenTable[];
 }
 
 interface ResolvedButtonSemanticBindingRow {
@@ -440,6 +479,8 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     MbbizSwitchComponent,
     MbbizTabComponent,
     MbbizTooltipComponent,
+    MbbizRatingComponent,
+    MbbizPriceRangeComponent,
     MbbizTableComponent,
     MbbizTextareaComponent,
     MbbizUploadFileComponent,
@@ -454,8 +495,6 @@ export class App {
   protected readonly activeLang = signal<'VIE' | 'ENG'>('VIE');
   protected readonly isLangOpen = signal(false);
   protected readonly activeThemeBrand = signal<ThemeBrand>(DEFAULT_THEME_BRAND);
-  protected readonly activeTheme = signal<ThemeMode>(DEFAULT_THEME_MODE);
-  protected readonly isThemeOpen = signal(false);
   protected readonly isGettingStartedOpen = signal(true);
   protected readonly isDesignTokensOpen = signal(false);
   protected readonly isComponentsOpen = signal(false);
@@ -482,6 +521,7 @@ export class App {
     });
   });
   protected readonly activePage = signal<DocsPageId>('introduction');
+  protected readonly paletteColumns: readonly PaletteColumn[] = PALETTE_COLUMNS;
   protected readonly semanticTokenMappings = SEMANTIC_COLOR_TOKEN_MAPPINGS;
   protected readonly semanticTokenGroups = this.buildSemanticTokenGroups();
   protected readonly activeTokenSection = signal(
@@ -489,7 +529,8 @@ export class App {
       ? this.getTokenSectionId(this.semanticTokenGroups[0].category)
       : '',
   );
-  protected readonly colorTokenMode = signal<ThemeMode>(DEFAULT_THEME_MODE);
+  protected readonly brandThemeTabs = BRAND_THEME_TABS;
+  protected readonly activeBrandTheme = signal<BrandThemeId>(DEFAULT_BRAND_THEME);
   protected readonly copiedSemanticAlias = signal<string | null>(null);
   protected readonly isTocCollapsed = signal(false);
   protected readonly footerPatternVariants = FOOTER_PATTERN_VARIANTS;
@@ -508,6 +549,32 @@ export class App {
   protected readonly activeStepProcessPatternSection = signal(
     this.getStepProcessPatternSectionId(this.stepProcessPatternCases[0]?.id ?? 'default'),
   );
+  protected readonly sourceAccountPatternCases = SOURCE_ACCOUNT_PATTERN_CASES;
+  protected readonly sourceAccountLabel = SOURCE_ACCOUNT_LABEL;
+  protected readonly sourceAccountPlaceholder = SOURCE_ACCOUNT_PLACEHOLDER;
+  protected readonly sourceAccountSwitchLabel = SOURCE_ACCOUNT_SWITCH_LABEL;
+  protected readonly sourceAccountSwitchSize = SWITCH_SIZE_L;
+  protected readonly sourceAccountErrorMessage = SOURCE_ACCOUNT_ERROR_MESSAGE;
+  protected readonly sourceAccountSearchPlaceholder = SOURCE_ACCOUNT_SEARCH_PLACEHOLDER;
+  protected readonly sourceAccountSearchAllowClear = Boolean(INPUT_SEARCH_BASIC_DEMO?.interactive);
+  protected readonly sourceAccountEmptySrc = SOURCE_ACCOUNT_EMPTY_SRC;
+  protected readonly sourceAccountEmptyLabel = SOURCE_ACCOUNT_EMPTY_LABEL;
+  protected readonly sourceAccountCardBlackSrc = SOURCE_ACCOUNT_CARD_BLACK_SRC;
+  protected readonly sourceAccountCardWhiteSrc = SOURCE_ACCOUNT_CARD_WHITE_SRC;
+  protected readonly sourceAccountAccountCount = SOURCE_ACCOUNT_ACCOUNT_OPTIONS.length;
+  protected readonly sourceAccountCardCount = SOURCE_ACCOUNT_CARD_OPTIONS.length;
+  protected readonly activeSourceAccountPatternSection = signal(
+    this.getSourceAccountPatternSectionId(this.sourceAccountPatternCases[0]?.id ?? 'default'),
+  );
+  private readonly sourceAccountDemo = signal({
+    open: false,
+    payWithCard: false,
+    selectedAccountId: null as string | null,
+    selectedCardId: null as string | null,
+    search: '',
+    accountsExpanded: true,
+    cardsExpanded: false,
+  });
   protected readonly openFooterPatternOverflowId = signal<FooterPatternVariant['id'] | null>(null);
   protected readonly spacingScaleRows: NumericScaleRow[] = SPACING_SCALE_ROWS;
   protected readonly radiusScaleRows: NumericScaleRow[] = RADIUS_SCALE_ROWS;
@@ -516,6 +583,8 @@ export class App {
   protected readonly typographyScaleGroups: TypographyScaleGroup[] = TYPOGRAPHY_SCALE_GROUPS;
   protected readonly typographyStyleGroups: TypographyStyleGroup[] = TYPOGRAPHY_STYLE_GROUPS;
   protected readonly buttonDemoSections: ButtonDemoSection[] = BUTTON_DEMO_SECTIONS;
+  protected readonly buttonDocsThemes = BRAND_THEME_TABS;
+  protected readonly activeButtonDocsTheme = signal<BrandThemeId>(DEFAULT_BRAND_THEME);
   protected readonly buttonMappingDemoSections: ButtonMappingDemoSection[] =
     BUTTON_MAPPING_DEMO_SECTIONS;
   protected readonly buttonMappingApiRows: ButtonMappingApiRow[] = BUTTON_MAPPING_API_ROWS;
@@ -716,6 +785,14 @@ export class App {
   protected readonly activeTooltipSection = signal(
     this.getTooltipSectionId(this.tooltipDemoSections[0]?.id ?? 'default'),
   );
+  protected readonly ratingDemoSections: RatingDemoSection[] = RATING_DEMO_SECTIONS;
+  protected readonly ratingStarCases: RatingStarCase[] = RATING_STAR_CASES;
+  protected readonly ratingVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(RATING_VARIABLE_GROUPS);
+  protected readonly ratingVariableNotes = RATING_VARIABLE_NOTES;
+  protected readonly activeRatingSection = signal(
+    this.getRatingSectionId(this.ratingDemoSections[0]?.id ?? 'default'),
+  );
   protected readonly checkboxVariableGroups: ResolvedVariableTokenGroup[] =
     this.buildResolvedVariableTokenGroups(CHECKBOX_VARIABLE_GROUPS);
   protected readonly checkboxVariableNotes = CHECKBOX_VARIABLE_NOTES;
@@ -815,6 +892,14 @@ export class App {
   );
   protected readonly expandedDatepickerDemoIds = signal<string[]>([]);
   protected readonly copiedDatepickerDemoId = signal<string | null>(null);
+  protected readonly priceRangeDemoSections: PriceRangeDemoSection[] = PRICE_RANGE_DEMO_SECTIONS;
+  protected readonly priceRangeSemanticBindingGroups: ResolvedInputSemanticBindingGroup[] =
+    this.buildInputSemanticBindingGroups(PRICE_RANGE_SEMANTIC_BINDING_GROUPS);
+  protected readonly priceRangeVariableGroups: InputVariableGroup[] = PRICE_RANGE_VARIABLE_GROUPS;
+  protected readonly priceRangeVariableNotes = PRICE_RANGE_VARIABLE_NOTES;
+  protected readonly activePriceRangeSection = signal(
+    this.getPriceRangeSectionId(this.priceRangeDemoSections[0]?.id ?? 'default'),
+  );
   protected readonly uploadFileDemoSections: UploadFileDemoSection[] = UPLOAD_FILE_DEMO_SECTIONS;
   protected readonly uploadFileItemUploadApiRows: UploadFileApiRow[] =
     UPLOAD_FILE_ITEM_UPLOAD_API_ROWS;
@@ -1221,32 +1306,23 @@ export const appConfig: ApplicationConfig = {
     const selectedCount = this.core3CheckboxSelectAllValues().length;
     return selectedCount > 0 && selectedCount < this.core3CheckboxAllValues.length;
   });
-  private readonly themeStorageKey = 'sportbook.theme-id';
-  private readonly semanticThemeAliasValueMaps = buildSemanticThemeAliasValueMaps(
-    this.semanticTokenMappings,
-  );
-  private readonly semanticThemeAliasPrimitiveMaps = buildSemanticThemeAliasPrimitiveMaps(
+  private readonly semanticAliasValueMap = buildSemanticAliasValueMap(this.semanticTokenMappings);
+  private readonly semanticAliasPrimitiveMap = buildSemanticAliasPrimitiveMap(
     this.semanticTokenMappings,
   );
 
   constructor() {
-    const initialThemeId = this.resolveInitialThemeId();
-    const initialBrand = getThemeBrandFromId(initialThemeId);
-    const initialMode = getThemeModeFromId(initialThemeId);
-    this.activeThemeBrand.set(initialBrand);
-    this.activeTheme.set(initialMode);
-    this.colorTokenMode.set(initialMode);
-    this.applyThemeMode(initialMode);
+    if (typeof document !== 'undefined') {
+      delete document.documentElement.dataset['mbbizTheme'];
+    }
+    this.applySemanticTokens();
   }
 
-  protected get darkTokenOverrideCount(): number {
-    const valueOverrides = Object.keys(
-      SEMANTIC_THEME_ALIAS_OVERRIDES[this.activeThemeBrand()].dark,
-    );
-    const primitiveOverrides = Object.keys(
-      SEMANTIC_THEME_ALIAS_PRIMITIVE_OVERRIDES[this.activeThemeBrand()].dark,
-    );
-    return new Set([...valueOverrides, ...primitiveOverrides]).size;
+  protected setButtonDocsTheme(theme: BrandThemeId): void {
+    if (typeof document !== 'undefined') {
+      delete document.documentElement.dataset['mbbizTheme'];
+    }
+    this.activeButtonDocsTheme.set(theme);
   }
 
   protected toggleLangMenu() {
@@ -1261,7 +1337,6 @@ export const appConfig: ApplicationConfig = {
   protected openDocsSearch() {
     this.isDocsSearchOpen.set(true);
     this.isLangOpen.set(false);
-    this.isThemeOpen.set(false);
     if (this.docsSearchActiveIndex() >= this.docsSearchResults().length) {
       this.docsSearchActiveIndex.set(0);
     }
@@ -1340,18 +1415,6 @@ export const appConfig: ApplicationConfig = {
     }
   }
 
-  protected toggleThemeMenu() {
-    this.isThemeOpen.update((v) => !v);
-  }
-
-  protected setTheme(theme: ThemeMode) {
-    this.activeTheme.set(theme);
-    this.colorTokenMode.set(theme);
-    this.applyThemeMode(theme);
-    this.persistThemeMode(theme);
-    this.isThemeOpen.set(false);
-  }
-
   protected setPage(page: DocsPageId) {
     this.activePage.set(page);
     this.openFooterPatternOverflowId.set(null);
@@ -1371,7 +1434,8 @@ export const appConfig: ApplicationConfig = {
       page === 'pageHeaderPattern' ||
       page === 'footerPattern' ||
       page === 'stepProcessPattern' ||
-      page === 'formPattern'
+      page === 'formPattern' ||
+      page === 'sourceAccountPattern'
     ) {
       this.isPatternOpen.set(true);
     }
@@ -1386,7 +1450,8 @@ export const appConfig: ApplicationConfig = {
       page !== 'pageHeaderPattern' &&
       page !== 'footerPattern' &&
       page !== 'stepProcessPattern' &&
-      page !== 'formPattern'
+      page !== 'formPattern' &&
+      page !== 'sourceAccountPattern'
     ) {
       this.isComponentsOpen.set(true);
     }
@@ -1400,6 +1465,8 @@ export const appConfig: ApplicationConfig = {
       setTimeout(() => this.updateActiveFooterPatternSection(), 0);
     } else if (page === 'stepProcessPattern') {
       setTimeout(() => this.updateActiveStepProcessPatternSection(), 0);
+    } else if (page === 'sourceAccountPattern') {
+      setTimeout(() => this.updateActiveSourceAccountPatternSection(), 0);
     } else if (page === 'buttons') {
       setTimeout(() => this.updateActiveButtonSection(), 0);
     } else if (page === 'buttonMapping') {
@@ -1428,6 +1495,8 @@ export const appConfig: ApplicationConfig = {
       setTimeout(() => this.updateActiveMessageSection(), 0);
     } else if (page === 'tooltip') {
       setTimeout(() => this.updateActiveTooltipSection(), 0);
+    } else if (page === 'rating') {
+      setTimeout(() => this.updateActiveRatingSection(), 0);
     } else if (page === 'modal') {
       setTimeout(() => this.updateActiveModalSection(), 0);
     } else if (page === 'switch') {
@@ -1442,6 +1511,8 @@ export const appConfig: ApplicationConfig = {
       setTimeout(() => this.updateActiveRadioSection(), 0);
     } else if (page === 'datepicker') {
       setTimeout(() => this.updateActiveDatepickerSection(), 0);
+    } else if (page === 'priceRange') {
+      setTimeout(() => this.updateActivePriceRangeSection(), 0);
     } else if (page === 'uploadFile') {
       setTimeout(() => this.updateActiveUploadFileSection(), 0);
     } else if (page === 'iconography') {
@@ -1485,7 +1556,8 @@ export const appConfig: ApplicationConfig = {
           page === 'formPattern' ||
           page === 'footerPattern' ||
           page === 'pageHeaderPattern' ||
-          page === 'stepProcessPattern'
+          page === 'stepProcessPattern' ||
+          page === 'sourceAccountPattern'
         );
       case 'components':
         return (
@@ -1499,13 +1571,22 @@ export const appConfig: ApplicationConfig = {
           page !== 'formPattern' &&
           page !== 'footerPattern' &&
           page !== 'pageHeaderPattern' &&
-          page !== 'stepProcessPattern'
+          page !== 'stepProcessPattern' &&
+          page !== 'sourceAccountPattern'
         );
     }
   }
 
   protected getTokenSectionId(category: string): string {
     return `semantic-${category}`;
+  }
+
+  protected isSemanticGroupActive(group: SemanticTokenGroup): boolean {
+    const current = this.activeTokenSection();
+    return (
+      current === this.getTokenSectionId(group.category) ||
+      group.tables.some((table) => table.id === current)
+    );
   }
 
   protected getTypographySectionId(title: string): string {
@@ -1526,6 +1607,10 @@ export const appConfig: ApplicationConfig = {
 
   protected getStepProcessPatternSectionId(sectionId: StepProcessPatternCase['id']): string {
     return `step-process-pattern-${sectionId}`;
+  }
+
+  protected getSourceAccountPatternSectionId(sectionId: SourceAccountPatternCase['id']): string {
+    return `source-account-pattern-${sectionId}`;
   }
 
   protected setActiveTokenSection(sectionId: string) {
@@ -1550,6 +1635,139 @@ export const appConfig: ApplicationConfig = {
 
   protected setActiveStepProcessPatternSection(sectionId: string) {
     this.activeStepProcessPatternSection.set(sectionId);
+  }
+
+  protected setActiveSourceAccountPatternSection(sectionId: string) {
+    this.activeSourceAccountPatternSection.set(sectionId);
+  }
+
+  protected sourceAccountThumbSrc(item: SourceAccountListItem | { thumb?: 'black' | 'white' } | null): string {
+    return item?.thumb === 'white' ? this.sourceAccountCardWhiteSrc : this.sourceAccountCardBlackSrc;
+  }
+
+  protected sourceAccountView(patternCase: SourceAccountPatternCase) {
+    if (patternCase.interactive) {
+      const demo = this.sourceAccountDemo();
+      const query = demo.search.trim().toLowerCase();
+      const accounts = SOURCE_ACCOUNT_ACCOUNT_OPTIONS.filter(
+        (item) => !query || item.title.toLowerCase().includes(query),
+      );
+      const cards = SOURCE_ACCOUNT_CARD_OPTIONS.filter(
+        (item) =>
+          !query ||
+          item.title.toLowerCase().includes(query) ||
+          (item.amount ?? '').includes(query),
+      );
+      const selected = demo.payWithCard
+        ? SOURCE_ACCOUNT_CARD_OPTIONS.find((item) => item.id === demo.selectedCardId)
+        : SOURCE_ACCOUNT_ACCOUNT_OPTIONS.find((item) => item.id === demo.selectedAccountId);
+
+      return {
+        kind: (demo.payWithCard ? 'card' : 'account') as 'account' | 'card',
+        open: demo.open,
+        payWithCard: demo.payWithCard,
+        search: demo.search,
+        accountsExpanded: demo.accountsExpanded,
+        cardsExpanded: demo.cardsExpanded,
+        titleLine: selected?.title,
+        amount: selected?.amount,
+        currency: selected?.currency,
+        thumb: selected?.thumb,
+        muted: false,
+        error: false,
+        disabled: false,
+        showErrorMessage: false,
+        interactive: true,
+        accounts,
+        cards,
+        selectedAccountId: demo.selectedAccountId,
+        selectedCardId: demo.selectedCardId,
+      };
+    }
+
+    const preview = patternCase.preview;
+    return {
+      kind: preview.kind,
+      open: false,
+      payWithCard: preview.switchChecked,
+      search: '',
+      accountsExpanded: false,
+      cardsExpanded: false,
+      titleLine: preview.titleLine,
+      amount: preview.amount,
+      currency: preview.currency,
+      thumb: preview.thumb,
+      muted: preview.fieldState === 'disabled',
+      error: preview.fieldState === 'error',
+      disabled: preview.fieldState === 'disabled',
+      showErrorMessage: Boolean(preview.showErrorMessage),
+      interactive: false,
+      accounts: SOURCE_ACCOUNT_ACCOUNT_OPTIONS,
+      cards: SOURCE_ACCOUNT_CARD_OPTIONS,
+      selectedAccountId: null as string | null,
+      selectedCardId: null as string | null,
+    };
+  }
+
+  protected onSourceAccountFieldClick(patternCase: SourceAccountPatternCase, event?: Event) {
+    event?.stopPropagation();
+    if (!patternCase.interactive) {
+      return;
+    }
+
+    this.sourceAccountDemo.update((current) => ({
+      ...current,
+      open: !current.open,
+      accountsExpanded: current.payWithCard ? current.accountsExpanded : true,
+      cardsExpanded: current.payWithCard ? true : current.cardsExpanded,
+    }));
+  }
+
+  protected onSourceAccountSwitch(checked: boolean) {
+    this.sourceAccountDemo.update((current) => ({
+      ...current,
+      payWithCard: checked,
+      accountsExpanded: checked ? false : true,
+      cardsExpanded: checked ? true : false,
+    }));
+  }
+
+  protected onSourceAccountSearch(value: string) {
+    this.sourceAccountDemo.update((current) => ({ ...current, search: value }));
+  }
+
+  protected toggleSourceAccountGroup(group: 'accounts' | 'cards', event?: Event) {
+    event?.stopPropagation();
+    this.sourceAccountDemo.update((current) =>
+      group === 'accounts'
+        ? { ...current, accountsExpanded: !current.accountsExpanded }
+        : { ...current, cardsExpanded: !current.cardsExpanded },
+    );
+  }
+
+  protected selectSourceAccountItem(
+    item: SourceAccountListItem,
+    kind: 'account' | 'card',
+    event?: Event,
+  ) {
+    event?.stopPropagation();
+    if (item.disabled) {
+      return;
+    }
+
+    this.sourceAccountDemo.update((current) => ({
+      ...current,
+      open: false,
+      payWithCard: kind === 'card',
+      selectedAccountId: kind === 'account' ? item.id : current.selectedAccountId,
+      selectedCardId: kind === 'card' ? item.id : current.selectedCardId,
+    }));
+  }
+
+  protected closeSourceAccountDropdown() {
+    if (this.sourceAccountDemo().open) {
+      this.sourceAccountDemo.update((current) => ({ ...current, open: false }));
+    }
   }
 
   protected setActiveButtonMappingSection(sectionId: string) {
@@ -1768,11 +1986,8 @@ export const appConfig: ApplicationConfig = {
     this.isTocCollapsed.update((value) => !value);
   }
 
-  protected setColorTokenMode(mode: ThemeMode) {
-    this.activeTheme.set(mode);
-    this.colorTokenMode.set(mode);
-    this.applyThemeMode(mode);
-    this.persistThemeMode(mode);
+  protected setBrandTheme(theme: BrandThemeId) {
+    this.activeBrandTheme.set(theme);
   }
 
   protected getTokenCssVar(token: SemanticColorTokenMapping): string {
@@ -1786,17 +2001,13 @@ export const appConfig: ApplicationConfig = {
     return `${this.formatCategoryLabel(token.category)} role: ${role}`;
   }
 
-  protected hasTokenDarkOverride(token: SemanticColorTokenMapping): boolean {
-    const brand = this.activeThemeBrand();
-    return Boolean(
-      SEMANTIC_THEME_ALIAS_OVERRIDES[brand].dark[token.alias] ||
-      SEMANTIC_THEME_ALIAS_PRIMITIVE_OVERRIDES[brand].dark[token.alias],
-    );
-  }
-
   protected getTokenPrimitiveRef(token: SemanticColorTokenMapping): string {
-    const themeId = getThemeId(this.activeThemeBrand(), this.colorTokenMode());
-    return this.semanticThemeAliasPrimitiveMaps[themeId][token.alias] ?? token.primitive;
+    if (getSemanticCollection(token.alias) === 'brand') {
+      return (
+        getBrandThemeTokenValue(token.alias, this.activeBrandTheme())?.primitive ?? token.primitive
+      );
+    }
+    return this.semanticAliasPrimitiveMap[token.alias] ?? token.primitive;
   }
 
   protected getTokenFigmaAlias(token: SemanticColorTokenMapping): string {
@@ -1808,8 +2019,10 @@ export const appConfig: ApplicationConfig = {
   }
 
   protected getTokenDisplayValue(token: SemanticColorTokenMapping): string {
-    const themeId = getThemeId(this.activeThemeBrand(), this.colorTokenMode());
-    return this.semanticThemeAliasValueMaps[themeId][token.alias] ?? token.value;
+    if (getSemanticCollection(token.alias) === 'brand') {
+      return getBrandThemeTokenValue(token.alias, this.activeBrandTheme())?.value ?? token.value;
+    }
+    return this.semanticAliasValueMap[token.alias] ?? token.value;
   }
 
   protected async copySemanticTokenRow(token: SemanticColorTokenMapping) {
@@ -2366,6 +2579,14 @@ export const appConfig: ApplicationConfig = {
     return `tooltip-${sectionId}`;
   }
 
+  protected setActiveRatingSection(sectionId: string) {
+    this.activeRatingSection.set(sectionId);
+  }
+
+  protected getRatingSectionId(sectionId: string): string {
+    return `rating-${sectionId}`;
+  }
+
   protected setActiveSwitchSection(sectionId: string) {
     this.activeSwitchSection.set(sectionId);
   }
@@ -2622,6 +2843,14 @@ export const appConfig: ApplicationConfig = {
 
   protected getDatepickerSectionId(sectionId: string): string {
     return `datepicker-${sectionId}`;
+  }
+
+  protected setActivePriceRangeSection(sectionId: string) {
+    this.activePriceRangeSection.set(sectionId);
+  }
+
+  protected getPriceRangeSectionId(sectionId: string): string {
+    return `price-range-${sectionId}`;
   }
 
   protected setActiveUploadFileSection(sectionId: string) {
@@ -3025,6 +3254,7 @@ export const appConfig: ApplicationConfig = {
     this.updateActivePageHeaderPatternSection();
     this.updateActiveFooterPatternSection();
     this.updateActiveStepProcessPatternSection();
+    this.updateActiveSourceAccountPatternSection();
     this.updateActiveFormPatternSection();
     this.updateActiveButtonSection();
     this.updateActiveButtonMappingSection();
@@ -3040,6 +3270,7 @@ export const appConfig: ApplicationConfig = {
     this.updateActiveStatusSection();
     this.updateActiveMessageSection();
     this.updateActiveTooltipSection();
+    this.updateActiveRatingSection();
     this.updateActiveModalSection();
     this.updateActiveSwitchSection();
     this.updateActiveTableSection();
@@ -3047,6 +3278,7 @@ export const appConfig: ApplicationConfig = {
     this.updateActiveDropdownSection();
     this.updateActiveRadioSection();
     this.updateActiveDatepickerSection();
+    this.updateActivePriceRangeSection();
     this.updateActiveUploadFileSection();
     this.updateActiveIconographySection();
     this.updateActiveIllustrationSection();
@@ -3080,6 +3312,7 @@ export const appConfig: ApplicationConfig = {
     if (this.isDocsSearchOpen()) {
       this.closeDocsSearch();
     }
+    this.closeSourceAccountDropdown();
   }
 
   private resolveDocsSearchShortcutLabel(): string {
@@ -3219,6 +3452,31 @@ export const appConfig: ApplicationConfig = {
     }
 
     this.activeStepProcessPatternSection.set(currentSection);
+  }
+
+  private updateActiveSourceAccountPatternSection() {
+    if (this.activePage() !== 'sourceAccountPattern' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getSourceAccountPatternSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeSourceAccountPatternSection.set(currentSection);
   }
 
   private updateActiveButtonSection() {
@@ -3596,6 +3854,31 @@ export const appConfig: ApplicationConfig = {
     this.activeTooltipSection.set(currentSection);
   }
 
+  private updateActiveRatingSection() {
+    if (this.activePage() !== 'rating' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getRatingSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeRatingSection.set(currentSection);
+  }
+
   private updateActiveTableSection() {
     if (this.activePage() !== 'table' || typeof document === 'undefined') {
       return;
@@ -3746,6 +4029,31 @@ export const appConfig: ApplicationConfig = {
     this.activeDatepickerSection.set(currentSection);
   }
 
+  private updateActivePriceRangeSection() {
+    if (this.activePage() !== 'priceRange' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getPriceRangeSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activePriceRangeSection.set(currentSection);
+  }
+
   private updateActiveUploadFileSection() {
     if (this.activePage() !== 'uploadFile' || typeof document === 'undefined') {
       return;
@@ -3847,51 +4155,58 @@ export const appConfig: ApplicationConfig = {
   }
 
   private buildSemanticTokenGroups(): SemanticTokenGroup[] {
-    const normalizeAlias = (alias: string) => alias.replace(/^color\/semantic\//, '');
-    const orderPairs: Array<[string, readonly string[]]> = [
-      ['background', SEMANTIC_BACKGROUND_FIGMA_ORDER],
-      ['background-gradient', SEMANTIC_BACKGROUND_GRADIENT_FIGMA_ORDER],
-      ['text', SEMANTIC_TEXT_FIGMA_ORDER],
-      ['border', SEMANTIC_BORDER_FIGMA_ORDER],
-      ['icon', SEMANTIC_ICON_FIGMA_ORDER],
-    ];
-    const categoryOrders = new Map<string, Map<string, number>>(
-      orderPairs.map(([category, order]) => [
-        category,
-        new Map(order.map((alias, index) => [normalizeAlias(alias), index] as const)),
-      ]),
-    );
-
-    const grouped = new Map<string, SemanticColorTokenMapping[]>();
+    const grouped = new Map<SemanticCollection, SemanticColorTokenMapping[]>();
     for (const token of this.semanticTokenMappings) {
-      const bucket = grouped.get(token.category) ?? [];
+      const collection = getSemanticCollection(token.alias);
+      const bucket = grouped.get(collection) ?? [];
       bucket.push(token);
-      grouped.set(token.category, bucket);
+      grouped.set(collection, bucket);
     }
 
-    return [...grouped.entries()]
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([category, items]) => ({
-        category,
-        label: this.formatCategoryLabel(category),
-        items: items.sort((left, right) => {
-          const categoryOrder = categoryOrders.get(category);
-          if (categoryOrder) {
-            const leftIndex = categoryOrder.get(normalizeAlias(left.alias));
-            const rightIndex = categoryOrder.get(normalizeAlias(right.alias));
-            if (leftIndex !== undefined && rightIndex !== undefined) {
-              return leftIndex - rightIndex;
-            }
-            if (leftIndex !== undefined) {
-              return -1;
-            }
-            if (rightIndex !== undefined) {
-              return 1;
-            }
+    const sortTokens = (items: SemanticColorTokenMapping[]) =>
+      items.sort((left, right) => {
+        const leftIndex = getSemanticCollectionOrderIndex(left.alias);
+        const rightIndex = getSemanticCollectionOrderIndex(right.alias);
+        if (leftIndex !== rightIndex) {
+          if (leftIndex < 0) {
+            return 1;
           }
-          return left.alias.localeCompare(right.alias);
-        }),
-      }));
+          if (rightIndex < 0) {
+            return -1;
+          }
+          return leftIndex - rightIndex;
+        }
+        return left.alias.localeCompare(right.alias, undefined, { numeric: true });
+      });
+
+    return SEMANTIC_COLLECTION_ORDER.filter((collection) => grouped.has(collection)).map(
+      (collection) => {
+        const items = sortTokens([...(grouped.get(collection) ?? [])]);
+        const byCategory = new Map<string, SemanticColorTokenMapping[]>();
+        for (const token of items) {
+          const bucket = byCategory.get(token.category) ?? [];
+          bucket.push(token);
+          byCategory.set(token.category, bucket);
+        }
+
+        const tables = [
+          ...SEMANTIC_CATEGORY_TABLE_ORDER.filter((category) => byCategory.has(category)),
+          ...[...byCategory.keys()].filter((category) => !SEMANTIC_CATEGORY_TABLE_ORDER.includes(category)),
+        ].map((category) => ({
+          id: `${this.getTokenSectionId(collection)}-${category}`,
+          category,
+          label: this.formatCategoryLabel(category),
+          items: byCategory.get(category) ?? [],
+        }));
+
+        return {
+          category: collection,
+          label: SEMANTIC_COLLECTION_LABELS[collection],
+          description: SEMANTIC_COLLECTION_NOTES[collection],
+          tables,
+        };
+      },
+    );
   }
 
   private formatTokenDescription(path?: string, appliesTo?: string, notes?: string): string {
@@ -4046,7 +4361,10 @@ export const appConfig: ApplicationConfig = {
       ];
     }
 
-    return this.semanticTokenGroups.map((group) => this.getTokenSectionId(group.category));
+    return this.semanticTokenGroups.flatMap((group) => [
+      this.getTokenSectionId(group.category),
+      ...group.tables.map((table) => table.id),
+    ]);
   }
 
   private getButtonSectionIds(): string[] {
@@ -4074,6 +4392,12 @@ export const appConfig: ApplicationConfig = {
   private getStepProcessPatternSectionIds(): string[] {
     return this.stepProcessPatternCases.map((patternCase) =>
       this.getStepProcessPatternSectionId(patternCase.id),
+    );
+  }
+
+  private getSourceAccountPatternSectionIds(): string[] {
+    return this.sourceAccountPatternCases.map((patternCase) =>
+      this.getSourceAccountPatternSectionId(patternCase.id),
     );
   }
 
@@ -4193,6 +4517,13 @@ export const appConfig: ApplicationConfig = {
     ];
   }
 
+  private getRatingSectionIds(): string[] {
+    return [
+      ...this.ratingDemoSections.map((section) => this.getRatingSectionId(section.id)),
+      'rating-variables',
+    ];
+  }
+
   private getTableSectionIds(): string[] {
     return [
       ...this.tableDemoSections.map((section) => this.getTableSectionId(section.id)),
@@ -4234,6 +4565,13 @@ export const appConfig: ApplicationConfig = {
       ...this.datepickerDemoSections.map((section) => this.getDatepickerSectionId(section.id)),
       'datepicker-api',
       'datepicker-variables',
+    ];
+  }
+
+  private getPriceRangeSectionIds(): string[] {
+    return [
+      ...this.priceRangeDemoSections.map((section) => this.getPriceRangeSectionId(section.id)),
+      'price-range-variables',
     ];
   }
 
@@ -4298,51 +4636,17 @@ export const appConfig: ApplicationConfig = {
     }
   }
 
-  private resolveInitialThemeId(): ThemeId {
-    if (typeof window === 'undefined') {
-      return DEFAULT_THEME_ID;
-    }
-
-    const storedThemeId = parseThemeId(window.localStorage.getItem(this.themeStorageKey));
-    if (storedThemeId) {
-      return storedThemeId;
-    }
-
-    // Backward compatibility for previous storage format: sportbook.theme-id = "light" | "dark"
-    const legacyMode = window.localStorage.getItem(this.themeStorageKey);
-    if (isThemeMode(legacyMode)) {
-      return getThemeId(DEFAULT_THEME_BRAND, legacyMode);
-    }
-
-    // First visit: always light mode (do not follow OS prefers-color-scheme).
-    return DEFAULT_THEME_ID;
-  }
-
-  private persistThemeMode(theme: ThemeMode): void {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    const themeId = getThemeId(this.activeThemeBrand(), theme);
-    window.localStorage.setItem(this.themeStorageKey, themeId);
-  }
-
-  private applyThemeMode(theme: ThemeMode): void {
+  private applySemanticTokens(): void {
     if (typeof document === 'undefined') {
       return;
     }
 
     const root = document.documentElement;
-    const themeId = getThemeId(this.activeThemeBrand(), theme);
-    const modeValues = this.semanticThemeAliasValueMaps[themeId];
-
-    for (const [alias, value] of Object.entries(modeValues)) {
+    for (const [alias, value] of Object.entries(this.semanticAliasValueMap)) {
       root.style.setProperty(this.getTokenCssVarFromAlias(alias), value);
     }
 
-    root.dataset['themeMode'] = theme;
     root.dataset['themeBrand'] = this.activeThemeBrand();
-    root.dataset['themeId'] = themeId;
   }
 
   private getTokenCssVarFromAlias(alias: string): string {
@@ -4653,7 +4957,7 @@ import { MbbizAffixInputComponent } from 'mbbiz';
     <mbbiz-affix-input
       inputId="affix-prefix-input"
       mode="prefix"
-      prefixText="₫"
+      prefixIcon="alinear_money"
       placeholder="Input text"
       [value]="value()"
       (valueChange)="value.set($event)"
@@ -4677,8 +4981,8 @@ import { MbbizAffixInputComponent } from 'mbbiz';
     <mbbiz-affix-input
       inputId="affix-both-input"
       mode="both"
-      prefixText="₫"
-      suffixText="VND"
+      prefixIcon="alinear_book"
+      suffixIcon="alinear_info"
       placeholder="Input text"
       [value]="value()"
       (valueChange)="value.set($event)"

@@ -273,11 +273,20 @@
 .mbbiz-datepicker__chevron {
   border-bottom: 2px solid currentColor;
   border-right: 2px solid currentColor;
+  color: var(--mbbiz-color-datepicker-icon, var(--color-semantic-icon-neutral5, #9bafc8));
   display: inline-flex;
   height: 9px;
   transform: rotate(45deg) translateY(-2px);
-  transition: transform 160ms ease;
+  transition: transform 160ms ease, color 160ms ease;
   width: 9px;
+}
+
+.mbbiz-datepicker__trigger:not(.mbbiz-datepicker__trigger--placeholder) .mbbiz-datepicker__chevron {
+  color: var(--mbbiz-color-datepicker-icon-filled, var(--color-semantic-icon-neutral4, #6d83a7));
+}
+
+.mbbiz-datepicker__trigger:disabled .mbbiz-datepicker__chevron {
+  color: var(--mbbiz-color-datepicker-icon-disabled, var(--color-semantic-icon-disable1, #808080));
 }
 
 .mbbiz-datepicker--open .mbbiz-datepicker__chevron {

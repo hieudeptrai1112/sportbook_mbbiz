@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AlinearHideIcon, AlinearVisibleIcon } from '@mbbiz/icon';
+import { provideIcons } from '@mbbiz/icon/angular';
 
 import { MbbizPasswordInputComponent } from './password-input.component';
 
@@ -8,6 +10,7 @@ describe('MbbizPasswordInputComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MbbizPasswordInputComponent],
+      providers: [provideIcons([AlinearHideIcon, AlinearVisibleIcon])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MbbizPasswordInputComponent);

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, input, signal } from '@angular/core';
+import { IconComponent } from '@mbbiz/icon/angular';
 
 export type DsInputSearchState =
   | 'default'
@@ -17,7 +18,7 @@ export type DsInputSearchInteractiveMode = 'default' | 'error';
 @Component({
   selector: 'app-ds-input-search',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent],
   templateUrl: './ds-input-search.component.html',
   styleUrl: './ds-input-search.component.scss',
 })

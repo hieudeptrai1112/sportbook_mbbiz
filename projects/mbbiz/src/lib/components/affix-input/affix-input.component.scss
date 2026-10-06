@@ -31,12 +31,12 @@
 }
 
 .mbbiz-affix-input--status-error {
-  border-color: var(--mbbiz-color-danger-strong, #f34343);
+  border-color: var(--color-semantic-border-error1, #f00000);
 }
 
 .mbbiz-affix-input:not(.mbbiz-affix-input--status-error):focus-within,
 .mbbiz-affix-input:not(.mbbiz-affix-input--status-error):hover {
-  border-color: var(--mbbiz-color-border-brand-tertiary, #52dddd);
+  border-color: var(--color-semantic-border-active, #52dddd);
 }
 
 .mbbiz-affix-input--disabled {
@@ -57,6 +57,7 @@
   border: 0;
   box-shadow: none;
   color: var(--mbbiz-color-text-field, #192d39);
+  caret-color: var(--color-semantic-text-active, #52dddd);
   @include typo.mbbiz-typo-body-normal-14-regular;
   min-width: 0;
   outline: none;
@@ -100,25 +101,13 @@
 
 .mbbiz-affix-input__icon {
   align-items: center;
-  color: var(--mbbiz-color-text-brand, #141ed2);
+  color: var(--color-semantic-icon-brand-primary1, #141ed2);
   display: inline-flex;
   height: 20px;
   justify-content: center;
   width: 20px;
 }
 
-.mbbiz-affix-input__icon svg {
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.mbbiz-affix-input__icon path,
-.mbbiz-affix-input__icon circle {
-  stroke-width: 1.8;
-}
-
 .mbbiz-affix-input--disabled .mbbiz-affix-input__icon {
-  color: var(--mbbiz-color-icon-disabled, #808080);
+  color: var(--color-semantic-icon-disable1, #808080);
 }

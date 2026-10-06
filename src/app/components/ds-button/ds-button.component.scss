@@ -240,7 +240,3 @@
   border-color: var(--color-semantic-border-brand-secondary3, #bbadff);
   color: var(--color-semantic-text-brand-secondary3, #bbadff);
 }
-
-:host-context(.theme-dark) .ds-button--tone-secondary {
-  background: rgba(10, 15, 34, 0.4);
-}

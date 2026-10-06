@@ -520,8 +520,8 @@ export const DROPDOWN_VARIABLE_GROUPS: DropdownVariableGroup[] = [
   {
     title: 'Trigger',
     rows: [
-      { token: 'border/brand-primary4', value: 'blue/200', appliesTo: 'Default trigger border', notes: 'Used by closed select and tag triggers.' },
-      { token: 'border/brand-tertiary', value: 'turquoise/400', appliesTo: 'Hover, focus, and open trigger border', notes: 'Interactive accent border from the Figma state set.' },
+      { token: 'border/info', value: 'blue/300', appliesTo: 'Default trigger border', notes: 'Shared Input Field family default. Same hex as former border/brand-primary3.' },
+      { token: 'border/active', value: 'turquoise/400', appliesTo: 'Hover, focus, and open trigger border', notes: 'Shared Input Field family interactive border.' },
       { token: 'border/error1', value: 'red/500', appliesTo: 'Error trigger border', notes: 'Activated by status="error".' },
       { token: 'border/disable2', value: 'grayscale/400', appliesTo: 'Disabled trigger border', notes: 'Activated by disabled=true.' },
       { token: 'radius/md', value: '4px', appliesTo: 'Trigger and droplist radius', notes: 'Shared radius for select shell, search box, and dropdown panel.' },
@@ -532,8 +532,11 @@ export const DROPDOWN_VARIABLE_GROUPS: DropdownVariableGroup[] = [
     rows: [
       { token: 'text/tertiary', value: 'darkblue/400', appliesTo: 'Placeholder text', notes: 'Shown when no value is selected.' },
       { token: 'text/primary', value: 'darkblue/1000', appliesTo: 'Selected value and option text', notes: 'Primary text in trigger and droplist options.' },
-      { token: 'icon/neutral1', value: 'darkblue/1000', appliesTo: 'Chevron icon', notes: 'Used by closed and open trigger icons.' },
-      { token: 'text/brand-primary1', value: 'blue/500', appliesTo: 'Selected checkbox and search icon', notes: 'Brand accent for selected multiple options and search action.' },
+      { token: 'icon/neutral5', value: 'darkblue/400', appliesTo: 'Empty trigger chevron', notes: 'Decorative separator. Never bind text/* on the glyph.' },
+      { token: 'icon/neutral4', value: 'darkblue/500', appliesTo: 'Filled trigger chevron', notes: 'Same pair as Price Range arrow filled.' },
+      { token: 'icon/disable1', value: 'grayscale/600', appliesTo: 'Disabled trigger chevron', notes: 'Do not use text/disable1 on the chevron.' },
+      { token: 'icon/brand-primary1', value: 'blue/500', appliesTo: 'Droplist search icon', notes: 'Action glyph. Not text/brand-primary1.' },
+      { token: 'text/brand-primary1', value: 'blue/500', appliesTo: 'Selected checkbox', notes: 'Brand accent for selected multiple options.' },
     ],
   },
   {
@@ -550,4 +553,5 @@ export const DROPDOWN_VARIABLE_NOTES = [
   'Dropdown trigger width is 250px in the component implementation; docs wrappers should not stretch it unless the use case requires layout comparison.',
   'Search, scrollbar, and empty-state illustrations are droplist content. Static docs should keep triggers closed unless the use case explicitly demonstrates open behavior.',
   'Tag overflow uses maxVisibleTags=2 by default and collapses additional selected values into +N.',
+  'Trigger chrome matches the Input Field family: border/info, border/active, border/error1, border/disable2.',
 ];

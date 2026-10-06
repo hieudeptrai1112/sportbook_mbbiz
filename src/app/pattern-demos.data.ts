@@ -77,6 +77,38 @@ export interface FormPatternCase {
   radios?: readonly FormPatternRadioOption[];
 }
 
+export type SourceAccountPatternCaseId = 'default' | 'error' | 'disabled';
+export type SourceAccountPatternKind = 'account' | 'card';
+
+export interface SourceAccountListItem {
+  id: string;
+  title: string;
+  amount?: string;
+  currency?: string;
+  thumb?: 'black' | 'white';
+  disabled?: boolean;
+}
+
+export interface SourceAccountPatternPreview {
+  kind: SourceAccountPatternKind;
+  fieldState: 'default' | 'error' | 'disabled';
+  switchChecked: boolean;
+  titleLine?: string;
+  amount?: string;
+  currency?: string;
+  thumb?: 'black' | 'white';
+  showErrorMessage?: boolean;
+}
+
+export interface SourceAccountPatternCase {
+  id: SourceAccountPatternCaseId;
+  title: string;
+  description: string;
+  usage: string;
+  interactive?: boolean;
+  preview: SourceAccountPatternPreview;
+}
+
 export const FOOTER_PATTERN_VARIANTS: readonly FooterPatternVariant[] = [
   {
     id: 'type1',
@@ -319,6 +351,111 @@ export const FORM_PATTERN_CASES: readonly FormPatternCase[] = [
     topActionLabel: 'Button',
   },
 ] as const;
+
+export const SOURCE_ACCOUNT_LABEL = 'Nguồn thanh toán';
+export const SOURCE_ACCOUNT_PLACEHOLDER = 'Lựa chọn';
+export const SOURCE_ACCOUNT_SWITCH_LABEL = 'Thanh toán bằng thẻ tín dụng';
+export const SOURCE_ACCOUNT_ERROR_MESSAGE = 'Error Message';
+export const SOURCE_ACCOUNT_SEARCH_PLACEHOLDER = 'Tìm kiếm';
+export const SOURCE_ACCOUNT_ACCOUNT_TITLE = '0201100335005 - CTY CPDV MAI LINH';
+export const SOURCE_ACCOUNT_CARD_TITLE = '**** 4343 -  HOANG PHU NGOC TUONG';
+export const SOURCE_ACCOUNT_AMOUNT = '1,000,000,000';
+export const SOURCE_ACCOUNT_CURRENCY = 'VND';
+export const SOURCE_ACCOUNT_CARD_BLACK_SRC = '/assets/illustrations/a-illustration/card-black.png';
+export const SOURCE_ACCOUNT_CARD_WHITE_SRC = '/assets/illustrations/a-illustration/card-white.png';
+
+export const SOURCE_ACCOUNT_EMPTY_SRC = '/assets/illustrations/a-illustration/empty.png';
+export const SOURCE_ACCOUNT_EMPTY_LABEL = 'Bạn chưa có thẻ tín dụng';
+
+export const SOURCE_ACCOUNT_ACCOUNT_OPTIONS: readonly SourceAccountListItem[] = [
+  {
+    id: 'acc-1',
+    title: SOURCE_ACCOUNT_ACCOUNT_TITLE,
+    amount: SOURCE_ACCOUNT_AMOUNT,
+    currency: SOURCE_ACCOUNT_CURRENCY,
+  },
+  {
+    id: 'acc-2',
+    title: SOURCE_ACCOUNT_ACCOUNT_TITLE,
+    amount: SOURCE_ACCOUNT_AMOUNT,
+    currency: SOURCE_ACCOUNT_CURRENCY,
+  },
+  {
+    id: 'acc-3',
+    title: SOURCE_ACCOUNT_ACCOUNT_TITLE,
+    amount: SOURCE_ACCOUNT_AMOUNT,
+    currency: SOURCE_ACCOUNT_CURRENCY,
+  },
+  {
+    id: 'acc-4',
+    title: SOURCE_ACCOUNT_ACCOUNT_TITLE,
+    amount: SOURCE_ACCOUNT_AMOUNT,
+    currency: SOURCE_ACCOUNT_CURRENCY,
+  },
+];
+
+export const SOURCE_ACCOUNT_CARD_OPTIONS: readonly SourceAccountListItem[] = [
+  {
+    id: 'card-1',
+    title: '**** 2345 -  HOANG PHU NGOC TUONG',
+    amount: '300,000,000',
+    currency: SOURCE_ACCOUNT_CURRENCY,
+    thumb: 'black',
+  },
+  {
+    id: 'card-2',
+    title: '**** 2345 -  HOANG PHU NGOC TUONG',
+    amount: '300,000,000',
+    currency: SOURCE_ACCOUNT_CURRENCY,
+    thumb: 'white',
+  },
+];
+
+export const SOURCE_ACCOUNT_PATTERN_CASES: readonly SourceAccountPatternCase[] = [
+  {
+    id: 'default',
+    title: 'Default',
+    description:
+      'Demo tương tác: hover, mở droplist, search, xổ nhóm Tài khoản / Thẻ, chọn nguồn và bật thanh toán thẻ.',
+    usage:
+      'Các state hover, filled, open, blank list nằm trong Default. Click field để mở list, gõ search để lọc, switch để đổi sang thẻ.',
+    interactive: true,
+    preview: {
+      kind: 'account',
+      fieldState: 'default',
+      switchChecked: false,
+    },
+  },
+  {
+    id: 'error',
+    title: 'Error',
+    description: 'Viền error kèm icon A Bold/Error và dòng Error Message dưới field.',
+    usage: 'Nội dung filled vẫn hiển thị. Message dùng text/error, icon dùng icon/error.',
+    preview: {
+      kind: 'account',
+      fieldState: 'error',
+      switchChecked: false,
+      titleLine: SOURCE_ACCOUNT_ACCOUNT_TITLE,
+      amount: SOURCE_ACCOUNT_AMOUNT,
+      currency: SOURCE_ACCOUNT_CURRENCY,
+      showErrorMessage: true,
+    },
+  },
+  {
+    id: 'disabled',
+    title: 'Disabled',
+    description: 'Toàn bộ field, icon chevron và switch bị disable trên nền invalid.',
+    usage: 'Dòng số tài khoản dùng text/disable1, số dư vẫn text/primary. Footer chuyển sang border/invalid.',
+    preview: {
+      kind: 'account',
+      fieldState: 'disabled',
+      switchChecked: false,
+      titleLine: SOURCE_ACCOUNT_ACCOUNT_TITLE,
+      amount: SOURCE_ACCOUNT_AMOUNT,
+      currency: SOURCE_ACCOUNT_CURRENCY,
+    },
+  },
+];
 
 export const FOOTER_PATTERN_DEPENDENCIES = [
   'MbbizButtonComponent',

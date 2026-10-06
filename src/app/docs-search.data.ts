@@ -17,10 +17,12 @@ export type DocsPageId =
   | 'status'
   | 'message'
   | 'tooltip'
+  | 'rating'
   | 'modal'
   | 'table'
   | 'pagination'
   | 'datepicker'
+  | 'priceRange'
   | 'uploadFile'
   | 'iconography'
   | 'illustration'
@@ -28,6 +30,7 @@ export type DocsPageId =
   | 'footerPattern'
   | 'stepProcessPattern'
   | 'formPattern'
+  | 'sourceAccountPattern'
   | 'introduction'
   | 'installation'
   | 'color'
@@ -66,14 +69,14 @@ export const DOCS_SEARCH_ENTRIES: readonly DocsSearchEntry[] = [
     label: 'Palette',
     group: 'Design Tokens',
     page: 'color',
-    keywords: ['color', 'palette', 'swatch', 'primitive'],
+    keywords: ['color', 'palette', 'swatch', 'primitive', 'gold', 'silver', 'ocean', 'magenta', 'brown'],
   },
   {
     id: 'tokens',
     label: 'Colors',
     group: 'Design Tokens',
     page: 'tokens',
-    keywords: ['semantic', 'alias', 'token', 'color'],
+    keywords: ['semantic', 'alias', 'token', 'color', 'status', 'brand', 'data', 'info', 'invalid', 'pending'],
   },
   {
     id: 'spacing',
@@ -129,7 +132,7 @@ export const DOCS_SEARCH_ENTRIES: readonly DocsSearchEntry[] = [
     label: 'Illustration',
     group: 'Components',
     page: 'illustration',
-    keywords: ['illustration', 'empty state', 'artwork'],
+    keywords: ['illustration', 'empty state', 'artwork', 'card'],
   },
   {
     id: 'breadcrumb',
@@ -188,6 +191,13 @@ export const DOCS_SEARCH_ENTRIES: readonly DocsSearchEntry[] = [
     keywords: ['date', 'calendar', 'range', 'time', 'month', 'year'],
   },
   {
+    id: 'priceRange',
+    label: 'Price Range',
+    group: 'Components',
+    page: 'priceRange',
+    keywords: ['price', 'range', 'amount', 'money', 'vnd', 'from', 'to', 'khoảng tiền'],
+  },
+  {
     id: 'uploadFile',
     label: 'Upload File',
     group: 'Components',
@@ -244,6 +254,13 @@ export const DOCS_SEARCH_ENTRIES: readonly DocsSearchEntry[] = [
     keywords: ['tooltip', 'hint', 'hover', 'pointer'],
   },
   {
+    id: 'rating',
+    label: 'Rating',
+    group: 'Components',
+    page: 'rating',
+    keywords: ['rating', 'star', 'review', 'score'],
+  },
+  {
     id: 'modal',
     label: 'Modal',
     group: 'Components',
@@ -291,5 +308,18 @@ export const DOCS_SEARCH_ENTRIES: readonly DocsSearchEntry[] = [
     group: 'Pattern',
     page: 'stepProcessPattern',
     keywords: ['step process', 'wizard', 'pattern'],
+  },
+  {
+    id: 'sourceAccountPattern',
+    label: 'Source Account',
+    group: 'Pattern',
+    page: 'sourceAccountPattern',
+    keywords: [
+      'source account',
+      'tài khoản nguồn',
+      'nguồn thanh toán',
+      'pattern',
+      'dropdown',
+    ],
   },
 ];

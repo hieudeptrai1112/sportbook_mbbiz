@@ -121,7 +121,7 @@
       "aria-disabled is set for disabled options."
     ],
     "contrast": [
-      "Active and hover rows stay distinguishable in dark mode.",
+      "Active and hover rows stay distinguishable from the menu surface.",
       "Disabled item text remains readable from background."
     ]
   },

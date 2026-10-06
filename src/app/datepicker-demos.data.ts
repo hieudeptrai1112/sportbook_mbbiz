@@ -353,18 +353,21 @@ export const DATEPICKER_VARIABLE_GROUPS = [
   {
     title: 'Trigger And Input',
     rows: [
-      { token: 'border/brand-primary3',    value: 'blue/300',      appliesTo: 'Input and range border',       notes: 'Maps to --mbbiz-color-datepicker-panel-divider.' },
-      { token: 'border/brand-tertiary',    value: 'turquoise/400', appliesTo: 'Hover and open border',        notes: 'Maps to --mbbiz-color-datepicker-border-hover.' },
+      { token: 'border/info',              value: 'blue/300',      appliesTo: 'Input and range border',       notes: 'Shared Input Field family default. Maps to --mbbiz-color-datepicker-border-default.' },
+      { token: 'border/active',            value: 'turquoise/400', appliesTo: 'Hover and open border',        notes: 'Shared Input Field family interactive border. Maps to --mbbiz-color-datepicker-border-hover.' },
       { token: 'border/error1',            value: 'red/500',       appliesTo: 'Error state border',           notes: 'Maps to --mbbiz-color-datepicker-border-error.' },
       { token: 'text/primary',             value: 'darkblue/1000', appliesTo: 'Input text',                   notes: 'Maps to --mbbiz-color-datepicker-text.' },
       { token: 'text/tertiary',            value: 'darkblue/400',  appliesTo: 'Placeholder text',             notes: 'Maps to --mbbiz-color-datepicker-text-placeholder.' },
+      { token: 'icon/neutral5',            value: 'darkblue/400',  appliesTo: 'Empty trigger chevron',        notes: 'Decorative separator. Never inherit text color onto the glyph.' },
+      { token: 'icon/neutral4',            value: 'darkblue/500',  appliesTo: 'Filled trigger chevron',       notes: 'Same pair as Price Range arrow filled.' },
+      { token: 'icon/disable1',            value: 'grayscale/600', appliesTo: 'Disabled trigger chevron',     notes: 'Do not use text/disable1 on the chevron.' },
       { token: 'background/disable3',      value: 'grayscale/200', appliesTo: 'Disabled input background',    notes: 'Maps to --mbbiz-color-datepicker-background-disabled.' },
     ],
   },
   {
     title: 'Panel And Selection',
     rows: [
-      { token: 'border/brand-tertiary',        value: 'turquoise/400', appliesTo: 'Panel shell',                      notes: 'Maps to --mbbiz-color-datepicker-panel-border.' },
+      { token: 'border/active',                value: 'turquoise/400', appliesTo: 'Panel shell',                      notes: 'Maps to --mbbiz-color-datepicker-panel-border.' },
       { token: 'border/brand-primary3',        value: 'blue/300',      appliesTo: 'Header/body/footer dividers',      notes: 'Maps to --mbbiz-color-datepicker-panel-divider.' },
       { token: 'background/brand-primary1',    value: 'blue/500',      appliesTo: 'Selected date/month/year/time',    notes: 'Maps to --mbbiz-color-datepicker-day-selected-background.' },
       { token: 'background/brand-primary5',    value: 'blue/100',      appliesTo: 'Range middle day cells',           notes: 'Maps to --mbbiz-color-datepicker-day-range-middle.' },
@@ -379,4 +382,5 @@ export const DATEPICKER_VARIABLE_NOTES: string[] = [
   'Date picker keeps panel and trigger in the same component; preview/docs render the real mbbiz-datepicker selector.',
   'Range middle cells use a continuous rectangular background; start/end cells keep rounded caps.',
   'Interest mode is single-select only and uses interestCells captions for percentage labels.',
+  'Trigger chrome matches the Input Field family: border/info, border/active, border/error1. Trigger chevron is decorative: empty icon/neutral5, filled icon/neutral4, disabled icon/disable1. Do not inherit text color onto the glyph.',
 ];

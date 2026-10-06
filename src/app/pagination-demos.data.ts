@@ -359,8 +359,8 @@ export const PAGINATION_VARIABLE_GROUPS: PaginationVariableGroup[] = [
     title: 'Surface and Border',
     rows: [
       { token: 'background/primary', value: 'white/100%', appliesTo: 'Dropdown trigger, quick input, and dropdown panel background', notes: 'Keeps controls on the docs surface.' },
-      { token: 'border/brand-primary3', value: 'blue/300', appliesTo: 'Default trigger and quick input border', notes: 'Default border state.' },
-      { token: 'border/brand-tertiary', value: 'turquoise/400', appliesTo: 'Active trigger, open panel, focused quick input', notes: 'Used for active and focus treatment.' },
+      { token: 'border/info', value: 'blue/300', appliesTo: 'Default trigger and quick input border', notes: 'Shared Input Field family default.' },
+      { token: 'border/active', value: 'turquoise/400', appliesTo: 'Active trigger, open panel, focused quick input', notes: 'Shared Input Field family interactive border.' },
       { token: 'border/quaternary', value: 'darkblue/300', appliesTo: 'Dropdown jumper internal scrollbar thumb', notes: 'Matches compact scrollbar treatment.' },
     ],
   },

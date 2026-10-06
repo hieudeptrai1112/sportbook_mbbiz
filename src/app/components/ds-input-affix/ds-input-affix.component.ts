@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, input, signal } from '@angular/core';
+import { IconComponent } from '@mbbiz/icon/angular';
 
 export type DsInputAffixState =
   | 'default'
@@ -18,7 +19,7 @@ export type DsInputAffixInteractiveMode = 'default' | 'error';
 @Component({
   selector: 'app-ds-input-affix',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent],
   templateUrl: './ds-input-affix.component.html',
   styleUrl: './ds-input-affix.component.scss',
 })
@@ -32,6 +33,8 @@ export class DsInputAffixComponent {
   readonly affixMode = input<DsInputAffixMode>('prefix');
   readonly prefixText = input('VND');
   readonly suffixText = input('VND');
+  readonly prefixIcon = input<string | null>(null);
+  readonly suffixIcon = input<string | null>(null);
 
   private readonly liveValue = signal('');
   private readonly liveHover = signal(false);
@@ -82,6 +85,28 @@ export class DsInputAffixComponent {
   protected readonly showSuffix = computed(
     () => this.affixMode() === 'suffix' || this.affixMode() === 'both',
   );
+
+  protected readonly resolvedPrefixIcon = computed(() => {
+    const explicit = this.prefixIcon();
+    if (explicit) {
+      return explicit;
+    }
+
+    if (this.affixMode() === 'both') {
+      return 'alinear_book';
+    }
+
+    return this.affixMode() === 'prefix' ? 'alinear_money' : null;
+  });
+
+  protected readonly resolvedSuffixIcon = computed(() => {
+    const explicit = this.suffixIcon();
+    if (explicit) {
+      return explicit;
+    }
+
+    return this.affixMode() === 'both' ? 'alinear_info' : null;
+  });
 
   protected readonly showCursor = computed(
     () =>

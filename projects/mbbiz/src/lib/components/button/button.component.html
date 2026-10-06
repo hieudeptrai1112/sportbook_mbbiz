@@ -1,6 +1,5 @@
 <button
   nz-button
-  [nzLoading]="loading()"
   [nzShape]="zorroShape()"
   [nzSize]="zorroSize()"
   [nzType]="zorroType()"
@@ -11,6 +10,10 @@
   [disabled]="isDisabled()"
   (click)="onClick($event)"
 >
+  @if (loading()) {
+    <span class="mbbiz-button__spinner" aria-hidden="true"></span>
+  }
+
   <span class="mbbiz-button__icon" aria-hidden="true">
     <ng-content select="[mbbizButtonStartIcon]" />
   </span>

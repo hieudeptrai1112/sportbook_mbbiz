@@ -20,6 +20,8 @@ import {
   MbbizItemUploadComponent,
   type MbbizItemFileErrorType,
   type MbbizItemFileKind,
+  MbbizLoadingComponent,
+  type MbbizLoadingSize,
   MbbizMessageComponent,
   MbbizMessageService,
   type MbbizMessageType,
@@ -77,6 +79,7 @@ import {
     MbbizInputTagComponent,
     MbbizItemFileComponent,
     MbbizItemUploadComponent,
+    MbbizLoadingComponent,
     MbbizMessageComponent,
     MbbizModalComponent,
     MbbizPasswordInputComponent,
@@ -161,6 +164,28 @@ export class MbbizPreviewAppComponent {
     { label: 'Text', disabled: true },
   ];
   protected readonly stepProgressStates = [0, 1, 2, 3, 4];
+
+  protected readonly loadingSizes: MbbizLoadingSize[] = ['s', 'm', 'l'];
+
+  protected readonly buttonThemes = [
+    { id: 'default', label: 'Default' },
+    { id: 'silver', label: 'Silver' },
+    { id: 'gold', label: 'Gold' },
+    { id: 'diamond', label: 'Diamond' },
+    { id: 'platinum', label: 'Platinum' },
+    { id: 'premium', label: 'Premium' },
+  ] as const;
+
+  protected readonly activeButtonTheme = signal<(typeof this.buttonThemes)[number]['id']>('default');
+
+  constructor() {
+    delete document.documentElement.dataset['mbbizTheme'];
+  }
+
+  protected setButtonTheme(theme: (typeof this.buttonThemes)[number]['id']): void {
+    delete document.documentElement.dataset['mbbizTheme'];
+    this.activeButtonTheme.set(theme);
+  }
 
   protected readonly badgeStatusCases: { status: MbbizBadgeStatus; label: string }[] = [
     { status: 'invalid', label: 'Text' },

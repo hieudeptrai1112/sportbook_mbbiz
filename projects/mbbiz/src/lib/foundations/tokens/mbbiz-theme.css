@@ -1,3 +1,5 @@
+@import './mbbiz-semantic-colors.css';
+@import './mbbiz-brand-themes.css';
 @import './mbbiz-layout.css';
 
 :root {
@@ -31,15 +33,17 @@
   --mbbiz-color-button-link-hover: var(--color-semantic-text-brand-primary2);
   --mbbiz-color-button-link-pressed: var(--color-semantic-text-brand-primary3);
   --mbbiz-color-button-link-disabled: var(--color-semantic-hyperlink-disable);
-  --mbbiz-color-dropdown-border-default: var(--color-semantic-border-brand-primary3);
-  --mbbiz-color-dropdown-border-active: var(--color-semantic-border-brand-tertiary);
+  --mbbiz-color-dropdown-border-default: var(--color-semantic-border-info);
+  --mbbiz-color-dropdown-border-active: var(--color-semantic-border-active);
   --mbbiz-color-dropdown-border-error: var(--color-semantic-border-error1);
   --mbbiz-color-dropdown-border-disabled: var(--color-semantic-border-disable2);
   --mbbiz-color-dropdown-background-disabled: var(--color-semantic-background-disable3);
   --mbbiz-color-dropdown-text-default: var(--color-semantic-text-primary);
   --mbbiz-color-dropdown-text-placeholder: var(--color-semantic-text-tertiary);
   --mbbiz-color-dropdown-text-disabled: var(--color-semantic-text-disable1);
-  --mbbiz-color-dropdown-icon: var(--color-semantic-icon-neutral1);
+  --mbbiz-color-dropdown-icon: var(--color-semantic-icon-neutral5);
+  --mbbiz-color-dropdown-icon-filled: var(--color-semantic-icon-neutral4);
+  --mbbiz-color-dropdown-icon-disabled: var(--color-semantic-icon-disable1);
   --mbbiz-color-dropdown-tag-background: var(--color-semantic-background-brand-primary4);
   --mbbiz-color-dropdown-tag-background-error: var(--color-semantic-background-error-tertiary);
   --mbbiz-color-dropdown-tag-text: var(--color-semantic-text-primary3);
@@ -160,6 +164,12 @@
   --mbbiz-tooltip-radius: var(--mbbiz-radius-md);
   --mbbiz-tooltip-max-width: 224px;
 
+  --mbbiz-color-rating-empty: var(--color-semantic-icon-disable3);
+  --mbbiz-color-rating-hover: var(--color-semantic-chart-19);
+  --mbbiz-color-rating-selected: var(--color-semantic-background-warning-secondary);
+  --mbbiz-rating-gap: 12px;
+  --mbbiz-rating-star-size: 24px;
+
   --mbbiz-color-surface-primary: var(--color-semantic-background-primary);
   --mbbiz-color-surface-secondary: var(--color-semantic-background-primary);
   --mbbiz-color-surface-affix: var(--color-semantic-background-brand-primary5);
@@ -185,9 +195,9 @@
   --mbbiz-color-border-disabled: var(--color-semantic-border-disable2);
   --mbbiz-color-border-subtle: #eaecf0; /* orphan — no matching alias */
   --mbbiz-color-border-brand: var(--mbbiz-color-brand-600);
-  --mbbiz-color-border-brand-tertiary: var(--color-semantic-border-brand-tertiary);
+  --mbbiz-color-border-brand-tertiary: var(--color-semantic-border-active);
   --mbbiz-color-border-brand-hover: var(--mbbiz-color-brand-400);
-  --mbbiz-color-border-brand-active: var(--mbbiz-color-brand-300);
+  --mbbiz-color-border-brand-active: var(--color-semantic-border-info);
 
   --mbbiz-color-danger: #d92d20; /* orphan — no matching alias */
   --mbbiz-color-danger-strong: var(--color-semantic-background-error-secondary);
@@ -202,11 +212,14 @@
   --mbbiz-color-switch-background-inactive-disabled: var(--color-semantic-background-disable3);
   --mbbiz-color-switch-background-active-disabled: var(--color-semantic-background-brand-tertiary4);
 
+  /* Loading — Figma fill is white → transparent angular gradient */
+  --mbbiz-color-loading-ring: var(--color-semantic-icon-white);
+
   /* Datepicker — names must match datepicker.component.scss */
   --mbbiz-color-datepicker-background: var(--color-semantic-background-primary);
   --mbbiz-color-datepicker-background-disabled: var(--color-semantic-background-disable3);
-  --mbbiz-color-datepicker-border-default: var(--color-semantic-border-brand-primary4);
-  --mbbiz-color-datepicker-border-hover: var(--color-semantic-border-brand-tertiary);
+  --mbbiz-color-datepicker-border-default: var(--color-semantic-border-info);
+  --mbbiz-color-datepicker-border-hover: var(--color-semantic-border-active);
   --mbbiz-color-datepicker-border-focus: var(--color-semantic-border-brand-primary1);
   --mbbiz-color-datepicker-border-error: var(--color-semantic-border-error1);
   --mbbiz-color-datepicker-border-disabled: var(--color-semantic-border-disable2);
@@ -215,9 +228,12 @@
   --mbbiz-color-datepicker-text-placeholder: var(--color-semantic-text-tertiary);
   --mbbiz-color-datepicker-text-muted: #516682; /* orphan — closest semantic is text/secondary */
   --mbbiz-color-datepicker-text-disabled: var(--color-semantic-text-disable1);
+  --mbbiz-color-datepicker-icon: var(--color-semantic-icon-neutral5);
+  --mbbiz-color-datepicker-icon-filled: var(--color-semantic-icon-neutral4);
+  --mbbiz-color-datepicker-icon-disabled: var(--color-semantic-icon-disable1);
   --mbbiz-color-datepicker-text-disabled-day: var(--color-semantic-background-brand-quaternary2);
   --mbbiz-color-datepicker-on-solid: var(--color-semantic-text-white);
-  --mbbiz-color-datepicker-panel-border: var(--color-semantic-border-brand-tertiary);
+  --mbbiz-color-datepicker-panel-border: var(--color-semantic-border-active);
   --mbbiz-color-datepicker-panel-divider: var(--color-semantic-border-brand-primary3);
   --mbbiz-color-datepicker-time-divider: var(--color-semantic-border-brand-primary3);
   --mbbiz-color-datepicker-day-today-border: var(--color-semantic-border-brand-primary1);

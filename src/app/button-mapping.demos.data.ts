@@ -1,6 +1,8 @@
 export type ButtonMappingShape = 'rectangle' | 'pill';
 export type ButtonMappingVariant = 'primary' | 'secondary';
-export type ButtonMappingSize = 'lg' | 'md' | 'sm';
+export type ButtonMappingSize = 'xl' | 'lg' | 'md' | 'sm';
+export type ButtonMappingTone = 'primary' | 'secondary';
+export type ButtonMappingAppearance = 'solid' | 'outline' | 'text-link';
 
 export interface ButtonMappingDescriptionPart {
   text?: string;
@@ -27,7 +29,10 @@ export interface ButtonMappingDemoAction {
   shape: ButtonMappingShape;
   variant: ButtonMappingVariant;
   size: ButtonMappingSize;
+  tone?: ButtonMappingTone;
+  appearance?: ButtonMappingAppearance;
   disabled?: boolean;
+  loading?: boolean;
   showStartIcon?: boolean;
 }
 
@@ -47,15 +52,22 @@ const toClassName = (id: string): string =>
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join('');
 
-const buildButtonAttrs = (
-  shape: ButtonMappingShape,
-  variant: ButtonMappingVariant,
-  size: ButtonMappingSize,
-  disabled = false,
-): string => {
-  const attrs = [`shape="${shape}"`, `variant="${variant}"`, `size="${size}"`];
-  if (disabled) {
+const buildButtonAttrs = (action: ButtonMappingDemoAction): string => {
+  const attrs = [`shape="${action.shape}"`];
+  if (action.tone) {
+    attrs.push(`tone="${action.tone}"`);
+  } else {
+    attrs.push(`variant="${action.variant}"`);
+  }
+  if (action.appearance) {
+    attrs.push(`appearance="${action.appearance}"`);
+  }
+  attrs.push(`size="${action.size}"`);
+  if (action.disabled) {
     attrs.push('[disabled]="true"');
+  }
+  if (action.loading) {
+    attrs.push('[loading]="true"');
   }
   return attrs.join(' ');
 };
@@ -79,7 +91,7 @@ const makeSizeScaleActions = (
 ): ButtonMappingDemoAction[] => SIZE_SCALE.map((size) => makeButtonAction(shape, variant, size));
 
 const buildButtonMarkup = (action: ButtonMappingDemoAction): string => {
-  const attrs = buildButtonAttrs(action.shape, action.variant, action.size, action.disabled ?? false);
+  const attrs = buildButtonAttrs(action);
   if (action.showStartIcon) {
     return `    <mbbiz-button ${attrs}>
       <span mbbizButtonStartIcon aria-hidden="true">+</span>
@@ -132,6 +144,47 @@ const makeSection = (
 });
 
 export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
+  makeSection(
+    'theme',
+    'Theme',
+    'Brand themes restyle this page only. Rectangle solid secondary uses the gradient. Solid primary uses background/brand-secondary.',
+    ['selector=mbbiz-button', 'use-case=theme', 'tone=primary/secondary'],
+    [
+      {
+        label: 'Solid secondary · gradient',
+        actions: [
+          makeButtonAction('rectangle', 'primary', 'xl', { tone: 'secondary', appearance: 'solid' }),
+          makeButtonAction('rectangle', 'primary', 'xl', {
+            tone: 'secondary',
+            appearance: 'solid',
+            disabled: true,
+          }),
+        ],
+      },
+      {
+        label: 'Outline primary',
+        actions: [
+          makeButtonAction('rectangle', 'primary', 'xl', { tone: 'primary', appearance: 'outline' }),
+          makeButtonAction('pill', 'primary', 'lg', { tone: 'primary', appearance: 'text-link' }),
+        ],
+      },
+      {
+        label: 'Solid primary · brand',
+        actions: [
+          makeButtonAction('rectangle', 'primary', 'xl', { tone: 'primary', appearance: 'solid' }),
+          makeButtonAction('pill', 'primary', 'lg', { tone: 'primary', appearance: 'solid' }),
+          makeButtonAction('pill', 'secondary', 'lg', { tone: 'secondary', appearance: 'outline' }),
+        ],
+      },
+    ],
+    [
+      { text: 'Use the brand switch above. ' },
+      { code: 'tone' },
+      { text: ' and ' },
+      { code: 'appearance' },
+      { text: ' follow the Figma Type and Style axes.' },
+    ],
+  ),
   makeSection(
     'basic',
     'Basic',
@@ -282,19 +335,75 @@ export const BUTTON_MAPPING_DEMO_SECTIONS: ButtonMappingDemoSection[] = [
       { text: ' to prevent interaction and use muted visual styles.' },
     ],
   ),
+  makeSection(
+    'loading',
+    'Loading',
+    'Loading keeps the label and shows a spinner beside it.',
+    ['selector=mbbiz-button', 'use-case=loading', 'state=loading'],
+    [
+      {
+        label: 'States',
+        actions: [
+          makeButtonAction('rectangle', 'primary', 'xl', {
+            tone: 'secondary',
+            appearance: 'solid',
+            loading: true,
+          }),
+          makeButtonAction('rectangle', 'primary', 'xl', {
+            tone: 'primary',
+            appearance: 'outline',
+            loading: true,
+          }),
+          makeButtonAction('pill', 'primary', 'lg', {
+            tone: 'primary',
+            appearance: 'solid',
+            loading: true,
+          }),
+          makeButtonAction('pill', 'secondary', 'lg', {
+            tone: 'secondary',
+            appearance: 'outline',
+            loading: true,
+          }),
+          makeButtonAction('pill', 'primary', 'lg', {
+            tone: 'primary',
+            appearance: 'text-link',
+            loading: true,
+          }),
+        ],
+      },
+    ],
+    [
+      { text: 'Set ' },
+      { code: '[loading]="true"' },
+      { text: ' to show the spinner and block clicks. The label stays visible.' },
+    ],
+  ),
 ];
 
 export const BUTTON_MAPPING_API_ROWS: ButtonMappingApiRow[] = [
   {
     property: 'variant',
-    description: 'Visual variant axis from Figma (Primary / Secondary).',
+    description:
+      'Legacy axis. Rectangle primary renders the gradient. Rectangle secondary renders the outline. Pill primary is solid. Pill secondary is outline.',
     type: "'primary' | 'secondary'",
     defaultValue: "'primary'",
   },
   {
+    property: 'tone',
+    description: 'Figma Type. When set, it replaces the legacy variant mapping.',
+    type: "'primary' | 'secondary' | null",
+    defaultValue: 'null',
+  },
+  {
+    property: 'appearance',
+    description: 'Figma Style. When set, it replaces the legacy solid or outline mapping.',
+    type: "'solid' | 'outline' | 'text-link' | null",
+    defaultValue: 'null',
+  },
+  {
     property: 'size',
-    description: 'Size axis from Figma (Large / Medium / Small).',
-    type: "'lg' | 'md' | 'sm'",
+    description: 'Size axis from Figma. Extra large is rectangle only.',
+    type: "'xl' | 'lg' | 'md' | 'sm'",
     defaultValue: "'md'",
   },
   {
@@ -311,8 +420,7 @@ export const BUTTON_MAPPING_API_ROWS: ButtonMappingApiRow[] = [
   },
   {
     property: 'loading',
-    description:
-      'Shows loading state and blocks click interaction. Supported by the component; add a dedicated use case when the Figma preview scope confirms loading.',
+    description: 'Shows a spinner beside the label and blocks click interaction.',
     type: 'boolean',
     defaultValue: 'false',
   },

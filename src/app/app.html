@@ -1,4 +1,4 @@
-<div class="page" [class.theme-dark]="activeTheme() === 'dark'">
+<div class="page">
   <header class="top-nav">
     <div class="top-nav-inner">
       <div class="top-left">
@@ -97,49 +97,6 @@
               (click)="setLang('ENG')"
             >
               ENG <span>English</span>
-            </button>
-          </div>
-        </div>
-        <div class="theme-menu" [class.open]="isThemeOpen()">
-          <button class="icon-btn theme-btn" type="button" (click)="toggleThemeMenu()">
-            <svg
-              *ngIf="activeTheme() === 'dark'; else sunThemeIcon"
-              class="theme-glyph moon"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
-            </svg>
-            <ng-template #sunThemeIcon>
-              <svg class="theme-glyph sun" viewBox="0 0 24 24" aria-hidden="true">
-                <circle class="sun-core" cx="12" cy="12" r="3.2" />
-                <path d="M12 2.8V5.1" />
-                <path d="M12 18.9V21.2" />
-                <path d="M2.8 12H5.1" />
-                <path d="M18.9 12H21.2" />
-                <path d="M5.5 5.5L7.1 7.1" />
-                <path d="M16.9 16.9L18.5 18.5" />
-                <path d="M16.9 7.1L18.5 5.5" />
-                <path d="M5.5 18.5L7.1 16.9" />
-              </svg>
-            </ng-template>
-          </button>
-          <div class="theme-dropdown">
-            <button
-              class="theme-option"
-              [class.active]="activeTheme() === 'light'"
-              type="button"
-              (click)="setTheme('light')"
-            >
-              Light <span>Default</span>
-            </button>
-            <button
-              class="theme-option"
-              [class.active]="activeTheme() === 'dark'"
-              type="button"
-              (click)="setTheme('dark')"
-            >
-              Dark <span>High Contrast</span>
             </button>
           </div>
         </div>
@@ -353,6 +310,14 @@
             </div>
             <div
               class="sidebar-link"
+              [class.active]="activePage() === 'priceRange'"
+              (click)="setPage('priceRange')"
+            >
+              <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
+              <span>Price Range</span>
+            </div>
+            <div
+              class="sidebar-link"
               [class.active]="activePage() === 'uploadFile'"
               (click)="setPage('uploadFile')"
             >
@@ -415,6 +380,14 @@
             >
               <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
               <span>Tooltip</span>
+            </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'rating'"
+              (click)="setPage('rating')"
+            >
+              <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+              <span>Rating</span>
             </div>
             <div
               class="sidebar-link"
@@ -485,6 +458,14 @@
             <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
             <span>Step process</span>
           </div>
+          <div
+            class="sidebar-link"
+            [class.active]="activePage() === 'sourceAccountPattern'"
+            (click)="setPage('sourceAccountPattern')"
+          >
+            <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+            <span>Source Account</span>
+          </div>
         </div>
       </div>
       <div class="sidebar-footer">
@@ -503,7 +484,8 @@
           activePage() === 'formPattern' ||
           activePage() === 'pageHeaderPattern' ||
           activePage() === 'footerPattern' ||
-          activePage() === 'stepProcessPattern'
+          activePage() === 'stepProcessPattern' ||
+          activePage() === 'sourceAccountPattern'
         "
       >
         <div
@@ -513,7 +495,8 @@
             activePage() === 'formPattern' ||
             activePage() === 'pageHeaderPattern' ||
             activePage() === 'footerPattern' ||
-            activePage() === 'stepProcessPattern'
+            activePage() === 'stepProcessPattern' ||
+            activePage() === 'sourceAccountPattern'
           "
           [class.content-tokens]="
             activePage() === 'tokens' ||
@@ -1355,6 +1338,279 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'sourceAccountPattern'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Pattern</span>
+                <span class="slash">/</span>
+                <span>Source Account</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Source Account</h1>
+              <p class="lead">
+                Source Account là pattern chọn nguồn thanh toán. Default là demo tương tác; Error
+                và Disabled giữ đúng state tĩnh của Figma.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section source-account-pattern-section"
+              *ngFor="let patternCase of sourceAccountPatternCases"
+              [attr.id]="getSourceAccountPatternSectionId(patternCase.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ patternCase.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ patternCase.description }}</p>
+              <p class="button-demo-description source-account-pattern-note">
+                {{ patternCase.usage }}
+              </p>
+
+              <article
+                class="button-demo-card source-account-pattern-demo-card"
+                (click)="$event.stopPropagation()"
+              >
+                <div
+                  class="button-demo-preview source-account-pattern-demo-preview"
+                  [class.source-account-pattern-demo-preview--open]="
+                    sourceAccountView(patternCase).open
+                  "
+                >
+                  <ng-container *ngIf="sourceAccountView(patternCase) as view">
+                    <div
+                      class="source-account-pattern"
+                      [class.source-account-pattern--disabled]="view.disabled"
+                      [class.source-account-pattern--error]="view.error"
+                      [class.source-account-pattern--open]="view.open"
+                      [class.source-account-pattern--interactive]="view.interactive"
+                    >
+                      <div class="source-account-pattern__label">{{ sourceAccountLabel }}</div>
+
+                      <div class="source-account-pattern__field">
+                        <div
+                          class="source-account-pattern__content"
+                          [class.source-account-pattern__content--clickable]="view.interactive"
+                          (click)="onSourceAccountFieldClick(patternCase, $event)"
+                        >
+                          <div class="source-account-pattern__main">
+                            <div class="source-account-pattern__value">
+                              <span
+                                class="source-account-pattern__bank"
+                                *ngIf="view.kind === 'account'"
+                              >
+                                <mbiz-icon
+                                  name="alinear_bank"
+                                  size="m"
+                                  [color]="
+                                    view.muted
+                                      ? 'var(--color-semantic-icon-neutral1)'
+                                      : 'var(--color-semantic-icon-info)'
+                                  "
+                                />
+                              </span>
+                              <img
+                                *ngIf="view.kind === 'card'"
+                                class="source-account-pattern__card-thumb"
+                                [src]="sourceAccountThumbSrc(view)"
+                                alt=""
+                              />
+
+                              <div class="source-account-pattern__text">
+                                <p
+                                  class="source-account-pattern__title"
+                                  [class.source-account-pattern__title--placeholder]="
+                                    !view.titleLine
+                                  "
+                                  [class.source-account-pattern__title--muted]="view.muted"
+                                >
+                                  {{ view.titleLine || sourceAccountPlaceholder }}
+                                </p>
+                                <div class="source-account-pattern__money" *ngIf="view.amount">
+                                  <span class="source-account-pattern__amount">
+                                    {{ view.amount }}
+                                  </span>
+                                  <span
+                                    class="source-account-pattern__currency"
+                                    *ngIf="view.currency"
+                                  >
+                                    {{ view.currency }}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <mbiz-icon
+                              class="source-account-pattern__chevron"
+                              name="alinear_down"
+                              size="s"
+                              [color]="
+                                view.muted
+                                  ? 'var(--color-semantic-icon-disable1)'
+                                  : 'var(--color-semantic-icon-neutral1)'
+                              "
+                            />
+                          </div>
+                        </div>
+
+                        <div
+                          class="source-account-pattern__footer"
+                          (click)="$event.stopPropagation()"
+                        >
+                          <span class="source-account-pattern__footer-label">
+                            {{ sourceAccountSwitchLabel }}
+                          </span>
+                          <mbbiz-switch
+                            class="source-account-pattern__switch"
+                            [class.source-account-pattern__switch--interactive]="view.interactive"
+                            [size]="sourceAccountSwitchSize"
+                            [checked]="view.payWithCard"
+                            [disabled]="view.disabled"
+                            (checkedChange)="onSourceAccountSwitch($event)"
+                          />
+                        </div>
+                      </div>
+
+                      <div
+                        class="source-account-pattern__droplist"
+                        *ngIf="view.open"
+                        (click)="$event.stopPropagation()"
+                      >
+                        <mbbiz-search-input
+                          class="source-account-pattern__search"
+                          [placeholder]="sourceAccountSearchPlaceholder"
+                          [value]="view.search"
+                          [allowClear]="sourceAccountSearchAllowClear"
+                          (valueChange)="onSourceAccountSearch($event)"
+                        />
+
+                        <div class="source-account-pattern__groups">
+                          <section class="source-account-pattern__group">
+                            <button
+                              class="source-account-pattern__group-head"
+                              type="button"
+                              (click)="toggleSourceAccountGroup('accounts', $event)"
+                            >
+                              <p class="source-account-pattern__group-title">
+                                Tài khoản ({{ sourceAccountAccountCount }})
+                              </p>
+                              <span
+                                class="source-account-pattern__collapse"
+                                [class.source-account-pattern__collapse--down]="
+                                  !view.accountsExpanded
+                                "
+                              >
+                                <mbiz-icon
+                                  name="alinear_up"
+                                  size="s"
+                                  color="var(--color-semantic-icon-info)"
+                                />
+                              </span>
+                            </button>
+                            <div
+                              class="source-account-pattern__group-body"
+                              *ngIf="view.accountsExpanded"
+                            >
+                              <button
+                                class="source-account-pattern__option"
+                                type="button"
+                                *ngFor="let item of view.accounts"
+                                [class.source-account-pattern__option--selected]="
+                                  item.id === view.selectedAccountId
+                                "
+                                (click)="selectSourceAccountItem(item, 'account', $event)"
+                              >
+                                {{ item.title }}
+                              </button>
+                            </div>
+                          </section>
+
+                          <section class="source-account-pattern__group">
+                            <button
+                              class="source-account-pattern__group-head"
+                              type="button"
+                              (click)="toggleSourceAccountGroup('cards', $event)"
+                            >
+                              <p class="source-account-pattern__group-title">
+                                Thẻ ({{ sourceAccountCardCount }})
+                              </p>
+                              <span
+                                class="source-account-pattern__collapse"
+                                [class.source-account-pattern__collapse--down]="!view.cardsExpanded"
+                              >
+                                <mbiz-icon
+                                  name="alinear_up"
+                                  size="s"
+                                  color="var(--color-semantic-icon-info)"
+                                />
+                              </span>
+                            </button>
+                            <div
+                              class="source-account-pattern__group-body source-account-pattern__group-body--cards"
+                              *ngIf="view.cardsExpanded"
+                            >
+                              <ng-container *ngIf="view.cards.length; else sourceAccountCardEmpty">
+                                <button
+                                  class="source-account-pattern__card-option"
+                                  type="button"
+                                  *ngFor="let item of view.cards"
+                                  [class.source-account-pattern__card-option--selected]="
+                                    item.id === view.selectedCardId
+                                  "
+                                  (click)="selectSourceAccountItem(item, 'card', $event)"
+                                >
+                                  <img
+                                    class="source-account-pattern__card-thumb"
+                                    [src]="sourceAccountThumbSrc(item)"
+                                    alt=""
+                                  />
+                                  <span class="source-account-pattern__card-copy">
+                                    <span class="source-account-pattern__card-title">{{
+                                      item.title
+                                    }}</span>
+                                    <span class="source-account-pattern__card-money">
+                                      <span class="source-account-pattern__card-amount">{{
+                                        item.amount
+                                      }}</span>
+                                      <span class="source-account-pattern__card-currency">{{
+                                        item.currency
+                                      }}</span>
+                                    </span>
+                                  </span>
+                                </button>
+                              </ng-container>
+                              <ng-template #sourceAccountCardEmpty>
+                                <div class="source-account-pattern__empty">
+                                  <img
+                                    class="source-account-pattern__empty-art"
+                                    [src]="sourceAccountEmptySrc"
+                                    alt=""
+                                  />
+                                  <p>{{ sourceAccountEmptyLabel }}</p>
+                                </div>
+                              </ng-template>
+                            </div>
+                          </section>
+                        </div>
+                      </div>
+
+                      <div class="source-account-pattern__error" *ngIf="view.showErrorMessage">
+                        <mbiz-icon
+                          name="abold_error"
+                          size="s"
+                          color="var(--color-semantic-icon-error)"
+                          ariaLabel="Error"
+                        />
+                        <p>{{ sourceAccountErrorMessage }}</p>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </article>
+            </section>
+          </ng-container>
+
+
           <ng-container *ngIf="activePage() === 'buttons'">
             <div class="page-header">
               <div class="header-meta">
@@ -1364,9 +1620,28 @@
               </div>
               <h1>Button</h1>
               <p class="lead">
-                Buttons allow users to take actions with a single tap. This page uses the approved
-                preview structure: Basic, Size, Shape, With icon, and Disabled.
+                Buttons allow users to take actions with a single tap. Theme, loading, size, shape,
+                icon, and disabled states match the Button family preview.
               </p>
+            </div>
+
+            <div
+              class="button-theme-scope"
+              [attr.data-mbbiz-theme]="activeButtonDocsTheme() === 'default' ? null : activeButtonDocsTheme()"
+            >
+            <div class="button-theme-switch" role="tablist" aria-label="Brand theme">
+              @for (theme of buttonDocsThemes; track theme.id) {
+                <button
+                  type="button"
+                  class="button-theme-switch__option"
+                  role="tab"
+                  [class.is-active]="activeButtonDocsTheme() === theme.id"
+                  [attr.aria-selected]="activeButtonDocsTheme() === theme.id"
+                  (click)="setButtonDocsTheme(theme.id)"
+                >
+                  {{ theme.label }}
+                </button>
+              }
             </div>
 
             <section
@@ -1412,8 +1687,11 @@
                           *ngFor="let action of group.actions"
                           [shape]="action.shape"
                           [variant]="action.variant"
+                          [tone]="action.tone ?? null"
+                          [appearance]="action.appearance ?? null"
                           [size]="action.size"
                           [disabled]="action.disabled ?? false"
+                          [loading]="action.loading ?? false"
                         >
                           @if (action.showStartIcon ?? false) {
                             <span
@@ -1464,6 +1742,7 @@
                 </div>
               </div>
             </section>
+            </div>
 
             <section class="section button-api-section" id="button-api">
               <h2>API</h2>
@@ -1567,8 +1846,28 @@
               <p class="lead">
                 Bản tách riêng cho component
                 <span class="button-inline-code">mbbiz-button</span>, map 1:1 từ preview sang
-                app docs theo cấu trúc use-case-first: Basic, Size, Shape, With icon, Disabled.
+                app docs theo cấu trúc use-case-first: Theme, Basic, Size, Shape, With icon,
+                Disabled, and Loading.
               </p>
+            </div>
+
+            <div
+              class="button-theme-scope"
+              [attr.data-mbbiz-theme]="activeButtonDocsTheme() === 'default' ? null : activeButtonDocsTheme()"
+            >
+            <div class="button-theme-switch" role="tablist" aria-label="Brand theme">
+              @for (theme of buttonDocsThemes; track theme.id) {
+                <button
+                  type="button"
+                  class="button-theme-switch__option"
+                  role="tab"
+                  [class.is-active]="activeButtonDocsTheme() === theme.id"
+                  [attr.aria-selected]="activeButtonDocsTheme() === theme.id"
+                  (click)="setButtonDocsTheme(theme.id)"
+                >
+                  {{ theme.label }}
+                </button>
+              }
             </div>
 
             <section
@@ -1614,8 +1913,11 @@
                           *ngFor="let action of group.actions"
                           [shape]="action.shape"
                           [variant]="action.variant"
+                          [tone]="action.tone ?? null"
+                          [appearance]="action.appearance ?? null"
                           [size]="action.size"
                           [disabled]="action.disabled ?? false"
+                          [loading]="action.loading ?? false"
                         >
                           @if (action.showStartIcon ?? false) {
                             <span
@@ -1666,6 +1968,7 @@
                 </div>
               </div>
             </section>
+            </div>
 
             <section class="section button-api-section" id="button-mapping-api">
               <h2>API</h2>
@@ -1769,7 +2072,27 @@
               <p class="lead">
                 Button Link is the underlined text action used for secondary navigation and inline
                 actions. It supports size, interaction states, and optional href rendering.
+                The brand switch restyles links on this page only.
               </p>
+            </div>
+
+            <div
+              class="button-theme-scope"
+              [attr.data-mbbiz-theme]="activeButtonDocsTheme() === 'default' ? null : activeButtonDocsTheme()"
+            >
+            <div class="button-theme-switch" role="tablist" aria-label="Brand theme">
+              @for (theme of buttonDocsThemes; track theme.id) {
+                <button
+                  type="button"
+                  class="button-theme-switch__option"
+                  role="tab"
+                  [class.is-active]="activeButtonDocsTheme() === theme.id"
+                  [attr.aria-selected]="activeButtonDocsTheme() === theme.id"
+                  (click)="setButtonDocsTheme(theme.id)"
+                >
+                  {{ theme.label }}
+                </button>
+              }
             </div>
 
             <section
@@ -1830,6 +2153,7 @@
                 </div>
               </div>
             </section>
+            </div>
 
             <section class="section button-variables-section" id="button-link-variables">
               <h2>Component Token</h2>
@@ -1989,7 +2313,10 @@
               <p class="button-demo-description">
                 Text input with a fixed
                 <span class="button-inline-code button-inline-code--description">prefix</span>
-                slot for compact currency or unit hints.
+                slot. This demo uses
+                <span class="button-inline-code button-inline-code--description">alinear_money</span>
+                from
+                <span class="button-inline-code button-inline-code--description">@mbbiz/icon</span>.
               </p>
               <div class="button-demo-tags">
                 <span class="button-inline-code">selector=mbbiz-affix-input</span>
@@ -2002,7 +2329,7 @@
                       inputId="input-doc-affix-prefix"
                       placeholder="Input text"
                       mode="prefix"
-                      prefixText="₫"
+                      prefixIcon="alinear_money"
                       [value]="core3AffixPrefixValue()"
                       (valueChange)="setCore3AffixPrefixValue($event)"
                     />
@@ -2022,11 +2349,10 @@
                 <h2>Affix Input / Prefix + Suffix</h2>
               </div>
               <p class="button-demo-description">
-                Text input with both
-                <span class="button-inline-code button-inline-code--description">prefixText</span>
+                Text input with both prefix and suffix icon slots. This demo uses
+                <span class="button-inline-code button-inline-code--description">alinear_book</span>
                 and
-                <span class="button-inline-code button-inline-code--description">suffixText</span>
-                slots.
+                <span class="button-inline-code button-inline-code--description">alinear_info</span>.
               </p>
               <div class="button-demo-tags">
                 <span class="button-inline-code">selector=mbbiz-affix-input</span>
@@ -2039,8 +2365,8 @@
                       inputId="input-doc-affix-both"
                       placeholder="Input text"
                       mode="both"
-                      prefixText="₫"
-                      suffixText="VND"
+                      prefixIcon="alinear_book"
+                      suffixIcon="alinear_info"
                     />
                   </div>
                 </div>
@@ -2060,8 +2386,9 @@
               <p class="button-demo-description">
                 Search field with
                 <span class="button-inline-code button-inline-code--description">clear</span>
-                and <span class="button-inline-code button-inline-code--description">submit</span>
-                actions. The clear icon removes the current text value.
+                and
+                <span class="button-inline-code button-inline-code--description">alinear_search</span>
+                submit action. The clear icon removes the current text value.
               </p>
               <div class="button-demo-tags">
                 <span class="button-inline-code">selector=mbbiz-search-input</span>
@@ -2092,8 +2419,10 @@
                 <h2>Password Input</h2>
               </div>
               <p class="button-demo-description">
-                Password field with a
-                <span class="button-inline-code button-inline-code--description">visible</span>
+                Password field with
+                <span class="button-inline-code button-inline-code--description">alinear_hide</span>
+                and
+                <span class="button-inline-code button-inline-code--description">alinear_visible</span>
                 toggle. Default state starts empty and interaction drives the filled state.
               </p>
               <div class="button-demo-tags">
@@ -3691,6 +4020,105 @@
                 <h3>Normalization Notes</h3>
                 <ul>
                   <li *ngFor="let note of tooltipVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'rating'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Display</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Rating</h1>
+              <p class="lead">
+                Rating is five 24px stars with a 12px gap. Star=1–5 fills that many with Alert/300;
+                empty stars use Neutral/400. Hover uses Alert/200.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of ratingDemoSections"
+              [attr.id]="getRatingSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card rating-demo-card">
+                <div class="button-demo-preview core3-map-preview rating-demo-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <mbbiz-rating *ngSwitchCase="'default'" />
+
+                    <div *ngSwitchCase="'stars'" class="rating-demo-stack">
+                      <div class="rating-demo-row" *ngFor="let item of ratingStarCases">
+                        <span class="rating-demo-label">{{ item.label }}</span>
+                        <mbbiz-rating [value]="item.value" />
+                      </div>
+                    </div>
+
+                    <div *ngSwitchCase="'hover'" class="rating-demo-hover">
+                      <span class="rating-demo-label">Hover a star</span>
+                      <mbbiz-rating />
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="rating-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Empty stars use Neutral/400. Hover is Alert/200. Selected is Alert/300.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of ratingVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of ratingVariableNotes">{{ note }}</li>
                 </ul>
               </div>
             </section>
@@ -5532,6 +5960,128 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'priceRange'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Entry</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Price Range</h1>
+              <p class="lead">
+                Price Range is a Large dual amount field (336×60) with label Khoảng tiền (VNĐ),
+                Từ/Đến inputs, and an A Linear/Right separator. Hover and active use border/active;
+                error adds a message row.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of priceRangeDemoSections"
+              [attr.id]="getPriceRangeSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card price-range-demo-card">
+                <div class="button-demo-preview core3-map-preview price-range-demo-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <mbbiz-price-range *ngSwitchCase="'default'" />
+
+                    <div *ngSwitchCase="'error'" class="price-range-demo-stack">
+                      <div class="price-range-demo-row">
+                        <span class="price-range-demo-label">Error/Default</span>
+                        <mbbiz-price-range status="error" errorMessage="Error message" />
+                      </div>
+                      <div class="price-range-demo-row">
+                        <span class="price-range-demo-label">Error/Filled</span>
+                        <mbbiz-price-range
+                          status="error"
+                          errorMessage="Error message"
+                          fromValue="1000000"
+                          toValue="500000"
+                        />
+                      </div>
+                    </div>
+
+                    <mbbiz-price-range *ngSwitchCase="'disabled'" [disabled]="true" />
+                  </ng-container>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="price-range-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Price Range color variables use the aliases bound on the Figma component, documented
+                in the same Surface + Border / Text + Cursor groups as Input Field.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of priceRangeSemanticBindingGroups">
+                <h3>{{ group.title }}</h3>
+                <p class="scale-note">{{ group.description }}</p>
+                <div class="token-table button-semantic-table">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.rows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span
+                        class="token-swatch"
+                        [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"
+                      ></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-subsection">
+                <h3>Layout & Typography Specs</h3>
+                <p class="scale-note">
+                  Non-color variables bound on Price Range sizing, spacing, icon size, and text
+                  style.
+                </p>
+                <div class="scale-block" *ngFor="let group of priceRangeVariableGroups">
+                  <h4>{{ group.title }}</h4>
+                  <div class="token-table button-variable-table">
+                    <div class="token-row token-head">
+                      <span>Token note</span>
+                      <span>Value</span>
+                      <span>Applied To</span>
+                    </div>
+                    <div class="token-row" *ngFor="let row of group.rows">
+                      <div class="token-note-cell">
+                        <code class="token-code">{{ row.token }}</code>
+                        <span class="token-description">{{ row.notes }}</span>
+                      </div>
+                      <code class="token-code">{{ row.value }}</code>
+                      <span>{{ row.appliesTo }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of priceRangeVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'uploadFile'">
             <div class="page-header">
               <div class="header-meta">
@@ -6990,417 +7540,27 @@
               </div>
               <h1>Palette</h1>
               <p class="lead">
-                Core color primitives and brand ramps used across the Sportbook design system.
+                Core color primitives and brand ramps from the Global collection, including Gold,
+                Silver, Ocean, Magenta, and Brown.
               </p>
             </div>
 
-            <section class="section palette-section">
+            <section class="section palette-section" id="palette-primitives">
               <div class="palette-header">
                 <h2>Primitive Palette</h2>
                 <span>Hover a swatch to see its value</span>
               </div>
               <div class="palette-grid">
-                <div class="palette-column">
-                  <h3>Blue</h3>
-                  <div class="swatch" style="--swatch: #e9efff">
-                    <span>blue-1</span><span class="value">#E9EFFF</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #dae4ff">
-                    <span>blue-2</span><span class="value">#DAE4FF</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #a3b7fd">
-                    <span>blue-3</span><span class="value">#A3B7FD</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #5f7eeb">
-                    <span>blue-4</span><span class="value">#5F7EEB</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #141ed2">
-                    <span>blue-5</span><span class="value">#141ED2</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #121bbb">
-                    <span>blue-6</span><span class="value">#121BBB</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #0e16ab">
-                    <span>blue-7</span><span class="value">#0E16AB</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #09129b">
-                    <span>blue-8</span><span class="value">#09129B</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #050d8c">
-                    <span>blue-9</span><span class="value">#050D8C</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #00087c">
-                    <span>blue-10</span><span class="value">#00087C</span>
-                  </div>
-                </div>
-
-                <div class="palette-column">
-                  <h3>Purple</h3>
-                  <div class="swatch" style="--swatch: #f2ebff">
-                    <span>purple-1</span><span class="value">#F2EBFF</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #dbd3ff">
-                    <span>purple-2</span><span class="value">#DBD3FF</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #bbadff">
-                    <span>purple-3</span><span class="value">#BBADFF</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #9781ff">
-                    <span>purple-4</span><span class="value">#9781FF</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #7b5fff">
-                    <span>purple-5</span><span class="value">#7B5FFF</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #6150e1">
-                    <span>purple-6</span><span class="value">#6150E1</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #5348d3">
-                    <span>purple-7</span><span class="value">#5348D3</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #4641c4">
-                    <span>purple-8</span><span class="value">#4641C4</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #3939b5">
-                    <span>purple-9</span><span class="value">#3939B5</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #393999">
-                    <span>purple-10</span><span class="value">#393999</span>
-                  </div>
-                </div>
-
-                <div class="palette-column">
-                  <h3>Light Blue</h3>
-                  <div class="swatch" style="--swatch: #def5ff">
-                    <span>lightblue-1</span><span class="value">#DEF5FF</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #bde8ff">
-                    <span>lightblue-2</span><span class="value">#BDE8FF</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #75ceff">
-                    <span>lightblue-3</span><span class="value">#75CEFF</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #00a5ff">
-                    <span>lightblue-4</span><span class="value">#00A5FF</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #0075ff">
-                    <span>lightblue-5</span><span class="value">#0075FF</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #006ae5">
-                    <span>lightblue-6</span><span class="value">#006AE5</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #005fcb">
-                    <span>lightblue-7</span><span class="value">#005FCB</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #0054b0">
-                    <span>lightblue-8</span><span class="value">#0054B0</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #004996">
-                    <span>lightblue-9</span><span class="value">#004996</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #003e7c">
-                    <span>lightblue-10</span><span class="value">#003E7C</span>
-                  </div>
-                </div>
-
-                <div class="palette-column">
-                  <h3>Dark Blue</h3>
-                  <div class="swatch" style="--swatch: #fafdff">
-                    <span>darkblue-1</span><span class="value">#FAFDFF</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #ecf5fa">
-                    <span>darkblue-2</span><span class="value">#ECF5FA</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #cadbe8">
-                    <span>darkblue-3</span><span class="value">#CADBE8</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #9bafc8">
-                    <span>darkblue-4</span><span class="value">#9BAFC8</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #6d83a7">
-                    <span>darkblue-5</span><span class="value">#6D83A7</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #516682">
-                    <span>darkblue-6</span><span class="value">#516682</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #435870">
-                    <span>darkblue-7</span><span class="value">#435870</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #354a5e">
-                    <span>darkblue-8</span><span class="value">#354A5E</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #273b4b">
-                    <span>darkblue-9</span><span class="value">#273B4B</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #192d39">
-                    <span>darkblue-10</span><span class="value">#192D39</span>
-                  </div>
-                </div>
-
-                <div class="palette-column">
-                  <h3>Turquoise</h3>
-                  <div class="swatch" style="--swatch: #e7fefe">
-                    <span>turquoise-1</span><span class="value">#E7FEFE</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #d4fbfb">
-                    <span>turquoise-2</span><span class="value">#D4FBFB</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #a2f5f5">
-                    <span>turquoise-3</span><span class="value">#A2F5F5</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #52dddd">
-                    <span>turquoise-4</span><span class="value">#52DDDD</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #12b7b7">
-                    <span>turquoise-5</span><span class="value">#12B7B7</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #0fa4a3">
-                    <span>turquoise-6</span><span class="value">#0FA4A3</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #0c908f">
-                    <span>turquoise-7</span><span class="value">#0C908F</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #0a7d7c">
-                    <span>turquoise-8</span><span class="value">#0A7D7C</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #076968">
-                    <span>turquoise-9</span><span class="value">#076968</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #045654">
-                    <span>turquoise-10</span><span class="value">#045654</span>
-                  </div>
-                </div>
-
-                <div class="palette-column">
-                  <h3>Green</h3>
-                  <div class="swatch" style="--swatch: #e6f6ec">
-                    <span>green-1</span><span class="value">#E6F6EC</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #cdfce9">
-                    <span>green-2</span><span class="value">#CDFCE9</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #85f1c6">
-                    <span>green-3</span><span class="value">#85F1C6</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #3dd196">
-                    <span>green-4</span><span class="value">#3DD196</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #00ad68">
-                    <span>green-5</span><span class="value">#00AD68</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #009e5f">
-                    <span>green-6</span><span class="value">#009E5F</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #008f56">
-                    <span>green-7</span><span class="value">#008F56</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #01814e">
-                    <span>green-8</span><span class="value">#01814E</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #017245">
-                    <span>green-9</span><span class="value">#017245</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #01633c">
-                    <span>green-10</span><span class="value">#01633C</span>
-                  </div>
-                </div>
-
-                <div class="palette-column">
-                  <h3>Orange</h3>
-                  <div class="swatch" style="--swatch: #fff4d0">
-                    <span>orange-1</span><span class="value">#FFF4D0</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #fbde97">
-                    <span>orange-2</span><span class="value">#FBDE97</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #fdc64e">
-                    <span>orange-3</span><span class="value">#FDC64E</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #f9a500">
-                    <span>orange-4</span><span class="value">#F9A500</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #fa8a00">
-                    <span>orange-5</span><span class="value">#FA8A00</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #de7a00">
-                    <span>orange-6</span><span class="value">#DE7A00</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #c36a00">
-                    <span>orange-7</span><span class="value">#C36A00</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #a75a00">
-                    <span>orange-8</span><span class="value">#A75A00</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #8c4a00">
-                    <span>orange-9</span><span class="value">#8C4A00</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #703a00">
-                    <span>orange-10</span><span class="value">#703A00</span>
-                  </div>
-                </div>
-
-                <div class="palette-column">
-                  <h3>Red</h3>
-                  <div class="swatch" style="--swatch: #ffe3e3">
-                    <span>red-1</span><span class="value">#FFE3E3</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #ffb1b1">
-                    <span>red-2</span><span class="value">#FFB1B1</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #fb7070">
-                    <span>red-3</span><span class="value">#FB7070</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #f34343">
-                    <span>red-4</span><span class="value">#F34343</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #f00000">
-                    <span>red-5</span><span class="value">#F00000</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #d50202">
-                    <span>red-6</span><span class="value">#D50202</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #bb0403">
-                    <span>red-7</span><span class="value">#BB0403</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #a00705">
-                    <span>red-8</span><span class="value">#A00705</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #860906">
-                    <span>red-9</span><span class="value">#860906</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #6b0b08">
-                    <span>red-10</span><span class="value">#6B0B08</span>
-                  </div>
-                </div>
-
-                <div class="palette-column">
-                  <h3>Grayscale</h3>
-                  <div class="swatch" style="--swatch: #f3f3f3">
-                    <span>gray-1</span><span class="value">#F3F3F3</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #d8d8d8">
-                    <span>gray-2</span><span class="value">#D8D8D8</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #cccccc">
-                    <span>gray-3</span><span class="value">#CCCCCC</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #9b9b9b">
-                    <span>gray-4</span><span class="value">#9B9B9B</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #808080">
-                    <span>gray-5</span><span class="value">#808080</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #646464">
-                    <span>gray-6</span><span class="value">#646464</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #4d4d4d">
-                    <span>gray-7</span><span class="value">#4D4D4D</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #2e2e2e">
-                    <span>gray-8</span><span class="value">#2E2E2E</span>
-                  </div>
-                </div>
-
-                <div class="palette-column">
-                  <h3>Black / White</h3>
-                  <div class="swatch dark" style="--swatch: #000000">
-                    <span>black-100</span><span class="value">#000000</span>
-                  </div>
-                  <div class="swatch dark" style="--swatch: #00000080">
-                    <span>black-50</span><span class="value">#00000080</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #ffffff">
-                    <span>white-100</span><span class="value">#FFFFFF</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #ffffff99">
-                    <span>white-60</span><span class="value">#FFFFFF99</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #ffffff80">
-                    <span>white-50</span><span class="value">#FFFFFF80</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #ffffff66">
-                    <span>white-40</span><span class="value">#FFFFFF66</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #ffffff4d">
-                    <span>white-30</span><span class="value">#FFFFFF4D</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #ffffff33">
-                    <span>white-20</span><span class="value">#FFFFFF33</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #ffffff1a">
-                    <span>white-10</span><span class="value">#FFFFFF1A</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #ffffff0d">
-                    <span>white-5</span><span class="value">#FFFFFF0D</span>
-                  </div>
-                </div>
-
-                <div class="palette-column">
-                  <h3>Gradients</h3>
+                <div class="palette-column" *ngFor="let column of paletteColumns" [attr.id]="column.id">
+                  <h3>{{ column.title }}</h3>
                   <div
-                    class="swatch gradient"
-                    style="--swatch: linear-gradient(90deg, #141ed2, #0075ff)"
+                    class="swatch"
+                    *ngFor="let swatch of column.swatches"
+                    [class.dark]="swatch.dark"
+                    [class.gradient]="swatch.gradient"
+                    [style.--swatch]="swatch.swatch"
                   >
-                    <span>gradient-700</span><span class="value">#141ED2 → #0075FF</span>
-                  </div>
-                  <div
-                    class="swatch gradient"
-                    style="--swatch: linear-gradient(90deg, #3949d6, #2c87f6)"
-                  >
-                    <span>gradient-600</span><span class="value">#3949D6 → #2C87F6</span>
-                  </div>
-                  <div
-                    class="swatch gradient"
-                    style="--swatch: linear-gradient(90deg, #606ad5, #569aed)"
-                  >
-                    <span>gradient-500</span><span class="value">#606AD5 → #569AED</span>
-                  </div>
-                  <div
-                    class="swatch gradient"
-                    style="--swatch: linear-gradient(90deg, #888cd4, #80aee5)"
-                  >
-                    <span>gradient-400</span><span class="value">#888CD4 → #80AEE5</span>
-                  </div>
-                  <div
-                    class="swatch gradient"
-                    style="--swatch: linear-gradient(90deg, #aeb1d4, #aac1dd)"
-                  >
-                    <span>gradient-300</span><span class="value">#AEB1D4 → #AAC1DD</span>
-                  </div>
-                  <div
-                    class="swatch gradient"
-                    style="--swatch: linear-gradient(90deg, #d6eaf000, #bdd5e4b2)"
-                  >
-                    <span>gradient-200</span><span class="value">#D6EAF000 → #BDD5E4B2</span>
-                  </div>
-                  <div
-                    class="swatch gradient"
-                    style="--swatch: linear-gradient(90deg, #141ed2, #0075ff)"
-                  >
-                    <span>gradient-100</span><span class="value">#141ED2 → #0075FF</span>
-                  </div>
-                  <div
-                    class="swatch gradient"
-                    style="--swatch: linear-gradient(90deg, #ffffff, #f5fffd, #dde7ff, #dfe3ff)"
-                  >
-                    <span>gradient-800</span
-                    ><span class="value">#FFFFFF → #F5FFFD → #DDE7FF → #DFE3FF</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #1d5cfb29">
-                    <span>skyblue-100</span><span class="value">#1D5CFB29</span>
-                  </div>
-                  <div class="swatch" style="--swatch: #ecf5fab2">
-                    <span>darkblue-50</span><span class="value">#ECF5FAB2</span>
-                  </div>
-                </div>
-
-                <div class="palette-column">
-                  <h3>Background gradients</h3>
-                  <div
-                    class="swatch gradient"
-                    style="--swatch: linear-gradient(330deg, #e5d1ff 7.641%, #dde7ff 37.039%, #f5fffd 70.721%, #ffffff 113.34%)"
-                  >
-                    <span>page-default</span
-                    ><span class="value">#E5D1FF → #DDE7FF → #F5FFFD → #FFFFFF</span>
+                    <span>{{ swatch.name }}</span><span class="value">{{ swatch.value }}</span>
                   </div>
                 </div>
               </div>
@@ -7416,32 +7576,12 @@
               </div>
               <h1>Colors</h1>
               <p class="lead">
-                Cấu trúc token theo mô hình
-                <span class="mono">Primitive → Semantic → Component</span>. Dữ liệu hiện tại áp dụng
-                đầy đủ cho nhóm <span class="mono">color/semantic/*</span>.
+                Semantic colors chia theo collection Figma:
+                <span class="mono">Brand</span>, <span class="mono">Alias</span>,
+                <span class="mono">Status</span>, <span class="mono">Data</span>. Bảng giữ nguyên
+                Alias / Global / CSS Var / Description.
               </p>
             </div>
-
-            <section class="section token-mode-toolbar">
-              <div class="token-mode-switch" role="group" aria-label="Color token mode">
-                <button
-                  type="button"
-                  class="token-mode-btn"
-                  [class.active]="activeTheme() === 'light'"
-                  (click)="setColorTokenMode('light')"
-                >
-                  Light
-                </button>
-                <button
-                  type="button"
-                  class="token-mode-btn"
-                  [class.active]="activeTheme() === 'dark'"
-                  (click)="setColorTokenMode('dark')"
-                >
-                  Dark
-                </button>
-              </div>
-            </section>
 
             <section
               class="section token-map-section"
@@ -7449,28 +7589,50 @@
               [attr.id]="'semantic-' + group.category"
             >
               <h2>{{ group.label }}</h2>
-              <div class="token-table token-table-semantic">
-                <div class="token-row token-head">
-                  <span>Alias</span>
-                  <span>Global</span>
-                  <span>CSS Var</span>
-                  <span>Description</span>
-                </div>
-                <div class="token-row" *ngFor="let token of group.items">
-                  <div class="token-alias-cell" [class.na]="getTokenDisplayValue(token) === 'N/A'">
-                    <span
-                      class="token-swatch"
-                      [style.background]="
-                        getTokenDisplayValue(token) === 'N/A'
-                          ? '#E2E8F0'
-                          : getTokenDisplayValue(token)
-                      "
-                    ></span>
-                    <code class="token-code">{{ getTokenFigmaAlias(token) }}</code>
+              <p class="scale-note" *ngIf="group.description">{{ group.description }}</p>
+              <div
+                class="token-mode-switch token-brand-switch"
+                *ngIf="group.category === 'brand'"
+                role="tablist"
+                aria-label="Brand theme"
+              >
+                <button
+                  type="button"
+                  class="token-mode-btn"
+                  *ngFor="let tab of brandThemeTabs"
+                  role="tab"
+                  [class.active]="activeBrandTheme() === tab.id"
+                  [attr.aria-selected]="activeBrandTheme() === tab.id"
+                  (click)="setBrandTheme(tab.id)"
+                >
+                  {{ tab.label }}
+                </button>
+              </div>
+              <div class="token-subtable" *ngFor="let table of group.tables" [attr.id]="table.id">
+                <h3>{{ table.label }}</h3>
+                <div class="token-table token-table-semantic">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global</span>
+                    <span>CSS Var</span>
+                    <span>Description</span>
                   </div>
-                  <code class="token-code">{{ getTokenFigmaPrimitiveRef(token) }}</code>
-                  <code class="token-code">{{ getTokenCssVar(token) }}</code>
-                  <span class="token-description">{{ getTokenDescription(token) }}</span>
+                  <div class="token-row" *ngFor="let token of table.items">
+                    <div class="token-alias-cell" [class.na]="getTokenDisplayValue(token) === 'N/A'">
+                      <span
+                        class="token-swatch"
+                        [style.background]="
+                          getTokenDisplayValue(token) === 'N/A'
+                            ? '#E2E8F0'
+                            : getTokenDisplayValue(token)
+                        "
+                      ></span>
+                      <code class="token-code">{{ getTokenFigmaAlias(token) }}</code>
+                    </div>
+                    <code class="token-code">{{ getTokenFigmaPrimitiveRef(token) }}</code>
+                    <code class="token-code">{{ getTokenCssVar(token) }}</code>
+                    <span class="token-description">{{ getTokenDescription(token) }}</span>
+                  </div>
                 </div>
               </div>
             </section>
@@ -7904,6 +8066,52 @@
           </div>
         </ng-container>
 
+        <ng-container *ngIf="activePage() === 'sourceAccountPattern'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let patternCase of sourceAccountPatternCases"
+                  [class.active]="
+                    activeSourceAccountPatternSection() ===
+                    getSourceAccountPatternSectionId(patternCase.id)
+                  "
+                  [href]="'#' + getSourceAccountPatternSectionId(patternCase.id)"
+                  (click)="
+                    setActiveSourceAccountPatternSection(
+                      getSourceAccountPatternSectionId(patternCase.id)
+                    )
+                  "
+                >
+                  {{ patternCase.title }}
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Usage Note</span>
+                </div>
+                <p>
+                  Pattern compose local: <span class="mono">mbbiz-switch</span>,
+                  <span class="mono">mbbiz-search-input</span> và
+                  <span class="mono">mbiz-icon</span>. Droplist mở in-flow dưới field đúng node Figma.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
         <ng-container *ngIf="activePage() === 'buttons'">
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
@@ -8054,9 +8262,11 @@
             <aside class="toc">
               <span class="toc-label">On This Page</span>
               <div class="toc-list">
-                <a class="toc-item active" href="#">Primitive Palette</a>
-                <a class="toc-item" href="#">Gradients</a>
-                <a class="toc-item" href="#">Neutrals</a>
+                <a class="toc-item" href="#palette-primitives">Primitive Palette</a>
+                <a class="toc-item" href="#palette-gold">Gold / Silver / Ocean</a>
+                <a class="toc-item" href="#palette-magenta">Magenta / Brown</a>
+                <a class="toc-item" href="#palette-gradients">Gradients</a>
+                <a class="toc-item" href="#palette-neutrals">Neutrals</a>
               </div>
             </aside>
             <button
@@ -8586,6 +8796,41 @@
           </div>
         </ng-container>
 
+        <ng-container *ngIf="activePage() === 'rating'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of ratingDemoSections"
+                  [class.active]="activeRatingSection() === getRatingSectionId(demo.id)"
+                  [href]="'#' + getRatingSectionId(demo.id)"
+                  (click)="setActiveRatingSection(getRatingSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeRatingSection() === 'rating-variables'"
+                  href="#rating-variables"
+                  (click)="setActiveRatingSection('rating-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
         <ng-container *ngIf="activePage() === 'modal'">
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
@@ -8915,6 +9160,41 @@
           </div>
         </ng-container>
 
+        <ng-container *ngIf="activePage() === 'priceRange'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of priceRangeDemoSections"
+                  [class.active]="activePriceRangeSection() === getPriceRangeSectionId(demo.id)"
+                  [href]="'#' + getPriceRangeSectionId(demo.id)"
+                  (click)="setActivePriceRangeSection(getPriceRangeSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activePriceRangeSection() === 'price-range-variables'"
+                  href="#price-range-variables"
+                  (click)="setActivePriceRangeSection('price-range-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
         <ng-container *ngIf="activePage() === 'uploadFile'">
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
@@ -9197,16 +9477,28 @@
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
               <span class="toc-label">On This Page</span>
-              <div class="toc-list">
-                <a
-                  class="toc-item"
-                  *ngFor="let group of semanticTokenGroups"
-                  [class.active]="activeTokenSection() === getTokenSectionId(group.category)"
-                  [href]="'#' + getTokenSectionId(group.category)"
-                  (click)="setActiveTokenSection(getTokenSectionId(group.category))"
-                >
-                  {{ group.label }}
-                </a>
+              <div class="toc-list toc-tree">
+                <div class="toc-group" *ngFor="let group of semanticTokenGroups">
+                  <a
+                    class="toc-item toc-item-parent"
+                    [class.current]="isSemanticGroupActive(group)"
+                    [href]="'#' + getTokenSectionId(group.category)"
+                    (click)="setActiveTokenSection(getTokenSectionId(group.category))"
+                  >
+                    {{ group.label }}
+                  </a>
+                  <div class="toc-children">
+                    <a
+                      class="toc-item toc-item-child"
+                      *ngFor="let table of group.tables"
+                      [class.active]="activeTokenSection() === table.id"
+                      [href]="'#' + table.id"
+                      (click)="setActiveTokenSection(table.id)"
+                    >
+                      {{ table.label }}
+                    </a>
+                  </div>
+                </div>
               </div>
             </aside>
             <button

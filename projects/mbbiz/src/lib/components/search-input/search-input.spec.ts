@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AlinearSearchIcon } from '@mbbiz/icon';
+import { provideIcons } from '@mbbiz/icon/angular';
 
 import { MbbizSearchInputComponent } from './search-input.component';
 
@@ -8,6 +10,7 @@ describe('MbbizSearchInputComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MbbizSearchInputComponent],
+      providers: [provideIcons([AlinearSearchIcon])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MbbizSearchInputComponent);
@@ -16,6 +19,14 @@ describe('MbbizSearchInputComponent', () => {
 
   it('should create', () => {
     expect(fixture.componentInstance).toBeTruthy();
+  });
+
+  it('should render the search icon', () => {
+    const icon = fixture.nativeElement.querySelector(
+      '.mbbiz-search-input__icon--search mbiz-icon',
+    );
+
+    expect(icon).toBeTruthy();
   });
 
   it('should emit cleared value', () => {

@@ -36,7 +36,7 @@
   appearance: none;
   background: transparent;
   border: 0;
-  caret-color: var(--mbbiz-color-border-brand-tertiary, #52dddd);
+  caret-color: var(--color-semantic-text-active, #52dddd);
   box-shadow: none;
   color: var(--mbbiz-color-text-field, #192d39);
   flex: 1 1 auto;
@@ -71,11 +71,11 @@
 .mbbiz-textarea:not(.mbbiz-textarea--status-error):focus-within
   .mbbiz-textarea__surface,
 .mbbiz-textarea--status-default:hover .mbbiz-textarea__surface {
-  border-color: var(--mbbiz-color-border-brand-tertiary, #52dddd);
+  border-color: var(--color-semantic-border-active, #52dddd);
 }
 
 .mbbiz-textarea--status-error .mbbiz-textarea__surface {
-  border-color: var(--mbbiz-color-danger-strong, #f34343);
+  border-color: var(--color-semantic-border-error1, #f00000);
 }
 
 .mbbiz-textarea--disabled .mbbiz-textarea__surface {

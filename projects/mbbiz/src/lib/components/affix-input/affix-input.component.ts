@@ -1,4 +1,5 @@
 import { Component, computed, input, output } from '@angular/core';
+import { IconComponent } from '@mbbiz/icon/angular';
 
 import { MbbizInputSize, MbbizInputStatus } from '../input/input.types';
 
@@ -6,6 +7,7 @@ export type MbbizAffixInputMode = 'prefix' | 'suffix' | 'both';
 
 @Component({
   selector: 'mbbiz-affix-input',
+  imports: [IconComponent],
   templateUrl: './affix-input.component.html',
   styleUrl: './affix-input.component.scss',
 })
@@ -18,6 +20,8 @@ export class MbbizAffixInputComponent {
   readonly mode = input<MbbizAffixInputMode>('prefix');
   readonly prefixText = input('VND');
   readonly suffixText = input('VND');
+  readonly prefixIcon = input<string | null>(null);
+  readonly suffixIcon = input<string | null>(null);
   readonly inputId = input<string | null>(null);
 
   readonly valueChange = output<string>();
@@ -42,6 +46,24 @@ export class MbbizAffixInputComponent {
   protected readonly showSuffix = computed(
     () => this.mode() === 'suffix' || this.mode() === 'both',
   );
+
+  protected readonly resolvedPrefixIcon = computed(() => {
+    const explicit = this.prefixIcon();
+    if (explicit) {
+      return explicit;
+    }
+
+    return this.mode() === 'both' ? 'alinear_book' : null;
+  });
+
+  protected readonly resolvedSuffixIcon = computed(() => {
+    const explicit = this.suffixIcon();
+    if (explicit) {
+      return explicit;
+    }
+
+    return this.mode() === 'both' ? 'alinear_info' : null;
+  });
 
   protected onInput(event: Event) {
     const target = event.target as HTMLInputElement;
