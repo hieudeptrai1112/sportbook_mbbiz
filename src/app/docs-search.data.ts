@@ -19,6 +19,7 @@ export type DocsPageId =
   | 'tooltip'
   | 'rating'
   | 'modal'
+  | 'levelCard'
   | 'table'
   | 'pagination'
   | 'datepicker'
@@ -266,6 +267,13 @@ export const DOCS_SEARCH_ENTRIES: readonly DocsSearchEntry[] = [
     group: 'Components',
     page: 'modal',
     keywords: ['modal', 'dialog', 'popup'],
+  },
+  {
+    id: 'levelCard',
+    label: 'Level Card',
+    group: 'Components',
+    page: 'levelCard',
+    keywords: ['level card', 'card', 'add', 'delete', 'blank'],
   },
   {
     id: 'table',

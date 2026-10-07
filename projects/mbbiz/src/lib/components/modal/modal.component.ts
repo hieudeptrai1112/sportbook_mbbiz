@@ -1,51 +1,169 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, input, output } from '@angular/core';
+import { IconComponent } from '@mbbiz/icon/angular';
 
 import { MbbizButtonComponent } from '../button/button.component';
-import { MbbizInputComponent } from '../input/input.component';
-import { MbbizModalActionLayout } from './modal.types';
+import { MbbizButtonLinkComponent } from '../button-link/button-link.component';
+import {
+  MBBIZ_MODAL_ILLUSTRATION_BASE_PATH,
+  MBBIZ_MODAL_ILLUSTRATION_FILE,
+} from './modal.assets';
+import type { MbbizModalPaginationDot, MbbizModalType } from './modal.types';
+
+interface MbbizModalVariantDefaults {
+  title: string;
+  description: string;
+  primaryLabel: string;
+  secondaryLabel: string | null;
+  tertiaryLabel: string | null;
+  textLinkLabel: string | null;
+  showClose: boolean;
+  showErrorCode: boolean;
+}
+
+const MBBIZ_MODAL_DEFAULTS: Record<MbbizModalType, MbbizModalVariantDefaults> = {
+  warning: {
+    title: 'Title',
+    description: 'Lorem ipsum is placeholder text commonly used.',
+    primaryLabel: 'Primary button',
+    secondaryLabel: 'Secondary button',
+    tertiaryLabel: 'Đóng',
+    textLinkLabel: 'Text Link',
+    showClose: true,
+    showErrorCode: false,
+  },
+  success: {
+    title: 'Title',
+    description: 'Lorem ipsum is placeholder text commonly used.',
+    primaryLabel: 'Primary button',
+    secondaryLabel: 'Secondary button',
+    tertiaryLabel: 'Secondary button',
+    textLinkLabel: null,
+    showClose: true,
+    showErrorCode: false,
+  },
+  error: {
+    title: 'Thông báo lỗi',
+    description: 'Lorem ipsum is placeholder text commonly used.',
+    primaryLabel: 'Gửi yêu cầu hỗ trợ',
+    secondaryLabel: 'Secondary button',
+    tertiaryLabel: 'Đóng',
+    textLinkLabel: 'Text Link',
+    showClose: true,
+    showErrorCode: true,
+  },
+  confirm: {
+    title: 'Title',
+    description: 'Lorem ipsum is placeholder text commonly used.',
+    primaryLabel: 'Xác nhận',
+    secondaryLabel: 'Secondary button',
+    tertiaryLabel: 'Đóng',
+    textLinkLabel: null,
+    showClose: true,
+    showErrorCode: false,
+  },
+  destructive: {
+    title: 'Title',
+    description: 'Lorem ipsum is placeholder text commonly used.',
+    primaryLabel: 'Xóa',
+    secondaryLabel: 'Secondary button',
+    tertiaryLabel: 'Đóng',
+    textLinkLabel: null,
+    showClose: true,
+    showErrorCode: false,
+  },
+  notification: {
+    title: 'Title',
+    description: 'Lorem ipsum is placeholder text commonly used.',
+    primaryLabel: 'Primary button',
+    secondaryLabel: 'Secondary button',
+    tertiaryLabel: 'Đóng',
+    textLinkLabel: null,
+    showClose: true,
+    showErrorCode: false,
+  },
+};
 
 @Component({
   selector: 'mbbiz-modal',
-  imports: [CommonModule, MbbizButtonComponent, MbbizInputComponent],
+  imports: [CommonModule, IconComponent, MbbizButtonComponent, MbbizButtonLinkComponent],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss',
 })
 export class MbbizModalComponent {
-  readonly title = input('Modal title');
-  readonly actionLayout = input<MbbizModalActionLayout>('double');
-  readonly showClose = input(true);
+  readonly type = input<MbbizModalType>('warning');
+  readonly title = input<string | null>(null);
+  readonly description = input<string | null>(null);
+  readonly primaryLabel = input<string | null>(null);
+  readonly secondaryLabel = input<string | null>(null);
+  readonly tertiaryLabel = input<string | null>(null);
+  readonly showSecondary = input<boolean | null>(null);
+  readonly showTertiary = input<boolean | null>(null);
+  readonly showClose = input<boolean | null>(null);
+  readonly showTextLink = input<boolean | null>(null);
+  readonly textLinkLabel = input<string | null>(null);
+  readonly showErrorCode = input<boolean | null>(null);
+  readonly errorCode = input('GW1234');
+  readonly errorCodePrefix = input('Mã lỗi:');
+  readonly illustrationSrc = input<string | null>(null);
+  readonly illustrationBasePath = input(MBBIZ_MODAL_ILLUSTRATION_BASE_PATH);
+  readonly showPagination = input(false);
+  readonly paginationCount = input(4);
+  readonly activePaginationIndex = input(0);
   readonly closeAriaLabel = input('Đóng modal');
-
-  readonly primaryLabel = input('Text');
-  readonly secondaryLabel = input('Text');
-  readonly showSecondary = input(true);
-
-  readonly firstFieldLabel = input('Title');
-  readonly firstFieldPlaceholder = input('Input text');
-  readonly firstFieldValue = input('');
-  readonly secondFieldLabel = input('Title');
-  readonly secondFieldPlaceholder = input('Input text');
-  readonly secondFieldValue = input('');
-  readonly showSecondField = input(true);
 
   readonly primaryAction = output<void>();
   readonly secondaryAction = output<void>();
+  readonly tertiaryAction = output<void>();
   readonly closeAction = output<void>();
-  readonly firstFieldValueChange = output<string>();
-  readonly secondFieldValueChange = output<string>();
+  readonly textLinkAction = output<void>();
+  readonly paginationAction = output<number>();
 
-  protected readonly shouldShowSecondaryAction = computed(
-    () => this.actionLayout() === 'double' && this.showSecondary(),
+  protected readonly defaults = computed(() => MBBIZ_MODAL_DEFAULTS[this.type()]);
+
+  protected readonly modalClass = computed(() => `mbbiz-modal mbbiz-modal--${this.type()}`);
+
+  protected readonly resolvedTitle = computed(() => this.title() ?? this.defaults().title);
+  protected readonly resolvedDescription = computed(
+    () => this.description() ?? this.defaults().description,
   );
-  protected readonly secondaryButtonLabel = computed(() => {
-    const value = this.secondaryLabel().trim();
-    return value.length > 0 ? value : 'Text';
+  protected readonly resolvedPrimaryLabel = computed(
+    () => this.primaryLabel() ?? this.defaults().primaryLabel,
+  );
+  protected readonly resolvedSecondaryLabel = computed(() =>
+    this.resolveOptionalLabel(this.secondaryLabel(), this.defaults().secondaryLabel, this.showSecondary()),
+  );
+  protected readonly resolvedTertiaryLabel = computed(() =>
+    this.resolveOptionalLabel(this.tertiaryLabel(), this.defaults().tertiaryLabel, this.showTertiary()),
+  );
+  protected readonly resolvedTextLinkLabel = computed(() =>
+    this.resolveOptionalLabel(this.textLinkLabel(), this.defaults().textLinkLabel, this.showTextLink()),
+  );
+  protected readonly resolvedShowClose = computed(
+    () => this.showClose() ?? this.defaults().showClose,
+  );
+  protected readonly resolvedErrorCode = computed(() => {
+    const shouldShow = this.showErrorCode() ?? this.defaults().showErrorCode;
+    if (!shouldShow) {
+      return null;
+    }
+
+    return this.errorCode();
   });
-  protected readonly primaryButtonLabel = computed(() => {
-    const value = this.primaryLabel().trim();
-    return value.length > 0 ? value : 'Text';
+  protected readonly resolvedIllustrationSrc = computed(() => {
+    if (this.illustrationSrc()) {
+      return this.illustrationSrc();
+    }
+
+    const basePath = this.illustrationBasePath().replace(/\/$/, '');
+    return `${basePath}/${MBBIZ_MODAL_ILLUSTRATION_FILE[this.type()]}`;
   });
+
+  protected readonly paginationDots = computed<readonly MbbizModalPaginationDot[]>(() =>
+    Array.from({ length: this.paginationCount() }, (_value, index) => ({
+      active: index === this.activePaginationIndex(),
+    })),
+  );
 
   protected emitPrimaryAction() {
     this.primaryAction.emit();
@@ -55,15 +173,35 @@ export class MbbizModalComponent {
     this.secondaryAction.emit();
   }
 
+  protected emitTertiaryAction() {
+    this.tertiaryAction.emit();
+  }
+
   protected emitCloseAction() {
     this.closeAction.emit();
   }
 
-  protected onFirstFieldValueChange(value: string) {
-    this.firstFieldValueChange.emit(value);
+  protected emitTextLinkAction() {
+    this.textLinkAction.emit();
   }
 
-  protected onSecondFieldValueChange(value: string) {
-    this.secondFieldValueChange.emit(value);
+  protected emitPaginationAction(index: number) {
+    this.paginationAction.emit(index);
+  }
+
+  private resolveOptionalLabel(
+    explicitLabel: string | null,
+    fallbackLabel: string | null,
+    visibilityOverride: boolean | null,
+  ) {
+    if (visibilityOverride === false) {
+      return null;
+    }
+
+    if (explicitLabel !== null) {
+      return explicitLabel;
+    }
+
+    return fallbackLabel;
   }
 }

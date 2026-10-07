@@ -1715,41 +1715,91 @@
     <div class="mbbiz-preview-section-heading">
       <h2>Modal family</h2>
       <p>
-        Aligned to Figma nodes <code>19611:24390</code> and <code>19611:24307</code>.
-        Organized use-case-first with two confirmed form modal layouts.
+        Aligned to Figma node <code>3582:174031</code>. Each card keeps the same 400px shell
+        with variant-specific artwork and CTA stack.
       </p>
     </div>
 
     <div class="mbbiz-preview-modal-grid">
       <article class="mbbiz-preview-card">
-        <h3>Form / Two actions</h3>
+        <h3>Warning</h3>
         <div class="mbbiz-preview-modal-stage">
-          <mbbiz-modal
-            title="Modal title"
-            actionLayout="double"
-            primaryLabel="Text"
-            secondaryLabel="Text"
-            firstFieldLabel="Title"
-            firstFieldPlaceholder="Input text"
-            secondFieldLabel="Title"
-            secondFieldPlaceholder="Input text"
-          />
+          <mbbiz-modal type="warning" />
         </div>
       </article>
 
       <article class="mbbiz-preview-card">
-        <h3>Form / Single action</h3>
+        <h3>Success</h3>
         <div class="mbbiz-preview-modal-stage">
-          <mbbiz-modal
-            title="Modal title"
-            actionLayout="single"
-            [showSecondary]="false"
-            primaryLabel="Text"
-            firstFieldLabel="Title"
-            firstFieldPlaceholder="Input text"
-            secondFieldLabel="Title"
-            secondFieldPlaceholder="Input text"
-          />
+          <mbbiz-modal type="success" />
+        </div>
+      </article>
+
+      <article class="mbbiz-preview-card">
+        <h3>Error</h3>
+        <div class="mbbiz-preview-modal-stage">
+          <mbbiz-modal type="error" />
+        </div>
+      </article>
+
+      <article class="mbbiz-preview-card">
+        <h3>Confirm</h3>
+        <div class="mbbiz-preview-modal-stage">
+          <mbbiz-modal type="confirm" />
+        </div>
+      </article>
+
+      <article class="mbbiz-preview-card">
+        <h3>Destructive</h3>
+        <div class="mbbiz-preview-modal-stage">
+          <mbbiz-modal type="destructive" />
+        </div>
+      </article>
+
+      <article class="mbbiz-preview-card">
+        <h3>Notification</h3>
+        <div class="mbbiz-preview-modal-stage">
+          <mbbiz-modal type="notification" [showPagination]="true" />
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="mbbiz-preview-section">
+    <div class="mbbiz-preview-section-heading">
+      <h2>Level Card family</h2>
+      <p>
+        Aligned to Figma node <code>25300:221923</code>. Large 216×100 and Medium 120×100
+        across Default, Hover, Focus, Disabled, Loading, Add, Delete, and Blank.
+      </p>
+    </div>
+
+    <div class="mbbiz-preview-level-card-grid">
+      <article class="mbbiz-preview-card">
+        <h3>Large</h3>
+        <div class="mbbiz-preview-level-card-stage">
+          <mbbiz-level-card size="lg" state="default" />
+          <mbbiz-level-card size="lg" state="hover" />
+          <mbbiz-level-card size="lg" state="focus" />
+          <mbbiz-level-card size="lg" state="disabled" />
+          <mbbiz-level-card size="lg" state="loading" />
+          <mbbiz-level-card size="lg" state="add" />
+          <mbbiz-level-card size="lg" state="delete" />
+          <mbbiz-level-card size="lg" state="blank" />
+        </div>
+      </article>
+
+      <article class="mbbiz-preview-card">
+        <h3>Medium</h3>
+        <div class="mbbiz-preview-level-card-stage">
+          <mbbiz-level-card size="md" state="default" />
+          <mbbiz-level-card size="md" state="hover" />
+          <mbbiz-level-card size="md" state="focus" />
+          <mbbiz-level-card size="md" state="disabled" />
+          <mbbiz-level-card size="md" state="loading" />
+          <mbbiz-level-card size="md" state="add" />
+          <mbbiz-level-card size="md" state="delete" />
+          <mbbiz-level-card size="md" state="blank" />
         </div>
       </article>
     </div>

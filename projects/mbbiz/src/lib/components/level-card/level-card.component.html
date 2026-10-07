@@ -1,0 +1,37 @@
+<button
+  [class]="cardClass()"
+  type="button"
+  [disabled]="!isInteractive()"
+  [attr.aria-label]="resolvedAriaLabel()"
+  [attr.aria-busy]="isLoading() ? 'true' : null"
+  (click)="onCardClick($event)"
+>
+  @if (isLoading()) {
+    <mbbiz-loading size="m" ariaLabel="Loading" />
+  } @else {
+    @if (showIcon()) {
+      <span class="mbbiz-level-card__icon" aria-hidden="true">
+        <mbiz-icon [name]="icon()" size="xl" />
+      </span>
+    }
+
+    @if (showLabel()) {
+      <span class="mbbiz-level-card__label">{{ label() }}</span>
+    }
+  }
+
+  @if (resolvedShowComingSoon()) {
+    <span class="mbbiz-level-card__tag">{{ comingSoonLabel() }}</span>
+  }
+
+  @if (showAction()) {
+    <span
+      class="mbbiz-level-card__action"
+      [class.mbbiz-level-card__action--delete]="state() === 'delete'"
+      role="presentation"
+      (click)="onActionClick($event)"
+    >
+      <mbiz-icon [name]="actionIcon()" size="xs" />
+    </span>
+  }
+</button>

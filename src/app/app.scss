@@ -606,6 +606,7 @@
 .content {
   width: 100%;
   max-width: 980px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -696,6 +697,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  min-width: 0;
 }
 
 .section h2 {
@@ -1339,6 +1341,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-width: 0;
   scroll-margin-top: 88px;
 }
 
@@ -1376,6 +1379,8 @@
   border: 1px solid rgba(195, 197, 217, 0.2);
   background: #ffffff;
   border-radius: 8px;
+  max-width: 100%;
+  min-width: 0;
   overflow: hidden;
 }
 
@@ -2565,8 +2570,41 @@ mbbiz-button.button-doc-state-pressed
   padding: 24px;
 }
 
+.level-card-demo-card,
+.level-card-demo-preview {
+  overflow: visible;
+}
+
+.level-card-demo-preview {
+  align-items: flex-start;
+  background: #808080;
+  border-radius: 8px;
+  justify-content: flex-start;
+  min-height: 220px;
+  padding: 32px 24px 24px;
+}
+
+.level-card-demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 24px;
+  width: 100%;
+}
+
+.level-card-demo-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.level-card-demo-label {
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 16px;
+}
+
 .modal-demo-preview mbbiz-modal {
-  width: min(100%, 640px);
+  width: min(100%, 400px);
 }
 
 .core3-button-link-preview {

@@ -399,6 +399,14 @@
             </div>
             <div
               class="sidebar-link"
+              [class.active]="activePage() === 'levelCard'"
+              (click)="setPage('levelCard')"
+            >
+              <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+              <span>Level Card</span>
+            </div>
+            <div
+              class="sidebar-link"
               [class.active]="activePage() === 'table'"
               (click)="setPage('table')"
             >
@@ -4133,8 +4141,8 @@
               </div>
               <h1>Modal</h1>
               <p class="lead">
-                Modal maps the approved dialog shell into docs: title, close, form fields, and
-                single or double footer actions.
+                Modal maps Figma node 3582:174031: centered illustration, title, description,
+                optional text link or error code, and stacked full-width pill actions.
               </p>
             </div>
 
@@ -4153,37 +4161,10 @@
 
               <div class="button-demo-card modal-demo-card">
                 <div class="button-demo-preview core3-map-preview modal-demo-preview">
-                  <ng-container [ngSwitch]="demo.variant">
-                    <mbbiz-modal
-                      *ngSwitchCase="'default'"
-                      title="Modal title"
-                      primaryLabel="Confirm"
-                      secondaryLabel="Cancel"
-                    />
-
-                    <mbbiz-modal
-                      *ngSwitchCase="'single'"
-                      title="Confirm action"
-                      actionLayout="single"
-                      primaryLabel="Confirm"
-                    />
-
-                    <mbbiz-modal
-                      *ngSwitchCase="'one-field'"
-                      title="Single field"
-                      [showSecondField]="false"
-                      primaryLabel="Save"
-                      secondaryLabel="Cancel"
-                    />
-
-                    <mbbiz-modal
-                      *ngSwitchCase="'no-close'"
-                      title="Required decision"
-                      [showClose]="false"
-                      primaryLabel="Continue"
-                      secondaryLabel="Back"
-                    />
-                  </ng-container>
+                  <mbbiz-modal
+                    [type]="demo.variant"
+                    [showPagination]="demo.showPagination === true"
+                  />
                 </div>
               </div>
             </section>
@@ -4191,8 +4172,8 @@
             <section class="section button-variables-section" id="modal-variables">
               <h2>Component Token</h2>
               <p class="button-demo-description">
-                Modal documents the dialog shell colors and spacing. Nested Input and Button tokens
-                still apply inside the body and footer.
+                Modal documents the 400px status-dialog shell. Nested Button and Button Link tokens
+                still apply inside the action stack and optional text link.
               </p>
 
               <div class="scale-block" *ngFor="let group of modalVariableGroups">
@@ -4235,6 +4216,97 @@
                 <h3>Normalization Notes</h3>
                 <ul>
                   <li *ngFor="let note of modalVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'levelCard'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Display</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Level Card</h1>
+              <p class="lead">
+                Level Card maps Figma node 25300:221923: Large 216×100 and Medium 120×100 tiles
+                with Default, Hover, Focus, Disabled, Loading, Add, Delete, and Blank.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of levelCardDemoSections"
+              [attr.id]="getLevelCardSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card level-card-demo-card">
+                <div class="button-demo-preview core3-map-preview level-card-demo-preview">
+                  <div class="level-card-demo-row">
+                    <div class="level-card-demo-item" *ngFor="let item of levelCardDemoStates">
+                      <span class="level-card-demo-label">{{ item.label }}</span>
+                      <mbbiz-level-card [size]="demo.size" [state]="item.state" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="level-card-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Level Card uses existing semantic aliases for fill, stroke, icon, and tag. Nested
+                Loading tokens apply on the loading state.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of levelCardVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of levelCardVariableNotes">{{ note }}</li>
                 </ul>
               </div>
             </section>
@@ -8850,6 +8922,41 @@
                   [class.active]="activeModalSection() === 'modal-variables'"
                   href="#modal-variables"
                   (click)="setActiveModalSection('modal-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'levelCard'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of levelCardDemoSections"
+                  [class.active]="activeLevelCardSection() === getLevelCardSectionId(demo.id)"
+                  [href]="'#' + getLevelCardSectionId(demo.id)"
+                  (click)="setActiveLevelCardSection(getLevelCardSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeLevelCardSection() === 'level-card-variables'"
+                  href="#level-card-variables"
+                  (click)="setActiveLevelCardSection('level-card-variables')"
                 >
                   Component Token
                 </a>

@@ -28,6 +28,7 @@ import {
   MbbizItemUploadComponent,
   type MbbizInputTagValue,
   MbbizModalComponent,
+  MbbizLevelCardComponent,
   MbbizNavigationBarComponent,
   type MbbizNavigationBarItem,
   type MbbizNavigationItemClick,
@@ -156,6 +157,14 @@ import {
   MODAL_VARIABLE_NOTES,
   type ModalDemoSection,
 } from './modal-demos.data';
+import {
+  LEVEL_CARD_DEMO_SECTIONS,
+  LEVEL_CARD_DEMO_STATES,
+  LEVEL_CARD_VARIABLE_GROUPS,
+  LEVEL_CARD_VARIABLE_NOTES,
+  type LevelCardDemoSection,
+  type LevelCardDemoCase,
+} from './level-card-demos.data';
 import {
   SWITCH_DEMO_SECTIONS,
   SWITCH_SIZE_L,
@@ -468,6 +477,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     MbbizItemUploadComponent,
     MbbizMessageComponent,
     MbbizModalComponent,
+    MbbizLevelCardComponent,
     MbbizNavigationBarComponent,
     MbbizPasswordInputComponent,
     MbbizPaginationComponent,
@@ -813,6 +823,14 @@ export class App {
   protected readonly modalVariableNotes = MODAL_VARIABLE_NOTES;
   protected readonly activeModalSection = signal(
     this.getModalSectionId(this.modalDemoSections[0]?.id ?? 'default'),
+  );
+  protected readonly levelCardDemoSections: LevelCardDemoSection[] = LEVEL_CARD_DEMO_SECTIONS;
+  protected readonly levelCardDemoStates: LevelCardDemoCase[] = LEVEL_CARD_DEMO_STATES;
+  protected readonly levelCardVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(LEVEL_CARD_VARIABLE_GROUPS);
+  protected readonly levelCardVariableNotes = LEVEL_CARD_VARIABLE_NOTES;
+  protected readonly activeLevelCardSection = signal(
+    this.getLevelCardSectionId(this.levelCardDemoSections[0]?.id ?? 'large'),
   );
   protected readonly buttonLinkDemoSections: ButtonLinkDemoSection[] = BUTTON_LINK_DEMO_SECTIONS;
   protected readonly buttonLinkVariableGroups: ResolvedVariableTokenGroup[] =
@@ -1499,6 +1517,8 @@ export const appConfig: ApplicationConfig = {
       setTimeout(() => this.updateActiveRatingSection(), 0);
     } else if (page === 'modal') {
       setTimeout(() => this.updateActiveModalSection(), 0);
+    } else if (page === 'levelCard') {
+      setTimeout(() => this.updateActiveLevelCardSection(), 0);
     } else if (page === 'switch') {
       setTimeout(() => this.updateActiveSwitchSection(), 0);
     } else if (page === 'table') {
@@ -2603,6 +2623,14 @@ export const appConfig: ApplicationConfig = {
     return `modal-${sectionId}`;
   }
 
+  protected setActiveLevelCardSection(sectionId: string) {
+    this.activeLevelCardSection.set(sectionId);
+  }
+
+  protected getLevelCardSectionId(sectionId: string): string {
+    return `level-card-${sectionId}`;
+  }
+
   protected setActiveButtonLinkSection(sectionId: string) {
     this.activeButtonLinkSection.set(sectionId);
   }
@@ -3272,6 +3300,7 @@ export const appConfig: ApplicationConfig = {
     this.updateActiveTooltipSection();
     this.updateActiveRatingSection();
     this.updateActiveModalSection();
+    this.updateActiveLevelCardSection();
     this.updateActiveSwitchSection();
     this.updateActiveTableSection();
     this.updateActivePaginationSection();
@@ -3752,6 +3781,31 @@ export const appConfig: ApplicationConfig = {
     }
 
     this.activeModalSection.set(currentSection);
+  }
+
+  private updateActiveLevelCardSection() {
+    if (this.activePage() !== 'levelCard' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getLevelCardSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeLevelCardSection.set(currentSection);
   }
 
   private updateActiveButtonLinkSection() {
@@ -4486,6 +4540,13 @@ export const appConfig: ApplicationConfig = {
     return [
       ...this.modalDemoSections.map((section) => this.getModalSectionId(section.id)),
       'modal-variables',
+    ];
+  }
+
+  private getLevelCardSectionIds(): string[] {
+    return [
+      ...this.levelCardDemoSections.map((section) => this.getLevelCardSectionId(section.id)),
+      'level-card-variables',
     ];
   }
 

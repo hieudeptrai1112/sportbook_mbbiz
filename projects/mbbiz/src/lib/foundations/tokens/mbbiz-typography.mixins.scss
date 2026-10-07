@@ -8,6 +8,15 @@
   font-style: normal;
 }
 
+@mixin mbbiz-typo-h1-normal-24-regular {
+  /* H1/Normal/24-Regular */
+  @include mbbiz-typo-base;
+  font-size: var(--mbbiz-font-size-2xl, 24px);
+  font-weight: var(--mbbiz-font-weight-regular, 400);
+  letter-spacing: var(--mbbiz-letter-spacing-default, 0.25px);
+  line-height: var(--mbbiz-line-height-2xl, 32px);
+}
+
 @mixin mbbiz-typo-h2-normal-20-semibold {
   /* H2/Normal/20-Semibold */
   @include mbbiz-typo-base;

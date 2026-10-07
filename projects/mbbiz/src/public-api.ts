@@ -26,6 +26,8 @@ export * from './lib/components/datepicker/datepicker.component';
 export * from './lib/components/datepicker/datepicker.types';
 export * from './lib/components/modal/modal.component';
 export * from './lib/components/modal/modal.types';
+export * from './lib/components/level-card/level-card.component';
+export * from './lib/components/level-card/level-card.types';
 export * from './lib/components/message/message.component';
 export * from './lib/components/message/message.service';
 export * from './lib/components/message/message.types';

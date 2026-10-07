@@ -389,8 +389,11 @@ button {
 }
 
 .button-code-wrapper {
-  border-top: 1px solid rgba(195, 197, 217, 0.2);
   background: #f2f3f5;
+  border-top: 1px solid rgba(195, 197, 217, 0.2);
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .button-code-head {
@@ -420,9 +423,12 @@ button {
 }
 
 .button-code-block {
+  box-sizing: border-box;
   margin: 0;
-  padding: 24px;
+  max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
+  padding: 24px;
 }
 
 .button-code-block code {
