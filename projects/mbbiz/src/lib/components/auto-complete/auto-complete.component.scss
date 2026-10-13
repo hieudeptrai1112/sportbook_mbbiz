@@ -1,0 +1,173 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
+:host {
+  display: inline-block;
+  max-width: 100%;
+  position: relative;
+  width: 250px;
+}
+
+:host ::ng-deep .mbbiz-input {
+  width: 100%;
+}
+
+.mbbiz-auto-complete {
+  --mbbiz-input-height: 52px;
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+.mbbiz-auto-complete--size-sm {
+  --mbbiz-input-height: 44px;
+}
+
+.mbbiz-auto-complete--size-lg {
+  --mbbiz-input-height: 56px;
+}
+
+.mbbiz-auto-complete__panel {
+  background: var(--mbbiz-color-surface-primary, #ffffff);
+  border: 1px solid var(--mbbiz-color-dropdown-border-active, #52dddd);
+  border-radius: var(--mbbiz-radius-md, 4px);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+  display: grid;
+  gap: 12px;
+  left: 0;
+  margin-top: 4px;
+  padding: 12px;
+  position: absolute;
+  top: var(--mbbiz-input-height);
+  width: 100%;
+  z-index: 10;
+}
+
+.mbbiz-auto-complete--has-label .mbbiz-auto-complete__panel {
+  top: calc(var(--mbbiz-input-height) + 26px);
+}
+
+.mbbiz-auto-complete__error {
+  align-items: center;
+  display: flex;
+  gap: var(--mbbiz-spacing-xs, 4px);
+  margin-top: 4px;
+  width: 100%;
+}
+
+.mbbiz-auto-complete__error mbiz-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: var(--mbbiz-iconsize-s, 20px);
+  line-height: 0;
+  width: var(--mbbiz-iconsize-s, 20px);
+}
+
+.mbbiz-auto-complete__error p {
+  color: var(--color-semantic-text-error, #f34343);
+  flex: 1 1 auto;
+  margin: 0;
+  @include typo.mbbiz-typo-body-normal-14-regular;
+}
+
+.mbbiz-auto-complete__panel--scrollable .mbbiz-auto-complete__options {
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.mbbiz-auto-complete__options {
+  display: grid;
+}
+
+.mbbiz-auto-complete__option {
+  -webkit-appearance: none;
+  appearance: none;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: var(--mbbiz-radius-md, 4px);
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 8px;
+  min-height: 40px;
+  padding: 4px;
+  text-align: left;
+  width: 100%;
+}
+
+.mbbiz-auto-complete__option:hover:not(:disabled),
+.mbbiz-auto-complete__option--active:not(:disabled) {
+  background: rgba(20, 30, 210, 0.04);
+}
+
+.mbbiz-auto-complete__option--selected {
+  color: var(--mbbiz-color-text-brand, #141ed2);
+  font-weight: var(--mbbiz-font-weight-semibold, 600);
+}
+
+.mbbiz-auto-complete__option--disabled {
+  color: var(--mbbiz-color-text-disabled, #808080);
+  cursor: not-allowed;
+}
+
+.mbbiz-auto-complete__option-image {
+  border-radius: 999px;
+  flex: 0 0 auto;
+  height: 24px;
+  object-fit: cover;
+  width: 24px;
+}
+
+.mbbiz-auto-complete__option-label {
+  color: currentColor;
+  flex: 1 1 auto;
+  @include typo.mbbiz-typo-body-normal-14-regular;
+  font-weight: inherit;
+}
+
+.mbbiz-auto-complete__state {
+  align-items: center;
+  color: var(--mbbiz-color-text-secondary, #6d83a7);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+  min-height: 140px;
+  padding: 8px 4px;
+  text-align: center;
+}
+
+.mbbiz-auto-complete__state-copy-group {
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+}
+
+.mbbiz-auto-complete__state-title {
+  color: var(--mbbiz-color-text-field, #192d39);
+  @include typo.mbbiz-typo-caption-normal-10-regular;
+  margin: 0;
+}
+
+.mbbiz-auto-complete__state-copy {
+  color: var(--mbbiz-color-text-secondary, #6d83a7);
+  @include typo.mbbiz-typo-caption-normal-10-regular;
+  margin: 0;
+  max-width: 176px;
+}
+
+.mbbiz-auto-complete__state-copy--single {
+  max-width: 160px;
+}
+
+.mbbiz-auto-complete__state-illustration {
+  height: 52px;
+  width: 52px;
+}
+
+.mbbiz-auto-complete__state-image {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}

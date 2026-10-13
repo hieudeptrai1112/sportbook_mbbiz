@@ -13,6 +13,7 @@ import {
   MbbizDropdownComponent,
   MbbizDropdownTagComponent,
   MbbizFloatingLabelInputComponent,
+  MbbizAutoCompleteComponent,
   MbbizInputComponent,
   MbbizInputTagComponent,
   MbbizInputTagValue,
@@ -26,6 +27,7 @@ import {
   MbbizMessageService,
   type   MbbizMessageType,
   MbbizModalComponent,
+  MbbizDrawerComponent,
   MbbizLevelCardComponent,
   MbbizPasswordInputComponent,
   MbbizPaginationComponent,
@@ -47,6 +49,10 @@ import {
   MbbizTextareaComponent,
   MbbizUploadFileComponent,
   MbbizUploadFileItem,
+  MbbizUploadAvatarComponent,
+  MbbizUploadAvatarItem,
+  MbbizAvatarComponent,
+  MbbizAvatarGroupComponent,
 } from 'mbbiz';
 import {
   TABLE_PREVIEW_ALL_COLUMNS,
@@ -76,6 +82,7 @@ import {
     MbbizDropdownComponent,
     MbbizDropdownTagComponent,
     MbbizFloatingLabelInputComponent,
+    MbbizAutoCompleteComponent,
     MbbizInputComponent,
     MbbizInputTagComponent,
     MbbizItemFileComponent,
@@ -83,6 +90,7 @@ import {
     MbbizLoadingComponent,
     MbbizMessageComponent,
     MbbizModalComponent,
+    MbbizDrawerComponent,
     MbbizLevelCardComponent,
     MbbizPasswordInputComponent,
     MbbizPaginationComponent,
@@ -96,6 +104,9 @@ import {
     MbbizTableComponent,
     MbbizTextareaComponent,
     MbbizUploadFileComponent,
+    MbbizUploadAvatarComponent,
+    MbbizAvatarComponent,
+    MbbizAvatarGroupComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -168,6 +179,7 @@ export class MbbizPreviewAppComponent {
   protected readonly stepProgressStates = [0, 1, 2, 3, 4];
 
   protected readonly loadingSizes: MbbizLoadingSize[] = ['s', 'm', 'l'];
+  protected readonly drawerOpen = signal(false);
 
   protected readonly buttonThemes = [
     { id: 'default', label: 'Default' },
@@ -273,6 +285,11 @@ export class MbbizPreviewAppComponent {
     { label: 'D', value: 'd' },
   ];
 
+  protected readonly autoCompleteItems = [
+    { id: 'ss', label: 'ss' },
+    { id: 'ssss', label: 'ssss' },
+    { id: 'ssssss', label: 'ssssss' },
+  ];
   protected readonly dropdownItems = [
     { id: 'option-1', label: 'Option 1' },
     { id: 'option-2', label: 'Option 2' },
@@ -337,6 +354,25 @@ export class MbbizPreviewAppComponent {
     { uid: 'upload-type-jpg', name: 'Tên tệp tin.jpg', sizeLabel: '2 MB', fileKind: 'jpg', downloadable: true },
     { uid: 'upload-type-xml', name: 'Tên tệp tin.xml', sizeLabel: '2 MB', fileKind: 'xml', downloadable: true },
   ];
+
+  protected readonly uploadAvatarPreviewUrl = '/assets/upload-avatar/preview.svg';
+  protected readonly uploadAvatarLoading: MbbizUploadAvatarItem[] = [
+    { uid: 'avatar-loading', name: 'avatar.jpg', url: '/assets/upload-avatar/preview.svg', status: 'uploading' },
+  ];
+  protected readonly uploadAvatarUploaded: MbbizUploadAvatarItem[] = [
+    { uid: 'avatar-done', name: 'avatar.jpg', url: '/assets/upload-avatar/preview.svg', status: 'done' },
+  ];
+  protected readonly uploadAvatarFormatError: MbbizUploadAvatarItem[] = [
+    { uid: 'avatar-format', name: 'notes.pdf', status: 'error', errorKind: 'format' },
+  ];
+  protected readonly uploadAvatarSizeError: MbbizUploadAvatarItem[] = [
+    { uid: 'avatar-size', name: 'avatar.jpg', status: 'error', errorKind: 'size' },
+  ];
+  protected readonly uploadAvatarBasicFiles = signal<MbbizUploadAvatarItem[]>([]);
+  protected readonly uploadAvatarWallFiles = signal<MbbizUploadAvatarItem[]>([
+    { uid: 'avatar-wall-1', name: 'avatar-1.jpg', url: '/assets/upload-avatar/preview.svg', status: 'done' },
+    { uid: 'avatar-wall-2', name: 'avatar-2.jpg', url: '/assets/upload-avatar/preview.svg', status: 'uploading' },
+  ]);
 
   protected readonly itemFileKinds: { kind: MbbizItemFileKind; name: string }[] = [
     { kind: 'xlsx', name: 'Tên tệp tin.xlsx' },

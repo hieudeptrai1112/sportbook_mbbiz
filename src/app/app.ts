@@ -20,6 +20,7 @@ import {
   type MbbizDropdownItem,
   MbbizDropdownTagComponent,
   MbbizFloatingLabelInputComponent,
+  MbbizAutoCompleteComponent,
   MbbizInputComponent,
   MbbizInputTagComponent,
   MbbizItemFileComponent,
@@ -28,6 +29,7 @@ import {
   MbbizItemUploadComponent,
   type MbbizInputTagValue,
   MbbizModalComponent,
+  MbbizDrawerComponent,
   MbbizLevelCardComponent,
   MbbizNavigationBarComponent,
   type MbbizNavigationBarItem,
@@ -59,6 +61,10 @@ import {
   MbbizTextareaComponent,
   MbbizUploadFileComponent,
   type MbbizUploadFileItem,
+  MbbizUploadAvatarComponent,
+  type MbbizUploadAvatarItem,
+  MbbizAvatarComponent,
+  MbbizAvatarGroupComponent,
   type MbbizButtonSize,
   type MbbizButtonVariant,
 } from 'mbbiz';
@@ -158,6 +164,12 @@ import {
   type ModalDemoSection,
 } from './modal-demos.data';
 import {
+  DRAWER_DEMO_SECTIONS,
+  DRAWER_VARIABLE_GROUPS,
+  DRAWER_VARIABLE_NOTES,
+  type DrawerDemoSection,
+} from './drawer-demos.data';
+import {
   LEVEL_CARD_DEMO_SECTIONS,
   LEVEL_CARD_DEMO_STATES,
   LEVEL_CARD_VARIABLE_GROUPS,
@@ -215,6 +227,14 @@ import {
   type DropdownApiRow,
   type DropdownDemoSection,
 } from './dropdown-demos.data';
+import {
+  AUTO_COMPLETE_API_ROWS,
+  AUTO_COMPLETE_DEMO_SECTIONS,
+  AUTO_COMPLETE_VARIABLE_GROUPS,
+  AUTO_COMPLETE_VARIABLE_NOTES,
+  type AutoCompleteApiRow,
+  type AutoCompleteDemoSection,
+} from './auto-complete-demos.data';
 import {
   RADIO_API_ROWS,
   RADIO_DEMO_SECTIONS,
@@ -332,6 +352,26 @@ import {
   type UploadFileApiRow,
   type UploadFileDemoSection,
 } from './upload-file-demos.data';
+import {
+  UPLOAD_AVATAR_API_ROWS,
+  UPLOAD_AVATAR_DEMO_SECTIONS,
+  UPLOAD_AVATAR_STATE_FILES,
+  UPLOAD_AVATAR_TYPE_ROWS,
+  UPLOAD_AVATAR_VARIABLE_GROUPS,
+  UPLOAD_AVATAR_VARIABLE_NOTES,
+  UPLOAD_AVATAR_WALL_SEED,
+  type UploadAvatarApiRow,
+  type UploadAvatarDemoSection,
+} from './upload-avatar-demos.data';
+import {
+  AVATAR_API_ROWS,
+  AVATAR_DEMO_SECTIONS,
+  AVATAR_GROUP_API_ROWS,
+  AVATAR_VARIABLE_GROUPS,
+  AVATAR_VARIABLE_NOTES,
+  type AvatarApiRow,
+  type AvatarDemoSection,
+} from './avatar-demos.data';
 import {
   DEFAULT_THEME_BRAND,
   buildSemanticAliasPrimitiveMap,
@@ -471,12 +511,14 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     MbbizDropdownComponent,
     MbbizDropdownTagComponent,
     MbbizFloatingLabelInputComponent,
+    MbbizAutoCompleteComponent,
     MbbizInputComponent,
     MbbizInputTagComponent,
     MbbizItemFileComponent,
     MbbizItemUploadComponent,
     MbbizMessageComponent,
     MbbizModalComponent,
+    MbbizDrawerComponent,
     MbbizLevelCardComponent,
     MbbizNavigationBarComponent,
     MbbizPasswordInputComponent,
@@ -494,6 +536,9 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     MbbizTableComponent,
     MbbizTextareaComponent,
     MbbizUploadFileComponent,
+    MbbizUploadAvatarComponent,
+    MbbizAvatarComponent,
+    MbbizAvatarGroupComponent,
     IconComponent,
   ],
   templateUrl: './app.html',
@@ -824,6 +869,14 @@ export class App {
   protected readonly activeModalSection = signal(
     this.getModalSectionId(this.modalDemoSections[0]?.id ?? 'default'),
   );
+  protected readonly drawerDemoSections: DrawerDemoSection[] = DRAWER_DEMO_SECTIONS;
+  protected readonly drawerVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(DRAWER_VARIABLE_GROUPS);
+  protected readonly drawerVariableNotes = DRAWER_VARIABLE_NOTES;
+  protected readonly activeDrawerSection = signal(
+    this.getDrawerSectionId(this.drawerDemoSections[0]?.id ?? 'basic'),
+  );
+  protected readonly drawerDemoOpen = signal(false);
   protected readonly levelCardDemoSections: LevelCardDemoSection[] = LEVEL_CARD_DEMO_SECTIONS;
   protected readonly levelCardDemoStates: LevelCardDemoCase[] = LEVEL_CARD_DEMO_STATES;
   protected readonly levelCardVariableGroups: ResolvedVariableTokenGroup[] =
@@ -888,6 +941,16 @@ export class App {
   protected readonly formPatternSelectedRadio = signal<'option-1' | 'option-2'>('option-1');
   protected readonly expandedDropdownDemoIds = signal<string[]>([]);
   protected readonly copiedDropdownDemoId = signal<string | null>(null);
+  protected readonly autoCompleteDemoSections: AutoCompleteDemoSection[] = AUTO_COMPLETE_DEMO_SECTIONS;
+  protected readonly autoCompleteApiRows: AutoCompleteApiRow[] = AUTO_COMPLETE_API_ROWS;
+  protected readonly autoCompleteVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(AUTO_COMPLETE_VARIABLE_GROUPS);
+  protected readonly autoCompleteVariableNotes = AUTO_COMPLETE_VARIABLE_NOTES;
+  protected readonly activeAutoCompleteSection = signal(
+    this.getAutoCompleteSectionId(this.autoCompleteDemoSections[0]?.id ?? 'basic'),
+  );
+  protected readonly expandedAutoCompleteDemoIds = signal<string[]>([]);
+  protected readonly copiedAutoCompleteDemoId = signal<string | null>(null);
   protected readonly radioDemoSections: RadioDemoSection[] = RADIO_DEMO_SECTIONS;
   protected readonly radioApiRows: RadioApiRow[] = RADIO_API_ROWS;
   protected readonly radioGroupApiRows: RadioApiRow[] = RADIO_GROUP_API_ROWS;
@@ -932,6 +995,28 @@ export class App {
   );
   protected readonly expandedUploadFileDemoIds = signal<string[]>([]);
   protected readonly copiedUploadFileDemoId = signal<string | null>(null);
+  protected readonly uploadAvatarDemoSections: UploadAvatarDemoSection[] = UPLOAD_AVATAR_DEMO_SECTIONS;
+  protected readonly uploadAvatarStateFiles = UPLOAD_AVATAR_STATE_FILES;
+  protected readonly uploadAvatarApiRows: UploadAvatarApiRow[] = UPLOAD_AVATAR_API_ROWS;
+  protected readonly uploadAvatarTypeRows: UploadAvatarApiRow[] = UPLOAD_AVATAR_TYPE_ROWS;
+  protected readonly uploadAvatarVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(UPLOAD_AVATAR_VARIABLE_GROUPS);
+  protected readonly uploadAvatarVariableNotes = UPLOAD_AVATAR_VARIABLE_NOTES;
+  protected readonly activeUploadAvatarSection = signal(
+    this.getUploadAvatarSectionId(this.uploadAvatarDemoSections[0]?.id ?? 'states'),
+  );
+  protected readonly uploadAvatarBasicFiles = signal<MbbizUploadAvatarItem[]>([]);
+  protected readonly uploadAvatarWallFiles = signal<MbbizUploadAvatarItem[]>([...UPLOAD_AVATAR_WALL_SEED]);
+  protected readonly avatarDemoSections: AvatarDemoSection[] = AVATAR_DEMO_SECTIONS;
+  protected readonly avatarApiRows: AvatarApiRow[] = AVATAR_API_ROWS;
+  protected readonly avatarGroupApiRows: AvatarApiRow[] = AVATAR_GROUP_API_ROWS;
+  protected readonly avatarVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(AVATAR_VARIABLE_GROUPS);
+  protected readonly avatarVariableNotes = AVATAR_VARIABLE_NOTES;
+  protected readonly activeAvatarSection = signal(
+    this.getAvatarSectionId(this.avatarDemoSections[0]?.id ?? 'basic'),
+  );
+  protected readonly avatarPreviewUrl = '/assets/upload-avatar/preview.svg';
   protected readonly activeInstallationSection = signal('installation-install');
   protected readonly copiedInstallationSnippet = signal<string | null>(null);
   protected readonly installationInstallCommand = 'npm install mbbiz';
@@ -1285,6 +1370,16 @@ export const appConfig: ApplicationConfig = {
   protected readonly core3DropdownBasicItems: readonly MbbizDropdownItem[] =
     this.core3DropdownItems.slice(0, 4);
   protected readonly core3DropdownEmptyItems: readonly MbbizDropdownItem[] = [];
+  protected readonly core3AutoCompleteBasicItems: readonly MbbizDropdownItem[] = [
+    { id: 'ss', label: 'ss' },
+    { id: 'ssss', label: 'ssss' },
+    { id: 'ssssss', label: 'ssssss' },
+  ];
+  protected readonly core3AutoCompleteStreetItems: readonly MbbizDropdownItem[] = [
+    { id: 'burns', label: 'Burns Bay Road' },
+    { id: 'downing', label: 'Downing Street' },
+    { id: 'wall', label: 'Wall Street' },
+  ];
   protected readonly formPreviewFields: readonly {
     id: 'top' | 'middle' | 'bottom';
     title: string;
@@ -1517,6 +1612,8 @@ export const appConfig: ApplicationConfig = {
       setTimeout(() => this.updateActiveRatingSection(), 0);
     } else if (page === 'modal') {
       setTimeout(() => this.updateActiveModalSection(), 0);
+    } else if (page === 'drawer') {
+      setTimeout(() => this.updateActiveDrawerSection(), 0);
     } else if (page === 'levelCard') {
       setTimeout(() => this.updateActiveLevelCardSection(), 0);
     } else if (page === 'switch') {
@@ -1527,6 +1624,8 @@ export const appConfig: ApplicationConfig = {
       setTimeout(() => this.updateActivePaginationSection(), 0);
     } else if (page === 'dropdown') {
       setTimeout(() => this.updateActiveDropdownSection(), 0);
+    } else if (page === 'autoComplete') {
+      setTimeout(() => this.updateActiveAutoCompleteSection(), 0);
     } else if (page === 'radio') {
       setTimeout(() => this.updateActiveRadioSection(), 0);
     } else if (page === 'datepicker') {
@@ -1535,6 +1634,10 @@ export const appConfig: ApplicationConfig = {
       setTimeout(() => this.updateActivePriceRangeSection(), 0);
     } else if (page === 'uploadFile') {
       setTimeout(() => this.updateActiveUploadFileSection(), 0);
+    } else if (page === 'uploadAvatar') {
+      setTimeout(() => this.updateActiveUploadAvatarSection(), 0);
+    } else if (page === 'avatar') {
+      setTimeout(() => this.updateActiveAvatarSection(), 0);
     } else if (page === 'iconography') {
       setTimeout(() => this.updateActiveIconographySection(), 0);
     } else if (page === 'illustration') {
@@ -2623,6 +2726,18 @@ export const appConfig: ApplicationConfig = {
     return `modal-${sectionId}`;
   }
 
+  protected setActiveDrawerSection(sectionId: string) {
+    this.activeDrawerSection.set(sectionId);
+  }
+
+  protected getDrawerSectionId(sectionId: string): string {
+    return `drawer-${sectionId}`;
+  }
+
+  protected openDrawerDemo() {
+    this.drawerDemoOpen.set(true);
+  }
+
   protected setActiveLevelCardSection(sectionId: string) {
     this.activeLevelCardSection.set(sectionId);
   }
@@ -2849,6 +2964,66 @@ export const appConfig: ApplicationConfig = {
     return `dropdown-${sectionId}`;
   }
 
+  protected setActiveAutoCompleteSection(sectionId: string) {
+    this.activeAutoCompleteSection.set(sectionId);
+  }
+
+  protected getAutoCompleteSectionId(sectionId: string): string {
+    return `auto-complete-${sectionId}`;
+  }
+
+  protected isAutoCompleteDemoExpanded(sectionId: string): boolean {
+    return this.expandedAutoCompleteDemoIds().includes(sectionId);
+  }
+
+  protected toggleAutoCompleteDemoCode(sectionId: string) {
+    const next = new Set(this.expandedAutoCompleteDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedAutoCompleteDemoIds.set([...next]);
+  }
+
+  protected toggleAllAutoCompleteDemoCode() {
+    const expanded = this.expandedAutoCompleteDemoIds();
+    const allIds = this.autoCompleteDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedAutoCompleteDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllAutoCompleteDemoCodeExpanded(): boolean {
+    return this.expandedAutoCompleteDemoIds().length === this.autoCompleteDemoSections.length;
+  }
+
+  protected getAutoCompleteDemoCode(section: AutoCompleteDemoSection): string {
+    return section.snippetTs;
+  }
+
+  protected getAutoCompleteDemoHighlightedCode(section: AutoCompleteDemoSection): string {
+    return this.highlightTypeScriptSnippet(this.getAutoCompleteDemoCode(section));
+  }
+
+  protected getAutoCompleteCodeLanguageLabel(section: AutoCompleteDemoSection): string {
+    return `auto-complete-${section.id}-demo.component.ts`;
+  }
+
+  protected getAutoCompleteCodeHint(): string {
+    return 'Angular standalone snippet';
+  }
+
+  protected async copyAutoCompleteDemoCode(section: AutoCompleteDemoSection) {
+    const code = this.getAutoCompleteDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedAutoCompleteDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedAutoCompleteDemoId() === section.id) {
+        this.copiedAutoCompleteDemoId.set(null);
+      }
+    }, 1200);
+  }
+
   protected setActiveFormSection(sectionId: string) {
     this.activeFormSection.set(sectionId);
   }
@@ -2887,6 +3062,28 @@ export const appConfig: ApplicationConfig = {
 
   protected getUploadFileSectionId(sectionId: string): string {
     return `upload-file-${sectionId}`;
+  }
+
+  protected setActiveUploadAvatarSection(sectionId: string) {
+    this.activeUploadAvatarSection.set(sectionId);
+  }
+
+  protected getUploadAvatarSectionId(sectionId: string): string {
+    return `upload-avatar-${sectionId}`;
+  }
+
+  protected setActiveAvatarSection(sectionId: string) {
+    this.activeAvatarSection.set(sectionId);
+  }
+
+  protected getAvatarSectionId(sectionId: string): string {
+    return `avatar-${sectionId}`;
+  }
+
+  protected onUploadAvatarPreview(file: MbbizUploadAvatarItem) {
+    if (file.url) {
+      window.open(file.url, '_blank');
+    }
   }
 
   protected isDropdownDemoExpanded(sectionId: string): boolean {
@@ -3300,15 +3497,19 @@ export const appConfig: ApplicationConfig = {
     this.updateActiveTooltipSection();
     this.updateActiveRatingSection();
     this.updateActiveModalSection();
+    this.updateActiveDrawerSection();
     this.updateActiveLevelCardSection();
     this.updateActiveSwitchSection();
     this.updateActiveTableSection();
     this.updateActivePaginationSection();
     this.updateActiveDropdownSection();
+    this.updateActiveAutoCompleteSection();
     this.updateActiveRadioSection();
     this.updateActiveDatepickerSection();
     this.updateActivePriceRangeSection();
     this.updateActiveUploadFileSection();
+    this.updateActiveUploadAvatarSection();
+    this.updateActiveAvatarSection();
     this.updateActiveIconographySection();
     this.updateActiveIllustrationSection();
     this.updateActiveInstallationSection();
@@ -3783,6 +3984,31 @@ export const appConfig: ApplicationConfig = {
     this.activeModalSection.set(currentSection);
   }
 
+  private updateActiveDrawerSection() {
+    if (this.activePage() !== 'drawer' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getDrawerSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeDrawerSection.set(currentSection);
+  }
+
   private updateActiveLevelCardSection() {
     if (this.activePage() !== 'levelCard' || typeof document === 'undefined') {
       return;
@@ -4008,6 +4234,31 @@ export const appConfig: ApplicationConfig = {
     this.activeDropdownSection.set(currentSection);
   }
 
+  private updateActiveAutoCompleteSection() {
+    if (this.activePage() !== 'autoComplete' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getAutoCompleteSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeAutoCompleteSection.set(currentSection);
+  }
+
   private updateActiveFormSection() {
     if (this.activePage() !== 'form' || typeof document === 'undefined') {
       return;
@@ -4131,6 +4382,56 @@ export const appConfig: ApplicationConfig = {
     }
 
     this.activeUploadFileSection.set(currentSection);
+  }
+
+  private updateActiveUploadAvatarSection() {
+    if (this.activePage() !== 'uploadAvatar' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getUploadAvatarSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeUploadAvatarSection.set(currentSection);
+  }
+
+  private updateActiveAvatarSection() {
+    if (this.activePage() !== 'avatar' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getAvatarSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeAvatarSection.set(currentSection);
   }
 
   private updateActiveIllustrationSection() {
@@ -4543,6 +4844,13 @@ export const appConfig: ApplicationConfig = {
     ];
   }
 
+  private getDrawerSectionIds(): string[] {
+    return [
+      ...this.drawerDemoSections.map((section) => this.getDrawerSectionId(section.id)),
+      'drawer-variables',
+    ];
+  }
+
   private getLevelCardSectionIds(): string[] {
     return [
       ...this.levelCardDemoSections.map((section) => this.getLevelCardSectionId(section.id)),
@@ -4609,6 +4917,14 @@ export const appConfig: ApplicationConfig = {
     ];
   }
 
+  private getAutoCompleteSectionIds(): string[] {
+    return [
+      ...this.autoCompleteDemoSections.map((section) => this.getAutoCompleteSectionId(section.id)),
+      'auto-complete-api',
+      'auto-complete-variables',
+    ];
+  }
+
   private getFormSectionIds(): string[] {
     return [this.getFormSectionId('default'), this.getFormSectionId('variables')];
   }
@@ -4641,6 +4957,22 @@ export const appConfig: ApplicationConfig = {
       ...this.uploadFileDemoSections.map((section) => this.getUploadFileSectionId(section.id)),
       'upload-file-api',
       'upload-file-variables',
+    ];
+  }
+
+  private getUploadAvatarSectionIds(): string[] {
+    return [
+      ...this.uploadAvatarDemoSections.map((section) => this.getUploadAvatarSectionId(section.id)),
+      'upload-avatar-api',
+      'upload-avatar-variables',
+    ];
+  }
+
+  private getAvatarSectionIds(): string[] {
+    return [
+      ...this.avatarDemoSections.map((section) => this.getAvatarSectionId(section.id)),
+      'avatar-api',
+      'avatar-variables',
     ];
   }
 

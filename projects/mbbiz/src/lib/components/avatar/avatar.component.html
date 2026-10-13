@@ -1,0 +1,17 @@
+<span class="mbbiz-avatar__canvas">
+  @if (showImage()) {
+    <img
+      class="mbbiz-avatar__image"
+      [src]="src()"
+      [attr.srcset]="srcSet()"
+      [alt]="alt()"
+      (error)="onImageError($event)"
+    />
+  } @else if (icon()) {
+    <mbiz-icon class="mbbiz-avatar__icon" [name]="icon()!" />
+  } @else if (text()) {
+    <span #textNode class="mbbiz-avatar__text" [style.transform]="textTransform()">{{ text() }}</span>
+  } @else {
+    <span class="mbbiz-avatar__mark" [innerHTML]="defaultMarkup"></span>
+  }
+</span>

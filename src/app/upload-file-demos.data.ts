@@ -590,12 +590,21 @@ export const UPLOAD_FILE_VARIABLE_GROUPS: UploadFileVariableGroup[] = [
   {
     title: 'Item Upload Variables',
     rows: [
-      { token: 'text/brand-primary1', value: 'blue/500', appliesTo: 'Action links and active border', notes: 'Declared in item-upload component scope.' },
-      { token: 'border/brand-primary3', value: 'blue/300', appliesTo: 'Default dashed border', notes: 'Used by dropzone border.' },
-      { token: 'text/secondary', value: 'darkblue/500', appliesTo: 'Guide copy and separator text', notes: 'Matches upload instruction color.' },
-      { token: 'text/disable2', value: 'grayscale/500', appliesTo: 'Disabled action link', notes: 'Used when state is disabled.' },
-      { token: 'background/error-primary', value: 'red/500', appliesTo: 'Error border and error icon fill', notes: 'Used when state is error.' },
-      { token: 'background/error-secondary', value: 'red/400', appliesTo: 'Error message text', notes: 'Rendered below the dropzone.' },
+      { token: 'text/on-error', value: 'white/100%', appliesTo: 'Default / error dropzone fill', notes: 'Figma 14201:39723 surface; maps to --color-semantic-text-on-error / #FFFFFF.' },
+      { token: 'border/info', value: 'blue/300', appliesTo: 'Default dashed border', notes: 'Maps to --color-semantic-border-info / #A3B7FD.' },
+      { token: 'text/secondary', value: 'darkblue/500', appliesTo: 'Guide copy and “hoặc” (all states)', notes: 'Maps to --color-semantic-text-secondary / #6D83A7.' },
+      { token: 'hyperlink/default', value: 'blue/500', appliesTo: 'Select / data-source links', notes: 'Maps to --color-semantic-hyperlink-default / #141ED2.' },
+      { token: 'border/error1', value: 'red/500', appliesTo: 'Error dashed border', notes: 'Maps to --color-semantic-border-error1 / #F00000.' },
+      { token: 'icon/error', value: 'red/500', appliesTo: 'Error icon A Bold/Error', notes: 'Maps to --color-semantic-icon-error / #F00000.' },
+      { token: 'text/error', value: 'red/400', appliesTo: 'Error message text', notes: 'Maps to --color-semantic-text-error / #F34343.' },
+      { token: 'background/disable3', value: 'grayscale/200', appliesTo: 'Disabled dropzone fill', notes: 'Maps to --color-semantic-background-disable3 / #F3F3F3.' },
+      { token: 'border/disable2', value: 'grayscale/400', appliesTo: 'Disabled dashed border', notes: 'Maps to --color-semantic-border-disable2 / #CCCCCC.' },
+      { token: 'hyperlink/disabled', value: 'grayscale/500', appliesTo: 'Disabled select / data-source links', notes: 'Maps to --color-semantic-hyperlink-disabled / #9B9B9B.' },
+      { token: 'item-upload/width', value: '434px', appliesTo: 'Host max width', notes: 'Figma frame width.' },
+      { token: 'item-upload/min-height', value: '76px', appliesTo: 'Dropzone min height', notes: 'Default / Disable shell.' },
+      { token: 'item-upload/padding', value: '12px', appliesTo: 'Dropzone padding', notes: 'padding/m.' },
+      { token: 'item-upload/gap', value: '16px', appliesTo: 'Icon-to-copy gap', notes: 'spacing/l.' },
+      { token: 'item-upload/illustration', value: '52px', appliesTo: 'A Illustration/Upload', notes: 'Fixed asset slot.' },
     ],
   },
   {
@@ -622,7 +631,7 @@ export const UPLOAD_FILE_VARIABLE_GROUPS: UploadFileVariableGroup[] = [
 ];
 
 export const UPLOAD_FILE_VARIABLE_NOTES = [
+  'Item Upload tokens map Figma node 14201:39723 (Default / Error / Disable): hyperlink/default + hyperlink/disabled for links, text/secondary for guide.',
   'Upload File composes Item Upload and Item File; dropzone and file-row styling stay in the child components.',
   'File illustrations are public assets under /assets/illustrations/a-illustration and are selected by fileKind or file extension.',
-  'The wrapper uses native file input behavior for select/drop, then emits mapped MbbizUploadFileItem values.',
 ];

@@ -2570,6 +2570,12 @@ mbbiz-button.button-doc-state-pressed
   padding: 24px;
 }
 
+.drawer-demo-preview {
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+}
+
 .level-card-demo-card,
 .level-card-demo-preview {
   overflow: visible;
@@ -2845,6 +2851,66 @@ mbbiz-button.button-doc-state-pressed
     padding: 24px;
   }
 
+}
+
+.upload-avatar-demo-card,
+.upload-avatar-demo-preview {
+  overflow: visible;
+}
+
+.upload-avatar-demo-preview {
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 220px;
+  padding: 48px;
+}
+
+.upload-avatar-demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.upload-avatar-demo-item {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+}
+
+.upload-avatar-demo-label {
+  color: #536985;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  line-height: 16px;
+}
+
+.avatar-demo-preview {
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 160px;
+}
+
+.avatar-demo-row {
+  align-items: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.avatar-demo-item {
+  align-items: center;
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+}
+
+.avatar-demo-item span {
+  color: #536985;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  line-height: 16px;
 }
 
 .button-demo-controls {

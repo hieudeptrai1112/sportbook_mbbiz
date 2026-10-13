@@ -460,6 +460,30 @@
   overflow-x: auto;
 }
 
+.mbbiz-preview-upload-avatar-frame {
+  align-items: flex-start;
+}
+
+.mbbiz-preview-upload-avatar-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.mbbiz-preview-upload-avatar-item {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+}
+
+.mbbiz-preview-upload-avatar-item span {
+  color: #536985;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  line-height: 16px;
+}
+
 .mbbiz-preview-upload-stack {
   display: grid;
   gap: 24px;

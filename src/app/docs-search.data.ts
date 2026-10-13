@@ -10,6 +10,7 @@ export type DocsPageId =
   | 'steps'
   | 'tab'
   | 'dropdown'
+  | 'autoComplete'
   | 'radio'
   | 'checkbox'
   | 'switch'
@@ -19,12 +20,15 @@ export type DocsPageId =
   | 'tooltip'
   | 'rating'
   | 'modal'
+  | 'drawer'
   | 'levelCard'
   | 'table'
   | 'pagination'
   | 'datepicker'
   | 'priceRange'
   | 'uploadFile'
+  | 'uploadAvatar'
+  | 'avatar'
   | 'iconography'
   | 'illustration'
   | 'pageHeaderPattern'
@@ -171,6 +175,13 @@ export const DOCS_SEARCH_ENTRIES: readonly DocsSearchEntry[] = [
     keywords: ['select', 'droplist', 'combobox', 'menu'],
   },
   {
+    id: 'autoComplete',
+    label: 'AutoComplete',
+    group: 'Components',
+    page: 'autoComplete',
+    keywords: ['autocomplete', 'suggest', 'typeahead', 'combobox', 'input', 'droplist'],
+  },
+  {
     id: 'form',
     label: 'Form',
     group: 'Components',
@@ -204,6 +215,20 @@ export const DOCS_SEARCH_ENTRIES: readonly DocsSearchEntry[] = [
     group: 'Components',
     page: 'uploadFile',
     keywords: ['upload', 'file', 'attachment', 'dropzone'],
+  },
+  {
+    id: 'uploadAvatar',
+    label: 'Upload Avatar',
+    group: 'Components',
+    page: 'uploadAvatar',
+    keywords: ['upload', 'avatar', 'picture', 'image', 'pictures wall', 'ảnh đại diện'],
+  },
+  {
+    id: 'avatar',
+    label: 'Avatar',
+    group: 'Components',
+    page: 'avatar',
+    keywords: ['avatar', 'profile', 'user', 'image', 'letter', 'group'],
   },
   {
     id: 'radio',
@@ -267,6 +292,13 @@ export const DOCS_SEARCH_ENTRIES: readonly DocsSearchEntry[] = [
     group: 'Components',
     page: 'modal',
     keywords: ['modal', 'dialog', 'popup'],
+  },
+  {
+    id: 'drawer',
+    label: 'Drawer',
+    group: 'Components',
+    page: 'drawer',
+    keywords: ['drawer', 'panel', 'sheet', 'overlay', 'slide'],
   },
   {
     id: 'levelCard',

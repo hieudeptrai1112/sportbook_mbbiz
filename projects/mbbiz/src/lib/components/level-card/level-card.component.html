@@ -7,7 +7,7 @@
   (click)="onCardClick($event)"
 >
   @if (isLoading()) {
-    <mbbiz-loading size="m" ariaLabel="Loading" />
+    <mbbiz-loading class="mbbiz-level-card__loading" size="m" ariaLabel="Loading" />
   } @else {
     @if (showIcon()) {
       <span class="mbbiz-level-card__icon" aria-hidden="true">

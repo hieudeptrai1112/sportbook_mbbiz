@@ -1,0 +1,70 @@
+<div [class]="wrapperClass()" (keydown)="onKeydown($event)">
+  <mbbiz-input
+    [value]="localValue()"
+    [placeholder]="placeholder()"
+    [disabled]="disabled()"
+    [size]="size()"
+    [status]="status()"
+    [inputId]="inputId()"
+    [label]="label()"
+    [hint]="showError() ? null : hint()"
+    [errorMessage]="null"
+    autoComplete="off"
+    (valueChange)="onValueChange($event)"
+  />
+
+  @if (localOpen()) {
+    <div [class]="panelClass()" role="listbox">
+      @if (emptyKind() === 'no-data') {
+        <div class="mbbiz-auto-complete__state mbbiz-auto-complete__state--no-data">
+          <div
+            class="mbbiz-auto-complete__state-illustration"
+            aria-hidden="true"
+          >
+            <img
+              class="mbbiz-auto-complete__state-image"
+              [src]="emptyStateAssets.noData.iconUrl"
+              alt=""
+            />
+          </div>
+          <p class="mbbiz-auto-complete__state-copy mbbiz-auto-complete__state-copy--single">
+            {{ emptyStateAssets.noData.description }}
+          </p>
+        </div>
+      } @else {
+        <div class="mbbiz-auto-complete__options">
+          @for (item of filteredItems(); track trackById($index, item)) {
+            <button
+              type="button"
+              class="mbbiz-auto-complete__option"
+              role="option"
+              [class.mbbiz-auto-complete__option--active]="isActive(item)"
+              [class.mbbiz-auto-complete__option--selected]="isSelected(item)"
+              [class.mbbiz-auto-complete__option--disabled]="!!item.disabled"
+              [disabled]="!!item.disabled"
+              (mousedown)="$event.preventDefault()"
+              (click)="selectItem(item, $event)"
+            >
+              @if (item.imageUrl) {
+                <img class="mbbiz-auto-complete__option-image" [src]="item.imageUrl" [alt]="item.label" />
+              }
+              <span class="mbbiz-auto-complete__option-label">{{ item.label }}</span>
+            </button>
+          }
+        </div>
+      }
+    </div>
+  }
+
+  @if (showError()) {
+    <div class="mbbiz-auto-complete__error">
+      <mbiz-icon
+        name="abold_error"
+        size="s"
+        color="var(--color-semantic-icon-error, #f00000)"
+        aria-hidden="true"
+      />
+      <p>{{ errorMessage() }}</p>
+    </div>
+  }
+</div>

@@ -550,6 +550,20 @@
 
       <article class="mbbiz-preview-doc-card">
         <div class="mbbiz-preview-doc-card__heading">
+          <h3>AutoComplete</h3>
+          <p>Basic text input plus dropdown droplist. Type to filter, pick to fill, unmatched text stays.</p>
+        </div>
+        <div class="mbbiz-preview-demo-frame mbbiz-preview-demo-frame--compact" style="overflow: visible; min-height: 220px">
+          <mbbiz-auto-complete
+            inputId="preview-draft-auto-complete"
+            placeholder="Input text"
+            [items]="autoCompleteItems"
+          />
+        </div>
+      </article>
+
+      <article class="mbbiz-preview-doc-card">
+        <div class="mbbiz-preview-doc-card__heading">
           <h3>Affix Input / Prefix</h3>
           <p>Text input with a fixed prefix slot.</p>
         </div>
@@ -1118,6 +1132,105 @@
           />
         </div>
       </article>
+    </div>
+  </section>
+
+  <section class="mbbiz-preview-section">
+    <div class="mbbiz-preview-section-heading">
+      <h2>Upload Avatar</h2>
+      <p>
+        Aligned to Figma node <code>4457:199330</code>. 124px picture card with empty,
+        loading, uploaded, and error tiles. Hover overlay is CSS. <code>maxCount</code>
+        greater than 1 renders a Pictures Wall.
+      </p>
+    </div>
+
+    <div class="mbbiz-preview-doc-list">
+      <article class="mbbiz-preview-doc-card">
+        <div class="mbbiz-preview-doc-card__heading">
+          <h3>States</h3>
+          <p>Default, Loading, Uploaded, format error, and size error. Hover the live tiles.</p>
+        </div>
+        <div class="mbbiz-preview-demo-frame mbbiz-preview-upload-avatar-frame">
+          <div class="mbbiz-preview-upload-avatar-row">
+            <div class="mbbiz-preview-upload-avatar-item">
+              <span>Default</span>
+              <mbbiz-upload-avatar />
+            </div>
+            <div class="mbbiz-preview-upload-avatar-item">
+              <span>Loading</span>
+              <mbbiz-upload-avatar [files]="uploadAvatarLoading" />
+            </div>
+            <div class="mbbiz-preview-upload-avatar-item">
+              <span>Uploaded</span>
+              <mbbiz-upload-avatar [files]="uploadAvatarUploaded" />
+            </div>
+            <div class="mbbiz-preview-upload-avatar-item">
+              <span>Error format</span>
+              <mbbiz-upload-avatar [files]="uploadAvatarFormatError" />
+            </div>
+            <div class="mbbiz-preview-upload-avatar-item">
+              <span>Error size</span>
+              <mbbiz-upload-avatar [files]="uploadAvatarSizeError" />
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="mbbiz-preview-doc-card">
+        <div class="mbbiz-preview-doc-card__heading">
+          <h3>Basic</h3>
+          <p>Single tile. A new file replaces the current image.</p>
+        </div>
+        <div class="mbbiz-preview-demo-frame mbbiz-preview-upload-avatar-frame">
+          <mbbiz-upload-avatar
+            [files]="uploadAvatarBasicFiles()"
+            (filesChange)="uploadAvatarBasicFiles.set($event)"
+          />
+        </div>
+      </article>
+
+      <article class="mbbiz-preview-doc-card">
+        <div class="mbbiz-preview-doc-card__heading">
+          <h3>Pictures Wall</h3>
+          <p>Add tiles remain until the wall reaches maxCount 8.</p>
+        </div>
+        <div class="mbbiz-preview-demo-frame mbbiz-preview-upload-avatar-frame">
+          <mbbiz-upload-avatar
+            [files]="uploadAvatarWallFiles()"
+            [maxCount]="8"
+            (filesChange)="uploadAvatarWallFiles.set($event)"
+          />
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="mbbiz-preview-section">
+    <div class="mbbiz-preview-section-heading">
+      <h2>Avatar</h2>
+      <p>
+        Aligned to Figma node <code>18143:329006</code>. Default is the 50px person mark.
+        Cases follow <code>nz-avatar</code>: image, icon, text, shape, size, and group.
+      </p>
+    </div>
+
+    <div class="mbbiz-preview-card">
+      <h3>Basic / Type / Shape / Group</h3>
+      <div class="mbbiz-preview-upload-avatar-row">
+        <mbbiz-avatar size="large" />
+        <mbbiz-avatar />
+        <mbbiz-avatar size="small" />
+        <mbbiz-avatar [src]="uploadAvatarPreviewUrl" alt="Avatar" />
+        <mbbiz-avatar icon="alinear_profile" alt="Profile" />
+        <mbbiz-avatar text="MB" alt="MB" />
+        <mbbiz-avatar shape="square" />
+        <mbbiz-avatar-group>
+          <mbbiz-avatar text="A" />
+          <mbbiz-avatar text="B" />
+          <mbbiz-avatar />
+        </mbbiz-avatar-group>
+      </div>
     </div>
   </section>
 
@@ -1767,10 +1880,34 @@
 
   <section class="mbbiz-preview-section">
     <div class="mbbiz-preview-section-heading">
+      <h2>Drawer</h2>
+      <p>
+        Aligned to Figma node <code>25303:225221</code>. Wraps <code>nz-drawer</code>
+        at 736px from the right with overlay/primary mask.
+      </p>
+    </div>
+
+    <div class="mbbiz-preview-card">
+      <h3>Basic</h3>
+      <mbbiz-button (buttonClick)="drawerOpen.set(true)">Open</mbbiz-button>
+      <mbbiz-drawer
+        title="Title"
+        [visible]="drawerOpen()"
+        (visibleChange)="drawerOpen.set($event)"
+      >
+        <p>Some content....</p>
+        <p>Some content....</p>
+        <p>Some content....</p>
+      </mbbiz-drawer>
+    </div>
+  </section>
+
+  <section class="mbbiz-preview-section">
+    <div class="mbbiz-preview-section-heading">
       <h2>Level Card family</h2>
       <p>
-        Aligned to Figma node <code>25300:221923</code>. Large 216×100 and Medium 120×100
-        across Default, Hover, Focus, Disabled, Loading, Add, Delete, and Blank.
+        Aligned to Figma node <code>25300:221923</code>. Large 216×100 and Medium 120×100.
+        Hover/focus are CSS on Default. States: Disabled, Loading, Add, Delete, Blank.
       </p>
     </div>
 
@@ -1779,8 +1916,6 @@
         <h3>Large</h3>
         <div class="mbbiz-preview-level-card-stage">
           <mbbiz-level-card size="lg" state="default" />
-          <mbbiz-level-card size="lg" state="hover" />
-          <mbbiz-level-card size="lg" state="focus" />
           <mbbiz-level-card size="lg" state="disabled" />
           <mbbiz-level-card size="lg" state="loading" />
           <mbbiz-level-card size="lg" state="add" />
@@ -1793,8 +1928,6 @@
         <h3>Medium</h3>
         <div class="mbbiz-preview-level-card-stage">
           <mbbiz-level-card size="md" state="default" />
-          <mbbiz-level-card size="md" state="hover" />
-          <mbbiz-level-card size="md" state="focus" />
           <mbbiz-level-card size="md" state="disabled" />
           <mbbiz-level-card size="md" state="loading" />
           <mbbiz-level-card size="md" state="add" />

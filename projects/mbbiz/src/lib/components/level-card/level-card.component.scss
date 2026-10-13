@@ -6,8 +6,8 @@
 }
 
 .mbbiz-level-card {
-  --mbbiz-loading-color: var(--mbbiz-color-text-field, var(--color-semantic-text-primary, #192d39));
-
+  -webkit-appearance: none;
+  appearance: none;
   align-items: flex-start;
   background: var(--color-semantic-background-gradient8-1, #ffffff);
   border: 1px solid var(--color-semantic-border-brand-primary4, #dae4ff);
@@ -17,6 +17,7 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  font-family: inherit;
   gap: 24px;
   height: 100px;
   justify-content: space-between;
@@ -34,18 +35,22 @@
 }
 
 .mbbiz-level-card--loading {
+  --mbbiz-color-loading-ring: var(
+    --mbbiz-color-text-field,
+    var(--color-semantic-text-primary, #192d39)
+  );
+
   align-items: center;
   cursor: default;
   justify-content: center;
 }
 
-.mbbiz-level-card:hover:not(:disabled):not(.mbbiz-level-card--disabled):not(.mbbiz-level-card--loading),
-.mbbiz-level-card--hover:not(:disabled) {
+.mbbiz-level-card:hover,
+.mbbiz-level-card:active {
   background: var(--color-semantic-background-gradient8-1, #ffffff);
 }
 
-.mbbiz-level-card:focus-visible,
-.mbbiz-level-card--focus:not(:disabled) {
+.mbbiz-level-card:focus-visible:not(:hover):not(:active) {
   background: var(--color-semantic-background-disable3, #f3f3f3);
   outline: none;
 }
@@ -74,14 +79,32 @@
 }
 
 .mbbiz-level-card__icon {
+  align-items: center;
   color: var(--color-semantic-icon-brand-primary1, #141ed2);
-  display: inline-flex;
+  display: flex;
+  flex-shrink: 0;
   height: 32px;
+  justify-content: center;
+  line-height: 0;
   width: 32px;
 }
 
 .mbbiz-level-card__icon mbiz-icon {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  flex-shrink: 0;
+  height: 32px;
+  justify-content: center;
+  line-height: 0;
+  width: 32px;
+}
+
+:host ::ng-deep .mbbiz-level-card__icon .mbiz-icon,
+:host ::ng-deep .mbbiz-level-card__icon svg {
   display: block;
+  height: 32px;
+  width: 32px;
 }
 
 .mbbiz-level-card__label {
@@ -110,12 +133,18 @@
 .mbbiz-level-card__action {
   align-items: center;
   background: var(--color-semantic-icon-brand-primary1, #141ed2);
+  border: 0;
   border-radius: 16px;
+  box-sizing: border-box;
   color: var(--color-semantic-icon-brand-on-primary, #ffffff);
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
+  flex-shrink: 0;
   height: 24px;
   justify-content: center;
+  line-height: 0;
+  overflow: hidden;
+  padding: 0;
   position: absolute;
   right: -11px;
   top: -13px;
@@ -127,5 +156,33 @@
 }
 
 .mbbiz-level-card__action mbiz-icon {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  flex-shrink: 0;
+  height: 16px;
+  justify-content: center;
+  line-height: 0;
+  width: 16px;
+}
+
+:host ::ng-deep .mbbiz-level-card__action .mbiz-icon,
+:host ::ng-deep .mbbiz-level-card__action svg {
   display: block;
+  height: 16px;
+  width: 16px;
+}
+
+.mbbiz-level-card__loading {
+  --mbbiz-color-loading-ring: var(
+    --mbbiz-color-text-field,
+    var(--color-semantic-text-primary, #192d39)
+  );
+}
+
+:host ::ng-deep .mbbiz-level-card--loading .mbbiz-loading {
+  --mbbiz-loading-color: var(
+    --mbbiz-color-text-field,
+    var(--color-semantic-text-primary, #192d39)
+  );
 }

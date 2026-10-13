@@ -18,6 +18,7 @@ export class MbbizInputComponent {
   readonly label = input<string | null>(null);
   readonly hint = input<string | null>(null);
   readonly errorMessage = input<string | null>(null);
+  readonly autoComplete = input<string | null>(null);
 
   readonly valueChange = output<string>();
 

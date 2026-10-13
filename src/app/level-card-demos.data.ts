@@ -15,8 +15,6 @@ export interface LevelCardDemoSection {
 
 export const LEVEL_CARD_DEMO_STATES: LevelCardDemoCase[] = [
   { state: 'default', label: 'Default' },
-  { state: 'hover', label: 'Hover' },
-  { state: 'focus', label: 'Focus' },
   { state: 'disabled', label: 'Disabled' },
   { state: 'loading', label: 'Loading' },
   { state: 'add', label: 'Add' },
@@ -28,14 +26,16 @@ export const LEVEL_CARD_DEMO_SECTIONS: LevelCardDemoSection[] = [
   {
     id: 'large',
     title: 'Large',
-    description: '216×100 card. Disabled shows Sắp ra mắt. Add/Delete expose a corner action chip.',
+    description:
+      '216×100 card. Default has no hover fill. Keyboard :focus-visible uses disable3. Disabled shows Sắp ra mắt. Add/Delete expose a corner action chip.',
     tags: ['selector=mbbiz-level-card', 'size=lg'],
     size: 'lg',
   },
   {
     id: 'medium',
     title: 'Medium',
-    description: '120×100 card. Same states as Large, without the coming-soon tag.',
+    description:
+      '120×100 card. Same states as Large, without the coming-soon tag. Default has no hover fill.',
     tags: ['selector=mbbiz-level-card', 'size=md'],
     size: 'md',
   },
@@ -46,7 +46,7 @@ export const LEVEL_CARD_VARIABLE_GROUPS = [
     title: 'Level Card Color Tokens',
     rows: [
       { token: 'background/gradient8-1', value: 'white/100%', appliesTo: 'Default, hover, add, delete, blank, loading fill', notes: 'Maps to --color-semantic-background-gradient8-1.' },
-      { token: 'background/disable3', value: 'grayscale/200', appliesTo: 'Focus fill', notes: 'Maps to --color-semantic-background-disable3 / #F3F3F3.' },
+      { token: 'background/disable3', value: 'grayscale/200', appliesTo: ':focus-visible fill only', notes: 'Maps to --color-semantic-background-disable3 / #F3F3F3. Default has no hover fill.' },
       { token: 'border/brand-primary4', value: 'blue/200', appliesTo: 'Card stroke', notes: 'Maps to --color-semantic-border-brand-primary4 / #DAE4FF.' },
       { token: 'icon/brand-primary1', value: 'blue/700', appliesTo: 'Default plus icon and add chip', notes: 'Maps to --color-semantic-icon-brand-primary1 / #141ED2.' },
       { token: 'icon/brand-primary3', value: 'blue/300', appliesTo: 'Large blank plus icon', notes: 'Maps to --color-semantic-icon-brand-primary3 / #A3B7FD.' },
@@ -72,6 +72,6 @@ export const LEVEL_CARD_VARIABLE_GROUPS = [
 ];
 
 export const LEVEL_CARD_VARIABLE_NOTES = [
-  'Level Card maps Figma node 25300:221923 (Card) sizes Large/Medium and states Default, Hover, Focus, Disabled, Loading, Add, Delete, Blank.',
+  'Level Card maps Figma node 25300:221923. Public states: default, disabled, loading, add, delete, blank. Default has no hover fill. Keyboard :focus-visible uses disable3.',
   'Icons reuse @mbbiz/icon alinear_add and alinear_cancel. Loading reuses mbbiz-loading size=m with the on-surface ring color.',
 ];

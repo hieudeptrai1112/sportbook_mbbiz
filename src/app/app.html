@@ -286,6 +286,14 @@
             <span class="sidebar-sublabel">Data Entry</span>
             <div
               class="sidebar-link"
+              [class.active]="activePage() === 'autoComplete'"
+              (click)="setPage('autoComplete')"
+            >
+              <img src="/assets/figma/03bf2435-ca8f-437f-9a5e-d842dff607d0.svg" alt="" />
+              <span>AutoComplete</span>
+            </div>
+            <div
+              class="sidebar-link"
               [class.active]="activePage() === 'form'"
               (click)="setPage('form')"
             >
@@ -323,6 +331,22 @@
             >
               <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
               <span>Upload File</span>
+            </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'uploadAvatar'"
+              (click)="setPage('uploadAvatar')"
+            >
+              <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
+              <span>Upload Avatar</span>
+            </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'avatar'"
+              (click)="setPage('avatar')"
+            >
+              <img src="/assets/figma/a267f91a-5244-487b-a70d-df817b48d1e8.svg" alt="" />
+              <span>Avatar</span>
             </div>
             <div
               class="sidebar-link"
@@ -396,6 +420,14 @@
             >
               <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
               <span>Modal</span>
+            </div>
+            <div
+              class="sidebar-link"
+              [class.active]="activePage() === 'drawer'"
+              (click)="setPage('drawer')"
+            >
+              <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+              <span>Drawer</span>
             </div>
             <div
               class="sidebar-link"
@@ -4221,6 +4253,101 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'drawer'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Feedback</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Drawer</h1>
+              <p class="lead">
+                Drawer maps Figma node 25303:225221 Basic: a 736px panel that slides in from the
+                right over overlay/primary, with H1 title, A Linear/Cancel close, and projected body.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of drawerDemoSections"
+              [attr.id]="getDrawerSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card drawer-demo-card">
+                <div class="button-demo-preview core3-map-preview drawer-demo-preview">
+                  <mbbiz-button (buttonClick)="openDrawerDemo()">Open</mbbiz-button>
+                  <mbbiz-drawer
+                    title="Title"
+                    [visible]="drawerDemoOpen()"
+                    (visibleChange)="drawerDemoOpen.set($event)"
+                  >
+                    <p>Some content....</p>
+                    <p>Some content....</p>
+                    <p>Some content....</p>
+                  </mbbiz-drawer>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="drawer-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Drawer documents the 736px right panel, overlay mask, and header/body type tokens
+                from Figma 25303:225221.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of drawerVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of drawerVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'levelCard'">
             <div class="page-header">
               <div class="header-meta">
@@ -4230,8 +4357,9 @@
               </div>
               <h1>Level Card</h1>
               <p class="lead">
-                Level Card maps Figma node 25300:221923: Large 216×100 and Medium 120×100 tiles
-                with Default, Hover, Focus, Disabled, Loading, Add, Delete, and Blank.
+                Level Card maps Figma node 25300:221923: Large 216×100 and Medium 120×100.
+                Hover and focus are live CSS on Default. Other states: Disabled, Loading, Add,
+                Delete, Blank.
               </p>
             </div>
 
@@ -5289,6 +5417,211 @@
                 <h3>Normalization Notes</h3>
                 <ul>
                   <li *ngFor="let note of dropdownVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'autoComplete'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Entry</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>AutoComplete</h1>
+              <p class="lead">
+                AutoComplete wraps Basic Text Input with the dropdown droplist. Type ss to match.
+                No match closes the list. Error uses the Price Range message row.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of autoCompleteDemoSections; let i = index"
+              [attr.id]="getAutoCompleteSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+                <button
+                  *ngIf="i === 0"
+                  class="button-doc-toggle"
+                  type="button"
+                  (click)="toggleAllAutoCompleteDemoCode()"
+                >
+                  {{ areAllAutoCompleteDemoCodeExpanded() ? 'Collapse all code' : 'Expand all code' }}
+                </button>
+              </div>
+              <p class="button-demo-description button-demo-description--rich">
+                @for (part of demo.descriptionParts; track $index) {
+                  @if (part.code) {
+                    <span class="button-inline-code button-inline-code--description">{{
+                      part.code
+                    }}</span>
+                  } @else {
+                    <span>{{ part.text }}</span>
+                  }
+                }
+              </p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card" style="overflow: visible">
+                <div
+                  class="button-demo-preview core3-map-preview"
+                  style="min-height: 220px; overflow: visible"
+                >
+                  <ng-container [ngSwitch]="demo.variant">
+                    <mbbiz-auto-complete
+                      *ngSwitchCase="'basic'"
+                      placeholder="Input text"
+                      [items]="core3AutoCompleteBasicItems"
+                    />
+
+                    <mbbiz-auto-complete
+                      *ngSwitchCase="'caseInsensitive'"
+                      placeholder="Input text"
+                      [items]="core3AutoCompleteStreetItems"
+                    />
+
+                    <div
+                      *ngSwitchCase="'status'"
+                      class="core3-input-frame core3-input-frame--grid"
+                    >
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Error</span>
+                        <mbbiz-auto-complete
+                          placeholder="Input text"
+                          status="error"
+                          errorMessage="Error message"
+                          [items]="core3AutoCompleteBasicItems"
+                        />
+                      </div>
+                      <div class="core3-input-demo-stack">
+                        <span class="core3-map-button-row-label">Disabled</span>
+                        <mbbiz-auto-complete
+                          placeholder="Input text"
+                          [disabled]="true"
+                          [items]="core3AutoCompleteBasicItems"
+                        />
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+
+                <div class="button-demo-controls">
+                  <div class="button-demo-icons">
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      [class.active]="isAutoCompleteDemoExpanded(demo.id)"
+                      (click)="toggleAutoCompleteDemoCode(demo.id)"
+                      aria-label="Toggle code"
+                    >
+                      &lt;/&gt;
+                    </button>
+                    <button
+                      type="button"
+                      class="button-icon-btn"
+                      (click)="copyAutoCompleteDemoCode(demo)"
+                      aria-label="Copy code"
+                    >
+                      {{ copiedAutoCompleteDemoId() === demo.id ? 'Copied' : 'Copy' }}
+                    </button>
+                  </div>
+                  <span class="button-code-hint">TS</span>
+                </div>
+
+                <div class="button-code-wrapper" *ngIf="isAutoCompleteDemoExpanded(demo.id)">
+                  <div class="button-code-head">
+                    <span class="button-code-file">{{ getAutoCompleteCodeLanguageLabel(demo) }}</span>
+                    <span class="button-code-hint">{{ getAutoCompleteCodeHint() }}</span>
+                  </div>
+                  <pre
+                    class="button-code-block"
+                  ><code [innerHTML]="getAutoCompleteDemoHighlightedCode(demo)"></code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-api-section" id="auto-complete-api">
+              <h2>API</h2>
+              <h3 class="button-api-group-title">mbbiz-auto-complete</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of autoCompleteApiRows">
+                  <code class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</code>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
+                  <code class="token-code button-api-col button-api-col-type">{{ row.type }}</code>
+                  <code class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</code>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="auto-complete-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Input chrome comes from mbbiz-input. Panel tokens match the dropdown droplist.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of autoCompleteVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div
+                  class="token-table component-alias-color-table"
+                  *ngIf="group.kind === 'alias-color'"
+                >
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span
+                        class="token-swatch"
+                        [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"
+                      ></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token note</span>
+                    <span>Value</span>
+                    <span>Applied To</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <div class="token-note-cell">
+                      <code class="token-code">{{ row.token }}</code>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </div>
+                    <code class="token-code">{{ row.value }}</code>
+                    <span>{{ row.appliesTo }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of autoCompleteVariableNotes">{{ note }}</li>
                 </ul>
               </div>
             </section>
@@ -6439,8 +6772,8 @@
             <section class="section button-variables-section" id="upload-file-variables">
               <h2>Component Token</h2>
               <p class="button-demo-description">
-                Component-scoped CSS variables are declared in Item Upload, Item File, and Upload
-                File styles.
+                Item Upload binds Figma semantic aliases from node 14201:39723. Item File and Upload
+                File keep their child/wrapper token tables below.
               </p>
 
               <div class="scale-block" *ngFor="let group of uploadFileVariableGroups">
@@ -6488,6 +6821,346 @@
               <ul class="button-variable-notes">
                 <li *ngFor="let note of uploadFileVariableNotes">{{ note }}</li>
               </ul>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'uploadAvatar'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Entry</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Upload Avatar</h1>
+              <p class="lead">
+                Upload Avatar maps Figma node 4457:199330: a 124px picture card with empty,
+                loading, uploaded, and error tiles. Hover overlay is CSS. maxCount greater
+                than 1 renders a Pictures Wall.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of uploadAvatarDemoSections"
+              [attr.id]="getUploadAvatarSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card upload-avatar-demo-card">
+                <div class="button-demo-preview core3-map-preview upload-avatar-demo-preview">
+                  <div *ngIf="demo.variant === 'states'" class="upload-avatar-demo-row">
+                    <div class="upload-avatar-demo-item" *ngFor="let item of uploadAvatarStateFiles">
+                      <span class="upload-avatar-demo-label">{{ item.label }}</span>
+                      <mbbiz-upload-avatar [files]="item.files" (preview)="onUploadAvatarPreview($event)" />
+                    </div>
+                  </div>
+
+                  <mbbiz-upload-avatar
+                    *ngIf="demo.variant === 'basic'"
+                    [files]="uploadAvatarBasicFiles()"
+                    (filesChange)="uploadAvatarBasicFiles.set($event)"
+                    (preview)="onUploadAvatarPreview($event)"
+                  />
+
+                  <mbbiz-upload-avatar
+                    *ngIf="demo.variant === 'picturesWall'"
+                    [files]="uploadAvatarWallFiles()"
+                    [maxCount]="8"
+                    (filesChange)="uploadAvatarWallFiles.set($event)"
+                    (preview)="onUploadAvatarPreview($event)"
+                  />
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-api-section" id="upload-avatar-api">
+              <h2>API</h2>
+              <p class="button-demo-description">
+                v1 is a custom picture card: hidden file input, local accept/maxSize checks,
+                and object-URL previews. Parents own remote upload.
+              </p>
+
+              <h3 class="button-api-group-title">mbbiz-upload-avatar</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of uploadAvatarApiRows">
+                  <span class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</span>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</span>
+                </div>
+              </div>
+
+              <h3 class="button-api-group-title">Public types</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Type</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of uploadAvatarTypeRows">
+                  <span class="token-code button-api-col button-api-col-property">{{
+                    row.property
+                  }}</span>
+                  <span class="button-api-col button-api-col-description">{{
+                    row.description
+                  }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{
+                    row.defaultValue
+                  }}</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="upload-avatar-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Upload Avatar documents the 124px picture card, overlay, error dashed tile,
+                and hover icons from Figma 4457:199330.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of uploadAvatarVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of uploadAvatarVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
+          <ng-container *ngIf="activePage() === 'avatar'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Display</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Avatar</h1>
+              <p class="lead">
+                Avatar maps Figma node 18143:329006: a 50px circle with the default person mark,
+                border, and shadow. Cases follow nz-avatar: image, icon, text, shape, size, and group.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of avatarDemoSections"
+              [attr.id]="getAvatarSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card avatar-demo-card">
+                <div class="button-demo-preview core3-map-preview avatar-demo-preview">
+                  <div *ngIf="demo.variant === 'basic'" class="avatar-demo-row">
+                    <div class="avatar-demo-item">
+                      <span>Large</span>
+                      <mbbiz-avatar size="large" />
+                    </div>
+                    <div class="avatar-demo-item">
+                      <span>Default</span>
+                      <mbbiz-avatar />
+                    </div>
+                    <div class="avatar-demo-item">
+                      <span>Small</span>
+                      <mbbiz-avatar size="small" />
+                    </div>
+                  </div>
+
+                  <div *ngIf="demo.variant === 'type'" class="avatar-demo-row">
+                    <div class="avatar-demo-item">
+                      <span>Image</span>
+                      <mbbiz-avatar [src]="avatarPreviewUrl" alt="Avatar" />
+                    </div>
+                    <div class="avatar-demo-item">
+                      <span>Icon</span>
+                      <mbbiz-avatar icon="alinear_profile" alt="Profile" />
+                    </div>
+                    <div class="avatar-demo-item">
+                      <span>Text</span>
+                      <mbbiz-avatar text="MB" alt="MB" />
+                    </div>
+                    <div class="avatar-demo-item">
+                      <span>Default</span>
+                      <mbbiz-avatar />
+                    </div>
+                  </div>
+
+                  <div *ngIf="demo.variant === 'shape'" class="avatar-demo-row">
+                    <div class="avatar-demo-item">
+                      <span>Circle</span>
+                      <mbbiz-avatar />
+                    </div>
+                    <div class="avatar-demo-item">
+                      <span>Square</span>
+                      <mbbiz-avatar shape="square" />
+                    </div>
+                  </div>
+
+                  <div *ngIf="demo.variant === 'text'" class="avatar-demo-row">
+                    <mbbiz-avatar text="MB" />
+                    <mbbiz-avatar text="Edward" />
+                    <mbbiz-avatar text="Nguyen" [gap]="4" />
+                  </div>
+
+                  <mbbiz-avatar-group *ngIf="demo.variant === 'group'">
+                    <mbbiz-avatar text="A" alt="A" />
+                    <mbbiz-avatar text="B" alt="B" />
+                    <mbbiz-avatar icon="alinear_profile" alt="Profile" />
+                    <mbbiz-avatar [src]="avatarPreviewUrl" alt="Avatar" />
+                    <mbbiz-avatar />
+                  </mbbiz-avatar-group>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-api-section" id="avatar-api">
+              <h2>API</h2>
+              <p class="button-demo-description">
+                Inputs follow the nz-avatar split. The empty avatar renders the Figma mark.
+              </p>
+
+              <h3 class="button-api-group-title">mbbiz-avatar</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of avatarApiRows">
+                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                </div>
+              </div>
+
+              <h3 class="button-api-group-title">mbbiz-avatar-group</h3>
+              <div class="button-api-table">
+                <div class="button-api-row button-api-head">
+                  <span class="button-api-col button-api-col-property">Property</span>
+                  <span class="button-api-col button-api-col-description">Description</span>
+                  <span class="button-api-col button-api-col-type">Type</span>
+                  <span class="button-api-col button-api-col-default">Default</span>
+                </div>
+                <div class="button-api-row" *ngFor="let row of avatarGroupApiRows">
+                  <span class="token-code button-api-col button-api-col-property">{{ row.property }}</span>
+                  <span class="button-api-col button-api-col-description">{{ row.description }}</span>
+                  <span class="token-code button-api-col button-api-col-type">{{ row.type }}</span>
+                  <span class="token-code button-api-col button-api-col-default">{{ row.defaultValue }}</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="avatar-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Colors and the 50px frame come from Figma 18143:329006. Named sizes follow the ng-zorro case list.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of avatarVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of avatarVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
             </section>
           </ng-container>
 
@@ -8938,6 +9611,41 @@
           </div>
         </ng-container>
 
+        <ng-container *ngIf="activePage() === 'drawer'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of drawerDemoSections"
+                  [class.active]="activeDrawerSection() === getDrawerSectionId(demo.id)"
+                  [href]="'#' + getDrawerSectionId(demo.id)"
+                  (click)="setActiveDrawerSection(getDrawerSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeDrawerSection() === 'drawer-variables'"
+                  href="#drawer-variables"
+                  (click)="setActiveDrawerSection('drawer-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
         <ng-container *ngIf="activePage() === 'levelCard'">
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
@@ -9100,6 +9808,59 @@
                   Use <span class="mono">Basic Select</span> for normal dropdown usage; use
                   <span class="mono">Tag Select</span> only when the selected values must stay
                   visible as chips.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'autoComplete'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of autoCompleteDemoSections"
+                  [class.active]="activeAutoCompleteSection() === getAutoCompleteSectionId(demo.id)"
+                  [href]="'#' + getAutoCompleteSectionId(demo.id)"
+                  (click)="setActiveAutoCompleteSection(getAutoCompleteSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeAutoCompleteSection() === 'auto-complete-api'"
+                  href="#auto-complete-api"
+                  (click)="setActiveAutoCompleteSection('auto-complete-api')"
+                >
+                  API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeAutoCompleteSection() === 'auto-complete-variables'"
+                  href="#auto-complete-variables"
+                  (click)="setActiveAutoCompleteSection('auto-complete-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Pro Tip</span>
+                </div>
+                <p>
+                  Use AutoComplete when the field is still free text. Use
+                  <span class="mono">Dropdown</span> when the value must come from the list.
                 </p>
               </div>
             </aside>
@@ -9343,6 +10104,92 @@
                   Use the copied snippets with exported selectors from
                   <span class="mono">mbbiz</span>.
                 </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'uploadAvatar'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of uploadAvatarDemoSections"
+                  [class.active]="activeUploadAvatarSection() === getUploadAvatarSectionId(demo.id)"
+                  [href]="'#' + getUploadAvatarSectionId(demo.id)"
+                  (click)="setActiveUploadAvatarSection(getUploadAvatarSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeUploadAvatarSection() === 'upload-avatar-api'"
+                  href="#upload-avatar-api"
+                  (click)="setActiveUploadAvatarSection('upload-avatar-api')"
+                >
+                  API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeUploadAvatarSection() === 'upload-avatar-variables'"
+                  href="#upload-avatar-variables"
+                  (click)="setActiveUploadAvatarSection('upload-avatar-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'avatar'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of avatarDemoSections"
+                  [class.active]="activeAvatarSection() === getAvatarSectionId(demo.id)"
+                  [href]="'#' + getAvatarSectionId(demo.id)"
+                  (click)="setActiveAvatarSection(getAvatarSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeAvatarSection() === 'avatar-api'"
+                  href="#avatar-api"
+                  (click)="setActiveAvatarSection('avatar-api')"
+                >
+                  API
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeAvatarSection() === 'avatar-variables'"
+                  href="#avatar-variables"
+                  (click)="setActiveAvatarSection('avatar-variables')"
+                >
+                  Component Token
+                </a>
               </div>
             </aside>
             <button

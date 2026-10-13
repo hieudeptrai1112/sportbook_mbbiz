@@ -7,14 +7,6 @@
 }
 
 .mbbiz-item-upload {
-  --mbbiz-item-upload-primary: var(--mbbiz-color-brand-600, #141ed2);
-  --mbbiz-item-upload-primary-300: var(--mbbiz-color-brand-300, #a3b7fd);
-  --mbbiz-item-upload-text-guide: #6d83a7;
-  --mbbiz-item-upload-text-disabled: #9b9b9b;
-  --mbbiz-item-upload-error: #f00000;
-  --mbbiz-item-upload-error-text: #f34343;
-
-  color: var(--mbbiz-item-upload-text-guide);
   display: grid;
   gap: 4px;
   width: 100%;
@@ -22,12 +14,14 @@
 
 .mbbiz-item-upload__dropzone {
   align-items: center;
-  background: #ffffff;
-  border: 1px dashed var(--mbbiz-item-upload-primary-300);
-  border-radius: 4px;
+  background: var(--color-semantic-text-on-error, #ffffff);
+  border: 1px dashed var(--color-semantic-border-info, #a3b7fd);
+  border-radius: var(--mbbiz-radius-md, 4px);
+  box-sizing: border-box;
   display: flex;
+  gap: 16px;
   justify-content: center;
-  min-height: 124px;
+  min-height: 76px;
   padding: 12px;
   transition:
     background-color 140ms ease,
@@ -36,27 +30,16 @@
 }
 
 .mbbiz-item-upload--drag-active .mbbiz-item-upload__dropzone {
-  background: #f8fbff;
-  border-color: var(--mbbiz-item-upload-primary);
+  border-color: var(--color-semantic-hyperlink-default, #141ed2);
 }
 
 .mbbiz-item-upload--error .mbbiz-item-upload__dropzone {
-  border-color: var(--mbbiz-item-upload-error);
+  border-color: var(--color-semantic-border-error1, #f00000);
 }
 
 .mbbiz-item-upload--disabled .mbbiz-item-upload__dropzone {
-  background: #f3f3f3;
-  border-color: #cccccc;
-}
-
-.mbbiz-item-upload__content {
-  align-items: center;
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  gap: 4px;
-  justify-content: center;
-  min-width: 0;
+  background: var(--color-semantic-background-disable3, #f3f3f3);
+  border-color: var(--color-semantic-border-disable2, #cccccc);
 }
 
 .mbbiz-item-upload__illustration {
@@ -67,20 +50,23 @@
   width: 52px;
 }
 
+.mbbiz-item-upload--disabled .mbbiz-item-upload__illustration {
+  opacity: 0.45;
+}
+
 .mbbiz-item-upload__body {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   justify-content: center;
   min-width: 0;
-  width: 100%;
 }
 
 .mbbiz-item-upload__guide {
-  color: var(--mbbiz-item-upload-text-guide);
-  @include typo.mbbiz-typo-body-normal-12-regular;
-  text-align: center;
+  @include typo.mbbiz-typo-body-normal-14-regular;
+  color: var(--color-semantic-text-secondary, #6d83a7);
   width: 100%;
 }
 
@@ -89,7 +75,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  justify-content: center;
 }
 
 .mbbiz-item-upload__link {
@@ -97,30 +82,31 @@
   appearance: none;
   background: transparent;
   border: 0;
-  color: var(--mbbiz-item-upload-primary);
+  color: var(--color-semantic-hyperlink-default, #141ed2);
   cursor: pointer;
-  @include typo.mbbiz-typo-body-underline-12-regular;
+  @include typo.mbbiz-typo-body-underline-14-regular;
   padding: 2px 0;
-  text-align: center;
+  text-align: left;
 }
 
-.mbbiz-item-upload__link--small,
+.mbbiz-item-upload__link--secondary {
+  @include typo.mbbiz-typo-body-underline-12-regular;
+}
+
 .mbbiz-item-upload__or {
   @include typo.mbbiz-typo-body-normal-12-regular;
+  color: var(--color-semantic-text-secondary, #6d83a7);
 }
 
 .mbbiz-item-upload__link:disabled {
-  color: var(--mbbiz-item-upload-text-disabled);
+  color: var(--color-semantic-hyperlink-disabled, #9b9b9b);
   cursor: not-allowed;
-}
-
-.mbbiz-item-upload__or {
-  color: var(--mbbiz-item-upload-text-guide);
+  text-decoration: none;
 }
 
 .mbbiz-item-upload__error-message {
   align-items: center;
-  color: var(--mbbiz-item-upload-error-text);
+  color: var(--color-semantic-text-error, #f34343);
   display: flex;
   @include typo.mbbiz-typo-body-normal-14-regular;
   gap: 4px;
@@ -128,14 +114,9 @@
 }
 
 .mbbiz-item-upload__error-icon {
-  align-items: center;
-  background: var(--mbbiz-item-upload-error);
-  border-radius: 50%;
-  color: #ffffff;
+  color: var(--color-semantic-icon-error, #f00000);
   display: inline-flex;
-  flex: 0 0 16px;
-  @include typo.mbbiz-typo-caption-normal-10-regular;
-  height: 16px;
-  justify-content: center;
-  width: 16px;
+  flex: 0 0 20px;
+  height: 20px;
+  width: 20px;
 }

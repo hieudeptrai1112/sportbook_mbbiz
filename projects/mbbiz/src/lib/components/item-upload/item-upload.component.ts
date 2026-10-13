@@ -1,4 +1,5 @@
 import { Component, computed, input, output, signal } from '@angular/core';
+import { IconComponent } from '@mbbiz/icon/angular';
 
 import {
   SPORTBOOK6VN_ITEM_UPLOAD_ILLUSTRATION_BASE_PATH,
@@ -8,6 +9,7 @@ import type { MbbizItemUploadState } from './item-upload.types';
 
 @Component({
   selector: 'mbbiz-item-upload',
+  imports: [IconComponent],
   templateUrl: './item-upload.component.html',
   styleUrl: './item-upload.component.scss',
 })

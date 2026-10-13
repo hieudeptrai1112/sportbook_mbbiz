@@ -34,6 +34,12 @@ class MbbizLevelCardDisabledHostComponent {}
 
 @Component({
   imports: [MbbizLevelCardComponent],
+  template: ` <mbbiz-level-card size="lg" state="loading" /> `,
+})
+class MbbizLevelCardLoadingHostComponent {}
+
+@Component({
+  imports: [MbbizLevelCardComponent],
   template: ` <mbbiz-level-card size="md" state="add" (actionClick)="onAction()" /> `,
 })
 class MbbizLevelCardAddHostComponent {
@@ -50,6 +56,7 @@ describe('MbbizLevelCardComponent', () => {
       imports: [
         MbbizLevelCardHostComponent,
         MbbizLevelCardDisabledHostComponent,
+        MbbizLevelCardLoadingHostComponent,
         MbbizLevelCardAddHostComponent,
       ],
     }).compileComponents();
@@ -76,6 +83,16 @@ describe('MbbizLevelCardComponent', () => {
     const host = fixture.nativeElement as HTMLElement;
     expect(host.textContent).toContain('Sắp ra mắt');
     expect((host.querySelector('.mbbiz-level-card') as HTMLButtonElement).disabled).toBe(true);
+  });
+
+  it('renders the loading indicator on loading', () => {
+    const fixture = TestBed.createComponent(MbbizLevelCardLoadingHostComponent);
+    fixture.detectChanges();
+
+    const host = fixture.nativeElement as HTMLElement;
+    expect(host.querySelector('.mbbiz-level-card--loading')).not.toBeNull();
+    expect(host.querySelector('mbbiz-loading')).not.toBeNull();
+    expect(host.querySelector('.mbbiz-loading')).not.toBeNull();
   });
 
   it('renders the add chip and emits action clicks without the card event', () => {
