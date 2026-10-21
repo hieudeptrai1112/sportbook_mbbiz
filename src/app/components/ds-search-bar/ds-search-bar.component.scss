@@ -132,10 +132,6 @@
   color: inherit;
 }
 
-:host-context(.theme-dark) .ds-search-bar {
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
-}
-
 @media (max-width: 760px) {
   .ds-search-bar {
     min-width: 100%;

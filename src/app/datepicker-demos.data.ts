@@ -31,17 +31,6 @@ export interface DatepickerApiRow {
   defaultValue: string;
 }
 
-export interface DatepickerVariableRow {
-  token: string;
-  value: string;
-  appliesTo: string;
-  notes: string;
-}
-
-export interface DatepickerVariableGroup {
-  title: string;
-  rows: DatepickerVariableRow[];
-}
 
 export const DATEPICKER_DEMO_SECTIONS: DatepickerDemoSection[] = [
   {
@@ -51,17 +40,17 @@ export const DATEPICKER_DEMO_SECTIONS: DatepickerDemoSection[] = [
       { code: 'content="day"' },
       { text: ' renders the default single date input trigger.' },
     ],
-    tags: ['selector=sportbook6vn-datepicker', 'mode=single', 'content=day'],
+    tags: ['selector=mbbiz-datepicker', 'mode=single', 'content=day'],
     variant: 'singleDate',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
+import { MbbizDatepickerComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-datepicker-date-demo',
   standalone: true,
-  imports: [Sportbook6vnDatepickerComponent],
+  imports: [MbbizDatepickerComponent],
   template: \`
-    <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" />
+    <mbbiz-datepicker field="input" placeholder="Chọn ngày" />
   \`,
 })
 export class DatepickerDateDemoComponent {}`,
@@ -73,17 +62,17 @@ export class DatepickerDateDemoComponent {}`,
       { code: '[showTime]="true"' },
       { text: ' adds time selection to the day picker.' },
     ],
-    tags: ['selector=sportbook6vn-datepicker', 'mode=single', 'showTime=true'],
+    tags: ['selector=mbbiz-datepicker', 'mode=single', 'showTime=true'],
     variant: 'singleDateTime',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
+import { MbbizDatepickerComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-datepicker-date-time-demo',
   standalone: true,
-  imports: [Sportbook6vnDatepickerComponent],
+  imports: [MbbizDatepickerComponent],
   template: \`
-    <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" [showTime]="true" />
+    <mbbiz-datepicker field="input" placeholder="Chọn ngày" [showTime]="true" />
   \`,
 })
 export class DatepickerDateTimeDemoComponent {}`,
@@ -95,17 +84,17 @@ export class DatepickerDateTimeDemoComponent {}`,
       { code: 'content="month"' },
       { text: ' switches the panel to month selection.' },
     ],
-    tags: ['selector=sportbook6vn-datepicker', 'mode=single', 'content=month'],
+    tags: ['selector=mbbiz-datepicker', 'mode=single', 'content=month'],
     variant: 'singleMonth',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
+import { MbbizDatepickerComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-datepicker-month-demo',
   standalone: true,
-  imports: [Sportbook6vnDatepickerComponent],
+  imports: [MbbizDatepickerComponent],
   template: \`
-    <sportbook6vn-datepicker
+    <mbbiz-datepicker
       field="input"
       content="month"
       panelLabel="2026"
@@ -122,17 +111,17 @@ export class DatepickerMonthDemoComponent {}`,
       { code: 'content="year"' },
       { text: ' switches the panel to year selection.' },
     ],
-    tags: ['selector=sportbook6vn-datepicker', 'mode=single', 'content=year'],
+    tags: ['selector=mbbiz-datepicker', 'mode=single', 'content=year'],
     variant: 'singleYear',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
+import { MbbizDatepickerComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-datepicker-year-demo',
   standalone: true,
-  imports: [Sportbook6vnDatepickerComponent],
+  imports: [MbbizDatepickerComponent],
   template: \`
-    <sportbook6vn-datepicker
+    <mbbiz-datepicker
       field="input"
       content="year"
       panelLabel="2020 - 2031"
@@ -149,17 +138,17 @@ export class DatepickerYearDemoComponent {}`,
       { code: 'content="interest"' },
       { text: ' renders a single-select interest date calendar with percentage captions.' },
     ],
-    tags: ['selector=sportbook6vn-datepicker', 'mode=single', 'content=interest'],
+    tags: ['selector=mbbiz-datepicker', 'mode=single', 'content=interest'],
     variant: 'interest',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
+import { MbbizDatepickerComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-datepicker-interest-demo',
   standalone: true,
-  imports: [Sportbook6vnDatepickerComponent],
+  imports: [MbbizDatepickerComponent],
   template: \`
-    <sportbook6vn-datepicker
+    <mbbiz-datepicker
       field="input"
       content="interest"
       panelLabel="Tháng 5 2025"
@@ -176,17 +165,17 @@ export class DatepickerInterestDemoComponent {}`,
       { code: 'mode="range"' },
       { text: ' renders the default start/end date range input.' },
     ],
-    tags: ['selector=sportbook6vn-datepicker', 'mode=range', 'content=day'],
+    tags: ['selector=mbbiz-datepicker', 'mode=range', 'content=day'],
     variant: 'rangeDate',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
+import { MbbizDatepickerComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-datepicker-date-range-demo',
   standalone: true,
-  imports: [Sportbook6vnDatepickerComponent],
+  imports: [MbbizDatepickerComponent],
   template: \`
-    <sportbook6vn-datepicker
+    <mbbiz-datepicker
       mode="range"
       field="input"
       startPlaceholder="Từ ngày"
@@ -205,17 +194,17 @@ export class DatepickerDateRangeDemoComponent {}`,
       { code: '[showTime]="true"' },
       { text: ' adds time selection to start/end dates.' },
     ],
-    tags: ['selector=sportbook6vn-datepicker', 'mode=range', 'showTime=true'],
+    tags: ['selector=mbbiz-datepicker', 'mode=range', 'showTime=true'],
     variant: 'rangeDateTime',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
+import { MbbizDatepickerComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-datepicker-date-range-time-demo',
   standalone: true,
-  imports: [Sportbook6vnDatepickerComponent],
+  imports: [MbbizDatepickerComponent],
   template: \`
-    <sportbook6vn-datepicker
+    <mbbiz-datepicker
       mode="range"
       field="input"
       startPlaceholder="Từ ngày"
@@ -233,17 +222,17 @@ export class DatepickerDateRangeTimeDemoComponent {}`,
       { code: 'content="month"' },
       { text: ' renders month range selection.' },
     ],
-    tags: ['selector=sportbook6vn-datepicker', 'mode=range', 'content=month'],
+    tags: ['selector=mbbiz-datepicker', 'mode=range', 'content=month'],
     variant: 'rangeMonth',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
+import { MbbizDatepickerComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-datepicker-month-range-demo',
   standalone: true,
-  imports: [Sportbook6vnDatepickerComponent],
+  imports: [MbbizDatepickerComponent],
   template: \`
-    <sportbook6vn-datepicker
+    <mbbiz-datepicker
       mode="range"
       field="input"
       content="month"
@@ -262,17 +251,17 @@ export class DatepickerMonthRangeDemoComponent {}`,
       { code: 'content="year"' },
       { text: ' renders year range selection.' },
     ],
-    tags: ['selector=sportbook6vn-datepicker', 'mode=range', 'content=year'],
+    tags: ['selector=mbbiz-datepicker', 'mode=range', 'content=year'],
     variant: 'rangeYear',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
+import { MbbizDatepickerComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-datepicker-year-range-demo',
   standalone: true,
-  imports: [Sportbook6vnDatepickerComponent],
+  imports: [MbbizDatepickerComponent],
   template: \`
-    <sportbook6vn-datepicker
+    <mbbiz-datepicker
       mode="range"
       field="input"
       content="year"
@@ -293,21 +282,21 @@ export class DatepickerYearRangeDemoComponent {}`,
       { code: '[disabled]="true"' },
       { text: ' preserve the same geometry for single and range inputs.' },
     ],
-    tags: ['selector=sportbook6vn-datepicker', 'status=error', 'disabled=true'],
+    tags: ['selector=mbbiz-datepicker', 'status=error', 'disabled=true'],
     variant: 'status',
     snippetTs: `import { Component } from '@angular/core';
-import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
+import { MbbizDatepickerComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-datepicker-status-demo',
   standalone: true,
-  imports: [Sportbook6vnDatepickerComponent],
+  imports: [MbbizDatepickerComponent],
   template: \`
-    <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" status="error" />
+    <mbbiz-datepicker field="input" placeholder="Chọn ngày" status="error" />
 
-    <sportbook6vn-datepicker field="input" placeholder="Chọn ngày" [disabled]="true" />
+    <mbbiz-datepicker field="input" placeholder="Chọn ngày" [disabled]="true" />
 
-    <sportbook6vn-datepicker
+    <mbbiz-datepicker
       mode="range"
       field="input"
       startPlaceholder="Từ ngày"
@@ -315,7 +304,7 @@ import { Sportbook6vnDatepickerComponent } from 'sportbook6vn';
       status="error"
     />
 
-    <sportbook6vn-datepicker
+    <mbbiz-datepicker
       mode="range"
       field="input"
       startPlaceholder="Từ ngày"
@@ -345,49 +334,53 @@ export const DATEPICKER_API_ROWS: DatepickerApiRow[] = [
   { property: 'open', description: 'Controlled initial open state.', type: 'boolean', defaultValue: 'false' },
   { property: 'disabled', description: 'Disables trigger, input, and panel selection.', type: 'boolean', defaultValue: 'false' },
   { property: 'showTime', description: 'Adds time selection to day/date range panels.', type: 'boolean', defaultValue: 'false' },
-  { property: 'dayCells', description: 'Custom day cells for static or business-specific calendars.', type: 'readonly Sportbook6vnDatepickerCell[]', defaultValue: 'DEFAULT_DAY_CELLS' },
-  { property: 'interestCells', description: 'Interest-rate day cells with optional captions.', type: 'readonly Sportbook6vnDatepickerCell[]', defaultValue: 'DEFAULT_INTEREST_CELLS' },
-  { property: 'monthCells', description: 'Custom month cells.', type: 'readonly Sportbook6vnDatepickerCell[]', defaultValue: 'DEFAULT_MONTH_CELLS' },
-  { property: 'yearCells', description: 'Custom year cells.', type: 'readonly Sportbook6vnDatepickerCell[]', defaultValue: 'DEFAULT_YEAR_CELLS' },
-  { property: 'timeCells', description: 'Custom time cells for simple time lists.', type: 'readonly Sportbook6vnDatepickerCell[]', defaultValue: 'DEFAULT_TIME_CELLS' },
+  { property: 'dayCells', description: 'Custom day cells for static or business-specific calendars.', type: 'readonly MbbizDatepickerCell[]', defaultValue: 'DEFAULT_DAY_CELLS' },
+  { property: 'interestCells', description: 'Interest-rate day cells with optional captions.', type: 'readonly MbbizDatepickerCell[]', defaultValue: 'DEFAULT_INTEREST_CELLS' },
+  { property: 'monthCells', description: 'Custom month cells.', type: 'readonly MbbizDatepickerCell[]', defaultValue: 'DEFAULT_MONTH_CELLS' },
+  { property: 'yearCells', description: 'Custom year cells.', type: 'readonly MbbizDatepickerCell[]', defaultValue: 'DEFAULT_YEAR_CELLS' },
+  { property: 'timeCells', description: 'Custom time cells for simple time lists.', type: 'readonly MbbizDatepickerCell[]', defaultValue: 'DEFAULT_TIME_CELLS' },
 ];
 
 export const DATEPICKER_OUTPUT_ROWS: DatepickerApiRow[] = [
   { property: 'valueChange', description: 'Emits the selected single value.', type: 'string | null', defaultValue: '-' },
-  { property: 'rangeChange', description: 'Emits start/end range updates.', type: 'Sportbook6vnDatepickerRangeValue', defaultValue: '-' },
+  { property: 'rangeChange', description: 'Emits start/end range updates.', type: 'MbbizDatepickerRangeValue', defaultValue: '-' },
   { property: 'openChange', description: 'Emits panel open state changes.', type: 'boolean', defaultValue: '-' },
   { property: 'resetClick', description: 'Emits when reset is clicked.', type: 'void', defaultValue: '-' },
-  { property: 'applyClick', description: 'Emits committed range values when apply is clicked.', type: 'Sportbook6vnDatepickerRangeValue', defaultValue: '-' },
+  { property: 'applyClick', description: 'Emits committed range values when apply is clicked.', type: 'MbbizDatepickerRangeValue', defaultValue: '-' },
 ];
 
-export const DATEPICKER_VARIABLE_GROUPS: DatepickerVariableGroup[] = [
+export const DATEPICKER_VARIABLE_GROUPS = [
   {
     title: 'Trigger And Input',
     rows: [
-      { token: 'datepicker/input/border/default', value: '#A3B7FD', appliesTo: 'Input and range border', notes: 'Default input border from approved Figma states.' },
-      { token: 'datepicker/input/border/hover', value: '#52DDDD', appliesTo: 'Hover and open border', notes: 'Interactive cyan border used on active picker triggers.' },
-      { token: 'datepicker/input/border/error', value: '#F00000', appliesTo: 'Error state border', notes: 'Validation border color.' },
-      { token: 'datepicker/input/text/default', value: '#142837', appliesTo: 'Input text', notes: 'Primary date value text.' },
-      { token: 'datepicker/input/text/placeholder', value: '#9BAFC8', appliesTo: 'Placeholder text', notes: 'Start/end placeholders and empty single inputs.' },
-      { token: 'datepicker/input/background/disabled', value: '#F3F3F3', appliesTo: 'Disabled input background', notes: 'Disabled state fill.' },
+      { token: 'border/info',              value: 'blue/300',      appliesTo: 'Input and range border',       notes: 'Shared Input Field family default. Maps to --mbbiz-color-datepicker-border-default.' },
+      { token: 'border/active',            value: 'turquoise/400', appliesTo: 'Hover and open border',        notes: 'Shared Input Field family interactive border. Maps to --mbbiz-color-datepicker-border-hover.' },
+      { token: 'border/error1',            value: 'red/500',       appliesTo: 'Error state border',           notes: 'Maps to --mbbiz-color-datepicker-border-error.' },
+      { token: 'text/primary',             value: 'darkblue/1000', appliesTo: 'Input text',                   notes: 'Maps to --mbbiz-color-datepicker-text.' },
+      { token: 'text/tertiary',            value: 'darkblue/400',  appliesTo: 'Placeholder text',             notes: 'Maps to --mbbiz-color-datepicker-text-placeholder.' },
+      { token: 'icon/neutral5',            value: 'darkblue/400',  appliesTo: 'Empty trigger chevron',        notes: 'Decorative separator. Never inherit text color onto the glyph.' },
+      { token: 'icon/neutral4',            value: 'darkblue/500',  appliesTo: 'Filled trigger chevron',       notes: 'Same pair as Price Range arrow filled.' },
+      { token: 'icon/disable1',            value: 'grayscale/600', appliesTo: 'Disabled trigger chevron',     notes: 'Do not use text/disable1 on the chevron.' },
+      { token: 'background/disable3',      value: 'grayscale/200', appliesTo: 'Disabled input background',    notes: 'Maps to --mbbiz-color-datepicker-background-disabled.' },
     ],
   },
   {
     title: 'Panel And Selection',
     rows: [
-      { token: 'datepicker/panel/border', value: '#52DDDD', appliesTo: 'Panel shell', notes: 'Panel outline.' },
-      { token: 'datepicker/panel/divider', value: '#A3B7FD', appliesTo: 'Header/body/footer dividers', notes: 'Calendar and time split lines.' },
-      { token: 'datepicker/day/selected/background', value: '#141ED2', appliesTo: 'Selected date/month/year/time', notes: 'Primary selected state.' },
-      { token: 'datepicker/day/range/background', value: '#E9EFFF', appliesTo: 'Range middle day cells', notes: 'Continuous range fill.' },
-      { token: 'datepicker/day/today/border', value: '#141ED2', appliesTo: 'Today cell', notes: 'Today outline and present text color.' },
-      { token: 'datepicker/scrollbar/thumb', value: '#B7B7B7', appliesTo: 'Time scrollbar', notes: 'Thin time list scrollbar thumb.' },
-      { token: 'datepicker/action/apply/background', value: '#7A5CFF', appliesTo: 'Apply button', notes: 'Footer apply action background.' },
+      { token: 'border/active',                value: 'turquoise/400', appliesTo: 'Panel shell',                      notes: 'Maps to --mbbiz-color-datepicker-panel-border.' },
+      { token: 'border/brand-primary3',        value: 'blue/300',      appliesTo: 'Header/body/footer dividers',      notes: 'Maps to --mbbiz-color-datepicker-panel-divider.' },
+      { token: 'background/brand-primary1',    value: 'blue/500',      appliesTo: 'Selected date/month/year/time',    notes: 'Maps to --mbbiz-color-datepicker-day-selected-background.' },
+      { token: 'background/brand-primary5',    value: 'blue/100',      appliesTo: 'Range middle day cells',           notes: 'Maps to --mbbiz-color-datepicker-day-range-middle.' },
+      { token: 'border/brand-primary1',        value: 'blue/500',      appliesTo: 'Today cell outline',               notes: 'Maps to --mbbiz-color-datepicker-day-today-border.' },
+      { token: 'background/disable2',          value: 'grayscale/300', appliesTo: 'Time scrollbar thumb',             notes: 'Maps to --mbbiz-color-datepicker-scrollbar-thumb.' },
+      { token: 'background/brand-secondary1',  value: 'purple/500',    appliesTo: 'Apply button background',          notes: 'Maps to --mbbiz-color-datepicker-action-apply-background.' },
     ],
   },
 ];
 
 export const DATEPICKER_VARIABLE_NOTES: string[] = [
-  'Date picker keeps panel and trigger in the same component; preview/docs render the real sportbook6vn-datepicker selector.',
+  'Date picker keeps panel and trigger in the same component; preview/docs render the real mbbiz-datepicker selector.',
   'Range middle cells use a continuous rectangular background; start/end cells keep rounded caps.',
   'Interest mode is single-select only and uses interestCells captions for percentage labels.',
+  'Trigger chrome matches the Input Field family: border/info, border/active, border/error1. Trigger chevron is decorative: empty icon/neutral5, filled icon/neutral4, disabled icon/disable1. Do not inherit text color onto the glyph.',
 ];

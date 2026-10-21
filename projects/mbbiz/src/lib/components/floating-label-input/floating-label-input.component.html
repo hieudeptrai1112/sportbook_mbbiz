@@ -1,0 +1,15 @@
+<div [class]="wrapperClass()">
+  <label class="mbbiz-floating-label-input__label" [attr.for]="inputId()">
+    {{ label() }}
+  </label>
+
+  <input
+    nz-input
+    class="mbbiz-floating-label-input__native"
+    [attr.id]="inputId()"
+    [attr.placeholder]="placeholder()"
+    [disabled]="disabled()"
+    [value]="value()"
+    (input)="onInput($event)"
+  />
+</div>

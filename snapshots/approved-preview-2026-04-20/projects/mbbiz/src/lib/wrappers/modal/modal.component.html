@@ -1,0 +1,184 @@
+<div [class]="modalClass()">
+  <div class="mbbiz-modal__hero">
+    <div class="mbbiz-modal__illustration" aria-hidden="true">
+      @if (type() === 'warning') {
+        <svg class="mbbiz-modal__art" viewBox="0 0 196 196">
+          <circle cx="128" cy="52" r="24" fill="#ffe7a8" />
+          <path
+            d="M98 24L147 109C151.6 117 145.9 127 136.7 127H38.3C29.1 127 23.4 117 28 109L77 24C81.6 16 93.4 16 98 24Z"
+            fill="#ffc94d"
+          />
+          <rect x="84" y="53" width="8" height="34" rx="4" fill="#ffffff" />
+          <circle cx="88" cy="98" r="5" fill="#ffffff" />
+        </svg>
+      } @else if (type() === 'success') {
+        <svg class="mbbiz-modal__art" viewBox="0 0 196 196">
+          <rect x="76" y="58" width="44" height="44" rx="14" fill="#52dddd" opacity="0.22" />
+          <path
+            d="M76 80L90 94L121 63"
+            fill="none"
+            stroke="#52dddd"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="8"
+          />
+        </svg>
+      } @else if (type() === 'error') {
+        <svg class="mbbiz-modal__art" viewBox="0 0 196 196">
+          <circle cx="62" cy="54" r="22" fill="#ffd7d7" />
+          <path
+            d="M98 24L147 109C151.6 117 145.9 127 136.7 127H38.3C29.1 127 23.4 117 28 109L77 24C81.6 16 93.4 16 98 24Z"
+            fill="#f00000"
+          />
+          <rect x="84" y="53" width="8" height="34" rx="4" fill="#ffffff" />
+          <circle cx="88" cy="98" r="5" fill="#ffffff" />
+        </svg>
+      } @else if (type() === 'confirm') {
+        <svg class="mbbiz-modal__art" viewBox="0 0 196 196">
+          <rect x="98" y="44" width="52" height="52" rx="16" fill="#b7d8ff" />
+          <rect x="60" y="62" width="56" height="56" rx="16" fill="#dcebff" />
+          <rect x="70" y="52" width="58" height="58" rx="16" fill="#249cff" />
+          <path
+            d="M87 82L96 91L112 73"
+            fill="none"
+            stroke="#ffffff"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="8"
+          />
+        </svg>
+      } @else if (type() === 'destructive') {
+        <svg class="mbbiz-modal__art" viewBox="0 0 196 196">
+          <circle cx="122" cy="116" r="25" fill="#ffd7d7" />
+          <path
+            d="M69 53H108"
+            fill="none"
+            stroke="#f00000"
+            stroke-linecap="round"
+            stroke-width="10"
+          />
+          <path
+            d="M77 53L80 43H97L100 53"
+            fill="none"
+            stroke="#f00000"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="8"
+          />
+          <rect x="67" y="57" width="44" height="56" rx="10" fill="#f00000" />
+          <path
+            d="M81 70V98M94 70V98"
+            fill="none"
+            stroke="#ffffff"
+            stroke-linecap="round"
+            stroke-width="6"
+          />
+        </svg>
+      } @else {
+        <svg class="mbbiz-modal__art" viewBox="0 0 196 196">
+          <circle cx="131" cy="50" r="22" fill="#dcebff" />
+          <circle cx="146" cy="60" r="12" fill="#b7d8ff" />
+          <path
+            d="M60 110C48 110 39 102 39 92C39 83 46 76 56 75C61 59 76 48 94 48C113 48 129 60 133 76C143 77 151 85 151 95C151 106 141 114 129 114H60Z"
+            fill="#249cff"
+          />
+          <path
+            d="M74 84H111"
+            fill="none"
+            stroke="#ffffff"
+            stroke-linecap="round"
+            stroke-width="8"
+          />
+          <path
+            d="M74 96H101"
+            fill="none"
+            stroke="#ffffff"
+            stroke-linecap="round"
+            stroke-width="8"
+          />
+        </svg>
+      }
+    </div>
+
+    <div class="mbbiz-modal__copy">
+      <h3 class="mbbiz-modal__title">{{ resolvedTitle() }}</h3>
+      <p class="mbbiz-modal__description">{{ resolvedDescription() }}</p>
+
+      @if (resolvedErrorCode(); as errorCode) {
+        <p class="mbbiz-modal__error-code">
+          <span>Error code: </span>
+          <strong>{{ errorCode }}</strong>
+        </p>
+      }
+
+      @if (resolvedTextLinkLabel(); as textLinkLabel) {
+        <button type="button" class="mbbiz-modal__text-link" (click)="emitTextLinkAction()">
+          {{ textLinkLabel }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="mbbiz-modal__actions">
+    <mbbiz-button
+      shape="pill"
+      size="lg"
+      [fullWidth]="true"
+      (buttonClick)="emitPrimaryAction()"
+    >
+      {{ resolvedPrimaryLabel() }}
+    </mbbiz-button>
+
+    @if (resolvedSecondaryLabel(); as secondaryLabel) {
+      <mbbiz-button
+        variant="secondary"
+        shape="pill"
+        size="lg"
+        [fullWidth]="true"
+        (buttonClick)="emitSecondaryAction()"
+      >
+        {{ secondaryLabel }}
+      </mbbiz-button>
+    }
+
+    @if (resolvedTertiaryLabel(); as tertiaryLabel) {
+      <mbbiz-button
+        variant="secondary"
+        shape="pill"
+        size="lg"
+        [fullWidth]="true"
+        (buttonClick)="emitTertiaryAction()"
+      >
+        {{ tertiaryLabel }}
+      </mbbiz-button>
+    }
+  </div>
+
+  @if (resolvedShowClose()) {
+    <button
+      type="button"
+      class="mbbiz-modal__close"
+      [attr.aria-label]="closeAriaLabel()"
+      (click)="emitCloseAction()"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 7L17 17" />
+        <path d="M17 7L7 17" />
+      </svg>
+    </button>
+  }
+
+  @if (showPagination()) {
+    <div class="mbbiz-modal__pagination">
+      @for (dot of paginationDots(); track $index) {
+        <button
+          type="button"
+          class="mbbiz-modal__pagination-dot"
+          [class.mbbiz-modal__pagination-dot--active]="!!dot.active"
+          [attr.aria-label]="'Modal step ' + ($index + 1)"
+          (click)="emitPaginationAction($index)"
+        ></button>
+      }
+    </div>
+  }
+</div>

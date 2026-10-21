@@ -1,0 +1,34 @@
+<nav [class]="stepsClass()" [attr.aria-label]="ariaLabel()">
+  @for (item of resolvedItems(); track trackStep($index, item); let index = $index; let isLast = $last) {
+    <div
+      [class]="stepClass(index, item, isLast)"
+      [attr.role]="clickable() && !item.disabled ? 'button' : null"
+      [attr.tabindex]="clickable() && !item.disabled ? 0 : null"
+      [attr.aria-current]="isCurrentStep(index, item) ? 'step' : null"
+      [attr.aria-disabled]="item.disabled || !clickable() ? 'true' : null"
+      (click)="onStepClick(index, item)"
+      (keydown.enter)="onStepClick(index, item)"
+      (keydown.space)="$event.preventDefault(); onStepClick(index, item)"
+    >
+      <span class="mbbiz-steps__marker-stack" aria-hidden="true">
+        <span class="mbbiz-steps__marker">
+          @if (stepStatus(index, item) === 'finish') {
+            <span class="mbbiz-steps__check"></span>
+          } @else if (direction() === 'vertical') {
+            {{ markerLabel(index) }}
+          }
+        </span>
+        @if (!isLast) {
+          <span class="mbbiz-steps__tail"></span>
+        }
+      </span>
+
+      <span class="mbbiz-steps__content">
+        <span class="mbbiz-steps__title">{{ item.title }}</span>
+        @if (item.description) {
+          <span class="mbbiz-steps__description">{{ item.description }}</span>
+        }
+      </span>
+    </div>
+  }
+</nav>

@@ -1,0 +1,127 @@
+<div class="mbbiz-affix-label-input-shell">
+  <div [class]="wrapperClass()">
+    @if (hasPrefixAffix()) {
+      @if (prefixIsDropdown()) {
+        <button
+          type="button"
+          [class]="prefixAffixClass()"
+          [disabled]="disabled()"
+          (click)="toggleDropdown('prefix', $event)"
+        >
+          @if (prefixAffixFlagCode()) {
+            <mbbiz-affix-flag-icon [code]="prefixAffixFlagCode()!" />
+          } @else if (prefixAffixImageUrl()) {
+            <img
+              class="mbbiz-affix-label-input__affix-image"
+              [src]="prefixAffixImageUrl()!"
+              [alt]="prefixAffixLabel()"
+            />
+          }
+          <span class="mbbiz-affix-label-input__affix-label">{{ prefixAffixLabel() }}</span>
+          <svg class="mbbiz-affix-label-input__affix-icon" viewBox="0 0 20 20" aria-hidden="true">
+            @if (activeAffix() === 'prefix') {
+              <path d="M5.5 12L10 7.5L14.5 12" />
+            } @else {
+              <path d="M5.5 8L10 12.5L14.5 8" />
+            }
+          </svg>
+        </button>
+      } @else {
+        <span class="mbbiz-affix-label-input__affix">
+          <span class="mbbiz-affix-label-input__affix-label">{{ prefixLabel() }}</span>
+          <svg class="mbbiz-affix-label-input__affix-icon" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M5.5 8L10 12.5L14.5 8" />
+          </svg>
+        </span>
+      }
+    }
+
+    <input
+      nz-input
+      class="mbbiz-affix-label-input__native"
+      [attr.id]="inputId()"
+      [attr.placeholder]="placeholder()"
+      [disabled]="disabled()"
+      [value]="value()"
+      (input)="onInput($event)"
+    />
+
+    @if (hasSuffixAffix()) {
+      @if (suffixIsDropdown()) {
+        <button
+          type="button"
+          [class]="suffixAffixClass()"
+          [disabled]="disabled()"
+          (click)="toggleDropdown('suffix', $event)"
+        >
+          @if (suffixAffixFlagCode()) {
+            <mbbiz-affix-flag-icon [code]="suffixAffixFlagCode()!" />
+          } @else if (suffixAffixImageUrl()) {
+            <img
+              class="mbbiz-affix-label-input__affix-image"
+              [src]="suffixAffixImageUrl()!"
+              [alt]="suffixAffixLabel()"
+            />
+          }
+          <span class="mbbiz-affix-label-input__affix-label">{{ suffixAffixLabel() }}</span>
+          <svg class="mbbiz-affix-label-input__affix-icon" viewBox="0 0 20 20" aria-hidden="true">
+            @if (activeAffix() === 'suffix') {
+              <path d="M5.5 12L10 7.5L14.5 12" />
+            } @else {
+              <path d="M5.5 8L10 12.5L14.5 8" />
+            }
+          </svg>
+        </button>
+      } @else {
+        <span class="mbbiz-affix-label-input__affix">
+          <span class="mbbiz-affix-label-input__affix-label">{{ suffixLabel() }}</span>
+          <svg class="mbbiz-affix-label-input__affix-icon" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M5.5 8L10 12.5L14.5 8" />
+          </svg>
+        </span>
+      }
+    }
+  </div>
+
+  @if (showDropdownPanel()) {
+    <div
+      class="mbbiz-affix-label-input__panel"
+      [class.mbbiz-affix-label-input__panel--scrollable]="showDropdownScroll()"
+    >
+      <label class="mbbiz-affix-label-input__search">
+        <input
+          type="text"
+          class="mbbiz-affix-label-input__search-input"
+          placeholder="Tìm kiếm"
+          [value]="searchQuery()"
+          (input)="onSearchInput($event)"
+        />
+        <span class="mbbiz-affix-label-input__search-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="5.5" />
+            <path d="M16 16L20 20" />
+          </svg>
+        </span>
+      </label>
+
+      <div class="mbbiz-affix-label-input__options">
+        @for (item of filteredDropdownItems(); track trackById($index, item)) {
+          <button
+            type="button"
+            class="mbbiz-affix-label-input__option"
+            [class.mbbiz-affix-label-input__option--disabled]="!!item.disabled"
+            [disabled]="!!item.disabled"
+            (click)="selectDropdownItem(activeAffix()!, item, $event)"
+          >
+            @if (item.flagCode) {
+              <mbbiz-affix-flag-icon [code]="item.flagCode" />
+            } @else if (item.imageUrl) {
+              <img class="mbbiz-affix-label-input__option-image" [src]="item.imageUrl" [alt]="item.label" />
+            }
+            <span class="mbbiz-affix-label-input__option-label">{{ item.label }}</span>
+          </button>
+        }
+      </div>
+    </div>
+  }
+</div>

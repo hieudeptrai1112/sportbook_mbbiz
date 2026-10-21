@@ -1,8 +1,0 @@
-<div class="sportbook6vn-message-container" [style.top]="top()">
-  @for (instance of instances(); track trackMessage($index, instance)) {
-    <sportbook6vn-message
-      [instance]="instance"
-      (closed)="remove($event.id, $event.userAction)"
-    />
-  }
-</div>

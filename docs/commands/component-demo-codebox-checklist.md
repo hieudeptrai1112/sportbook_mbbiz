@@ -54,5 +54,5 @@ For section-driven data files (`*.demos.data.ts`), keep:
 - [ ] Snippet matches preview output and behavior.
 - [ ] Copy button copies the currently selected language snippet.
 - [ ] Snippet compiles in project TypeScript check.
-- [ ] Dark mode and light mode preserve readable code contrast.
+- [ ] Code snippets preserve readable contrast.
 - [ ] No fake business story or misleading placeholder logic.

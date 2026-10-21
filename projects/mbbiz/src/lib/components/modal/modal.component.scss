@@ -1,0 +1,132 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
+:host {
+  display: block;
+  max-width: 100%;
+  width: min(100%, 400px);
+}
+
+.mbbiz-modal {
+  --mbbiz-color-brand-600: #7b5fff;
+  --mbbiz-color-action-pill-primary-hover: #8a72ff;
+  --mbbiz-color-action-pill-primary-active: #a190ff;
+  --mbbiz-color-button-secondary-default: #7b5fff;
+  --mbbiz-color-button-secondary-hover: #7b5fff;
+  --mbbiz-color-button-secondary-pressed: #7b5fff;
+
+  background: var(--mbbiz-color-surface-primary, #ffffff);
+  border-radius: var(--mbbiz-radius-md, 4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+  color: var(--mbbiz-color-text-field, #192d39);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 28px;
+  position: relative;
+  width: min(100%, 400px);
+}
+
+.mbbiz-modal__hero {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.mbbiz-modal__illustration {
+  align-items: center;
+  display: flex;
+  height: 164px;
+  justify-content: center;
+  width: 164px;
+}
+
+.mbbiz-modal__art {
+  display: block;
+  height: 164px;
+  object-fit: contain;
+  width: 164px;
+}
+
+.mbbiz-modal__copy {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  width: 100%;
+}
+
+.mbbiz-modal__title {
+  @include typo.mbbiz-typo-h1-normal-24-regular;
+  color: var(--mbbiz-color-text-field, #192d39);
+  margin: 0;
+}
+
+.mbbiz-modal__description,
+.mbbiz-modal__error-code {
+  @include typo.mbbiz-typo-body-normal-14-regular;
+  color: var(--mbbiz-color-text-field, #192d39);
+  margin: 0;
+  max-width: 100%;
+}
+
+.mbbiz-modal__error-code strong {
+  font-weight: var(--mbbiz-font-weight-semibold, 600);
+}
+
+.mbbiz-modal__copy mbbiz-button-link {
+  margin-top: 8px;
+}
+
+.mbbiz-modal__actions {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+}
+
+.mbbiz-modal__actions mbbiz-button {
+  width: 100%;
+}
+
+.mbbiz-modal__close {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--color-semantic-icon-neutral4, #6d83a7);
+  cursor: pointer;
+  display: inline-flex;
+  height: 24px;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 24px;
+}
+
+.mbbiz-modal__close mbiz-icon {
+  display: block;
+}
+
+.mbbiz-modal__pagination {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.mbbiz-modal__pagination-dot {
+  background: #d9e0ef;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  height: 8px;
+  padding: 0;
+  width: 8px;
+}
+
+.mbbiz-modal__pagination-dot--active {
+  background: var(--mbbiz-color-brand-600, #7b5fff);
+}

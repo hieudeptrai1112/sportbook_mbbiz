@@ -5,7 +5,7 @@ Mục tiêu: chuẩn hóa lại Button và Modal đã chốt trên preview theo 
 ## Scope guard
 
 - Preview app: `http://127.0.0.1:4300/`.
-- Không sửa tab `Buttons` hoặc `Button Mapping` trên sportbook6vn app trong phase này.
+- Không sửa tab `Buttons` hoặc `Button Mapping` trên mbbiz app trong phase này.
 - Không thêm use case ngoài Figma node đã có hoặc yêu cầu rõ ràng của user.
 - NG-Zorro/Arco chỉ dùng để tham chiếu cách chia demo, không dùng để tự phát sinh state mới.
 
@@ -14,8 +14,8 @@ Mục tiêu: chuẩn hóa lại Button và Modal đã chốt trên preview theo 
 | Item | Value |
 | --- | --- |
 | Figma node | `18693:412281` |
-| Selector | `sportbook6vn-button` |
-| Source component | `projects/sportbook6vn/src/lib/components/button` |
+| Selector | `mbbiz-button` |
+| Source component | `projects/mbbiz/src/lib/components/button` |
 | Preview section | `Button family` |
 
 ### Required use cases
@@ -39,8 +39,8 @@ Mục tiêu: chuẩn hóa lại Button và Modal đã chốt trên preview theo 
 | Item | Value |
 | --- | --- |
 | Figma nodes | `19611:24390`, `19611:24307` |
-| Selector | `sportbook6vn-modal` |
-| Source component | `projects/sportbook6vn/src/lib/components/modal` |
+| Selector | `mbbiz-modal` |
+| Source component | `projects/mbbiz/src/lib/components/modal` |
 | Preview section | `Modal family` |
 
 ### Required use cases

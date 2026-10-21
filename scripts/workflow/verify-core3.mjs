@@ -59,7 +59,7 @@ function main() {
 
   runStep('validate contracts', 'npm run contracts:validate');
   runStep('verify core3 locks', 'npm run verify:core3:locks');
-  runStep('type-check preview app', 'npx tsc -p tsconfig.sportbook6vn-preview.json --noEmit');
+  runStep('type-check preview app', 'npx tsc -p tsconfig.mbbiz-preview.json --noEmit');
 
   console.log('\n[verify:core3] PASS');
 }

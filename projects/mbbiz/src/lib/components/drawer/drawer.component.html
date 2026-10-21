@@ -1,0 +1,35 @@
+<nz-drawer
+  [nzVisible]="visible()"
+  nzPlacement="right"
+  nzSize="large"
+  nzWrapClassName="mbbiz-drawer"
+  [nzClosable]="false"
+  [nzMask]="true"
+  [nzMaskClosable]="true"
+  [nzKeyboard]="true"
+  [nzMaskStyle]="maskStyle"
+  (nzVisibleChange)="onVisibleChange($event)"
+  (nzOnClose)="onNzClose($event)"
+>
+  <ng-template nzDrawerContent>
+    <div class="mbbiz-drawer__panel">
+      <header class="mbbiz-drawer__header">
+        <h2 class="mbbiz-drawer__title">{{ title() }}</h2>
+        @if (closable()) {
+          <button
+            type="button"
+            class="mbbiz-drawer__close"
+            [attr.aria-label]="closeAriaLabel()"
+            (click)="onCloseClick($event)"
+          >
+            <mbiz-icon name="alinear_cancel" size="m" />
+          </button>
+        }
+      </header>
+
+      <div class="mbbiz-drawer__body">
+        <ng-content />
+      </div>
+    </div>
+  </ng-template>
+</nz-drawer>

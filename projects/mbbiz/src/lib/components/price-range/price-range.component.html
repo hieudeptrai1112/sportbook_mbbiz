@@ -1,0 +1,59 @@
+<div class="mbbiz-price-range" [attr.aria-label]="ariaLabel()">
+  <div [class]="fieldClass()">
+    <label class="mbbiz-price-range__label" [attr.for]="fromInputId()">
+      {{ label() }}
+    </label>
+
+    <div class="mbbiz-price-range__row">
+      <input
+        class="mbbiz-price-range__input"
+        [attr.id]="fromInputId()"
+        type="text"
+        inputmode="numeric"
+        autocomplete="off"
+        [attr.placeholder]="fromPlaceholder()"
+        [attr.aria-label]="fromPlaceholder()"
+        [disabled]="disabled()"
+        [value]="displayFrom()"
+        (input)="onInput('from', $event)"
+        (focus)="onFocus('from')"
+        (blur)="onBlur()"
+      />
+
+      <mbiz-icon
+        class="mbbiz-price-range__arrow"
+        name="alinear_right"
+        size="s"
+        [color]="arrowColor()"
+        aria-hidden="true"
+      />
+
+      <input
+        class="mbbiz-price-range__input"
+        [attr.id]="toInputId()"
+        type="text"
+        inputmode="numeric"
+        autocomplete="off"
+        [attr.placeholder]="toPlaceholder()"
+        [attr.aria-label]="toPlaceholder()"
+        [disabled]="disabled()"
+        [value]="displayTo()"
+        (input)="onInput('to', $event)"
+        (focus)="onFocus('to')"
+        (blur)="onBlur()"
+      />
+    </div>
+  </div>
+
+  @if (showError()) {
+    <div class="mbbiz-price-range__error" role="alert">
+      <mbiz-icon
+        name="abold_error"
+        size="s"
+        color="var(--color-semantic-icon-error, #f00000)"
+        aria-hidden="true"
+      />
+      <p>{{ errorMessage() }}</p>
+    </div>
+  }
+</div>

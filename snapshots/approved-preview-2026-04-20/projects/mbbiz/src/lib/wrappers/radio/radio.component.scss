@@ -1,0 +1,75 @@
+:host {
+  display: inline-flex;
+}
+
+.mbbiz-radio {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 8px;
+  padding: 2px;
+  position: relative;
+}
+
+.mbbiz-radio__native {
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.mbbiz-radio__control {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid var(--mbbiz-color-radio-border-default, #6d83a7);
+  border-radius: 999px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 20px;
+  justify-content: center;
+  width: 20px;
+}
+
+.mbbiz-radio__dot {
+  background: transparent;
+  border-radius: 999px;
+  display: block;
+  height: 8px;
+  transition: background-color 140ms ease;
+  width: 8px;
+}
+
+.mbbiz-radio__label {
+  color: var(--mbbiz-color-text-field, #192d39);
+  font-family: var(--mbbiz-font-family-sans, "Averta Std CY", "Inter", "Segoe UI", sans-serif);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 20px;
+}
+
+.mbbiz-radio--checked .mbbiz-radio__control {
+  border-color: var(--mbbiz-color-radio-selected-default, #52dddd);
+}
+
+.mbbiz-radio--checked .mbbiz-radio__dot {
+  background: var(--mbbiz-color-radio-selected-default, #52dddd);
+}
+
+.mbbiz-radio--disabled {
+  cursor: not-allowed;
+}
+
+.mbbiz-radio--disabled .mbbiz-radio__control {
+  background: var(--mbbiz-color-radio-background-disabled, #f3f3f3);
+  border-color: var(--mbbiz-color-radio-border-disabled, #cccccc);
+}
+
+.mbbiz-radio--disabled.mbbiz-radio--checked .mbbiz-radio__dot {
+  background: var(--mbbiz-color-radio-selected-disabled, #cccccc);
+}
+
+.mbbiz-radio--disabled .mbbiz-radio__label {
+  color: var(--mbbiz-color-text-disabled, #808080);
+}

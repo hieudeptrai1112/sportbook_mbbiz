@@ -4,7 +4,7 @@ Snapshot này là bản sao nội bộ để giữ lại mốc preview/library �
 
 Mục đích:
 - giữ một baseline an toàn trong repo để đối chiếu khi preview hiện tại bị sửa lệch
-- giúp phục hồi lại `sportbook6vn` và `sportbook6vn-preview` mà không phải suy luận từ lịch sử chat
+- giúp phục hồi lại `mbbiz` và `mbbiz-preview` mà không phải suy luận từ lịch sử chat
 - tránh phải sửa tay từng file khi cần quay lại trạng thái đã chốt
 
 Phạm vi snapshot:
@@ -13,9 +13,9 @@ Phạm vi snapshot:
   - `package.json`
   - `package-lock.json`
   - `tsconfig.json`
-  - `tsconfig.sportbook6vn-preview.json`
-- `projects/sportbook6vn/`
-- `projects/sportbook6vn-preview/`
+  - `tsconfig.mbbiz-preview.json`
+- `projects/mbbiz/`
+- `projects/mbbiz-preview/`
 
 Tiện ích kèm theo:
 - `tools/diff-against-live.sh`

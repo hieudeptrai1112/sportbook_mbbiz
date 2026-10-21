@@ -6,9 +6,9 @@ Mục tiêu: chuẩn hóa `switch`, `radio`, `checkbox` trên preview theo workf
 
 | Component | Figma node | Current preview selector |
 | --- | --- | --- |
-| Switch | `3874:181912` | `sportbook6vn-switch` |
-| Radio | `3800:178451` | `sportbook6vn-radio`, `sportbook6vn-radio-group` |
-| Checkbox | `3800:179128` | `sportbook6vn-checkbox`, `sportbook6vn-checkbox-group` |
+| Switch | `3874:181912` | `mbbiz-switch` |
+| Radio | `3800:178451` | `mbbiz-radio`, `mbbiz-radio-group` |
+| Checkbox | `3800:179128` | `mbbiz-checkbox`, `mbbiz-checkbox-group` |
 
 ## Scope guard
 
@@ -163,6 +163,6 @@ User previously requested `checkbox group`, `vertical checkbox group`, and `sele
 - Real interaction still works after adding static QA samples.
 - Unit tests continue to pass.
 - If preview changes are made, run:
-  - `npx tsc -p tsconfig.sportbook6vn-preview.json --noEmit`
-  - relevant `npm run test:sportbook6vn -- --watch=false`
+  - `npx tsc -p tsconfig.mbbiz-preview.json --noEmit`
+  - relevant `npm run test:mbbiz -- --watch=false`
 

@@ -1,0 +1,72 @@
+[
+  {
+    "skill": "setup-design-tokens-figma",
+    "find_ok": true,
+    "package": null,
+    "installed": false,
+    "install_output": "\u001b[38;5;102mNo skills found for \"setup-design-tokens-figma\"\u001b[0m\nnpm warn exec The following package was not found and will be installed: skills@1.5.15"
+  },
+  {
+    "skill": "manage-variables-figma",
+    "find_ok": true,
+    "package": null,
+    "installed": false,
+    "install_output": "\u001b[38;5;102mNo skills found for \"manage-variables-figma\"\u001b[0m\nnpm warn exec The following package was not found and will be installed: skills@1.5.15"
+  },
+  {
+    "skill": "import-tokens-figma",
+    "find_ok": true,
+    "package": null,
+    "installed": false,
+    "install_output": "\u001b[38;5;102mNo skills found for \"import-tokens-figma\"\u001b[0m\nnpm warn exec The following package was not found and will be installed: skills@1.5.15"
+  },
+  {
+    "skill": "export-tokens-figma",
+    "find_ok": true,
+    "package": null,
+    "installed": false,
+    "install_output": "\u001b[38;5;102mNo skills found for \"export-tokens-figma\"\u001b[0m\nnpm warn exec The following package was not found and will be installed: skills@1.5.15"
+  },
+  {
+    "skill": "check-design-parity-figma",
+    "find_ok": true,
+    "package": null,
+    "installed": false,
+    "install_output": "\u001b[38;5;102mNo skills found for \"check-design-parity-figma\"\u001b[0m\nnpm warn exec The following package was not found and will be installed: skills@1.5.15"
+  },
+  {
+    "skill": "ds-compliance-audit",
+    "find_ok": true,
+    "package": null,
+    "installed": false,
+    "install_output": "\u001b[38;5;102mNo skills found for \"ds-compliance-audit\"\u001b[0m\nnpm warn exec The following package was not found and will be installed: skills@1.5.15"
+  },
+  {
+    "skill": "design-system-inventory-figma",
+    "find_ok": true,
+    "package": null,
+    "installed": false,
+    "install_output": "\u001b[38;5;102mNo skills found for \"design-system-inventory-figma\"\u001b[0m\nnpm warn exec The following package was not found and will be installed: skills@1.5.15"
+  },
+  {
+    "skill": "audit-accessibility-figma",
+    "find_ok": true,
+    "package": null,
+    "installed": false,
+    "install_output": "\u001b[38;5;102mNo skills found for \"audit-accessibility-figma\"\u001b[0m\nnpm warn exec The following package was not found and will be installed: skills@1.5.15"
+  },
+  {
+    "skill": "lint-design-figma",
+    "find_ok": true,
+    "package": null,
+    "installed": false,
+    "install_output": "\u001b[38;5;102mNo skills found for \"lint-design-figma\"\u001b[0m\nnpm warn exec The following package was not found and will be installed: skills@1.5.15"
+  },
+  {
+    "skill": "generate-component-doc-figma",
+    "find_ok": true,
+    "package": null,
+    "installed": false,
+    "install_output": "\u001b[38;5;102mNo skills found for \"generate-component-doc-figma\"\u001b[0m\nnpm warn exec The following package was not found and will be installed: skills@1.5.15"
+  }
+]

@@ -1,0 +1,89 @@
+:root {
+  --mbbiz-font-family-sans: "Averta Std CY", "Inter", "Segoe UI", sans-serif;
+
+  /* Figma -> primitive aliases */
+  --mbbiz-color-brand-600: #141ed2;
+  --mbbiz-color-brand-500: #0075ff;
+  --mbbiz-color-brand-400: #5f7eeb;
+  --mbbiz-color-brand-300: #a3b7fd;
+
+  /* Figma -> semantic tokens */
+  --mbbiz-color-action-primary-start: var(--mbbiz-color-brand-600);
+  --mbbiz-color-action-primary-end: var(--mbbiz-color-brand-500);
+  --mbbiz-color-action-primary-hover-start: #3949d6;
+  --mbbiz-color-action-primary-hover-end: #2c87f6;
+  --mbbiz-color-action-primary-active-start: #606ad5;
+  --mbbiz-color-action-primary-active-end: #569aed;
+  --mbbiz-color-action-primary-disabled: #d8d8d8;
+  --mbbiz-color-action-pill-primary-hover: #5f7eeb;
+  --mbbiz-color-action-pill-primary-active: #a3b7fd;
+  --mbbiz-color-action-pill-primary-disabled: #dae4ff;
+  --mbbiz-color-button-secondary-default: #141ed2;
+  --mbbiz-color-button-secondary-hover: #5f7eeb;
+  --mbbiz-color-button-secondary-pressed: #a3b7fd;
+  --mbbiz-color-button-secondary-disabled-rectangle: #9b9b9b;
+  --mbbiz-color-button-secondary-disabled-pill: #dae4ff;
+  --mbbiz-color-dropdown-border-default: #dae4ff;
+  --mbbiz-color-dropdown-border-active: #52dddd;
+  --mbbiz-color-dropdown-border-error: #f00000;
+  --mbbiz-color-dropdown-border-disabled: #cccccc;
+  --mbbiz-color-dropdown-background-disabled: #f3f3f3;
+  --mbbiz-color-dropdown-text-default: #192d39;
+  --mbbiz-color-dropdown-text-placeholder: #9bafc8;
+  --mbbiz-color-dropdown-text-disabled: #808080;
+  --mbbiz-color-dropdown-icon: #192d39;
+  --mbbiz-color-dropdown-tag-background: #dae4ff;
+  --mbbiz-color-dropdown-tag-background-error: #ffe3e3;
+  --mbbiz-color-dropdown-tag-text: #435870;
+  --mbbiz-color-checkbox-border-default: #6d83a7;
+  --mbbiz-color-checkbox-border-hover: #9bafc8;
+  --mbbiz-color-checkbox-border-pressed: #cadbe8;
+  --mbbiz-color-checkbox-border-disabled: #cccccc;
+  --mbbiz-color-checkbox-background-disabled: #f3f3f3;
+  --mbbiz-color-checkbox-selected-default: #52dddd;
+  --mbbiz-color-checkbox-selected-hover: #84eded;
+  --mbbiz-color-checkbox-selected-pressed: #29d0d0;
+  --mbbiz-color-checkbox-selected-disabled: #cccccc;
+  --mbbiz-color-checkbox-icon: #ffffff;
+  --mbbiz-color-radio-border-default: #6d83a7;
+  --mbbiz-color-radio-border-disabled: #cccccc;
+  --mbbiz-color-radio-background-disabled: #f3f3f3;
+  --mbbiz-color-radio-selected-default: #52dddd;
+  --mbbiz-color-radio-selected-disabled: #cccccc;
+
+  --mbbiz-color-surface-primary: #ffffff;
+  --mbbiz-color-surface-secondary: #ffffff;
+  --mbbiz-color-surface-affix: #e9efff;
+  --mbbiz-color-surface-hover: #f8f9fb;
+  --mbbiz-color-surface-disabled: #f3f3f3;
+
+  --mbbiz-color-text-default: #0f172a;
+  --mbbiz-color-text-field: #192d39;
+  --mbbiz-color-text-secondary: #516682;
+  --mbbiz-color-text-floating-label: #6d83a7;
+  --mbbiz-color-text-muted: #667085;
+  --mbbiz-color-text-tertiary: #9bafc8;
+  --mbbiz-color-text-counter: #9b9b9b;
+  --mbbiz-color-text-disabled: #808080;
+  --mbbiz-color-text-disabled-weak: #9b9b9b;
+  --mbbiz-color-text-brand: var(--mbbiz-color-brand-600);
+  --mbbiz-color-text-brand-hover: var(--mbbiz-color-brand-400);
+  --mbbiz-color-text-brand-active: var(--mbbiz-color-brand-300);
+  --mbbiz-color-text-on-brand: #ffffff;
+  --mbbiz-color-text-on-brand-muted: #f3f3f3;
+
+  --mbbiz-color-border-default: #d9dce5;
+  --mbbiz-color-border-disabled: #cccccc;
+  --mbbiz-color-border-subtle: #eaecf0;
+  --mbbiz-color-border-brand: var(--mbbiz-color-brand-600);
+  --mbbiz-color-border-brand-tertiary: #52dddd;
+  --mbbiz-color-border-brand-hover: var(--mbbiz-color-brand-400);
+  --mbbiz-color-border-brand-active: var(--mbbiz-color-brand-300);
+
+  --mbbiz-color-danger: #d92d20;
+  --mbbiz-color-danger-strong: #f34343;
+
+  --mbbiz-radius-md: 4px;
+  --mbbiz-radius-lg: 10px;
+  --mbbiz-radius-pill: 999px;
+}

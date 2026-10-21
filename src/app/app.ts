@@ -1,55 +1,73 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, computed, inject, signal, type WritableSignal } from '@angular/core';
+import { Component, ElementRef, HostListener, computed, inject, signal, viewChild, type WritableSignal } from '@angular/core';
+import type { IconSizeToken } from '@mbbiz/icon';
+import { IconComponent } from '@mbbiz/icon/angular';
 import type { DsInputPasswordState } from './components/ds-input-password/ds-input-password.component';
 import {
-  Sportbook6vnAffixInputComponent,
-  Sportbook6vnAffixLabelInputComponent,
-  Sportbook6vnBadgeComponent,
-  type Sportbook6vnBadgeStatus,
-  type Sportbook6vnAffixDropdownItem,
-  Sportbook6vnButtonComponent,
-  Sportbook6vnBreadcrumbComponent,
-  Sportbook6vnCheckboxComponent,
-  Sportbook6vnCheckboxGroupComponent,
-  type Sportbook6vnCheckboxGroupOption,
-  Sportbook6vnDatepickerComponent,
-  Sportbook6vnDropdownComponent,
-  type Sportbook6vnDropdownItem,
-  Sportbook6vnDropdownTagComponent,
-  Sportbook6vnFloatingLabelInputComponent,
-  Sportbook6vnInputComponent,
-  Sportbook6vnInputTagComponent,
-  Sportbook6vnItemFileComponent,
-  type Sportbook6vnItemFileErrorType,
-  type Sportbook6vnItemFileKind,
-  Sportbook6vnItemUploadComponent,
-  type Sportbook6vnInputTagValue,
-  Sportbook6vnPasswordInputComponent,
-  Sportbook6vnPaginationComponent,
-  Sportbook6vnMessageComponent,
-  Sportbook6vnMessageService,
-  type Sportbook6vnMessageType,
-  type Sportbook6vnPaginationRangeFormatter,
-  type Sportbook6vnPaginationSummaryFormatter,
-  Sportbook6vnRadioComponent,
-  Sportbook6vnRadioGroupComponent,
-  type Sportbook6vnRadioGroupOption,
-  Sportbook6vnSearchInputComponent,
-  Sportbook6vnStepsComponent,
-  type Sportbook6vnStepItem,
-  Sportbook6vnStatusComponent,
-  type Sportbook6vnStatusColor,
-  Sportbook6vnTabComponent,
-  type Sportbook6vnTabItem,
-  Sportbook6vnTableComponent,
-  type Sportbook6vnTableCellValueChange,
-  type Sportbook6vnTableRow,
-  Sportbook6vnTextareaComponent,
-  Sportbook6vnUploadFileComponent,
-  type Sportbook6vnUploadFileItem,
-  type Sportbook6vnButtonSize,
-  type Sportbook6vnButtonVariant,
-} from 'sportbook6vn';
+  MbbizAffixInputComponent,
+  MbbizAffixLabelInputComponent,
+  MbbizBadgeComponent,
+  type MbbizBadgeStatus,
+  type MbbizAffixDropdownItem,
+  MbbizButtonComponent,
+  MbbizBreadcrumbComponent,
+  MbbizButtonLinkComponent,
+  MbbizCheckboxComponent,
+  MbbizCheckboxGroupComponent,
+  type MbbizCheckboxGroupOption,
+  MbbizDatepickerComponent,
+  MbbizDropdownComponent,
+  type MbbizDropdownItem,
+  MbbizDropdownTagComponent,
+  MbbizFloatingLabelInputComponent,
+  MbbizAutoCompleteComponent,
+  MbbizInputComponent,
+  MbbizInputTagComponent,
+  MbbizItemFileComponent,
+  type MbbizItemFileErrorType,
+  type MbbizItemFileKind,
+  MbbizItemUploadComponent,
+  type MbbizInputTagValue,
+  MbbizModalComponent,
+  MbbizDrawerComponent,
+  MbbizLevelCardComponent,
+  MbbizNavigationBarComponent,
+  type MbbizNavigationBarItem,
+  type MbbizNavigationItemClick,
+  MbbizPasswordInputComponent,
+  MbbizPaginationComponent,
+  MbbizMessageComponent,
+  MbbizMessageService,
+  type MbbizMessageType,
+  type MbbizPaginationRangeFormatter,
+  type MbbizPaginationSummaryFormatter,
+  MbbizRadioComponent,
+  MbbizRadioGroupComponent,
+  type MbbizRadioGroupOption,
+  MbbizSearchInputComponent,
+  MbbizStepsComponent,
+  type MbbizStepItem,
+  MbbizStatusComponent,
+  type MbbizStatusColor,
+  MbbizSwitchComponent,
+  MbbizTabComponent,
+  type MbbizTabItem,
+  MbbizTooltipComponent,
+  MbbizRatingComponent,
+  MbbizPriceRangeComponent,
+  MbbizTableComponent,
+  type MbbizTableCellValueChange,
+  type MbbizTableRow,
+  MbbizTextareaComponent,
+  MbbizUploadFileComponent,
+  type MbbizUploadFileItem,
+  MbbizUploadAvatarComponent,
+  type MbbizUploadAvatarItem,
+  MbbizAvatarComponent,
+  MbbizAvatarGroupComponent,
+  type MbbizButtonSize,
+  type MbbizButtonVariant,
+} from 'mbbiz';
 import {
   TABLE_PREVIEW_ALL_COLUMNS,
   TABLE_PREVIEW_DEFAULT_COLUMNS,
@@ -61,22 +79,35 @@ import {
   createTablePreviewAllColumnRows,
   createTablePreviewFixedRightRows,
   createTablePreviewSelectionRows,
-} from '../../projects/sportbook6vn/src/lib/components/table/table.preview-fixtures';
+} from '../../projects/mbbiz/src/lib/components/table/table.preview-fixtures';
 import {
-  SEMANTIC_BACKGROUND_FIGMA_ORDER,
-  SEMANTIC_BORDER_FIGMA_ORDER,
+  SEMANTIC_CATEGORY_TABLE_ORDER,
+  SEMANTIC_COLLECTION_LABELS,
+  SEMANTIC_COLLECTION_NOTES,
+  SEMANTIC_COLLECTION_ORDER,
   SEMANTIC_COLOR_TOKEN_MAPPINGS,
-  SEMANTIC_ICON_FIGMA_ORDER,
-  SEMANTIC_TEXT_FIGMA_ORDER,
+  getSemanticCollection,
+  getSemanticCollectionOrderIndex,
+  type SemanticCollection,
   type SemanticColorTokenMapping,
 } from './semantic-tokens.data';
+import { PALETTE_COLUMNS, type PaletteColumn } from './palette-tokens.data';
 import {
   RADIUS_SCALE_ROWS,
+  ICON_SIZE_SCALE_ROWS,
   SPACING_SCALE_ROWS,
   TYPOGRAPHY_SCALE_GROUPS,
   type TypographyScaleGroup,
   type NumericScaleRow,
 } from './scale-tokens.data';
+import {
+  TYPOGRAPHY_STYLE_GROUPS,
+  type TypographyStyleGroup,
+} from './typography-styles.data';
+import {
+  LAYOUT_TOKEN_GROUPS,
+  type LayoutTokenGroup,
+} from './layout-tokens.data';
 import {
   BUTTON_API_ROWS,
   BUTTON_DEMO_SECTIONS,
@@ -90,7 +121,69 @@ import {
   type ButtonSemanticBindingGroup,
   type ButtonVariableGroup,
 } from './button-demos.data';
-import { BADGE_DEMO_SECTIONS, type BadgeDemoSection } from './badge-demos.data';
+import {
+  BADGE_DEMO_SECTIONS,
+  BADGE_VARIABLE_GROUPS,
+  BADGE_VARIABLE_NOTES,
+  type BadgeDemoSection,
+} from './badge-demos.data';
+import {
+  TOOLTIP_DEMO_SECTIONS,
+  TOOLTIP_POSITION_CASES,
+  TOOLTIP_VARIABLE_GROUPS,
+  TOOLTIP_VARIABLE_NOTES,
+  type TooltipDemoSection,
+  type TooltipPositionCase,
+} from './tooltip-demos.data';
+import {
+  RATING_DEMO_SECTIONS,
+  RATING_STAR_CASES,
+  RATING_VARIABLE_GROUPS,
+  RATING_VARIABLE_NOTES,
+  type RatingDemoSection,
+  type RatingStarCase,
+} from './rating-demos.data';
+import {
+  BUTTON_LINK_DEMO_SECTIONS,
+  BUTTON_LINK_VARIABLE_GROUPS,
+  BUTTON_LINK_VARIABLE_NOTES,
+  type ButtonLinkDemoSection,
+} from './button-link-demos.data';
+import {
+  CHECKBOX_VARIABLE_GROUPS,
+  CHECKBOX_VARIABLE_NOTES,
+} from './checkbox-demos.data';
+import {
+  FORM_VARIABLE_GROUPS,
+  FORM_VARIABLE_NOTES,
+} from './form-demos.data';
+import {
+  MODAL_DEMO_SECTIONS,
+  MODAL_VARIABLE_GROUPS,
+  MODAL_VARIABLE_NOTES,
+  type ModalDemoSection,
+} from './modal-demos.data';
+import {
+  DRAWER_DEMO_SECTIONS,
+  DRAWER_VARIABLE_GROUPS,
+  DRAWER_VARIABLE_NOTES,
+  type DrawerDemoSection,
+} from './drawer-demos.data';
+import {
+  LEVEL_CARD_DEMO_SECTIONS,
+  LEVEL_CARD_DEMO_STATES,
+  LEVEL_CARD_VARIABLE_GROUPS,
+  LEVEL_CARD_VARIABLE_NOTES,
+  type LevelCardDemoSection,
+  type LevelCardDemoCase,
+} from './level-card-demos.data';
+import {
+  SWITCH_DEMO_SECTIONS,
+  SWITCH_SIZE_L,
+  SWITCH_VARIABLE_GROUPS,
+  SWITCH_VARIABLE_NOTES,
+  type SwitchDemoSection,
+} from './switch-demos.data';
 import {
   BUTTON_MAPPING_API_ROWS,
   BUTTON_MAPPING_DEMO_SECTIONS,
@@ -101,6 +194,7 @@ import {
   INPUT_API_ROWS,
   type InputDemoComponent,
   INPUT_DEMO_SECTIONS,
+  INPUT_SEARCH_BASIC_DEMO,
   INPUT_STATE_CONTRACT_ROWS,
   INPUT_STATE_CONTRACT_SNIPPET,
   INPUT_STATE_PRIORITY_RULES,
@@ -123,7 +217,6 @@ import {
   INPUT_TAG_VARIABLE_NOTES,
   type InputTagApiRow,
   type InputTagDemoSection,
-  type InputTagVariableGroup,
 } from './input-tag-demos.data';
 import {
   DROPDOWN_API_ROWS,
@@ -133,8 +226,15 @@ import {
   DROPDOWN_VARIABLE_NOTES,
   type DropdownApiRow,
   type DropdownDemoSection,
-  type DropdownVariableGroup,
 } from './dropdown-demos.data';
+import {
+  AUTO_COMPLETE_API_ROWS,
+  AUTO_COMPLETE_DEMO_SECTIONS,
+  AUTO_COMPLETE_VARIABLE_GROUPS,
+  AUTO_COMPLETE_VARIABLE_NOTES,
+  type AutoCompleteApiRow,
+  type AutoCompleteDemoSection,
+} from './auto-complete-demos.data';
 import {
   RADIO_API_ROWS,
   RADIO_DEMO_SECTIONS,
@@ -143,7 +243,6 @@ import {
   RADIO_VARIABLE_NOTES,
   type RadioApiRow,
   type RadioDemoSection,
-  type RadioVariableGroup,
 } from './radio-demos.data';
 import {
   DATEPICKER_API_ROWS,
@@ -153,8 +252,19 @@ import {
   DATEPICKER_VARIABLE_NOTES,
   type DatepickerApiRow,
   type DatepickerDemoSection,
-  type DatepickerVariableGroup,
 } from './datepicker-demos.data';
+import {
+  PRICE_RANGE_DEMO_SECTIONS,
+  PRICE_RANGE_SEMANTIC_BINDING_GROUPS,
+  PRICE_RANGE_VARIABLE_GROUPS,
+  PRICE_RANGE_VARIABLE_NOTES,
+  type PriceRangeDemoSection,
+} from './price-range-demos.data';
+import {
+  DOCS_SEARCH_ENTRIES,
+  type DocsPageId,
+  type DocsSearchEntry,
+} from './docs-search.data';
 import {
   BREADCRUMB_API_ROWS,
   BREADCRUMB_DEMO_SECTIONS,
@@ -162,11 +272,24 @@ import {
   BREADCRUMB_VARIABLE_NOTES,
   type BreadcrumbApiRow,
   type BreadcrumbDemoSection,
-  type BreadcrumbVariableGroup,
 } from './breadcrumb-demos.data';
+import {
+  NAVIGATION_BAR_API_ROWS,
+  NAVIGATION_BAR_DEMO_SECTIONS,
+  NAVIGATION_BAR_L2_EXPAND_PREVIEWS,
+  NAVIGATION_BAR_L2_STATE_PREVIEWS,
+  NAVIGATION_BAR_L3_STATE_PREVIEWS,
+  NAVIGATION_BAR_VARIABLE_GROUPS,
+  NAVIGATION_BAR_VARIABLE_NOTES,
+  type NavigationBarApiRow,
+  type NavigationBarDemoSection,
+  type NavigationBarSubmenuPreview,
+} from './navigation-bar-demos.data';
 import {
   MESSAGE_CASES,
   MESSAGE_DEMO_SECTIONS,
+  MESSAGE_VARIABLE_GROUPS,
+  MESSAGE_VARIABLE_NOTES,
   type MessageCase,
   type MessageDemoSection,
 } from './message-demos.data';
@@ -177,10 +300,19 @@ import {
   STEPS_VARIABLE_NOTES,
   type StepsApiRow,
   type StepsDemoSection,
-  type StepsVariableGroup,
 } from './steps-demos.data';
-import { STATUS_DEMO_SECTIONS, type StatusDemoSection } from './status-demos.data';
-import { TAB_DEMO_SECTIONS, type TabDemoSection } from './tab-demos.data';
+import {
+  STATUS_DEMO_SECTIONS,
+  STATUS_VARIABLE_GROUPS,
+  STATUS_VARIABLE_NOTES,
+  type StatusDemoSection,
+} from './status-demos.data';
+import {
+  TAB_DEMO_SECTIONS,
+  TAB_VARIABLE_GROUPS,
+  TAB_VARIABLE_NOTES,
+  type TabDemoSection,
+} from './tab-demos.data';
 import {
   TABLE_API_ROWS,
   TABLE_DEMO_SECTIONS,
@@ -190,7 +322,6 @@ import {
   TABLE_VARIABLE_NOTES,
   type TableApiRow,
   type TableDemoSection,
-  type TableVariableGroup,
 } from './table-demos.data';
 import {
   PAGINATION_API_ROWS,
@@ -201,10 +332,15 @@ import {
   PAGINATION_VARIABLE_NOTES,
   type PaginationApiRow,
   type PaginationDemoSection,
-  type PaginationVariableGroup,
 } from './pagination-demos.data';
 import { ILLUSTRATION_ASSETS, type IllustrationAsset } from './illustration-assets.data';
-import { ICON_ASSETS, type IconAsset } from './icon-assets.data';
+import {
+  ICON_LIBRARY_GROUPS,
+  ICON_LIBRARY_SIZE_PREVIEWS,
+  type IconLibraryEntry,
+  type IconLibraryGroup,
+  type IconSizePreviewRow,
+} from './icon-library-demos.data';
 import {
   UPLOAD_FILE_API_ROWS,
   UPLOAD_FILE_DEMO_SECTIONS,
@@ -215,40 +351,82 @@ import {
   UPLOAD_FILE_VARIABLE_NOTES,
   type UploadFileApiRow,
   type UploadFileDemoSection,
-  type UploadFileVariableGroup,
 } from './upload-file-demos.data';
 import {
+  UPLOAD_AVATAR_API_ROWS,
+  UPLOAD_AVATAR_DEMO_SECTIONS,
+  UPLOAD_AVATAR_STATE_FILES,
+  UPLOAD_AVATAR_TYPE_ROWS,
+  UPLOAD_AVATAR_VARIABLE_GROUPS,
+  UPLOAD_AVATAR_VARIABLE_NOTES,
+  UPLOAD_AVATAR_WALL_SEED,
+  type UploadAvatarApiRow,
+  type UploadAvatarDemoSection,
+} from './upload-avatar-demos.data';
+import {
+  AVATAR_API_ROWS,
+  AVATAR_DEMO_SECTIONS,
+  AVATAR_GROUP_API_ROWS,
+  AVATAR_VARIABLE_GROUPS,
+  AVATAR_VARIABLE_NOTES,
+  type AvatarApiRow,
+  type AvatarDemoSection,
+} from './avatar-demos.data';
+import {
   DEFAULT_THEME_BRAND,
-  DEFAULT_THEME_ID,
-  DEFAULT_THEME_MODE,
-  SEMANTIC_THEME_ALIAS_PRIMITIVE_OVERRIDES,
-  SEMANTIC_THEME_ALIAS_OVERRIDES,
-  buildSemanticThemeAliasPrimitiveMaps,
-  buildSemanticThemeAliasValueMaps,
-  getThemeBrandFromId,
-  getThemeId,
-  getThemeModeFromId,
-  isThemeMode,
-  parseThemeId,
+  buildSemanticAliasPrimitiveMap,
+  buildSemanticAliasValueMap,
   type ThemeBrand,
-  type ThemeId,
-  type ThemeMode,
 } from './semantic-theme-modes.data';
 import {
+  BRAND_THEME_TABS,
+  DEFAULT_BRAND_THEME,
+  getBrandThemeTokenValue,
+  type BrandThemeId,
+} from './brand-theme-modes.data';
+import {
   FOOTER_PATTERN_VARIANTS,
+  FORM_PATTERN_CASES,
+  PAGE_HEADER_PATTERN_CASES,
+  SOURCE_ACCOUNT_ACCOUNT_OPTIONS,
+  SOURCE_ACCOUNT_CARD_BLACK_SRC,
+  SOURCE_ACCOUNT_CARD_OPTIONS,
+  SOURCE_ACCOUNT_CARD_WHITE_SRC,
+  SOURCE_ACCOUNT_EMPTY_LABEL,
+  SOURCE_ACCOUNT_EMPTY_SRC,
+  SOURCE_ACCOUNT_ERROR_MESSAGE,
+  SOURCE_ACCOUNT_LABEL,
+  SOURCE_ACCOUNT_PATTERN_CASES,
+  SOURCE_ACCOUNT_PLACEHOLDER,
+  SOURCE_ACCOUNT_SEARCH_PLACEHOLDER,
+  SOURCE_ACCOUNT_SWITCH_LABEL,
+  STEP_PROCESS_PATTERN_CASES,
   type FooterPatternVariant,
+  type FormPatternCase,
+  type PageHeaderPatternCase,
+  type SourceAccountListItem,
+  type SourceAccountPatternCase,
+  type StepProcessPatternCase,
 } from './pattern-demos.data';
 
-interface SemanticTokenGroup {
+interface SemanticTokenTable {
+  id: string;
   category: string;
   label: string;
   items: SemanticColorTokenMapping[];
 }
 
+interface SemanticTokenGroup {
+  category: SemanticCollection;
+  label: string;
+  description: string;
+  tables: SemanticTokenTable[];
+}
+
 interface ResolvedButtonSemanticBindingRow {
-  componentToken: string;
-  semanticAlias: string;
-  semanticValue: string;
+  alias: string;
+  globalColor: string;
+  hexValue: string;
   description: string;
 }
 
@@ -259,9 +437,9 @@ interface ResolvedButtonSemanticBindingGroup {
 }
 
 interface ResolvedInputSemanticBindingRow {
-  componentToken: string;
-  semanticAlias: string;
-  semanticValue: string;
+  alias: string;
+  globalColor: string;
+  hexValue: string;
   description: string;
 }
 
@@ -269,6 +447,27 @@ interface ResolvedInputSemanticBindingGroup {
   title: string;
   description: string;
   rows: ResolvedInputSemanticBindingRow[];
+}
+
+interface ResolvedAliasColorRow {
+  alias: string;
+  globalColor: string;
+  hexValue: string;
+  description: string;
+}
+
+interface ResolvedVariableSpecRow {
+  token: string;
+  value: string;
+  appliesTo: string;
+  notes: string;
+}
+
+interface ResolvedVariableTokenGroup {
+  title: string;
+  kind: 'alias-color' | 'spec';
+  aliasRows: ResolvedAliasColorRow[];
+  specRows: ResolvedVariableSpecRow[];
 }
 
 type InputDocsSectionId =
@@ -300,77 +499,84 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
   selector: 'app-root',
   imports: [
     CommonModule,
-    Sportbook6vnAffixInputComponent,
-    Sportbook6vnAffixLabelInputComponent,
-    Sportbook6vnBadgeComponent,
-    Sportbook6vnButtonComponent,
-    Sportbook6vnBreadcrumbComponent,
-    Sportbook6vnCheckboxComponent,
-    Sportbook6vnCheckboxGroupComponent,
-    Sportbook6vnDatepickerComponent,
-    Sportbook6vnDropdownComponent,
-    Sportbook6vnDropdownTagComponent,
-    Sportbook6vnFloatingLabelInputComponent,
-    Sportbook6vnInputComponent,
-    Sportbook6vnInputTagComponent,
-    Sportbook6vnItemFileComponent,
-    Sportbook6vnItemUploadComponent,
-    Sportbook6vnMessageComponent,
-    Sportbook6vnPasswordInputComponent,
-    Sportbook6vnPaginationComponent,
-    Sportbook6vnRadioComponent,
-    Sportbook6vnRadioGroupComponent,
-    Sportbook6vnSearchInputComponent,
-    Sportbook6vnStepsComponent,
-    Sportbook6vnStatusComponent,
-    Sportbook6vnTabComponent,
-    Sportbook6vnTableComponent,
-    Sportbook6vnTextareaComponent,
-    Sportbook6vnUploadFileComponent,
+    MbbizAffixInputComponent,
+    MbbizAffixLabelInputComponent,
+    MbbizBadgeComponent,
+    MbbizButtonComponent,
+    MbbizBreadcrumbComponent,
+    MbbizButtonLinkComponent,
+    MbbizCheckboxComponent,
+    MbbizCheckboxGroupComponent,
+    MbbizDatepickerComponent,
+    MbbizDropdownComponent,
+    MbbizDropdownTagComponent,
+    MbbizFloatingLabelInputComponent,
+    MbbizAutoCompleteComponent,
+    MbbizInputComponent,
+    MbbizInputTagComponent,
+    MbbizItemFileComponent,
+    MbbizItemUploadComponent,
+    MbbizMessageComponent,
+    MbbizModalComponent,
+    MbbizDrawerComponent,
+    MbbizLevelCardComponent,
+    MbbizNavigationBarComponent,
+    MbbizPasswordInputComponent,
+    MbbizPaginationComponent,
+    MbbizRadioComponent,
+    MbbizRadioGroupComponent,
+    MbbizSearchInputComponent,
+    MbbizStepsComponent,
+    MbbizStatusComponent,
+    MbbizSwitchComponent,
+    MbbizTabComponent,
+    MbbizTooltipComponent,
+    MbbizRatingComponent,
+    MbbizPriceRangeComponent,
+    MbbizTableComponent,
+    MbbizTextareaComponent,
+    MbbizUploadFileComponent,
+    MbbizUploadAvatarComponent,
+    MbbizAvatarComponent,
+    MbbizAvatarGroupComponent,
+    IconComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
-  private readonly messageService = inject(Sportbook6vnMessageService);
+  private readonly messageService = inject(MbbizMessageService);
   protected readonly title = signal('sportbook_mbbiz');
   protected readonly activeLang = signal<'VIE' | 'ENG'>('VIE');
   protected readonly isLangOpen = signal(false);
   protected readonly activeThemeBrand = signal<ThemeBrand>(DEFAULT_THEME_BRAND);
-  protected readonly activeTheme = signal<ThemeMode>(DEFAULT_THEME_MODE);
-  protected readonly isThemeOpen = signal(false);
-  protected readonly isGettingStartedOpen = signal(false);
+  protected readonly isGettingStartedOpen = signal(true);
   protected readonly isDesignTokensOpen = signal(false);
-  protected readonly isComponentsOpen = signal(true);
+  protected readonly isComponentsOpen = signal(false);
   protected readonly isPatternOpen = signal(false);
-  protected readonly activePage = signal<
-    | 'buttons'
-    | 'buttonMapping'
-    | 'inputField'
-    | 'inputTag'
-    | 'breadcrumb'
-    | 'steps'
-    | 'tab'
-    | 'dropdown'
-    | 'radio'
-    | 'checkbox'
-    | 'badge'
-    | 'status'
-    | 'message'
-    | 'table'
-    | 'pagination'
-    | 'datepicker'
-    | 'uploadFile'
-    | 'iconography'
-    | 'illustration'
-    | 'footerPattern'
-    | 'introduction'
-    | 'installation'
-    | 'color'
-    | 'tokens'
-    | 'spacing'
-    | 'typography'
-  >('buttons');
+  protected readonly docsSearchQuery = signal('');
+  protected readonly isDocsSearchOpen = signal(false);
+  protected readonly docsSearchActiveIndex = signal(0);
+  private readonly docsSearchInput = viewChild<ElementRef<HTMLInputElement>>('docsSearchInput');
+  protected readonly docsSearchShortcutLabel = signal(this.resolveDocsSearchShortcutLabel());
+  protected readonly docsSearchPlaceholder = computed(
+    () => `Search components... (${this.docsSearchShortcutLabel() === '⌘K' ? 'CMD+K' : 'CTRL+K'})`,
+  );
+  protected readonly docsSearchResults = computed(() => {
+    const query = this.docsSearchQuery().trim().toLowerCase();
+    if (!query) {
+      return DOCS_SEARCH_ENTRIES;
+    }
+
+    return DOCS_SEARCH_ENTRIES.filter((entry) => {
+      const haystack = [entry.label, entry.group, entry.page, ...entry.keywords]
+        .join(' ')
+        .toLowerCase();
+      return haystack.includes(query);
+    });
+  });
+  protected readonly activePage = signal<DocsPageId>('introduction');
+  protected readonly paletteColumns: readonly PaletteColumn[] = PALETTE_COLUMNS;
   protected readonly semanticTokenMappings = SEMANTIC_COLOR_TOKEN_MAPPINGS;
   protected readonly semanticTokenGroups = this.buildSemanticTokenGroups();
   protected readonly activeTokenSection = signal(
@@ -378,18 +584,62 @@ export class App {
       ? this.getTokenSectionId(this.semanticTokenGroups[0].category)
       : '',
   );
-  protected readonly colorTokenMode = signal<ThemeMode>(DEFAULT_THEME_MODE);
+  protected readonly brandThemeTabs = BRAND_THEME_TABS;
+  protected readonly activeBrandTheme = signal<BrandThemeId>(DEFAULT_BRAND_THEME);
   protected readonly copiedSemanticAlias = signal<string | null>(null);
   protected readonly isTocCollapsed = signal(false);
   protected readonly footerPatternVariants = FOOTER_PATTERN_VARIANTS;
   protected readonly activeFooterPatternSection = signal(
     this.getFooterPatternSectionId(this.footerPatternVariants[0]?.id ?? 'type1'),
   );
+  protected readonly formPatternCases = FORM_PATTERN_CASES;
+  protected readonly activeFormPatternSection = signal(
+    this.getFormPatternSectionId(this.formPatternCases[0]?.id ?? 'basic'),
+  );
+  protected readonly pageHeaderPatternCases = PAGE_HEADER_PATTERN_CASES;
+  protected readonly activePageHeaderPatternSection = signal(
+    this.getPageHeaderPatternSectionId(this.pageHeaderPatternCases[0]?.id ?? 'default'),
+  );
+  protected readonly stepProcessPatternCases = STEP_PROCESS_PATTERN_CASES;
+  protected readonly activeStepProcessPatternSection = signal(
+    this.getStepProcessPatternSectionId(this.stepProcessPatternCases[0]?.id ?? 'default'),
+  );
+  protected readonly sourceAccountPatternCases = SOURCE_ACCOUNT_PATTERN_CASES;
+  protected readonly sourceAccountLabel = SOURCE_ACCOUNT_LABEL;
+  protected readonly sourceAccountPlaceholder = SOURCE_ACCOUNT_PLACEHOLDER;
+  protected readonly sourceAccountSwitchLabel = SOURCE_ACCOUNT_SWITCH_LABEL;
+  protected readonly sourceAccountSwitchSize = SWITCH_SIZE_L;
+  protected readonly sourceAccountErrorMessage = SOURCE_ACCOUNT_ERROR_MESSAGE;
+  protected readonly sourceAccountSearchPlaceholder = SOURCE_ACCOUNT_SEARCH_PLACEHOLDER;
+  protected readonly sourceAccountSearchAllowClear = Boolean(INPUT_SEARCH_BASIC_DEMO?.interactive);
+  protected readonly sourceAccountEmptySrc = SOURCE_ACCOUNT_EMPTY_SRC;
+  protected readonly sourceAccountEmptyLabel = SOURCE_ACCOUNT_EMPTY_LABEL;
+  protected readonly sourceAccountCardBlackSrc = SOURCE_ACCOUNT_CARD_BLACK_SRC;
+  protected readonly sourceAccountCardWhiteSrc = SOURCE_ACCOUNT_CARD_WHITE_SRC;
+  protected readonly sourceAccountAccountCount = SOURCE_ACCOUNT_ACCOUNT_OPTIONS.length;
+  protected readonly sourceAccountCardCount = SOURCE_ACCOUNT_CARD_OPTIONS.length;
+  protected readonly activeSourceAccountPatternSection = signal(
+    this.getSourceAccountPatternSectionId(this.sourceAccountPatternCases[0]?.id ?? 'default'),
+  );
+  private readonly sourceAccountDemo = signal({
+    open: false,
+    payWithCard: false,
+    selectedAccountId: null as string | null,
+    selectedCardId: null as string | null,
+    search: '',
+    accountsExpanded: true,
+    cardsExpanded: false,
+  });
   protected readonly openFooterPatternOverflowId = signal<FooterPatternVariant['id'] | null>(null);
   protected readonly spacingScaleRows: NumericScaleRow[] = SPACING_SCALE_ROWS;
   protected readonly radiusScaleRows: NumericScaleRow[] = RADIUS_SCALE_ROWS;
+  protected readonly iconSizeScaleRows: NumericScaleRow[] = ICON_SIZE_SCALE_ROWS;
+  protected readonly layoutTokenGroups: LayoutTokenGroup[] = LAYOUT_TOKEN_GROUPS;
   protected readonly typographyScaleGroups: TypographyScaleGroup[] = TYPOGRAPHY_SCALE_GROUPS;
+  protected readonly typographyStyleGroups: TypographyStyleGroup[] = TYPOGRAPHY_STYLE_GROUPS;
   protected readonly buttonDemoSections: ButtonDemoSection[] = BUTTON_DEMO_SECTIONS;
+  protected readonly buttonDocsThemes = BRAND_THEME_TABS;
+  protected readonly activeButtonDocsTheme = signal<BrandThemeId>(DEFAULT_BRAND_THEME);
   protected readonly buttonMappingDemoSections: ButtonMappingDemoSection[] =
     BUTTON_MAPPING_DEMO_SECTIONS;
   protected readonly buttonMappingApiRows: ButtonMappingApiRow[] = BUTTON_MAPPING_API_ROWS;
@@ -427,7 +677,8 @@ export class App {
   protected readonly copiedInputDocsDemoId = signal<string | null>(null);
   protected readonly inputTagDemoSections: InputTagDemoSection[] = INPUT_TAG_DEMO_SECTIONS;
   protected readonly inputTagApiRows: InputTagApiRow[] = INPUT_TAG_API_ROWS;
-  protected readonly inputTagVariableGroups: InputTagVariableGroup[] = INPUT_TAG_VARIABLE_GROUPS;
+  protected readonly inputTagVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(INPUT_TAG_VARIABLE_GROUPS);
   protected readonly inputTagVariableNotes = INPUT_TAG_VARIABLE_NOTES;
   protected readonly activeInputTagSection = signal(
     this.getInputTagSectionId(this.inputTagDemoSections[0]?.id ?? 'interactive'),
@@ -436,23 +687,51 @@ export class App {
   protected readonly copiedInputTagDemoId = signal<string | null>(null);
   protected readonly breadcrumbDemoSections: BreadcrumbDemoSection[] = BREADCRUMB_DEMO_SECTIONS;
   protected readonly breadcrumbApiRows: BreadcrumbApiRow[] = BREADCRUMB_API_ROWS;
-  protected readonly breadcrumbVariableGroups: BreadcrumbVariableGroup[] =
-    BREADCRUMB_VARIABLE_GROUPS;
+  protected readonly breadcrumbVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(BREADCRUMB_VARIABLE_GROUPS);
   protected readonly breadcrumbVariableNotes = BREADCRUMB_VARIABLE_NOTES;
   protected readonly activeBreadcrumbSection = signal(
     this.getBreadcrumbSectionId(this.breadcrumbDemoSections[0]?.id ?? 'amount'),
   );
   protected readonly expandedBreadcrumbDemoIds = signal<string[]>([]);
   protected readonly copiedBreadcrumbDemoId = signal<string | null>(null);
+  protected readonly navigationBarDemoSections: NavigationBarDemoSection[] =
+    NAVIGATION_BAR_DEMO_SECTIONS;
+  protected readonly navigationBarApiRows: NavigationBarApiRow[] = NAVIGATION_BAR_API_ROWS;
+  protected readonly navigationBarVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(NAVIGATION_BAR_VARIABLE_GROUPS);
+  protected readonly navigationBarVariableNotes = NAVIGATION_BAR_VARIABLE_NOTES;
+  protected readonly activeNavigationBarSection = signal(
+    this.getNavigationBarSectionId(this.navigationBarDemoSections[0]?.id ?? 'maker'),
+  );
+  protected readonly expandedNavigationBarDemoIds = signal<string[]>([]);
+  protected readonly copiedNavigationBarDemoId = signal<string | null>(null);
+  protected readonly makerNavActiveId = signal('home');
+  protected readonly checkerNavActiveId = signal('home');
+  protected readonly oneUserNavActiveId = signal('home');
+  protected readonly makerNavStateItems: readonly MbbizNavigationBarItem[][] = [
+    [{ id: 'default', label: 'Trang chủ', icon: 'alinear_home', state: 'default' }],
+    [{ id: 'hover', label: 'Trang chủ', icon: 'alinear_home', state: 'hover' }],
+    [{ id: 'active', label: 'Trang chủ', icon: 'alinear_home', iconActive: 'abold_home', state: 'active' }],
+    [{ id: 'disabled', label: 'Trang chủ', icon: 'alinear_home', disabled: true, state: 'disabled' }],
+    [{ id: 'new', label: 'Trang chủ', icon: 'alinear_home', showNew: true }],
+  ];
+  protected readonly navL2StatePreviews: readonly NavigationBarSubmenuPreview[] =
+    NAVIGATION_BAR_L2_STATE_PREVIEWS;
+  protected readonly navL3StatePreviews: readonly NavigationBarSubmenuPreview[] =
+    NAVIGATION_BAR_L3_STATE_PREVIEWS;
+  protected readonly navL2ExpandPreviews: readonly NavigationBarSubmenuPreview[] =
+    NAVIGATION_BAR_L2_EXPAND_PREVIEWS;
   protected readonly stepsDemoSections: StepsDemoSection[] = STEPS_DEMO_SECTIONS;
   protected readonly stepsApiRows: StepsApiRow[] = STEPS_API_ROWS;
-  protected readonly stepsVariableGroups: StepsVariableGroup[] = STEPS_VARIABLE_GROUPS;
+  protected readonly stepsVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(STEPS_VARIABLE_GROUPS);
   protected readonly stepsVariableNotes = STEPS_VARIABLE_NOTES;
   protected readonly activeStepsSection = signal(
     this.getStepsSectionId(this.stepsDemoSections[0]?.id ?? 'horizontal-steps'),
   );
   protected readonly stepProgressStates = [0, 1, 2, 3, 4];
-  protected readonly verticalStepPreviewItems: readonly Sportbook6vnStepItem[] = [
+  protected readonly verticalStepPreviewItems: readonly MbbizStepItem[] = [
     { title: 'Text', status: 'process' },
     { title: 'Text', status: 'wait' },
     { title: 'Text', status: 'wait' },
@@ -460,7 +739,7 @@ export class App {
   protected readonly verticalStepStateCases: {
     title: string;
     ariaLabel: string;
-    items: readonly Sportbook6vnStepItem[];
+    items: readonly MbbizStepItem[];
   }[] = [
     {
       title: 'Active=No',
@@ -476,7 +755,7 @@ export class App {
   protected readonly horizontalStepStateCases: {
     title: string;
     ariaLabel: string;
-    items: readonly Sportbook6vnStepItem[];
+    items: readonly MbbizStepItem[];
   }[] = [
     {
       title: 'Next',
@@ -502,32 +781,38 @@ export class App {
   protected readonly expandedStepsDemoIds = signal<string[]>([]);
   protected readonly copiedStepsDemoId = signal<string | null>(null);
   protected readonly tabDemoSections: TabDemoSection[] = TAB_DEMO_SECTIONS;
+  protected readonly tabVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(TAB_VARIABLE_GROUPS);
+  protected readonly tabVariableNotes = TAB_VARIABLE_NOTES;
   protected readonly activeTabSection = signal(
     this.getTabSectionId(this.tabDemoSections[0]?.id ?? 'default'),
   );
   protected readonly tabPillActiveIndex = signal(0);
   protected readonly tabUnderlinedActiveIndex = signal(0);
   protected readonly tabSmallActiveIndex = signal(0);
-  protected readonly tabDefaultItems: Sportbook6vnTabItem[] = [
+  protected readonly tabDefaultItems: MbbizTabItem[] = [
     { label: 'Text' },
     { label: 'Text' },
     { label: 'Text' },
   ];
-  protected readonly tabCountItems: Sportbook6vnTabItem[] = [
+  protected readonly tabCountItems: MbbizTabItem[] = [
     { label: 'Text', count: 12 },
     { label: 'Text' },
     { label: 'Text', count: 12 },
   ];
-  protected readonly tabDisabledItems: Sportbook6vnTabItem[] = [
+  protected readonly tabDisabledItems: MbbizTabItem[] = [
     { label: 'Text' },
     { label: 'Text' },
     { label: 'Text', disabled: true },
   ];
   protected readonly badgeDemoSections: BadgeDemoSection[] = BADGE_DEMO_SECTIONS;
+  protected readonly badgeVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(BADGE_VARIABLE_GROUPS);
+  protected readonly badgeVariableNotes = BADGE_VARIABLE_NOTES;
   protected readonly activeBadgeSection = signal(
     this.getBadgeSectionId(this.badgeDemoSections[0]?.id ?? 'default'),
   );
-  protected readonly badgeStatusCases: { status: Sportbook6vnBadgeStatus; label: string }[] = [
+  protected readonly badgeStatusCases: { status: MbbizBadgeStatus; label: string }[] = [
     { status: 'invalid', label: 'Text' },
     { status: 'overdue', label: 'Text' },
     { status: 'unfinished', label: 'Text' },
@@ -537,15 +822,81 @@ export class App {
     { status: 'failed', label: 'Text' },
   ];
   protected readonly statusDemoSections: StatusDemoSection[] = STATUS_DEMO_SECTIONS;
+  protected readonly statusVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(STATUS_VARIABLE_GROUPS);
+  protected readonly statusVariableNotes = STATUS_VARIABLE_NOTES;
   protected readonly activeStatusSection = signal(
     this.getStatusSectionId(this.statusDemoSections[0]?.id ?? 'default'),
   );
   protected readonly messageDemoSections: MessageDemoSection[] = MESSAGE_DEMO_SECTIONS;
+  protected readonly messageVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(MESSAGE_VARIABLE_GROUPS);
+  protected readonly messageVariableNotes = MESSAGE_VARIABLE_NOTES;
+  protected readonly tooltipDemoSections: TooltipDemoSection[] = TOOLTIP_DEMO_SECTIONS;
+  protected readonly tooltipPositionCases: TooltipPositionCase[] = TOOLTIP_POSITION_CASES;
+  protected readonly tooltipVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(TOOLTIP_VARIABLE_GROUPS);
+  protected readonly tooltipVariableNotes = TOOLTIP_VARIABLE_NOTES;
+  protected readonly activeTooltipSection = signal(
+    this.getTooltipSectionId(this.tooltipDemoSections[0]?.id ?? 'default'),
+  );
+  protected readonly ratingDemoSections: RatingDemoSection[] = RATING_DEMO_SECTIONS;
+  protected readonly ratingStarCases: RatingStarCase[] = RATING_STAR_CASES;
+  protected readonly ratingVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(RATING_VARIABLE_GROUPS);
+  protected readonly ratingVariableNotes = RATING_VARIABLE_NOTES;
+  protected readonly activeRatingSection = signal(
+    this.getRatingSectionId(this.ratingDemoSections[0]?.id ?? 'default'),
+  );
+  protected readonly checkboxVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(CHECKBOX_VARIABLE_GROUPS);
+  protected readonly checkboxVariableNotes = CHECKBOX_VARIABLE_NOTES;
+  protected readonly formVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(FORM_VARIABLE_GROUPS);
+  protected readonly formVariableNotes = FORM_VARIABLE_NOTES;
+  protected readonly switchDemoSections: SwitchDemoSection[] = SWITCH_DEMO_SECTIONS;
+  protected readonly switchVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(SWITCH_VARIABLE_GROUPS);
+  protected readonly switchVariableNotes = SWITCH_VARIABLE_NOTES;
+  protected readonly activeSwitchSection = signal(
+    this.getSwitchSectionId(this.switchDemoSections[0]?.id ?? 'default'),
+  );
+  protected readonly switchDemoChecked = signal(true);
+  protected readonly modalDemoSections: ModalDemoSection[] = MODAL_DEMO_SECTIONS;
+  protected readonly modalVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(MODAL_VARIABLE_GROUPS);
+  protected readonly modalVariableNotes = MODAL_VARIABLE_NOTES;
+  protected readonly activeModalSection = signal(
+    this.getModalSectionId(this.modalDemoSections[0]?.id ?? 'default'),
+  );
+  protected readonly drawerDemoSections: DrawerDemoSection[] = DRAWER_DEMO_SECTIONS;
+  protected readonly drawerVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(DRAWER_VARIABLE_GROUPS);
+  protected readonly drawerVariableNotes = DRAWER_VARIABLE_NOTES;
+  protected readonly activeDrawerSection = signal(
+    this.getDrawerSectionId(this.drawerDemoSections[0]?.id ?? 'basic'),
+  );
+  protected readonly drawerDemoOpen = signal(false);
+  protected readonly levelCardDemoSections: LevelCardDemoSection[] = LEVEL_CARD_DEMO_SECTIONS;
+  protected readonly levelCardDemoStates: LevelCardDemoCase[] = LEVEL_CARD_DEMO_STATES;
+  protected readonly levelCardVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(LEVEL_CARD_VARIABLE_GROUPS);
+  protected readonly levelCardVariableNotes = LEVEL_CARD_VARIABLE_NOTES;
+  protected readonly activeLevelCardSection = signal(
+    this.getLevelCardSectionId(this.levelCardDemoSections[0]?.id ?? 'large'),
+  );
+  protected readonly buttonLinkDemoSections: ButtonLinkDemoSection[] = BUTTON_LINK_DEMO_SECTIONS;
+  protected readonly buttonLinkVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(BUTTON_LINK_VARIABLE_GROUPS);
+  protected readonly buttonLinkVariableNotes = BUTTON_LINK_VARIABLE_NOTES;
+  protected readonly activeButtonLinkSection = signal(
+    this.getButtonLinkSectionId(this.buttonLinkDemoSections[0]?.id ?? 'default'),
+  );
   protected readonly messageCases: MessageCase[] = MESSAGE_CASES;
   protected readonly activeMessageSection = signal(
     this.getMessageSectionId(this.messageDemoSections[0]?.id ?? 'default'),
   );
-  protected readonly statusColorCases: { color: Sportbook6vnStatusColor; label: string }[] = [
+  protected readonly statusColorCases: { color: MbbizStatusColor; label: string }[] = [
     { color: 'neutral', label: 'Text' },
     { color: 'orange', label: 'Text' },
     { color: 'blue', label: 'Text' },
@@ -557,7 +908,8 @@ export class App {
   protected readonly tableApiRows: TableApiRow[] = TABLE_API_ROWS;
   protected readonly tableOutputRows: TableApiRow[] = TABLE_OUTPUT_ROWS;
   protected readonly tableTypeRows: TableApiRow[] = TABLE_TYPE_ROWS;
-  protected readonly tableVariableGroups: TableVariableGroup[] = TABLE_VARIABLE_GROUPS;
+  protected readonly tableVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(TABLE_VARIABLE_GROUPS);
   protected readonly tableVariableNotes = TABLE_VARIABLE_NOTES;
   protected readonly activeTableSection = signal(
     this.getTableSectionId(this.tableDemoSections[0]?.id ?? 'basic'),
@@ -568,8 +920,8 @@ export class App {
   protected readonly paginationApiRows: PaginationApiRow[] = PAGINATION_API_ROWS;
   protected readonly paginationOutputRows: PaginationApiRow[] = PAGINATION_OUTPUT_ROWS;
   protected readonly paginationTypeRows: PaginationApiRow[] = PAGINATION_TYPE_ROWS;
-  protected readonly paginationVariableGroups: PaginationVariableGroup[] =
-    PAGINATION_VARIABLE_GROUPS;
+  protected readonly paginationVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(PAGINATION_VARIABLE_GROUPS);
   protected readonly paginationVariableNotes = PAGINATION_VARIABLE_NOTES;
   protected readonly activePaginationSection = signal(
     this.getPaginationSectionId(this.paginationDemoSections[0]?.id ?? 'default'),
@@ -579,17 +931,31 @@ export class App {
   protected readonly dropdownDemoSections: DropdownDemoSection[] = DROPDOWN_DEMO_SECTIONS;
   protected readonly dropdownApiRows: DropdownApiRow[] = DROPDOWN_API_ROWS;
   protected readonly dropdownTagApiRows: DropdownApiRow[] = DROPDOWN_TAG_API_ROWS;
-  protected readonly dropdownVariableGroups: DropdownVariableGroup[] = DROPDOWN_VARIABLE_GROUPS;
+  protected readonly dropdownVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(DROPDOWN_VARIABLE_GROUPS);
   protected readonly dropdownVariableNotes = DROPDOWN_VARIABLE_NOTES;
   protected readonly activeDropdownSection = signal(
     this.getDropdownSectionId(this.dropdownDemoSections[0]?.id ?? 'basic'),
   );
+  protected readonly activeFormSection = signal(this.getFormSectionId('default'));
+  protected readonly formPatternSelectedRadio = signal<'option-1' | 'option-2'>('option-1');
   protected readonly expandedDropdownDemoIds = signal<string[]>([]);
   protected readonly copiedDropdownDemoId = signal<string | null>(null);
+  protected readonly autoCompleteDemoSections: AutoCompleteDemoSection[] = AUTO_COMPLETE_DEMO_SECTIONS;
+  protected readonly autoCompleteApiRows: AutoCompleteApiRow[] = AUTO_COMPLETE_API_ROWS;
+  protected readonly autoCompleteVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(AUTO_COMPLETE_VARIABLE_GROUPS);
+  protected readonly autoCompleteVariableNotes = AUTO_COMPLETE_VARIABLE_NOTES;
+  protected readonly activeAutoCompleteSection = signal(
+    this.getAutoCompleteSectionId(this.autoCompleteDemoSections[0]?.id ?? 'basic'),
+  );
+  protected readonly expandedAutoCompleteDemoIds = signal<string[]>([]);
+  protected readonly copiedAutoCompleteDemoId = signal<string | null>(null);
   protected readonly radioDemoSections: RadioDemoSection[] = RADIO_DEMO_SECTIONS;
   protected readonly radioApiRows: RadioApiRow[] = RADIO_API_ROWS;
   protected readonly radioGroupApiRows: RadioApiRow[] = RADIO_GROUP_API_ROWS;
-  protected readonly radioVariableGroups: RadioVariableGroup[] = RADIO_VARIABLE_GROUPS;
+  protected readonly radioVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(RADIO_VARIABLE_GROUPS);
   protected readonly radioVariableNotes = RADIO_VARIABLE_NOTES;
   protected readonly activeRadioSection = signal(
     this.getRadioSectionId(this.radioDemoSections[0]?.id ?? 'basic'),
@@ -599,53 +965,83 @@ export class App {
   protected readonly datepickerDemoSections: DatepickerDemoSection[] = DATEPICKER_DEMO_SECTIONS;
   protected readonly datepickerApiRows: DatepickerApiRow[] = DATEPICKER_API_ROWS;
   protected readonly datepickerOutputRows: DatepickerApiRow[] = DATEPICKER_OUTPUT_ROWS;
-  protected readonly datepickerVariableGroups: DatepickerVariableGroup[] =
-    DATEPICKER_VARIABLE_GROUPS;
+  protected readonly datepickerVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(DATEPICKER_VARIABLE_GROUPS);
   protected readonly datepickerVariableNotes = DATEPICKER_VARIABLE_NOTES;
   protected readonly activeDatepickerSection = signal(
     this.getDatepickerSectionId(this.datepickerDemoSections[0]?.id ?? 'single-date'),
   );
   protected readonly expandedDatepickerDemoIds = signal<string[]>([]);
   protected readonly copiedDatepickerDemoId = signal<string | null>(null);
+  protected readonly priceRangeDemoSections: PriceRangeDemoSection[] = PRICE_RANGE_DEMO_SECTIONS;
+  protected readonly priceRangeSemanticBindingGroups: ResolvedInputSemanticBindingGroup[] =
+    this.buildInputSemanticBindingGroups(PRICE_RANGE_SEMANTIC_BINDING_GROUPS);
+  protected readonly priceRangeVariableGroups: InputVariableGroup[] = PRICE_RANGE_VARIABLE_GROUPS;
+  protected readonly priceRangeVariableNotes = PRICE_RANGE_VARIABLE_NOTES;
+  protected readonly activePriceRangeSection = signal(
+    this.getPriceRangeSectionId(this.priceRangeDemoSections[0]?.id ?? 'default'),
+  );
   protected readonly uploadFileDemoSections: UploadFileDemoSection[] = UPLOAD_FILE_DEMO_SECTIONS;
   protected readonly uploadFileItemUploadApiRows: UploadFileApiRow[] =
     UPLOAD_FILE_ITEM_UPLOAD_API_ROWS;
   protected readonly uploadFileItemFileApiRows: UploadFileApiRow[] = UPLOAD_FILE_ITEM_FILE_API_ROWS;
   protected readonly uploadFileApiRows: UploadFileApiRow[] = UPLOAD_FILE_API_ROWS;
   protected readonly uploadFileTypeRows: UploadFileApiRow[] = UPLOAD_FILE_TYPE_ROWS;
-  protected readonly uploadFileVariableGroups: UploadFileVariableGroup[] =
-    UPLOAD_FILE_VARIABLE_GROUPS;
+  protected readonly uploadFileVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(UPLOAD_FILE_VARIABLE_GROUPS);
   protected readonly uploadFileVariableNotes = UPLOAD_FILE_VARIABLE_NOTES;
   protected readonly activeUploadFileSection = signal(
     this.getUploadFileSectionId(this.uploadFileDemoSections[0]?.id ?? 'item-upload-default'),
   );
   protected readonly expandedUploadFileDemoIds = signal<string[]>([]);
   protected readonly copiedUploadFileDemoId = signal<string | null>(null);
+  protected readonly uploadAvatarDemoSections: UploadAvatarDemoSection[] = UPLOAD_AVATAR_DEMO_SECTIONS;
+  protected readonly uploadAvatarStateFiles = UPLOAD_AVATAR_STATE_FILES;
+  protected readonly uploadAvatarApiRows: UploadAvatarApiRow[] = UPLOAD_AVATAR_API_ROWS;
+  protected readonly uploadAvatarTypeRows: UploadAvatarApiRow[] = UPLOAD_AVATAR_TYPE_ROWS;
+  protected readonly uploadAvatarVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(UPLOAD_AVATAR_VARIABLE_GROUPS);
+  protected readonly uploadAvatarVariableNotes = UPLOAD_AVATAR_VARIABLE_NOTES;
+  protected readonly activeUploadAvatarSection = signal(
+    this.getUploadAvatarSectionId(this.uploadAvatarDemoSections[0]?.id ?? 'states'),
+  );
+  protected readonly uploadAvatarBasicFiles = signal<MbbizUploadAvatarItem[]>([]);
+  protected readonly uploadAvatarWallFiles = signal<MbbizUploadAvatarItem[]>([...UPLOAD_AVATAR_WALL_SEED]);
+  protected readonly avatarDemoSections: AvatarDemoSection[] = AVATAR_DEMO_SECTIONS;
+  protected readonly avatarApiRows: AvatarApiRow[] = AVATAR_API_ROWS;
+  protected readonly avatarGroupApiRows: AvatarApiRow[] = AVATAR_GROUP_API_ROWS;
+  protected readonly avatarVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(AVATAR_VARIABLE_GROUPS);
+  protected readonly avatarVariableNotes = AVATAR_VARIABLE_NOTES;
+  protected readonly activeAvatarSection = signal(
+    this.getAvatarSectionId(this.avatarDemoSections[0]?.id ?? 'basic'),
+  );
+  protected readonly avatarPreviewUrl = '/assets/upload-avatar/preview.svg';
   protected readonly activeInstallationSection = signal('installation-install');
   protected readonly copiedInstallationSnippet = signal<string | null>(null);
-  protected readonly installationInstallCommand = 'npm install sportbook6vn';
+  protected readonly installationInstallCommand = 'npm install mbbiz';
   protected readonly installationPeerCommand =
     'npm install @angular/common@^21.2.0 @angular/core@^21.2.0 @angular/forms@^21.2.0 @angular/platform-browser@^21.2.0 ng-zorro-antd@^21.2.2';
-  protected readonly installationThemeCode = `@import 'sportbook6vn/theme.css';
-@import 'sportbook6vn/zorro-bridge.less';`;
+  protected readonly installationThemeCode = `@import 'mbbiz/theme.css';
+@import 'mbbiz/zorro-bridge.less';`;
   protected readonly installationUsageCode = `import { Component } from '@angular/core';
-import { Sportbook6vnButtonComponent, Sportbook6vnInputComponent } from 'sportbook6vn';
+import { MbbizButtonComponent, MbbizInputComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-root',
-  imports: [Sportbook6vnButtonComponent, Sportbook6vnInputComponent],
+  imports: [MbbizButtonComponent, MbbizInputComponent],
   template: \`
-    <sportbook6vn-button>Submit</sportbook6vn-button>
-    <sportbook6vn-input label="Username" placeholder="Enter username" />
+    <mbbiz-button>Submit</mbbiz-button>
+    <mbbiz-input label="Username" placeholder="Enter username" />
   \`,
 })
 export class AppComponent {}`;
-  protected readonly uploadFilesDone: Sportbook6vnUploadFileItem[] = [
+  protected readonly uploadFilesDone: MbbizUploadFileItem[] = [
     { uid: 'docs-upload-done-1', name: 'Tên tệp tin.pdf', sizeLabel: '2 MB', fileKind: 'pdf' },
     { uid: 'docs-upload-done-2', name: 'Tên tệp tin.docx', sizeLabel: '2 MB', fileKind: 'docx' },
     { uid: 'docs-upload-done-3', name: 'Tên tệp tin.xlsx', sizeLabel: '2 MB', fileKind: 'xlsx' },
   ];
-  protected readonly uploadFilesExpanded: Sportbook6vnUploadFileItem[] = [
+  protected readonly uploadFilesExpanded: MbbizUploadFileItem[] = [
     { uid: 'docs-upload-expanded-1', name: 'Tên tệp tin.pdf', sizeLabel: '2 MB', fileKind: 'pdf' },
     {
       uid: 'docs-upload-expanded-2',
@@ -661,7 +1057,7 @@ export class AppComponent {}`;
     },
     { uid: 'docs-upload-expanded-4', name: 'Tên tệp tin.jpg', sizeLabel: '2 MB', fileKind: 'jpg' },
   ];
-  protected readonly uploadFilesLoading: Sportbook6vnUploadFileItem[] = [
+  protected readonly uploadFilesLoading: MbbizUploadFileItem[] = [
     {
       uid: 'docs-upload-loading-1',
       name: 'Tên tệp tin.pdf',
@@ -679,7 +1075,7 @@ export class AppComponent {}`;
       percent: 86,
     },
   ];
-  protected readonly uploadFilesError: Sportbook6vnUploadFileItem[] = [
+  protected readonly uploadFilesError: MbbizUploadFileItem[] = [
     {
       uid: 'docs-upload-error-1',
       name: 'Tên tệp tin.xlsx',
@@ -699,7 +1095,7 @@ export class AppComponent {}`;
       errorMessage: 'File tải lên không đúng định dạng. Vui lòng kiểm tra và tải lại',
     },
   ];
-  protected readonly uploadFileTypes: Sportbook6vnUploadFileItem[] = [
+  protected readonly uploadFileTypes: MbbizUploadFileItem[] = [
     {
       uid: 'docs-upload-type-xlsx',
       name: 'Tên tệp tin.xlsx',
@@ -736,7 +1132,7 @@ export class AppComponent {}`;
       downloadable: true,
     },
   ];
-  protected readonly itemFileKinds: { kind: Sportbook6vnItemFileKind; name: string }[] = [
+  protected readonly itemFileKinds: { kind: MbbizItemFileKind; name: string }[] = [
     { kind: 'xlsx', name: 'Tên tệp tin.xlsx' },
     { kind: 'docx', name: 'Tên tệp tin.docx' },
     { kind: 'pdf', name: 'Tên tệp tin.pdf' },
@@ -748,9 +1144,9 @@ export class AppComponent {}`;
     percent: [72, 54, 38, 80, 46][index],
   }));
   protected readonly itemFileErrorCases: {
-    kind: Sportbook6vnItemFileKind;
+    kind: MbbizItemFileKind;
     name: string;
-    errorType: Sportbook6vnItemFileErrorType;
+    errorType: MbbizItemFileErrorType;
   }[] = [
     { kind: 'xlsx', name: 'Tên tệp tin.xlsx', errorType: 'size' },
     { kind: 'pdf', name: 'Tên tệp tin.pdf', errorType: 'upload' },
@@ -761,11 +1157,11 @@ export class AppComponent {}`;
   protected readonly tableDefaultColumns = TABLE_PREVIEW_DEFAULT_COLUMNS;
   protected readonly tableDefaultRows = TABLE_PREVIEW_DEFAULT_ROWS;
   protected readonly tableSelectionColumns = TABLE_PREVIEW_SELECTION_COLUMNS;
-  protected readonly tableSelectionRows = signal<Sportbook6vnTableRow[]>(
+  protected readonly tableSelectionRows = signal<MbbizTableRow[]>(
     createTablePreviewSelectionRows(),
   );
   protected readonly tableColumnTypeColumns = TABLE_PREVIEW_ALL_COLUMNS;
-  protected readonly tableAllColumnRows = signal<Sportbook6vnTableRow[]>(
+  protected readonly tableAllColumnRows = signal<MbbizTableRow[]>(
     createTablePreviewAllColumnRows(),
   );
   protected readonly tableFixedRightIconColumns = TABLE_PREVIEW_FIXED_RIGHT_COLUMNS;
@@ -776,21 +1172,158 @@ export class AppComponent {}`;
   protected readonly paginationDocsBoundaryPage = signal(10);
   protected readonly paginationDocsQuickPage = signal(23);
   protected readonly paginationDocsDropdownOpen = signal(true);
-  protected readonly paginationQuickSelectedRange: Sportbook6vnPaginationRangeFormatter = () =>
+  protected readonly paginationQuickSelectedRange: MbbizPaginationRangeFormatter = () =>
     'Đã hiển thị 91 - 100 trên 18000 kết quả';
-  protected readonly paginationQuickDefaultRange: Sportbook6vnPaginationRangeFormatter = () =>
+  protected readonly paginationQuickDefaultRange: MbbizPaginationRangeFormatter = () =>
     'Đã hiển thị 1 - 10 trên 18000 kết quả';
-  protected readonly paginationQuickMaximumRange: Sportbook6vnPaginationRangeFormatter = () =>
+  protected readonly paginationQuickMaximumRange: MbbizPaginationRangeFormatter = () =>
     'Đã hiển thị 17990 - 18000 trên 18000 kết quả';
-  protected readonly paginationQuickSummary: Sportbook6vnPaginationSummaryFormatter = (summary) =>
+  protected readonly paginationQuickSummary: MbbizPaginationSummaryFormatter = (summary) =>
     `Trang ${new Intl.NumberFormat('vi-VN').format(summary.pageIndex)} / ${new Intl.NumberFormat('vi-VN').format(summary.pageCount)}`;
-  protected readonly downloadDocsUploadFile = (file: Sportbook6vnUploadFileItem): void => {
+  protected readonly downloadDocsUploadFile = (file: MbbizUploadFileItem): void => {
     this.downloadDocsFile(file.name);
   };
-  protected readonly iconAssets: IconAsset[] = ICON_ASSETS;
-  protected readonly activeIconographySection = signal('iconography-usage');
-  protected readonly copiedIconAssetUrl = signal<string | null>(null);
-  protected readonly copiedIconAssetSnippet = signal<string | null>(null);
+  protected readonly iconLibraryGroups: IconLibraryGroup[] = ICON_LIBRARY_GROUPS;
+  protected readonly iconLibrarySizePreviews: IconSizePreviewRow[] = ICON_LIBRARY_SIZE_PREVIEWS;
+  protected readonly iconLibrarySearchQuery = signal('');
+  protected readonly iconLibraryTotalCount = ICON_LIBRARY_GROUPS.reduce(
+    (count, group) => count + group.entries.length,
+    0,
+  );
+  protected readonly filteredIconLibraryGroups = computed(() => {
+    const query = this.iconLibrarySearchQuery().trim().toLowerCase();
+    if (!query) {
+      return this.iconLibraryGroups;
+    }
+
+    return this.iconLibraryGroups
+      .map((group) => ({
+        ...group,
+        entries: group.entries.filter((entry) =>
+          [entry.name, entry.label, entry.file, group.title].some((value) =>
+            value.toLowerCase().includes(query),
+          ),
+        ),
+      }))
+      .filter((group) => group.entries.length > 0);
+  });
+  protected readonly filteredIconLibraryCount = computed(() =>
+    this.filteredIconLibraryGroups().reduce((count, group) => count + group.entries.length, 0),
+  );
+  protected readonly iconLibraryCountLabel = computed(() => {
+    const shown = this.filteredIconLibraryCount();
+    return this.iconLibrarySearchQuery().trim()
+      ? `${shown} / ${this.iconLibraryTotalCount} icons`
+      : `${shown} icons`;
+  });
+  protected readonly iconLibraryPreviewName = signal(
+    ICON_LIBRARY_GROUPS.find((group) => group.family === 'linear')?.entries[0]?.name ??
+      ICON_LIBRARY_GROUPS[0]?.entries[0]?.name ??
+      'alinear_search',
+  );
+  protected readonly activeIconographySection = signal('iconography-catalog');
+  protected readonly copiedIconLibraryName = signal<string | null>(null);
+  protected readonly copiedIconInstallSnippet = signal<string | null>(null);
+  protected readonly iconPackageUrl = 'https://www.npmjs.com/package/@mbbiz/icon';
+  protected readonly iconInstallCommand = 'npm install @mbbiz/icon';
+  protected readonly iconRegisterCode = `import { ApplicationConfig } from '@angular/core';
+import { provideIcons, IconComponent } from '@mbbiz/icon/angular';
+import { Alinear_searchIcon, Abold_errorIcon } from '@mbbiz/icon';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideIcons([Alinear_searchIcon, Abold_errorIcon]),
+  ],
+};
+
+// In the consuming component:
+// imports: [IconComponent]
+`;
+  protected readonly iconTemplateCode = `<mbiz-icon name="alinear_search" size="m" />
+<mbiz-icon name="abold_error" size="s" ariaLabel="Error" />
+
+<!-- Color via prop (same model as ng-zorro: currentColor) -->
+<mbiz-icon name="action-plus" size="m" color="#1677ff" />
+<mbiz-icon name="abold_error" size="m" color="var(--semantic-color-error, #f53f3f)" />
+
+<!-- Alias selector also works -->
+<mbbiz-icon name="alinear_search" size="l" />
+`;
+  protected readonly iconColorCode = `<!-- 1. Inherit from parent text color (default) -->
+<button style="color: #1677ff">
+  <mbiz-icon name="action-plus" size="s" />
+  Add
+</button>
+
+<!-- 2. Explicit color prop -->
+<mbiz-icon name="alinear_search" size="m" color="#1677ff" />
+<mbiz-icon name="abold_error" size="m" color="#f53f3f" />
+
+<!-- 3. Design token / CSS variable -->
+<mbiz-icon
+  name="abold_success"
+  size="m"
+  color="var(--semantic-color-success, #00b42a)"
+/>
+
+<!-- 4. Class on host / wrapper -->
+<span class="icon-muted">
+  <mbiz-icon name="alinear_info" size="m" />
+</span>
+`;
+  protected readonly iconColorCssCode = `.icon-muted {
+  color: var(--semantic-color-text-secondary, #86909c);
+}
+
+/* Icons follow text color of buttons, links, labels */
+.btn-primary {
+  color: #ffffff;
+}
+`;
+  protected readonly iconColorPreviewRows = [
+    {
+      id: 'inherit',
+      label: 'Inherit',
+      hint: 'currentColor from parent',
+      color: '#1677ff',
+      mode: 'inherit' as const,
+    },
+    {
+      id: 'prop-blue',
+      label: 'Prop',
+      hint: 'color="#1677ff"',
+      color: '#1677ff',
+      mode: 'prop' as const,
+    },
+    {
+      id: 'prop-error',
+      label: 'Error',
+      hint: 'color="#f53f3f"',
+      color: '#f53f3f',
+      mode: 'prop' as const,
+    },
+    {
+      id: 'prop-success',
+      label: 'Success',
+      hint: 'color="#00b42a"',
+      color: '#00b42a',
+      mode: 'prop' as const,
+    },
+    {
+      id: 'prop-warning',
+      label: 'Warning',
+      hint: 'color="#ff7d00"',
+      color: '#ff7d00',
+      mode: 'prop' as const,
+    },
+    {
+      id: 'muted',
+      label: 'Muted',
+      hint: 'secondary text',
+      color: '#86909c',
+      mode: 'prop' as const,
+    },
+  ];
   protected readonly illustrationAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS;
   protected readonly illustrationLibraryAssets: IllustrationAsset[] = ILLUSTRATION_ASSETS.filter(
     (asset) => !asset.id.startsWith('flag-'),
@@ -811,14 +1344,14 @@ export class AppComponent {}`;
   protected readonly core3AffixLabelValue = signal('');
   protected readonly core3AffixLabelPrefixValue = signal<string | null>(null);
   protected readonly core3InputTagValue = signal('');
-  protected readonly core3InputTagTags = signal<Sportbook6vnInputTagValue[]>([]);
+  protected readonly core3InputTagTags = signal<MbbizInputTagValue[]>([]);
   protected readonly core3InputTagValidatedValue = signal('');
-  protected readonly core3InputTagValidatedTags = signal<Sportbook6vnInputTagValue[]>([]);
+  protected readonly core3InputTagValidatedTags = signal<MbbizInputTagValue[]>([]);
   protected readonly inputTagDemoValue = signal('');
-  protected readonly inputTagDemoTags = signal<Sportbook6vnInputTagValue[]>([]);
+  protected readonly inputTagDemoTags = signal<MbbizInputTagValue[]>([]);
   protected readonly inputTagValidatedValue = signal('');
-  protected readonly inputTagValidatedTags = signal<Sportbook6vnInputTagValue[]>([]);
-  protected readonly core3CurrencyAffixItems: readonly Sportbook6vnAffixDropdownItem[] = [
+  protected readonly inputTagValidatedTags = signal<MbbizInputTagValue[]>([]);
+  protected readonly core3CurrencyAffixItems: readonly MbbizAffixDropdownItem[] = [
     { id: 'vnd', label: 'VND', flagCode: 'vnd' },
     { id: 'usd', label: 'USD', flagCode: 'usd' },
     { id: 'krw', label: 'KRW', flagCode: 'krw' },
@@ -826,7 +1359,7 @@ export class AppComponent {}`;
     { id: 'cad', label: 'CAD', flagCode: 'cad' },
     { id: 'thb', label: 'THB', flagCode: 'thb' },
   ];
-  protected readonly core3DropdownItems: readonly Sportbook6vnDropdownItem[] = [
+  protected readonly core3DropdownItems: readonly MbbizDropdownItem[] = [
     { id: 'option-1', label: 'Option 1' },
     { id: 'option-2', label: 'Option 2' },
     { id: 'option-3', label: 'Option 3' },
@@ -834,10 +1367,30 @@ export class AppComponent {}`;
     { id: 'option-5', label: 'Option 5' },
     { id: 'option-6', label: 'Option 6' },
   ];
-  protected readonly core3DropdownBasicItems: readonly Sportbook6vnDropdownItem[] =
+  protected readonly core3DropdownBasicItems: readonly MbbizDropdownItem[] =
     this.core3DropdownItems.slice(0, 4);
-  protected readonly core3DropdownEmptyItems: readonly Sportbook6vnDropdownItem[] = [];
-  protected readonly core3RadioGroupOptions: readonly Sportbook6vnRadioGroupOption[] = [
+  protected readonly core3DropdownEmptyItems: readonly MbbizDropdownItem[] = [];
+  protected readonly core3AutoCompleteBasicItems: readonly MbbizDropdownItem[] = [
+    { id: 'ss', label: 'ss' },
+    { id: 'ssss', label: 'ssss' },
+    { id: 'ssssss', label: 'ssssss' },
+  ];
+  protected readonly core3AutoCompleteStreetItems: readonly MbbizDropdownItem[] = [
+    { id: 'burns', label: 'Burns Bay Road' },
+    { id: 'downing', label: 'Downing Street' },
+    { id: 'wall', label: 'Wall Street' },
+  ];
+  protected readonly formPreviewFields: readonly {
+    id: 'top' | 'middle' | 'bottom';
+    title: string;
+    placeholder: string;
+    showChevron: boolean;
+  }[] = [
+    { id: 'top', title: 'Title', placeholder: 'Lựa chọn', showChevron: true },
+    { id: 'middle', title: 'Title', placeholder: 'Lựa chọn', showChevron: false },
+    { id: 'bottom', title: 'Title', placeholder: 'Lựa chọn', showChevron: true },
+  ];
+  protected readonly core3RadioGroupOptions: readonly MbbizRadioGroupOption[] = [
     { label: 'A', value: 'a' },
     { label: 'B', value: 'b' },
     { label: 'C', value: 'c' },
@@ -847,7 +1400,7 @@ export class AppComponent {}`;
   protected readonly core3RadioGroupVerticalValue = signal<string | number | null>('a');
   protected readonly radioGroupValue = signal<string | number | null>('a');
   protected readonly radioGroupVerticalValue = signal<string | number | null>('a');
-  protected readonly core3CheckboxGroupOptions: readonly Sportbook6vnCheckboxGroupOption[] = [
+  protected readonly core3CheckboxGroupOptions: readonly MbbizCheckboxGroupOption[] = [
     { label: 'A', value: 'a' },
     { label: 'B', value: 'b' },
     { label: 'C', value: 'c' },
@@ -866,32 +1419,23 @@ export class AppComponent {}`;
     const selectedCount = this.core3CheckboxSelectAllValues().length;
     return selectedCount > 0 && selectedCount < this.core3CheckboxAllValues.length;
   });
-  private readonly themeStorageKey = 'sportbook.theme-id';
-  private readonly semanticThemeAliasValueMaps = buildSemanticThemeAliasValueMaps(
-    this.semanticTokenMappings,
-  );
-  private readonly semanticThemeAliasPrimitiveMaps = buildSemanticThemeAliasPrimitiveMaps(
+  private readonly semanticAliasValueMap = buildSemanticAliasValueMap(this.semanticTokenMappings);
+  private readonly semanticAliasPrimitiveMap = buildSemanticAliasPrimitiveMap(
     this.semanticTokenMappings,
   );
 
   constructor() {
-    const initialThemeId = this.resolveInitialThemeId();
-    const initialBrand = getThemeBrandFromId(initialThemeId);
-    const initialMode = getThemeModeFromId(initialThemeId);
-    this.activeThemeBrand.set(initialBrand);
-    this.activeTheme.set(initialMode);
-    this.colorTokenMode.set(initialMode);
-    this.applyThemeMode(initialMode);
+    if (typeof document !== 'undefined') {
+      delete document.documentElement.dataset['mbbizTheme'];
+    }
+    this.applySemanticTokens();
   }
 
-  protected get darkTokenOverrideCount(): number {
-    const valueOverrides = Object.keys(
-      SEMANTIC_THEME_ALIAS_OVERRIDES[this.activeThemeBrand()].dark,
-    );
-    const primitiveOverrides = Object.keys(
-      SEMANTIC_THEME_ALIAS_PRIMITIVE_OVERRIDES[this.activeThemeBrand()].dark,
-    );
-    return new Set([...valueOverrides, ...primitiveOverrides]).size;
+  protected setButtonDocsTheme(theme: BrandThemeId): void {
+    if (typeof document !== 'undefined') {
+      delete document.documentElement.dataset['mbbizTheme'];
+    }
+    this.activeButtonDocsTheme.set(theme);
   }
 
   protected toggleLangMenu() {
@@ -903,66 +1447,155 @@ export class AppComponent {}`;
     this.isLangOpen.set(false);
   }
 
-  protected toggleThemeMenu() {
-    this.isThemeOpen.update((v) => !v);
+  protected openDocsSearch() {
+    this.isDocsSearchOpen.set(true);
+    this.isLangOpen.set(false);
+    if (this.docsSearchActiveIndex() >= this.docsSearchResults().length) {
+      this.docsSearchActiveIndex.set(0);
+    }
   }
 
-  protected setTheme(theme: ThemeMode) {
-    this.activeTheme.set(theme);
-    this.colorTokenMode.set(theme);
-    this.applyThemeMode(theme);
-    this.persistThemeMode(theme);
-    this.isThemeOpen.set(false);
+  protected closeDocsSearch() {
+    this.isDocsSearchOpen.set(false);
+    this.docsSearchActiveIndex.set(0);
   }
 
-  protected setPage(
-    page:
-      | 'buttons'
-      | 'buttonMapping'
-      | 'inputField'
-      | 'inputTag'
-      | 'breadcrumb'
-      | 'steps'
-      | 'tab'
-      | 'dropdown'
-      | 'radio'
-      | 'checkbox'
-      | 'badge'
-      | 'status'
-      | 'message'
-      | 'table'
-      | 'pagination'
-      | 'datepicker'
-      | 'uploadFile'
-      | 'iconography'
-      | 'illustration'
-      | 'footerPattern'
-      | 'introduction'
-      | 'installation'
-      | 'color'
-      | 'tokens'
-      | 'spacing'
-      | 'typography',
-  ) {
+  protected clearDocsSearch() {
+    this.docsSearchQuery.set('');
+    this.docsSearchActiveIndex.set(0);
+    queueMicrotask(() => this.docsSearchInput()?.nativeElement.focus());
+  }
+
+  protected onDocsSearchInput(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.docsSearchQuery.set(value);
+    this.docsSearchActiveIndex.set(0);
+    this.isDocsSearchOpen.set(true);
+  }
+
+  protected setDocsSearchActiveIndex(index: number) {
+    this.docsSearchActiveIndex.set(index);
+  }
+
+  protected selectDocsSearchResult(entry: DocsSearchEntry) {
+    this.setPage(entry.page);
+    this.docsSearchQuery.set('');
+    this.closeDocsSearch();
+    this.docsSearchInput()?.nativeElement.blur();
+  }
+
+  protected onDocsSearchKeydown(event: KeyboardEvent) {
+    const results = this.docsSearchResults();
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      if (this.docsSearchQuery().trim()) {
+        this.clearDocsSearch();
+      } else {
+        this.closeDocsSearch();
+        this.docsSearchInput()?.nativeElement.blur();
+      }
+      return;
+    }
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      if (!results.length) {
+        return;
+      }
+      this.openDocsSearch();
+      this.docsSearchActiveIndex.set((this.docsSearchActiveIndex() + 1) % results.length);
+      return;
+    }
+
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      if (!results.length) {
+        return;
+      }
+      this.openDocsSearch();
+      this.docsSearchActiveIndex.set(
+        (this.docsSearchActiveIndex() - 1 + results.length) % results.length,
+      );
+      return;
+    }
+
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      const active = results[this.docsSearchActiveIndex()];
+      if (active) {
+        this.selectDocsSearchResult(active);
+      }
+    }
+  }
+
+  protected setPage(page: DocsPageId) {
     this.activePage.set(page);
     this.openFooterPatternOverflowId.set(null);
-    if (page === 'footerPattern') {
+    if (page === 'introduction' || page === 'installation') {
+      this.isGettingStartedOpen.set(true);
+    }
+    if (
+      page === 'color' ||
+      page === 'tokens' ||
+      page === 'spacing' ||
+      page === 'layout' ||
+      page === 'typography'
+    ) {
+      this.isDesignTokensOpen.set(true);
+    }
+    if (
+      page === 'pageHeaderPattern' ||
+      page === 'footerPattern' ||
+      page === 'stepProcessPattern' ||
+      page === 'formPattern' ||
+      page === 'sourceAccountPattern'
+    ) {
       this.isPatternOpen.set(true);
     }
-    if (page === 'tokens' || page === 'spacing' || page === 'typography') {
+    if (
+      page !== 'introduction' &&
+      page !== 'installation' &&
+      page !== 'color' &&
+      page !== 'tokens' &&
+      page !== 'spacing' &&
+      page !== 'layout' &&
+      page !== 'typography' &&
+      page !== 'pageHeaderPattern' &&
+      page !== 'footerPattern' &&
+      page !== 'stepProcessPattern' &&
+      page !== 'formPattern' &&
+      page !== 'sourceAccountPattern'
+    ) {
+      this.isComponentsOpen.set(true);
+    }
+    if (page === 'tokens' || page === 'spacing' || page === 'layout' || page === 'typography') {
       setTimeout(() => this.updateActiveTokenSection(), 0);
+    } else if (page === 'formPattern') {
+      setTimeout(() => this.updateActiveFormPatternSection(), 0);
+    } else if (page === 'pageHeaderPattern') {
+      setTimeout(() => this.updateActivePageHeaderPatternSection(), 0);
     } else if (page === 'footerPattern') {
       setTimeout(() => this.updateActiveFooterPatternSection(), 0);
+    } else if (page === 'stepProcessPattern') {
+      setTimeout(() => this.updateActiveStepProcessPatternSection(), 0);
+    } else if (page === 'sourceAccountPattern') {
+      setTimeout(() => this.updateActiveSourceAccountPatternSection(), 0);
     } else if (page === 'buttons') {
       setTimeout(() => this.updateActiveButtonSection(), 0);
     } else if (page === 'buttonMapping') {
       setTimeout(() => this.updateActiveButtonMappingSection(), 0);
+    } else if (page === 'buttonLink') {
+      setTimeout(() => this.updateActiveButtonLinkSection(), 0);
     } else if (page === 'inputField') {
       setTimeout(() => this.updateActiveInputSection(), 0);
+    } else if (page === 'form') {
+      setTimeout(() => this.updateActiveFormSection(), 0);
     } else if (page === 'inputTag') {
       setTimeout(() => this.updateActiveInputTagSection(), 0);
     } else if (page === 'breadcrumb') {
       setTimeout(() => this.updateActiveBreadcrumbSection(), 0);
+    } else if (page === 'navigationBar') {
+      setTimeout(() => this.updateActiveNavigationBarSection(), 0);
     } else if (page === 'steps') {
       setTimeout(() => this.updateActiveStepsSection(), 0);
     } else if (page === 'tab') {
@@ -973,18 +1606,38 @@ export class AppComponent {}`;
       setTimeout(() => this.updateActiveStatusSection(), 0);
     } else if (page === 'message') {
       setTimeout(() => this.updateActiveMessageSection(), 0);
+    } else if (page === 'tooltip') {
+      setTimeout(() => this.updateActiveTooltipSection(), 0);
+    } else if (page === 'rating') {
+      setTimeout(() => this.updateActiveRatingSection(), 0);
+    } else if (page === 'modal') {
+      setTimeout(() => this.updateActiveModalSection(), 0);
+    } else if (page === 'drawer') {
+      setTimeout(() => this.updateActiveDrawerSection(), 0);
+    } else if (page === 'levelCard') {
+      setTimeout(() => this.updateActiveLevelCardSection(), 0);
+    } else if (page === 'switch') {
+      setTimeout(() => this.updateActiveSwitchSection(), 0);
     } else if (page === 'table') {
       setTimeout(() => this.updateActiveTableSection(), 0);
     } else if (page === 'pagination') {
       setTimeout(() => this.updateActivePaginationSection(), 0);
     } else if (page === 'dropdown') {
       setTimeout(() => this.updateActiveDropdownSection(), 0);
+    } else if (page === 'autoComplete') {
+      setTimeout(() => this.updateActiveAutoCompleteSection(), 0);
     } else if (page === 'radio') {
       setTimeout(() => this.updateActiveRadioSection(), 0);
     } else if (page === 'datepicker') {
       setTimeout(() => this.updateActiveDatepickerSection(), 0);
+    } else if (page === 'priceRange') {
+      setTimeout(() => this.updateActivePriceRangeSection(), 0);
     } else if (page === 'uploadFile') {
       setTimeout(() => this.updateActiveUploadFileSection(), 0);
+    } else if (page === 'uploadAvatar') {
+      setTimeout(() => this.updateActiveUploadAvatarSection(), 0);
+    } else if (page === 'avatar') {
+      setTimeout(() => this.updateActiveAvatarSection(), 0);
     } else if (page === 'iconography') {
       setTimeout(() => this.updateActiveIconographySection(), 0);
     } else if (page === 'illustration') {
@@ -1006,8 +1659,57 @@ export class AppComponent {}`;
     }
   }
 
+  protected isNavSectionActive(
+    section: 'gettingStarted' | 'designTokens' | 'components' | 'pattern',
+  ): boolean {
+    const page = this.activePage();
+    switch (section) {
+      case 'gettingStarted':
+        return page === 'introduction' || page === 'installation';
+      case 'designTokens':
+        return (
+          page === 'color' ||
+          page === 'tokens' ||
+          page === 'spacing' ||
+          page === 'layout' ||
+          page === 'typography'
+        );
+      case 'pattern':
+        return (
+          page === 'formPattern' ||
+          page === 'footerPattern' ||
+          page === 'pageHeaderPattern' ||
+          page === 'stepProcessPattern' ||
+          page === 'sourceAccountPattern'
+        );
+      case 'components':
+        return (
+          page !== 'introduction' &&
+          page !== 'installation' &&
+          page !== 'color' &&
+          page !== 'tokens' &&
+          page !== 'spacing' &&
+          page !== 'layout' &&
+          page !== 'typography' &&
+          page !== 'formPattern' &&
+          page !== 'footerPattern' &&
+          page !== 'pageHeaderPattern' &&
+          page !== 'stepProcessPattern' &&
+          page !== 'sourceAccountPattern'
+        );
+    }
+  }
+
   protected getTokenSectionId(category: string): string {
     return `semantic-${category}`;
+  }
+
+  protected isSemanticGroupActive(group: SemanticTokenGroup): boolean {
+    const current = this.activeTokenSection();
+    return (
+      current === this.getTokenSectionId(group.category) ||
+      group.tables.some((table) => table.id === current)
+    );
   }
 
   protected getTypographySectionId(title: string): string {
@@ -1016,6 +1718,22 @@ export class AppComponent {}`;
 
   protected getFooterPatternSectionId(sectionId: FooterPatternVariant['id']): string {
     return `footer-pattern-${sectionId}`;
+  }
+
+  protected getFormPatternSectionId(sectionId: FormPatternCase['id']): string {
+    return `form-pattern-${sectionId}`;
+  }
+
+  protected getPageHeaderPatternSectionId(sectionId: PageHeaderPatternCase['id']): string {
+    return `page-header-pattern-${sectionId}`;
+  }
+
+  protected getStepProcessPatternSectionId(sectionId: StepProcessPatternCase['id']): string {
+    return `step-process-pattern-${sectionId}`;
+  }
+
+  protected getSourceAccountPatternSectionId(sectionId: SourceAccountPatternCase['id']): string {
+    return `source-account-pattern-${sectionId}`;
   }
 
   protected setActiveTokenSection(sectionId: string) {
@@ -1028,6 +1746,151 @@ export class AppComponent {}`;
 
   protected setActiveFooterPatternSection(sectionId: string) {
     this.activeFooterPatternSection.set(sectionId);
+  }
+
+  protected setActiveFormPatternSection(sectionId: string) {
+    this.activeFormPatternSection.set(sectionId);
+  }
+
+  protected setActivePageHeaderPatternSection(sectionId: string) {
+    this.activePageHeaderPatternSection.set(sectionId);
+  }
+
+  protected setActiveStepProcessPatternSection(sectionId: string) {
+    this.activeStepProcessPatternSection.set(sectionId);
+  }
+
+  protected setActiveSourceAccountPatternSection(sectionId: string) {
+    this.activeSourceAccountPatternSection.set(sectionId);
+  }
+
+  protected sourceAccountThumbSrc(item: SourceAccountListItem | { thumb?: 'black' | 'white' } | null): string {
+    return item?.thumb === 'white' ? this.sourceAccountCardWhiteSrc : this.sourceAccountCardBlackSrc;
+  }
+
+  protected sourceAccountView(patternCase: SourceAccountPatternCase) {
+    if (patternCase.interactive) {
+      const demo = this.sourceAccountDemo();
+      const query = demo.search.trim().toLowerCase();
+      const accounts = SOURCE_ACCOUNT_ACCOUNT_OPTIONS.filter(
+        (item) => !query || item.title.toLowerCase().includes(query),
+      );
+      const cards = SOURCE_ACCOUNT_CARD_OPTIONS.filter(
+        (item) =>
+          !query ||
+          item.title.toLowerCase().includes(query) ||
+          (item.amount ?? '').includes(query),
+      );
+      const selected = demo.payWithCard
+        ? SOURCE_ACCOUNT_CARD_OPTIONS.find((item) => item.id === demo.selectedCardId)
+        : SOURCE_ACCOUNT_ACCOUNT_OPTIONS.find((item) => item.id === demo.selectedAccountId);
+
+      return {
+        kind: (demo.payWithCard ? 'card' : 'account') as 'account' | 'card',
+        open: demo.open,
+        payWithCard: demo.payWithCard,
+        search: demo.search,
+        accountsExpanded: demo.accountsExpanded,
+        cardsExpanded: demo.cardsExpanded,
+        titleLine: selected?.title,
+        amount: selected?.amount,
+        currency: selected?.currency,
+        thumb: selected?.thumb,
+        muted: false,
+        error: false,
+        disabled: false,
+        showErrorMessage: false,
+        interactive: true,
+        accounts,
+        cards,
+        selectedAccountId: demo.selectedAccountId,
+        selectedCardId: demo.selectedCardId,
+      };
+    }
+
+    const preview = patternCase.preview;
+    return {
+      kind: preview.kind,
+      open: false,
+      payWithCard: preview.switchChecked,
+      search: '',
+      accountsExpanded: false,
+      cardsExpanded: false,
+      titleLine: preview.titleLine,
+      amount: preview.amount,
+      currency: preview.currency,
+      thumb: preview.thumb,
+      muted: preview.fieldState === 'disabled',
+      error: preview.fieldState === 'error',
+      disabled: preview.fieldState === 'disabled',
+      showErrorMessage: Boolean(preview.showErrorMessage),
+      interactive: false,
+      accounts: SOURCE_ACCOUNT_ACCOUNT_OPTIONS,
+      cards: SOURCE_ACCOUNT_CARD_OPTIONS,
+      selectedAccountId: null as string | null,
+      selectedCardId: null as string | null,
+    };
+  }
+
+  protected onSourceAccountFieldClick(patternCase: SourceAccountPatternCase, event?: Event) {
+    event?.stopPropagation();
+    if (!patternCase.interactive) {
+      return;
+    }
+
+    this.sourceAccountDemo.update((current) => ({
+      ...current,
+      open: !current.open,
+      accountsExpanded: current.payWithCard ? current.accountsExpanded : true,
+      cardsExpanded: current.payWithCard ? true : current.cardsExpanded,
+    }));
+  }
+
+  protected onSourceAccountSwitch(checked: boolean) {
+    this.sourceAccountDemo.update((current) => ({
+      ...current,
+      payWithCard: checked,
+      accountsExpanded: checked ? false : true,
+      cardsExpanded: checked ? true : false,
+    }));
+  }
+
+  protected onSourceAccountSearch(value: string) {
+    this.sourceAccountDemo.update((current) => ({ ...current, search: value }));
+  }
+
+  protected toggleSourceAccountGroup(group: 'accounts' | 'cards', event?: Event) {
+    event?.stopPropagation();
+    this.sourceAccountDemo.update((current) =>
+      group === 'accounts'
+        ? { ...current, accountsExpanded: !current.accountsExpanded }
+        : { ...current, cardsExpanded: !current.cardsExpanded },
+    );
+  }
+
+  protected selectSourceAccountItem(
+    item: SourceAccountListItem,
+    kind: 'account' | 'card',
+    event?: Event,
+  ) {
+    event?.stopPropagation();
+    if (item.disabled) {
+      return;
+    }
+
+    this.sourceAccountDemo.update((current) => ({
+      ...current,
+      open: false,
+      payWithCard: kind === 'card',
+      selectedAccountId: kind === 'account' ? item.id : current.selectedAccountId,
+      selectedCardId: kind === 'card' ? item.id : current.selectedCardId,
+    }));
+  }
+
+  protected closeSourceAccountDropdown() {
+    if (this.sourceAccountDemo().open) {
+      this.sourceAccountDemo.update((current) => ({ ...current, open: false }));
+    }
   }
 
   protected setActiveButtonMappingSection(sectionId: string) {
@@ -1051,11 +1914,15 @@ export class AppComponent {}`;
     return this.openFooterPatternOverflowId() === variantId;
   }
 
-  protected getButtonVariant(action: ButtonDemoAction): Sportbook6vnButtonVariant {
+  protected setFormPatternSelectedRadio(value: 'option-1' | 'option-2') {
+    this.formPatternSelectedRadio.set(value);
+  }
+
+  protected getButtonVariant(action: ButtonDemoAction): MbbizButtonVariant {
     return action.tone === 'secondary' ? 'secondary' : 'primary';
   }
 
-  protected getButtonSize(action: ButtonDemoAction): Sportbook6vnButtonSize {
+  protected getButtonSize(action: ButtonDemoAction): MbbizButtonSize {
     switch (action.size) {
       case 'small':
         return 'sm';
@@ -1141,7 +2008,7 @@ export class AppComponent {}`;
     this.core3InputTagValue.set(value);
   }
 
-  protected setCore3InputTagTags(value: Sportbook6vnInputTagValue[]) {
+  protected setCore3InputTagTags(value: MbbizInputTagValue[]) {
     this.core3InputTagTags.set(value);
   }
 
@@ -1149,7 +2016,7 @@ export class AppComponent {}`;
     this.core3InputTagValidatedValue.set(value);
   }
 
-  protected setCore3InputTagValidatedTags(value: Sportbook6vnInputTagValue[]) {
+  protected setCore3InputTagValidatedTags(value: MbbizInputTagValue[]) {
     this.core3InputTagValidatedTags.set(value);
   }
 
@@ -1157,7 +2024,7 @@ export class AppComponent {}`;
     this.inputTagDemoValue.set(value);
   }
 
-  protected setInputTagDemoTags(value: Sportbook6vnInputTagValue[]) {
+  protected setInputTagDemoTags(value: MbbizInputTagValue[]) {
     this.inputTagDemoTags.set(value);
   }
 
@@ -1165,7 +2032,7 @@ export class AppComponent {}`;
     this.inputTagValidatedValue.set(value);
   }
 
-  protected setInputTagValidatedTags(value: Sportbook6vnInputTagValue[]) {
+  protected setInputTagValidatedTags(value: MbbizInputTagValue[]) {
     this.inputTagValidatedTags.set(value);
   }
 
@@ -1216,7 +2083,7 @@ export class AppComponent {}`;
 
   protected readonly core3InputTagEmailValidate = (
     inputValue: string,
-    tags: readonly Sportbook6vnInputTagValue[],
+    tags: readonly MbbizInputTagValue[],
   ) => {
     const candidate = inputValue.trim().toLowerCase();
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate);
@@ -1242,11 +2109,8 @@ export class AppComponent {}`;
     this.isTocCollapsed.update((value) => !value);
   }
 
-  protected setColorTokenMode(mode: ThemeMode) {
-    this.activeTheme.set(mode);
-    this.colorTokenMode.set(mode);
-    this.applyThemeMode(mode);
-    this.persistThemeMode(mode);
+  protected setBrandTheme(theme: BrandThemeId) {
+    this.activeBrandTheme.set(theme);
   }
 
   protected getTokenCssVar(token: SemanticColorTokenMapping): string {
@@ -1260,17 +2124,13 @@ export class AppComponent {}`;
     return `${this.formatCategoryLabel(token.category)} role: ${role}`;
   }
 
-  protected hasTokenDarkOverride(token: SemanticColorTokenMapping): boolean {
-    const brand = this.activeThemeBrand();
-    return Boolean(
-      SEMANTIC_THEME_ALIAS_OVERRIDES[brand].dark[token.alias] ||
-      SEMANTIC_THEME_ALIAS_PRIMITIVE_OVERRIDES[brand].dark[token.alias],
-    );
-  }
-
   protected getTokenPrimitiveRef(token: SemanticColorTokenMapping): string {
-    const themeId = getThemeId(this.activeThemeBrand(), this.colorTokenMode());
-    return this.semanticThemeAliasPrimitiveMaps[themeId][token.alias] ?? token.primitive;
+    if (getSemanticCollection(token.alias) === 'brand') {
+      return (
+        getBrandThemeTokenValue(token.alias, this.activeBrandTheme())?.primitive ?? token.primitive
+      );
+    }
+    return this.semanticAliasPrimitiveMap[token.alias] ?? token.primitive;
   }
 
   protected getTokenFigmaAlias(token: SemanticColorTokenMapping): string {
@@ -1282,8 +2142,10 @@ export class AppComponent {}`;
   }
 
   protected getTokenDisplayValue(token: SemanticColorTokenMapping): string {
-    const themeId = getThemeId(this.activeThemeBrand(), this.colorTokenMode());
-    return this.semanticThemeAliasValueMaps[themeId][token.alias] ?? token.value;
+    if (getSemanticCollection(token.alias) === 'brand') {
+      return getBrandThemeTokenValue(token.alias, this.activeBrandTheme())?.value ?? token.value;
+    }
+    return this.semanticAliasValueMap[token.alias] ?? token.value;
   }
 
   protected async copySemanticTokenRow(token: SemanticColorTokenMapping) {
@@ -1736,6 +2598,78 @@ export class AppComponent {}`;
     }, 1200);
   }
 
+  protected onMakerNavItemClick(event: MbbizNavigationItemClick) {
+    this.makerNavActiveId.set(event.item.id);
+  }
+
+  protected onCheckerNavItemClick(event: MbbizNavigationItemClick) {
+    this.checkerNavActiveId.set(event.item.id);
+  }
+
+  protected onOneUserNavItemClick(event: MbbizNavigationItemClick) {
+    this.oneUserNavActiveId.set(event.item.id);
+  }
+
+  protected setActiveNavigationBarSection(sectionId: string) {
+    this.activeNavigationBarSection.set(sectionId);
+  }
+
+  protected getNavigationBarSectionId(sectionId: string): string {
+    return `navigation-bar-${sectionId}`;
+  }
+
+  protected isNavigationBarDemoExpanded(sectionId: string): boolean {
+    return this.expandedNavigationBarDemoIds().includes(sectionId);
+  }
+
+  protected toggleNavigationBarDemoCode(sectionId: string) {
+    const next = new Set(this.expandedNavigationBarDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedNavigationBarDemoIds.set([...next]);
+  }
+
+  protected toggleAllNavigationBarDemoCode() {
+    const expanded = this.expandedNavigationBarDemoIds();
+    const allIds = this.navigationBarDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedNavigationBarDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllNavigationBarDemoCodeExpanded(): boolean {
+    return this.expandedNavigationBarDemoIds().length === this.navigationBarDemoSections.length;
+  }
+
+  protected getNavigationBarDemoCode(section: NavigationBarDemoSection): string {
+    return section.snippetTs;
+  }
+
+  protected getNavigationBarDemoHighlightedCode(section: NavigationBarDemoSection): string {
+    return this.highlightTypeScriptSnippet(this.getNavigationBarDemoCode(section));
+  }
+
+  protected getNavigationBarCodeLanguageLabel(section: NavigationBarDemoSection): string {
+    return `navigation-bar-${section.id}-demo.component.ts`;
+  }
+
+  protected getNavigationBarCodeHint(): string {
+    return 'Angular standalone snippet';
+  }
+
+  protected async copyNavigationBarDemoCode(section: NavigationBarDemoSection) {
+    const code = this.getNavigationBarDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedNavigationBarDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedNavigationBarDemoId() === section.id) {
+        this.copiedNavigationBarDemoId.set(null);
+      }
+    }, 1200);
+  }
+
   protected setActiveStepsSection(sectionId: string) {
     this.activeStepsSection.set(sectionId);
   }
@@ -1760,6 +2694,66 @@ export class AppComponent {}`;
     return `badge-${sectionId}`;
   }
 
+  protected setActiveTooltipSection(sectionId: string) {
+    this.activeTooltipSection.set(sectionId);
+  }
+
+  protected getTooltipSectionId(sectionId: string): string {
+    return `tooltip-${sectionId}`;
+  }
+
+  protected setActiveRatingSection(sectionId: string) {
+    this.activeRatingSection.set(sectionId);
+  }
+
+  protected getRatingSectionId(sectionId: string): string {
+    return `rating-${sectionId}`;
+  }
+
+  protected setActiveSwitchSection(sectionId: string) {
+    this.activeSwitchSection.set(sectionId);
+  }
+
+  protected getSwitchSectionId(sectionId: string): string {
+    return `switch-${sectionId}`;
+  }
+
+  protected setActiveModalSection(sectionId: string) {
+    this.activeModalSection.set(sectionId);
+  }
+
+  protected getModalSectionId(sectionId: string): string {
+    return `modal-${sectionId}`;
+  }
+
+  protected setActiveDrawerSection(sectionId: string) {
+    this.activeDrawerSection.set(sectionId);
+  }
+
+  protected getDrawerSectionId(sectionId: string): string {
+    return `drawer-${sectionId}`;
+  }
+
+  protected openDrawerDemo() {
+    this.drawerDemoOpen.set(true);
+  }
+
+  protected setActiveLevelCardSection(sectionId: string) {
+    this.activeLevelCardSection.set(sectionId);
+  }
+
+  protected getLevelCardSectionId(sectionId: string): string {
+    return `level-card-${sectionId}`;
+  }
+
+  protected setActiveButtonLinkSection(sectionId: string) {
+    this.activeButtonLinkSection.set(sectionId);
+  }
+
+  protected getButtonLinkSectionId(sectionId: string): string {
+    return `button-link-${sectionId}`;
+  }
+
   protected setActiveStatusSection(sectionId: string) {
     this.activeStatusSection.set(sectionId);
   }
@@ -1776,7 +2770,7 @@ export class AppComponent {}`;
     return `message-${sectionId}`;
   }
 
-  protected showMessage(type: Sportbook6vnMessageType): void {
+  protected showMessage(type: MbbizMessageType): void {
     const content =
       this.messageCases.find((item) => item.type === type)?.content ?? 'Informative inform.';
     this.messageService.create(type, content, {
@@ -1970,6 +2964,74 @@ export class AppComponent {}`;
     return `dropdown-${sectionId}`;
   }
 
+  protected setActiveAutoCompleteSection(sectionId: string) {
+    this.activeAutoCompleteSection.set(sectionId);
+  }
+
+  protected getAutoCompleteSectionId(sectionId: string): string {
+    return `auto-complete-${sectionId}`;
+  }
+
+  protected isAutoCompleteDemoExpanded(sectionId: string): boolean {
+    return this.expandedAutoCompleteDemoIds().includes(sectionId);
+  }
+
+  protected toggleAutoCompleteDemoCode(sectionId: string) {
+    const next = new Set(this.expandedAutoCompleteDemoIds());
+    if (next.has(sectionId)) {
+      next.delete(sectionId);
+    } else {
+      next.add(sectionId);
+    }
+    this.expandedAutoCompleteDemoIds.set([...next]);
+  }
+
+  protected toggleAllAutoCompleteDemoCode() {
+    const expanded = this.expandedAutoCompleteDemoIds();
+    const allIds = this.autoCompleteDemoSections.map((section) => section.id);
+    const shouldExpandAll = expanded.length !== allIds.length;
+    this.expandedAutoCompleteDemoIds.set(shouldExpandAll ? allIds : []);
+  }
+
+  protected areAllAutoCompleteDemoCodeExpanded(): boolean {
+    return this.expandedAutoCompleteDemoIds().length === this.autoCompleteDemoSections.length;
+  }
+
+  protected getAutoCompleteDemoCode(section: AutoCompleteDemoSection): string {
+    return section.snippetTs;
+  }
+
+  protected getAutoCompleteDemoHighlightedCode(section: AutoCompleteDemoSection): string {
+    return this.highlightTypeScriptSnippet(this.getAutoCompleteDemoCode(section));
+  }
+
+  protected getAutoCompleteCodeLanguageLabel(section: AutoCompleteDemoSection): string {
+    return `auto-complete-${section.id}-demo.component.ts`;
+  }
+
+  protected getAutoCompleteCodeHint(): string {
+    return 'Angular standalone snippet';
+  }
+
+  protected async copyAutoCompleteDemoCode(section: AutoCompleteDemoSection) {
+    const code = this.getAutoCompleteDemoCode(section);
+    await this.writeTextToClipboard(code);
+    this.copiedAutoCompleteDemoId.set(section.id);
+    setTimeout(() => {
+      if (this.copiedAutoCompleteDemoId() === section.id) {
+        this.copiedAutoCompleteDemoId.set(null);
+      }
+    }, 1200);
+  }
+
+  protected setActiveFormSection(sectionId: string) {
+    this.activeFormSection.set(sectionId);
+  }
+
+  protected getFormSectionId(sectionId: 'default' | 'variables'): string {
+    return `form-${sectionId}`;
+  }
+
   protected setActiveRadioSection(sectionId: string) {
     this.activeRadioSection.set(sectionId);
   }
@@ -1986,12 +3048,42 @@ export class AppComponent {}`;
     return `datepicker-${sectionId}`;
   }
 
+  protected setActivePriceRangeSection(sectionId: string) {
+    this.activePriceRangeSection.set(sectionId);
+  }
+
+  protected getPriceRangeSectionId(sectionId: string): string {
+    return `price-range-${sectionId}`;
+  }
+
   protected setActiveUploadFileSection(sectionId: string) {
     this.activeUploadFileSection.set(sectionId);
   }
 
   protected getUploadFileSectionId(sectionId: string): string {
     return `upload-file-${sectionId}`;
+  }
+
+  protected setActiveUploadAvatarSection(sectionId: string) {
+    this.activeUploadAvatarSection.set(sectionId);
+  }
+
+  protected getUploadAvatarSectionId(sectionId: string): string {
+    return `upload-avatar-${sectionId}`;
+  }
+
+  protected setActiveAvatarSection(sectionId: string) {
+    this.activeAvatarSection.set(sectionId);
+  }
+
+  protected getAvatarSectionId(sectionId: string): string {
+    return `avatar-${sectionId}`;
+  }
+
+  protected onUploadAvatarPreview(file: MbbizUploadAvatarItem) {
+    if (file.url) {
+      window.open(file.url, '_blank');
+    }
   }
 
   protected isDropdownDemoExpanded(sectionId: string): boolean {
@@ -2220,28 +3312,36 @@ export class AppComponent {}`;
     this.activeIconographySection.set(sectionId);
   }
 
-  protected getIconAssetSnippet(asset: IconAsset): string {
-    return `<img src="${asset.src}" alt="${asset.alt}" />`;
+  protected getIconLibrarySnippet(entry: IconLibraryEntry, size: IconSizeToken = 'm'): string {
+    return `<mbiz-icon name="${entry.name}" size="${size}" />`;
   }
 
-  protected async copyIconAssetUrl(asset: IconAsset) {
-    await this.writeTextToClipboard(asset.src);
-    this.copiedIconAssetUrl.set(asset.id);
-    setTimeout(() => {
-      if (this.copiedIconAssetUrl() === asset.id) {
-        this.copiedIconAssetUrl.set(null);
-      }
-    }, 1200);
+  protected setIconLibrarySearchQuery(value: string) {
+    this.iconLibrarySearchQuery.set(value);
   }
 
-  protected async copyIconAssetSnippet(asset: IconAsset) {
-    await this.writeTextToClipboard(this.getIconAssetSnippet(asset));
-    this.copiedIconAssetSnippet.set(asset.id);
+  protected setIconLibraryPreviewName(name: string) {
+    this.iconLibraryPreviewName.set(name);
+  }
+
+  protected async copyIconLibrarySnippet(entry: IconLibraryEntry) {
+    await this.writeTextToClipboard(this.getIconLibrarySnippet(entry));
+    this.copiedIconLibraryName.set(entry.name);
     setTimeout(() => {
-      if (this.copiedIconAssetSnippet() === asset.id) {
-        this.copiedIconAssetSnippet.set(null);
+      if (this.copiedIconLibraryName() === entry.name) {
+        this.copiedIconLibraryName.set(null);
       }
-    }, 1200);
+    }, 1600);
+  }
+
+  protected async copyIconInstallSnippet(snippetId: string, code: string) {
+    await this.writeTextToClipboard(code);
+    this.copiedIconInstallSnippet.set(snippetId);
+    setTimeout(() => {
+      if (this.copiedIconInstallSnippet() === snippetId) {
+        this.copiedIconInstallSnippet.set(null);
+      }
+    }, 1600);
   }
 
   protected getIllustrationSnippet(asset: IllustrationAsset): string {
@@ -2300,18 +3400,18 @@ export class AppComponent {}`;
     this.paginationDocsDropdownOpen.set(value);
   }
 
-  protected updateTableAllColumnCellValue(event: Sportbook6vnTableCellValueChange): void {
+  protected updateTableAllColumnCellValue(event: MbbizTableCellValueChange): void {
     this.updateTableRows(this.tableAllColumnRows, event);
   }
 
-  protected updateTableSelectionCellValue(event: Sportbook6vnTableCellValueChange): void {
+  protected updateTableSelectionCellValue(event: MbbizTableCellValueChange): void {
     this.updateTableRows(this.tableSelectionRows, event);
     this.syncTableSelectionKeys();
   }
 
   private updateTableRows(
-    rowsSignal: WritableSignal<Sportbook6vnTableRow[]>,
-    event: Sportbook6vnTableCellValueChange,
+    rowsSignal: WritableSignal<MbbizTableRow[]>,
+    event: MbbizTableCellValueChange,
   ): void {
     rowsSignal.update((rows) =>
       rows.map((row, index) => {
@@ -2358,7 +3458,7 @@ export class AppComponent {}`;
       return;
     }
 
-    const blob = new Blob([`Sportbook6vn docs download: ${fileName}\n`], {
+    const blob = new Blob([`Mbbiz docs download: ${fileName}\n`], {
       type: 'text/plain;charset=utf-8',
     });
     const url = URL.createObjectURL(blob);
@@ -2376,26 +3476,62 @@ export class AppComponent {}`;
   @HostListener('window:resize')
   protected onViewportChange() {
     this.updateActiveTokenSection();
+    this.updateActivePageHeaderPatternSection();
     this.updateActiveFooterPatternSection();
+    this.updateActiveStepProcessPatternSection();
+    this.updateActiveSourceAccountPatternSection();
+    this.updateActiveFormPatternSection();
     this.updateActiveButtonSection();
     this.updateActiveButtonMappingSection();
+    this.updateActiveButtonLinkSection();
     this.updateActiveInputSection();
+    this.updateActiveFormSection();
     this.updateActiveInputTagSection();
     this.updateActiveBreadcrumbSection();
+    this.updateActiveNavigationBarSection();
     this.updateActiveStepsSection();
     this.updateActiveTabSection();
     this.updateActiveBadgeSection();
     this.updateActiveStatusSection();
     this.updateActiveMessageSection();
+    this.updateActiveTooltipSection();
+    this.updateActiveRatingSection();
+    this.updateActiveModalSection();
+    this.updateActiveDrawerSection();
+    this.updateActiveLevelCardSection();
+    this.updateActiveSwitchSection();
     this.updateActiveTableSection();
     this.updateActivePaginationSection();
     this.updateActiveDropdownSection();
+    this.updateActiveAutoCompleteSection();
     this.updateActiveRadioSection();
     this.updateActiveDatepickerSection();
+    this.updateActivePriceRangeSection();
     this.updateActiveUploadFileSection();
+    this.updateActiveUploadAvatarSection();
+    this.updateActiveAvatarSection();
     this.updateActiveIconographySection();
     this.updateActiveIllustrationSection();
     this.updateActiveInstallationSection();
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  protected onDocumentKeydown(event: KeyboardEvent) {
+    const isShortcut = (event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k';
+    if (!isShortcut) {
+      return;
+    }
+
+    event.preventDefault();
+    this.openDocsSearch();
+    queueMicrotask(() => {
+      const input = this.docsSearchInput()?.nativeElement;
+      if (!input) {
+        return;
+      }
+      input.focus();
+      input.select();
+    });
   }
 
   @HostListener('document:click')
@@ -2403,12 +3539,25 @@ export class AppComponent {}`;
     if (this.openFooterPatternOverflowId()) {
       this.openFooterPatternOverflowId.set(null);
     }
+    if (this.isDocsSearchOpen()) {
+      this.closeDocsSearch();
+    }
+    this.closeSourceAccountDropdown();
+  }
+
+  private resolveDocsSearchShortcutLabel(): string {
+    if (typeof navigator === 'undefined') {
+      return '⌘K';
+    }
+    const platform = `${navigator.platform || ''} ${navigator.userAgent || ''}`.toLowerCase();
+    return /mac|iphone|ipad|ipod/.test(platform) ? '⌘K' : 'Ctrl K';
   }
 
   private updateActiveTokenSection() {
     if (
       (this.activePage() !== 'tokens' &&
         this.activePage() !== 'spacing' &&
+        this.activePage() !== 'layout' &&
         this.activePage() !== 'typography') ||
       typeof document === 'undefined'
     ) {
@@ -2458,6 +3607,106 @@ export class AppComponent {}`;
     }
 
     this.activeFooterPatternSection.set(currentSection);
+  }
+
+  private updateActiveFormPatternSection() {
+    if (this.activePage() !== 'formPattern' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getFormPatternSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeFormPatternSection.set(currentSection);
+  }
+
+  private updateActivePageHeaderPatternSection() {
+    if (this.activePage() !== 'pageHeaderPattern' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getPageHeaderPatternSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activePageHeaderPatternSection.set(currentSection);
+  }
+
+  private updateActiveStepProcessPatternSection() {
+    if (this.activePage() !== 'stepProcessPattern' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getStepProcessPatternSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeStepProcessPatternSection.set(currentSection);
+  }
+
+  private updateActiveSourceAccountPatternSection() {
+    if (this.activePage() !== 'sourceAccountPattern' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getSourceAccountPatternSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeSourceAccountPatternSection.set(currentSection);
   }
 
   private updateActiveButtonSection() {
@@ -2585,6 +3834,31 @@ export class AppComponent {}`;
     this.activeBreadcrumbSection.set(currentSection);
   }
 
+  private updateActiveNavigationBarSection() {
+    if (this.activePage() !== 'navigationBar' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getNavigationBarSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeNavigationBarSection.set(currentSection);
+  }
+
   private updateActiveStepsSection() {
     if (this.activePage() !== 'steps' || typeof document === 'undefined') {
       return;
@@ -2660,6 +3934,131 @@ export class AppComponent {}`;
     this.activeBadgeSection.set(currentSection);
   }
 
+  private updateActiveSwitchSection() {
+    if (this.activePage() !== 'switch' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getSwitchSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeSwitchSection.set(currentSection);
+  }
+
+  private updateActiveModalSection() {
+    if (this.activePage() !== 'modal' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getModalSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeModalSection.set(currentSection);
+  }
+
+  private updateActiveDrawerSection() {
+    if (this.activePage() !== 'drawer' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getDrawerSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeDrawerSection.set(currentSection);
+  }
+
+  private updateActiveLevelCardSection() {
+    if (this.activePage() !== 'levelCard' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getLevelCardSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeLevelCardSection.set(currentSection);
+  }
+
+  private updateActiveButtonLinkSection() {
+    if (this.activePage() !== 'buttonLink' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getButtonLinkSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeButtonLinkSection.set(currentSection);
+  }
+
   private updateActiveStatusSection() {
     if (this.activePage() !== 'status' || typeof document === 'undefined') {
       return;
@@ -2708,6 +4107,56 @@ export class AppComponent {}`;
     }
 
     this.activeMessageSection.set(currentSection);
+  }
+
+  private updateActiveTooltipSection() {
+    if (this.activePage() !== 'tooltip' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getTooltipSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeTooltipSection.set(currentSection);
+  }
+
+  private updateActiveRatingSection() {
+    if (this.activePage() !== 'rating' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getRatingSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeRatingSection.set(currentSection);
   }
 
   private updateActiveTableSection() {
@@ -2785,6 +4234,56 @@ export class AppComponent {}`;
     this.activeDropdownSection.set(currentSection);
   }
 
+  private updateActiveAutoCompleteSection() {
+    if (this.activePage() !== 'autoComplete' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getAutoCompleteSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeAutoCompleteSection.set(currentSection);
+  }
+
+  private updateActiveFormSection() {
+    if (this.activePage() !== 'form' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getFormSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeFormSection.set(currentSection);
+  }
+
   private updateActiveRadioSection() {
     if (this.activePage() !== 'radio' || typeof document === 'undefined') {
       return;
@@ -2835,6 +4334,31 @@ export class AppComponent {}`;
     this.activeDatepickerSection.set(currentSection);
   }
 
+  private updateActivePriceRangeSection() {
+    if (this.activePage() !== 'priceRange' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getPriceRangeSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activePriceRangeSection.set(currentSection);
+  }
+
   private updateActiveUploadFileSection() {
     if (this.activePage() !== 'uploadFile' || typeof document === 'undefined') {
       return;
@@ -2858,6 +4382,56 @@ export class AppComponent {}`;
     }
 
     this.activeUploadFileSection.set(currentSection);
+  }
+
+  private updateActiveUploadAvatarSection() {
+    if (this.activePage() !== 'uploadAvatar' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getUploadAvatarSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeUploadAvatarSection.set(currentSection);
+  }
+
+  private updateActiveAvatarSection() {
+    if (this.activePage() !== 'avatar' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getAvatarSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeAvatarSection.set(currentSection);
   }
 
   private updateActiveIllustrationSection() {
@@ -2936,76 +4510,85 @@ export class AppComponent {}`;
   }
 
   private buildSemanticTokenGroups(): SemanticTokenGroup[] {
-    const normalizeAlias = (alias: string) => alias.replace(/^color\/semantic\//, '');
-    const orderPairs: Array<[string, readonly string[]]> = [
-      ['background', SEMANTIC_BACKGROUND_FIGMA_ORDER],
-      ['text', SEMANTIC_TEXT_FIGMA_ORDER],
-      ['border', SEMANTIC_BORDER_FIGMA_ORDER],
-      ['icon', SEMANTIC_ICON_FIGMA_ORDER],
-    ];
-    const categoryOrders = new Map<string, Map<string, number>>(
-      orderPairs.map(([category, order]) => [
-        category,
-        new Map(order.map((alias, index) => [normalizeAlias(alias), index] as const)),
-      ]),
-    );
-
-    const grouped = new Map<string, SemanticColorTokenMapping[]>();
+    const grouped = new Map<SemanticCollection, SemanticColorTokenMapping[]>();
     for (const token of this.semanticTokenMappings) {
-      const bucket = grouped.get(token.category) ?? [];
+      const collection = getSemanticCollection(token.alias);
+      const bucket = grouped.get(collection) ?? [];
       bucket.push(token);
-      grouped.set(token.category, bucket);
+      grouped.set(collection, bucket);
     }
 
-    return [...grouped.entries()]
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([category, items]) => ({
-        category,
-        label: this.formatCategoryLabel(category),
-        items: items.sort((left, right) => {
-          const categoryOrder = categoryOrders.get(category);
-          if (categoryOrder) {
-            const leftIndex = categoryOrder.get(normalizeAlias(left.alias));
-            const rightIndex = categoryOrder.get(normalizeAlias(right.alias));
-            if (leftIndex !== undefined && rightIndex !== undefined) {
-              return leftIndex - rightIndex;
-            }
-            if (leftIndex !== undefined) {
-              return -1;
-            }
-            if (rightIndex !== undefined) {
-              return 1;
-            }
+    const sortTokens = (items: SemanticColorTokenMapping[]) =>
+      items.sort((left, right) => {
+        const leftIndex = getSemanticCollectionOrderIndex(left.alias);
+        const rightIndex = getSemanticCollectionOrderIndex(right.alias);
+        if (leftIndex !== rightIndex) {
+          if (leftIndex < 0) {
+            return 1;
           }
-          return left.alias.localeCompare(right.alias);
-        }),
-      }));
+          if (rightIndex < 0) {
+            return -1;
+          }
+          return leftIndex - rightIndex;
+        }
+        return left.alias.localeCompare(right.alias, undefined, { numeric: true });
+      });
+
+    return SEMANTIC_COLLECTION_ORDER.filter((collection) => grouped.has(collection)).map(
+      (collection) => {
+        const items = sortTokens([...(grouped.get(collection) ?? [])]);
+        const byCategory = new Map<string, SemanticColorTokenMapping[]>();
+        for (const token of items) {
+          const bucket = byCategory.get(token.category) ?? [];
+          bucket.push(token);
+          byCategory.set(token.category, bucket);
+        }
+
+        const tables = [
+          ...SEMANTIC_CATEGORY_TABLE_ORDER.filter((category) => byCategory.has(category)),
+          ...[...byCategory.keys()].filter((category) => !SEMANTIC_CATEGORY_TABLE_ORDER.includes(category)),
+        ].map((category) => ({
+          id: `${this.getTokenSectionId(collection)}-${category}`,
+          category,
+          label: this.formatCategoryLabel(category),
+          items: byCategory.get(category) ?? [],
+        }));
+
+        return {
+          category: collection,
+          label: SEMANTIC_COLLECTION_LABELS[collection],
+          description: SEMANTIC_COLLECTION_NOTES[collection],
+          tables,
+        };
+      },
+    );
+  }
+
+  private formatTokenDescription(path?: string, appliesTo?: string, notes?: string): string {
+    const wrapPath = (value: string) => value.replace(/\//g, '/\u200B');
+    const meta = [appliesTo, notes].filter(Boolean).join(' · ');
+    if (path && meta) {
+      return `${wrapPath(path)}\n· ${meta}`;
+    }
+    if (path) {
+      return wrapPath(path);
+    }
+    return meta;
   }
 
   private buildButtonSemanticBindingGroups(
     groups: ButtonSemanticBindingGroup[],
   ): ResolvedButtonSemanticBindingGroup[] {
-    const normalizeSemanticAlias = (alias: string): string =>
-      alias.startsWith('color/semantic/') ? alias : `color/semantic/${alias}`;
-
-    const semanticByAlias = new Map<string, SemanticColorTokenMapping>();
-    for (const token of this.semanticTokenMappings) {
-      semanticByAlias.set(token.alias, token);
-      semanticByAlias.set(token.alias.replace(/^color\/semantic\//, ''), token);
-    }
-
     return groups.map((group) => ({
       title: group.title,
       description: group.description,
       rows: group.rows.map((row) => {
-        const mapped =
-          semanticByAlias.get(row.semanticAlias) ??
-          semanticByAlias.get(normalizeSemanticAlias(row.semanticAlias));
+        const mapped = this.lookupSemanticColorToken(row.semanticAlias);
         return {
-          componentToken: row.componentToken,
-          semanticAlias: row.semanticAlias,
-          semanticValue: mapped?.value ?? 'N/A',
-          description: `${row.appliesTo} · ${row.notes}`,
+          alias: this.toShortSemanticAlias(row.semanticAlias),
+          globalColor: this.toShortPrimitiveRef(mapped?.primitive ?? 'N/A'),
+          hexValue: mapped?.value ?? 'N/A',
+          description: this.formatTokenDescription(row.componentToken, row.appliesTo, row.notes),
         };
       }),
     }));
@@ -3014,42 +4597,129 @@ export class AppComponent {}`;
   private buildInputSemanticBindingGroups(
     groups: InputSemanticBindingGroup[],
   ): ResolvedInputSemanticBindingGroup[] {
-    const normalizeSemanticAlias = (alias: string): string =>
-      alias.startsWith('color/semantic/') ? alias : `color/semantic/${alias}`;
-
-    const semanticByAlias = new Map<string, SemanticColorTokenMapping>();
-    for (const token of this.semanticTokenMappings) {
-      semanticByAlias.set(token.alias, token);
-      semanticByAlias.set(token.alias.replace(/^color\/semantic\//, ''), token);
-    }
-
     return groups.map((group) => ({
       title: group.title,
       description: group.description,
       rows: group.rows.map((row) => {
-        const mapped =
-          semanticByAlias.get(row.semanticAlias) ??
-          semanticByAlias.get(normalizeSemanticAlias(row.semanticAlias));
+        const mapped = this.lookupSemanticColorToken(row.semanticAlias);
         return {
-          componentToken: row.componentToken,
-          semanticAlias: row.semanticAlias,
-          semanticValue: mapped?.value ?? 'N/A',
-          description: `${row.appliesTo} · ${row.notes}`,
+          alias: this.toShortSemanticAlias(row.semanticAlias),
+          globalColor: this.toShortPrimitiveRef(mapped?.primitive ?? 'N/A'),
+          hexValue: mapped?.value ?? 'N/A',
+          description: this.formatTokenDescription(row.componentToken, row.appliesTo, row.notes),
         };
       }),
     }));
   }
 
+  private buildResolvedVariableTokenGroups(
+    groups: readonly {
+      title: string;
+      rows: readonly {
+        token: string;
+        value: string;
+        appliesTo: string;
+        notes: string;
+      }[];
+    }[],
+  ): ResolvedVariableTokenGroup[] {
+    const resolved: ResolvedVariableTokenGroup[] = [];
+
+    for (const group of groups) {
+      const colorRows = group.rows.filter((row) => this.isGlobalColorRef(row.value));
+      const specRows = group.rows.filter((row) => !this.isGlobalColorRef(row.value));
+
+      if (colorRows.length > 0) {
+        resolved.push({
+          title:
+            colorRows.length === group.rows.length || /color/i.test(group.title)
+              ? group.title
+              : `${group.title} · Color`,
+          kind: 'alias-color',
+          aliasRows: colorRows.map((row) => {
+            const mapped = this.lookupSemanticColorToken(row.token);
+            return {
+              alias: this.toShortSemanticAlias(row.token),
+              globalColor: this.toShortPrimitiveRef(mapped?.primitive ?? row.value),
+              hexValue: mapped?.value ?? 'N/A',
+              description: this.formatTokenDescription(undefined, row.appliesTo, row.notes),
+            };
+          }),
+          specRows: [],
+        });
+      }
+
+      if (specRows.length > 0) {
+        resolved.push({
+          title:
+            specRows.length === group.rows.length
+              ? group.title
+              : /color/i.test(group.title)
+                ? group.title.replace(/Color Tokens?/i, 'Sizing Specs').trim()
+                : `${group.title} · Specs`,
+          kind: 'spec',
+          aliasRows: [],
+          specRows: specRows.map((row) => ({
+            token: row.token,
+            value: row.value,
+            appliesTo: row.appliesTo,
+            notes: row.notes,
+          })),
+        });
+      }
+    }
+
+    return resolved;
+  }
+
+  private lookupSemanticColorToken(alias: string): SemanticColorTokenMapping | undefined {
+    const shortAlias = this.toShortSemanticAlias(alias);
+    const fullAlias = shortAlias.startsWith('color/semantic/')
+      ? shortAlias
+      : `color/semantic/${shortAlias}`;
+
+    return (
+      this.semanticTokenMappings.find((token) => token.alias === fullAlias) ??
+      this.semanticTokenMappings.find((token) => token.alias === shortAlias) ??
+      this.semanticTokenMappings.find(
+        (token) => this.toShortSemanticAlias(token.alias) === shortAlias,
+      )
+    );
+  }
+
+  private toShortSemanticAlias(alias: string): string {
+    return alias.replace(/^color\/semantic\//, '');
+  }
+
+  private toShortPrimitiveRef(primitive: string): string {
+    return primitive.replace(/^color\/primitive\//, '');
+  }
+
+  private isGlobalColorRef(value: string): boolean {
+    return /^[a-z][a-z0-9-]*\/[a-z0-9%.-]+$/i.test(value.trim());
+  }
+
   private getTokenSectionIds(): string[] {
     if (this.activePage() === 'spacing') {
-      return ['spacing-scale', 'radius-scale'];
+      return ['spacing-scale', 'radius-scale', 'iconsize-scale'];
+    }
+
+    if (this.activePage() === 'layout') {
+      return ['layout-grid-demo', ...this.layoutTokenGroups.map((group) => group.id)];
     }
 
     if (this.activePage() === 'typography') {
-      return this.typographyScaleGroups.map((group) => this.getTypographySectionId(group.title));
+      return [
+        'typography-font-styles',
+        ...this.typographyStyleGroups.map((group) => group.id),
+        ...this.typographyScaleGroups.map((group) => this.getTypographySectionId(group.title)),
+      ];
     }
 
-    return this.semanticTokenGroups.map((group) => this.getTokenSectionId(group.category));
+    return this.semanticTokenGroups.flatMap((group) => [
+      this.getTokenSectionId(group.category),
+      ...group.tables.map((table) => table.id),
+    ]);
   }
 
   private getButtonSectionIds(): string[] {
@@ -3062,6 +4732,28 @@ export class AppComponent {}`;
 
   private getFooterPatternSectionIds(): string[] {
     return this.footerPatternVariants.map((variant) => this.getFooterPatternSectionId(variant.id));
+  }
+
+  private getFormPatternSectionIds(): string[] {
+    return this.formPatternCases.map((patternCase) => this.getFormPatternSectionId(patternCase.id));
+  }
+
+  private getPageHeaderPatternSectionIds(): string[] {
+    return this.pageHeaderPatternCases.map((patternCase) =>
+      this.getPageHeaderPatternSectionId(patternCase.id),
+    );
+  }
+
+  private getStepProcessPatternSectionIds(): string[] {
+    return this.stepProcessPatternCases.map((patternCase) =>
+      this.getStepProcessPatternSectionId(patternCase.id),
+    );
+  }
+
+  private getSourceAccountPatternSectionIds(): string[] {
+    return this.sourceAccountPatternCases.map((patternCase) =>
+      this.getSourceAccountPatternSectionId(patternCase.id),
+    );
   }
 
   private getButtonMappingSectionIds(): string[] {
@@ -3109,24 +4801,96 @@ export class AppComponent {}`;
     ];
   }
 
+  private getNavigationBarSectionIds(): string[] {
+    return [
+      ...this.navigationBarDemoSections.map((section) => this.getNavigationBarSectionId(section.id)),
+      'navigation-bar-api',
+      'navigation-bar-variables',
+    ];
+  }
+
   private getStepsSectionIds(): string[] {
-    return this.stepsDemoSections.map((section) => this.getStepsSectionId(section.id));
+    return [
+      ...this.stepsDemoSections.map((section) => this.getStepsSectionId(section.id)),
+      'steps-variables',
+    ];
   }
 
   private getTabSectionIds(): string[] {
-    return this.tabDemoSections.map((section) => this.getTabSectionId(section.id));
+    return [
+      ...this.tabDemoSections.map((section) => this.getTabSectionId(section.id)),
+      'tab-variables',
+    ];
   }
 
   private getBadgeSectionIds(): string[] {
-    return this.badgeDemoSections.map((section) => this.getBadgeSectionId(section.id));
+    return [
+      ...this.badgeDemoSections.map((section) => this.getBadgeSectionId(section.id)),
+      'badge-variables',
+    ];
+  }
+
+  private getSwitchSectionIds(): string[] {
+    return [
+      ...this.switchDemoSections.map((section) => this.getSwitchSectionId(section.id)),
+      'switch-variables',
+    ];
+  }
+
+  private getModalSectionIds(): string[] {
+    return [
+      ...this.modalDemoSections.map((section) => this.getModalSectionId(section.id)),
+      'modal-variables',
+    ];
+  }
+
+  private getDrawerSectionIds(): string[] {
+    return [
+      ...this.drawerDemoSections.map((section) => this.getDrawerSectionId(section.id)),
+      'drawer-variables',
+    ];
+  }
+
+  private getLevelCardSectionIds(): string[] {
+    return [
+      ...this.levelCardDemoSections.map((section) => this.getLevelCardSectionId(section.id)),
+      'level-card-variables',
+    ];
+  }
+
+  private getButtonLinkSectionIds(): string[] {
+    return [
+      ...this.buttonLinkDemoSections.map((section) => this.getButtonLinkSectionId(section.id)),
+      'button-link-variables',
+    ];
   }
 
   private getStatusSectionIds(): string[] {
-    return this.statusDemoSections.map((section) => this.getStatusSectionId(section.id));
+    return [
+      ...this.statusDemoSections.map((section) => this.getStatusSectionId(section.id)),
+      'status-variables',
+    ];
   }
 
   private getMessageSectionIds(): string[] {
-    return this.messageDemoSections.map((section) => this.getMessageSectionId(section.id));
+    return [
+      ...this.messageDemoSections.map((section) => this.getMessageSectionId(section.id)),
+      'message-variables',
+    ];
+  }
+
+  private getTooltipSectionIds(): string[] {
+    return [
+      ...this.tooltipDemoSections.map((section) => this.getTooltipSectionId(section.id)),
+      'tooltip-variables',
+    ];
+  }
+
+  private getRatingSectionIds(): string[] {
+    return [
+      ...this.ratingDemoSections.map((section) => this.getRatingSectionId(section.id)),
+      'rating-variables',
+    ];
   }
 
   private getTableSectionIds(): string[] {
@@ -3153,6 +4917,18 @@ export class AppComponent {}`;
     ];
   }
 
+  private getAutoCompleteSectionIds(): string[] {
+    return [
+      ...this.autoCompleteDemoSections.map((section) => this.getAutoCompleteSectionId(section.id)),
+      'auto-complete-api',
+      'auto-complete-variables',
+    ];
+  }
+
+  private getFormSectionIds(): string[] {
+    return [this.getFormSectionId('default'), this.getFormSectionId('variables')];
+  }
+
   private getRadioSectionIds(): string[] {
     return [
       ...this.radioDemoSections.map((section) => this.getRadioSectionId(section.id)),
@@ -3169,11 +4945,34 @@ export class AppComponent {}`;
     ];
   }
 
+  private getPriceRangeSectionIds(): string[] {
+    return [
+      ...this.priceRangeDemoSections.map((section) => this.getPriceRangeSectionId(section.id)),
+      'price-range-variables',
+    ];
+  }
+
   private getUploadFileSectionIds(): string[] {
     return [
       ...this.uploadFileDemoSections.map((section) => this.getUploadFileSectionId(section.id)),
       'upload-file-api',
       'upload-file-variables',
+    ];
+  }
+
+  private getUploadAvatarSectionIds(): string[] {
+    return [
+      ...this.uploadAvatarDemoSections.map((section) => this.getUploadAvatarSectionId(section.id)),
+      'upload-avatar-api',
+      'upload-avatar-variables',
+    ];
+  }
+
+  private getAvatarSectionIds(): string[] {
+    return [
+      ...this.avatarDemoSections.map((section) => this.getAvatarSectionId(section.id)),
+      'avatar-api',
+      'avatar-variables',
     ];
   }
 
@@ -3187,7 +4986,15 @@ export class AppComponent {}`;
   }
 
   private getIconographySectionIds(): string[] {
-    return ['iconography-usage', 'iconography-assets', 'iconography-naming'];
+    return [
+      'iconography-catalog',
+      ...this.iconLibraryGroups.map((group) => group.id),
+      'iconography-install',
+      'iconography-usage',
+      'iconography-sizes',
+      'iconography-color',
+      'iconography-naming',
+    ];
   }
 
   private getInstallationSectionIds(): string[] {
@@ -3222,54 +5029,17 @@ export class AppComponent {}`;
     }
   }
 
-  private resolveInitialThemeId(): ThemeId {
-    if (typeof window === 'undefined') {
-      return DEFAULT_THEME_ID;
-    }
-
-    const storedThemeId = parseThemeId(window.localStorage.getItem(this.themeStorageKey));
-    if (storedThemeId) {
-      return storedThemeId;
-    }
-
-    // Backward compatibility for previous storage format: sportbook.theme-id = "light" | "dark"
-    const legacyMode = window.localStorage.getItem(this.themeStorageKey);
-    if (isThemeMode(legacyMode)) {
-      return getThemeId(DEFAULT_THEME_BRAND, legacyMode);
-    }
-
-    if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
-      return getThemeId(DEFAULT_THEME_BRAND, 'dark');
-    }
-
-    return DEFAULT_THEME_ID;
-  }
-
-  private persistThemeMode(theme: ThemeMode): void {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    const themeId = getThemeId(this.activeThemeBrand(), theme);
-    window.localStorage.setItem(this.themeStorageKey, themeId);
-  }
-
-  private applyThemeMode(theme: ThemeMode): void {
+  private applySemanticTokens(): void {
     if (typeof document === 'undefined') {
       return;
     }
 
     const root = document.documentElement;
-    const themeId = getThemeId(this.activeThemeBrand(), theme);
-    const modeValues = this.semanticThemeAliasValueMaps[themeId];
-
-    for (const [alias, value] of Object.entries(modeValues)) {
+    for (const [alias, value] of Object.entries(this.semanticAliasValueMap)) {
       root.style.setProperty(this.getTokenCssVarFromAlias(alias), value);
     }
 
-    root.dataset['themeMode'] = theme;
     root.dataset['themeBrand'] = this.activeThemeBrand();
-    root.dataset['themeId'] = themeId;
   }
 
   private getTokenCssVarFromAlias(alias: string): string {
@@ -3305,7 +5075,7 @@ export class AppComponent {}`;
 
     return `import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Sportbook6vnButtonComponent } from 'sportbook6vn';
+import { MbbizButtonComponent } from 'mbbiz';
 
 type ButtonDocState = 'default' | 'hover' | 'pressed' | 'disabled';
 
@@ -3322,10 +5092,10 @@ interface ButtonAction {
 @Component({
   selector: 'app-button-demo',
   standalone: true,
-  imports: [CommonModule, Sportbook6vnButtonComponent],
+  imports: [CommonModule, MbbizButtonComponent],
   template: \`
     <div class="button-demo-preview">
-      <sportbook6vn-button
+      <mbbiz-button
         *ngFor="let action of actions"
         [shape]="action.shape"
         [variant]="action.variant"
@@ -3335,13 +5105,13 @@ interface ButtonAction {
         [class.button-doc-state-pressed]="action.docState === 'pressed'"
       >
         @if (action.showLeftIcon) {
-          <span sportbook6vnButtonStartIcon aria-hidden="true">+</span>
+          <span mbbizButtonStartIcon aria-hidden="true">+</span>
         }
         {{ action.label }}
         @if (action.showRightIcon) {
-          <span sportbook6vnButtonEndIcon aria-hidden="true">+</span>
+          <span mbbizButtonEndIcon aria-hidden="true">+</span>
         }
-      </sportbook6vn-button>
+      </mbbiz-button>
     </div>
   \`,
 })
@@ -3355,7 +5125,7 @@ ${actionRows}
   private buildButtonCodeActionMarkup(action: ButtonDemoAction, indent: string): string {
     const state = this.getButtonDocState(action);
     const lines = [
-      `${indent}<sportbook6vn-button`,
+      `${indent}<mbbiz-button`,
       `${indent}  shape="${action.shape ?? 'rectangle'}"`,
       `${indent}  variant="${this.getButtonVariant(action)}"`,
       `${indent}  size="${this.getButtonSize(action)}"`,
@@ -3374,16 +5144,16 @@ ${actionRows}
     lines.push(`${indent}>`);
 
     if (action.showLeftIcon) {
-      lines.push(`${indent}  <span sportbook6vnButtonStartIcon aria-hidden="true">+</span>`);
+      lines.push(`${indent}  <span mbbizButtonStartIcon aria-hidden="true">+</span>`);
     }
 
     lines.push(`${indent}  ${action.label}`);
 
     if (action.showRightIcon) {
-      lines.push(`${indent}  <span sportbook6vnButtonEndIcon aria-hidden="true">+</span>`);
+      lines.push(`${indent}  <span mbbizButtonEndIcon aria-hidden="true">+</span>`);
     }
 
-    lines.push(`${indent}</sportbook6vn-button>`);
+    lines.push(`${indent}</mbbiz-button>`);
 
     return lines.join('\n');
   }
@@ -3548,14 +5318,14 @@ ${actionRows}
 
   private buildInputDocsBasicSnippet(): string {
     return `import { Component, signal } from '@angular/core';
-import { Sportbook6vnInputComponent } from 'sportbook6vn';
+import { MbbizInputComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-input-basic-demo',
   standalone: true,
-  imports: [Sportbook6vnInputComponent],
+  imports: [MbbizInputComponent],
   template: \`
-    <sportbook6vn-input
+    <mbbiz-input
       inputId="basic-input"
       placeholder="Input text"
       [value]="value()"
@@ -3570,17 +5340,17 @@ export class InputBasicDemoComponent {
 
   private buildInputDocsAffixPrefixSnippet(): string {
     return `import { Component, signal } from '@angular/core';
-import { Sportbook6vnAffixInputComponent } from 'sportbook6vn';
+import { MbbizAffixInputComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-affix-input-prefix-demo',
   standalone: true,
-  imports: [Sportbook6vnAffixInputComponent],
+  imports: [MbbizAffixInputComponent],
   template: \`
-    <sportbook6vn-affix-input
+    <mbbiz-affix-input
       inputId="affix-prefix-input"
       mode="prefix"
-      prefixText="₫"
+      prefixIcon="alinear_money"
       placeholder="Input text"
       [value]="value()"
       (valueChange)="value.set($event)"
@@ -3594,18 +5364,18 @@ export class AffixInputPrefixDemoComponent {
 
   private buildInputDocsAffixBothSnippet(): string {
     return `import { Component, signal } from '@angular/core';
-import { Sportbook6vnAffixInputComponent } from 'sportbook6vn';
+import { MbbizAffixInputComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-affix-input-both-demo',
   standalone: true,
-  imports: [Sportbook6vnAffixInputComponent],
+  imports: [MbbizAffixInputComponent],
   template: \`
-    <sportbook6vn-affix-input
+    <mbbiz-affix-input
       inputId="affix-both-input"
       mode="both"
-      prefixText="₫"
-      suffixText="VND"
+      prefixIcon="alinear_book"
+      suffixIcon="alinear_info"
       placeholder="Input text"
       [value]="value()"
       (valueChange)="value.set($event)"
@@ -3619,14 +5389,14 @@ export class AffixInputBothDemoComponent {
 
   private buildInputDocsSearchSnippet(): string {
     return `import { Component, signal } from '@angular/core';
-import { Sportbook6vnSearchInputComponent } from 'sportbook6vn';
+import { MbbizSearchInputComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-search-input-demo',
   standalone: true,
-  imports: [Sportbook6vnSearchInputComponent],
+  imports: [MbbizSearchInputComponent],
   template: \`
-    <sportbook6vn-search-input
+    <mbbiz-search-input
       inputId="search-input"
       placeholder="Input text"
       [value]="query()"
@@ -3646,14 +5416,14 @@ export class SearchInputDemoComponent {
 
   private buildInputDocsPasswordSnippet(): string {
     return `import { Component, signal } from '@angular/core';
-import { Sportbook6vnPasswordInputComponent } from 'sportbook6vn';
+import { MbbizPasswordInputComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-password-input-demo',
   standalone: true,
-  imports: [Sportbook6vnPasswordInputComponent],
+  imports: [MbbizPasswordInputComponent],
   template: \`
-    <sportbook6vn-password-input
+    <mbbiz-password-input
       inputId="password-input"
       [value]="password()"
       [visible]="visible()"
@@ -3670,14 +5440,14 @@ export class PasswordInputDemoComponent {
 
   private buildInputDocsTextareaSnippet(): string {
     return `import { Component, signal } from '@angular/core';
-import { Sportbook6vnTextareaComponent } from 'sportbook6vn';
+import { MbbizTextareaComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-textarea-demo',
   standalone: true,
-  imports: [Sportbook6vnTextareaComponent],
+  imports: [MbbizTextareaComponent],
   template: \`
-    <sportbook6vn-textarea
+    <mbbiz-textarea
       textareaId="message-textarea"
       placeholder="Input text"
       [rows]="4"
@@ -3694,14 +5464,14 @@ export class TextareaDemoComponent {
 
   private buildInputDocsFloatingLabelSnippet(): string {
     return `import { Component, signal } from '@angular/core';
-import { Sportbook6vnFloatingLabelInputComponent } from 'sportbook6vn';
+import { MbbizFloatingLabelInputComponent } from 'mbbiz';
 
 @Component({
   selector: 'app-floating-label-input-demo',
   standalone: true,
-  imports: [Sportbook6vnFloatingLabelInputComponent],
+  imports: [MbbizFloatingLabelInputComponent],
   template: \`
-    <sportbook6vn-floating-label-input
+    <mbbiz-floating-label-input
       inputId="floating-label-input"
       label="Title"
       placeholder="Input text"
@@ -3718,16 +5488,16 @@ export class FloatingLabelInputDemoComponent {
   private buildInputDocsAffixLabelSnippet(): string {
     return `import { Component, signal } from '@angular/core';
 import {
-  Sportbook6vnAffixDropdownItem,
-  Sportbook6vnAffixLabelInputComponent,
-} from 'sportbook6vn';
+  MbbizAffixDropdownItem,
+  MbbizAffixLabelInputComponent,
+} from 'mbbiz';
 
 @Component({
   selector: 'app-affix-label-input-demo',
   standalone: true,
-  imports: [Sportbook6vnAffixLabelInputComponent],
+  imports: [MbbizAffixLabelInputComponent],
   template: \`
-    <sportbook6vn-affix-label-input
+    <mbbiz-affix-label-input
       inputId="currency-input"
       placeholder="Input text"
       prefixLabel="Loại tiền"
@@ -3743,7 +5513,7 @@ export class AffixLabelInputDemoComponent {
   readonly value = signal('');
   readonly currencyId = signal<string | null>(null);
 
-  readonly currencyItems: readonly Sportbook6vnAffixDropdownItem[] = [
+  readonly currencyItems: readonly MbbizAffixDropdownItem[] = [
     { id: 'vnd', label: 'VND', flagCode: 'vnd' },
     { id: 'usd', label: 'USD', flagCode: 'usd' },
     { id: 'krw', label: 'KRW', flagCode: 'krw' },
@@ -3754,35 +5524,35 @@ export class AffixLabelInputDemoComponent {
   private buildInputDocsStatusSnippet(): string {
     return `import { Component } from '@angular/core';
 import {
-  Sportbook6vnFloatingLabelInputComponent,
-  Sportbook6vnInputComponent,
-  Sportbook6vnPasswordInputComponent,
-  Sportbook6vnSearchInputComponent,
-  Sportbook6vnTextareaComponent,
-} from 'sportbook6vn';
+  MbbizFloatingLabelInputComponent,
+  MbbizInputComponent,
+  MbbizPasswordInputComponent,
+  MbbizSearchInputComponent,
+  MbbizTextareaComponent,
+} from 'mbbiz';
 
 @Component({
   selector: 'app-input-status-demo',
   standalone: true,
   imports: [
-    Sportbook6vnInputComponent,
-    Sportbook6vnSearchInputComponent,
-    Sportbook6vnPasswordInputComponent,
-    Sportbook6vnTextareaComponent,
-    Sportbook6vnFloatingLabelInputComponent,
+    MbbizInputComponent,
+    MbbizSearchInputComponent,
+    MbbizPasswordInputComponent,
+    MbbizTextareaComponent,
+    MbbizFloatingLabelInputComponent,
   ],
   template: \`
-    <sportbook6vn-input inputId="input-error" placeholder="Input text" status="error" />
-    <sportbook6vn-search-input inputId="search-error" placeholder="Input text" status="error" />
-    <sportbook6vn-password-input inputId="password-error" status="error" />
-    <sportbook6vn-textarea
+    <mbbiz-input inputId="input-error" placeholder="Input text" status="error" />
+    <mbbiz-search-input inputId="search-error" placeholder="Input text" status="error" />
+    <mbbiz-password-input inputId="password-error" status="error" />
+    <mbbiz-textarea
       textareaId="textarea-error"
       placeholder="Input text"
       [rows]="4"
       [maxLength]="100"
       status="error"
     />
-    <sportbook6vn-floating-label-input
+    <mbbiz-floating-label-input
       inputId="floating-error"
       label="Title"
       placeholder="Input text"
@@ -3796,35 +5566,35 @@ export class InputStatusDemoComponent {}`;
   private buildInputDocsDisabledSnippet(): string {
     return `import { Component } from '@angular/core';
 import {
-  Sportbook6vnFloatingLabelInputComponent,
-  Sportbook6vnInputComponent,
-  Sportbook6vnPasswordInputComponent,
-  Sportbook6vnSearchInputComponent,
-  Sportbook6vnTextareaComponent,
-} from 'sportbook6vn';
+  MbbizFloatingLabelInputComponent,
+  MbbizInputComponent,
+  MbbizPasswordInputComponent,
+  MbbizSearchInputComponent,
+  MbbizTextareaComponent,
+} from 'mbbiz';
 
 @Component({
   selector: 'app-input-disabled-demo',
   standalone: true,
   imports: [
-    Sportbook6vnInputComponent,
-    Sportbook6vnSearchInputComponent,
-    Sportbook6vnPasswordInputComponent,
-    Sportbook6vnTextareaComponent,
-    Sportbook6vnFloatingLabelInputComponent,
+    MbbizInputComponent,
+    MbbizSearchInputComponent,
+    MbbizPasswordInputComponent,
+    MbbizTextareaComponent,
+    MbbizFloatingLabelInputComponent,
   ],
   template: \`
-    <sportbook6vn-input inputId="input-disabled" placeholder="Input text" [disabled]="true" />
-    <sportbook6vn-search-input inputId="search-disabled" placeholder="Input text" [disabled]="true" />
-    <sportbook6vn-password-input inputId="password-disabled" [disabled]="true" />
-    <sportbook6vn-textarea
+    <mbbiz-input inputId="input-disabled" placeholder="Input text" [disabled]="true" />
+    <mbbiz-search-input inputId="search-disabled" placeholder="Input text" [disabled]="true" />
+    <mbbiz-password-input inputId="password-disabled" [disabled]="true" />
+    <mbbiz-textarea
       textareaId="textarea-disabled"
       placeholder="Input text"
       [rows]="4"
       [maxLength]="100"
       [disabled]="true"
     />
-    <sportbook6vn-floating-label-input
+    <mbbiz-floating-label-input
       inputId="floating-disabled"
       label="Title"
       placeholder="Input text"
@@ -3910,7 +5680,7 @@ export class InputDisabledDemoComponent {}`;
       '<span class="code-token keyword">$1</span>',
     );
     escaped = escaped.replace(
-      /\b(Component|Sportbook6vnButtonComponent|Sportbook6vnInputComponent|Sportbook6vnAffixInputComponent|Sportbook6vnSearchInputComponent|Sportbook6vnPasswordInputComponent|Sportbook6vnTextareaComponent|Sportbook6vnFloatingLabelInputComponent|Sportbook6vnAffixLabelInputComponent|Sportbook6vnAffixDropdownItem|Sportbook6vnDropdownComponent|Sportbook6vnDropdownTagComponent|Sportbook6vnDropdownItem|Sportbook6vnInputTagComponent|Sportbook6vnInputTagValue|Sportbook6vnDatepickerComponent|Sportbook6vnDatepickerCell|Sportbook6vnDatepickerRangeValue|Sportbook6vnBreadcrumbComponent|Sportbook6vnBreadcrumbItem|Sportbook6vnStepsComponent|Sportbook6vnStepItem|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
+      /\b(Component|MbbizButtonComponent|MbbizInputComponent|MbbizAffixInputComponent|MbbizSearchInputComponent|MbbizPasswordInputComponent|MbbizTextareaComponent|MbbizFloatingLabelInputComponent|MbbizAffixLabelInputComponent|MbbizAffixDropdownItem|MbbizDropdownComponent|MbbizDropdownTagComponent|MbbizDropdownItem|MbbizInputTagComponent|MbbizInputTagValue|MbbizDatepickerComponent|MbbizDatepickerCell|MbbizDatepickerRangeValue|MbbizBreadcrumbComponent|MbbizBreadcrumbItem|MbbizNavigationBarComponent|MbbizNavigationBarItem|MbbizStepsComponent|MbbizStepItem|ButtonDocState|DsButtonComponent|DsInputBasicComponent|DsInputBasicState|DsInputAffixComponent|DsInputAffixState|DsInputAffixMode|DsInputAffixLabelComponent|DsInputAffixLabelState|DsInputAffixLabelMode|DsInputFloatingLabelComponent|DsInputFloatingLabelState|DsInputPasswordComponent|DsInputPasswordState|DsInputPasswordContentMode|DsInputSearchComponent|DsInputSearchState|DsTextAreaComponent|DsTextAreaState)\b/g,
       '<span class="code-token type">$1</span>',
     );
     escaped = escaped.replace(/\b([0-9]+)\b/g, '<span class="code-token number">$1</span>');

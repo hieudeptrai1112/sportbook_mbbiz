@@ -120,7 +120,7 @@
     ],
     "contrast": [
       "Placeholder text meets minimum contrast for non-essential text.",
-      "Error text and border remain distinguishable in dark mode."
+      "Error text and border remain distinguishable from the field surface."
     ]
   },
   "tokens": {

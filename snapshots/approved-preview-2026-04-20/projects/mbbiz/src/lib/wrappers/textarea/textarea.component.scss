@@ -1,0 +1,91 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.mbbiz-textarea {
+  display: inline-flex;
+  max-width: 100%;
+  min-width: 250px;
+}
+
+.mbbiz-textarea__surface {
+  background: var(--mbbiz-color-surface-primary, #ffffff);
+  border: 1px solid var(--mbbiz-color-border-brand-active, #a3b7fd);
+  border-radius: var(--mbbiz-radius-md, 4px);
+  box-sizing: border-box;
+  color: var(--mbbiz-color-text-muted, #667085);
+  display: flex;
+  flex-direction: column;
+  min-height: 124px;
+  padding: 16px 12px;
+  transition: border-color 140ms ease, color 140ms ease, background-color 140ms ease;
+  width: 100%;
+}
+
+.mbbiz-textarea__field {
+  display: flex;
+  min-height: 80px;
+  width: 100%;
+}
+
+.mbbiz-textarea__native {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  caret-color: var(--mbbiz-color-border-brand-tertiary, #52dddd);
+  box-shadow: none;
+  color: var(--mbbiz-color-text-field, #192d39);
+  flex: 1 1 auto;
+  font: 400 14px/20px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
+  letter-spacing: 0.25px;
+  line-height: 20px;
+  min-height: 80px;
+  outline: none;
+  padding: 0;
+  resize: none;
+}
+
+.mbbiz-textarea__native:focus,
+.mbbiz-textarea__native:focus-visible,
+.mbbiz-textarea__native:active {
+  border: 0;
+  box-shadow: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  border-color: transparent;
+}
+
+.mbbiz-textarea__native::placeholder {
+  color: var(--mbbiz-color-text-tertiary, #9bafc8);
+}
+
+.mbbiz-textarea__counter {
+  align-self: flex-end;
+  color: var(--mbbiz-color-text-counter, #9b9b9b);
+  font: 400 12px/16px var(--mbbiz-font-family-sans, "Inter", "Segoe UI", sans-serif);
+  letter-spacing: 0.25px;
+  margin-top: 4px;
+}
+
+.mbbiz-textarea:not(.mbbiz-textarea--status-error):focus-within
+  .mbbiz-textarea__surface,
+.mbbiz-textarea--status-default:hover .mbbiz-textarea__surface {
+  border-color: var(--mbbiz-color-border-brand-tertiary, #52dddd);
+}
+
+.mbbiz-textarea--status-error .mbbiz-textarea__surface {
+  border-color: var(--mbbiz-color-danger-strong, #f34343);
+}
+
+.mbbiz-textarea--disabled .mbbiz-textarea__surface {
+  background: var(--mbbiz-color-surface-disabled, #f3f3f3);
+  border-color: var(--mbbiz-color-border-disabled, #cccccc);
+  color: var(--mbbiz-color-text-disabled, #808080);
+}
+
+.mbbiz-textarea--disabled .mbbiz-textarea__native,
+.mbbiz-textarea--disabled .mbbiz-textarea__native::placeholder {
+  color: var(--mbbiz-color-text-disabled, #808080);
+}

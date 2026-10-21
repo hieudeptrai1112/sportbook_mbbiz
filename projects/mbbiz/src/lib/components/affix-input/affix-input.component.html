@@ -1,0 +1,37 @@
+<div [class]="wrapperClass()">
+  @if (showPrefix()) {
+    <span class="mbbiz-affix-input__affix mbbiz-affix-input__affix--prefix">
+      @if (resolvedPrefixIcon(); as icon) {
+        <span class="mbbiz-affix-input__icon" aria-hidden="true">
+          <mbiz-icon [name]="icon" size="s" />
+        </span>
+      } @else {
+        <span class="mbbiz-affix-input__text">{{ prefixText() }}</span>
+      }
+    </span>
+  }
+
+  <div class="mbbiz-affix-input__content">
+    <input
+      class="mbbiz-affix-input__native"
+      [attr.id]="inputId()"
+      type="text"
+      [attr.placeholder]="placeholder()"
+      [disabled]="disabled()"
+      [value]="value()"
+      (input)="onInput($event)"
+    />
+  </div>
+
+  @if (showSuffix()) {
+    <span class="mbbiz-affix-input__affix mbbiz-affix-input__affix--suffix">
+      @if (resolvedSuffixIcon(); as icon) {
+        <span class="mbbiz-affix-input__icon" aria-hidden="true">
+          <mbiz-icon [name]="icon" size="s" />
+        </span>
+      } @else {
+        <span class="mbbiz-affix-input__text">{{ suffixText() }}</span>
+      }
+    </span>
+  }
+</div>

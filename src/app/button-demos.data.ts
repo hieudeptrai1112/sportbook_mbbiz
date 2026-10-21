@@ -500,13 +500,13 @@ export const BUTTON_API_ROWS: ButtonApiRow[] = [
     defaultValue: '-',
   },
   {
-    property: '[sportbook6vnButtonStartIcon]',
+    property: '[mbbizButtonStartIcon]',
     description: 'Projected slot for start icon content.',
     type: 'ng-content slot',
     defaultValue: '-',
   },
   {
-    property: '[sportbook6vnButtonEndIcon]',
+    property: '[mbbizButtonEndIcon]',
     description: 'Projected slot for end icon content.',
     type: 'ng-content slot',
     defaultValue: '-',

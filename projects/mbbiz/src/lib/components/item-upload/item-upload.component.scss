@@ -1,0 +1,122 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
+:host {
+  display: block;
+  max-width: 100%;
+  width: min(100%, 434px);
+}
+
+.mbbiz-item-upload {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+}
+
+.mbbiz-item-upload__dropzone {
+  align-items: center;
+  background: var(--color-semantic-text-on-error, #ffffff);
+  border: 1px dashed var(--color-semantic-border-info, #a3b7fd);
+  border-radius: var(--mbbiz-radius-md, 4px);
+  box-sizing: border-box;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  min-height: 76px;
+  padding: 12px;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease;
+  width: 100%;
+}
+
+.mbbiz-item-upload--drag-active .mbbiz-item-upload__dropzone {
+  border-color: var(--color-semantic-hyperlink-default, #141ed2);
+}
+
+.mbbiz-item-upload--error .mbbiz-item-upload__dropzone {
+  border-color: var(--color-semantic-border-error1, #f00000);
+}
+
+.mbbiz-item-upload--disabled .mbbiz-item-upload__dropzone {
+  background: var(--color-semantic-background-disable3, #f3f3f3);
+  border-color: var(--color-semantic-border-disable2, #cccccc);
+}
+
+.mbbiz-item-upload__illustration {
+  display: block;
+  flex: 0 0 52px;
+  height: 52px;
+  object-fit: contain;
+  width: 52px;
+}
+
+.mbbiz-item-upload--disabled .mbbiz-item-upload__illustration {
+  opacity: 0.45;
+}
+
+.mbbiz-item-upload__body {
+  align-items: flex-start;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  min-width: 0;
+}
+
+.mbbiz-item-upload__guide {
+  @include typo.mbbiz-typo-body-normal-14-regular;
+  color: var(--color-semantic-text-secondary, #6d83a7);
+  width: 100%;
+}
+
+.mbbiz-item-upload__actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mbbiz-item-upload__link {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--color-semantic-hyperlink-default, #141ed2);
+  cursor: pointer;
+  @include typo.mbbiz-typo-body-underline-14-regular;
+  padding: 2px 0;
+  text-align: left;
+}
+
+.mbbiz-item-upload__link--secondary {
+  @include typo.mbbiz-typo-body-underline-12-regular;
+}
+
+.mbbiz-item-upload__or {
+  @include typo.mbbiz-typo-body-normal-12-regular;
+  color: var(--color-semantic-text-secondary, #6d83a7);
+}
+
+.mbbiz-item-upload__link:disabled {
+  color: var(--color-semantic-hyperlink-disabled, #9b9b9b);
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.mbbiz-item-upload__error-message {
+  align-items: center;
+  color: var(--color-semantic-text-error, #f34343);
+  display: flex;
+  @include typo.mbbiz-typo-body-normal-14-regular;
+  gap: 4px;
+  min-height: 20px;
+}
+
+.mbbiz-item-upload__error-icon {
+  color: var(--color-semantic-icon-error, #f00000);
+  display: inline-flex;
+  flex: 0 0 20px;
+  height: 20px;
+  width: 20px;
+}

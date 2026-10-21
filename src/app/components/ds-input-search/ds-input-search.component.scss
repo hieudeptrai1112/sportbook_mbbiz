@@ -6,7 +6,7 @@
 .ds-input-search {
   align-items: center;
   background: var(--color-semantic-background-primary, #ffffff);
-  border: 1px solid var(--color-semantic-border-brand-primary3, #a3b7fd);
+  border: 1px solid var(--color-semantic-border-info, #a3b7fd);
   border-radius: var(--ds-input-search-radius-default, 4px);
   box-sizing: border-box;
   color: var(--color-semantic-text-tertiary, #9bafc8);
@@ -40,7 +40,7 @@
   outline: none;
   background: transparent;
   color: inherit;
-  caret-color: var(--color-semantic-text-brand-tertiary2, #52dddd);
+  caret-color: var(--color-semantic-text-active, #52dddd);
   font: inherit;
   letter-spacing: inherit;
   line-height: inherit;
@@ -81,7 +81,7 @@
 }
 
 .ds-input-search__cursor {
-  color: var(--color-semantic-text-brand-tertiary2, #52dddd);
+  color: var(--color-semantic-text-active, #52dddd);
 }
 
 .ds-input-search__icon {
@@ -96,19 +96,16 @@
   padding: 0;
 }
 
-.ds-input-search__icon svg {
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
 .ds-input-search__icon--clear {
   height: var(--ds-input-search-iconsize-clear, 20px);
   width: var(--ds-input-search-iconsize-clear, 20px);
 }
 
 .ds-input-search__icon--clear svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   stroke-width: 1.8;
 }
 
@@ -117,27 +114,23 @@
   width: var(--ds-input-search-iconsize-search, 24px);
 }
 
-.ds-input-search__icon--search svg {
-  stroke-width: 1.9;
-}
-
 button.ds-input-search__icon {
   cursor: pointer;
 }
 
 .ds-input-search--state-default {
-  border-color: var(--color-semantic-border-brand-primary3, #a3b7fd);
+  border-color: var(--color-semantic-border-info, #a3b7fd);
   color: var(--color-semantic-text-tertiary, #9bafc8);
 }
 
 .ds-input-search--state-hover,
 .ds-input-search--state-focus,
 .ds-input-search--state-typing {
-  border-color: var(--color-semantic-border-brand-tertiary, #52dddd);
+  border-color: var(--color-semantic-border-active, #52dddd);
 }
 
 .ds-input-search--state-filled {
-  border-color: var(--color-semantic-border-brand-primary3, #a3b7fd);
+  border-color: var(--color-semantic-border-info, #a3b7fd);
 }
 
 .ds-input-search--state-typing,
@@ -151,12 +144,16 @@ button.ds-input-search__icon {
 .ds-input-search--state-error,
 .ds-input-search--state-error-typing,
 .ds-input-search--state-error-filled {
-  border-color: var(--color-semantic-border-error2, #f34343);
+  border-color: var(--color-semantic-border-error1, #f00000);
 }
 
 .ds-input-search--state-disabled {
   border-color: var(--color-semantic-background-disable1, #cccccc);
   color: var(--color-semantic-text-disable1, #808080);
+}
+
+.ds-input-search--state-disabled .ds-input-search__icon {
+  color: var(--color-semantic-icon-disable1, #808080);
 }
 
 @media (max-width: 760px) {

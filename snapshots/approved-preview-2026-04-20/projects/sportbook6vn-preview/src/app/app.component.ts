@@ -1,49 +1,49 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewEncapsulation, signal } from '@angular/core';
 import {
-  Sportbook6vnAffixLabelInputComponent,
-  Sportbook6vnButtonComponent,
-  Sportbook6vnCheckboxComponent,
-  Sportbook6vnCheckboxGroupComponent,
-  Sportbook6vnDropdownComponent,
-  Sportbook6vnDropdownTagComponent,
-  Sportbook6vnFloatingLabelInputComponent,
-  Sportbook6vnInputComponent,
-  Sportbook6vnInputTagComponent,
-  Sportbook6vnInputTagValue,
-  Sportbook6vnModalComponent,
-  Sportbook6vnPasswordInputComponent,
-  Sportbook6vnRadioComponent,
-  Sportbook6vnRadioGroupComponent,
-  Sportbook6vnSearchInputComponent,
-  Sportbook6vnTextareaComponent,
-} from 'sportbook6vn';
+  MbbizAffixLabelInputComponent,
+  MbbizButtonComponent,
+  MbbizCheckboxComponent,
+  MbbizCheckboxGroupComponent,
+  MbbizDropdownComponent,
+  MbbizDropdownTagComponent,
+  MbbizFloatingLabelInputComponent,
+  MbbizInputComponent,
+  MbbizInputTagComponent,
+  MbbizInputTagValue,
+  MbbizModalComponent,
+  MbbizPasswordInputComponent,
+  MbbizRadioComponent,
+  MbbizRadioGroupComponent,
+  MbbizSearchInputComponent,
+  MbbizTextareaComponent,
+} from 'mbbiz';
 
 @Component({
-  selector: 'sportbook6vn-preview-root',
+  selector: 'mbbiz-preview-root',
   imports: [
     CommonModule,
-    Sportbook6vnAffixLabelInputComponent,
-    Sportbook6vnButtonComponent,
-    Sportbook6vnCheckboxComponent,
-    Sportbook6vnCheckboxGroupComponent,
-    Sportbook6vnDropdownComponent,
-    Sportbook6vnDropdownTagComponent,
-    Sportbook6vnFloatingLabelInputComponent,
-    Sportbook6vnInputComponent,
-    Sportbook6vnInputTagComponent,
-    Sportbook6vnModalComponent,
-    Sportbook6vnPasswordInputComponent,
-    Sportbook6vnRadioComponent,
-    Sportbook6vnRadioGroupComponent,
-    Sportbook6vnSearchInputComponent,
-    Sportbook6vnTextareaComponent,
+    MbbizAffixLabelInputComponent,
+    MbbizButtonComponent,
+    MbbizCheckboxComponent,
+    MbbizCheckboxGroupComponent,
+    MbbizDropdownComponent,
+    MbbizDropdownTagComponent,
+    MbbizFloatingLabelInputComponent,
+    MbbizInputComponent,
+    MbbizInputTagComponent,
+    MbbizModalComponent,
+    MbbizPasswordInputComponent,
+    MbbizRadioComponent,
+    MbbizRadioGroupComponent,
+    MbbizSearchInputComponent,
+    MbbizTextareaComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class Sportbook6vnPreviewAppComponent {
+export class MbbizPreviewAppComponent {
   protected readonly checkboxGroupOptions = [
     { label: 'A', value: 'a' },
     { label: 'B', value: 'b' },
@@ -84,20 +84,20 @@ export class Sportbook6vnPreviewAppComponent {
   protected readonly affixPreviewPrefixValue = signal<string | null>(null);
   protected readonly affixPreviewOpenAffix = signal<'prefix' | 'suffix' | null>('prefix');
   protected readonly inputTagValue = signal('');
-  protected readonly inputTagTags = signal<Sportbook6vnInputTagValue[]>([]);
+  protected readonly inputTagTags = signal<MbbizInputTagValue[]>([]);
   protected readonly inputTagObjectValue = signal('');
-  protected readonly inputTagObjectTags = signal<Sportbook6vnInputTagValue[]>([
+  protected readonly inputTagObjectTags = signal<MbbizInputTagValue[]>([
     { value: 'usd', label: 'USD' },
     { value: 'eur', label: 'EUR' },
   ]);
-  protected readonly inputTagOverflowTags = signal<Sportbook6vnInputTagValue[]>([
+  protected readonly inputTagOverflowTags = signal<MbbizInputTagValue[]>([
     'alpha',
     'beta',
     'gamma',
     'delta',
     'epsilon',
   ]);
-  protected readonly inputTagResponsiveTags = signal<Sportbook6vnInputTagValue[]>([
+  protected readonly inputTagResponsiveTags = signal<MbbizInputTagValue[]>([
     'label 1',
     'label 2',
     'label 3',
@@ -105,9 +105,9 @@ export class Sportbook6vnPreviewAppComponent {
     'label 5',
   ]);
   protected readonly inputTagTokenValue = signal('');
-  protected readonly inputTagTokenTags = signal<Sportbook6vnInputTagValue[]>([]);
+  protected readonly inputTagTokenTags = signal<MbbizInputTagValue[]>([]);
   protected readonly inputTagValidatedValue = signal('');
-  protected readonly inputTagValidatedTags = signal<Sportbook6vnInputTagValue[]>([]);
+  protected readonly inputTagValidatedTags = signal<MbbizInputTagValue[]>([]);
   protected readonly checkboxGroupValues = signal<(string | number)[]>(['a']);
   protected readonly checkboxGroupVerticalValues = signal<(string | number)[]>(['a']);
   protected readonly radioGroupValue = signal<string | number | null>('a');
@@ -149,7 +149,7 @@ export class Sportbook6vnPreviewAppComponent {
     this.inputTagValue.set(value);
   }
 
-  protected setInputTagTags(value: Sportbook6vnInputTagValue[]) {
+  protected setInputTagTags(value: MbbizInputTagValue[]) {
     this.inputTagTags.set(value);
   }
 
@@ -157,7 +157,7 @@ export class Sportbook6vnPreviewAppComponent {
     this.inputTagObjectValue.set(value);
   }
 
-  protected setInputTagObjectTags(value: Sportbook6vnInputTagValue[]) {
+  protected setInputTagObjectTags(value: MbbizInputTagValue[]) {
     this.inputTagObjectTags.set(value);
   }
 
@@ -165,7 +165,7 @@ export class Sportbook6vnPreviewAppComponent {
     this.inputTagTokenValue.set(value);
   }
 
-  protected setInputTagTokenTags(value: Sportbook6vnInputTagValue[]) {
+  protected setInputTagTokenTags(value: MbbizInputTagValue[]) {
     this.inputTagTokenTags.set(value);
   }
 
@@ -173,7 +173,7 @@ export class Sportbook6vnPreviewAppComponent {
     this.inputTagValidatedValue.set(value);
   }
 
-  protected setInputTagValidatedTags(value: Sportbook6vnInputTagValue[]) {
+  protected setInputTagValidatedTags(value: MbbizInputTagValue[]) {
     this.inputTagValidatedTags.set(value);
   }
 
@@ -209,7 +209,7 @@ export class Sportbook6vnPreviewAppComponent {
     };
   };
 
-  protected readonly inputTagEmailValidate = (inputValue: string, tags: readonly Sportbook6vnInputTagValue[]) => {
+  protected readonly inputTagEmailValidate = (inputValue: string, tags: readonly MbbizInputTagValue[]) => {
     const candidate = inputValue.trim().toLowerCase();
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate);
     const duplicated = tags.some((tag) => {

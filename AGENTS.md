@@ -4,7 +4,7 @@ do not reference any fake stories or examples that would mislead a reader
 
 ## Preview App
 
-- When the user says `preview app`, understand this as the `sportbook6vn` preview app.
+- When the user says `preview app`, understand this as the `mbbiz` preview app.
 - The preview app is where component cases are split, adjusted, and reviewed before mapping into docs/app.
 
 ## Important User Skills
@@ -14,7 +14,7 @@ do not reference any fake stories or examples that would mislead a reader
 - Trigger: `tạo + <component name>`.
 - Read the Figma node(s) the user sends.
 - Refer to NG-Zorro code and Arco/NG-Zorro case organization.
-- Implement the component on the `sportbook6vn` preview app.
+- Implement the component on the `mbbiz` preview app.
 
 ### tao-copy
 
@@ -38,7 +38,7 @@ do not reference any fake stories or examples that would mislead a reader
 ### pattern
 
 - Trigger: `pattern + <component/pattern name>`.
-- Create or extend a tab under Pattern in the `sportbook6vn` preview app.
+- Create or extend a tab under Pattern in the `mbbiz` preview app.
 - Render the preview page with the same page structure used by other component pages:
   - page header
   - title
@@ -47,7 +47,7 @@ do not reference any fake stories or examples that would mislead a reader
   - demo card/frame
 - Do not generate snippet code, API docs, or token docs during the first pattern mapping pass unless the user explicitly asks.
 - Read the exact Figma node(s) first. Do not estimate spacing, size, or overlay behavior from screenshots alone.
-- Reuse existing Sportbook6vn components that the pattern depends on. Do not redraw a dependency if the component already exists.
+- Reuse existing Mbbiz components that the pattern depends on. Do not redraw a dependency if the component already exists.
 - If the pattern contains overlay UI such as dropdown, droplist, or popover, place it according to the product context shown in Figma:
   - footer/bottom-page patterns must open upward when the node shows an upward menu
   - the preview frame must reserve enough visible area to show the full overlay
@@ -64,7 +64,7 @@ do not reference any fake stories or examples that would mislead a reader
 
 - Trigger: `token + <component name>`, for example `token button`.
 - Use the skill draft at `docs/skills/thay-token/SKILL.md`.
-- Use this when replacing, updating, adding, or remapping alias/component tokens for an existing Sportbook6vn component.
+- Use this when replacing, updating, adding, or remapping alias/component tokens for an existing Mbbiz component.
 - Treat Figma alias tokens as the source of truth. Do not edit primitive/global tokens unless the user explicitly asks.
 - Before editing, audit token usage with `rg` and identify blast radius across runtime library CSS, preview/docs demo CSS, and token docs.
 - Never change a shared token variable before checking every selector and component case that uses it.
@@ -72,4 +72,4 @@ do not reference any fake stories or examples that would mislead a reader
 - Role must match use: `background/*`, `text/*`, `icon/*`, and `border/*`.
 - If only one shape/variant changes, use shape/state-specific selectors or component-scoped tokens so unrelated variants are not affected.
 - Runtime CSS, docs/demo CSS, and color/component token tables must stay in sync.
-- Validate with the smallest relevant checks, normally `npm run build:sportbook6vn`, `npm run build`, and `npm run test:sportbook6vn -- --watch=false` when shared component CSS changed.
+- Validate with the smallest relevant checks, normally `npm run build:mbbiz`, `npm run build`, and `npm run test:mbbiz -- --watch=false` when shared component CSS changed.

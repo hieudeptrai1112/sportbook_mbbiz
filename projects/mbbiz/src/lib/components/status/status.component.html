@@ -1,0 +1,10 @@
+<span [class]="wrapperClass()">
+  <span class="mbbiz-status__content">
+    <span class="mbbiz-status__dot" aria-hidden="true"></span>
+    <span class="mbbiz-status__label">{{ resolvedConfig().label }}</span>
+  </span>
+
+  @if (showDescription()) {
+    <span class="mbbiz-status__description">{{ description() }}</span>
+  }
+</span>

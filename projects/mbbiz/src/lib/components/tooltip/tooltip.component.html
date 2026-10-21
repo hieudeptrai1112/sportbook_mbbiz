@@ -1,0 +1,20 @@
+<span
+  class="mbbiz-tooltip-host"
+  [class.mbbiz-tooltip-host--trigger]="trigger()"
+  (mouseenter)="onEnter()"
+  (mouseleave)="onLeave()"
+>
+  <span class="mbbiz-tooltip-trigger">
+    <ng-content />
+  </span>
+  @if (visible()) {
+    <span
+      [class]="tooltipClass()"
+      role="tooltip"
+      [attr.aria-label]="resolvedAriaLabel()"
+    >
+      <span class="mbbiz-tooltip__arrow" aria-hidden="true"></span>
+      <span class="mbbiz-tooltip__body">{{ text() }}</span>
+    </span>
+  }
+</span>

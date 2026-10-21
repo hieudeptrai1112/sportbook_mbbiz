@@ -1,0 +1,75 @@
+:host {
+  --mbbiz-avatar-size: 50px;
+  --mbbiz-avatar-fill: #cad8ff;
+  --mbbiz-avatar-border: #89a1f6;
+  --mbbiz-avatar-shadow: 0 2px 6px 0 rgb(30 93 252 / 15%);
+  --mbbiz-avatar-text: var(--color-semantic-icon-brand-primary1, #141ed2);
+  --mbbiz-avatar-radius: 10000px;
+
+  display: inline-flex;
+  flex-shrink: 0;
+  height: var(--mbbiz-avatar-size);
+  vertical-align: top;
+  width: var(--mbbiz-avatar-size);
+}
+
+:host(.mbbiz-avatar--square) {
+  --mbbiz-avatar-radius: var(--mbbiz-radius-md, 4px);
+}
+
+.mbbiz-avatar__canvas {
+  background: var(--mbbiz-avatar-fill);
+  border: 1px solid var(--mbbiz-avatar-border);
+  border-radius: var(--mbbiz-avatar-radius);
+  box-shadow: var(--mbbiz-avatar-shadow);
+  box-sizing: border-box;
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+  transform: scale(calc(var(--mbbiz-avatar-size) / 50px));
+  transform-origin: top left;
+  width: 50px;
+}
+
+.mbbiz-avatar__image {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.mbbiz-avatar__icon {
+  color: var(--mbbiz-avatar-text);
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mbbiz-avatar__text {
+  color: var(--mbbiz-avatar-text);
+  font-family: var(--mbbiz-font-family, "Averta Std CY", "Inter", sans-serif);
+  font-size: 18px;
+  font-weight: 600;
+  left: 50%;
+  letter-spacing: 0.25px;
+  line-height: 1;
+  position: absolute;
+  top: 50%;
+  transform-origin: center;
+  white-space: nowrap;
+}
+
+.mbbiz-avatar__mark {
+  display: block;
+  height: 43.6646px;
+  left: calc(16% - 0.68px);
+  pointer-events: none;
+  position: absolute;
+  top: calc(14% - 0.72px);
+  width: 35px;
+}
+
+.mbbiz-avatar__mark :is(svg) {
+  display: block;
+}

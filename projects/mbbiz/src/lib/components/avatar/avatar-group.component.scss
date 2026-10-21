@@ -1,0 +1,8 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+}
+
+:host ::ng-deep mbbiz-avatar + mbbiz-avatar {
+  margin-left: calc(var(--mbbiz-avatar-group-overlap, 8px) * -1);
+}

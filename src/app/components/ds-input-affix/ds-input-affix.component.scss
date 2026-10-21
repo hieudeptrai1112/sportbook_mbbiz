@@ -6,7 +6,7 @@
 .ds-input-affix {
   align-items: center;
   background: var(--color-semantic-background-primary, #ffffff);
-  border: 1px solid var(--color-semantic-border-brand-primary3, #a3b7fd);
+  border: 1px solid var(--color-semantic-border-info, #a3b7fd);
   border-radius: var(--ds-input-affix-radius-default, 4px);
   box-sizing: border-box;
   color: var(--color-semantic-text-tertiary, #9bafc8);
@@ -48,7 +48,7 @@
   outline: none;
   background: transparent;
   color: inherit;
-  caret-color: var(--color-semantic-text-brand-tertiary2, #52dddd);
+  caret-color: var(--color-semantic-text-active, #52dddd);
   font: inherit;
   letter-spacing: inherit;
   line-height: inherit;
@@ -92,7 +92,7 @@
 }
 
 .ds-input-affix__cursor {
-  color: var(--color-semantic-text-brand-tertiary2, #52dddd);
+  color: var(--color-semantic-text-active, #52dddd);
 }
 
 .ds-input-affix__icon {
@@ -109,41 +109,19 @@
   color: var(--color-semantic-icon-disable1, #808080);
 }
 
-.ds-input-affix__icon svg {
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.ds-input-affix__icon-book path,
-.ds-input-affix__icon-info path,
-.ds-input-affix__icon-info circle {
-  vector-effect: non-scaling-stroke;
-}
-
-.ds-input-affix__icon-book path,
-.ds-input-affix__icon-info path {
-  stroke-width: 1.8;
-}
-
-.ds-input-affix__icon-info circle {
-  stroke-width: 1.6;
-}
-
 .ds-input-affix--state-default {
-  border-color: var(--color-semantic-border-brand-primary3, #a3b7fd);
+  border-color: var(--color-semantic-border-info, #a3b7fd);
   color: var(--color-semantic-text-tertiary, #9bafc8);
 }
 
 .ds-input-affix--state-hover,
 .ds-input-affix--state-focus,
 .ds-input-affix--state-typing {
-  border-color: var(--color-semantic-border-brand-tertiary, #52dddd);
+  border-color: var(--color-semantic-border-active, #52dddd);
 }
 
 .ds-input-affix--state-filled {
-  border-color: var(--color-semantic-border-brand-primary3, #a3b7fd);
+  border-color: var(--color-semantic-border-info, #a3b7fd);
 }
 
 .ds-input-affix--state-typing,
@@ -156,7 +134,7 @@
 .ds-input-affix--state-error,
 .ds-input-affix--state-error-typing,
 .ds-input-affix--state-error-filled {
-  border-color: var(--color-semantic-border-error2, #f34343);
+  border-color: var(--color-semantic-border-error1, #f00000);
 }
 
 .ds-input-affix--state-disabled {

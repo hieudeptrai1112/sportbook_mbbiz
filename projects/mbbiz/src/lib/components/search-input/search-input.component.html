@@ -1,0 +1,31 @@
+<div [class]="wrapperClass()">
+  <div class="mbbiz-search-input__content">
+    <input
+      class="mbbiz-search-input__native"
+      [attr.id]="inputId()"
+      [attr.placeholder]="placeholder()"
+      [disabled]="disabled()"
+      [value]="value()"
+      (input)="onInput($event)"
+      (keydown)="onKeydown($event)"
+    />
+  </div>
+
+  @if (showClear()) {
+    <button
+      type="button"
+      class="mbbiz-search-input__icon mbbiz-search-input__icon--clear"
+      aria-label="Clear search value"
+      (click)="clear()"
+    >
+      <svg viewBox="0 0 20 20" aria-hidden="true">
+        <path d="M6 6L14 14" />
+        <path d="M14 6L6 14" />
+      </svg>
+    </button>
+  }
+
+  <span class="mbbiz-search-input__icon mbbiz-search-input__icon--search" aria-hidden="true">
+    <mbiz-icon name="alinear_search" size="m" />
+  </span>
+</div>

@@ -37,6 +37,15 @@ export const RADIUS_SCALE_ROWS: NumericScaleRow[] = [
   { alias: 'radius/round', proposed: 'semantic/radius/full', primitive: 'spacing/999', value: '999px' },
 ];
 
+export const ICON_SIZE_SCALE_ROWS: NumericScaleRow[] = [
+  { alias: 'iconsize/xs', proposed: 'semantic/icon-size/xs', primitive: 'spacing/16', value: '16px' },
+  { alias: 'iconsize/s', proposed: 'semantic/icon-size/s', primitive: 'spacing/20', value: '20px' },
+  { alias: 'iconsize/m', proposed: 'semantic/icon-size/m', primitive: 'spacing/24', value: '24px' },
+  { alias: 'iconsize/l', proposed: 'semantic/icon-size/l', primitive: 'spacing/28', value: '28px' },
+  { alias: 'iconsize/xl', proposed: 'semantic/icon-size/xl', primitive: 'spacing/32', value: '32px' },
+  { alias: 'iconsize/2xl', proposed: 'semantic/icon-size/2xl', primitive: 'spacing/40', value: '40px' },
+];
+
 export const TYPOGRAPHY_SCALE_GROUPS: TypographyScaleGroup[] = [
   {
     title: 'Font Size',

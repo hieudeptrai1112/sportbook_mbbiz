@@ -1,53 +1,53 @@
-<div class="sportbook6vn-preview-page">
-  <header class="sportbook6vn-preview-hero">
+<div class="mbbiz-preview-page">
+  <header class="mbbiz-preview-hero">
     <div>
-      <p class="sportbook6vn-preview-eyebrow">Sportbook6vn Preview App</p>
+      <p class="mbbiz-preview-eyebrow">Mbbiz Preview App</p>
       <h1>Wrapper preview for the new library</h1>
-      <p class="sportbook6vn-preview-copy">
+      <p class="mbbiz-preview-copy">
         This preview app is isolated from the current docs app. It only shows wrappers that already have Figma
         node IDs confirmed for implementation review.
       </p>
     </div>
   </header>
 
-  <section class="sportbook6vn-preview-section">
-    <div class="sportbook6vn-preview-section-heading">
+  <section class="mbbiz-preview-section">
+    <div class="mbbiz-preview-section-heading">
       <h2>Input family</h2>
       <p>These wrappers are aligned to the Figma input nodes already reviewed.</p>
     </div>
 
-    <div class="sportbook6vn-preview-grid">
-      <article class="sportbook6vn-preview-card">
+    <div class="mbbiz-preview-grid">
+      <article class="mbbiz-preview-card">
         <h3>Basic input</h3>
-        <div class="sportbook6vn-preview-input-state-strip">
-          <sportbook6vn-input
+        <div class="mbbiz-preview-input-state-strip">
+          <mbbiz-input
             inputId="preview-basic-input-default"
             placeholder="Input text"
           />
 
-          <sportbook6vn-input
+          <mbbiz-input
             inputId="preview-basic-input-filled"
             placeholder="Input text"
             value="Input text"
           />
 
-          <sportbook6vn-input
+          <mbbiz-input
             inputId="preview-basic-input-with-affix"
             placeholder="Input text"
             [value]="basicInputValue()"
             (valueChange)="setBasicInputValue($event)"
           >
-            <span sportbook6vnInputPrefix>₫</span>
-            <span sportbook6vnInputSuffix>VND</span>
-          </sportbook6vn-input>
+            <span mbbizInputPrefix>₫</span>
+            <span mbbizInputSuffix>VND</span>
+          </mbbiz-input>
 
-          <sportbook6vn-input
+          <mbbiz-input
             inputId="preview-basic-input-error"
             placeholder="Input text"
             status="error"
           />
 
-          <sportbook6vn-input
+          <mbbiz-input
             inputId="preview-basic-input-disabled"
             placeholder="Input text"
             [disabled]="true"
@@ -55,24 +55,24 @@
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Search input</h3>
-        <div class="sportbook6vn-preview-input-state-strip">
-          <sportbook6vn-search-input
+        <div class="mbbiz-preview-input-state-strip">
+          <mbbiz-search-input
             inputId="preview-search-input-interactive"
             placeholder="Input text"
             [value]="searchValue()"
             (valueChange)="setSearchValue($event)"
           />
 
-          <sportbook6vn-search-input
+          <mbbiz-search-input
             inputId="preview-search-input-error"
             placeholder="Input text"
             status="error"
             value="Input text"
           />
 
-          <sportbook6vn-search-input
+          <mbbiz-search-input
             inputId="preview-search-input-disabled"
             placeholder="Input text"
             value="Input text"
@@ -81,22 +81,22 @@
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Password input</h3>
-        <div class="sportbook6vn-preview-input-state-strip">
-          <sportbook6vn-password-input
+        <div class="mbbiz-preview-input-state-strip">
+          <mbbiz-password-input
             inputId="preview-password-input-default"
             label="Title"
           />
 
-          <sportbook6vn-password-input
+          <mbbiz-password-input
             inputId="preview-password-input-typing"
             label="Title"
             [value]="passwordTypingValue()"
             (valueChange)="setPasswordTypingValue($event)"
           />
 
-          <sportbook6vn-password-input
+          <mbbiz-password-input
             inputId="preview-password-input-visible"
             label="Title"
             [value]="passwordValue()"
@@ -105,14 +105,14 @@
             (visibleChange)="setPasswordVisible($event)"
           />
 
-          <sportbook6vn-password-input
+          <mbbiz-password-input
             inputId="preview-password-input-error"
             label="Title"
             status="error"
             value="hidden-value"
           />
 
-          <sportbook6vn-password-input
+          <mbbiz-password-input
             inputId="preview-password-input-disabled"
             label="Title"
             value="hidden-value"
@@ -121,17 +121,17 @@
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Textarea</h3>
-        <div class="sportbook6vn-preview-input-state-strip">
-          <sportbook6vn-textarea
+        <div class="mbbiz-preview-input-state-strip">
+          <mbbiz-textarea
             textareaId="preview-textarea-default"
             placeholder="Input text"
             [rows]="4"
             [maxLength]="100"
           />
 
-          <sportbook6vn-textarea
+          <mbbiz-textarea
             textareaId="preview-textarea-filled"
             placeholder="Input text"
             [rows]="4"
@@ -139,7 +139,7 @@
             value="Input text"
           />
 
-          <sportbook6vn-textarea
+          <mbbiz-textarea
             textareaId="preview-textarea-typing"
             placeholder="Input text"
             [rows]="4"
@@ -148,7 +148,7 @@
             (valueChange)="setTextareaValue($event)"
           />
 
-          <sportbook6vn-textarea
+          <mbbiz-textarea
             textareaId="preview-textarea-error"
             placeholder="Input text"
             [rows]="4"
@@ -157,7 +157,7 @@
             value="Input text"
           />
 
-          <sportbook6vn-textarea
+          <mbbiz-textarea
             textareaId="preview-textarea-disabled"
             placeholder="Input text"
             [rows]="4"
@@ -168,23 +168,23 @@
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Floating label input</h3>
-        <div class="sportbook6vn-preview-input-state-strip">
-          <sportbook6vn-floating-label-input
+        <div class="mbbiz-preview-input-state-strip">
+          <mbbiz-floating-label-input
             inputId="preview-floating-label-default"
             label="Title"
             placeholder="Input text"
           />
 
-          <sportbook6vn-floating-label-input
+          <mbbiz-floating-label-input
             inputId="preview-floating-label-filled"
             label="Title"
             placeholder="Input text"
             value="Input text"
           />
 
-          <sportbook6vn-floating-label-input
+          <mbbiz-floating-label-input
             inputId="preview-floating-label-error"
             label="Title"
             placeholder="Input text"
@@ -192,7 +192,7 @@
             value="Input text"
           />
 
-          <sportbook6vn-floating-label-input
+          <mbbiz-floating-label-input
             inputId="preview-floating-label-disabled"
             label="Title"
             placeholder="Input text"
@@ -202,10 +202,10 @@
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Affix label input</h3>
-        <div class="sportbook6vn-preview-input-state-strip">
-          <sportbook6vn-affix-label-input
+        <div class="mbbiz-preview-input-state-strip">
+          <mbbiz-affix-label-input
             inputId="preview-affix-label-prefix-dropdown-active"
             placeholder="Input text"
             prefixLabel="Loại tiền"
@@ -216,7 +216,7 @@
             (openAffixChange)="setAffixPreviewOpenAffix($event)"
           />
 
-          <sportbook6vn-affix-label-input
+          <mbbiz-affix-label-input
             inputId="preview-affix-label-suffix-dropdown"
             placeholder="Input text"
             suffixLabel="Loại tiền"
@@ -225,7 +225,7 @@
             value="Input text"
           />
 
-          <sportbook6vn-affix-label-input
+          <mbbiz-affix-label-input
             inputId="preview-affix-label-error-dropdown"
             placeholder="Input text"
             prefixLabel="Loại tiền"
@@ -234,7 +234,7 @@
             value="Input text"
           />
 
-          <sportbook6vn-affix-label-input
+          <mbbiz-affix-label-input
             inputId="preview-affix-label-disabled-dropdown"
             placeholder="Input text"
             prefixLabel="Loại tiền"
@@ -245,12 +245,12 @@
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Input tag</h3>
-        <div class="sportbook6vn-preview-input-state-strip">
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Interactive</span>
-            <sportbook6vn-input-tag
+        <div class="mbbiz-preview-input-state-strip">
+          <div class="mbbiz-preview-variant-stack">
+            <span class="mbbiz-preview-button-row-label">Interactive</span>
+            <mbbiz-input-tag
               inputId="preview-input-tag-interactive"
               placeholder="Input and press Enter"
               [allowClear]="true"
@@ -262,28 +262,28 @@
             />
           </div>
 
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">State Strip</span>
-            <div class="sportbook6vn-preview-input-state-strip">
-              <sportbook6vn-input-tag
+          <div class="mbbiz-preview-variant-stack">
+            <span class="mbbiz-preview-button-row-label">State Strip</span>
+            <div class="mbbiz-preview-input-state-strip">
+              <mbbiz-input-tag
                 inputId="preview-input-tag-default"
                 placeholder="Input text"
               />
 
-              <sportbook6vn-input-tag
+              <mbbiz-input-tag
                 inputId="preview-input-tag-disabled"
                 placeholder="Input text"
                 [disabled]="true"
               />
 
-              <sportbook6vn-input-tag
+              <mbbiz-input-tag
                 inputId="preview-input-tag-filled"
                 placeholder="Input text"
                 [tags]="['name@add', 'name@add']"
                 [showTrailingClear]="true"
               />
 
-              <sportbook6vn-input-tag
+              <mbbiz-input-tag
                 inputId="preview-input-tag-error"
                 placeholder="Input text"
                 [tags]="['name@']"
@@ -294,17 +294,17 @@
             </div>
           </div>
 
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">MaxTagCount</span>
-            <div class="sportbook6vn-preview-input-tag-pair sportbook6vn-preview-input-tag-pair--arco">
-              <sportbook6vn-input-tag
+          <div class="mbbiz-preview-variant-stack">
+            <span class="mbbiz-preview-button-row-label">MaxTagCount</span>
+            <div class="mbbiz-preview-input-tag-pair mbbiz-preview-input-tag-pair--arco">
+              <mbbiz-input-tag
                 inputId="preview-input-tag-max-tag-count-default"
                 placeholder=""
                 [tags]="['1', '2', '3', '4', '5']"
                 [maxTagCount]="3"
               />
 
-              <sportbook6vn-input-tag
+              <mbbiz-input-tag
                 inputId="preview-input-tag-max-tag-count-custom"
                 placeholder=""
                 [tags]="['11', '22', '33', '4', '55']"
@@ -313,17 +313,17 @@
             </div>
           </div>
 
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Responsive Tags</span>
-            <div class="sportbook6vn-preview-input-tag-pair sportbook6vn-preview-input-tag-pair--arco">
-              <sportbook6vn-input-tag
+          <div class="mbbiz-preview-variant-stack">
+            <span class="mbbiz-preview-button-row-label">Responsive Tags</span>
+            <div class="mbbiz-preview-input-tag-pair mbbiz-preview-input-tag-pair--arco">
+              <mbbiz-input-tag
                 inputId="preview-input-tag-responsive-default"
                 placeholder=""
                 [tags]="inputTagResponsiveTags()"
                 maxTagCount="responsive"
               />
 
-              <sportbook6vn-input-tag
+              <mbbiz-input-tag
                 inputId="preview-input-tag-responsive-custom"
                 placeholder=""
                 [tags]="inputTagResponsiveTags()"
@@ -332,9 +332,9 @@
             </div>
           </div>
 
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Label In Value</span>
-            <sportbook6vn-input-tag
+          <div class="mbbiz-preview-variant-stack">
+            <span class="mbbiz-preview-button-row-label">Label In Value</span>
+            <mbbiz-input-tag
               inputId="preview-input-tag-label-in-value"
               placeholder="Input and press Enter"
               [allowClear]="true"
@@ -346,9 +346,9 @@
             />
           </div>
 
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Render Tag</span>
-            <sportbook6vn-input-tag
+          <div class="mbbiz-preview-variant-stack">
+            <span class="mbbiz-preview-button-row-label">Render Tag</span>
+            <mbbiz-input-tag
               inputId="preview-input-tag-render-tag"
               placeholder="Color tags"
               [allowClear]="true"
@@ -357,9 +357,9 @@
             />
           </div>
 
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Token Separator</span>
-            <sportbook6vn-input-tag
+          <div class="mbbiz-preview-variant-stack">
+            <span class="mbbiz-preview-button-row-label">Token Separator</span>
+            <mbbiz-input-tag
               inputId="preview-input-tag-token-separator"
               placeholder="Paste: alpha,beta|gamma"
               [allowClear]="true"
@@ -371,9 +371,9 @@
             />
           </div>
 
-          <div class="sportbook6vn-preview-variant-stack">
-            <span class="sportbook6vn-preview-button-row-label">Validate Email</span>
-            <sportbook6vn-input-tag
+          <div class="mbbiz-preview-variant-stack">
+            <span class="mbbiz-preview-button-row-label">Validate Email</span>
+            <mbbiz-input-tag
               inputId="preview-input-tag-validate-email"
               placeholder="Input email and press Enter"
               [allowClear]="true"
@@ -390,36 +390,36 @@
     </div>
   </section>
 
-  <section class="sportbook6vn-preview-section">
-    <div class="sportbook6vn-preview-section-heading">
+  <section class="mbbiz-preview-section">
+    <div class="mbbiz-preview-section-heading">
       <h2>Selection controls</h2>
       <p>Aligned to Figma nodes <code>3800:179128</code> for checkbox and <code>3800:178451</code> for radio.</p>
     </div>
 
-    <div class="sportbook6vn-preview-grid">
-      <article class="sportbook6vn-preview-card">
+    <div class="mbbiz-preview-grid">
+      <article class="mbbiz-preview-card">
         <h3>Checkbox</h3>
-        <div class="sportbook6vn-preview-control-matrix">
-          <div class="sportbook6vn-preview-control-matrix__row">
-            <span class="sportbook6vn-preview-control-matrix__label">Basic</span>
-            <div class="sportbook6vn-preview-control-matrix__items">
-              <sportbook6vn-checkbox label="Checkbox" />
-              <sportbook6vn-checkbox label="Disabled Checkbox" [disabled]="true" />
+        <div class="mbbiz-preview-control-matrix">
+          <div class="mbbiz-preview-control-matrix__row">
+            <span class="mbbiz-preview-control-matrix__label">Basic</span>
+            <div class="mbbiz-preview-control-matrix__items">
+              <mbbiz-checkbox label="Checkbox" />
+              <mbbiz-checkbox label="Disabled Checkbox" [disabled]="true" />
             </div>
           </div>
 
-          <div class="sportbook6vn-preview-control-matrix__row">
-            <span class="sportbook6vn-preview-control-matrix__label">Checkbox group</span>
-            <sportbook6vn-checkbox-group
+          <div class="mbbiz-preview-control-matrix__row">
+            <span class="mbbiz-preview-control-matrix__label">Checkbox group</span>
+            <mbbiz-checkbox-group
               [options]="checkboxGroupOptions"
               [value]="checkboxGroupValues()"
               (valueChange)="setCheckboxGroupValues($event)"
             />
           </div>
 
-          <div class="sportbook6vn-preview-control-matrix__row">
-            <span class="sportbook6vn-preview-control-matrix__label">Vertical checkbox group</span>
-            <sportbook6vn-checkbox-group
+          <div class="mbbiz-preview-control-matrix__row">
+            <span class="mbbiz-preview-control-matrix__label">Vertical checkbox group</span>
+            <mbbiz-checkbox-group
               direction="vertical"
               [options]="checkboxGroupOptions"
               [value]="checkboxGroupVerticalValues()"
@@ -429,20 +429,20 @@
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Radio</h3>
-        <div class="sportbook6vn-preview-control-matrix">
-          <div class="sportbook6vn-preview-control-matrix__row">
-            <span class="sportbook6vn-preview-control-matrix__label">Basic</span>
-            <div class="sportbook6vn-preview-control-matrix__items">
-              <sportbook6vn-radio label="Radio" />
-              <sportbook6vn-radio label="Disabled Radio" [disabled]="true" />
+        <div class="mbbiz-preview-control-matrix">
+          <div class="mbbiz-preview-control-matrix__row">
+            <span class="mbbiz-preview-control-matrix__label">Basic</span>
+            <div class="mbbiz-preview-control-matrix__items">
+              <mbbiz-radio label="Radio" />
+              <mbbiz-radio label="Disabled Radio" [disabled]="true" />
             </div>
           </div>
 
-          <div class="sportbook6vn-preview-control-matrix__row">
-            <span class="sportbook6vn-preview-control-matrix__label">Radio group</span>
-            <sportbook6vn-radio-group
+          <div class="mbbiz-preview-control-matrix__row">
+            <span class="mbbiz-preview-control-matrix__label">Radio group</span>
+            <mbbiz-radio-group
               name="preview-radio-group-horizontal"
               [options]="radioGroupOptions"
               [value]="radioGroupValue()"
@@ -450,9 +450,9 @@
             />
           </div>
 
-          <div class="sportbook6vn-preview-control-matrix__row">
-            <span class="sportbook6vn-preview-control-matrix__label">Vertical radio group</span>
-            <sportbook6vn-radio-group
+          <div class="mbbiz-preview-control-matrix__row">
+            <span class="mbbiz-preview-control-matrix__label">Vertical radio group</span>
+            <mbbiz-radio-group
               name="preview-radio-group-vertical"
               direction="vertical"
               [options]="radioGroupOptions"
@@ -465,17 +465,17 @@
     </div>
   </section>
 
-  <section class="sportbook6vn-preview-section">
-    <div class="sportbook6vn-preview-section-heading">
+  <section class="mbbiz-preview-section">
+    <div class="mbbiz-preview-section-heading">
       <h2>Modal family</h2>
       <p>Aligned to Figma node <code>3582:174031</code>. Each card below keeps the same modal shell with variant-specific artwork and CTA stack.</p>
     </div>
 
-    <div class="sportbook6vn-preview-modal-grid">
-      <article class="sportbook6vn-preview-card">
+    <div class="mbbiz-preview-modal-grid">
+      <article class="mbbiz-preview-card">
         <h3>Warning</h3>
-        <div class="sportbook6vn-preview-modal-stage">
-          <sportbook6vn-modal
+        <div class="mbbiz-preview-modal-stage">
+          <mbbiz-modal
             type="warning"
             [showTextLink]="true"
             textLinkLabel="Text Link"
@@ -483,17 +483,17 @@
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Success</h3>
-        <div class="sportbook6vn-preview-modal-stage">
-          <sportbook6vn-modal type="success" />
+        <div class="mbbiz-preview-modal-stage">
+          <mbbiz-modal type="success" />
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Error</h3>
-        <div class="sportbook6vn-preview-modal-stage">
-          <sportbook6vn-modal
+        <div class="mbbiz-preview-modal-stage">
+          <mbbiz-modal
             type="error"
             [showTextLink]="true"
             textLinkLabel="Text Link"
@@ -501,24 +501,24 @@
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Confirm</h3>
-        <div class="sportbook6vn-preview-modal-stage">
-          <sportbook6vn-modal type="confirm" />
+        <div class="mbbiz-preview-modal-stage">
+          <mbbiz-modal type="confirm" />
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Destructive</h3>
-        <div class="sportbook6vn-preview-modal-stage">
-          <sportbook6vn-modal type="destructive" />
+        <div class="mbbiz-preview-modal-stage">
+          <mbbiz-modal type="destructive" />
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Notification</h3>
-        <div class="sportbook6vn-preview-modal-stage">
-          <sportbook6vn-modal
+        <div class="mbbiz-preview-modal-stage">
+          <mbbiz-modal
             type="notification"
             [showPagination]="true"
           />
@@ -527,168 +527,168 @@
     </div>
   </section>
 
-  <section class="sportbook6vn-preview-section">
-    <div class="sportbook6vn-preview-section-heading">
+  <section class="mbbiz-preview-section">
+    <div class="mbbiz-preview-section-heading">
       <h2>Button family</h2>
       <p>Aligned to Figma node <code>18693:412281</code>. Hover and press the enabled buttons to review interactive states.</p>
     </div>
 
-    <div class="sportbook6vn-preview-grid">
-      <article class="sportbook6vn-preview-card">
+    <div class="mbbiz-preview-grid">
+      <article class="mbbiz-preview-card">
         <h3>Rectangle / Primary</h3>
-        <div class="sportbook6vn-preview-button-group">
-          <div class="sportbook6vn-preview-button-row">
-            <span class="sportbook6vn-preview-button-row-label">Default</span>
-            <div class="sportbook6vn-preview-button-row-items">
-              <sportbook6vn-button size="lg">Text</sportbook6vn-button>
-              <sportbook6vn-button size="md">Text</sportbook6vn-button>
-              <sportbook6vn-button size="sm">Text</sportbook6vn-button>
+        <div class="mbbiz-preview-button-group">
+          <div class="mbbiz-preview-button-row">
+            <span class="mbbiz-preview-button-row-label">Default</span>
+            <div class="mbbiz-preview-button-row-items">
+              <mbbiz-button size="lg">Text</mbbiz-button>
+              <mbbiz-button size="md">Text</mbbiz-button>
+              <mbbiz-button size="sm">Text</mbbiz-button>
             </div>
           </div>
-          <div class="sportbook6vn-preview-button-row">
-            <span class="sportbook6vn-preview-button-row-label">With icon</span>
-            <div class="sportbook6vn-preview-button-row-items">
-              <sportbook6vn-button size="lg">
-                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+          <div class="mbbiz-preview-button-row">
+            <span class="mbbiz-preview-button-row-label">With icon</span>
+            <div class="mbbiz-preview-button-row-items">
+              <mbbiz-button size="lg">
+                <span mbbizButtonStartIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
                 Text
-              </sportbook6vn-button>
-              <sportbook6vn-button size="md">
+              </mbbiz-button>
+              <mbbiz-button size="md">
                 Text
-                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
-              </sportbook6vn-button>
-              <sportbook6vn-button size="sm">
-                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+                <span mbbizButtonEndIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
+              </mbbiz-button>
+              <mbbiz-button size="sm">
+                <span mbbizButtonStartIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
                 Text
-                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
-              </sportbook6vn-button>
+                <span mbbizButtonEndIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
+              </mbbiz-button>
             </div>
           </div>
-          <div class="sportbook6vn-preview-button-row">
-            <span class="sportbook6vn-preview-button-row-label">Disabled</span>
-            <div class="sportbook6vn-preview-button-row-items">
-              <sportbook6vn-button size="lg" [disabled]="true">Text</sportbook6vn-button>
-              <sportbook6vn-button size="md" [disabled]="true">Text</sportbook6vn-button>
-              <sportbook6vn-button size="sm" [disabled]="true">Text</sportbook6vn-button>
+          <div class="mbbiz-preview-button-row">
+            <span class="mbbiz-preview-button-row-label">Disabled</span>
+            <div class="mbbiz-preview-button-row-items">
+              <mbbiz-button size="lg" [disabled]="true">Text</mbbiz-button>
+              <mbbiz-button size="md" [disabled]="true">Text</mbbiz-button>
+              <mbbiz-button size="sm" [disabled]="true">Text</mbbiz-button>
             </div>
           </div>
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Rectangle / Secondary</h3>
-        <div class="sportbook6vn-preview-button-group">
-          <div class="sportbook6vn-preview-button-row">
-            <span class="sportbook6vn-preview-button-row-label">Default</span>
-            <div class="sportbook6vn-preview-button-row-items">
-              <sportbook6vn-button variant="secondary" size="lg">Text</sportbook6vn-button>
-              <sportbook6vn-button variant="secondary" size="md">Text</sportbook6vn-button>
-              <sportbook6vn-button variant="secondary" size="sm">Text</sportbook6vn-button>
+        <div class="mbbiz-preview-button-group">
+          <div class="mbbiz-preview-button-row">
+            <span class="mbbiz-preview-button-row-label">Default</span>
+            <div class="mbbiz-preview-button-row-items">
+              <mbbiz-button variant="secondary" size="lg">Text</mbbiz-button>
+              <mbbiz-button variant="secondary" size="md">Text</mbbiz-button>
+              <mbbiz-button variant="secondary" size="sm">Text</mbbiz-button>
             </div>
           </div>
-          <div class="sportbook6vn-preview-button-row">
-            <span class="sportbook6vn-preview-button-row-label">With icon</span>
-            <div class="sportbook6vn-preview-button-row-items">
-              <sportbook6vn-button variant="secondary" size="lg">
-                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+          <div class="mbbiz-preview-button-row">
+            <span class="mbbiz-preview-button-row-label">With icon</span>
+            <div class="mbbiz-preview-button-row-items">
+              <mbbiz-button variant="secondary" size="lg">
+                <span mbbizButtonStartIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
                 Text
-              </sportbook6vn-button>
-              <sportbook6vn-button variant="secondary" size="md">
+              </mbbiz-button>
+              <mbbiz-button variant="secondary" size="md">
                 Text
-                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
-              </sportbook6vn-button>
-              <sportbook6vn-button variant="secondary" size="sm">
-                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+                <span mbbizButtonEndIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
+              </mbbiz-button>
+              <mbbiz-button variant="secondary" size="sm">
+                <span mbbizButtonStartIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
                 Text
-                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
-              </sportbook6vn-button>
+                <span mbbizButtonEndIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
+              </mbbiz-button>
             </div>
           </div>
-          <div class="sportbook6vn-preview-button-row">
-            <span class="sportbook6vn-preview-button-row-label">Disabled</span>
-            <div class="sportbook6vn-preview-button-row-items">
-              <sportbook6vn-button variant="secondary" size="lg" [disabled]="true">Text</sportbook6vn-button>
-              <sportbook6vn-button variant="secondary" size="md" [disabled]="true">Text</sportbook6vn-button>
-              <sportbook6vn-button variant="secondary" size="sm" [disabled]="true">Text</sportbook6vn-button>
+          <div class="mbbiz-preview-button-row">
+            <span class="mbbiz-preview-button-row-label">Disabled</span>
+            <div class="mbbiz-preview-button-row-items">
+              <mbbiz-button variant="secondary" size="lg" [disabled]="true">Text</mbbiz-button>
+              <mbbiz-button variant="secondary" size="md" [disabled]="true">Text</mbbiz-button>
+              <mbbiz-button variant="secondary" size="sm" [disabled]="true">Text</mbbiz-button>
             </div>
           </div>
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Pill / Primary</h3>
-        <div class="sportbook6vn-preview-button-group">
-          <div class="sportbook6vn-preview-button-row">
-            <span class="sportbook6vn-preview-button-row-label">Default</span>
-            <div class="sportbook6vn-preview-button-row-items">
-              <sportbook6vn-button shape="pill" size="lg">Text</sportbook6vn-button>
-              <sportbook6vn-button shape="pill" size="md">Text</sportbook6vn-button>
-              <sportbook6vn-button shape="pill" size="sm">Text</sportbook6vn-button>
+        <div class="mbbiz-preview-button-group">
+          <div class="mbbiz-preview-button-row">
+            <span class="mbbiz-preview-button-row-label">Default</span>
+            <div class="mbbiz-preview-button-row-items">
+              <mbbiz-button shape="pill" size="lg">Text</mbbiz-button>
+              <mbbiz-button shape="pill" size="md">Text</mbbiz-button>
+              <mbbiz-button shape="pill" size="sm">Text</mbbiz-button>
             </div>
           </div>
-          <div class="sportbook6vn-preview-button-row">
-            <span class="sportbook6vn-preview-button-row-label">With icon</span>
-            <div class="sportbook6vn-preview-button-row-items">
-              <sportbook6vn-button shape="pill" size="lg">
-                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+          <div class="mbbiz-preview-button-row">
+            <span class="mbbiz-preview-button-row-label">With icon</span>
+            <div class="mbbiz-preview-button-row-items">
+              <mbbiz-button shape="pill" size="lg">
+                <span mbbizButtonStartIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
                 Text
-              </sportbook6vn-button>
-              <sportbook6vn-button shape="pill" size="md">
+              </mbbiz-button>
+              <mbbiz-button shape="pill" size="md">
                 Text
-                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
-              </sportbook6vn-button>
-              <sportbook6vn-button shape="pill" size="sm">
-                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+                <span mbbizButtonEndIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
+              </mbbiz-button>
+              <mbbiz-button shape="pill" size="sm">
+                <span mbbizButtonStartIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
                 Text
-                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
-              </sportbook6vn-button>
+                <span mbbizButtonEndIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
+              </mbbiz-button>
             </div>
           </div>
-          <div class="sportbook6vn-preview-button-row">
-            <span class="sportbook6vn-preview-button-row-label">Disabled</span>
-            <div class="sportbook6vn-preview-button-row-items">
-              <sportbook6vn-button shape="pill" size="lg" [disabled]="true">Text</sportbook6vn-button>
-              <sportbook6vn-button shape="pill" size="md" [disabled]="true">Text</sportbook6vn-button>
-              <sportbook6vn-button shape="pill" size="sm" [disabled]="true">Text</sportbook6vn-button>
+          <div class="mbbiz-preview-button-row">
+            <span class="mbbiz-preview-button-row-label">Disabled</span>
+            <div class="mbbiz-preview-button-row-items">
+              <mbbiz-button shape="pill" size="lg" [disabled]="true">Text</mbbiz-button>
+              <mbbiz-button shape="pill" size="md" [disabled]="true">Text</mbbiz-button>
+              <mbbiz-button shape="pill" size="sm" [disabled]="true">Text</mbbiz-button>
             </div>
           </div>
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Pill / Secondary</h3>
-        <div class="sportbook6vn-preview-button-group">
-          <div class="sportbook6vn-preview-button-row">
-            <span class="sportbook6vn-preview-button-row-label">Default</span>
-            <div class="sportbook6vn-preview-button-row-items">
-              <sportbook6vn-button shape="pill" variant="secondary" size="lg">Text</sportbook6vn-button>
-              <sportbook6vn-button shape="pill" variant="secondary" size="md">Text</sportbook6vn-button>
-              <sportbook6vn-button shape="pill" variant="secondary" size="sm">Text</sportbook6vn-button>
+        <div class="mbbiz-preview-button-group">
+          <div class="mbbiz-preview-button-row">
+            <span class="mbbiz-preview-button-row-label">Default</span>
+            <div class="mbbiz-preview-button-row-items">
+              <mbbiz-button shape="pill" variant="secondary" size="lg">Text</mbbiz-button>
+              <mbbiz-button shape="pill" variant="secondary" size="md">Text</mbbiz-button>
+              <mbbiz-button shape="pill" variant="secondary" size="sm">Text</mbbiz-button>
             </div>
           </div>
-          <div class="sportbook6vn-preview-button-row">
-            <span class="sportbook6vn-preview-button-row-label">With icon</span>
-            <div class="sportbook6vn-preview-button-row-items">
-              <sportbook6vn-button shape="pill" variant="secondary" size="lg">
-                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+          <div class="mbbiz-preview-button-row">
+            <span class="mbbiz-preview-button-row-label">With icon</span>
+            <div class="mbbiz-preview-button-row-items">
+              <mbbiz-button shape="pill" variant="secondary" size="lg">
+                <span mbbizButtonStartIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
                 Text
-              </sportbook6vn-button>
-              <sportbook6vn-button shape="pill" variant="secondary" size="md">
+              </mbbiz-button>
+              <mbbiz-button shape="pill" variant="secondary" size="md">
                 Text
-                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
-              </sportbook6vn-button>
-              <sportbook6vn-button shape="pill" variant="secondary" size="sm">
-                <span sportbook6vnButtonStartIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
+                <span mbbizButtonEndIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
+              </mbbiz-button>
+              <mbbiz-button shape="pill" variant="secondary" size="sm">
+                <span mbbizButtonStartIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
                 Text
-                <span sportbook6vnButtonEndIcon aria-hidden="true" class="sportbook6vn-preview-button-add-icon"></span>
-              </sportbook6vn-button>
+                <span mbbizButtonEndIcon aria-hidden="true" class="mbbiz-preview-button-add-icon"></span>
+              </mbbiz-button>
             </div>
           </div>
-          <div class="sportbook6vn-preview-button-row">
-            <span class="sportbook6vn-preview-button-row-label">Disabled</span>
-            <div class="sportbook6vn-preview-button-row-items">
-              <sportbook6vn-button shape="pill" variant="secondary" size="lg" [disabled]="true">Text</sportbook6vn-button>
-              <sportbook6vn-button shape="pill" variant="secondary" size="md" [disabled]="true">Text</sportbook6vn-button>
-              <sportbook6vn-button shape="pill" variant="secondary" size="sm" [disabled]="true">Text</sportbook6vn-button>
+          <div class="mbbiz-preview-button-row">
+            <span class="mbbiz-preview-button-row-label">Disabled</span>
+            <div class="mbbiz-preview-button-row-items">
+              <mbbiz-button shape="pill" variant="secondary" size="lg" [disabled]="true">Text</mbbiz-button>
+              <mbbiz-button shape="pill" variant="secondary" size="md" [disabled]="true">Text</mbbiz-button>
+              <mbbiz-button shape="pill" variant="secondary" size="sm" [disabled]="true">Text</mbbiz-button>
             </div>
           </div>
         </div>
@@ -696,8 +696,8 @@
     </div>
   </section>
 
-  <section class="sportbook6vn-preview-section">
-    <div class="sportbook6vn-preview-section-heading">
+  <section class="mbbiz-preview-section">
+    <div class="mbbiz-preview-section-heading">
       <h2>Dropdown family</h2>
       <p>
         Aligned to the confirmed dropdown nodes: <code>19564:44125</code>, <code>18679:398700</code>,
@@ -705,22 +705,22 @@
       </p>
     </div>
 
-    <div class="sportbook6vn-preview-grid">
-      <article class="sportbook6vn-preview-card">
+    <div class="mbbiz-preview-grid">
+      <article class="mbbiz-preview-card">
         <h3>Normal / Single select</h3>
-        <div class="sportbook6vn-preview-input-state-strip">
-          <sportbook6vn-dropdown
+        <div class="mbbiz-preview-input-state-strip">
+          <mbbiz-dropdown
             placeholder="Lựa chọn"
             [items]="dropdownItems"
           />
 
-          <sportbook6vn-dropdown
+          <mbbiz-dropdown
             placeholder="Lựa chọn"
             value="option-1"
             [items]="dropdownItems"
           />
 
-          <sportbook6vn-dropdown
+          <mbbiz-dropdown
             title="Title"
             labelMode="inside"
             placeholder="Lựa chọn"
@@ -728,19 +728,19 @@
             [items]="dropdownItems"
           />
 
-          <sportbook6vn-dropdown
+          <mbbiz-dropdown
             placeholder="Lựa chọn"
             [items]="dropdownItems"
             [open]="true"
           />
 
-          <sportbook6vn-dropdown
+          <mbbiz-dropdown
             placeholder="Lựa chọn"
             status="error"
             [items]="dropdownItems"
           />
 
-          <sportbook6vn-dropdown
+          <mbbiz-dropdown
             placeholder="Lựa chọn"
             [items]="dropdownItems"
             [disabled]="true"
@@ -748,23 +748,23 @@
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Normal / Multi select</h3>
-        <div class="sportbook6vn-preview-input-state-strip">
-          <sportbook6vn-dropdown
+        <div class="mbbiz-preview-input-state-strip">
+          <mbbiz-dropdown
             placeholder="Lựa chọn"
             mode="multiple"
             [items]="dropdownItems"
           />
 
-          <sportbook6vn-dropdown
+          <mbbiz-dropdown
             placeholder="Lựa chọn"
             mode="multiple"
             [items]="dropdownItems"
             [values]="['option-1', 'option-2', 'option-3']"
           />
 
-          <sportbook6vn-dropdown
+          <mbbiz-dropdown
             title="Title"
             labelMode="inside"
             placeholder="Lựa chọn"
@@ -773,7 +773,7 @@
             [values]="['option-1', 'option-2']"
           />
 
-          <sportbook6vn-dropdown
+          <mbbiz-dropdown
             placeholder="Lựa chọn"
             mode="multiple"
             [items]="dropdownItems"
@@ -781,7 +781,7 @@
             [open]="true"
           />
 
-          <sportbook6vn-dropdown
+          <mbbiz-dropdown
             placeholder="Lựa chọn"
             mode="multiple"
             status="error"
@@ -789,7 +789,7 @@
             [values]="['option-1', 'option-2']"
           />
 
-          <sportbook6vn-dropdown
+          <mbbiz-dropdown
             placeholder="Lựa chọn"
             mode="multiple"
             [items]="dropdownItems"
@@ -799,34 +799,34 @@
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Dropdown / Tag</h3>
-        <div class="sportbook6vn-preview-input-state-strip">
-          <sportbook6vn-dropdown-tag
+        <div class="mbbiz-preview-input-state-strip">
+          <mbbiz-dropdown-tag
             placeholder="Lựa chọn"
             [items]="dropdownItems"
           />
 
-          <sportbook6vn-dropdown-tag
+          <mbbiz-dropdown-tag
             placeholder="Lựa chọn"
             [items]="dropdownItems"
             [values]="['option-1', 'option-2', 'option-3', 'option-4']"
           />
 
-          <sportbook6vn-dropdown-tag
+          <mbbiz-dropdown-tag
             placeholder="Lựa chọn"
             [items]="dropdownItems"
             [values]="['option-1', 'option-2', 'option-3', 'option-4']"
             [open]="true"
           />
 
-          <sportbook6vn-dropdown-tag
+          <mbbiz-dropdown-tag
             placeholder="Lựa chọn"
             status="error"
             [items]="dropdownItems"
           />
 
-          <sportbook6vn-dropdown-tag
+          <mbbiz-dropdown-tag
             placeholder="Lựa chọn"
             [items]="dropdownItems"
             [values]="['option-1', 'option-2', 'option-3', 'option-4']"
@@ -835,10 +835,10 @@
         </div>
       </article>
 
-      <article class="sportbook6vn-preview-card">
+      <article class="mbbiz-preview-card">
         <h3>Drop list / Empty states</h3>
-        <div class="sportbook6vn-preview-input-state-strip">
-          <sportbook6vn-dropdown
+        <div class="mbbiz-preview-input-state-strip">
+          <mbbiz-dropdown
             title="Title"
             placeholder="Lựa chọn"
             [items]="[]"
@@ -846,7 +846,7 @@
             emptyState="no-data"
           />
 
-          <sportbook6vn-dropdown
+          <mbbiz-dropdown
             title="Title"
             placeholder="Lựa chọn"
             [items]="dropdownItems"
@@ -854,7 +854,7 @@
             emptyState="search-no-data"
           />
 
-          <sportbook6vn-dropdown
+          <mbbiz-dropdown
             title="Title"
             placeholder="Lựa chọn"
             [items]="dropdownItems"
@@ -862,7 +862,7 @@
             emptyState="api-error"
           />
 
-          <sportbook6vn-dropdown
+          <mbbiz-dropdown
             title="Title"
             placeholder="Lựa chọn"
             [items]="dropdownItems"

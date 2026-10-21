@@ -16,7 +16,7 @@
     "target": "ES2022",
     "module": "preserve",
     "paths": {
-      "sportbook6vn": ["./projects/sportbook6vn/src/public-api.ts"]
+      "mbbiz": ["./projects/mbbiz/src/public-api.ts"]
     }
   },
   "angularCompilerOptions": {
@@ -31,7 +31,7 @@
       "path": "./tsconfig.app.json"
     },
     {
-      "path": "./tsconfig.sportbook6vn-preview.json"
+      "path": "./tsconfig.mbbiz-preview.json"
     }
   ]
 }

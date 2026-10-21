@@ -1,0 +1,6 @@
+<span [class]="badgeClass()" [attr.aria-label]="resolvedAriaLabel()">
+  <span class="mbbiz-badge__label">{{ label() }}</span>
+  @if (showDescription()) {
+    <span class="mbbiz-badge__description">{{ description() }}</span>
+  }
+</span>

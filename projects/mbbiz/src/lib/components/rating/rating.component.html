@@ -1,0 +1,33 @@
+<div
+  class="mbbiz-rating"
+  role="radiogroup"
+  [attr.aria-label]="ariaLabel()"
+  (mouseleave)="onLeave()"
+>
+  @for (star of stars; track star) {
+    <button
+      type="button"
+      [class]="starClass(star)"
+      role="radio"
+      [attr.aria-checked]="star === resolvedValue()"
+      [attr.aria-label]="star + (star === 1 ? ' star' : ' stars')"
+      (mouseenter)="onStarEnter(star)"
+      (click)="onStarClick(star)"
+    >
+      <svg
+        class="mbbiz-rating__icon"
+        width="17.9945"
+        height="18.0084"
+        viewBox="0 0 17.9945 18.0084"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        focusable="false"
+        aria-hidden="true"
+      >
+        <path
+          d="M6.18185 5.73124L8.32481 1.18748C8.59987 0.604175 9.39467 0.604175 9.66973 1.18748L11.8127 5.73124L16.605 6.46436C17.2199 6.55842 17.4649 7.34948 17.0198 7.80323L13.5527 11.3376L14.3709 16.3307C14.476 16.9719 13.8329 17.4609 13.2827 17.158L8.99727 14.7993L4.71178 17.158C4.16162 17.4609 3.51852 16.9719 3.62359 16.3307L4.44183 11.3376L0.974767 7.80323C0.529614 7.34948 0.77468 6.55842 1.38955 6.46436L6.18185 5.73124Z"
+        />
+      </svg>
+    </button>
+  }
+</div>

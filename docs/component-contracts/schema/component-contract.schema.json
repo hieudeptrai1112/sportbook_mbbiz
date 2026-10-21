@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://sportbook6vn.local/component-contract.schema.json",
+  "$id": "https://mbbiz.local/component-contract.schema.json",
   "title": "Sportbook Component Contract",
   "type": "object",
   "required": [

@@ -9,10 +9,10 @@ Demo codebox standard is defined in `docs/commands/component-demo-codebox-checkl
 Every new component page must follow the same UX contract as the current Button page, while keeping the global site UI unchanged.
 
 ## Non-Negotiable Guardrails
-- Do not redesign the global shell (top nav, left sidebar, right anchor column, layout widths, theme switch behavior).
+- Do not redesign the global shell (top nav, left sidebar, right anchor column, layout widths).
 - Keep existing visual language consistent (spacing rhythm, typography hierarchy, table style, code card style).
 - Do not change component UI that comes from Figma source of truth. Doc demos must preserve Figma geometry, typography, and visual tokens.
-- Before publishing, verify token alias names and values against Figma variables for the target node (including Light/Dark if the component supports both).
+- Before publishing, verify token alias names and values against Figma variables for the target node.
 - Do not add fictional stories or misleading examples. All examples must be realistic and implementable.
 - New components must plug into the same page framework used by Button; do not create a one-off page pattern.
 - `Preview` always means real interactive rendering: no static mockup-only previews for interactive components.
@@ -80,11 +80,6 @@ Every new component page must follow the same UX contract as the current Button 
   - Long labels truncate with ellipsis instead of wrapping.
 - Do not reintroduce old anchor styles once standardized.
 
-## Theme Contract
-- Light/Dark switch must update the full page surface, not just local cards.
-- Maintain readable contrast for all text elements in both modes (especially sidebar section labels and body text).
-- Keep mode toggle sizing/position consistent across themes.
-
 ## Publish Acceptance Checklist
 - [ ] Global shell UI is unchanged.
 - [ ] Page structure matches Button baseline.
@@ -95,4 +90,3 @@ Every new component page must follow the same UX contract as the current Button 
 - [ ] API table is complete and consistent.
 - [ ] Component Token tables follow the defined column contracts.
 - [ ] Anchor behavior and truncation match the standard pattern.
-- [ ] Light/Dark rendering is fully consistent and contrast-safe.

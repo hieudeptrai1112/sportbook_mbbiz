@@ -1,0 +1,142 @@
+<div [class]="wrapperClass()">
+  <div class="mbbiz-dropdown__surface">
+    <button
+      type="button"
+      [class]="fieldClass()"
+      [disabled]="disabled()"
+      (click)="toggleOpen()"
+    >
+      <span class="mbbiz-dropdown__field-copy">
+        @if (labelMode() === 'inside') {
+          <span class="mbbiz-dropdown__inside-title">{{ title() }}</span>
+        }
+        <span [class]="placeholderClass()">{{ displayValue() }}</span>
+      </span>
+
+      <span class="mbbiz-dropdown__chevron" aria-hidden="true">
+        @if (localOpen()) {
+          <svg viewBox="0 0 20 20">
+            <path d="M5 12.5L10 7.5L15 12.5" />
+          </svg>
+        } @else {
+          <svg viewBox="0 0 20 20">
+            <path d="M5 7.5L10 12.5L15 7.5" />
+          </svg>
+        }
+      </span>
+    </button>
+
+    @if (localOpen()) {
+      <div [class]="panelClass()">
+        @if (showSearch()) {
+          <label class="mbbiz-dropdown__search">
+            <input
+              type="text"
+              class="mbbiz-dropdown__search-input"
+              placeholder="Tìm kiếm"
+              [value]="searchQuery()"
+              (input)="onSearchInput($event)"
+            />
+            <span class="mbbiz-dropdown__search-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="5.5" />
+                <path d="M16 16L20 20" />
+              </svg>
+            </span>
+          </label>
+        }
+
+        @if (resolvedEmptyState() === 'loading') {
+          <div class="mbbiz-dropdown__state mbbiz-dropdown__state--loading">
+            <img
+              class="mbbiz-dropdown__loading-image"
+              [src]="emptyStateAssets.loading.iconUrl"
+              alt=""
+              aria-hidden="true"
+            />
+          </div>
+        } @else if (resolvedEmptyState() === 'api-error') {
+          <div class="mbbiz-dropdown__state mbbiz-dropdown__state--api-error">
+            <div class="mbbiz-dropdown__state-illustration mbbiz-dropdown__state-illustration--api-error" aria-hidden="true">
+              <img
+                class="mbbiz-dropdown__state-image"
+                [src]="emptyStateAssets.apiError.iconUrl"
+                alt=""
+              />
+            </div>
+            <p class="mbbiz-dropdown__state-copy">{{ emptyStateAssets.apiError.description }}</p>
+            <button
+              type="button"
+              class="mbbiz-dropdown__retry"
+              [disabled]="retryLocked()"
+              (click)="onRetry()"
+            >
+              {{ emptyStateAssets.apiError.retryLabel }}
+            </button>
+          </div>
+        } @else if (resolvedEmptyState() === 'search-no-data') {
+          <div class="mbbiz-dropdown__state mbbiz-dropdown__state--search-empty">
+            <div class="mbbiz-dropdown__state-illustration mbbiz-dropdown__state-illustration--search" aria-hidden="true">
+              <img
+                class="mbbiz-dropdown__state-image"
+                [src]="emptyStateAssets.searchNoData.iconUrl"
+                alt=""
+              />
+            </div>
+            <div class="mbbiz-dropdown__state-copy-group">
+              <p class="mbbiz-dropdown__state-title">{{ emptyStateAssets.searchNoData.title }}</p>
+              <p class="mbbiz-dropdown__state-copy">{{ emptyStateAssets.searchNoData.description }}</p>
+            </div>
+          </div>
+        } @else if (resolvedEmptyState() === 'no-data') {
+          <div class="mbbiz-dropdown__state mbbiz-dropdown__state--no-data">
+            <div class="mbbiz-dropdown__state-illustration mbbiz-dropdown__state-illustration--no-data" aria-hidden="true">
+              <img
+                class="mbbiz-dropdown__state-image"
+                [src]="emptyStateAssets.noData.iconUrl"
+                alt=""
+              />
+            </div>
+            <p class="mbbiz-dropdown__state-copy mbbiz-dropdown__state-copy--single">
+              {{ emptyStateAssets.noData.description }}
+            </p>
+          </div>
+        } @else {
+          <div class="mbbiz-dropdown__options">
+            @for (item of filteredItems(); track trackById($index, item)) {
+              <button
+                type="button"
+                class="mbbiz-dropdown__option"
+                [class.mbbiz-dropdown__option--selected]="isSelected(item)"
+                [class.mbbiz-dropdown__option--disabled]="!!item.disabled"
+                [disabled]="!!item.disabled"
+                (click)="selectItem(item, $event)"
+              >
+                @if (mode() === 'multiple') {
+                  <span
+                    class="mbbiz-dropdown__checkbox"
+                    [class.mbbiz-dropdown__checkbox--selected]="isSelected(item)"
+                    aria-hidden="true"
+                  ></span>
+                }
+
+                @if (item.imageUrl) {
+                  <img class="mbbiz-dropdown__option-image" [src]="item.imageUrl" [alt]="item.label" />
+                }
+
+                <span class="mbbiz-dropdown__option-label">{{ item.label }}</span>
+              </button>
+            }
+          </div>
+
+          @if (mode() === 'multiple' && hasSelection()) {
+            <button type="button" class="mbbiz-dropdown__reset" (click)="resetSelection($event)">
+              Thiết lập lại
+            </button>
+          }
+        }
+      </div>
+    }
+  </div>
+
+</div>

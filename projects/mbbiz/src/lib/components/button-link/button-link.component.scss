@@ -1,0 +1,67 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.mbbiz-button-link {
+  -webkit-appearance: none;
+  appearance: none;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--mbbiz-color-button-link-default, #141ed2);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  margin: 0;
+  max-width: 100%;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  text-decoration-skip-ink: none;
+  text-underline-position: from-font;
+  transition: color 140ms ease;
+  white-space: nowrap;
+  word-break: break-word;
+}
+
+.mbbiz-button-link--lg {
+  @include typo.mbbiz-typo-h2-sub-header-underline-16-regular;
+}
+
+.mbbiz-button-link--md {
+  @include typo.mbbiz-typo-body-underline-14-regular;
+}
+
+.mbbiz-button-link--sm {
+  @include typo.mbbiz-typo-body-underline-12-regular;
+  padding-block: 2px;
+}
+
+.mbbiz-button-link:hover:not(.mbbiz-button-link--disabled) {
+  color: var(--mbbiz-color-button-link-hover, #5f7eeb);
+}
+
+.mbbiz-button-link:active:not(.mbbiz-button-link--disabled) {
+  color: var(--mbbiz-color-button-link-pressed, #a3b7fd);
+}
+
+.mbbiz-button-link--disabled,
+.mbbiz-button-link:disabled {
+  color: var(--mbbiz-color-button-link-disabled, #9b9b9b);
+  cursor: not-allowed;
+}
+
+.mbbiz-button-link:focus-visible {
+  outline: none;
+}
+
+:host(.mbbiz-button-link-preview-hover) .mbbiz-button-link:not(.mbbiz-button-link--disabled) {
+  color: var(--mbbiz-color-button-link-hover, #5f7eeb);
+}
+
+:host(.mbbiz-button-link-preview-pressed) .mbbiz-button-link:not(.mbbiz-button-link--disabled) {
+  color: var(--mbbiz-color-button-link-pressed, #a3b7fd);
+}

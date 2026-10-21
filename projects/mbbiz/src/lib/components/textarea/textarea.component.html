@@ -1,0 +1,17 @@
+<div [class]="wrapperClass()">
+  <div class="mbbiz-textarea__surface">
+    <div class="mbbiz-textarea__field">
+      <textarea
+        class="mbbiz-textarea__native"
+        [attr.id]="textareaId()"
+        [attr.placeholder]="placeholder()"
+        [attr.maxlength]="maxLength()"
+        [disabled]="disabled()"
+        [rows]="rows()"
+        [value]="value()"
+        (input)="onInput($event)"
+      ></textarea>
+    </div>
+    <div class="mbbiz-textarea__counter">{{ counterText() }}</div>
+  </div>
+</div>

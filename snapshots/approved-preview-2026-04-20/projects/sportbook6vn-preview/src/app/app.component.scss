@@ -1,4 +1,4 @@
-.sportbook6vn-preview-page {
+.mbbiz-preview-page {
   background:
     radial-gradient(circle at top right, rgba(20, 30, 210, 0.08), transparent 28%),
     linear-gradient(180deg, #f8f9fb 0%, #eef2ff 100%);
@@ -7,7 +7,7 @@
   padding: 48px;
 }
 
-.sportbook6vn-preview-hero {
+.mbbiz-preview-hero {
   align-items: flex-start;
   display: flex;
   gap: 24px;
@@ -16,7 +16,7 @@
   max-width: 1200px;
 }
 
-.sportbook6vn-preview-eyebrow {
+.mbbiz-preview-eyebrow {
   color: #141ed2;
   font-size: 12px;
   font-weight: 700;
@@ -25,14 +25,14 @@
   text-transform: uppercase;
 }
 
-.sportbook6vn-preview-hero h1 {
+.mbbiz-preview-hero h1 {
   font-size: 40px;
   line-height: 1.1;
   margin: 0;
   max-width: 720px;
 }
 
-.sportbook6vn-preview-copy {
+.mbbiz-preview-copy {
   color: #4e5969;
   font-size: 16px;
   line-height: 1.6;
@@ -40,7 +40,7 @@
   max-width: 680px;
 }
 
-.sportbook6vn-preview-section {
+.mbbiz-preview-section {
   background: rgba(255, 255, 255, 0.86);
   border: 1px solid rgba(20, 30, 210, 0.08);
   border-radius: 24px;
@@ -50,27 +50,27 @@
   padding: 24px;
 }
 
-.sportbook6vn-preview-section-heading {
+.mbbiz-preview-section-heading {
   margin-bottom: 20px;
 }
 
-.sportbook6vn-preview-section-heading h2 {
+.mbbiz-preview-section-heading h2 {
   font-size: 24px;
   margin: 0 0 8px;
 }
 
-.sportbook6vn-preview-section-heading p {
+.mbbiz-preview-section-heading p {
   color: #4e5969;
   margin: 0;
 }
 
-.sportbook6vn-preview-grid {
+.mbbiz-preview-grid {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.sportbook6vn-preview-card {
+.mbbiz-preview-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 18px;
@@ -83,35 +83,35 @@
   position: relative;
 }
 
-.sportbook6vn-preview-card h3 {
+.mbbiz-preview-card h3 {
   font-size: 16px;
   margin: 0;
 }
 
-.sportbook6vn-preview-input-state-strip {
+.mbbiz-preview-input-state-strip {
   display: grid;
   gap: 12px;
 }
 
-.sportbook6vn-preview-variant-stack {
+.mbbiz-preview-variant-stack {
   display: grid;
   gap: 12px;
 }
 
-.sportbook6vn-preview-input-tag-pair {
+.mbbiz-preview-input-tag-pair {
   display: grid;
   gap: 12px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.sportbook6vn-preview-input-tag-pair--arco .sportbook6vn-input-tag {
+.mbbiz-preview-input-tag-pair--arco .mbbiz-input-tag {
   background: #f2f3f5;
   border-color: transparent;
   min-height: 44px;
   padding: 6px 8px;
 }
 
-.sportbook6vn-preview-input-tag-pair--arco .sportbook6vn-input-tag__chip {
+.mbbiz-preview-input-tag-pair--arco .mbbiz-input-tag__chip {
   background: #ffffff;
   border: 1px solid #e5e6eb;
   border-radius: 2px;
@@ -120,25 +120,25 @@
   padding: 0 10px;
 }
 
-.sportbook6vn-preview-input-tag-pair--arco .sportbook6vn-input-tag__chip-label {
+.mbbiz-preview-input-tag-pair--arco .mbbiz-input-tag__chip-label {
   font-family: Inter, "Segoe UI", sans-serif;
   font-size: 14px;
   line-height: 20px;
 }
 
-.sportbook6vn-preview-input-tag-pair--arco .sportbook6vn-input-tag__overflow {
+.mbbiz-preview-input-tag-pair--arco .mbbiz-input-tag__overflow {
   color: #1d2129;
   font-size: 14px;
   line-height: 20px;
   padding-right: 0;
 }
 
-.sportbook6vn-preview-field-stack {
+.mbbiz-preview-field-stack {
   display: grid;
   gap: 4px;
 }
 
-.sportbook6vn-preview-field-label {
+.mbbiz-preview-field-label {
   color: #516682;
   font-family: "Averta Std CY", "Inter", "Segoe UI", sans-serif;
   font-size: 14px;
@@ -147,7 +147,7 @@
   line-height: 20px;
 }
 
-.sportbook6vn-preview-field-message {
+.mbbiz-preview-field-message {
   color: #f34343;
   font-family: "Averta Std CY", "Inter", "Segoe UI", sans-serif;
   font-size: 12px;
@@ -156,17 +156,17 @@
   line-height: 16px;
 }
 
-.sportbook6vn-preview-button-group {
+.mbbiz-preview-button-group {
   display: grid;
   gap: 16px;
 }
 
-.sportbook6vn-preview-button-row {
+.mbbiz-preview-button-row {
   display: grid;
   gap: 12px;
 }
 
-.sportbook6vn-preview-button-row-label {
+.mbbiz-preview-button-row-label {
   color: #516682;
   font-size: 12px;
   font-weight: 700;
@@ -174,22 +174,22 @@
   text-transform: uppercase;
 }
 
-.sportbook6vn-preview-control-matrix {
+.mbbiz-preview-control-matrix {
   display: grid;
   gap: 16px;
 }
 
-.sportbook6vn-preview-control-matrix__nested {
+.mbbiz-preview-control-matrix__nested {
   display: grid;
   gap: 16px;
 }
 
-.sportbook6vn-preview-control-matrix__row {
+.mbbiz-preview-control-matrix__row {
   display: grid;
   gap: 10px;
 }
 
-.sportbook6vn-preview-control-matrix__label {
+.mbbiz-preview-control-matrix__label {
   color: #516682;
   font-size: 12px;
   font-weight: 700;
@@ -197,33 +197,33 @@
   text-transform: uppercase;
 }
 
-.sportbook6vn-preview-control-matrix__items {
+.mbbiz-preview-control-matrix__items {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 18px;
 }
 
-.sportbook6vn-preview-control-matrix__items--stack {
+.mbbiz-preview-control-matrix__items--stack {
   align-items: flex-start;
   display: grid;
   gap: 12px;
 }
 
-.sportbook6vn-preview-button-row-items {
+.mbbiz-preview-button-row-items {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
 }
 
-.sportbook6vn-preview-button-add-icon {
+.mbbiz-preview-button-add-icon {
   display: inline-flex;
   height: 20px;
   width: 20px;
 }
 
-.sportbook6vn-preview-button-add-icon::before {
+.mbbiz-preview-button-add-icon::before {
   background: currentColor;
   content: "";
   display: block;
@@ -235,13 +235,13 @@
     center / 11.5px 11.5px no-repeat;
 }
 
-.sportbook6vn-preview-modal-grid {
+.mbbiz-preview-modal-grid {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.sportbook6vn-preview-modal-stage {
+.mbbiz-preview-modal-stage {
   align-items: center;
   background: linear-gradient(180deg, #e9f2ff 0%, #f7fafe 100%);
   border-radius: 16px;
@@ -252,23 +252,23 @@
 }
 
 @media (max-width: 900px) {
-  .sportbook6vn-preview-page {
+  .mbbiz-preview-page {
     padding: 24px;
   }
 
-  .sportbook6vn-preview-hero {
+  .mbbiz-preview-hero {
     flex-direction: column;
   }
 
-  .sportbook6vn-preview-grid {
+  .mbbiz-preview-grid {
     grid-template-columns: 1fr;
   }
 
-  .sportbook6vn-preview-input-tag-pair {
+  .mbbiz-preview-input-tag-pair {
     grid-template-columns: 1fr;
   }
 
-  .sportbook6vn-preview-modal-grid {
+  .mbbiz-preview-modal-grid {
     grid-template-columns: 1fr;
   }
 }

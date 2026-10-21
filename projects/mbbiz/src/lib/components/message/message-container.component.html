@@ -1,0 +1,8 @@
+<div class="mbbiz-message-container" [style.top]="top()">
+  @for (instance of instances(); track trackMessage($index, instance)) {
+    <mbbiz-message
+      [instance]="instance"
+      (closed)="remove($event.id, $event.userAction)"
+    />
+  }
+</div>

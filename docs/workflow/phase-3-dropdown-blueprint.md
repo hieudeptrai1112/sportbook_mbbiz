@@ -5,7 +5,7 @@ Mục tiêu: chuẩn hóa lại dropdown family trên preview theo hướng docs
 ## Scope guard
 
 - Preview app: `http://127.0.0.1:4300/`.
-- Không sửa tab docs/app sportbook6vn trong phase này.
+- Không sửa tab docs/app mbbiz trong phase này.
 - Không thêm use case ngoài Figma node đã cung cấp hoặc yêu cầu rõ ràng của user.
 - Rule sản phẩm đã chốt: nếu droplist có hơn 5 option thì hiển thị search bar và scrollbar.
 - Error state của dropdown tag không hiển thị helptext.

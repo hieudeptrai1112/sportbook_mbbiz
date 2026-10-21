@@ -16,7 +16,7 @@ Lệnh này kiểm tra:
 - API lock ở `docs/workflow/core3-api-lock.json`
 - mapping preview ↔ library/app ở `docs/workflow/core3-preview-app-map.json`
 - tính hợp lệ contract (`npm run contracts:validate`)
-- compile preview (`npx tsc -p tsconfig.sportbook6vn-preview.json --noEmit`)
+- compile preview (`npx tsc -p tsconfig.mbbiz-preview.json --noEmit`)
 
 Nếu chỉ cần kiểm tra lock nhanh trước khi sửa UI:
 
@@ -58,10 +58,10 @@ Khi có đủ input trên, triển khai theo cùng pattern đã dùng cho core-3
 
 ## 4) DoD checklist cho mỗi component (sau khi chốt preview)
 
-Checklist này áp dụng cho flow hiện tại (clone NG-Zorro style + component thật `sportbook6vn`):
+Checklist này áp dụng cho flow hiện tại (clone NG-Zorro style + component thật `mbbiz`):
 
 - [ ] Chốt node ID Figma + rule interaction bắt buộc.
-- [ ] Implement component trong `projects/sportbook6vn/src/lib/components/<component>/`.
+- [ ] Implement component trong `projects/mbbiz/src/lib/components/<component>/`.
 - [ ] Chốt full variant/state/interaction trên preview (không thiếu, không thừa).
 - [ ] Chạy `mapping lên app + <tên component>` để map 1:1 từ preview sang app docs.
 - [ ] Commit + push + kiểm tra bản deploy thực tế (hard refresh).

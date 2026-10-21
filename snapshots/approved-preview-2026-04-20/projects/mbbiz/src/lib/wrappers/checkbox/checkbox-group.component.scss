@@ -1,0 +1,16 @@
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.mbbiz-checkbox-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.mbbiz-checkbox-group--vertical {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 12px;
+}
