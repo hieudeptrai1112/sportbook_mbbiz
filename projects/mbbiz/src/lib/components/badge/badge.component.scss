@@ -6,81 +6,131 @@
 }
 
 .mbbiz-badge {
-  --mbbiz-badge-bg: var(--mbbiz-color-badge-neutral-bg, #d8d8d8);
-  --mbbiz-badge-fg: var(--mbbiz-color-badge-neutral-text, #9b9b9b);
-
   align-items: center;
+  box-sizing: border-box;
   display: inline-flex;
-  flex-direction: column;
-  gap: 4px;
+  flex-shrink: 0;
   justify-content: center;
   max-width: 100%;
-  min-width: 0;
-  overflow: hidden;
 }
 
-.mbbiz-badge--with-description {
-  align-items: flex-start;
+.mbbiz-badge--notification {
+  height: 24px;
+  overflow: hidden;
+  width: 24px;
+}
+
+.mbbiz-badge--notification.mbbiz-badge--warning,
+.mbbiz-badge--notification.mbbiz-badge--information,
+.mbbiz-badge--notification.mbbiz-badge--bee {
+  overflow: visible;
+}
+
+.mbbiz-badge--reminder,
+.mbbiz-badge--done,
+.mbbiz-badge--error,
+.mbbiz-badge--remind {
+  background: var(--mbbiz-color-badge-notification-primary, #141ed2);
+  border-radius: 36px;
+  color: var(--mbbiz-color-badge-icon-on-solid, #ffffff);
+}
+
+.mbbiz-badge--done {
+  background: var(--mbbiz-color-badge-notification-success, #00ad68);
+}
+
+.mbbiz-badge--error {
+  background: var(--mbbiz-color-badge-notification-error, #f00000);
+}
+
+.mbbiz-badge--remind {
+  background: var(--mbbiz-color-badge-notification-secondary, #7b5fff);
+}
+
+.mbbiz-badge--balance {
+  background: var(--mbbiz-color-badge-notification-primary, #141ed2);
+  border-radius: 20px;
+}
+
+.mbbiz-badge--bee {
+  background: var(--mbbiz-color-badge-role-bg, #dae4ff);
+  border-radius: 20px;
+}
+
+.mbbiz-badge--warning,
+.mbbiz-badge--information {
+  background: transparent;
+}
+
+.mbbiz-badge--information {
+  color: var(--mbbiz-color-badge-role-text, #141ed2);
+}
+
+.mbbiz-badge--role {
+  background: var(--mbbiz-color-badge-role-bg, #dae4ff);
+  border-radius: 20px;
+  min-height: 32px;
+  overflow: hidden;
+  padding: 8px 16px;
 }
 
 .mbbiz-badge__label {
-  align-items: center;
-  background: var(--mbbiz-badge-bg);
-  border-radius: 20px;
-  color: var(--mbbiz-badge-fg);
-  display: inline-flex;
+  color: var(--mbbiz-color-badge-role-text, #141ed2);
   @include typo.mbbiz-typo-body-normal-12-semibold;
-  justify-content: center;
-  max-width: 100%;
-  min-height: 24px;
-  overflow: hidden;
-  padding: 4px 12px;
   text-align: center;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.mbbiz-badge__description {
-  color: var(--mbbiz-color-badge-description, #192d39);
+.mbbiz-badge__icon {
   display: block;
-  @include typo.mbbiz-typo-body-normal-12-regular;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.mbbiz-badge--neutral {
-  --mbbiz-badge-bg: var(--mbbiz-color-badge-neutral-bg, #d8d8d8);
-  --mbbiz-badge-fg: var(--mbbiz-color-badge-neutral-text, #9b9b9b);
+.mbbiz-badge__art {
+  display: block;
+  flex-shrink: 0;
 }
 
-.mbbiz-badge--orange {
-  --mbbiz-badge-bg: var(--mbbiz-color-badge-orange-bg, #fff4d0);
-  --mbbiz-badge-fg: var(--mbbiz-color-badge-orange-text, #fa8a00);
+.mbbiz-badge--reminder .mbbiz-badge__art {
+  background: url('./assets/reminder.svg') center no-repeat;
+  height: 13.6px;
+  width: 13.6px;
 }
 
-.mbbiz-badge--blue.mbbiz-badge--unfinished {
-  --mbbiz-badge-bg: var(--mbbiz-color-badge-blue-soft-bg, #ecf5fa);
-  --mbbiz-badge-fg: var(--mbbiz-color-badge-blue-text, #141ed2);
+.mbbiz-badge--balance .mbbiz-badge__art {
+  background-color: var(--mbbiz-color-badge-icon-on-solid, #ffffff);
+  height: 16px;
+  mask: url('./assets/balance.svg') center / 16px 16px no-repeat;
+  width: 16px;
 }
 
-.mbbiz-badge--blue.mbbiz-badge--renew-loan {
-  --mbbiz-badge-bg: var(--mbbiz-color-badge-blue-solid-bg, #141ed2);
-  --mbbiz-badge-fg: var(--mbbiz-color-badge-on-solid, #ffffff);
+.mbbiz-badge--done .mbbiz-badge__art {
+  background: url('./assets/check.svg') center no-repeat;
+  height: 8.9967px;
+  width: 12.7145px;
 }
 
-.mbbiz-badge--dark-blue {
-  --mbbiz-badge-bg: var(--mbbiz-color-badge-dark-blue-bg, #dae4ff);
-  --mbbiz-badge-fg: var(--mbbiz-color-badge-dark-blue-text, #6d83a7);
+.mbbiz-badge--error .mbbiz-badge__art {
+  background-color: var(--mbbiz-color-badge-icon-on-solid, #ffffff);
+  height: 11.9387px;
+  mask: url('./assets/cancel.svg') center / 11.9387px 11.9387px no-repeat;
+  -webkit-mask: url('./assets/cancel.svg') center / 11.9387px 11.9387px no-repeat;
+  width: 11.9387px;
 }
 
-.mbbiz-badge--green {
-  --mbbiz-badge-bg: var(--mbbiz-color-badge-green-bg, #3dd196);
-  --mbbiz-badge-fg: var(--mbbiz-color-badge-on-solid, #ffffff);
+.mbbiz-badge--remind .mbbiz-badge__art {
+  background: url('./assets/notification.svg') center no-repeat;
+  height: 12.2413px;
+  width: 12.2402px;
 }
 
-.mbbiz-badge--red {
-  --mbbiz-badge-bg: var(--mbbiz-color-badge-red-bg, #f34343);
-  --mbbiz-badge-fg: var(--mbbiz-color-badge-on-solid, #ffffff);
+.mbbiz-badge--warning .mbbiz-badge__art {
+  background: url('./assets/warning.svg') 0 0 no-repeat;
+  height: 24px;
+  width: 24px;
+}
+
+.mbbiz-badge--bee .mbbiz-badge__art {
+  background: url('./assets/bee.png') center / 23.75px 23.75px no-repeat;
+  height: 23.75px;
+  width: 23.75px;
 }

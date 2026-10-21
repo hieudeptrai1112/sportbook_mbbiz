@@ -2,7 +2,7 @@ export type ButtonCodeType = 'js' | 'ts';
 
 export type DsButtonShape = 'rectangle' | 'pill';
 export type DsButtonTone = 'primary' | 'secondary';
-export type DsButtonState = 'default' | 'hover' | 'pressed' | 'disabled';
+export type DsButtonState = 'default' | 'hover' | 'pressed' | 'disabled' | 'loading';
 export type DsButtonSize = 'large' | 'medium' | 'small';
 
 export interface ButtonDemoAction {
@@ -65,18 +65,20 @@ export const BUTTON_DEMO_SECTIONS: ButtonDemoSection[] = [
     id: 'rectangle-primary',
     title: 'Rectangle · Primary',
     description:
-      'Primary rectangle button from Figma includes gradient background and four semantic states.',
-    tags: ['shape=rectangle', 'tone=primary', 'states=default/hover/pressed/disabled'],
+      'Primary rectangle button from Figma includes gradient background and the semantic states.',
+    tags: ['shape=rectangle', 'tone=primary', 'states=default/hover/pressed/disabled/loading'],
     actions: [
       { label: 'Text', shape: 'rectangle', tone: 'primary', state: 'default', size: 'large' },
       { label: 'Text', shape: 'rectangle', tone: 'primary', state: 'hover', size: 'large' },
       { label: 'Text', shape: 'rectangle', tone: 'primary', state: 'pressed', size: 'large' },
       { label: 'Text', shape: 'rectangle', tone: 'primary', state: 'disabled', size: 'large' },
+      { label: 'Text', shape: 'rectangle', tone: 'primary', state: 'loading', size: 'large' },
     ],
     codeJs: `<app-ds-button label="Text" shape="rectangle" tone="primary" state="default" size="large" />
 <app-ds-button label="Text" shape="rectangle" tone="primary" state="hover" size="large" />
 <app-ds-button label="Text" shape="rectangle" tone="primary" state="pressed" size="large" />
-<app-ds-button label="Text" shape="rectangle" tone="primary" state="disabled" size="large" />`,
+<app-ds-button label="Text" shape="rectangle" tone="primary" state="disabled" size="large" />
+<app-ds-button label="Text" shape="rectangle" tone="primary" state="loading" size="large" />`,
     codeTs: `import { DsButtonComponent } from './components/ds-button/ds-button.component';`,
     snippetHtml: `<section class="button-demo-preview">
   <app-ds-button
@@ -172,11 +174,13 @@ export class ButtonPrimaryInteractionDemoComponent {
       { label: 'Text', shape: 'rectangle', tone: 'secondary', state: 'hover', size: 'large' },
       { label: 'Text', shape: 'rectangle', tone: 'secondary', state: 'pressed', size: 'large' },
       { label: 'Text', shape: 'rectangle', tone: 'secondary', state: 'disabled', size: 'large' },
+      { label: 'Text', shape: 'rectangle', tone: 'secondary', state: 'loading', size: 'large' },
     ],
     codeJs: `<app-ds-button label="Text" shape="rectangle" tone="secondary" state="default" size="large" />
 <app-ds-button label="Text" shape="rectangle" tone="secondary" state="hover" size="large" />
 <app-ds-button label="Text" shape="rectangle" tone="secondary" state="pressed" size="large" />
-<app-ds-button label="Text" shape="rectangle" tone="secondary" state="disabled" size="large" />`,
+<app-ds-button label="Text" shape="rectangle" tone="secondary" state="disabled" size="large" />
+<app-ds-button label="Text" shape="rectangle" tone="secondary" state="loading" size="large" />`,
     codeTs: `import { DsButtonComponent } from './components/ds-button/ds-button.component';`,
     snippetHtml: `<section class="button-demo-preview">
   <app-ds-button
@@ -308,11 +312,13 @@ export class ButtonSizeScaleDemoComponent {
       { label: 'Text', shape: 'pill', tone: 'secondary', state: 'hover', size: 'medium' },
       { label: 'Text', shape: 'pill', tone: 'secondary', state: 'pressed', size: 'medium' },
       { label: 'Text', shape: 'pill', tone: 'secondary', state: 'disabled', size: 'medium' },
+      { label: 'Text', shape: 'pill', tone: 'secondary', state: 'loading', size: 'medium' },
     ],
     codeJs: `<app-ds-button label="Text" shape="pill" tone="secondary" state="default" size="medium" />
 <app-ds-button label="Text" shape="pill" tone="secondary" state="hover" size="medium" />
 <app-ds-button label="Text" shape="pill" tone="secondary" state="pressed" size="medium" />
-<app-ds-button label="Text" shape="pill" tone="secondary" state="disabled" size="medium" />`,
+<app-ds-button label="Text" shape="pill" tone="secondary" state="disabled" size="medium" />
+<app-ds-button label="Text" shape="pill" tone="secondary" state="loading" size="medium" />`,
     codeTs: `import { DsButtonComponent } from './components/ds-button/ds-button.component';`,
     snippetHtml: `<section class="button-demo-preview">
   <app-ds-button
@@ -443,6 +449,14 @@ export class ButtonIconDemoComponent {
 }`,
   },
 ];
+
+export const BUTTON_STATE_DEMO_SECTIONS: ButtonDemoSection[] = [
+  'rectangle-primary',
+  'rectangle-secondary',
+  'pill-secondary',
+].map(
+  (id) => BUTTON_DEMO_SECTIONS.find((section) => section.id === id) ?? BUTTON_DEMO_SECTIONS[0],
+);
 
 export const BUTTON_API_ROWS: ButtonApiRow[] = [
   {

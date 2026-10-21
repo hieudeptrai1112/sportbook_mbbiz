@@ -375,6 +375,14 @@
             <span class="sidebar-sublabel">Data Display</span>
             <div
               class="sidebar-link"
+              [class.active]="activePage() === 'tag'"
+              (click)="setPage('tag')"
+            >
+              <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+              <span>Tag</span>
+            </div>
+            <div
+              class="sidebar-link"
               [class.active]="activePage() === 'badge'"
               (click)="setPage('badge')"
             >
@@ -492,6 +500,14 @@
           </div>
           <div
             class="sidebar-link"
+            [class.active]="activePage() === 'headerPattern'"
+            (click)="setPage('headerPattern')"
+          >
+            <img src="/assets/figma/75e8e428-83ff-4ef1-b5ae-51153a303bb0.svg" alt="" />
+            <span>Header</span>
+          </div>
+          <div
+            class="sidebar-link"
             [class.active]="activePage() === 'stepProcessPattern'"
             (click)="setPage('stepProcessPattern')"
           >
@@ -523,6 +539,7 @@
         [class.main-inner-pattern]="
           activePage() === 'formPattern' ||
           activePage() === 'pageHeaderPattern' ||
+          activePage() === 'headerPattern' ||
           activePage() === 'footerPattern' ||
           activePage() === 'stepProcessPattern' ||
           activePage() === 'sourceAccountPattern'
@@ -534,6 +551,7 @@
           [class.content-pattern]="
             activePage() === 'formPattern' ||
             activePage() === 'pageHeaderPattern' ||
+            activePage() === 'headerPattern' ||
             activePage() === 'footerPattern' ||
             activePage() === 'stepProcessPattern' ||
             activePage() === 'sourceAccountPattern'
@@ -1210,6 +1228,42 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'headerPattern'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Pattern</span>
+                <span class="slash">/</span>
+                <span>Header</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Header</h1>
+              <p class="lead">
+                Header là thanh trên cùng của app. Bốn type lấy từ
+                <span class="mono">T Header/ Top Center</span>: maker, checker, 1 user và pre-login.
+                Cùng lúc chỉ một panel. Bấm lại đúng nút, hoặc bấm ra ngoài thanh, thì đóng.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section header-pattern-section"
+              *ngFor="let patternCase of headerPatternCases"
+              [attr.id]="getHeaderPatternSectionId(patternCase.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ patternCase.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ patternCase.description }}</p>
+              <p class="button-demo-description page-header-pattern-note">{{ patternCase.usage }}</p>
+
+              <article class="button-demo-card header-pattern-demo-card">
+                <div class="button-demo-preview header-pattern-demo-preview">
+                  <app-header-pattern [patternCase]="patternCase" />
+                </div>
+              </article>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'footerPattern'">
             <div class="page-header">
               <div class="header-meta">
@@ -1779,6 +1833,31 @@
                   <pre
                     class="button-code-block"
                   ><code [innerHTML]="getButtonMappingDemoHighlightedCode(demo)"></code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of buttonStateDemoSections"
+              [attr.id]="'ds-' + demo.id"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-card">
+                <div class="button-demo-preview core3-map-preview">
+                  <div class="core3-map-row">
+                    <app-ds-button
+                      *ngFor="let action of demo.actions"
+                      [label]="action.label"
+                      [shape]="action.shape || 'rectangle'"
+                      [tone]="action.tone || 'primary'"
+                      [state]="action.state || 'default'"
+                      [size]="action.size || 'large'"
+                    />
+                  </div>
                 </div>
               </div>
             </section>
@@ -7164,6 +7243,112 @@
             </section>
           </ng-container>
 
+          <ng-container *ngIf="activePage() === 'tag'">
+            <div class="page-header">
+              <div class="header-meta">
+                <span class="badge">Data Display</span>
+                <span class="slash">/</span>
+                <span class="meta-version">v2.4.0</span>
+              </div>
+              <h1>Tag</h1>
+              <p class="lead">
+                Tag renders compact status pills from the approved preview cases: default, status
+                presets, and optional description.
+              </p>
+            </div>
+
+            <section
+              class="section button-demo-section"
+              *ngFor="let demo of tagDemoSections"
+              [attr.id]="getTagSectionId(demo.id)"
+            >
+              <div class="button-demo-head">
+                <h2>{{ demo.title }}</h2>
+              </div>
+              <p class="button-demo-description">{{ demo.description }}</p>
+              <div class="button-demo-tags">
+                <span class="button-inline-code" *ngFor="let token of demo.tags">{{ token }}</span>
+              </div>
+
+              <div class="button-demo-card core3-badge-card">
+                <div class="button-demo-preview core3-map-preview core3-badge-preview">
+                  <ng-container [ngSwitch]="demo.variant">
+                    <mbbiz-tag *ngSwitchCase="'default'" />
+
+                    <div *ngSwitchCase="'status'" class="core3-badge-strip">
+                      <mbbiz-tag
+                        *ngFor="let item of tagStatusCases"
+                        [status]="item.status"
+                        [label]="item.label"
+                      />
+                    </div>
+
+                    <div *ngSwitchCase="'description'" class="core3-badge-grid">
+                      <mbbiz-tag
+                        *ngFor="let item of tagStatusCases"
+                        [status]="item.status"
+                        [label]="item.label"
+                        description="Text"
+                        [showDescription]="true"
+                      />
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </section>
+
+            <section class="section button-variables-section" id="tag-variables">
+              <h2>Component Token</h2>
+              <p class="button-demo-description">
+                Tag status presets remap to a shared pill color layer for background, text, and
+                optional description.
+              </p>
+
+              <div class="scale-block" *ngFor="let group of tagVariableGroups">
+                <h3>{{ group.title }}</h3>
+                <div class="token-table component-alias-color-table" *ngIf="group.kind === 'alias-color'">
+                  <div class="token-row token-head">
+                    <span>Alias</span>
+                    <span>Global color</span>
+                    <span>Hex color</span>
+                    <span>Description</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.aliasRows">
+                    <div class="token-alias-cell" [class.na]="row.hexValue === 'N/A'">
+                      <span class="token-swatch" [style.background]="row.hexValue === 'N/A' ? '#E2E8F0' : row.hexValue"></span>
+                      <code class="token-code">{{ row.alias }}</code>
+                    </div>
+                    <code class="token-code">{{ row.globalColor }}</code>
+                    <code class="token-code">{{ row.hexValue }}</code>
+                    <span class="token-description">{{ row.description }}</span>
+                  </div>
+                </div>
+                <div class="token-table button-variable-table" *ngIf="group.kind === 'spec'">
+                  <div class="token-row token-head">
+                    <span>Token</span>
+                    <span>Value</span>
+                    <span>Usage</span>
+                  </div>
+                  <div class="token-row" *ngFor="let row of group.specRows">
+                    <span class="token-code">{{ row.token }}</span>
+                    <span class="token-code">{{ row.value }}</span>
+                    <span class="token-note-cell">
+                      <span class="token-description">{{ row.appliesTo }}</span>
+                      <span class="token-description">{{ row.notes }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-variable-notes">
+                <h3>Normalization Notes</h3>
+                <ul>
+                  <li *ngFor="let note of tagVariableNotes">{{ note }}</li>
+                </ul>
+              </div>
+            </section>
+          </ng-container>
+
           <ng-container *ngIf="activePage() === 'badge'">
             <div class="page-header">
               <div class="header-meta">
@@ -7173,8 +7358,7 @@
               </div>
               <h1>Badge</h1>
               <p class="lead">
-                Badge renders compact status pills from the approved preview cases: default, status
-                presets, and optional description.
+                Badge from Figma A Badge/ Normal: notification glyphs and role pills.
               </p>
             </div>
 
@@ -7196,21 +7380,20 @@
                   <ng-container [ngSwitch]="demo.variant">
                     <mbbiz-badge *ngSwitchCase="'default'" />
 
-                    <div *ngSwitchCase="'status'" class="core3-badge-strip">
+                    <div *ngSwitchCase="'notification'" class="core3-badge-strip">
                       <mbbiz-badge
-                        *ngFor="let item of badgeStatusCases"
+                        *ngFor="let item of badgeNotificationCases"
+                        type="notification"
                         [status]="item.status"
-                        [label]="item.label"
+                        [attr.aria-label]="item.label"
                       />
                     </div>
 
-                    <div *ngSwitchCase="'description'" class="core3-badge-grid">
+                    <div *ngSwitchCase="'role'" class="core3-badge-strip">
                       <mbbiz-badge
-                        *ngFor="let item of badgeStatusCases"
+                        *ngFor="let item of badgeRoleCases"
+                        type="role"
                         [status]="item.status"
-                        [label]="item.label"
-                        description="Text"
-                        [showDescription]="true"
                       />
                     </div>
                   </ng-container>
@@ -7221,8 +7404,8 @@
             <section class="section button-variables-section" id="badge-variables">
               <h2>Component Token</h2>
               <p class="button-demo-description">
-                Badge status presets remap to a shared pill color layer for background, text, and
-                optional description.
+                Notification circles and Role pills map to brand, success, error, and secondary
+                semantic colors from A Badge/ Normal.
               </p>
 
               <div class="scale-block" *ngFor="let group of badgeVariableGroups">
@@ -8728,6 +8911,46 @@
           </div>
         </ng-container>
 
+        <ng-container *ngIf="activePage() === 'headerPattern'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let patternCase of headerPatternCases"
+                  [class.active]="
+                    activeHeaderPatternSection() === getHeaderPatternSectionId(patternCase.id)
+                  "
+                  [href]="'#' + getHeaderPatternSectionId(patternCase.id)"
+                  (click)="setActiveHeaderPatternSection(getHeaderPatternSectionId(patternCase.id))"
+                >
+                  {{ patternCase.title }}
+                </a>
+              </div>
+
+              <div class="pro-tip">
+                <div class="pro-tip-title">
+                  <img src="/assets/figma/75a63650-c7f2-40db-9ddf-d94856f0917b.svg" alt="" />
+                  <span>Usage Note</span>
+                </div>
+                <p>
+                  Loyalty và Tải ứng dụng chỉ có trạng thái nút. Chuông không mở danh sách thông báo.
+                  Gõ vào ô tìm kiếm để thấy kết quả hoặc lỗi 0 kết quả.
+                </p>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
         <ng-container *ngIf="activePage() === 'footerPattern'">
           <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
             <aside class="toc">
@@ -9385,6 +9608,41 @@
                   [class.active]="activeTabSection() === 'tab-variables'"
                   href="#tab-variables"
                   (click)="setActiveTabSection('tab-variables')"
+                >
+                  Component Token
+                </a>
+              </div>
+            </aside>
+            <button
+              class="anchor-collapse-btn"
+              type="button"
+              (click)="toggleTocCollapsed()"
+              [attr.aria-label]="isTocCollapsed() ? 'Expand On This Page' : 'Collapse On This Page'"
+            >
+              <span class="anchor-collapse-icon" [class.collapsed]="isTocCollapsed()">›</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activePage() === 'tag'">
+          <div class="anchor-layout-holder" [class.collapsed]="isTocCollapsed()">
+            <aside class="toc">
+              <span class="toc-label">On This Page</span>
+              <div class="toc-list">
+                <a
+                  class="toc-item"
+                  *ngFor="let demo of tagDemoSections"
+                  [class.active]="activeTagSection() === getTagSectionId(demo.id)"
+                  [href]="'#' + getTagSectionId(demo.id)"
+                  (click)="setActiveTagSection(getTagSectionId(demo.id))"
+                >
+                  {{ demo.title }}
+                </a>
+                <a
+                  class="toc-item"
+                  [class.active]="activeTagSection() === 'tag-variables'"
+                  href="#tag-variables"
+                  (click)="setActiveTagSection('tag-variables')"
                 >
                   Component Token
                 </a>

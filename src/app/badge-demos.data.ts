@@ -1,4 +1,4 @@
-export type BadgeDemoVariant = 'default' | 'status' | 'description';
+export type BadgeDemoVariant = 'default' | 'notification' | 'role';
 
 export interface BadgeDemoSection {
   id: string;
@@ -12,26 +12,28 @@ export const BADGE_DEMO_SECTIONS: BadgeDemoSection[] = [
   {
     id: 'default',
     title: 'Default',
-    description: 'Baseline neutral pill badge.',
-    tags: ['selector=mbbiz-badge', 'status=invalid'],
+    description: 'Figma A Badge/ Normal defaults to Type=Notification, Status=Reminder.',
+    tags: ['selector=mbbiz-badge', 'type=notification', 'status=reminder'],
     variant: 'default',
   },
   {
-    id: 'status',
-    title: 'Status',
-    description: 'Status presets map to the approved color set from Figma.',
+    id: 'notification',
+    title: 'Notification',
+    description:
+      '24px notification badges: Reminder, Balance, Done, Error, Warning, Remind, Bee, Information.',
     tags: [
       'selector=mbbiz-badge',
-      'status=invalid/overdue/unfinished/renew-loan/pending/completed/failed',
+      'type=notification',
+      'status=reminder/balance/done/error/warning/remind/bee/information',
     ],
-    variant: 'status',
+    variant: 'notification',
   },
   {
-    id: 'description',
-    title: 'Description',
-    description: 'Optional supporting text appears below the pill.',
-    tags: ['selector=mbbiz-badge', 'showDescription=true'],
-    variant: 'description',
+    id: 'role',
+    title: 'Role',
+    description: 'Role pills for Maker (Người tạo) and Checker (Người duyệt).',
+    tags: ['selector=mbbiz-badge', 'type=role', 'status=maker/checker'],
+    variant: 'role',
   },
 ];
 
@@ -39,53 +41,76 @@ export const BADGE_VARIABLE_GROUPS = [
   {
     title: 'Badge Color Tokens',
     rows: [
-      { token: 'background/disable2',       value: 'grayscale/300',    appliesTo: 'Neutral / invalid pill background',       notes: 'Maps to --mbbiz-color-badge-neutral-bg.' },
-      { token: 'text/disable2',             value: 'grayscale/500',    appliesTo: 'Neutral / invalid pill text',             notes: 'Maps to --mbbiz-color-badge-neutral-text.' },
-      { token: 'background/warning-tertiary', value: 'orange/100',    appliesTo: 'Overdue pill background',                  notes: 'Maps to --mbbiz-color-badge-orange-bg.' },
-      { token: 'text/on-warning',           value: 'orange/500',       appliesTo: 'Overdue pill text',                       notes: 'Maps to --mbbiz-color-badge-orange-text.' },
-      { token: 'background/secondary',      value: 'darkblue/200',     appliesTo: 'Unfinished soft blue background',         notes: 'Maps to --mbbiz-color-badge-blue-soft-bg.' },
-      { token: 'text/brand-primary1',       value: 'blue/500',         appliesTo: 'Unfinished soft blue text',               notes: 'Maps to --mbbiz-color-badge-blue-text.' },
-      { token: 'background/brand-primary1', value: 'blue/500',         appliesTo: 'Renew-loan solid blue background',        notes: 'Maps to --mbbiz-color-badge-blue-solid-bg.' },
-      { token: 'background/brand-primary4', value: 'blue/200',         appliesTo: 'Pending pill background',                 notes: 'Maps to --mbbiz-color-badge-dark-blue-bg.' },
-      { token: 'text/secondary',            value: 'darkblue/500',     appliesTo: 'Pending pill text',                       notes: 'Maps to --mbbiz-color-badge-dark-blue-text.' },
-      { token: 'background/success-secondary', value: 'green/400',     appliesTo: 'Completed pill background',               notes: 'Maps to --mbbiz-color-badge-green-bg.' },
-      { token: 'background/error-secondary', value: 'red/400',         appliesTo: 'Failed pill background',                  notes: 'Maps to --mbbiz-color-badge-red-bg.' },
-      { token: 'text/white',                value: 'white/100%',       appliesTo: 'Text on solid green, red, and blue pills', notes: 'Maps to --mbbiz-color-badge-on-solid.' },
-      { token: 'text/primary',              value: 'darkblue/1000',    appliesTo: 'Optional description text',               notes: 'Maps to --mbbiz-color-badge-description.' },
+      {
+        token: 'background/brand-primary1',
+        value: 'blue/500',
+        appliesTo: 'Reminder and Balance circle',
+        notes: 'Maps to --mbbiz-color-badge-notification-primary.',
+      },
+      {
+        token: 'background/success-primary',
+        value: 'green/500',
+        appliesTo: 'Done circle',
+        notes: 'Maps to --mbbiz-color-badge-notification-success.',
+      },
+      {
+        token: 'background/error-primary',
+        value: 'red/500',
+        appliesTo: 'Error circle',
+        notes: 'Maps to --mbbiz-color-badge-notification-error.',
+      },
+      {
+        token: 'background/brand-secondary1',
+        value: 'purple/500',
+        appliesTo: 'Remind circle',
+        notes: 'Maps to --mbbiz-color-badge-notification-secondary.',
+      },
+      {
+        token: 'background/brand-primary4',
+        value: 'blue/200',
+        appliesTo: 'Bee circle and Role pill background',
+        notes: 'Maps to --mbbiz-color-badge-role-bg.',
+      },
+      {
+        token: 'text/brand-primary1',
+        value: 'blue/500',
+        appliesTo: 'Role label and Information icon',
+        notes: 'Maps to --mbbiz-color-badge-role-text.',
+      },
+      {
+        token: 'icon/white',
+        value: 'white/100%',
+        appliesTo: 'Glyph on solid notification circles',
+        notes: 'Maps to --mbbiz-color-badge-icon-on-solid.',
+      },
     ],
   },
   {
     title: 'Badge Sizing Specs',
     rows: [
       {
-        token: 'badge/min-height',
+        token: 'badge/notification-size',
         value: '24px',
-        appliesTo: 'Pill label height',
-        notes: 'Fixed visual spec.',
+        appliesTo: 'Notification badge box',
+        notes: 'Fixed visual spec from A Badge/ Normal.',
       },
       {
-        token: 'badge/padding',
-        value: '4px 12px',
-        appliesTo: 'Pill horizontal and vertical padding',
-        notes: 'Fixed visual spec.',
+        token: 'badge/role-height',
+        value: '32px',
+        appliesTo: 'Role pill min-height',
+        notes: 'Padding 8px 16px on 12/16 type.',
       },
       {
-        token: 'badge/radius',
+        token: 'badge/role-radius',
         value: '20px',
-        appliesTo: 'Pill corner radius',
+        appliesTo: 'Role pill and Bee/Balance circles',
         notes: 'Fixed visual spec.',
-      },
-      {
-        token: 'badge/gap',
-        value: '4px',
-        appliesTo: 'Pill to description gap',
-        notes: 'Component layout gap.',
       },
     ],
   },
 ];
 
 export const BADGE_VARIABLE_NOTES = [
-  'Color rows map to CSS custom properties implemented by mbbiz-badge.',
-  'Status presets remap to the same color token layer rather than introducing separate status token names.',
+  'Information uses mbiz-icon (A Bold/Info). Error, Warning, Remind, and Bee use Figma-exported assets from A Badge/ Normal.',
+  'Reminder, Balance, and Check also use Figma-exported assets from A Badge/ Normal.',
 ];

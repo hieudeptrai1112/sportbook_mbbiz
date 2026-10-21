@@ -193,8 +193,46 @@
   cursor: not-allowed;
 }
 
-.ds-button--state-disabled {
+.ds-button--state-disabled,
+.ds-button--state-loading {
   pointer-events: none;
+}
+
+.ds-button__spinner {
+  display: block;
+  flex: 0 0 20px;
+  height: 20px;
+  width: 20px;
+}
+
+.ds-button__spinner svg {
+  display: block;
+  height: 20px;
+  width: 20px;
+}
+
+.ds-button--shape-rectangle.ds-button--tone-primary.ds-button--state-loading {
+  background: var(--color-semantic-background-disable2, #d8d8d8);
+  border-color: transparent;
+  color: var(--color-semantic-text-disable2, #9b9b9b);
+}
+
+.ds-button--shape-rectangle.ds-button--tone-secondary.ds-button--state-loading {
+  background: transparent;
+  border-color: var(--color-semantic-border-disable1, #9b9b9b);
+  color: var(--color-semantic-text-disable2, #9b9b9b);
+}
+
+.ds-button--shape-pill.ds-button--tone-primary.ds-button--state-loading {
+  background: var(--color-semantic-background-brand-secondary4, #dbd3ff);
+  border-color: transparent;
+  color: var(--color-semantic-text-brand-on-primary, #ffffff);
+}
+
+.ds-button--shape-pill.ds-button--tone-secondary.ds-button--state-loading {
+  background: transparent;
+  border-color: var(--color-semantic-border-brand-secondary4, #dbd3ff);
+  color: var(--color-semantic-text-brand-secondary4, #dbd3ff);
 }
 
 .ds-button--shape-rectangle.ds-button--state-default.ds-button--tone-primary:not(:disabled):hover {

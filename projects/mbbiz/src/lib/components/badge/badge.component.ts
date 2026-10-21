@@ -1,42 +1,86 @@
 import { Component, computed, input } from '@angular/core';
+import { IconComponent } from '@mbbiz/icon/angular';
 
-import type { MbbizBadgeColor, MbbizBadgePresetConfig, MbbizBadgeStatus } from './badge.types';
+import type {
+  MbbizBadgeNotificationStatus,
+  MbbizBadgeRoleStatus,
+  MbbizBadgeStatus,
+  MbbizBadgeType,
+} from './badge.types';
 
-const BADGE_PRESET_CONFIG: Record<MbbizBadgeStatus, MbbizBadgePresetConfig> = {
-  invalid: { color: 'neutral' },
-  overdue: { color: 'orange' },
-  unfinished: { color: 'blue' },
-  'renew-loan': { color: 'blue' },
-  pending: { color: 'dark-blue' },
-  completed: { color: 'green' },
-  failed: { color: 'red' },
+const ROLE_LABEL: Record<MbbizBadgeRoleStatus, string> = {
+  maker: 'Người tạo',
+  checker: 'Người duyệt',
+};
+
+const NOTIFICATION_STATUSES: readonly MbbizBadgeNotificationStatus[] = [
+  'reminder',
+  'balance',
+  'done',
+  'error',
+  'warning',
+  'remind',
+  'bee',
+  'information',
+];
+
+const LIBRARY_ICON: Partial<Record<MbbizBadgeNotificationStatus, string>> = {
+  information: 'abold_info',
 };
 
 @Component({
   selector: 'mbbiz-badge',
+  imports: [IconComponent],
   templateUrl: './badge.component.html',
   styleUrl: './badge.component.scss',
 })
 export class MbbizBadgeComponent {
-  readonly status = input<MbbizBadgeStatus>('invalid');
-  readonly color = input<MbbizBadgeColor | null>(null);
-  readonly label = input('Text');
-  readonly description = input('Text');
-  readonly showDescription = input(false);
+  readonly type = input<MbbizBadgeType>('notification');
+  readonly status = input<MbbizBadgeStatus>('reminder');
+  readonly label = input<string | null>(null);
   readonly ariaLabel = input<string | null>(null);
 
-  protected readonly resolvedConfig = computed(() => BADGE_PRESET_CONFIG[this.status()]);
-  protected readonly resolvedColor = computed(() => this.color() ?? this.resolvedConfig().color);
-  protected readonly resolvedAriaLabel = computed(() => this.ariaLabel() ?? this.label());
+  protected readonly resolvedType = computed(() => this.type());
+
+  protected readonly resolvedStatus = computed(() => {
+    const type = this.resolvedType();
+    const status = this.status();
+
+    if (type === 'role') {
+      return status === 'checker' ? 'checker' : 'maker';
+    }
+
+    return NOTIFICATION_STATUSES.includes(status as MbbizBadgeNotificationStatus)
+      ? (status as MbbizBadgeNotificationStatus)
+      : 'reminder';
+  });
+
+  protected readonly resolvedLabel = computed(() => {
+    if (this.resolvedType() !== 'role') {
+      return this.label();
+    }
+
+    const status = this.resolvedStatus() as MbbizBadgeRoleStatus;
+    return this.label() ?? ROLE_LABEL[status];
+  });
+
+  protected readonly libraryIcon = computed(() => {
+    if (this.resolvedType() !== 'notification') {
+      return null;
+    }
+
+    return LIBRARY_ICON[this.resolvedStatus() as MbbizBadgeNotificationStatus] ?? null;
+  });
+
+  protected readonly resolvedAriaLabel = computed(
+    () => this.ariaLabel() ?? this.resolvedLabel() ?? this.resolvedStatus(),
+  );
 
   protected readonly badgeClass = computed(() =>
     [
       'mbbiz-badge',
-      `mbbiz-badge--${this.status()}`,
-      `mbbiz-badge--${this.resolvedColor()}`,
-      this.showDescription() ? 'mbbiz-badge--with-description' : '',
-    ]
-      .filter(Boolean)
-      .join(' '),
+      `mbbiz-badge--${this.resolvedType()}`,
+      `mbbiz-badge--${this.resolvedStatus()}`,
+    ].join(' '),
   );
 }

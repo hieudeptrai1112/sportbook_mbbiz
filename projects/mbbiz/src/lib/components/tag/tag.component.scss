@@ -1,0 +1,86 @@
+@use '../../foundations/tokens/mbbiz-typography.mixins' as typo;
+
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.mbbiz-tag {
+  --mbbiz-tag-bg: var(--mbbiz-color-tag-neutral-bg, #d8d8d8);
+  --mbbiz-tag-fg: var(--mbbiz-color-tag-neutral-text, #9b9b9b);
+
+  align-items: center;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.mbbiz-tag--with-description {
+  align-items: flex-start;
+}
+
+.mbbiz-tag__label {
+  align-items: center;
+  background: var(--mbbiz-tag-bg);
+  border-radius: 20px;
+  color: var(--mbbiz-tag-fg);
+  display: inline-flex;
+  @include typo.mbbiz-typo-body-normal-12-semibold;
+  justify-content: center;
+  max-width: 100%;
+  min-height: 24px;
+  overflow: hidden;
+  padding: 4px 12px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mbbiz-tag__description {
+  color: var(--mbbiz-color-tag-description, #192d39);
+  display: block;
+  @include typo.mbbiz-typo-body-normal-12-regular;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mbbiz-tag--neutral {
+  --mbbiz-tag-bg: var(--mbbiz-color-tag-neutral-bg, #d8d8d8);
+  --mbbiz-tag-fg: var(--mbbiz-color-tag-neutral-text, #9b9b9b);
+}
+
+.mbbiz-tag--orange {
+  --mbbiz-tag-bg: var(--mbbiz-color-tag-orange-bg, #fff4d0);
+  --mbbiz-tag-fg: var(--mbbiz-color-tag-orange-text, #fa8a00);
+}
+
+.mbbiz-tag--blue.mbbiz-tag--unfinished {
+  --mbbiz-tag-bg: var(--mbbiz-color-tag-blue-soft-bg, #ecf5fa);
+  --mbbiz-tag-fg: var(--mbbiz-color-tag-blue-text, #141ed2);
+}
+
+.mbbiz-tag--blue.mbbiz-tag--renew-loan {
+  --mbbiz-tag-bg: var(--mbbiz-color-tag-blue-solid-bg, #141ed2);
+  --mbbiz-tag-fg: var(--mbbiz-color-tag-on-solid, #ffffff);
+}
+
+.mbbiz-tag--dark-blue {
+  --mbbiz-tag-bg: var(--mbbiz-color-tag-dark-blue-bg, #dae4ff);
+  --mbbiz-tag-fg: var(--mbbiz-color-tag-dark-blue-text, #6d83a7);
+}
+
+.mbbiz-tag--green {
+  --mbbiz-tag-bg: var(--mbbiz-color-tag-green-bg, #3dd196);
+  --mbbiz-tag-fg: var(--mbbiz-color-tag-on-solid, #ffffff);
+}
+
+.mbbiz-tag--red {
+  --mbbiz-tag-bg: var(--mbbiz-color-tag-red-bg, #f34343);
+  --mbbiz-tag-fg: var(--mbbiz-color-tag-on-solid, #ffffff);
+}

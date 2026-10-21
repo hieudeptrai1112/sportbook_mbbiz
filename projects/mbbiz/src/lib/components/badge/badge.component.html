@@ -1,6 +1,9 @@
-<span [class]="badgeClass()" [attr.aria-label]="resolvedAriaLabel()">
-  <span class="mbbiz-badge__label">{{ label() }}</span>
-  @if (showDescription()) {
-    <span class="mbbiz-badge__description">{{ description() }}</span>
+<span [class]="badgeClass()" [attr.aria-label]="resolvedAriaLabel()" role="img">
+  @if (resolvedType() === 'role') {
+    <span class="mbbiz-badge__label">{{ resolvedLabel() }}</span>
+  } @else if (libraryIcon(); as iconName) {
+    <mbiz-icon class="mbbiz-badge__icon" [name]="iconName" size="m" />
+  } @else {
+    <span class="mbbiz-badge__art" aria-hidden="true"></span>
   }
 </span>

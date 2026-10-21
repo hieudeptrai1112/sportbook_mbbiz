@@ -1,0 +1,241 @@
+<div class="header-pattern">
+  <div class="header-pattern__bar">
+    @if (patternCase().loggedIn) {
+      <button
+        type="button"
+        class="header-pattern__support"
+        [class.is-open]="panel() === 'support'"
+        [attr.aria-expanded]="panel() === 'support'"
+        (click)="toggle('support')"
+      >
+        <span class="header-pattern__bee" aria-hidden="true"></span>
+        Hỗ trợ
+      </button>
+    } @else {
+      <div class="header-pattern__logo" aria-label="MB">
+        <span class="header-pattern__logo-mark" aria-hidden="true"></span>
+        <span>MB</span>
+      </div>
+    }
+
+    <div class="header-pattern__tools">
+      @if (patternCase().loggedIn) {
+        <button type="button" class="header-pattern__icon" aria-label="Loyalty">
+          <span class="header-pattern__gift" aria-hidden="true"></span>
+        </button>
+        <button
+          type="button"
+          class="header-pattern__icon"
+          [class.is-open]="panel() === 'search'"
+          aria-label="Tìm kiếm"
+          [attr.aria-expanded]="panel() === 'search'"
+          (click)="toggle('search')"
+        >
+          <mbiz-icon name="alinear_search" size="m" />
+        </button>
+        <button
+          type="button"
+          class="header-pattern__icon"
+          [class.is-open]="panel() === 'contact'"
+          aria-label="Liên hệ"
+          [attr.aria-expanded]="panel() === 'contact'"
+          (click)="toggle('contact')"
+        >
+          <mbiz-icon name="alinear_phone" size="m" />
+        </button>
+      } @else {
+        <button type="button" class="header-pattern__download">
+          <span class="header-pattern__phone" aria-hidden="true"></span>
+          Tải ứng dụng
+        </button>
+        <span class="header-pattern__divider" aria-hidden="true"></span>
+      }
+
+      <button
+        type="button"
+        class="header-pattern__icon"
+        [class.is-open]="panel() === 'language'"
+        aria-label="Ngôn ngữ"
+        [attr.aria-expanded]="panel() === 'language'"
+        (click)="toggle('language')"
+      >
+        <span
+          class="header-pattern__flag"
+          [class.header-pattern__flag--vn]="language().flag === 'vn'"
+          [class.header-pattern__flag--cn]="language().flag === 'cn'"
+          [class.header-pattern__flag--gb]="language().flag === 'gb'"
+          [class.header-pattern__flag--kr]="language().flag === 'kr'"
+        ></span>
+      </button>
+
+      <button type="button" class="header-pattern__icon" aria-label="Thông báo">
+        <mbiz-icon name="alinear_notification" size="m" />
+        @if (patternCase().showNotificationDot) {
+          <span class="header-pattern__dot"></span>
+        }
+      </button>
+
+      @if (!patternCase().loggedIn) {
+        <button
+          type="button"
+          class="header-pattern__support"
+          [class.is-open]="panel() === 'support'"
+          [attr.aria-expanded]="panel() === 'support'"
+          (click)="toggle('support')"
+        >
+          <span class="header-pattern__bee" aria-hidden="true"></span>
+          Hỗ trợ
+        </button>
+      }
+
+      @if (patternCase().roleLabel) {
+        <mbbiz-badge
+          class="header-pattern__role"
+          type="role"
+          [status]="patternCase().roleLabel === 'Người duyệt' ? 'checker' : 'maker'"
+        />
+      }
+
+      @if (patternCase().loggedIn) {
+        <button
+          type="button"
+          class="header-pattern__profile"
+          [class.is-open]="panel() === 'profile'"
+          [attr.aria-expanded]="panel() === 'profile'"
+          (click)="toggle('profile')"
+        >
+          <mbbiz-avatar [size]="32" [alt]="patternCase().profileName" />
+          <span class="header-pattern__identity">
+            <span class="header-pattern__name">{{ patternCase().profileName }}</span>
+            <span class="header-pattern__company">{{ patternCase().company }}</span>
+            <span class="header-pattern__points">
+              Điểm thành viên:
+              <strong>{{ patternCase().points }}</strong>
+            </span>
+          </span>
+          <mbiz-icon name="alinear_down" size="s" />
+        </button>
+      }
+    </div>
+  </div>
+
+  @if (panel(); as openPanel) {
+    <div class="header-pattern__slot" [class.header-pattern__slot--end]="panelAlignEnd()">
+      @if (openPanel === 'support') {
+        <div class="header-pattern__panel header-pattern__panel--help" role="menu">
+          <p>Điện thoại – 1900 9045</p>
+          <p>Email – bizmb247@mbbank.com.vn</p>
+          <hr />
+          @for (link of helpLinks; track link) {
+            <button type="button" role="menuitem">{{ link }}</button>
+          }
+        </div>
+      }
+
+      @if (openPanel === 'search') {
+        <div class="header-pattern__panel header-pattern__panel--search">
+          <mbbiz-search-input
+            [value]="query()"
+            [status]="searchPhase() === 'error' ? 'error' : 'default'"
+            placeholder="Tìm kiếm"
+            (valueChange)="onSearch($event)"
+          />
+          @if (searchPhase() === 'empty') {
+            <p class="header-pattern__search-empty">Lịch sử tìm kiếm gần đây trống</p>
+          } @else {
+            <p class="header-pattern__search-summary">{{ searchSummary() }}</p>
+            @if (searchPhase() === 'results') {
+              <ul>
+                @for (option of searchMatches(); track option) {
+                  <li>
+                    <button type="button" (click)="onSearch(option)">{{ option }}</button>
+                  </li>
+                }
+              </ul>
+            }
+          }
+        </div>
+      }
+
+      @if (openPanel === 'contact') {
+        <div class="header-pattern__panel header-pattern__panel--contact">
+          <h3>Chuyên viên hỗ trợ</h3>
+          <p>Họ và tên – Nguyễn Văn Minh</p>
+          <p>Điện thoại – 034 7324455</p>
+          <p>Chi nhánh – Kim Ma Branch, 273 Kim MA Street, Ba Dinh District, Hanoi</p>
+          <h3>Tổng đài hỗ trợ 247</h3>
+          <p>Điện thoại – 1900 9045</p>
+          <p>Email – bizmb247@mbbank.com.vn</p>
+        </div>
+      }
+
+      @if (openPanel === 'language') {
+        <div class="header-pattern__panel header-pattern__panel--language" role="listbox">
+          @for (item of languages; track item.id) {
+            <button
+              type="button"
+              role="option"
+              [attr.aria-selected]="languageId() === item.id"
+              [class.is-active]="languageId() === item.id"
+              (click)="selectLanguage(item.id)"
+            >
+              <span
+                class="header-pattern__flag"
+                [class.header-pattern__flag--vn]="item.flag === 'vn'"
+                [class.header-pattern__flag--cn]="item.flag === 'cn'"
+                [class.header-pattern__flag--gb]="item.flag === 'gb'"
+                [class.header-pattern__flag--kr]="item.flag === 'kr'"
+              ></span>
+              {{ item.label }}
+            </button>
+          }
+        </div>
+      }
+
+      @if (openPanel === 'profile') {
+        <div class="header-pattern__panel header-pattern__panel--menu" role="menu">
+          <button type="button" role="menuitem">
+            <mbiz-icon name="alinear_profile" size="s" />
+            Thông tin tài khoản
+          </button>
+          <button type="button" role="menuitem">
+            <mbiz-icon name="alinear_lock" size="s" />
+            Đổi mật khẩu
+          </button>
+          <button type="button" role="menuitem">
+            <mbiz-icon name="alinear_logout" size="s" />
+            Đăng xuất
+          </button>
+          <hr />
+          <button type="button" class="header-pattern__manage" role="menuitem">
+            Quản lý đăng nhập
+            <mbiz-icon name="alinear_right" size="s" />
+          </button>
+          <div class="header-pattern__accounts">
+            @for (account of accounts(); track account.id) {
+              <button type="button" class="header-pattern__account" (click)="selectAccount(account.id)">
+                <mbbiz-avatar [size]="32" [alt]="account.name" />
+                <span>
+                  <span class="header-pattern__account-name">{{ account.name }}</span>
+                  <span class="header-pattern__company">{{ account.company }}</span>
+                  <mbbiz-badge
+                    type="role"
+                    [status]="account.role === 'Người duyệt' ? 'checker' : 'maker'"
+                  />
+                </span>
+                @if (activeAccountId() === account.id) {
+                  <mbiz-icon name="abold_success" size="s" />
+                }
+              </button>
+            }
+            <label class="header-pattern__keep">
+              <span>Lưu đăng nhập trên thiết bị</span>
+              <mbbiz-switch size="l" [checked]="keepLogin()" (checkedChange)="keepLogin.set($event)" />
+            </label>
+            <button type="button" class="header-pattern__new-login">Đăng nhập tài khoản mới</button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

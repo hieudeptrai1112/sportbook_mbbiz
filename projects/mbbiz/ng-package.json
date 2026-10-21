@@ -9,6 +9,11 @@
       "glob": "**/*",
       "input": "src/lib/foundations/tokens",
       "output": "tokens"
+    },
+    {
+      "glob": "**/*",
+      "input": "src/lib/components/badge/assets",
+      "output": "badge-assets"
     }
   ]
 }

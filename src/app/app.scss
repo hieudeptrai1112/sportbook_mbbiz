@@ -1457,6 +1457,16 @@ mbbiz-dropdown.form-preview-dropdown.form-preview-dropdown--no-chevron ::ng-deep
   overflow: visible;
 }
 
+.header-pattern-demo-card,
+.header-pattern-demo-preview {
+  overflow: visible;
+}
+
+.header-pattern-demo-preview {
+  display: block;
+  background: #ecf5fa;
+}
+
 .page-header-pattern-shell {
   display: flex;
   flex-direction: column;

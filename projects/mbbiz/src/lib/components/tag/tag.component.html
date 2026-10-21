@@ -1,0 +1,6 @@
+<span [class]="tagClass()" [attr.aria-label]="resolvedAriaLabel()">
+  <span class="mbbiz-tag__label">{{ label() }}</span>
+  @if (showDescription()) {
+    <span class="mbbiz-tag__description">{{ description() }}</span>
+  }
+</span>

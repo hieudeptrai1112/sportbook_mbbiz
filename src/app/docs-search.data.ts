@@ -14,6 +14,7 @@ export type DocsPageId =
   | 'radio'
   | 'checkbox'
   | 'switch'
+  | 'tag'
   | 'badge'
   | 'status'
   | 'message'
@@ -32,6 +33,7 @@ export type DocsPageId =
   | 'iconography'
   | 'illustration'
   | 'pageHeaderPattern'
+  | 'headerPattern'
   | 'footerPattern'
   | 'stepProcessPattern'
   | 'formPattern'
@@ -252,11 +254,18 @@ export const DOCS_SEARCH_ENTRIES: readonly DocsSearchEntry[] = [
     keywords: ['switch', 'toggle'],
   },
   {
+    id: 'tag',
+    label: 'Tag',
+    group: 'Components',
+    page: 'tag',
+    keywords: ['tag', 'label', 'pill', 'status'],
+  },
+  {
     id: 'badge',
     label: 'Badge',
     group: 'Components',
     page: 'badge',
-    keywords: ['badge', 'label', 'pill', 'tag'],
+    keywords: ['badge', 'notification', 'role', 'maker', 'checker'],
   },
   {
     id: 'status',
@@ -341,6 +350,13 @@ export const DOCS_SEARCH_ENTRIES: readonly DocsSearchEntry[] = [
     group: 'Pattern',
     page: 'pageHeaderPattern',
     keywords: ['page header', 'header', 'pattern'],
+  },
+  {
+    id: 'headerPattern',
+    label: 'Header',
+    group: 'Pattern',
+    page: 'headerPattern',
+    keywords: ['header', 'top bar', 'pre-login', 'maker', 'checker', 'pattern'],
   },
   {
     id: 'stepProcessPattern',

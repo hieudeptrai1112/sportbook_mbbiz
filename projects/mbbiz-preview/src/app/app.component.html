@@ -414,9 +414,9 @@
 
   <section class="mbbiz-preview-section">
     <div class="mbbiz-preview-section-heading">
-      <h2>Badge / docs-ready draft</h2>
+      <h2>Tag / docs-ready draft</h2>
       <p>
-        Badge renders compact status pills from the Figma TagState node.
+        Tag renders compact status pills from the Figma Tag/ State node.
       </p>
     </div>
 
@@ -424,10 +424,10 @@
       <article class="mbbiz-preview-doc-card">
         <div class="mbbiz-preview-doc-card__heading">
           <h3>Default</h3>
-          <p>Baseline neutral pill badge.</p>
+          <p>Baseline neutral pill tag.</p>
         </div>
         <div class="mbbiz-preview-demo-frame mbbiz-preview-demo-frame--compact mbbiz-preview-demo-frame--intrinsic">
-          <mbbiz-badge />
+          <mbbiz-tag />
         </div>
       </article>
 
@@ -438,8 +438,8 @@
         </div>
         <div class="mbbiz-preview-demo-frame mbbiz-preview-demo-frame--compact">
           <div class="mbbiz-preview-badge-strip">
-            <mbbiz-badge
-              *ngFor="let item of badgeStatusCases"
+            <mbbiz-tag
+              *ngFor="let item of tagStatusCases"
               [status]="item.status"
               [label]="item.label"
             />
@@ -454,12 +454,66 @@
         </div>
         <div class="mbbiz-preview-demo-frame mbbiz-preview-demo-frame--compact">
           <div class="mbbiz-preview-badge-grid">
-            <mbbiz-badge
-              *ngFor="let item of badgeStatusCases"
+            <mbbiz-tag
+              *ngFor="let item of tagStatusCases"
               [status]="item.status"
               [label]="item.label"
               description="Text"
               [showDescription]="true"
+            />
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="mbbiz-preview-section">
+    <div class="mbbiz-preview-section-heading">
+      <h2>Badge / docs-ready draft</h2>
+      <p>
+        Badge from Figma A Badge/ Normal: notification glyphs and role pills.
+      </p>
+    </div>
+
+    <div class="mbbiz-preview-doc-list">
+      <article class="mbbiz-preview-doc-card">
+        <div class="mbbiz-preview-doc-card__heading">
+          <h3>Default</h3>
+          <p>Type=Notification, Status=Reminder.</p>
+        </div>
+        <div class="mbbiz-preview-demo-frame mbbiz-preview-demo-frame--compact mbbiz-preview-demo-frame--intrinsic">
+          <mbbiz-badge />
+        </div>
+      </article>
+
+      <article class="mbbiz-preview-doc-card">
+        <div class="mbbiz-preview-doc-card__heading">
+          <h3>Notification</h3>
+          <p>Eight notification statuses from A Badge/ Normal.</p>
+        </div>
+        <div class="mbbiz-preview-demo-frame mbbiz-preview-demo-frame--compact">
+          <div class="mbbiz-preview-badge-strip">
+            <mbbiz-badge
+              *ngFor="let item of badgeNotificationCases"
+              type="notification"
+              [status]="item.status"
+              [attr.aria-label]="item.label"
+            />
+          </div>
+        </div>
+      </article>
+
+      <article class="mbbiz-preview-doc-card">
+        <div class="mbbiz-preview-doc-card__heading">
+          <h3>Role</h3>
+          <p>Maker and Checker role pills.</p>
+        </div>
+        <div class="mbbiz-preview-demo-frame mbbiz-preview-demo-frame--compact">
+          <div class="mbbiz-preview-badge-strip">
+            <mbbiz-badge
+              *ngFor="let item of badgeRoleCases"
+              type="role"
+              [status]="item.status"
             />
           </div>
         </div>

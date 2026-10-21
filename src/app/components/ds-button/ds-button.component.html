@@ -1,6 +1,16 @@
-<button class="{{ classes() }}" [attr.type]="buttonType()" [disabled]="isDisabled()">
+<button
+  class="{{ classes() }}"
+  [attr.type]="buttonType()"
+  [disabled]="state() === 'disabled'"
+  [attr.aria-busy]="isLoading() ? 'true' : null"
+  [attr.aria-disabled]="isLoading() ? 'true' : null"
+>
   @if (showLeftIcon()) {
     <span class="ds-button__icon" aria-hidden="true">+</span>
+  }
+
+  @if (spinnerHtml(); as spinner) {
+    <span class="ds-button__spinner" aria-hidden="true" [innerHTML]="spinner"></span>
   }
 
   <span class="ds-button__label">{{ label() }}</span>

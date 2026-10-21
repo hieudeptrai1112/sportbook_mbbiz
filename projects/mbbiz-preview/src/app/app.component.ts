@@ -4,7 +4,10 @@ import {
   MbbizAffixInputComponent,
   MbbizAffixLabelInputComponent,
   MbbizBadgeComponent,
-  type MbbizBadgeStatus,
+  type MbbizBadgeNotificationStatus,
+  type MbbizBadgeRoleStatus,
+  MbbizTagComponent,
+  type MbbizTagStatus,
   MbbizButtonComponent,
   MbbizButtonLinkComponent,
   MbbizCheckboxComponent,
@@ -74,6 +77,7 @@ import {
     MbbizAffixInputComponent,
     MbbizAffixLabelInputComponent,
     MbbizBadgeComponent,
+    MbbizTagComponent,
     MbbizButtonComponent,
     MbbizButtonLinkComponent,
     MbbizCheckboxComponent,
@@ -201,7 +205,7 @@ export class MbbizPreviewAppComponent {
     this.activeButtonTheme.set(theme);
   }
 
-  protected readonly badgeStatusCases: { status: MbbizBadgeStatus; label: string }[] = [
+  protected readonly tagStatusCases: { status: MbbizTagStatus; label: string }[] = [
     { status: 'invalid', label: 'Text' },
     { status: 'overdue', label: 'Text' },
     { status: 'unfinished', label: 'Text' },
@@ -209,6 +213,23 @@ export class MbbizPreviewAppComponent {
     { status: 'pending', label: 'Text' },
     { status: 'completed', label: 'Text' },
     { status: 'failed', label: 'Text' },
+  ];
+  protected readonly badgeNotificationCases: {
+    status: MbbizBadgeNotificationStatus;
+    label: string;
+  }[] = [
+    { status: 'reminder', label: 'Reminder' },
+    { status: 'balance', label: 'Balance' },
+    { status: 'done', label: 'Done' },
+    { status: 'error', label: 'Error' },
+    { status: 'warning', label: 'Warning' },
+    { status: 'remind', label: 'Remind' },
+    { status: 'bee', label: 'Bee' },
+    { status: 'information', label: 'Information' },
+  ];
+  protected readonly badgeRoleCases: { status: MbbizBadgeRoleStatus; label: string }[] = [
+    { status: 'maker', label: 'Người tạo' },
+    { status: 'checker', label: 'Người duyệt' },
   ];
 
   protected readonly statusColorCases: { color: MbbizStatusColor; label: string }[] = [

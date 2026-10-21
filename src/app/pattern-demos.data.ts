@@ -198,6 +198,80 @@ export const STEP_PROCESS_PATTERN_CASES: readonly StepProcessPatternCase[] = [
   },
 ] as const;
 
+export type HeaderPatternId = 'maker' | 'checker' | 'oneUser' | 'preLogin';
+
+export interface HeaderPatternCase {
+  id: HeaderPatternId;
+  title: string;
+  description: string;
+  usage: string;
+  loggedIn: boolean;
+  roleLabel: 'Người tạo' | 'Người duyệt' | null;
+  menuAccounts: 'one' | 'two' | null;
+  showNotificationDot: boolean;
+  profileName: string;
+  company: string;
+  points: string;
+}
+
+export const HEADER_PATTERN_CASES: readonly HeaderPatternCase[] = [
+  {
+    id: 'maker',
+    title: '2 users / maker',
+    description: 'Thanh trên cho người tạo: Hỗ trợ, cụm icon, badge Người tạo và profile.',
+    usage:
+      'Hỗ trợ, tìm kiếm, điện thoại, ngôn ngữ và profile mở panel. Loyalty chỉ đổi hover/pressed. Chuông dùng Notification=No.',
+    loggedIn: true,
+    roleLabel: 'Người tạo',
+    menuAccounts: 'two',
+    showNotificationDot: false,
+    profileName: 'HOÀNG LÊ PHƯƠNG MAI',
+    company: 'Công ty CPDV Đầu tư Mai Linh',
+    points: '374',
+  },
+  {
+    id: 'checker',
+    title: '2 users / checker',
+    description: 'Cùng thanh maker, badge đổi thành Người duyệt và chuông có chấm thông báo.',
+    usage:
+      'Menu profile dùng account=2. Chuông là M Item/ Notification Pre Login với Notification=Yes, không mở danh sách.',
+    loggedIn: true,
+    roleLabel: 'Người duyệt',
+    menuAccounts: 'two',
+    showNotificationDot: true,
+    profileName: 'HOÀNG LÊ BÌNH MINH',
+    company: 'Công ty CPDV Đầu tư Mai Linh',
+    points: '374',
+  },
+  {
+    id: 'oneUser',
+    title: '1 user',
+    description: 'Thanh đã đăng nhập không có badge vai trò. Menu profile là account=Only 1.',
+    usage: 'Các panel còn lại giống maker. Chuông không có chấm.',
+    loggedIn: true,
+    roleLabel: null,
+    menuAccounts: 'one',
+    showNotificationDot: false,
+    profileName: 'HOÀNG LÊ PHƯƠNG MAI',
+    company: 'Công ty CPDV Đầu tư Mai Linh',
+    points: '374',
+  },
+  {
+    id: 'preLogin',
+    title: 'Pre-login',
+    description: 'Logo MB, Tải ứng dụng, ngôn ngữ, chuông và Hỗ trợ.',
+    usage:
+      'Tải ứng dụng chỉ đổi hover/pressed. Ngôn ngữ và Hỗ trợ mở panel. Chuông là Notification=No.',
+    loggedIn: false,
+    roleLabel: null,
+    menuAccounts: null,
+    showNotificationDot: false,
+    profileName: '',
+    company: '',
+    points: '',
+  },
+] as const;
+
 export const PAGE_HEADER_PATTERN_CASES: readonly PageHeaderPatternCase[] = [
   {
     id: 'default',

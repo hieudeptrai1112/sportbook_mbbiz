@@ -2,12 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener, computed, inject, signal, viewChild, type WritableSignal } from '@angular/core';
 import type { IconSizeToken } from '@mbbiz/icon';
 import { IconComponent } from '@mbbiz/icon/angular';
+import { DsButtonComponent } from './components/ds-button/ds-button.component';
 import type { DsInputPasswordState } from './components/ds-input-password/ds-input-password.component';
 import {
   MbbizAffixInputComponent,
   MbbizAffixLabelInputComponent,
   MbbizBadgeComponent,
-  type MbbizBadgeStatus,
+  type MbbizBadgeNotificationStatus,
+  type MbbizBadgeRoleStatus,
+  MbbizTagComponent,
+  type MbbizTagStatus,
   type MbbizAffixDropdownItem,
   MbbizButtonComponent,
   MbbizBreadcrumbComponent,
@@ -111,10 +115,12 @@ import {
 import {
   BUTTON_API_ROWS,
   BUTTON_DEMO_SECTIONS,
+  BUTTON_STATE_DEMO_SECTIONS,
   BUTTON_SEMANTIC_BINDING_GROUPS,
   BUTTON_VARIABLE_GROUPS,
   BUTTON_VARIABLE_NOTES,
   type ButtonDemoAction,
+  type DsButtonState,
   type ButtonApiRow,
   type ButtonCodeType,
   type ButtonDemoSection,
@@ -127,6 +133,12 @@ import {
   BADGE_VARIABLE_NOTES,
   type BadgeDemoSection,
 } from './badge-demos.data';
+import {
+  TAG_DEMO_SECTIONS,
+  TAG_VARIABLE_GROUPS,
+  TAG_VARIABLE_NOTES,
+  type TagDemoSection,
+} from './tag-demos.data';
 import {
   TOOLTIP_DEMO_SECTIONS,
   TOOLTIP_POSITION_CASES,
@@ -384,9 +396,11 @@ import {
   getBrandThemeTokenValue,
   type BrandThemeId,
 } from './brand-theme-modes.data';
+import { HeaderPatternComponent } from './header-pattern/header-pattern.component';
 import {
   FOOTER_PATTERN_VARIANTS,
   FORM_PATTERN_CASES,
+  HEADER_PATTERN_CASES,
   PAGE_HEADER_PATTERN_CASES,
   SOURCE_ACCOUNT_ACCOUNT_OPTIONS,
   SOURCE_ACCOUNT_CARD_BLACK_SRC,
@@ -403,6 +417,7 @@ import {
   STEP_PROCESS_PATTERN_CASES,
   type FooterPatternVariant,
   type FormPatternCase,
+  type HeaderPatternCase,
   type PageHeaderPatternCase,
   type SourceAccountListItem,
   type SourceAccountPatternCase,
@@ -499,9 +514,11 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
   selector: 'app-root',
   imports: [
     CommonModule,
+    DsButtonComponent,
     MbbizAffixInputComponent,
     MbbizAffixLabelInputComponent,
     MbbizBadgeComponent,
+    MbbizTagComponent,
     MbbizButtonComponent,
     MbbizBreadcrumbComponent,
     MbbizButtonLinkComponent,
@@ -539,6 +556,7 @@ const INPUT_DOC_SECTION_IDS: readonly InputDocsSectionId[] = [
     MbbizUploadAvatarComponent,
     MbbizAvatarComponent,
     MbbizAvatarGroupComponent,
+    HeaderPatternComponent,
     IconComponent,
   ],
   templateUrl: './app.html',
@@ -596,7 +614,11 @@ export class App {
   protected readonly activeFormPatternSection = signal(
     this.getFormPatternSectionId(this.formPatternCases[0]?.id ?? 'basic'),
   );
+  protected readonly headerPatternCases = HEADER_PATTERN_CASES;
   protected readonly pageHeaderPatternCases = PAGE_HEADER_PATTERN_CASES;
+  protected readonly activeHeaderPatternSection = signal(
+    this.getHeaderPatternSectionId(this.headerPatternCases[0]?.id ?? 'maker'),
+  );
   protected readonly activePageHeaderPatternSection = signal(
     this.getPageHeaderPatternSectionId(this.pageHeaderPatternCases[0]?.id ?? 'default'),
   );
@@ -638,6 +660,7 @@ export class App {
   protected readonly typographyScaleGroups: TypographyScaleGroup[] = TYPOGRAPHY_SCALE_GROUPS;
   protected readonly typographyStyleGroups: TypographyStyleGroup[] = TYPOGRAPHY_STYLE_GROUPS;
   protected readonly buttonDemoSections: ButtonDemoSection[] = BUTTON_DEMO_SECTIONS;
+  protected readonly buttonStateDemoSections: ButtonDemoSection[] = BUTTON_STATE_DEMO_SECTIONS;
   protected readonly buttonDocsThemes = BRAND_THEME_TABS;
   protected readonly activeButtonDocsTheme = signal<BrandThemeId>(DEFAULT_BRAND_THEME);
   protected readonly buttonMappingDemoSections: ButtonMappingDemoSection[] =
@@ -805,14 +828,14 @@ export class App {
     { label: 'Text' },
     { label: 'Text', disabled: true },
   ];
-  protected readonly badgeDemoSections: BadgeDemoSection[] = BADGE_DEMO_SECTIONS;
-  protected readonly badgeVariableGroups: ResolvedVariableTokenGroup[] =
-    this.buildResolvedVariableTokenGroups(BADGE_VARIABLE_GROUPS);
-  protected readonly badgeVariableNotes = BADGE_VARIABLE_NOTES;
-  protected readonly activeBadgeSection = signal(
-    this.getBadgeSectionId(this.badgeDemoSections[0]?.id ?? 'default'),
+  protected readonly tagDemoSections: TagDemoSection[] = TAG_DEMO_SECTIONS;
+  protected readonly tagVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(TAG_VARIABLE_GROUPS);
+  protected readonly tagVariableNotes = TAG_VARIABLE_NOTES;
+  protected readonly activeTagSection = signal(
+    this.getTagSectionId(this.tagDemoSections[0]?.id ?? 'default'),
   );
-  protected readonly badgeStatusCases: { status: MbbizBadgeStatus; label: string }[] = [
+  protected readonly tagStatusCases: { status: MbbizTagStatus; label: string }[] = [
     { status: 'invalid', label: 'Text' },
     { status: 'overdue', label: 'Text' },
     { status: 'unfinished', label: 'Text' },
@@ -820,6 +843,28 @@ export class App {
     { status: 'pending', label: 'Text' },
     { status: 'completed', label: 'Text' },
     { status: 'failed', label: 'Text' },
+  ];
+  protected readonly badgeDemoSections: BadgeDemoSection[] = BADGE_DEMO_SECTIONS;
+  protected readonly badgeVariableGroups: ResolvedVariableTokenGroup[] =
+    this.buildResolvedVariableTokenGroups(BADGE_VARIABLE_GROUPS);
+  protected readonly badgeVariableNotes = BADGE_VARIABLE_NOTES;
+  protected readonly activeBadgeSection = signal(
+    this.getBadgeSectionId(this.badgeDemoSections[0]?.id ?? 'default'),
+  );
+  protected readonly badgeNotificationCases: { status: MbbizBadgeNotificationStatus; label: string }[] =
+    [
+      { status: 'reminder', label: 'Reminder' },
+      { status: 'balance', label: 'Balance' },
+      { status: 'done', label: 'Done' },
+      { status: 'error', label: 'Error' },
+      { status: 'warning', label: 'Warning' },
+      { status: 'remind', label: 'Remind' },
+      { status: 'bee', label: 'Bee' },
+      { status: 'information', label: 'Information' },
+    ];
+  protected readonly badgeRoleCases: { status: MbbizBadgeRoleStatus; label: string }[] = [
+    { status: 'maker', label: 'Người tạo' },
+    { status: 'checker', label: 'Người duyệt' },
   ];
   protected readonly statusDemoSections: StatusDemoSection[] = STATUS_DEMO_SECTIONS;
   protected readonly statusVariableGroups: ResolvedVariableTokenGroup[] =
@@ -1545,6 +1590,7 @@ export const appConfig: ApplicationConfig = {
     }
     if (
       page === 'pageHeaderPattern' ||
+      page === 'headerPattern' ||
       page === 'footerPattern' ||
       page === 'stepProcessPattern' ||
       page === 'formPattern' ||
@@ -1561,6 +1607,7 @@ export const appConfig: ApplicationConfig = {
       page !== 'layout' &&
       page !== 'typography' &&
       page !== 'pageHeaderPattern' &&
+      page !== 'headerPattern' &&
       page !== 'footerPattern' &&
       page !== 'stepProcessPattern' &&
       page !== 'formPattern' &&
@@ -1574,6 +1621,8 @@ export const appConfig: ApplicationConfig = {
       setTimeout(() => this.updateActiveFormPatternSection(), 0);
     } else if (page === 'pageHeaderPattern') {
       setTimeout(() => this.updateActivePageHeaderPatternSection(), 0);
+    } else if (page === 'headerPattern') {
+      setTimeout(() => this.updateActiveHeaderPatternSection(), 0);
     } else if (page === 'footerPattern') {
       setTimeout(() => this.updateActiveFooterPatternSection(), 0);
     } else if (page === 'stepProcessPattern') {
@@ -1600,6 +1649,8 @@ export const appConfig: ApplicationConfig = {
       setTimeout(() => this.updateActiveStepsSection(), 0);
     } else if (page === 'tab') {
       setTimeout(() => this.updateActiveTabSection(), 0);
+    } else if (page === 'tag') {
+      setTimeout(() => this.updateActiveTagSection(), 0);
     } else if (page === 'badge') {
       setTimeout(() => this.updateActiveBadgeSection(), 0);
     } else if (page === 'status') {
@@ -1679,6 +1730,7 @@ export const appConfig: ApplicationConfig = {
           page === 'formPattern' ||
           page === 'footerPattern' ||
           page === 'pageHeaderPattern' ||
+          page === 'headerPattern' ||
           page === 'stepProcessPattern' ||
           page === 'sourceAccountPattern'
         );
@@ -1694,6 +1746,7 @@ export const appConfig: ApplicationConfig = {
           page !== 'formPattern' &&
           page !== 'footerPattern' &&
           page !== 'pageHeaderPattern' &&
+          page !== 'headerPattern' &&
           page !== 'stepProcessPattern' &&
           page !== 'sourceAccountPattern'
         );
@@ -1728,6 +1781,10 @@ export const appConfig: ApplicationConfig = {
     return `page-header-pattern-${sectionId}`;
   }
 
+  protected getHeaderPatternSectionId(sectionId: HeaderPatternCase['id']): string {
+    return `header-pattern-${sectionId}`;
+  }
+
   protected getStepProcessPatternSectionId(sectionId: StepProcessPatternCase['id']): string {
     return `step-process-pattern-${sectionId}`;
   }
@@ -1754,6 +1811,10 @@ export const appConfig: ApplicationConfig = {
 
   protected setActivePageHeaderPatternSection(sectionId: string) {
     this.activePageHeaderPatternSection.set(sectionId);
+  }
+
+  protected setActiveHeaderPatternSection(sectionId: string) {
+    this.activeHeaderPatternSection.set(sectionId);
   }
 
   protected setActiveStepProcessPatternSection(sectionId: string) {
@@ -1933,9 +1994,7 @@ export const appConfig: ApplicationConfig = {
     }
   }
 
-  protected getButtonDocState(
-    action: ButtonDemoAction,
-  ): 'default' | 'hover' | 'pressed' | 'disabled' {
+  protected getButtonDocState(action: ButtonDemoAction): DsButtonState {
     return action.state ?? 'default';
   }
 
@@ -2684,6 +2743,14 @@ export const appConfig: ApplicationConfig = {
 
   protected getTabSectionId(sectionId: string): string {
     return `tab-${sectionId}`;
+  }
+
+  protected setActiveTagSection(sectionId: string) {
+    this.activeTagSection.set(sectionId);
+  }
+
+  protected getTagSectionId(sectionId: string): string {
+    return `tag-${sectionId}`;
   }
 
   protected setActiveBadgeSection(sectionId: string) {
@@ -3477,6 +3544,7 @@ export const appConfig: ApplicationConfig = {
   protected onViewportChange() {
     this.updateActiveTokenSection();
     this.updateActivePageHeaderPatternSection();
+    this.updateActiveHeaderPatternSection();
     this.updateActiveFooterPatternSection();
     this.updateActiveStepProcessPatternSection();
     this.updateActiveSourceAccountPatternSection();
@@ -3491,6 +3559,7 @@ export const appConfig: ApplicationConfig = {
     this.updateActiveNavigationBarSection();
     this.updateActiveStepsSection();
     this.updateActiveTabSection();
+    this.updateActiveTagSection();
     this.updateActiveBadgeSection();
     this.updateActiveStatusSection();
     this.updateActiveMessageSection();
@@ -3657,6 +3726,31 @@ export const appConfig: ApplicationConfig = {
     }
 
     this.activePageHeaderPatternSection.set(currentSection);
+  }
+
+  private updateActiveHeaderPatternSection() {
+    if (this.activePage() !== 'headerPattern' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getHeaderPatternSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeHeaderPatternSection.set(currentSection);
   }
 
   private updateActiveStepProcessPatternSection() {
@@ -3907,6 +4001,31 @@ export const appConfig: ApplicationConfig = {
     }
 
     this.activeTabSection.set(currentSection);
+  }
+
+  private updateActiveTagSection() {
+    if (this.activePage() !== 'tag' || typeof document === 'undefined') {
+      return;
+    }
+
+    const sectionIds = this.getTagSectionIds();
+    let currentSection = sectionIds[0];
+    const offset = 140;
+
+    for (const sectionId of sectionIds) {
+      const section = document.getElementById(sectionId);
+      if (!section) {
+        continue;
+      }
+
+      if (section.getBoundingClientRect().top <= offset) {
+        currentSection = sectionId;
+      } else {
+        break;
+      }
+    }
+
+    this.activeTagSection.set(currentSection);
   }
 
   private updateActiveBadgeSection() {
@@ -4744,6 +4863,10 @@ export const appConfig: ApplicationConfig = {
     );
   }
 
+  private getHeaderPatternSectionIds(): string[] {
+    return this.headerPatternCases.map((patternCase) => this.getHeaderPatternSectionId(patternCase.id));
+  }
+
   private getStepProcessPatternSectionIds(): string[] {
     return this.stepProcessPatternCases.map((patternCase) =>
       this.getStepProcessPatternSectionId(patternCase.id),
@@ -4820,6 +4943,13 @@ export const appConfig: ApplicationConfig = {
     return [
       ...this.tabDemoSections.map((section) => this.getTabSectionId(section.id)),
       'tab-variables',
+    ];
+  }
+
+  private getTagSectionIds(): string[] {
+    return [
+      ...this.tagDemoSections.map((section) => this.getTagSectionId(section.id)),
+      'tag-variables',
     ];
   }
 
@@ -5077,7 +5207,7 @@ export const appConfig: ApplicationConfig = {
 import { Component } from '@angular/core';
 import { MbbizButtonComponent } from 'mbbiz';
 
-type ButtonDocState = 'default' | 'hover' | 'pressed' | 'disabled';
+type ButtonDocState = 'default' | 'hover' | 'pressed' | 'disabled' | 'loading';
 
 interface ButtonAction {
   label: string;
@@ -5101,6 +5231,7 @@ interface ButtonAction {
         [variant]="action.variant"
         [size]="action.size"
         [disabled]="action.docState === 'disabled'"
+        [loading]="action.docState === 'loading'"
         [class.button-doc-state-hover]="action.docState === 'hover'"
         [class.button-doc-state-pressed]="action.docState === 'pressed'"
       >
@@ -5139,6 +5270,10 @@ ${actionRows}
 
     if (state === 'disabled') {
       lines.push(`${indent}  [disabled]="true"`);
+    }
+
+    if (state === 'loading') {
+      lines.push(`${indent}  [loading]="true"`);
     }
 
     lines.push(`${indent}>`);

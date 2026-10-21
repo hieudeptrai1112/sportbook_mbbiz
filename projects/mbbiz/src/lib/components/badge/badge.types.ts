@@ -1,14 +1,15 @@
-export type MbbizBadgeColor = 'neutral' | 'orange' | 'blue' | 'dark-blue' | 'green' | 'red';
+export type MbbizBadgeType = 'notification' | 'role';
 
-export type MbbizBadgeStatus =
-  | 'invalid'
-  | 'overdue'
-  | 'unfinished'
-  | 'renew-loan'
-  | 'pending'
-  | 'completed'
-  | 'failed';
+export type MbbizBadgeNotificationStatus =
+  | 'reminder'
+  | 'balance'
+  | 'done'
+  | 'error'
+  | 'warning'
+  | 'remind'
+  | 'bee'
+  | 'information';
 
-export interface MbbizBadgePresetConfig {
-  color: MbbizBadgeColor;
-}
+export type MbbizBadgeRoleStatus = 'maker' | 'checker';
+
+export type MbbizBadgeStatus = MbbizBadgeNotificationStatus | MbbizBadgeRoleStatus;

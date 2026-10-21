@@ -35,6 +35,8 @@ export * from './lib/components/message/message.service';
 export * from './lib/components/message/message.types';
 export * from './lib/components/badge/badge.component';
 export * from './lib/components/badge/badge.types';
+export * from './lib/components/tag/tag.component';
+export * from './lib/components/tag/tag.types';
 export * from './lib/components/breadcrumb/breadcrumb.component';
 export * from './lib/components/breadcrumb/breadcrumb.types';
 export * from './lib/components/steps/steps.component';
