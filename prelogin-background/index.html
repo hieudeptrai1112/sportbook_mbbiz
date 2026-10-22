@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prelogin background — 1 ảnh, 6 theme CSS</title>
+  <style>
+    :root {
+      --gold: #b27a17;
+      --silver-deep: #20282a;
+      --silver-mid: #7fa4ab;
+      --diamond: #0077ff;
+      --platinum: #871bd0;
+      --state6: #4c4338;
+      --state6-hi: #efece9;
+      --teal: #23e7c3;
+      --violet: #9746ff;
+      --blue: #141ed2;
+      --cyan: #52dddd;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #121214;
+      color: #e8e6e1;
+      font: 14px/1.45 "IBM Plex Sans", "Segoe UI", sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 28px 28px 40px;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      max-width: 1440px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 560;
+      letter-spacing: 0.02em;
+    }
+
+    p.meta {
+      margin: 6px 0 0;
+      color: #8b8880;
+      font-size: 12px;
+    }
+
+    .switcher {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 4px;
+      background: #1c1c1f;
+      border: 1px solid #2a2a2e;
+    }
+
+    .switcher button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: #b8b4ab;
+      padding: 8px 12px;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .switcher button[aria-pressed="true"] {
+      background: #eceae4;
+      color: #161616;
+    }
+
+    .stage {
+      position: relative;
+      isolation: isolate;
+      width: min(100%, 1440px);
+      aspect-ratio: 1440 / 810;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .sculpture {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .wash {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    /*
+      Figma overlays are flipped (scaleX -1), so the tint sits on the RIGHT.
+      Gold / State 6 gather at the bottom-right; Silver / Diamond / Platinum
+      are a right-weighted veil; Normal is almost white with corner blooms.
+    */
+
+    /* Default = Figma SVG 14823:18365, flipped like the file (scaleX -1). */
+    .wash-default {
+      display: none;
+    }
+
+    [data-theme="normal"] .wash-a,
+    [data-theme="normal"] .wash-b {
+      display: none;
+    }
+
+    [data-theme="normal"] .wash-default,
+    [data-theme="normal"] .sculpture-base { display: none; }
+    .sculpture-figma { display: none; }
+    [data-theme="normal"] .sculpture-figma { display: block; }
+
+    .wash-default svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transform: scaleX(-1);
+    }
+
+    /* ponytail: Figma layer opacity+multiply ≠ CSS opacity+multiply on white */
+    .wash-default-b { mix-blend-mode: multiply; opacity: 0.2; }
+    .wash-default-a { mix-blend-mode: multiply; }
+
+    [data-theme="silver"] .wash-a {
+      mix-blend-mode: soft-light;
+      background:
+        linear-gradient(to left, var(--silver-deep) 0%, var(--silver-mid) 38%, rgb(255 255 255 / 0) 86%),
+        #fdfdfe;
+    }
+
+    [data-theme="gold"] .wash-a {
+      mix-blend-mode: color;
+      background:
+        linear-gradient(to top left, var(--gold) 0%, rgb(255 255 255 / 0) 58%),
+        #ffffff;
+    }
+
+    [data-theme="gold"] .wash-b {
+      mix-blend-mode: soft-light;
+      background: linear-gradient(to top left, var(--gold) 2%, #ffffff 68%);
+    }
+
+    [data-theme="diamond"] .wash-a {
+      mix-blend-mode: soft-light;
+      background:
+        linear-gradient(to left, var(--diamond) 0%, var(--diamond) 22%, rgb(255 255 255 / 0) 88%),
+        #ffffff;
+    }
+
+    [data-theme="platinum"] .wash-a {
+      mix-blend-mode: soft-light;
+      background:
+        linear-gradient(to left, var(--platinum) 0%, var(--platinum) 18%, rgb(255 255 255 / 0) 82%),
+        #ffffff;
+    }
+
+    [data-theme="state6"] .wash-a {
+      mix-blend-mode: color;
+      background:
+        linear-gradient(to top left, var(--state6) 0%, rgb(239 236 233 / 0) 62%),
+        #ffffff;
+    }
+
+    [data-theme="state6"] .wash-b {
+      mix-blend-mode: soft-light;
+      background: linear-gradient(to top left, var(--state6) 0%, var(--state6-hi) 72%);
+    }
+
+    footer {
+      max-width: 1440px;
+      color: #8b8880;
+      font-size: 12px;
+    }
+
+    footer strong { color: #d4d0c8; font-weight: 560; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>BG_WEB_Prelogin</h1>
+      <p class="meta">Một file <code>sculpture-export.png</code> · đổi hạng chỉ đổi <code>data-theme</code></p>
+    </div>
+    <div class="switcher" role="tablist" aria-label="Hạng">
+      <button type="button" data-theme="normal" aria-pressed="true">Normal</button>
+      <button type="button" data-theme="silver" aria-pressed="false">Silver</button>
+      <button type="button" data-theme="gold" aria-pressed="false">Gold</button>
+      <button type="button" data-theme="diamond" aria-pressed="false">Diamond</button>
+      <button type="button" data-theme="platinum" aria-pressed="false">Platinum</button>
+      <button type="button" data-theme="state6" aria-pressed="false">State 6</button>
+    </div>
+  </header>
+
+  <div class="stage" data-theme="normal" id="stage">
+    <img class="sculpture sculpture-base" src="sculpture-export.png" alt="" width="1440" height="810">
+    <img class="sculpture sculpture-figma" src="figma-normal.png" alt="" width="1440" height="810">
+    <div class="wash wash-a"></div>
+    <div class="wash wash-b"></div>
+    <div class="wash wash-default wash-default-b" aria-hidden="true">
+      <svg preserveAspectRatio="none" overflow="visible" viewBox="0 0 1440 810" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 0H1440V810H0V0Z" fill="url(#def_b0)"/>
+        <path d="M0 0H1440V810H0V0Z" fill="url(#def_b1)"/>
+        <path d="M0 0H1440V810H0V0Z" fill="url(#def_b2)"/>
+        <defs>
+          <radialGradient id="def_b0" cx="0" cy="0" r="1" gradientTransform="matrix(-1404 -305.038 2504.68 -2633.09 1275 874.468)" gradientUnits="userSpaceOnUse">
+            <stop offset="0.197917" stop-color="#52DDDD" stop-opacity="0.15"/>
+            <stop offset="1" stop-color="#141ED2" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="def_b1" cx="0" cy="0" r="1" gradientTransform="matrix(1419.26 658.579 -532.901 759.224 36 554.502)" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#9781FF" stop-opacity="0.2"/>
+            <stop offset="0.234375" stop-color="#7B5FFF" stop-opacity="0.05"/>
+            <stop offset="1" stop-color="white" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="def_b2" cx="0" cy="0" r="1" gradientTransform="matrix(256 697.28 -8011.57 12.2051 0.000223106 723.779)" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#141ED2" stop-opacity="0.1"/>
+            <stop offset="1" stop-color="white" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="wash wash-default wash-default-a" aria-hidden="true">
+      <svg preserveAspectRatio="none" overflow="visible" viewBox="0 0 1440 810" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 0H1440V810H0V0Z" fill="url(#def_a0)" fill-opacity="0.3"/>
+        <path d="M0 0H1440V810H0V0Z" fill="url(#def_a1)" fill-opacity="0.4"/>
+        <path d="M0 0H1440V810H0V0Z" fill="url(#def_a2)" fill-opacity="0.4"/>
+        <defs>
+          <radialGradient id="def_a0" cx="0" cy="0" r="1" gradientTransform="matrix(119.04 204.994 -786.033 30.8027 1395.84 773.59)" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#23E7C3" stop-opacity="0.7"/>
+            <stop offset="0.760417" stop-color="#23E7C3" stop-opacity="0.1"/>
+            <stop offset="1" stop-color="white" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="def_a1" cx="0" cy="0" r="1" gradientTransform="matrix(1002.24 17.4569 -196.245 760.323 587.52 1217.49)" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#9746FF" stop-opacity="0.5"/>
+            <stop offset="0.727687" stop-color="#9746FF" stop-opacity="0.2"/>
+            <stop offset="1" stop-color="white" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="def_a2" cx="0" cy="0" r="1" gradientTransform="matrix(88.3201 211.478 -2452.88 69.1301 -481.92 750.646)" gradientUnits="userSpaceOnUse">
+            <stop offset="0.163437" stop-color="#4A7DFF" stop-opacity="0.5"/>
+            <stop offset="1" stop-color="white" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+
+  <footer>
+    Ảnh load: <strong id="loads">0</strong>
+    · src hiện tại: <strong id="src"></strong>
+    · theme: <strong id="theme-label">normal</strong>
+  </footer>
+
+  <script>
+    const stage = document.getElementById("stage");
+    const img = stage.querySelector("img");
+    const loads = document.getElementById("loads");
+    const src = document.getElementById("src");
+    const themeLabel = document.getElementById("theme-label");
+    const buttons = [...document.querySelectorAll(".switcher button")];
+
+    let count = 0;
+    const paintStats = () => {
+      loads.textContent = String(count);
+      src.textContent = img.currentSrc.split("/").pop() || img.getAttribute("src");
+      themeLabel.textContent = stage.dataset.theme;
+    };
+
+    img.addEventListener("load", () => {
+      count += 1;
+      paintStats();
+    });
+    if (img.complete) {
+      count = 1;
+      paintStats();
+    }
+
+    const setTheme = (theme) => {
+      stage.dataset.theme = theme;
+      buttons.forEach((btn) => {
+        btn.setAttribute("aria-pressed", String(btn.dataset.theme === theme));
+      });
+      paintStats();
+    };
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => setTheme(btn.dataset.theme));
+    });
+
+    window.addEventListener("keydown", (event) => {
+      const map = { "1": "normal", "2": "silver", "3": "gold", "4": "diamond", "5": "platinum", "6": "state6" };
+      if (map[event.key]) setTheme(map[event.key]);
+    });
+  </script>
+</body>
+</html>
