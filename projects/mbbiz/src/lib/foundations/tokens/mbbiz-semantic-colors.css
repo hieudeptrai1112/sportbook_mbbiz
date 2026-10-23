@@ -52,7 +52,13 @@
   --color-semantic-background-gradient8-2: #F5FFFD;
   --color-semantic-background-gradient8-3: #DDE7FF;
   --color-semantic-background-gradient8-4: #DFE3FF;
-  --color-semantic-background-gradient-page-default: linear-gradient(330deg, #E5D1FF 7.641%, #DDE7FF 37.039%, #F5FFFD 70.721%, #FFFFFF 113.34%);
+  --color-semantic-background-gradient-page-default: linear-gradient(319.4deg, #FFFFFF 8.3%, #DDE7FF 42.2%, #F5FFFD 67.7%, #FFFFFF 100%);
+  --color-semantic-background-gradient-page-silver: linear-gradient(326.5deg, #8D9CB1 0%, #D3E2EF 53%, #F8FBFE 100%);
+  --color-semantic-background-gradient-page-gold: linear-gradient(127.9deg, #FBFBFB 0%, #B27A17 100%);
+  --color-semantic-background-gradient-page-diamond: linear-gradient(297.9deg, #1060BB 0%, #81ACDC 37.1%, #F5FAFE 100%);
+  --color-semantic-background-gradient-page-platinum: linear-gradient(295.4deg, #7D6FA8 0.6%, #C8BCEC 44.4%, #F9FBFE 100%);
+  --color-semantic-background-gradient-page-premium: linear-gradient(318deg, #4C4338 0%, #EFECE9 100%);
+  --color-semantic-background-gradient-page: var(--color-semantic-background-gradient-page-default);
   --color-semantic-background-opacity1: #FFFFFF99;
   --color-semantic-background-opacity2: #FFFFFF80;
   --color-semantic-background-opacity3: #FFFFFF66;

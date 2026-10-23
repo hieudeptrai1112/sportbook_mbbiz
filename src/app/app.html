@@ -8355,6 +8355,9 @@
               </div>
               <div class="token-subtable" *ngFor="let table of group.tables" [attr.id]="table.id">
                 <h3>{{ table.label }}</h3>
+                <p class="scale-note" *ngIf="table.category === 'background-gradient'">
+                  Post-login canvas dùng --color-semantic-background-gradient-page; đổi hạng bằng data-mbbiz-theme.
+                </p>
                 <div class="token-table token-table-semantic">
                   <div class="token-row token-head">
                     <span>Alias</span>

@@ -583,9 +583,39 @@ export const PALETTE_COLUMNS: PaletteColumn[] = [
     swatches: [
       {
         name: 'page-default',
-        value: '#E5D1FF → #DDE7FF → #F5FFFD → #FFFFFF',
+        value: '#FFFFFF → #DDE7FF → #F5FFFD → #FFFFFF',
         swatch:
-          'linear-gradient(330deg, #e5d1ff 7.641%, #dde7ff 37.039%, #f5fffd 70.721%, #ffffff 113.34%)',
+          'linear-gradient(319.4deg, #ffffff 8.3%, #dde7ff 42.2%, #f5fffd 67.7%, #ffffff 100%)',
+        gradient: true,
+      },
+      {
+        name: 'page-silver',
+        value: '#8D9CB1 → #D3E2EF → #F8FBFE',
+        swatch: 'linear-gradient(326.5deg, #8d9cb1 0%, #d3e2ef 53%, #f8fbfe 100%)',
+        gradient: true,
+      },
+      {
+        name: 'page-gold',
+        value: '#FBFBFB → #B27A17',
+        swatch: 'linear-gradient(127.9deg, #fbfbfb 0%, #b27a17 100%)',
+        gradient: true,
+      },
+      {
+        name: 'page-diamond',
+        value: '#1060BB → #81ACDC → #F5FAFE',
+        swatch: 'linear-gradient(297.9deg, #1060bb 0%, #81acdc 37.1%, #f5fafe 100%)',
+        gradient: true,
+      },
+      {
+        name: 'page-platinum',
+        value: '#7D6FA8 → #C8BCEC → #F9FBFE',
+        swatch: 'linear-gradient(295.4deg, #7d6fa8 0.6%, #c8bcec 44.4%, #f9fbfe 100%)',
+        gradient: true,
+      },
+      {
+        name: 'page-premium',
+        value: '#4C4338 → #EFECE9',
+        swatch: 'linear-gradient(318deg, #4c4338 0%, #efece9 100%)',
         gradient: true,
       },
     ],

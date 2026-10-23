@@ -282,6 +282,14 @@ export const BRAND_THEME_TOKENS: Record<string, BrandThemeValueMap> = {
     ['gradient/magenta/800/4', '#FBE5FF'],
     ['gradient/brown/800/4', '#EFEAE3'],
   ),
+  'color/semantic/background-gradient/page': family(
+    ['gradient/page-default', 'linear-gradient(319.4deg, #FFFFFF 8.3%, #DDE7FF 42.2%, #F5FFFD 67.7%, #FFFFFF 100%)'],
+    ['gradient/page-silver', 'linear-gradient(326.5deg, #8D9CB1 0%, #D3E2EF 53%, #F8FBFE 100%)'],
+    ['gradient/page-gold', 'linear-gradient(127.9deg, #FBFBFB 0%, #B27A17 100%)'],
+    ['gradient/page-diamond', 'linear-gradient(297.9deg, #1060BB 0%, #81ACDC 37.1%, #F5FAFE 100%)'],
+    ['gradient/page-platinum', 'linear-gradient(295.4deg, #7D6FA8 0.6%, #C8BCEC 44.4%, #F9FBFE 100%)'],
+    ['gradient/page-premium', 'linear-gradient(318deg, #4C4338 0%, #EFECE9 100%)'],
+  ),
   'color/semantic/text/brand-primary1': family(
     ['blue/500', '#141ED2'],
     ['silver/600', '#2D3538'],

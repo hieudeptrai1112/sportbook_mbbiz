@@ -79,6 +79,7 @@ const FIGMA_BRAND_NAMES = new Set<string>([
   'background/gradient8-2',
   'background/gradient8-3',
   'background/gradient8-4',
+  'background-gradient/page',
   'text/brand-primary1',
   'text/brand-primary2',
   'text/brand-primary3',
@@ -138,6 +139,11 @@ const FIGMA_ALIAS_NAMES = new Set<string>([
   'background/black',
   'background/black-secondary',
   'background-gradient/page-default',
+  'background-gradient/page-silver',
+  'background-gradient/page-gold',
+  'background-gradient/page-diamond',
+  'background-gradient/page-platinum',
+  'background-gradient/page-premium',
   'text/primary',
   'text/primary2',
   'text/primary3',
@@ -352,7 +358,13 @@ export const SEMANTIC_BACKGROUND_FIGMA_ORDER: readonly string[] = [
 ];
 
 export const SEMANTIC_BACKGROUND_GRADIENT_FIGMA_ORDER: readonly string[] = [
+  'color/semantic/background-gradient/page',
   'color/semantic/background-gradient/page-default',
+  'color/semantic/background-gradient/page-silver',
+  'color/semantic/background-gradient/page-gold',
+  'color/semantic/background-gradient/page-diamond',
+  'color/semantic/background-gradient/page-platinum',
+  'color/semantic/background-gradient/page-premium',
 ];
 
 export const SEMANTIC_TEXT_FIGMA_ORDER: readonly string[] = [
@@ -514,7 +526,13 @@ export const SEMANTIC_COLOR_TOKEN_MAPPINGS: SemanticColorTokenMapping[] = [
   { alias: "color/semantic/background/gradient8-2", primitive: "color/primitive/gradient/800/2", value: "#F5FFFD", category: "background" },
   { alias: "color/semantic/background/gradient8-3", primitive: "color/primitive/gradient/800/3", value: "#DDE7FF", category: "background" },
   { alias: "color/semantic/background/gradient8-4", primitive: "color/primitive/gradient/800/4", value: "#DFE3FF", category: "background" },
-  { alias: "color/semantic/background-gradient/page-default", primitive: "color/primitive/gradient/900", value: "linear-gradient(330deg, #E5D1FF 7.641%, #DDE7FF 37.039%, #F5FFFD 70.721%, #FFFFFF 113.34%)", category: "background-gradient" },
+  { alias: "color/semantic/background-gradient/page", primitive: "color/primitive/gradient/page-default", value: "linear-gradient(319.4deg, #FFFFFF 8.3%, #DDE7FF 42.2%, #F5FFFD 67.7%, #FFFFFF 100%)", category: "background-gradient" },
+  { alias: "color/semantic/background-gradient/page-default", primitive: "color/primitive/gradient/page-default", value: "linear-gradient(319.4deg, #FFFFFF 8.3%, #DDE7FF 42.2%, #F5FFFD 67.7%, #FFFFFF 100%)", category: "background-gradient" },
+  { alias: "color/semantic/background-gradient/page-silver", primitive: "color/primitive/gradient/page-silver", value: "linear-gradient(326.5deg, #8D9CB1 0%, #D3E2EF 53%, #F8FBFE 100%)", category: "background-gradient" },
+  { alias: "color/semantic/background-gradient/page-gold", primitive: "color/primitive/gradient/page-gold", value: "linear-gradient(127.9deg, #FBFBFB 0%, #B27A17 100%)", category: "background-gradient" },
+  { alias: "color/semantic/background-gradient/page-diamond", primitive: "color/primitive/gradient/page-diamond", value: "linear-gradient(297.9deg, #1060BB 0%, #81ACDC 37.1%, #F5FAFE 100%)", category: "background-gradient" },
+  { alias: "color/semantic/background-gradient/page-platinum", primitive: "color/primitive/gradient/page-platinum", value: "linear-gradient(295.4deg, #7D6FA8 0.6%, #C8BCEC 44.4%, #F9FBFE 100%)", category: "background-gradient" },
+  { alias: "color/semantic/background-gradient/page-premium", primitive: "color/primitive/gradient/page-premium", value: "linear-gradient(318deg, #4C4338 0%, #EFECE9 100%)", category: "background-gradient" },
   { alias: "color/semantic/background/opacity1", primitive: "color/primitive/white/60%", value: "#FFFFFF99", category: "background" },
   { alias: "color/semantic/background/opacity2", primitive: "color/primitive/white/50%", value: "#FFFFFF80", category: "background" },
   { alias: "color/semantic/background/opacity3", primitive: "color/primitive/white/40%", value: "#FFFFFF66", category: "background" },

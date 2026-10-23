@@ -149,13 +149,8 @@
   --mbbiz-color-pagination-disabled-bg: var(--color-semantic-background-disable3);
   --mbbiz-color-pagination-disabled-text: var(--color-semantic-text-disable1);
   --mbbiz-color-pagination-scrollbar: var(--color-semantic-border-quaternary);
-  --mbbiz-color-background-gradient-page-default: linear-gradient(
-    330deg,
-    #e5d1ff 7.641%,
-    #dde7ff 37.039%,
-    #f5fffd 70.721%,
-    #ffffff 113.34%
-  );
+  --mbbiz-color-background-gradient-page-default: var(--color-semantic-background-gradient-page-default);
+  --mbbiz-color-background-gradient-page: var(--color-semantic-background-gradient-page);
 
   --mbbiz-color-tooltip-bg: var(--color-semantic-background-black);
   --mbbiz-color-tooltip-text: var(--color-semantic-text-white);

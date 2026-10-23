@@ -29,6 +29,7 @@
   --color-semantic-background-gradient8-2: #FAFBFB;
   --color-semantic-background-gradient8-3: #E3E4E5;
   --color-semantic-background-gradient8-4: #E4E5E6;
+  --color-semantic-background-gradient-page: var(--color-semantic-background-gradient-page-silver);
   --color-semantic-text-brand-primary1: #2D3538;
   --color-semantic-text-brand-primary2: #5A6165;
   --color-semantic-text-brand-primary3: #757B7E;
@@ -85,6 +86,7 @@
   --color-semantic-background-gradient8-2: #FEFDFA;
   --color-semantic-background-gradient8-3: #F9F0E5;
   --color-semantic-background-gradient8-4: #FFF3E1;
+  --color-semantic-background-gradient-page: var(--color-semantic-background-gradient-page-gold);
   --color-semantic-text-brand-primary1: #8A5F12;
   --color-semantic-text-brand-primary2: #FCBD4D;
   --color-semantic-text-brand-primary3: #FCC76A;
@@ -142,6 +144,7 @@
   --color-semantic-background-gradient8-2: #FAFBFE;
   --color-semantic-background-gradient8-3: #E0E8F4;
   --color-semantic-background-gradient8-4: #E1EDFB;
+  --color-semantic-background-gradient-page: var(--color-semantic-background-gradient-page-diamond);
   --color-semantic-text-brand-primary1: #093567;
   --color-semantic-text-brand-primary2: #4080C9;
   --color-semantic-text-brand-primary3: #5F94D1;
@@ -199,6 +202,7 @@
   --color-semantic-background-gradient8-2: #FEFBFF;
   --color-semantic-background-gradient8-3: #F4E5F9;
   --color-semantic-background-gradient8-4: #FBE5FF;
+  --color-semantic-background-gradient-page: var(--color-semantic-background-gradient-page-platinum);
   --color-semantic-text-brand-primary1: #7D3C8C;
   --color-semantic-text-brand-primary2: #E98AFE;
   --color-semantic-text-brand-primary3: #EC9DFE;
@@ -255,6 +259,7 @@
   --color-semantic-background-gradient8-2: #FCFBFA;
   --color-semantic-background-gradient8-3: #EEE8E2;
   --color-semantic-background-gradient8-4: #EFEAE3;
+  --color-semantic-background-gradient-page: var(--color-semantic-background-gradient-page-premium);
   --color-semantic-text-brand-primary1: #534026;
   --color-semantic-text-brand-primary2: #AC916A;
   --color-semantic-text-brand-primary3: #B9A382;
@@ -289,6 +294,7 @@
    :root already computed these to the default purple, so a descendant
    theme would otherwise keep the inherited color. */
 [data-mbbiz-theme] {
+  --mbbiz-color-background-gradient-page: var(--color-semantic-background-gradient-page);
   --mbbiz-color-action-pill-primary-default: var(--color-semantic-background-brand-secondary1);
   --mbbiz-color-action-pill-primary-hover: var(--color-semantic-background-brand-secondary2);
   --mbbiz-color-action-pill-primary-active: var(--color-semantic-background-brand-secondary3);
