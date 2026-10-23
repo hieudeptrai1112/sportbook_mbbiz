@@ -596,8 +596,8 @@ export const PALETTE_COLUMNS: PaletteColumn[] = [
       },
       {
         name: 'page-gold',
-        value: '#FBFBFB → #B27A17',
-        swatch: 'linear-gradient(127.9deg, #fbfbfb 0%, #b27a17 100%)',
+        value: '#FFFAEF → #FDDEA8 → #DC9C2B',
+        swatch: 'linear-gradient(113.1deg, #fffaef 0%, #fddea8 45.2%, #dc9c2b 100%)',
         gradient: true,
       },
       {
@@ -614,8 +614,8 @@ export const PALETTE_COLUMNS: PaletteColumn[] = [
       },
       {
         name: 'page-premium',
-        value: '#4C4338 → #EFECE9',
-        swatch: 'linear-gradient(318deg, #4c4338 0%, #efece9 100%)',
+        value: '#4C4338 → #9E9891 → #EAE7E4',
+        swatch: 'linear-gradient(318deg, #4c4338 0%, #9e9891 50.3%, #eae7e4 100%)',
         gradient: true,
       },
     ],
