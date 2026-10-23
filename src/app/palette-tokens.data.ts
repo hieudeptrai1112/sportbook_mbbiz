@@ -596,8 +596,8 @@ export const PALETTE_COLUMNS: PaletteColumn[] = [
       },
       {
         name: 'page-gold',
-        value: '#FFFAEF → #DEC291 → #996D20',
-        swatch: 'linear-gradient(113.1deg, #fffaef 0%, #dec291 45.2%, #996d20 100%)',
+        value: '#FFFEF6 → #BFA372 → #875B0E',
+        swatch: 'linear-gradient(113.8deg, #fffef6 0%, #bfa372 45.2%, #875b0e 100%)',
         gradient: true,
       },
       {
